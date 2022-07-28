@@ -1,0 +1,111 @@
+$testimonial-background-user: lighten($secondary, 31%);
+$testimonial-background-vendor: lighten($warning, 35%);
+
+.conversation-list {
+  list-style: none;
+}
+
+.conversation-list li {
+  margin-bottom: 1.5rem;
+}
+
+.conversation-list li .conversation-actions {
+  float: right;
+  display: none;
+}
+
+.conversation-list li:hover .conversation-actions {
+  display: block;
+}
+
+.conversation-list .chat-avatar {
+  float: left;
+  text-align: center;
+  width: 3rem;
+}
+
+.conversation-list .chat-avatar img {
+  width: 100%;
+}
+
+.conversation-list .chat-avatar i {
+  font-size: 1.25rem;
+  font-style: normal;
+}
+
+.conversation-list .ctext-wrap {
+  background: $testimonial-background-user;
+  border-radius: 3px;
+  display: inline-block;
+  padding: 1rem 1.25rem;
+  position: relative;
+  width: 100%;
+}
+
+.conversation-list .ctext-wrap i {
+  display: block;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  position: relative;
+}
+
+.conversation-list .ctext-wrap p {
+  margin: 0;
+  padding-top: 3px;
+}
+
+.conversation-list .ctext-wrap:after {
+  left: -11px;
+  top: 0;
+  border: solid transparent;
+  content: ' ';
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-top-color: $testimonial-background-user;
+  border-width: 6px;
+  margin-right: -1px;
+  border-right-color: $testimonial-background-user;
+}
+
+.conversation-list .conversation-text {
+  float: left;
+  font-size: 13px;
+  margin-left: 12px;
+  width: 70%;
+
+  &.full-width {
+    width: 100%;
+  }
+}
+
+.conversation-list .odd .chat-avatar {
+  float: right !important;
+  width: 6rem;
+}
+
+.conversation-list .odd .conversation-text {
+  float: right !important;
+  margin-right: 12px;
+  text-align: right;
+  width: 70% !important;
+}
+
+.conversation-list .odd .ctext-wrap {
+  background-color: $testimonial-background-vendor;
+  width: auto;
+}
+
+.conversation-list .odd .ctext-wrap:after {
+  border-color: transparent;
+  border-left-color: $testimonial-background-vendor;
+  border-top-color: $testimonial-background-vendor;
+  right: -10px;
+  left: auto;
+}
+
+.conversation-list .odd .conversation-actions {
+  float: left;
+}

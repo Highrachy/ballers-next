@@ -1,0 +1,130 @@
+.ballers-invoice {
+  margin: 8rem auto;
+  border: 1px solid $gray-300;
+  box-shadow: 0px 15px 30px rgba(22, 29, 63, 0.16);
+  font-size: 1rem;
+  max-width: 960px;
+  min-height: 90vh;
+  background-color: white;
+
+  @media print {
+    min-height: auto !important;
+    border: 1px solid $gray-400;
+
+    p {
+      font-size: 14pt;
+      line-height: 1.6;
+    }
+
+    h5 {
+      font-size: 15pt;
+    }
+
+    small,
+    .text-small {
+      font-size: 12pt;
+      line-height: 1.6;
+    }
+
+    .text-smaller {
+      font-size: 10pt;
+    }
+  }
+
+  @include media-breakpoint-up(sm) {
+    font-size: 1rem;
+  }
+  color: $primary;
+
+  .invoice__logo {
+    height: 4rem;
+  }
+
+  h4,
+  h6 {
+    color: $black;
+  }
+
+  th,
+  h4 {
+    @include media-breakpoint-down(sm) {
+      font-size: 0.8rem;
+    }
+    @media print {
+      font-size: 13pt;
+    }
+  }
+
+  .text-amount {
+    color: darken($red, 15);
+    font-weight: 600;
+  }
+
+  @media print {
+    .invoice__table h4 {
+      font-size: 20pt;
+      padding: 1.5rem 0;
+    }
+  }
+
+  .invoice__page {
+    padding: 2rem;
+    @include media-breakpoint-up(sm) {
+      padding: 3rem;
+    }
+
+    @media print {
+      padding: 3rem;
+    }
+
+    background: white;
+
+    &.invoice__footer {
+      background: #f5f5f5;
+      padding-bottom: 4rem;
+    }
+  }
+
+  .invoice__separator {
+    margin-top: 2rem;
+    @include media-breakpoint-up(sm) {
+      margin-top: 3.5rem;
+    }
+    @media print {
+      margin-top: 4rem;
+    }
+  }
+
+  .invoice__email {
+    font-size: 1.2rem;
+    color: darken($secondary, 25);
+
+    @media print {
+      font-size: 14pt;
+      line-height: 1.6;
+    }
+  }
+
+  .invoice__table {
+    .tr-header {
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      height: 2.5rem;
+    }
+    .tr-border-bottom {
+      border-bottom: 1px solid #dee2e6;
+    }
+  }
+
+  .invoice__tag-line {
+    color: #aaa;
+    font-size: 1rem;
+    font-weight: normal;
+  }
+  .svg-love {
+    svg {
+      fill: red;
+      stroke: red;
+    }
+  }
+}

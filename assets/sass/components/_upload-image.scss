@@ -1,0 +1,99 @@
+.upload-button {
+  label {
+    width: auto;
+    display: inline-block;
+    max-width: 12rem;
+  }
+  // hide current file
+  input[type='file'] {
+    height: 0;
+    overflow: hidden;
+    width: 0;
+  }
+
+  .uploaded-image {
+    margin: auto;
+    display: block;
+  }
+}
+
+.avatar {
+  &--small {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  &--medium--small {
+    height: 3rem;
+    width: 3rem;
+  }
+
+  &--medium {
+    height: 4rem;
+    width: 4rem;
+  }
+
+  &--large {
+    height: 10rem;
+    width: 10rem;
+  }
+
+  &--small,
+  &--medium,
+  &--large {
+    object-fit: cover;
+    background-image: url(./../../img/avatar/profile.png) !important;
+    background: transparent !important;
+    overflow: hidden;
+    display: inline-block;
+  }
+}
+
+.small-image,
+.img-small,
+.img-xs {
+  height: 2rem;
+}
+.img-sm {
+  height: 10rem;
+}
+.img-md {
+  height: 25rem;
+}
+.img-lg {
+  height: 40rem;
+}
+
+.avatar-display {
+  height: 12rem;
+  width: 12rem;
+  object-fit: cover;
+  border-radius: 0.4rem;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.company-avatar-container {
+  position: relative;
+  .certified-icon {
+    position: absolute;
+    top: -1rem;
+    right: 0;
+
+    svg {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+}
+.avatar-company {
+  height: 5rem;
+  width: 5rem;
+  object-fit: contain;
+  border-radius: 0.4rem;
+  display: inline-block;
+  overflow: hidden;
+  margin-right: 1rem;
+  border: 1px solid $secondary;
+  padding: 10px;
+}

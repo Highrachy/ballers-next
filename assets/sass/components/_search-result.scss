@@ -1,0 +1,423 @@
+.property-search-holder {
+  @include media-breakpoint-up(sm) {
+    position: fixed;
+  }
+  background: #fff;
+  margin-top: -3px;
+  z-index: 1;
+}
+
+.property-search__page {
+  @include media-breakpoint-down(sm) {
+    border-bottom: 1px solid rgba(87, 117, 250, 0.17);
+  }
+}
+
+.search-result-map {
+  height: 33rem;
+  position: fixed;
+  right: 0;
+  top: 4.25rem;
+  transition: transform 0.6s ease-in-out;
+  animation: map-in-top 0.7s;
+
+  @include media-breakpoint-up(sm) {
+    top: initial;
+    z-index: 0;
+    display: block;
+    animation: map-in-right 0.7s;
+  }
+}
+
+.search-result-section {
+  @include media-breakpoint-up(sm) {
+    padding-top: 9rem !important;
+    padding-bottom: 0 !important;
+  }
+  margin-top: -3px;
+  background: $search-bg;
+}
+
+.search-result__card {
+  background-color: $white;
+  margin-top: 3rem;
+  padding: 4rem;
+  border: 1px solid rgba($input-border-color, 0.12);
+  box-shadow: 0px 4px 16px rgba(40, 45, 65, 0.1);
+  // border-radius: 3px;
+}
+
+.search-result-price-range {
+  overflow: hidden;
+
+  svg {
+    height: 1rem;
+  }
+}
+
+.eligibility-section {
+  margin: 5rem 0;
+  padding-top: 5rem;
+
+  .lead-header {
+    @include media-breakpoint-up(sm) {
+      padding: 0 8rem;
+    }
+
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: $primary;
+  }
+}
+
+.search-result-average-price {
+  svg {
+    height: 1.25rem;
+    color: #7e8989;
+    margin-top: -3px;
+  }
+}
+
+.eligibility-form {
+  section {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    @include media-breakpoint-up(sm) {
+      padding: 1.5rem 2.5rem;
+      text-align: left;
+    }
+    margin-bottom: 2rem;
+    background: $light-bg;
+    border-radius: 0.3rem;
+    p {
+      color: $primary;
+      font-weight: 300;
+      margin-top: -0.4rem;
+    }
+
+    .search-result-range {
+      @include media-breakpoint-down(sm) {
+        margin: 0 0.5rem;
+      }
+
+      &-label {
+        text-align: left;
+        @include media-breakpoint-down(sm) {
+          margin: 2rem 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  .option-btn {
+    background: transparent;
+    border-color: #5775fa;
+    color: $secondary !important;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    margin: 0 1rem;
+
+    &.active {
+      background: $secondary;
+      border-color: $secondary;
+      color: white !important;
+      font-weight: bold;
+    }
+  }
+
+  .bg-orange {
+    border: 1.5px solid $orange;
+    background-color: $orange-bg;
+    label {
+      color: $orange;
+    }
+    .rangeslider {
+      background: rgba($orange, 0.25);
+    }
+    .rangeslider-horizontal .rangeslider__fill {
+      background-color: $orange;
+    }
+    .rangeslider-horizontal .rangeslider__handle {
+      border: 2px solid $orange;
+    }
+  }
+
+  .bg-blue {
+    background-color: #f1f4ff;
+    border: 1.5px solid #5775fa;
+  }
+
+  .bg-green {
+    background-color: $green-bg !important;
+    border: 1.5px solid #2dca73 !important;
+    label {
+      color: $green;
+    }
+    .rangeslider {
+      background: rgba($green, 0.25);
+    }
+    .rangeslider-horizontal .rangeslider__fill {
+      background-color: $green;
+    }
+    .rangeslider-horizontal .rangeslider__handle {
+      border: 2px solid $green;
+    }
+  }
+
+  .input-group {
+    background: $white;
+    border-radius: 3px;
+    border: 1px solid $input-border-color;
+    padding: 0 !important;
+
+    &:focus {
+      border: 1px solid $primary;
+    }
+  }
+
+  .input-group-text,
+  .form-control {
+    background-color: #fff;
+    color: #022b69;
+    border-color: transparent !important;
+  }
+
+  .input-group-text {
+    padding-right: 0 !important;
+  }
+
+  .form-control {
+    padding-left: 0.5rem;
+  }
+  // .form-control {
+  //   border-left-color: white;
+  //   &:focus {
+  //     border-left-color: $input-border-color;
+  //   }
+  // }
+}
+
+.awesome-text {
+  font-size: 1.2rem;
+  color: $primary;
+
+  span {
+    color: $secondary;
+    font-weight: 600;
+  }
+}
+
+.search-result-tab-content {
+  text-align: left;
+  padding-right: 3rem;
+  margin: 1.5rem 1.2rem 5rem;
+}
+
+.search-result-tab-accordion {
+  .card {
+    border: none;
+    border-bottom: 1px solid $faded-border;
+  }
+
+  .card-header {
+    padding: 2.5rem 0 1.5rem;
+
+    h5 {
+      color: $primary;
+      font-size: 1.2rem;
+      font-weight: $font-weight-bold;
+      cursor: pointer;
+
+      &:hover {
+        color: lighten($primary, 15);
+      }
+    }
+  }
+
+  .card-body {
+    margin-top: -2rem;
+  }
+
+  .accordion-icon {
+    &-close {
+      transform: rotate(0deg);
+      transition: all 0.3s ease-out;
+    }
+
+    &-open {
+      transform: rotate(180deg);
+      transition: all 0.3s ease-out;
+    }
+  }
+}
+
+.full-height {
+  min-height: 90vh;
+}
+
+.btn-view-map {
+  margin-top: 3rem;
+  background: url(../../img/backgrounds/view-map-btn-bg.png) no-repeat;
+  background-color: $gray-200;
+  color: $blue;
+  padding: 0.8rem 2.8rem;
+  border: 1px solid rgba($purple, 0.3);
+  opacity: 0.75;
+  transition: all 0.3s ease-out;
+
+  &:hover {
+    border-color: $purple;
+    opacity: 1;
+    box-shadow: 0px 15px 30px rgba(22, 29, 63, 0.16);
+    span {
+      color: $secondary;
+    }
+    svg {
+      animation-name: bounce-pin;
+      animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
+    }
+    // box-shadow: 0px 15px 30px rgba(22, 29, 63, 0.16);
+  }
+  span {
+    background-color: $gray-200;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+
+    svg {
+      height: 1rem;
+      margin-top: -5px;
+      animation-timing-function: ease;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+  }
+}
+
+.btn-close-map,
+.btn-close-map-mobile {
+  position: absolute;
+  left: 2rem;
+  top: 1rem;
+  box-shadow: 0px 4px 16px rgba(40, 45, 65, 0.1);
+  z-index: 100;
+}
+
+.btn-close-map-mobile {
+  top: initial;
+  bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.3rem 0.75rem !important;
+  color: $gray-700;
+  box-shadow: none;
+
+  svg {
+    stroke-width: 4px;
+  }
+}
+
+@keyframes bounce-pin {
+  0% {
+    transform: scale(1, 1) translateY(0);
+  }
+  10% {
+    transform: scale(1.1, 0.9) translateY(0);
+  }
+  30% {
+    transform: scale(0.9, 1.1) translateY(-4px);
+  }
+  50% {
+    transform: scale(1.05, 0.95) translateY(0);
+  }
+  57% {
+    transform: scale(1, 1) translateY(-1px);
+  }
+  64% {
+    transform: scale(1, 1) translateY(0);
+  }
+  100% {
+    transform: scale(1, 1) translateY(0);
+  }
+}
+
+@keyframes map-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes map-in-top {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/**
+ * ==============================================
+ * Dot Flashing
+ * ==============================================
+ */
+.dot-flashing {
+  position: relative;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: $secondary;
+  color: $secondary;
+  -webkit-animation: dot-flashing 1s infinite linear alternate;
+  animation: dot-flashing 1s infinite linear alternate;
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+
+.dot-flashing::before,
+.dot-flashing::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+
+.dot-flashing::before {
+  left: -15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: $secondary;
+  color: $secondary;
+  -webkit-animation: dot-flashing 1s infinite alternate;
+  animation: dot-flashing 1s infinite alternate;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.dot-flashing::after {
+  left: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: $secondary;
+  color: $secondary;
+  -webkit-animation: dot-flashing 1s infinite alternate;
+  animation: dot-flashing 1s infinite alternate;
+  -webkit-animation-delay: 1s;
+  animation-delay: 1s;
+}
+
+@keyframes dot-flashing {
+  0% {
+    background-color: $secondary;
+  }
+  50%,
+  100% {
+    background-color: lighten($secondary, 15%);
+  }
+}

@@ -1,0 +1,73 @@
+body {
+  margin-top: 5rem;
+  background: #fefefe;
+}
+
+.ballers-logo {
+  width: 6rem;
+  height: 4rem;
+}
+
+.navbar {
+  padding: 0.5rem 2rem 0.5rem 1rem;
+
+  @include media-breakpoint-up(lg) {
+    padding: 0 !important;
+  }
+
+  &.bg-white {
+    box-shadow: 0px 5px 40px rgba(192, 204, 218, 0.3);
+  }
+
+  &-toggler {
+    &:active,
+    &:focus {
+      outline: none;
+    }
+    &-icon {
+      width: 2rem;
+      height: 1rem;
+      background-image: none;
+      position: relative;
+      padding-top: 1rem;
+      border-bottom: 0.2rem solid $purple;
+      transition: all 300ms linear;
+    }
+    &-icon:after,
+    &-icon:before {
+      width: 2rem;
+      position: absolute;
+      height: 0.2rem;
+      background-color: $purple;
+      top: 0;
+      left: 0;
+      content: '';
+      z-index: 2;
+      transition: all 300ms linear;
+    }
+    &-icon:after {
+      top: 8px;
+    }
+    &:not(.collapsed) &-icon:after {
+      transform: rotate(45deg);
+    }
+    &:not(.collapsed) &-icon:before {
+      transform: translateY(8px) rotate(-45deg);
+    }
+    &:not(.collapsed) &-icon {
+      border-color: transparent;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .navbar-collapse {
+      background-color: $light-bg;
+      text-align: center;
+      padding: 1rem 3rem 3rem;
+      margin: 0 -1rem -1rem;
+    }
+    .navbar-toggler-icon {
+      height: 1.5rem;
+    }
+  }
+}

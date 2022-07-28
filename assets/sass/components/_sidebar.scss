@@ -1,0 +1,135 @@
+.sidebar {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  position: fixed;
+  width: 16rem;
+  z-index: 10;
+  bottom: 0;
+  margin-top: 0;
+  padding-bottom: 2rem;
+  background: $white;
+  transition: transform 0.3s ease-out;
+  transform: translateX(-100%);
+  border: 2px solid #f0f0f0;
+
+  @include media-breakpoint-up(sm) {
+    transform: translateX(0);
+    width: $sidebar-width;
+    // background: $sidebar-bg;
+    // background: rgba($sidebar-bg, 0.3);
+    box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0 0 rgba(0, 0, 0, 0.02);
+    transition-timing-function: all 0.3s ease-in-out;
+  }
+
+  &.showSidebar {
+    transform: translateX(0);
+    z-index: 1000;
+  }
+
+  &__close {
+    position: absolute;
+    padding: 2rem;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+    cursor: pointer;
+  }
+}
+
+.backdrop {
+  display: none;
+  &.showSidebar {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba($body-bg, 0.9);
+    z-index: 100;
+    display: block;
+    opacity: 0.9;
+  }
+}
+.sidebar__logo {
+  position: relative;
+  padding: 1rem 2rem 1rem 4rem;
+  img {
+    height: 4rem;
+  }
+}
+
+.sidebar-menu {
+  list-style: none;
+  margin-top: 4rem;
+  padding-left: 0;
+
+  svg {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  &__header {
+    font-size: 0.75rem;
+    font-family: $headings-font-family;
+    font-weight: normal;
+    color: $text-color;
+    margin-bottom: 1rem;
+  }
+
+  &__item {
+    display: block;
+    padding: 1rem 1rem 1rem 4rem;
+    overflow-x: hidden;
+    margin-bottom: 1rem;
+    color: $gray-700;
+    font-size: 1rem;
+    transition: all 0.3s ease-out;
+    text-decoration: none;
+
+    .sidebar__icon {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+
+    &.active {
+      background: #f1f4ff;
+      // border-left: 4px solid $secondary;
+      font-weight: bold;
+      color: $secondary;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 4px;
+        border-radius: 2px 2px 0px 0px;
+        left: 0;
+        height: 2rem;
+        background: $secondary;
+      }
+    }
+    // @include media-breakpoint-up(sm) {
+    //   font-size: 1.25rem;
+    // }
+
+    &:hover {
+      color: $secondary;
+    }
+    // &.active {
+    //   color: lighten($red-300, 40%);
+    // }
+  }
+}
+
+.content-page {
+  padding-left: 0;
+  min-height: 88vh;
+  padding-bottom: 8rem;
+  @include media-breakpoint-up(sm) {
+    padding-left: $sidebar-width;
+    padding-top: 2rem;
+  }
+  overflow: hidden;
+}

@@ -1,0 +1,109 @@
+label {
+  color: $primary;
+}
+
+.form-label {
+  font-size: 0.75rem;
+  display: block;
+}
+
+.label-radio {
+  font-size: 1rem !important;
+}
+
+.invalid-feedback,
+.valid-feedback {
+  display: block;
+}
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid,
+.was-validated .form-control:valid,
+.form-control.is-valid {
+  background-size: 1.2rem;
+}
+
+.optional-form-field {
+  float: right;
+  font-size: 0.75rem;
+  padding-top: 0.25rem;
+  color: $text-muted;
+}
+
+.form-row .form-group {
+  @include media-breakpoint-up(sm) {
+    &:first-child {
+      padding-right: 1rem;
+    }
+    &:last-child {
+      padding-left: 1rem;
+    }
+  }
+}
+
+.form-help-icon {
+  svg {
+    stroke: $text-muted;
+
+    &:hover {
+      stroke: $secondary;
+    }
+  }
+}
+
+// https://www.benmarshall.me/styling-file-inputs/
+.custom-file-upload {
+  [type='file'] {
+    height: 0;
+    overflow: hidden;
+    width: 0;
+  }
+
+  [type='file'] + label {
+    border: 2px solid $gray-600;
+    border-radius: 5px;
+    color: $gray-600;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Rubik', sans-serif;
+    font-size: inherit;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    outline: none;
+    padding: 0.5rem 2.5rem;
+    position: relative;
+    transition: all 0.3s;
+    vertical-align: middle;
+
+    &:hover {
+      background-color: darken($gray-600, 15%);
+      color: $white;
+    }
+  }
+}
+
+.custom-control-label {
+  font-size: 0.9rem;
+}
+
+.form-tiny {
+  .custom-switch {
+    padding-left: 2.375rem;
+  }
+
+  .custom-switch .custom-control-label::before {
+    width: 2rem;
+    height: 1rem;
+    left: -2.375rem;
+  }
+
+  .custom-switch .custom-control-label::after {
+    width: calc(1rem - 4px);
+    height: calc(1rem - 4px);
+    left: calc(-2.375rem + 2px);
+  }
+
+  label {
+    font-size: 0.65rem;
+  }
+}

@@ -1,0 +1,16 @@
+.knowledgebase__title,
+.medium-editor-element {
+  width: 100%;
+  border: none;
+  background: transparent;
+
+  &:hover,
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+
+.knowledgebase__title {
+  font-size: 3rem;
+}

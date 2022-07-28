@@ -1,0 +1,60 @@
+.ballers-logo-footer {
+  width: 6rem;
+  height: 4rem;
+}
+
+.highrachy-logo-footer {
+  width: 6rem;
+  height: 2rem;
+}
+
+.footer {
+  &-content {
+    padding: 3rem 0 0;
+
+    @include media-breakpoint-down(lg) {
+      text-align: center;
+    }
+  }
+
+  .list-unstyled {
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .footer-icon {
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+    margin-right: 0.3rem;
+  }
+
+  .footer-bottom-text {
+    font-size: 1.2rem;
+    @include media-breakpoint-up(lg) {
+      font-size: 1rem;
+    }
+  }
+
+  h5,
+  a {
+    color: white;
+  }
+
+  h5 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  .highrachy-text {
+    color: $primary;
+    font-size: 0.8rem;
+
+    span {
+      font-size: 1.2rem;
+      display: inline-block;
+      padding-right: 1rem;
+    }
+  }
+}

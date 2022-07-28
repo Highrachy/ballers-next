@@ -1,0 +1,109 @@
+$normal-circle-background: lighten($dark, 20);
+$normal-text-color: $dark;
+$active-circle-background: lighten($primary, 5);
+$active-text-color: $primary;
+$approved-circle-background: darken($green, 20);
+$approved-text-color: darken($green, 30);
+$rejected-circle-background: lighten($red, 20);
+$rejected-text-color: $red;
+
+.stepper {
+  overflow: scroll;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  li {
+    outline: none;
+    position: relative;
+    padding: 1rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  li button {
+    text-decoration: none;
+    outline: none;
+    background: transparent;
+    border: none;
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    white-space: nowrap;
+
+    .step-inner-circle {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: $normal-circle-background;
+      position: relative;
+      outline: none;
+      color: $white;
+      font-size: 1rem;
+      span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .step-text {
+      color: $normal-text-color;
+      margin-left: 0.5rem;
+      font-size: 0.7rem;
+      display: none;
+      @include media-breakpoint-up(sm) {
+        display: inline-block;
+      }
+    }
+  }
+
+  li.approved,
+  li.done {
+    .step-inner-circle {
+      background-color: $approved-circle-background;
+    }
+    .step-text {
+      color: $approved-text-color;
+    }
+  }
+
+  li.rejected {
+    .step-inner-circle {
+      background-color: $rejected-circle-background;
+    }
+    .step-text {
+      color: $rejected-text-color;
+    }
+  }
+
+  li.active {
+    .step-inner-circle {
+      background-color: $active-circle-background;
+    }
+    .step-text {
+      color: $active-text-color;
+    }
+  }
+}
+
+.things-to-complete,
+.stepper-info {
+  border: 1px solid $gray-800;
+  padding: 2rem 1.5rem 1rem;
+  margin-bottom: 2rem;
+  font-size: 0.85rem;
+}
