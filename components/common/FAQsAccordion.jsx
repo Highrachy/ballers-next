@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Accordion } from 'react-bootstrap';
-import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
+import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import AccordionContext from 'react-bootstrap/AccordionContext';
 import { Fade } from 'react-awesome-reveal';
 
@@ -12,26 +12,22 @@ export const ContextAwareToggle = ({
   iconClose,
   iconOpen,
 }) => {
-  const currentEventKey = React.useContext(AccordionContext);
+  const { activeEventKey } = React.useContext(AccordionContext);
 
-  const decoratedOnClick = useAccordionToggle(
+  const decoratedOnClick = useAccordionButton(
     eventKey,
     () => callback && callback(eventKey)
   );
 
-  const isCurrentEventKey = currentEventKey === eventKey;
+  const isCurrentEventKey = activeEventKey === eventKey;
 
   return (
-    <>
-      {isCurrentEventKey ? (
-        <span className="accordion-icon accordion-icon-open pull-right">
-          {iconOpen}
-        </span>
-      ) : (
-        <span className="accordion-icon accordion-icon-close">{iconClose}</span>
-      )}
-      <h5 onClick={decoratedOnClick}>{children} </h5>
-    </>
+    <h5 className="m-0" onClick={decoratedOnClick}>
+      {children}
+      <span className="accordion-icon float-end">
+        {isCurrentEventKey ? iconOpen : iconClose}
+      </span>
+    </h5>
   );
 };
 
@@ -52,14 +48,14 @@ ContextAwareToggle.defaultProps = {
 const FAQsAccordion = ({ faqs }) => {
   return (
     <Accordion defaultActiveKey={0}>
-      <Fade cascade damping={0.6} delay={1000}>
+      <Fade cascade damping={0.6} delay={1000} triggerOnce>
         {faqs.map((faq, index) => (
           <Card key={index + 1}>
-            <Accordion.Toggle as={Card.Header} eventKey={index + 1}>
+            <Accordion as={Card.Header} eventKey={index + 1}>
               <ContextAwareToggle eventKey={index + 1}>
                 {faq.question}
               </ContextAwareToggle>
-            </Accordion.Toggle>
+            </Accordion>
             <Accordion.Collapse eventKey={index + 1}>
               <Card.Body>{faq.answer}</Card.Body>
             </Accordion.Collapse>

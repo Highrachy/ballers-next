@@ -8,10 +8,12 @@ import { BASE_API_URL } from 'utils/constants';
 import { valuesToOptions } from 'utils/helpers';
 import { API_ENDPOINT } from 'utils/URL';
 import { useGetQuery } from 'hooks/useQuery';
-import { Router } from 'next/router';
+import { useRouter } from 'next/router';
 
 const SearchPropertyForm = ({ defaultInputValue }) => {
   const LOADING = 'Loading...';
+
+  const router = useRouter();
 
   const [toast, setToast] = useToast();
 
@@ -110,7 +112,7 @@ const SearchPropertyForm = ({ defaultInputValue }) => {
   };
 
   const handleSearch = () => {
-    Router.push(
+    router.push(
       `/search?state=${formValue.state}&area=${formValue.area}&houseType=${formValue.houseType}`,
       true
     );

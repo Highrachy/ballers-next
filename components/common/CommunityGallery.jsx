@@ -1,4 +1,4 @@
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import React from 'react';
 
 const CommunityGallery = () => (
@@ -7,8 +7,8 @@ const CommunityGallery = () => (
     <h2 className="mb-7">
       Take a deep dive into <br /> what your home looks like
     </h2>
-    <Link to="/register" className="btn btn-secondary">
-      SIGN UP NOW
+    <Link href="/register">
+      <a className="btn btn-secondary">SIGN UP NOW</a>
     </Link>
   </section>
 );

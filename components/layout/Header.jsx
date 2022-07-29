@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import BallersLogo from 'assets/img/logo/ballers-logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -23,7 +22,7 @@ const Header = () => {
             <div className="me-5">
               <Image
                 className="ballers-logo"
-                src={BallersLogo}
+                src="/img/ballers-logo.png"
                 alt="Ballers logo"
                 width={96}
                 height={64}
