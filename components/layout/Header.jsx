@@ -17,7 +17,7 @@ const Header = () => {
   ];
   return (
     <>
-      <Navbar fixed="top" bg="transparent" expand="lg">
+      <Navbar fixed="top" bg="white" expand="lg">
         <div className="container-fluid">
           <Navbar.Brand as={Link} href="/">
             <div className="me-5">
