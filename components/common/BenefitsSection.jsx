@@ -1,54 +1,46 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import Income from 'assets/img/icons/income.png';
-import Estates from 'assets/img/icons/estates.png';
-import Credible from 'assets/img/icons/credible.png';
-import Investment from 'assets/img/icons/investment.png';
-import Fluid from 'assets/img/icons/fluid.png';
-import PrevArrow from 'assets/img/icons/btn-prev.png';
-import NextArrow from 'assets/img/icons/btn-next.png';
 import Slider from 'react-slick';
+import { LocalImage } from '../utils/Image';
 
 const BenefitsSection = () => {
   const BALLERS_BENEFITS = [
     {
       title: 'Recurring Income',
-      body:
-        'You can create several income generating streams from just becoming a member; referral income (the best in the industry), bonus points, interest on your contribution.',
-      image: Income,
+      body: 'You can create several income generating streams from just becoming a member; referral income (the best in the industry), bonus points, interest on your contribution.',
+      image: '/img/icons/income.png',
     },
     {
       title: 'Existing Estates',
-      body:
-        'We brought you the I-Factor and then Blissville, you can clearly see that our mantra is value driven quality real estate that enhances your overall living experience.',
-      image: Estates,
+      body: 'We brought you the I-Factor and then Blissville, you can clearly see that our mantra is value driven quality real estate that enhances your overall living experience.',
+      image: '/img/icons/estates.png',
     },
     {
       title: 'Credibility',
-      body:
-        'Powered by a team of seasoned professionals with extensive track record.',
-      image: Credible,
+      body: 'Powered by a team of seasoned professionals with extensive track record.',
+      image: '/img/icons/credible.png',
     },
     {
       title: 'Investment Oriented',
-      body:
-        'For every contribution you make you get immediate bonus points that can easily be redeemed for a wide range of relaxing and sumptuous social activities.',
-      image: Investment,
+      body: 'For every contribution you make you get immediate bonus points that can easily be redeemed for a wide range of relaxing and sumptuous social activities.',
+      image: 'img/icons/investment.png',
     },
     {
       title: 'Fluidity & Flexibility',
-      body:
-        'You can choose any amount to contribute once you have started and  you can pause or exit the scheme if so desired.',
-      image: Fluid,
+      body: 'You can choose any amount to contribute once you have started and  you can pause or exit the scheme if so desired.',
+      image: 'img/icons/fluid.png',
     },
   ];
   const CarouselArrow = ({ className, style, onClick, image }) => (
-    <img
+    <LocalImage
       src={image}
       className={className}
       onClick={onClick}
       style={{ ...style, display: 'block' }}
       alt="previous arrow"
+      width="50"
+      height="50"
+      serveImageFromCloud={false}
     />
   );
 
@@ -56,6 +48,7 @@ const BenefitsSection = () => {
     speed: 1500,
     infinite: true,
     centerMode: true,
+    dots: true,
     autoplay: true,
     autoplaySpeed: 5000,
     slidesToScroll: 1,
@@ -79,8 +72,8 @@ const BenefitsSection = () => {
         },
       },
     ],
-    prevArrow: <CarouselArrow image={PrevArrow} />,
-    nextArrow: <CarouselArrow image={NextArrow} />,
+    prevArrow: <CarouselArrow image="/img/icons/btn-prev.png" />,
+    nextArrow: <CarouselArrow image="/img/icons/btn-next.png" />,
   };
 
   return (

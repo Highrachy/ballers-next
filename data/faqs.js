@@ -1,14 +1,10 @@
 import React from 'react';
-import ProfileIcon from 'assets/img/icons/profile-icon.png';
-import GettingStartedIcon from 'assets/img/icons/geting-started-icon.png';
-import SecurityIcon from 'assets/img/icons/security-icon.png';
-import PaymentIcon from 'assets/img/icons/payment-icon.png';
 import Link from 'next/link';
 
 const faqs = {
   gettingStarted: {
     name: 'Getting Started',
-    icon: GettingStartedIcon,
+    icon: '/img/icons/getting-started-icon.png',
     description: (
       <>
         This are questions on the general topic on about BALL.{' '}
@@ -81,7 +77,7 @@ const faqs = {
   },
   payment: {
     name: 'Payment',
-    icon: PaymentIcon,
+    icon: '/img/icons/payment-icon.png',
     description: (
       <>
         These are payment related questions about BALL. Please go through this
@@ -105,7 +101,7 @@ const faqs = {
   },
   security: {
     name: 'Security',
-    icon: SecurityIcon,
+    icon: '/img/icons/security-icon.png',
     description: (
       <>
         These are security related questions about BALL. Please go{' '}
@@ -124,7 +120,7 @@ const faqs = {
   },
   profile: {
     name: 'Profile',
-    icon: ProfileIcon,
+    icon: '/img/icons/profile-icon.png',
     description: (
       <>
         These are profile related questions about BALL. Please go{' '}

@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Header from 'components/layout/Header';
-import CommunityGallery from 'components/common/CommunityGallery';
-import Footer from 'components/layout/Footer';
-import TitleSection from 'components/common/TitleSection';
-import SearchIcon from 'assets/img/icons/search-icon.png';
+import Image from 'next/image';
 import Slider from 'react-slick';
-import FAQsAccordion from 'components/common/FAQsAccordion';
-import PhoneIcon from 'public/img/icons/phone-icon.png';
-import MailIcon from 'public/img/icons/mail-icon.png';
-import FAQsContent from 'content/faqs';
+import Header from '@/components/layout/Header';
+import CommunityGallery from '@/components/common/CommunityGallery';
+import Footer from '@/components/layout/Footer';
+import TitleSection from '@/components/common/TitleSection';
+import FAQsAccordion from '@/components/common/FAQsAccordion';
+import FAQsContent from '@/data/faqs';
 import { LocalImage } from '@/components/utils/Image';
 
 const FAQs = () => {
@@ -78,20 +76,20 @@ const FAQSearch = ({ processFoundFAQs }) => {
           const processedQuestion = question.props
             ? question.props.children
             : question;
-          const processedAnswer = answer?.props?.children
-            ? Array.isArray(answer.props.children)
-              ? answer.props.children[0]
-              : answer.props.children
-            : answer;
+          console.log('answer', answer);
+          // const processedAnswer = answer.props ? answer.props.children : answer;
+          const processedAnswer = '';
+
+          console.log('processedAnswer', processedAnswer);
 
           const searchTerms = value.split(' ');
 
           return searchTerms.find((term) => {
             const searchTerm = term.toLowerCase();
             return (
-              processedQuestion.toLowerCase().includes(searchTerm) ||
-              processedAnswer.toLowerCase().includes(searchTerm) ||
-              name.toLowerCase().includes(searchTerm)
+              processedQuestion?.toLowerCase().includes(searchTerm) ||
+              processedAnswer?.toLowerCase().includes(searchTerm) ||
+              name?.toLowerCase().includes(searchTerm)
             );
           });
         });
@@ -109,7 +107,13 @@ const FAQSearch = ({ processFoundFAQs }) => {
         <div className="input-group">
           <div className="input-group-prepend">
             <span className="input-group-text">
-              <img src={SearchIcon} alt="search icon" className="img-fluid" />
+              <Image
+                src="/img/icons/search-icon.png"
+                alt="search icon"
+                className="img-fluid"
+                width="35"
+                height="35"
+              />
             </span>
           </div>
 
@@ -273,12 +277,22 @@ const MoreQuestions = () => (
     </p>
     <div className="row mt-5">
       <aside className="col-lg-4 offset-lg-2 col-md-5 col-12 faq-contact-card">
-        <LocalImage src={PhoneIcon} alt="Phone icon" />
+        <Image
+          src="/img/icons/phone-icon.png"
+          alt="Phone icon"
+          width="70"
+          height="70"
+        />
         <h5 className="text-normal mt-4">+234 807 654 5543</h5>
         <p className="text-muted">We are always happy to help.</p>
       </aside>
       <aside className="col-lg-4 col-md-5 col-12 faq-contact-card">
-        <LocalImage src={MailIcon} alt="Mail icon" />
+        <Image
+          src="/img/icons/mail-icon.png"
+          alt="Mail icon"
+          width="70"
+          height="70"
+        />
         <h5 className="text-normal mt-4">
           <a
             className="text-primary"

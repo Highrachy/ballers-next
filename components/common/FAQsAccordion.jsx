@@ -47,22 +47,22 @@ ContextAwareToggle.defaultProps = {
 
 const FAQsAccordion = ({ faqs }) => {
   return (
-    <Accordion defaultActiveKey={0}>
-      <Fade cascade damping={0.6} delay={1000} triggerOnce>
+    <Fade>
+      <Accordion defaultActiveKey={1}>
         {faqs.map((faq, index) => (
           <Card key={index + 1}>
-            <Accordion as={Card.Header} eventKey={index + 1}>
+            <Card.Header eventKey={index + 1}>
               <ContextAwareToggle eventKey={index + 1}>
                 {faq.question}
               </ContextAwareToggle>
-            </Accordion>
+            </Card.Header>
             <Accordion.Collapse eventKey={index + 1}>
               <Card.Body>{faq.answer}</Card.Body>
             </Accordion.Collapse>
           </Card>
         ))}
-      </Fade>
-    </Accordion>
+      </Accordion>
+    </Fade>
   );
 };
 

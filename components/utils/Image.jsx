@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -80,7 +81,9 @@ Image.defaultProps = {
   src: null,
 };
 
-// eslint-disable-next-line jsx-a11y/alt-text
-export const NormalImage = (props) => <Image {...props} />;
+export const LocalImage = (props) => (
+  <Image name={props.alt || 'image'} {...props} serveImageFromCloud={false} />
+);
+export const OnlineImage = (props) => <Image {...props} />;
 
 export default Image;

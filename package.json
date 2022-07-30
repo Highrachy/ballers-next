@@ -14,6 +14,7 @@
     "classnames": "^2.3.1",
     "formik": "^2.2.9",
     "formik-persist": "^1.1.0",
+    "google-map-react": "^2.2.0",
     "humanize-plus": "^1.8.2",
     "next": "12.2.3",
     "number-to-words": "^1.2.4",
@@ -26,8 +27,10 @@
     "react-icons": "^4.4.0",
     "react-query": "2.26.4",
     "react-select": "^5.4.0",
+    "react-slick": "^0.29.0",
     "react-toastify": "^9.0.7",
     "sass": "^1.54.0",
+    "slick-carousel": "^1.8.1",
     "store2": "^2.14.2",
     "yup": "^0.32.11"
   },
