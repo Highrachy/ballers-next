@@ -157,7 +157,7 @@ const VasRowList = ({ results, offset, setToast }) => {
         <section className="row">
           <div className="col-md-12 my-3 text-center">
             <h4>{vas?.name}</h4>
-            <p className="my-4 confirmation-text font-weight-bold">
+            <p className="my-4 confirmation-text fw-bold">
               Are you sure you want to delete this Service?
             </p>
 

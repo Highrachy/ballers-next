@@ -9,7 +9,7 @@ const TopTitle = ({ children, buttonText, to }) => {
       <h4>
         {children}
         {buttonText && to && (
-          <div className="float-right">
+          <div className="float-end">
             <AddNewButton to={to}>
               {<PlusIcon />} {buttonText}
             </AddNewButton>

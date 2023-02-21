@@ -4,10 +4,6 @@ import Header from 'components/layout/Header';
 import CommunityGallery from 'components/common/CommunityGallery';
 import Footer from 'components/layout/Footer';
 import TitleSection from 'components/common/TitleSection';
-import FacebookLogo from 'public/img/icons/facebook.png';
-import TwitterLogo from 'public/img/icons/twitter.png';
-import InstagramLogo from 'public/img/icons/instagram.png';
-import LinkedInLogo from 'public/img/icons/linkedin.png';
 import Map from 'components/common/Map';
 import { OFFICE_LOCATION } from 'utils/constants';
 import Link from 'next/link';
@@ -84,12 +80,12 @@ const Content = () => (
           <h4 className="header-secondary">SAY HELLO</h4>
           <h3>
             <Link
-              href="mailto:hello@ballers.ng"
+              href="mailto:info@ballers.ng"
               className="text-primary font-weight-normal"
               target="_blank"
               rel="noopener noreferrer"
             >
-              hello@ballers.ng
+              info@ballers.ng
             </Link>
           </h3>
         </div>
@@ -150,7 +146,7 @@ const MapAndAddress = () => (
       </div>
       <div className="col-lg-6 position-relative">
         <div style={{ height: '33rem', width: '100%' }}>
-          {/* <Map coordinates={OFFICE_LOCATION} /> */}
+          <Map coordinates={OFFICE_LOCATION} />
         </div>
       </div>
     </div>

@@ -48,7 +48,7 @@ const ToPrint = ({ transaction }) => {
       <InvoiceContentContainer transaction={transaction} ref={componentRef} />
       <ReactToPrint
         trigger={() => (
-          <section className="container-fluid mt-5 text-right d-none d-md-block">
+          <section className="container-fluid mt-5 text-end d-none d-md-block">
             <button className="btn btn-info">Print this out!</button>
           </section>
         )}

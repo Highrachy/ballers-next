@@ -35,7 +35,7 @@ const Header = () => {
         expand="lg"
       >
         <div className="container-fluid">
-          <Nav className="ml-auto d-flex flex-row align-items-center">
+          <Nav className="ms-auto d-flex flex-row align-items-center">
             {userState?.notifications?.length === 0 ? (
               <Nav.Link
                 to={`/${currentRole}/notifications`}
@@ -97,7 +97,7 @@ const Header = () => {
 };
 
 export const isActive = ({ isCurrent }) => {
-  return isCurrent ? { className: 'active font-weight-bold nav-link' } : null;
+  return isCurrent ? { className: 'active fw-bold nav-link' } : null;
 };
 
 export const NotificationsDropdown = ({ notifications, currentRole }) => {

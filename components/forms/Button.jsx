@@ -66,7 +66,7 @@ export const AddNewButton = ({ children, to }) => {
   const isLink = typeof to !== 'function';
   const btnClassName = 'btn btn-dark btn-xs btn-wide';
   return (
-    <div className="text-right">
+    <div className="text-end">
       {isLink ? (
         <Link to={to} className={btnClassName}>
           {children}

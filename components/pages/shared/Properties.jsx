@@ -83,7 +83,7 @@ const PropertiesRowList = ({ results, offset }) => (
       </div>
     </Card>
     {useCurrentRole().isAdmin && (
-      <div className="my-5 text-right">
+      <div className="my-5 text-end">
         <Link className="btn btn-wide btn-dark" to="/admin/reported-properties">
           View Reported Properties
         </Link>
@@ -154,7 +154,7 @@ const PropertiesRow = ({
       <td>
         {houseType}
         <div className="text-smaller text-muted">
-          <span className="pr-2">
+          <span className="pe-2">
             {bedrooms} <BedIcon />
           </span>
           |{' '}
@@ -162,7 +162,7 @@ const PropertiesRow = ({
             {bathrooms} <BathIcon />
           </span>
           |
-          <span className="pl-2">
+          <span className="ps-2">
             {toilets} <ToiletIcon />
           </span>
         </div>

@@ -258,7 +258,7 @@ export const CancelOfferLetter = ({ setToast, offer, setOffer }) => {
       {(Date.now() < offer.expires &&
         offer.status === OFFER_STATUS.GENERATED) ||
         (offerCanBeCancelled && (
-          <div className="mt-5 text-right">
+          <div className="mt-5 text-end">
             <button
               className="btn btn-sm btn-outline-danger btn-wide hide-print"
               onClick={() => setShowCancelModal(true)}

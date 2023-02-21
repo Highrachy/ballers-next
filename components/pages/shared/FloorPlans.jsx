@@ -289,7 +289,7 @@ export const FloorPlansList = ({ property, setProperty, setToast }) => {
                     options={{ h: 200 }}
                     responsiveImage={true}
                   />
-                  <p className="my-4 confirmation-text font-weight-bold">
+                  <p className="my-4 confirmation-text fw-bold">
                     Are you sure you want to delete this Floor Plan?
                   </p>
                   <Button

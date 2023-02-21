@@ -232,7 +232,7 @@ const CreateOfferLetterForm = ({
                   <div className="span toast-icon-holder icon-xl">
                     <ErrorIcon />
                   </div>
-                  <span className="d-inline-block ml-2 toast-message-content">
+                  <span className="d-inline-block ms-2 toast-message-content">
                     <p className="mt-2">
                       You need to fix the values below to view your offer
                       letter.
@@ -294,7 +294,7 @@ const ShowTemplateButton = ({ setToast, handleValue }) => {
   return (
     <>
       {isVendor && offerTemplate?.length > 0 && (
-        <div className="mt-5 text-right">
+        <div className="mt-5 text-end">
           <button
             type="button"
             className="btn btn-dark btn-wide"
@@ -543,7 +543,7 @@ export const OtherTermsForm = () => {
           tooltipText="Between 0 - 10%"
         />
       </div>
-      <div className="form-row ml-n3">
+      <div className="form-row ms-n3">
         <InputFormat
           formGroupClassName="col-md-6"
           label="Termination Period (in days)"

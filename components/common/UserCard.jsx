@@ -53,7 +53,7 @@ const UserCard = ({ user, hideImage, nameOnly }) => {
           <small className="user-email">{email}</small>
         </div>
       ) : (
-        <div className="user-name ml-0">
+        <div className="user-name ms-0">
           <span
             className={`${banned.status ? 'text-danger ' : ''}${
               hideImage ? 'user-name-normal' : undefined

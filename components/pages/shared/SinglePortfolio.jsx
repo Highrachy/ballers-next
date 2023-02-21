@@ -95,7 +95,7 @@ const AssignedPropertySidebar = ({ portfolio, setToast }) => {
           <tbody>
             <tr>
               <td>
-                <small className="ml-n1">Expected Payment</small>{' '}
+                <small className="ms-n1">Expected Payment</small>{' '}
               </td>
               <td>
                 <h5>{moneyFormatInNaira(nextPayment?.expectedAmount)}</h5>
@@ -103,7 +103,7 @@ const AssignedPropertySidebar = ({ portfolio, setToast }) => {
             </tr>
             <tr>
               <td>
-                <small className="ml-n1">Due Date</small>{' '}
+                <small className="ms-n1">Due Date</small>{' '}
               </td>
               <td>
                 <h5>
@@ -144,7 +144,7 @@ const AssignedPropertySidebar = ({ portfolio, setToast }) => {
           <tbody>
             <tr>
               <td>
-                <small className="ml-n1">Equity Amount</small>{' '}
+                <small className="ms-n1">Equity Amount</small>{' '}
               </td>
               <td>
                 <h5>{moneyFormatInNaira(portfolio.totalAmountPayable)}</h5>
@@ -152,7 +152,7 @@ const AssignedPropertySidebar = ({ portfolio, setToast }) => {
             </tr>
             <tr>
               <td>
-                <small className="ml-n1">Amount Contributed</small>{' '}
+                <small className="ms-n1">Amount Contributed</small>{' '}
               </td>
               <td>
                 <h5>{moneyFormatInNaira(portfolio.amountContributed)}</h5>
@@ -160,7 +160,7 @@ const AssignedPropertySidebar = ({ portfolio, setToast }) => {
             </tr>
             <tr className="border-top border-bottom">
               <td>
-                <small className="ml-n1">Outstanding Balance</small>{' '}
+                <small className="ms-n1">Outstanding Balance</small>{' '}
               </td>
               <td>
                 <h5

@@ -54,7 +54,7 @@ const Address = ({ showCountry, companyAddress }) => {
       {showCountry && (
         <div className="form-row">
           <Select
-            formGroupClassName="col-md-6 ml-n2"
+            formGroupClassName="col-md-6 ms-n2"
             label="Country"
             name={
               companyAddress

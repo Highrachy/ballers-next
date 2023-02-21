@@ -92,7 +92,7 @@ const UnVerifiedVendorContent = () => {
                   )}
                 </p>
               </div>
-              <div className="col-md-4 text-right">
+              <div className="col-md-4 text-end">
                 <Link
                   to={`/vendor/setup/${verificationState.page}`}
                   className="btn btn-sm btn-wide btn-secondary mt-3"
@@ -104,7 +104,7 @@ const UnVerifiedVendorContent = () => {
           </div>
           <div className="card-progress-bar">
             <div
-              className="pl-4 text-right text-smaller text-secondary px-2"
+              className="ps-4 text-end text-smaller text-secondary px-2"
               style={{ width: `${currentProgress}%` }}
             >
               {noOfCompletedSteps > 0 && currentProgress !== 100 && (

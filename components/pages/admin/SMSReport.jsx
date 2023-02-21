@@ -106,15 +106,13 @@ const ReportsRow = ({ report, number }) => (
       />
     </td>
     <td width="15%">
-      <div className="text-secondary font-weight-bold ls-1">
-        {report.mobile}
-      </div>
+      <div className="text-secondary fw-bold ls-1">{report.mobile}</div>
     </td>
     <td width="50%">
       <span className="text-gray block-text-small">{report.message}</span>
     </td>
 
-    <td className="text-right" width="20%">
+    <td className="text-end" width="20%">
       <span className="text-gray block-text-small">
         <ClockIcon /> {getShortDateTime(report.date)}
       </span>

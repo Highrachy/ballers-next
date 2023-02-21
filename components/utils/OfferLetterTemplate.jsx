@@ -113,7 +113,7 @@ const OfferLetterTemplate = ({
 
   return (
     <Card className="mt-4 p-5 offer-letter-template">
-      <div className="text-right">
+      <div className="text-end">
         <Image
           src={vendorInfo?.vendor?.companyLogo}
           width="150"
@@ -214,20 +214,20 @@ const OfferLetterTemplate = ({
                       <thead>
                         <tr>
                           <th>Description</th>
-                          <th className="text-right">Amount</th>
+                          <th className="text-end">Amount</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <td>Property Price</td>
-                          <td className="text-right">
+                          <td className="text-end">
                             {moneyFormatInNaira(offerInfo.propertySellingPrice)}
                           </td>
                         </tr>
                         {legalFee !== 0 && (
                           <tr>
                             <td>Legal Fee ({legalFee} %) *</td>
-                            <td className="text-right">
+                            <td className="text-end">
                               {moneyFormatInNaira(
                                 offerInfo.propertySellingPrice *
                                   (legalFee / 100)
@@ -238,7 +238,7 @@ const OfferLetterTemplate = ({
                         {agencyFee !== 0 && (
                           <tr>
                             <td>Agency Fee ({agencyFee} %) *</td>
-                            <td className="text-right">
+                            <td className="text-end">
                               {moneyFormatInNaira(
                                 offerInfo.propertySellingPrice *
                                   (agencyFee / 100)
@@ -250,7 +250,7 @@ const OfferLetterTemplate = ({
                         {powerConnectionFee !== 0 && (
                           <tr>
                             <td>Power Connection Fee *</td>
-                            <td className="text-right">
+                            <td className="text-end">
                               {moneyFormatInNaira(powerConnectionFee)}
                             </td>
                           </tr>
@@ -259,7 +259,7 @@ const OfferLetterTemplate = ({
                         {surveyPlan !== 0 && (
                           <tr>
                             <td>Survey Plan *</td>
-                            <td className="text-right">
+                            <td className="text-end">
                               {moneyFormatInNaira(surveyPlan)}
                             </td>
                           </tr>
@@ -268,7 +268,7 @@ const OfferLetterTemplate = ({
                         {deedOfAssignmentExecution !== 0 && (
                           <tr>
                             <td>Deed of Assignment Execution *</td>
-                            <td className="text-right">
+                            <td className="text-end">
                               {moneyFormatInNaira(deedOfAssignmentExecution)}
                             </td>
                           </tr>
@@ -277,7 +277,7 @@ const OfferLetterTemplate = ({
                         {infrastructureDevelopment !== 0 && (
                           <tr>
                             <td>Infrastructure Development *</td>
-                            <td className="text-right">
+                            <td className="text-end">
                               {moneyFormatInNaira(infrastructureDevelopment)}
                             </td>
                           </tr>
@@ -286,7 +286,7 @@ const OfferLetterTemplate = ({
                       <tfoot>
                         <tr>
                           <th>Total</th>
-                          <th className="text-right">
+                          <th className="text-end">
                             <h5> {moneyFormatInNaira(totalAmountPayable)}</h5>
                           </th>
                         </tr>

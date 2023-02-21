@@ -124,7 +124,7 @@ const TransactionsRowList = ({ results, offset, setToast }) => {
                 <td>Date</td>
                 <td>Property</td>
                 <td>Type</td>
-                <td className="text-right">Amount (NGN)</td>
+                <td className="text-end">Amount (NGN)</td>
                 <td> {!isUser && 'Remittance'}</td>
               </tr>
             </thead>
@@ -499,7 +499,7 @@ const TransactionsRow = (transaction) => {
         <strong className="text-primary">{paymentSource}</strong>
       </td>
       <td>
-        <h5 className="text-right text-secondary ls-1">
+        <h5 className="text-end text-secondary ls-1">
           {moneyFormatInNaira(amountPaid)}
         </h5>
       </td>

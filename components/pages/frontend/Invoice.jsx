@@ -147,7 +147,7 @@ export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
                             <strong>{getTinyDate(transaction.paidOn)}</strong>
                           </p>
                         </td>
-                        <td className="text-right">
+                        <td className="text-end">
                           <p className="mb-2">+234 708 7821 561</p>
                         </td>
                       </tr>
@@ -157,7 +157,7 @@ export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
                             Receipt No: <strong>BA21001</strong>
                           </p>
                         </td>
-                        <td className="text-right">
+                        <td className="text-end">
                           <p className="mb-0">info@ballers.ng</p>
                         </td>
                       </tr>
@@ -171,7 +171,7 @@ export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
                 <thead>
                   <tr className="tr-header tr-border-bottom">
                     <th>DESCRIPTION</th>
-                    <th className="text-right">TOTAL</th>
+                    <th className="text-end">TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -179,7 +179,7 @@ export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
                     <td>
                       <p className="mt-2 mt-sm-3">{paymentInfo.title}</p>
                     </td>
-                    <td className="text-right text-amount strong">
+                    <td className="text-end text-amount strong">
                       <p className="mt-2 mt-sm-3">
                         {moneyFormatInNaira(transaction.amount)}
                       </p>
@@ -207,7 +207,7 @@ export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
                   <tr className="tr-header tr-border-bottom">
                     <th>PAYMENT INFO</th>
                     <th>PAID ON</th>
-                    <th className="text-right">TOTAL</th>
+                    <th className="text-end">TOTAL</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -222,7 +222,7 @@ export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
                         {getTinyDate(transaction.paidOn)}
                       </h4>
                     </td>
-                    <td className="text-right text-green">
+                    <td className="text-end text-green">
                       <h4 className="text-amount">
                         {' '}
                         {moneyFormatInNaira(transaction.amount)}
@@ -242,7 +242,7 @@ export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
                 <div className="col-6">
                   <h5>Thank You!</h5>
                 </div>
-                <div className="col-6 text-right">
+                <div className="col-6 text-end">
                   <h5 className="text-uppercase invoice__tag-line">
                     Become A Landlord
                   </h5>

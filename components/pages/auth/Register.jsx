@@ -248,7 +248,7 @@ const RegisterForm = ({ setShowUserForm, showUserForm }) => {
               type="password"
             />
           </div>
-          <div className="form-row ml-0">
+          <div className="form-row ms-0">
             <CheckboxGroup
               custom
               inline

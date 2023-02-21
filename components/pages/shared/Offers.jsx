@@ -24,7 +24,7 @@ const Offers = () => (
       queryName="offer"
     />
     <section className="container-fluid">
-      <div className="text-right">
+      <div className="text-end">
         <Link
           to="/vendor/offer-templates"
           className="btn btn-sm btn-wide btn-outline-dark"
@@ -99,7 +99,7 @@ const OffersRow = ({
         )}
       </td>
       <td>
-        <h5 className="text-right text-secondary ls-1">
+        <h5 className="text-end text-secondary ls-1">
           {moneyFormatInNaira(totalAmountPayable)}
         </h5>
       </td>

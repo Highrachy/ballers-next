@@ -29,7 +29,7 @@ const Articles = () => (
               <div className="col-sm-6">
                 <div className="d-flex mb-5">
                   <img
-                    className="rounded-circle mr-3 border my-auto"
+                    className="rounded-circle me-3 border my-auto"
                     alt="Author"
                     src={Author}
                     height={50}
@@ -42,7 +42,7 @@ const Articles = () => (
                   </div>
                 </div>
               </div>
-              <div className="col-sm-6 text-right">
+              <div className="col-sm-6 text-end">
                 <div
                   className="btn-group"
                   role="group"
@@ -106,7 +106,7 @@ const Articles = () => (
             </button>
           </div>
 
-          <div className="tags mt-3 font-weight-bold">
+          <div className="tags mt-3 fw-bold">
             Tags: <u className="tag">product design</u>,{' '}
             <u className="tag">culture</u>{' '}
           </div>
@@ -115,7 +115,7 @@ const Articles = () => (
 
           <div className="d-flex mb-5">
             <img
-              className="rounded-circle mr-3 border my-auto"
+              className="rounded-circle me-3 border my-auto"
               alt="Author"
               src={Author}
               height={50}

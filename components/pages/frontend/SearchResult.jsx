@@ -161,7 +161,7 @@ const SearchResultContent = ({ result }) => {
 
           <Slide triggerOnce>
             <section className="search-result__card">
-              <h6 className="font-weight-normal search-result-average-price">
+              <h6 className="fw-normal search-result-average-price">
                 <InfoIcon /> Average property price
               </h6>
               <h2>{nearestMillion(result.averagePrice)}</h2>
@@ -176,13 +176,13 @@ const SearchResultContent = ({ result }) => {
               <div className="search-result-price-range">
                 <RangeLine />
                 <div className="row">
-                  <div className="col-lg-3 text-left pl-4 font-weight-bold">
+                  <div className="col-lg-3 text-start ps-4 fw-bold">
                     {nearestMillion(result.minimumPrice)}
                   </div>
                   <div className="col-lg-6 text-center text-secondary">
                     <InfoIcon /> Property price range of the selected location
                   </div>
-                  <div className="col-lg-3 text-right font-weight-bold">
+                  <div className="col-lg-3 text-end fw-bold">
                     {nearestMillion(result.maximumPrice)}
                   </div>
                 </div>
@@ -316,7 +316,7 @@ const DefineYourEligibility = ({ findEligibilityResult, result }) => {
         </p>
       </div>
 
-      <div className="row text-left eligibility-form mt-5">
+      <div className="row text-start eligibility-form mt-5">
         <section className="col-12 bg-orange">
           <RangeInput
             min={10000}

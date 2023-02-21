@@ -216,7 +216,7 @@ const DashboardCard = ({ title, children, Icon, footer, to, total }) => (
       <div className="verification-card__action strong">
         {footer ||
           `You have ${total} ${Humanize.pluralize(total, title, title)}`}
-        <small className="float-right">
+        <small className="float-end">
           <ArrowRightIcon />
         </small>
       </div>

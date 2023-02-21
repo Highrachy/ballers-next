@@ -92,9 +92,7 @@ const PortfoliosRow = ({
         </Link>
       </td>
       <td>
-        <span className="font-weight-bold block-text-small">
-          {propertyInfo.name}
-        </span>
+        <span className="fw-bold block-text-small">{propertyInfo.name}</span>
         <span className="block-text-smaller">
           {vendorInfo?.vendor?.companyName}
         </span>

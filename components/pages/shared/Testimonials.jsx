@@ -177,7 +177,7 @@ export const SingleTestimonial = ({
                 {testimonial?.user.lastName?.charAt(0)?.toUpperCase()}
               </i>
               <p>{testimonial.testimonial}</p>
-              <div className="text-right text-smaller text-muted">
+              <div className="text-end text-smaller text-muted">
                 - {getTinyDate(testimonial?.createdAt)}
               </div>
               {isVendor && !testimonial?.response && handleTestimonial && (
@@ -204,11 +204,11 @@ export const SingleTestimonial = ({
               <div className="ctext-wrap">
                 <i>{vendor?.companyName}</i>
                 <p>{testimonial?.response}</p>
-                <div className="text-right text-smaller text-muted">
+                <div className="text-end text-smaller text-muted">
                   - {getTinyDate(testimonial.createdAt)}
                 </div>
                 {isVendor && handleTestimonial && (
-                  <div className="text-left">
+                  <div className="text-start">
                     <Button
                       color="none"
                       className="btn btn-link btn-outline-primary btn-xs mt-2"

@@ -153,7 +153,7 @@ const StepperNavigation = ({
         </button>
       )}
     </div>
-    <div className="col-6 text-right">
+    <div className="col-6 text-end">
       {currentStep < maxStep && (
         <button className="btn btn-link" onClick={moveToNextStep}>
           Next Step &rarr;

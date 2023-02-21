@@ -59,7 +59,7 @@ const SingleOffer = ({ id }) => {
       />
       <ReactToPrint
         trigger={() => (
-          <section className="container-fluid mt-5 text-right d-none d-md-block">
+          <section className="container-fluid mt-5 text-end d-none d-md-block">
             <button className="btn btn-info">Print this out!</button>
           </section>
         )}
@@ -321,7 +321,7 @@ const DisplayOfferLetterTemplate = ({ offerId, setConcerns }) => {
           <>
             {/* add current status here for admin / vendor */}
             {isVendor && (
-              <div className="my-5 text-right">
+              <div className="my-5 text-end">
                 <Link
                   className="btn btn-dark btn-wide"
                   to={`/vendor/offer/template/${offer._id}`}

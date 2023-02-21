@@ -184,7 +184,7 @@ export const ScheduleTourButton = ({
                   setToast={setToast}
                 />
 
-                <div className="text-right">
+                <div className="text-end">
                   <button
                     onClick={() => setShowCancelModal(false)}
                     className="btn btn-danger btn-sm mt-5"
@@ -204,7 +204,7 @@ export const ScheduleTourButton = ({
                   hideForm={setShowModalToFalse}
                   setToast={setToast}
                 />
-                <div className="text-right">
+                <div className="text-end">
                   <button
                     onClick={() => setShowReschedule(false)}
                     className="btn btn-danger btn-sm mt-5"

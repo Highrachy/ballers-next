@@ -129,7 +129,7 @@ const HowBallersWork = () => (
         <div className="az-how-step-line col-lg-2 col-sm-2 col-12" />
         <div className="az-how-step col-lg-5 col-sm-5 col-12">
           <h5 className="az-how-step-title">Define your preference.</h5>
-          <p className="az-how-step-text mt-3 pr-5">
+          <p className="az-how-step-text mt-3 pe-5">
             Bring your dreams to life, select from the options below to activate
             the process of customising your ideal home ownership process.{' '}
           </p>
@@ -191,11 +191,11 @@ const HowBallersWork = () => (
                   <span className="circle-dot"> </span>
                 </div>
               </div>
-              <div className="col-md-5 ml-lg-none ml-md-n4 mb-md-5 mb-lg-0">
+              <div className="col-md-5 ms-lg-none ms-md-n4 mb-md-5 mb-lg-0">
                 <h5 className="az-how-step-title pt-5 pt-sm-none pb-2">
                   Structure your subscription
                 </h5>
-                <p className="az-how-step-text pr-5">
+                <p className="az-how-step-text pe-5">
                   One of the best things about BALLers is our goal to take out
                   the burden of heavy one-off payments to own a home. Select the
                   options below that are a best fit for your BALLing experience.
@@ -291,14 +291,14 @@ const HowBallersWork = () => (
       </div>
       <div className="az-how-step col-md-5 col-sm-5 col-12 mt-md-n4 mt-lg-0">
         <h5 className="az-how-step-title">Start contributing</h5>
-        <p className="az-how-step-text pr-5">
+        <p className="az-how-step-text pe-5">
           We are excited! Now that you have the perfect plan with a clear figure
           and contribution times, begin your journey here by making your first
           investment.
         </p>
-        <div className="col-sm-12 pt-md-3 text-left">
+        <div className="col-sm-12 pt-md-3 text-start">
           <Link href="/register" passHref>
-            <a className="btn btn-secondary ml-n3">APPLY NOW</a>
+            <a className="btn btn-secondary ms-n3">APPLY NOW</a>
           </Link>
         </div>
       </div>
@@ -321,7 +321,7 @@ const HowBallersWork = () => (
         <div className="az-how-step-line col-lg-2 col-sm-2 col-12" />
         <div className="az-how-step col-lg-5 col-md-5 col-sm-5 col-12">
           <h5 className="az-how-step-title">Convert subscription</h5>
-          <p className="az-how-step-text mr-5">
+          <p className="az-how-step-text me-5">
             Once your contributions have reached the minimum required amount, we
             walk you through the process of converting to best-fit financial
             instruments from an array of products to acquire your desired

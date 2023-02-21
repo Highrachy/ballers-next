@@ -76,7 +76,7 @@ const OurCoreValues = () => (
     <div className="container-fluid">
       <div className="row row-eq-height justify-content-center">
         <div className="col-lg-5 col-sm-5 col-12 core-values-card">
-          <h3 className="text-secondary font-weight-bold mb-3"> Innovation</h3>
+          <h3 className="text-secondary fw-bold mb-3"> Innovation</h3>
           <p className="text-primary">
             Our team is constantly working to push the boundaries of comfortable
             living with new concepts and thoughtful designs that bring the
@@ -84,7 +84,7 @@ const OurCoreValues = () => (
           </p>
         </div>
         <div className="col-lg-5 col-sm-5 col-12 core-values-card">
-          <h3 className="text-secondary font-weight-bold mb-3">Quality</h3>
+          <h3 className="text-secondary fw-bold mb-3">Quality</h3>
           <p className="text-primary">
             A home is not complete until it offers you security and comfort. We
             offer you nothing but the best combination of designs, workmanship
@@ -93,9 +93,7 @@ const OurCoreValues = () => (
           </p>
         </div>
         <div className="col-lg-5 col-sm-5 col-12 core-values-card">
-          <h4 className="text-secondary font-weight-bold mb-3">
-            Accountability
-          </h4>
+          <h4 className="text-secondary fw-bold mb-3">Accountability</h4>
           <p className="text-primary">
             Your contribution is not only secure but insured to ensure that your
             money is accounted for. <br />
@@ -103,9 +101,7 @@ const OurCoreValues = () => (
           </p>
         </div>
         <div className="col-lg-5 col-sm-5 col-12 core-values-card">
-          <h4 className="text-secondary font-weight-bold mb-3">
-            Solutions driven
-          </h4>
+          <h4 className="text-secondary fw-bold mb-3">Solutions driven</h4>
           <p className="text-primary">
             Our constant target is to create and execute housing solutions that
             makes luxury and healthy living available to more hardworking
@@ -127,17 +123,17 @@ const OurTeam = () => (
       <div className="col-lg-3 col-sm-6 col-12 mb-5">
         <img src={Nnamdi} className="img-fluid" alt="Nnamdi Ijei" />
         <h5 className="mt-3 mb-0">Nnamdi Ijei</h5>
-        <p className="text-green font-weight-bold">CEO</p>
+        <p className="text-green fw-bold">CEO</p>
       </div>
       <div className="col-lg-3 col-sm-6 col-12 mb-5">
         <img src={Leonard} className="img-fluid" alt="Leonard Isiekwenagbu" />
         <h5 className="mt-3 mb-0">Leonard Isiekwenagbu</h5>
-        <p className="text-green font-weight-bold">BUSINESS DEVELOPMENT</p>
+        <p className="text-green fw-bold">BUSINESS DEVELOPMENT</p>
       </div>
       <div className="col-lg-3 col-sm-6 col-12 mb-5">
         <img src={Haruna} className="img-fluid" alt="Haruna Popoola" />
         <h5 className="mt-3 mb-0">Haruna Popoola</h5>
-        <p className="text-green font-weight-bold">LEAD DEVELOPER</p>
+        <p className="text-green fw-bold">LEAD DEVELOPER</p>
       </div>
     </div>
   </section>

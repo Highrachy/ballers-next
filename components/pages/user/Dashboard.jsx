@@ -109,9 +109,9 @@ const OffersRow = ({ _id, expires, status, propertyInfo, vendorInfo }) => {
       <div className="span toast-icon-holder icon-xl">
         <FileIcon />
       </div>
-      <div className="w-100 font-weight-normal">
+      <div className="w-100 fw-normal">
         <Link
-          className="btn btn-success btn-sm float-right"
+          className="btn btn-success btn-sm float-end"
           to={`/user/offer/${_id}`}
         >
           View Offer Letter

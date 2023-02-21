@@ -82,7 +82,7 @@ const Content = () => (
           <h3>
             <a
               href="mailto:hello@ballers.ng"
-              className="text-primary font-weight-normal"
+              className="text-primary fw-normal"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -153,7 +153,7 @@ const Content = () => (
 const MapAndAddress = () => (
   <section className="container-fluid">
     <div className="row h-100 map-and-address">
-      <div className="col-lg-6 col-12 my-auto text-right pr-5">
+      <div className="col-lg-6 col-12 my-auto text-end pe-5">
         <h4 className="header-secondary">COME OVER FOR COFFEE</h4>
         <h5 className="text-height-2">
           5th Floor, Ibukun House,

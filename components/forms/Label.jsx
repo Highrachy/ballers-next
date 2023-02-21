@@ -45,7 +45,7 @@ const Label = ({
 
       {/* Label Link is a Link */}
       {sanitizedLabelLink.to && sanitizedLabelLink.text && (
-        <Link className="float-right" href={sanitizedLabelLink.href}>
+        <Link className="float-end" href={sanitizedLabelLink.href}>
           {sanitizedLabelLink.text}
         </Link>
       )}
@@ -53,7 +53,7 @@ const Label = ({
       {/* Label Link calls a function */}
       {!sanitizedLabelLink.to && sanitizedLabelLink.text && (
         <div
-          className="float-right text-muted cursor-pointer"
+          className="float-end text-muted cursor-pointer"
           onClick={sanitizedLabelLink.onClick}
         >
           {sanitizedLabelLink.text}

@@ -28,7 +28,7 @@ export const AlertToast = ({ message, type }) => (
     <div className="span toast-icon-holder">
       {TOAST_STYLE[type] ? TOAST_STYLE[type].icon : <ErrorIcon />}
     </div>
-    <span className="d-inline-block ml-2 toast-message-content">{message}</span>
+    <span className="d-inline-block ms-2 toast-message-content">{message}</span>
   </div>
 );
 
@@ -90,7 +90,7 @@ const Toast = ({
             <div className="toast-icon-holder">
               {TOAST_STYLE[type] ? TOAST_STYLE[type].icon : <ErrorIcon />}
             </div>
-            <strong className="mr-auto">
+            <strong className="me-auto">
               {TOAST_STYLE[type]
                 ? TOAST_STYLE[type].name
                 : TOAST_STYLE['error'].name}
@@ -144,7 +144,7 @@ export const InfoBox = ({ children }) => (
     <div className="span toast-icon-holder">
       <InfoIcon />
     </div>
-    <span className="d-block ml-2 w-100 toast-message-content">{children}</span>
+    <span className="d-block ms-2 w-100 toast-message-content">{children}</span>
   </div>
 );
 

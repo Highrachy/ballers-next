@@ -58,7 +58,7 @@ const MakePayment = ({ amount, model, setToast }) => {
             <Button
               color={key === paymentType ? 'primary' : 'light'}
               onClick={() => setPaymentType(key)}
-              className="mr-4"
+              className="me-4"
             >
               {value}
             </Button>

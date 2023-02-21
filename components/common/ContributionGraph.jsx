@@ -55,7 +55,7 @@ const ContributionGraph = () => {
           />
         </div>
         <div className="col-sm-4">
-          <div className="ml-n5 mr-n5">
+          <div className="ms-n5 me-n5">
             <Doughnut
               data={{
                 labels: ['Property', 'Contribution Rewards', 'Referral Bonus'],

@@ -107,7 +107,7 @@ export const OwnedPropertyCard = ({
   return (
     <div className="container-fluid">
       {isVendor && false && (
-        <div className="my-5 text-right">
+        <div className="my-5 text-end">
           <Link
             className="btn btn-dark btn-wide"
             to={`/vendor/property/template/${property._id}`}
@@ -233,7 +233,7 @@ const CaseComment = ({
           </article>
 
           {isActive && (
-            <div className="ml-auto">
+            <div className="ms-auto">
               {isAdmin && (
                 <>
                   {flaggedCase?.unflagRequestComment && (
@@ -540,7 +540,7 @@ const ReportProperty = ({ property, setToast, setProperty }) => {
   const [showReportModal, setShowReportModal] = React.useState(false);
 
   return (
-    <div className="text-right mt-5">
+    <div className="text-end mt-5">
       <Button
         className="btn btn-xs btn-dark btn-wide"
         onClick={() => setShowReportModal(true)}
@@ -739,7 +739,7 @@ export const PropertyDescription = ({
         <div className="my-5">
           <div className="hero-holder">
             <h5 className="text-primary header-smaller">Important Notice</h5>
-            <ol className="ml-n3">
+            <ol className="ms-n3">
               <li>
                 Do not make any upfront payment as inspection fee when visiting
                 the property.
@@ -776,7 +776,7 @@ export const PropertyHeader = ({ property, enquiryInfo, vendorInfo }) => {
             {!isUser && <ShowPropertyStatus property={property} />}
           </h3>
         </div>
-        <div className="col-sm-4 text-right">
+        <div className="col-sm-4 text-end">
           <Link
             className="text-muted"
             to={`/vendors/${vendorInfo?.vendor?.slug}`}
@@ -792,7 +792,7 @@ export const PropertyHeader = ({ property, enquiryInfo, vendorInfo }) => {
             {moneyFormatInNaira(property.price)}
           </h4>
         </div>
-        <div className="col-sm-4 text-right">
+        <div className="col-sm-4 text-end">
           {isUser && (
             <>
               {(enquiryInfo?.approved || !userHasPreviousEnquiry) && (
@@ -812,7 +812,7 @@ export const PropertyHeader = ({ property, enquiryInfo, vendorInfo }) => {
         {getLocationFromAddress(property.address)}
       </p>
       <div className="property-info-details">
-        <span className="pr-3">
+        <span className="pe-3">
           <BedIcon /> <Spacing /> {property.bedrooms}{' '}
           {Humanize.pluralize(property.bedrooms, 'bed')}
         </span>
@@ -827,7 +827,7 @@ export const PropertyHeader = ({ property, enquiryInfo, vendorInfo }) => {
           {Humanize.pluralize(property.toilets, 'toilet')}
         </span>
         <TextSeparator />
-        <span className="pl-3">
+        <span className="ps-3">
           <AssignedPropertyIcon /> <Spacing /> {property.availableUnits}{' '}
           {Humanize.pluralize(property.availableUnits, 'unit')}
         </span>

@@ -124,7 +124,7 @@ const NotificationsRow = ({
         <TimeAgo date={createdAt} />
       </small>
     </td>
-    {/* <td className="text-right">
+    {/* <td className="text-end">
       <small
         className="text-link text-secondary"
         onClick={() => markAsRead(_id)}

@@ -24,7 +24,7 @@ const Checkbox = ({
       className={classNames(
         { 'form-check': !inline && !custom },
         { 'form-check-inline': inline && !custom },
-        { 'custom-control custom-checkbox': custom },
+        { 'custom-control form-checkbox': custom },
         { ' custom-control-inline': inline && custom }
       )}
     >

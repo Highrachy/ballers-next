@@ -57,7 +57,7 @@ const Gallery = ({ propertyId }) => {
 
         <h4>
           Gallery
-          <div className="float-right">
+          <div className="float-end">
             {showGalleryForm ? (
               <Button
                 className="btn btn-danger btn-xs btn-wide"
@@ -75,7 +75,7 @@ const Gallery = ({ propertyId }) => {
             )}
           </div>
         </h4>
-        <p className="font-weight-bold">{property?.name}</p>
+        <p className="fw-bold">{property?.name}</p>
 
         <SlideDown className={''}>
           {showGalleryForm && (
@@ -410,7 +410,7 @@ const SingleGalleryImage = ({
               options={{ h: 200 }}
               responsiveImage={false}
             />
-            <p className="my-4 font-weight-bold confirmation-text">
+            <p className="my-4 fw-bold confirmation-text">
               Are you sure you want to delete this image?
             </p>
             <Button

@@ -135,7 +135,7 @@ const InviteFriendByEmailForm = () => {
             />
             <div className="col-md-4">
               <Button
-                className="btn-secondary btn-sm btn-wide ml-md-2"
+                className="btn-secondary btn-sm btn-wide ms-md-2"
                 loading={isSubmitting}
                 onClick={handleSubmit}
               >

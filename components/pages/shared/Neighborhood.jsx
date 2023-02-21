@@ -242,7 +242,7 @@ export const NeighborhoodList = ({ property, setProperty, setToast }) => {
                           ({ _id, distance, name }, index) => (
                             <li className="row mb-3" key={index}>
                               <p className="col-sm-8 mb-0">{name}</p>
-                              <p className="col-sm-4 text-right mb-0">
+                              <p className="col-sm-4 text-end mb-0">
                                 <MapPinIcon /> <Spacing /> {distance} km
                               </p>
                               <br />

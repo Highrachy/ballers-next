@@ -26,7 +26,7 @@ export const PortfolioPaymentProgress = ({ amountPaid, percentage }) => (
       />
       <div className="small">
         Amount Contributed: <strong>{moneyFormatInNaira(amountPaid)}</strong>
-        <span className="float-right text-green">Goal</span>
+        <span className="float-end text-green">Goal</span>
       </div>
     </div>
   </div>

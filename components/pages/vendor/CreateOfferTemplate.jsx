@@ -178,7 +178,7 @@ export const CreateOfferTemplateForm = ({
                   <div className="span toast-icon-holder icon-xl">
                     <ErrorIcon />
                   </div>
-                  <span className="d-inline-block ml-2 toast-message-content">
+                  <span className="d-inline-block ms-2 toast-message-content">
                     <p className="mt-2">
                       You need to fix the values below to view your offer
                       letter.

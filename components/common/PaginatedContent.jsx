@@ -147,7 +147,7 @@ const TopFilter = ({ FilterComponent, filters, setFilters }) => {
         <div className="row">
           <div className="col-sm-12 mt-2">
             <div
-              className="text-right font-weight-bold"
+              className="text-end fw-bold"
               onClick={() => {
                 setOpenFilter(true);
               }}

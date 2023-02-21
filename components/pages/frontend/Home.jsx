@@ -88,8 +88,8 @@ Home.defaultProps = {
 
 const HoldingSection = () => (
   <section>
-    <div className="row mr-0 ml-0">
-      <section className="col-md-6 pl-lg-6 home-hero-container">
+    <div className="row me-0 ms-0">
+      <section className="col-md-6 ps-lg-6 home-hero-container">
         <div className="home-hero">
           <h1>
             Become <br className="d-none d-lg-block" /> a <span>LandLord</span>
@@ -162,31 +162,31 @@ const HowItWorksSection = () => (
         <ul className="timeline mt-5">
           <Flash cascade damping={1} delay={3000}>
             <li className="timeline__border">
-              <h5 className="text-secondary font-weight-normal">
-                <span className="font-weight-bold text-secondary h3">A</span>
+              <h5 className="text-secondary fw-normal">
+                <span className="fw-bold text-secondary h3">A</span>
                 pply now
               </h5>
-              <p className="pr-8 pb-4">
+              <p className="pe-8 pb-4">
                 Take control of your destiny and create a worthy legacy by
                 filling our short registration form.
               </p>
             </li>
             <li className="timeline__border">
-              <h5 className="text-secondary font-weight-normal">
-                <span className="font-weight-bold text-secondary h3">B</span>
+              <h5 className="text-secondary fw-normal">
+                <span className="fw-bold text-secondary h3">B</span>
                 egin periodic contribution
               </h5>
-              <p className="pr-8 pb-4">
+              <p className="pe-8 pb-4">
                 Cultivate the habit of contribution today and reap the rewards
                 forever with BALLers.
               </p>
             </li>
             <li>
-              <h5 className="text-secondary font-weight-normal">
-                <span className="font-weight-bold text-secondary h3">C</span>
+              <h5 className="text-secondary fw-normal">
+                <span className="fw-bold text-secondary h3">C</span>
                 onvert to home ownership
               </h5>
-              <p className="pr-8 pb-4">
+              <p className="pe-8 pb-4">
                 Convert structure to extended mortgage plan at affordable rates
                 from 6% per annum.
               </p>

@@ -83,7 +83,7 @@ export const OldPropertyCard = (property) => {
             />
           </div>
           <div className="col-md-7">
-            <h5 className="font-weight-500 mt-3 mt-md-0">{name}</h5>
+            <h5 className="fw-500 mt-3 mt-md-0">{name}</h5>
             <div className="property-holder__location">
               Location:{' '}
               <strong>
@@ -98,7 +98,7 @@ export const OldPropertyCard = (property) => {
             <div className="property-holder__separator"></div>
 
             <Link
-              className="text-uppercase small float-right badge badge-dark property-holder__details"
+              className="text-uppercase small float-end badge badge-dark property-holder__details"
               to={`/${currentRole}/property/${_id}`}
             >
               Details{' '}
@@ -198,7 +198,7 @@ const PropertyCard = (property) => {
                     {moneyFormatInNaira(price)}
                   </h5>
                 </div>
-                <div className="col-sm-6 text-right">
+                <div className="col-sm-6 text-end">
                   <button className="btn btn-sm btn-secondary">
                     View Details
                   </button>
@@ -207,7 +207,7 @@ const PropertyCard = (property) => {
               {/* Info with Icons */}
               <div className="property-holder__separator my-3"></div>
               <div className="property-info property-spacing">
-                <span className="pr-3">
+                <span className="pe-3">
                   <BedIcon /> {property.bedrooms}{' '}
                   {Humanize.pluralize(property.bedrooms, 'bed')}
                 </span>
@@ -217,7 +217,7 @@ const PropertyCard = (property) => {
                   {Humanize.pluralize(property.bathrooms, 'bath')}
                 </span>
                 |
-                <span className="pl-3">
+                <span className="ps-3">
                   <ToiletIcon /> {property.toilets}{' '}
                   {Humanize.pluralize(property.toilets, 'toilet')}
                 </span>
@@ -282,7 +282,7 @@ export const PropertyAvatar = ({
       <div className="user-info">
         <span className="user-name">
           {name}
-          <span className="dot dot-success d-md-none ml-1"></span>
+          <span className="dot dot-success d-md-none ms-1"></span>
         </span>
         <small className="user-email">{houseType}</small>
       </div>

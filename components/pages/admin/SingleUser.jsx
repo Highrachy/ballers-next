@@ -260,7 +260,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
           }
           return (
             <Form>
-              <p className="text-uppercase lead font-weight-bold mt-3">
+              <p className="text-uppercase lead fw-bold mt-3">
                 Status: {user.vendor?.verification[step]?.status}
               </p>
 
@@ -914,7 +914,7 @@ const RemittanceForm = ({ user, setUser, setToast }) => {
                     <tr className="text-secondary">
                       <th>New Percentage</th>
                       <th>
-                        <h5 className="text-secondary ml-n2">
+                        <h5 className="text-secondary ms-n2">
                           {props.values.percentage}%
                         </h5>
                       </th>
@@ -1027,7 +1027,7 @@ const ReferralBonusForm = ({ user, setUser, setToast }) => {
                     <tr className="text-secondary">
                       <th>New Percentage</th>
                       <th>
-                        <h5 className="text-secondary ml-n2">
+                        <h5 className="text-secondary ms-n2">
                           {props.values.percentage}%
                         </h5>
                       </th>
