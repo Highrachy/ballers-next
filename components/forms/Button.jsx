@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { COLOR_STYLE } from 'utils/constants';
 import BallersSpinner from 'components/utils/BallersSpinner';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 
 export const BUTTON_TYPES = {
   SMALL: 'small',
@@ -18,29 +18,35 @@ const Button = ({
   onClick,
   color,
   type,
+  href,
   ...props
-}) => (
-  <button
-    className={classNames(
-      'btn',
-      `btn-${color}`,
-      { 'btn-xs btn-wide': type === BUTTON_TYPES.SMALL },
-      className
-    )}
-    onClick={onClick}
-    type="button"
-    {...props}
-  >
-    {loading ? (
-      <>
-        <BallersSpinner small /> &nbsp;
-        {showLoadingText && (loadingText || children)}
-      </>
-    ) : (
-      children
-    )}
-  </button>
-);
+}) => {
+  const isLink = !!href;
+  const btnClassName = classNames(
+    'btn',
+    `btn-${color}`,
+    { 'btn-xs btn-wide': type === BUTTON_TYPES.SMALL },
+    className
+  );
+  return isLink ? (
+    <Link href={href} passHref>
+      <a className={btnClassName} role="button" {...props}>
+        {children}
+      </a>
+    </Link>
+  ) : (
+    <button className={btnClassName} onClick={onClick} type="button" {...props}>
+      {loading ? (
+        <>
+          <BallersSpinner small /> &nbsp;
+          {showLoadingText && (loadingText || children)}
+        </>
+      ) : (
+        children
+      )}
+    </button>
+  );
+};
 
 Button.propTypes = {
   children: PropTypes.any,

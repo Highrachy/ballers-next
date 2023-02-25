@@ -115,3 +115,24 @@ label {
     font-size: 0.65rem;
   }
 }
+
+.input-password-icon {
+  position: absolute;
+  top: 2.75rem;
+  right: 1rem;
+  color: $gray-500;
+  transition: all 0.3s ease;
+
+  &.show-password {
+    color: $gray-600;
+  }
+
+  &:hover {
+    color: $gray-800;
+    cursor: pointer;
+  }
+
+  &.is-invalid {
+    right: 2.75rem;
+  }
+}

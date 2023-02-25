@@ -49,22 +49,7 @@ const Toast = ({
     type && setAlertType(type);
   }, [message, type]);
 
-  // increase interval for showToastOnly
-
-  const toastInterval = showToastOnly ? 10000 : 5000;
-
-  React.useEffect(() => {
-    if (message) {
-      const interval = setInterval(() => {
-        setShow(false);
-        toastIsClosed();
-      }, toastInterval);
-
-      return () => {
-        clearInterval(interval);
-      };
-    }
-  }, [show, toastInterval, toastIsClosed, message]);
+  const toastInterval = showToastOnly ? 10000 : 3000;
 
   if (!message) {
     if (msg && !showToastOnly) {
@@ -77,6 +62,8 @@ const Toast = ({
     <>
       {!showAlertMessageOnly && (
         <BoostrapToast
+          autohide
+          delay={toastInterval}
           show={show}
           onClose={() => {
             setShow(false);

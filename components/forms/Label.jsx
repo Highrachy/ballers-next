@@ -18,7 +18,11 @@ const Label = ({
   tooltipText,
 }) => {
   const labelText = children || text;
-  const sanitizedLabelLink = { href: null, text: null, ...labelLink };
+  const sanitizedLabelLink = {
+    href: labelLink?.to || null,
+    text: null,
+    ...labelLink,
+  };
 
   if (!labelText || !name) return null;
 
@@ -44,9 +48,11 @@ const Label = ({
       />
 
       {/* Label Link is a Link */}
-      {sanitizedLabelLink.to && sanitizedLabelLink.text && (
-        <Link className="float-end" href={sanitizedLabelLink.href}>
-          {sanitizedLabelLink.text}
+      {sanitizedLabelLink.href && sanitizedLabelLink.text && (
+        <Link href={sanitizedLabelLink.href}>
+          <a className="float-end text-muted cursor-pointer">
+            {sanitizedLabelLink.text}
+          </a>
         </Link>
       )}
 

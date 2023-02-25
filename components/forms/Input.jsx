@@ -9,15 +9,16 @@ import {
   feedback,
 } from 'components/forms/form-helper';
 import Label from './Label';
+import { Eye, EyeSlash } from 'iconsax-react';
 
 const Input = ({
   autoComplete,
   formGroupClassName,
   formik,
+  floatingLabel,
   helpText,
   inline,
   inputClassName,
-  inputSizeClassName,
   isValidMessage,
   label,
   labelLink,
@@ -32,44 +33,64 @@ const Input = ({
   type,
   ...props
 }) => {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const isPassword = type?.toLowerCase() === 'password';
+  const currentType = isPassword && showPassword ? 'text' : type;
+  const currentShowFeedback = isPassword ? feedback.NONE : showFeedback;
+
+  const inputLabel = (
+    <Label
+      className={labelClassName}
+      labelLink={labelLink}
+      floatingLabel={floatingLabel}
+      name={name}
+      optional={optional}
+      text={label}
+      tooltipHeader={tooltipHeader}
+      tooltipPosition={tooltipPosition}
+      tooltipText={tooltipText}
+    />
+  );
+
   return (
     <div
-      className={classNames(formGroupClassName, {
-        row: inline,
-        'form-group mb-4': formGroupClassName,
+      className={classNames('mb-4 position-relative', formGroupClassName, {
+        'form-floating': floatingLabel,
       })}
     >
-      <Label
-        className={labelClassName}
-        labelLink={labelLink}
+      {!floatingLabel && inputLabel}
+      <Field
+        aria-describedby={`${name}-help-block`}
+        autoComplete={autoComplete}
+        className={classNames(
+          'form-control',
+          inputClassName,
+          getValidityClass(formik, name, currentShowFeedback)
+        )}
+        id={name}
         name={name}
-        optional={optional}
-        text={label}
-        tooltipHeader={tooltipHeader}
-        tooltipPosition={tooltipPosition}
-        tooltipText={tooltipText}
+        type={currentType}
+        placeholder={placeholder || label}
+        {...props}
       />
-      <div className={inputSizeClassName}>
-        <Field
-          aria-describedby={name}
-          autoComplete={autoComplete}
+      {floatingLabel && inputLabel}
+      {isPassword && (
+        <div
           className={classNames(
-            'form-control',
-            inputClassName,
-            getValidityClass(formik, name, showFeedback)
+            'input-password-icon',
+            getValidityClass(formik, name, currentShowFeedback),
+            { 'show-password': showPassword }
           )}
-          id={name}
-          name={name}
-          type={type}
-          placeholder={placeholder || label}
-          {...props}
-        />
-      </div>
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? <EyeSlash /> : <Eye />}
+        </div>
+      )}
       <FeedbackMessage
         formik={formik}
         helpText={helpText}
         name={name}
-        showFeedback={showFeedback}
+        showFeedback={currentShowFeedback}
         validMessage={isValidMessage}
       />
     </div>
@@ -80,11 +101,11 @@ const Input = ({
 
 Input.defaultProps = {
   autoComplete: 'off',
-  formGroupClassName: 'form-group mb-4',
+  formGroupClassName: 'mb-4',
+  floatingLabel: false,
   helpText: null,
   inline: false,
   inputClassName: null,
-  inputSizeClassName: null,
   isValidMessage: '',
   label: null,
   labelClassName: null,
@@ -101,11 +122,11 @@ Input.defaultProps = {
 Input.propTypes = {
   autoComplete: PropTypes.string,
   formGroupClassName: PropTypes.string,
+  floatingLabel: PropTypes.bool,
   formik: PropTypes.object.isRequired,
   helpText: PropTypes.string,
   inline: PropTypes.bool,
   inputClassName: PropTypes.string,
-  inputSizeClassName: PropTypes.number,
   isValidMessage: PropTypes.string,
   label: PropTypes.string,
   labelClassName: PropTypes.string,
