@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { Form, Formik } from 'formik';
 import {
@@ -84,7 +84,10 @@ const PropertiesRowList = ({ results, offset }) => (
     </Card>
     {useCurrentRole().isAdmin && (
       <div className="my-5 text-end">
-        <Link className="btn btn-wide btn-dark" to="/admin/reported-properties">
+        <Link
+          className="btn btn-wide btn-dark"
+          href="/admin/reported-properties"
+        >
           View Reported Properties
         </Link>
       </div>
@@ -118,7 +121,7 @@ const PropertiesRow = ({
             propertyIsFlagged ? 'overlay overlay__danger' : ''
           } d-inline-block`}
         >
-          <Link to={`/${userType}/property/${_id}`}>
+          <Link href={`/${userType}/property/${_id}`}>
             <Image
               src={mainImage}
               name={`property ${_id}`}
@@ -173,7 +176,7 @@ const PropertiesRow = ({
       <td>
         <Link
           className="btn btn-xs btn-wide btn-secondary"
-          to={`/${userType}/property/${_id}`}
+          href={`/${userType}/property/${_id}`}
         >
           View
         </Link>
@@ -183,7 +186,7 @@ const PropertiesRow = ({
             <Spacing />
             <Link
               className="btn btn-xs btn-wide btn-info"
-              to={`/${userType}/property/edit/${_id}`}
+              href={`/${userType}/property/edit/${_id}`}
             >
               Edit
             </Link>

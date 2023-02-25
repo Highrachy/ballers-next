@@ -1,10 +1,10 @@
 import React from 'react';
 import { Navbar, Nav, Dropdown } from 'react-bootstrap';
-import { Link, navigate } from '@reach/router';
+import Link from 'next/link';
 import { NotificationIcon, ThreeDotsIcon } from 'components/utils/Icons';
 import ProfileAvatar from 'assets/img/avatar/profile.png';
 import { UserContext } from 'context/UserContext';
-import Image from 'components/utils/Image';
+import { OnlineImage } from 'components/utils/Image';
 import { useCurrentRole } from 'hooks/useUser';
 import TimeAgo from 'react-timeago';
 import { NOTIFICATION_ACTION, NOTIFICATION_TYPE } from 'utils/constants';
@@ -14,8 +14,9 @@ import { getTokenFromStore } from 'utils/localStorage';
 import { statusIsSuccessful } from 'utils/helpers';
 import { refreshQuery } from 'hooks/useQuery';
 
+// eslint-disable-next-line react/display-name
 const Empty = React.forwardRef(({ children, onClick }, ref) => (
-  <div className="top-nav-dropdown" onClick={onClick}>
+  <div className="top-nav-dropdown" ref={ref} onClick={onClick}>
     {children}
   </div>
 ));
@@ -37,23 +38,21 @@ const Header = () => {
         <div className="container-fluid">
           <Nav className="ms-auto d-flex flex-row align-items-center">
             {userState?.notifications?.length === 0 ? (
-              <Nav.Link
-                to={`/${currentRole}/notifications`}
-                className="notifications"
-                as={Link}
-              >
-                <NotificationIcon />
-              </Nav.Link>
+              <Link href={`/${currentRole}/notifications`}>
+                <Nav.Link className="notifications">
+                  <NotificationIcon />
+                </Nav.Link>
+              </Link>
             ) : (
               <NotificationsDropdown
-                notifications={userState?.notifications.slice(0, 3)}
+                notifications={userState?.notifications?.slice(0, 3)}
                 currentRole={currentRole}
               />
             )}
 
             <Dropdown>
               <Dropdown.Toggle as={Empty} id="user-dropdown">
-                <Image
+                <OnlineImage
                   name={userName}
                   className={
                     isCompanyLogo
@@ -73,22 +72,22 @@ const Header = () => {
               </Dropdown.Toggle>
 
               <Dropdown.Menu className="dropdown-menu-children">
-                <Dropdown.Item as={Link} to={`/${currentRole}/mybadges`}>
-                  Badges
-                </Dropdown.Item>
-                <Dropdown.Item as={Link} to={`/${currentRole}/testimonials`}>
-                  Testimonials
-                </Dropdown.Item>
-                <Dropdown.Item as={Link} to="/user/settings">
-                  Settings
-                </Dropdown.Item>
-                <Dropdown.Item as={Link} to="/logout">
-                  Logout
-                </Dropdown.Item>
+                <Link href={`/${currentRole}/mybadges`}>
+                  <Dropdown.Item>Badges</Dropdown.Item>
+                </Link>
+                <Link href={`/${currentRole}/testimonials`}>
+                  <Dropdown.Item>Testimonials</Dropdown.Item>
+                </Link>
+                <Link href="/user/settings">
+                  <Dropdown.Item>Settings</Dropdown.Item>
+                </Link>
+                <Link href="/logout">
+                  <Dropdown.Item>Logout</Dropdown.Item>
+                </Link>
               </Dropdown.Menu>
             </Dropdown>
 
-            {/* <Nav.Link as={Link} to="/register"></Nav.Link> */}
+            {/* <Nav.Link as={Link} href="/register"></Nav.Link> */}
           </Nav>
         </div>
       </Navbar>
@@ -138,7 +137,7 @@ export const NotificationsDropdown = ({ notifications, currentRole }) => {
       <Dropdown.Menu>
         <Dropdown.Header>
           <span>Notifications</span>
-          <Link to={`/${currentRole}/notifications`}>View All</Link>
+          <Link href={`/${currentRole}/notifications`}>View All</Link>
         </Dropdown.Header>
         {notifications?.map(
           ({ _id, createdAt, description, type, action, actionId }, index) => (
@@ -164,13 +163,12 @@ export const NotificationsDropdown = ({ notifications, currentRole }) => {
             </Dropdown.Item>
           )
         )}
-        <Dropdown.Item
-          as={Link}
-          to={`/${currentRole}/notifications`}
-          eventKey="20"
-        >
-          <div className="notification-text py-2">View All Notifications</div>
-        </Dropdown.Item>
+
+        <Link href={`/${currentRole}/notifications`}>
+          <Dropdown.Item eventKey="20">
+            <div className="notification-text py-2">View All Notifications</div>
+          </Dropdown.Item>
+        </Link>
       </Dropdown.Menu>
     </Dropdown>
   );

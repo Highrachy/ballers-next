@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, ProgressBar } from 'react-bootstrap';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property-holder.jpg';
 import { MapPinIcon, PortfolioIcon } from 'components/utils/Icons';
 import { moneyFormatInNaira } from 'utils/helpers';
@@ -11,6 +11,7 @@ import { API_ENDPOINT } from 'utils/URL';
 import { differenceInDays, isPastDate } from 'utils/date-helpers';
 import Humanize from 'humanize-plus';
 import { Spacing } from './Helpers';
+import { OnlineImage } from '../utils/Image';
 
 export const PortfolioPaymentProgress = ({ amountPaid, percentage }) => (
   <div className="row">
@@ -40,17 +41,18 @@ export const PortfolioCard = ({
 }) => {
   return (
     <Card className="card-container h-100 portfolio-holder property-card">
-      <Link to={`/user/portfolio/${_id}`}>
+      <Link href={`/user/portfolio/${_id}`}>
         <article>
           <div className="content-image">
-            <img
+            <OnlineImage
+              name={propertyInfo.name}
               src={propertyInfo.mainImage || PropertyPlaceholderImage}
               alt="Property"
               className="img-fluid property-holder__img"
             />
           </div>
           <div className="property-item">
-            <h5 className="property-name mb-0">{propertyInfo.name}</h5>
+            <h5 className="property-name mb-0">{}</h5>
             {/* Details */}
             <div className="property-details property-spacing">
               <span className="property-holder__house-type">

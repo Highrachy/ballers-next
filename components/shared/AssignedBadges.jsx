@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { Form, Formik } from 'formik';
 import {
@@ -12,111 +12,114 @@ import { generateNumOptions, valuesToOptions } from 'utils/helpers';
 import Input from 'components/forms/Input';
 import Button from 'components/forms/Button';
 import BackendPage from 'components/layout/BackendPage';
-import { PortfolioIcon } from 'components/utils/Icons';
-import { moneyFormatInNaira } from 'utils/helpers';
+import { BadgesIcon } from 'components/utils/Icons';
 import Humanize from 'humanize-plus';
 import Image from 'components/utils/Image';
-import PortfolioPlaceholderImage from 'assets/img/placeholder/property.png';
-import { HOUSE_TYPES } from 'utils/constants';
+import BadgePlaceholderImage from 'assets/img/placeholder/property.png';
+import { DASHBOARD_PAGE, HOUSE_TYPES } from 'utils/constants';
 import { useCurrentRole } from 'hooks/useUser';
 import { API_ENDPOINT } from 'utils/URL';
 import { Spacing } from 'components/common/Helpers';
 
-const Portfolios = () => {
+const Badges = () => {
   return (
     <BackendPage>
       <PaginatedContent
-        endpoint={API_ENDPOINT.getAllPortfolios()}
-        pageName="Portfolio"
-        pluralPageName="Portfolios"
-        DataComponent={PortfoliosRowList}
+        addNewUrl="/admin/badges/new"
+        endpoint={API_ENDPOINT.getAllAssignedBadges()}
+        pageName="Badge"
+        pluralPageName="Badges"
+        DataComponent={BadgesRowList}
         FilterComponent={FilterForm}
-        PageIcon={<PortfolioIcon />}
-        queryName="portfolio"
+        PageIcon={<BadgesIcon />}
+        queryName="badge"
       />
     </BackendPage>
   );
 };
 
-const PortfoliosRowList = ({ results, offset }) => (
-  <div className="container-fluid">
-    <Card className="mt-2">
-      <div className="table-responsive">
-        <table className="table table-border table-hover">
-          <thead>
-            <tr>
-              <th>S/N</th>
-              <th>Image</th>
-              <th>Name</th>
-              <th>User</th>
-              <th>Price</th>
-              <th>&nbsp;</th>
-            </tr>
-          </thead>
-          <tbody>
-            {results.map((portfolio, index) => (
-              <PortfoliosRow
-                key={index}
-                number={offset + index + 1}
-                {...portfolio}
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </Card>
-  </div>
-);
+const BadgesRowList = ({ results, offset }) => {
+  const isAdmin = useCurrentRole().isAdmin;
+  return (
+    <div className="container-fluid">
+      <Card className="mt-2">
+        <div className="table-responsive">
+          <table className="table table-border table-hover">
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>Image</th>
+                <th>Name</th>
+                {isAdmin && (
+                  <>
+                    <th>Role</th>
+                    <th>No of users</th>
+                    <th>&nbsp;</th>
+                  </>
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              {results.map((badge, index) => (
+                <BadgesRow key={index} number={offset + index + 1} {...badge} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  );
+};
 
-const PortfoliosRow = ({
+const BadgesRow = ({
   _id,
   number,
-  propertyInfo,
-  totalAmountPayable,
-  userInfo,
-  vendorInfo,
+  name,
+  image,
+  assignedRole,
+  noOfAssignedUsers,
 }) => {
   const userType = useCurrentRole().name;
+  const isAdmin = useCurrentRole().isAdmin;
   return (
     <tr>
       <td>{number}</td>
       <td>
-        <Link to={`/${userType}/portfolio/${_id}`}>
-          <Image
-            src={propertyInfo.mainImage}
-            name={`portfolio ${_id}`}
-            width="80"
-            alt="portfolio"
-            defaultImage={PortfolioPlaceholderImage}
-          />
-        </Link>
+        {image ? (
+          <Link href={`/${userType}/badge/${_id}`}>
+            <Image
+              src={image}
+              name={`badge ${_id}`}
+              width="80"
+              alt="badge"
+              defaultImage={BadgePlaceholderImage}
+            />
+          </Link>
+        ) : (
+          <div className="icon-xl">
+            <BadgesIcon />
+          </div>
+        )}
       </td>
-      <td>
-        <span className="fw-bold block-text-small">{propertyInfo.name}</span>
-        <span className="block-text-smaller">
-          {vendorInfo?.vendor?.companyName}
-        </span>
-      </td>
-      <td>
-        {userInfo?.firstName} {userInfo?.lastName}
-        <div className="block-text-smaller text-link">
-          <Link to={`/${useCurrentRole().name}/offer/${_id}`}>View Offer</Link>
-        </div>
-      </td>
-      <td>
-        <h5 className="text-dark">{moneyFormatInNaira(totalAmountPayable)}</h5>
-      </td>
-
-      <td>
-        <Spacing />
-        <Spacing />
-        <Link
-          className="btn btn-xs btn-wide btn-secondary"
-          to={`/${userType}/portfolio/${_id}`}
-        >
-          View portfolio
-        </Link>
-      </td>
+      <td>{name}</td>
+      {isAdmin && (
+        <>
+          <td>{Humanize.titleCase(DASHBOARD_PAGE[assignedRole] || 'All')}</td>
+          <td>
+            {noOfAssignedUsers} {Humanize.pluralize(noOfAssignedUsers, 'user')}
+          </td>
+          <td>
+            <Spacing />
+            <Spacing />
+            <Link
+              className="btn btn-xs btn-wide btn-secondary"
+              href={`/${userType}/badge/${_id}`}
+            >
+              View badge
+            </Link>
+          </td>
+        </>
+      )}
     </tr>
   );
 };
@@ -139,11 +142,11 @@ const FilterForm = ({ setFilterTerms }) => {
           <Card className="card-container">
             <section className="row">
               <div className="col-md-10 px-4">
-                <h5 className="mb-4">Filter Portfolios</h5>
+                <h5 className="mb-4">Filter Badges</h5>
                 <div className="form-row">
                   <Input
                     formGroupClassName="col-md-6"
-                    label="Portfolio Name"
+                    label="Badge Name"
                     name="name"
                   />
                   <Input
@@ -185,4 +188,4 @@ const FilterForm = ({ setFilterTerms }) => {
   );
 };
 
-export default Portfolios;
+export default Badges;

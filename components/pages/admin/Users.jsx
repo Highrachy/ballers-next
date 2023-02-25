@@ -8,7 +8,7 @@ import {
   VENDOR_IDENTIFICATION_TYPE,
   VENDOR_INFO_STATUS,
 } from 'utils/constants';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import Humanize from 'humanize-plus';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { Form, Formik } from 'formik';
@@ -123,7 +123,7 @@ const UsersRow = ({ number, ...user }) => {
       <td>
         <Link
           className="btn btn-xs btn-wide btn-secondary"
-          to={`/admin/user/${user?._id}`}
+          href={`/admin/user/${user?._id}`}
         >
           View
         </Link>

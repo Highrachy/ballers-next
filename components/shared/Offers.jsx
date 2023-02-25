@@ -1,7 +1,7 @@
 import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import { Card } from 'react-bootstrap';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { API_ENDPOINT } from 'utils/URL';
 import { moneyFormatInNaira } from 'utils/helpers';
@@ -26,7 +26,7 @@ const Offers = () => (
     <section className="container-fluid">
       <div className="text-end">
         <Link
-          to="/vendor/offer-templates"
+          href="/vendor/offer-templates"
           className="btn btn-sm btn-wide btn-outline-dark"
         >
           View Offer Templates
@@ -107,7 +107,7 @@ const OffersRow = ({
       <td>
         <Link
           className="btn btn-xs btn-dark btn-wide"
-          to={`/${useCurrentRole().name}/offer/${_id}`}
+          href={`/${useCurrentRole().name}/offer/${_id}`}
         >
           View Offer
         </Link>

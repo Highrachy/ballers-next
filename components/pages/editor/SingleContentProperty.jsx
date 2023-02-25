@@ -11,7 +11,7 @@ import NoContent from 'components/utils/NoContent';
 import { PropertyIcon } from 'components/utils/Icons';
 import { getError, moneyFormatInNaira } from 'utils/helpers';
 import TopTitle from 'components/utils/TopTitle';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { Line } from 'react-chartjs-2';
 import Map from 'components/common/Map';
 
@@ -42,7 +42,7 @@ const SingleContentProperty = ({ id }) => {
       <Toast {...toast} showToastOnly />
       <TopTitle
         buttonText="New Content Property"
-        to={`/editor/content-property/new`}
+        href={`/editor/content-property/new`}
       >
         {contentProperty && contentProperty.area ? (
           <>
@@ -214,7 +214,7 @@ const ContentPropertyRow = ({
       <td>
         <Link
           className="btn btn-sm btn-danger"
-          to={`/editor/content-property/edit/${_id}`}
+          href={`/editor/content-property/edit/${_id}`}
         >
           Edit Property
         </Link>

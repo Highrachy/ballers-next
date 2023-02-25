@@ -74,7 +74,7 @@ export const AddNewButton = ({ children, to }) => {
   return (
     <div className="text-end">
       {isLink ? (
-        <Link to={to} className={btnClassName}>
+        <Link href={to} className={btnClassName}>
           {children}
         </Link>
       ) : (

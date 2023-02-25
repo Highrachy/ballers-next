@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { Formik, Form } from 'formik';
 import Axios from 'axios';
 import Input from 'components/forms/Input';
@@ -30,8 +30,8 @@ const Content = () => {
               </section>
               <section className="auth__footer">
                 <div className="mt-6 text-center">
-                  <Link className="auth__link" to="/login">
-                    Back to Login Page
+                  <Link href="/login">
+                    <a className="auth__link">Back to Login Page</a>
                   </Link>
                 </div>
               </section>

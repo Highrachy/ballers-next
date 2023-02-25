@@ -19,7 +19,7 @@ import { addGallerySchema } from 'components/forms/schemas/propertySchema';
 import { getError, statusIsSuccessful } from 'utils/helpers';
 import Upload from 'components/utils/Upload';
 import Input from 'components/forms/Input';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import BackendPage from 'components/layout/BackendPage';
 import Image from 'components/utils/Image';
 import { SlideDown } from 'react-slidedown';
@@ -107,7 +107,7 @@ const Gallery = ({ propertyId }) => {
 
         <Link
           className="btn btn-secondary btn-wide mt-5"
-          to={`/vendor/property/${property?._id}`}
+          href={`/vendor/property/${property?._id}`}
         >
           Back to Property
         </Link>

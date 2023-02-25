@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BackendPage from 'components/layout/BackendPage';
 import { Card } from 'react-bootstrap';
 import { MessageIcon } from 'components/utils/Icons';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { API_ENDPOINT } from 'utils/URL';
 import UserCard from 'components/common/UserCard';
@@ -82,7 +82,10 @@ const EnquiriesRow = ({
       />
     </td>
     <td>
-      <Link className="btn btn-sm btn-secondary" to={`/vendor/enquiry/${_id}`}>
+      <Link
+        className="btn btn-sm btn-secondary"
+        href={`/vendor/enquiry/${_id}`}
+      >
         View Enquiry
       </Link>
     </td>

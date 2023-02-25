@@ -4,10 +4,10 @@ import { useState, createContext } from 'react';
 export const UserContext = createContext(null);
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   async function loginUser(user, token = null) {
-    setUser(user);
+    setUser({ ...user, isLoggedIn: true });
     token && storeToken(token);
   }
 
@@ -16,12 +16,19 @@ const UserProvider = ({ children }) => {
     setUser(null);
   };
 
+  async function userDispatch(payload) {
+    if (payload?.user) {
+      setUser({ ...user, ...payload.user, isLoggedIn: true });
+    }
+  }
+
   const useract = {
     user: user,
     setUser: setUser,
     userState: user,
     loginUser: loginUser,
     logoutUser: logoutUser,
+    userDispatch: userDispatch,
   };
 
   return (

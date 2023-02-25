@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { RightArrowIcon } from 'components/utils/Icons';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property-holder.jpg';
 import { moneyFormatInNaira } from 'utils/helpers';
@@ -17,101 +17,9 @@ import { ToiletIcon } from 'components/utils/Icons';
 import Humanize from 'humanize-plus';
 import { PropertyIcon } from 'components/utils/Icons';
 import { MapPinIcon } from 'components/utils/Icons';
-import Image from 'components/utils/Image';
+import Image, { OnlineImage } from 'components/utils/Image';
 import ProfileAvatar from 'assets/img/placeholder/property-holder.jpg';
 import { useCurrentRole } from 'hooks/useUser';
-
-export const OldPropertyCard = (property) => {
-  const { name, address, favorites, houseType, mainImage, price, _id } =
-    property;
-  const [loading, setLoading] = React.useState(false);
-  const isFavorite = (favorites || []).includes(_id);
-  let { userDispatch } = React.useContext(UserContext);
-
-  const handleFavorites = (propertyId) => {
-    setLoading(true);
-    const FAVORITE_URL = isFavorite ? 'remove-favorite' : 'add-to-favorites';
-    Axios.post(
-      `${BASE_API_URL}/user/${FAVORITE_URL}`,
-      { propertyId },
-      {
-        headers: {
-          Authorization: getTokenFromStore(),
-        },
-      }
-    )
-      .then(function (response) {
-        const { status } = response;
-        if (status === 200) {
-          setLoading(false);
-          userDispatch({ type: FAVORITE_URL, property });
-        }
-      })
-      .catch(function () {
-        setLoading(false);
-      });
-  };
-  const currentRole = useCurrentRole().name;
-
-  return (
-    <section className="mb-3">
-      <Card className="card-container property-holder">
-        {loading ? (
-          <div className="favorites-icon">
-            <BallersSpinner small />
-          </div>
-        ) : (
-          <div
-            className={`favorites-icon ${
-              isFavorite
-                ? 'favorites-icon__is-favorite'
-                : 'favorites-icon__not-favorite'
-            }`}
-            onClick={() => handleFavorites(_id)}
-          >
-            <span>
-              <LoveIcon />
-            </span>
-          </div>
-        )}
-        <div className="row">
-          <div className="col-md-5">
-            <img
-              src={mainImage || PropertyPlaceholderImage}
-              alt="Property"
-              className="img-fluid property-holder__img"
-            />
-          </div>
-          <div className="col-md-7">
-            <h5 className="fw-500 mt-3 mt-md-0">{name}</h5>
-            <div className="property-holder__location">
-              Location:{' '}
-              <strong>
-                {address?.city}, {address?.state}
-              </strong>
-            </div>
-            <div className="property-holder__house-type">
-              House Type: <strong>{houseType}</strong>
-            </div>
-
-            <h5 className="mt-2">{moneyFormatInNaira(price)}</h5>
-            <div className="property-holder__separator"></div>
-
-            <Link
-              className="text-uppercase small float-end badge badge-dark property-holder__details"
-              to={`/${currentRole}/property/${_id}`}
-            >
-              Details{' '}
-              <div className="small-icon">
-                <RightArrowIcon />
-              </div>
-            </Link>
-          </div>
-        </div>
-      </Card>
-    </section>
-  );
-};
 
 const PropertyCard = (property) => {
   const { name, address, favorites, houseType, mainImage, price, _id } =
@@ -166,10 +74,11 @@ const PropertyCard = (property) => {
             </span>
           </div>
         )}
-        <Link to={`/${currentRole}/property/${_id}`}>
+        <Link href={`/${currentRole}/property/${_id}`}>
           <article>
             <div className="content-image">
-              <img
+              <OnlineImage
+                name={name}
                 src={mainImage || PropertyPlaceholderImage}
                 alt="Property"
                 className="img-fluid property-holder__img"
@@ -291,7 +200,7 @@ export const PropertyAvatar = ({
   return !linkToPage ? (
     output
   ) : (
-    <Link to={propertyURL} className={className}>
+    <Link href={propertyURL} className={className}>
       {output}
     </Link>
   );

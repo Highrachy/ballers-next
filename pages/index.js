@@ -177,7 +177,7 @@ const HowItWorksSection = () => (
 //             <strong>become a Landlord.</strong>
 //           </p>
 
-//           <Link to="/register" className="btn btn-secondary my-4">
+//           <Link href="/register" className="btn btn-secondary my-4">
 //             Register for Free
 //           </Link>
 //         </div>

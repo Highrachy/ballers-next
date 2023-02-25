@@ -4,7 +4,7 @@ import BackendPage from 'components/layout/BackendPage';
 import { Card } from 'react-bootstrap';
 import Toast, { useToast } from 'components/utils/Toast';
 import { PropertyIcon } from 'components/utils/Icons';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { API_ENDPOINT } from 'utils/URL';
 import PaginatedContent from 'components/common/PaginatedContent';
 
@@ -23,7 +23,7 @@ const AllContentProperty = () => {
         limit={2}
       />
       <div className="container-fluid">
-        <Link to="/editor/content-property/upload" className="btn btn-dark">
+        <Link href="/editor/content-property/upload" className="btn btn-dark">
           Upload From Excel
         </Link>
       </div>
@@ -79,12 +79,15 @@ const ContentPropertyRow = ({ _id, area, number, numOfProperties, state }) => {
       <td>
         <Link
           className="btn btn-sm btn-secondary"
-          to={`/editor/content-property/area/${_id}`}
+          href={`/editor/content-property/area/${_id}`}
         >
           View Properties
         </Link>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <Link className="btn btn-sm btn-danger" to={`/editor/area/edit/${_id}`}>
+        <Link
+          className="btn btn-sm btn-danger"
+          href={`/editor/area/edit/${_id}`}
+        >
           Edit Area
         </Link>
       </td>

@@ -29,7 +29,7 @@ import {
   respondTermsReviewSchema,
 } from 'components/forms/schemas/offerSchema';
 import { Spacing } from 'components/common/Helpers';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 
 const PendingOffers = () => (
   <BackendPage>
@@ -582,7 +582,7 @@ const OffersRow = ({ offer, number, showTermsAndConditionsModal }) => {
           <Spacing />
           <Link
             className="btn btn-primary btn-xs"
-            to={`/${useCurrentRole().name}/offer/${offer._id}`}
+            href={`/${useCurrentRole().name}/offer/${offer._id}`}
           >
             View Offer
           </Link>

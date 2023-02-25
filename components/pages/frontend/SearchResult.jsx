@@ -37,7 +37,7 @@ import useWindowSize from 'hooks/useWindowSize';
 import * as queryString from 'query-string';
 import { Slide } from 'react-awesome-reveal';
 import { BASE_API_URL, MOBILE_WIDTH } from 'utils/constants';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 
 const SearchResult = ({ location }) => {
   const queryParams = queryString.parse(location.search);
@@ -434,7 +434,7 @@ const ResultCard = ({ result, setShowResultCard }) => {
           <ArrowLeftIcon /> Redefine your Eligibility status
         </button>
 
-        <Link to="/register" className="btn btn-success">
+        <Link href="/register" className="btn btn-success">
           Create a free account
         </Link>
       </div>

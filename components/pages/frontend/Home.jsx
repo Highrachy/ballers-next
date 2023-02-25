@@ -14,7 +14,7 @@ import SearchPropertyForm from 'components/common/SearchPropertyForm';
 import { Flash, Slide } from 'react-awesome-reveal';
 import useWindowSize from 'hooks/useWindowSize';
 import { BASE_API_URL, MOBILE_WIDTH } from 'utils/constants';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import Modal from 'components/common/Modal';
 import Axios from 'axios';
 import { HouseIcon } from 'components/utils/Icons';
@@ -192,7 +192,7 @@ const HowItWorksSection = () => (
               </p>
             </li>
             <li className="timeline-no-border">
-              <Link to="/register" className="btn btn-secondary">
+              <Link href="/register" className="btn btn-secondary">
                 SIGN UP NOW
               </Link>
             </li>
@@ -246,7 +246,7 @@ const ReferralModal = ({
             <strong>become a Landlord.</strong>
           </p>
 
-          <Link to="/register" className="btn btn-secondary my-4">
+          <Link href="/register" className="btn btn-secondary my-4">
             Register for Free
           </Link>
         </div>

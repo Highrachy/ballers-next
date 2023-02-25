@@ -9,7 +9,7 @@ import { ContentLoader } from 'components/utils/LoadingItems';
 import { VasIcon } from 'components/utils/Icons';
 import { ProcessVasForm } from '../user/ProcessVas';
 import { Card } from 'react-bootstrap';
-// import { Link } from '@reach/router';
+// import Link from 'next/link';
 import { VasRequestsList } from './VasRequests';
 import Button from 'components/forms/Button';
 import Modal from 'components/common/Modal';

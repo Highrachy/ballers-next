@@ -23,7 +23,7 @@ import ViewMap from 'assets/img/view-map.png';
 import Conversation from 'assets/img/conversation.png';
 import QuotationMarkUp from 'assets/img/icons/quote-up.png';
 import QuotationMarkDown from 'assets/img/icons/quote-down.png';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 
 const AtoZ = () => (
   <>
@@ -244,7 +244,7 @@ const HowBallersWork = () => (
       </section>
       <div className="row mt-md-5 pt-md-5 mt-lg-0 pt-lg-0">
         <div className="col-sm-12 pt-md-3 pt-lg-0">
-          <Link to="/register" className="btn btn-link">
+          <Link href="/register" className="btn btn-link">
             APPLY NOW
           </Link>
         </div>
@@ -275,7 +275,7 @@ const HowBallersWork = () => (
           investment.
         </p>
         <div className="col-sm-12 pt-md-3 text-start">
-          <Link to="/register" className="btn btn-secondary ms-n3">
+          <Link href="/register" className="btn btn-secondary ms-n3">
             APPLY NOW
           </Link>
         </div>
@@ -320,7 +320,7 @@ const HowBallersWork = () => (
                 process of buying your next property.
               </p>
               <div className="col-sm-12 pt-md-3">
-                <Link to="/register" className="btn btn-secondary">
+                <Link href="/register" className="btn btn-secondary">
                   APPLY NOW
                 </Link>
               </div>

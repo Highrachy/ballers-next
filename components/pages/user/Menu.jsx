@@ -1,7 +1,7 @@
 import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import { Card } from 'react-bootstrap';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { useMenu } from 'hooks/useMenu';
 
 const Menu = () => {
@@ -12,7 +12,7 @@ const Menu = () => {
         <h4 className="my-4">Menu</h4>
         {menus.map(({ title, to, icon }) => (
           <Card key={title} className="menu__card">
-            <Link to={to}>
+            <Link href={to}>
               <div className="menu__icon">{icon}</div>
               <h6 className="menu__title">{title}</h6>
             </Link>

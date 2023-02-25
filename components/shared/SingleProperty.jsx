@@ -7,7 +7,7 @@ import { useToast } from 'components/utils/Toast';
 import { moneyFormatInNaira, getLocationFromAddress } from 'utils/helpers';
 import Image from 'components/utils/Image';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property.png';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { BathIcon } from 'components/utils/Icons';
 import { ToiletIcon } from 'components/utils/Icons';
 import { BedIcon } from 'components/utils/Icons';
@@ -110,7 +110,7 @@ export const OwnedPropertyCard = ({
         <div className="my-5 text-end">
           <Link
             className="btn btn-dark btn-wide"
-            to={`/vendor/property/template/${property._id}`}
+            href={`/vendor/property/template/${property._id}`}
           >
             Create Property Template
           </Link>
@@ -620,14 +620,14 @@ const ReportProperty = ({ property, setToast, setProperty }) => {
 const ManagePropertyLink = ({ property, setToast, setProperty }) => (
   <section className="mt-3">
     <Link
-      to={`/vendor/property/edit/${property._id}`}
+      href={`/vendor/property/edit/${property._id}`}
       className="text-link text-muted"
     >
       Edit Property
     </Link>
     <LinkSeparator />
     <Link
-      to={`/vendor/gallery/${property._id}`}
+      href={`/vendor/gallery/${property._id}`}
       className="text-link  text-muted"
     >
       {property?.gallery?.length > 0 ? 'Edit Gallery' : 'Add Gallery'}
@@ -779,7 +779,7 @@ export const PropertyHeader = ({ property, enquiryInfo, vendorInfo }) => {
         <div className="col-sm-4 text-end">
           <Link
             className="text-muted"
-            to={`/vendors/${vendorInfo?.vendor?.slug}`}
+            href={`/vendors/${vendorInfo?.vendor?.slug}`}
           >
             <VendorIcon /> {vendorInfo?.vendor?.companyName}
           </Link>
@@ -797,7 +797,7 @@ export const PropertyHeader = ({ property, enquiryInfo, vendorInfo }) => {
             <>
               {(enquiryInfo?.approved || !userHasPreviousEnquiry) && (
                 <Link
-                  to={`/user/property/enquiry/${property._id}`}
+                  href={`/user/property/enquiry/${property._id}`}
                   className="btn btn-sm btn-wide btn-secondary"
                 >
                   {userHasPreviousEnquiry ? 'Buy Property Again' : 'Buy Now'}

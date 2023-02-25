@@ -1,7 +1,7 @@
 import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import { UserContext } from 'context/UserContext';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import {
   getCompletedSteps,
   getVerificationState,
@@ -94,7 +94,7 @@ const UnVerifiedVendorContent = () => {
               </div>
               <div className="col-md-4 text-end">
                 <Link
-                  to={`/vendor/setup/${verificationState.page}`}
+                  href={`/vendor/setup/${verificationState.page}`}
                   className="btn btn-sm btn-wide btn-secondary mt-3"
                 >
                   {noOfCompletedSteps > 0 ? 'Continue Setup' : 'Start Setup'}
@@ -247,7 +247,7 @@ const VerifiedVendorContent = () => {
 };
 
 const VerificationCard = ({ title, children, icon, index, status }) => (
-  <Link to={`/vendor/setup/${index + 1}`} className="col-md-6 mb-4">
+  <Link href={`/vendor/setup/${index + 1}`} className="col-md-6 mb-4">
     <div className="card verification-card">
       <div className="verification-card__block">
         <div className="verification-card__img">{icon}</div>
@@ -269,7 +269,7 @@ const VerificationCard = ({ title, children, icon, index, status }) => (
 );
 
 export const NoticeCard = ({ Icon, name, message, type, link }) => (
-  <Link to={link}>
+  <Link href={link}>
     <Alert key={name} variant={type} className="notice-card py-0">
       <div className="notice-card__text">
         <span className={`text-${type}`}>{Icon}</span>

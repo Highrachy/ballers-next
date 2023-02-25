@@ -14,7 +14,7 @@ import BackendPage from 'components/layout/BackendPage';
 import { VasRequestIcon } from 'components/utils/Icons';
 import Humanize from 'humanize-plus';
 import { API_ENDPOINT } from 'utils/URL';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { useCurrentRole } from 'hooks/useUser';
 
 const VasRequests = () => (
@@ -75,7 +75,7 @@ const VasRequestsRow = ({ _id, number, status, vasInfo }) => {
       <td>{status}</td>
       <td>
         <Link
-          to={`/${userType}/service/requests/${_id}`}
+          href={`/${userType}/service/requests/${_id}`}
           className="btn btn-xs btn-secondary btn-wide"
         >
           View Request{' '}

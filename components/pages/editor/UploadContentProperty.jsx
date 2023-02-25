@@ -227,7 +227,7 @@ const PropertyInfoForm = ({
           </p>
           <p className="text-muted small mb-5">
             If the property state or area is not in the dropdown, you can{' '}
-            <Link to="/editor/area/new">add a new one here</Link>
+            <Link href="/editor/area/new">add a new one here</Link>
           </p>
 
           <div className="form-row">

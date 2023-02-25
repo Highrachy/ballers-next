@@ -202,7 +202,16 @@ export const getFormattedAddress = ({
   </address>
 );
 
-export const isValidURL = (str) => {
+export const isValidUrl = (url) => {
+  try {
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+export const isValidURL2 = (str) => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name

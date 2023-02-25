@@ -4,11 +4,11 @@ import Link from 'next/link';
 import Toast, { useToast } from 'components/utils/Toast';
 import { PropertyIcon } from 'components/utils/Icons';
 import PortfolioCards from 'components/common/PortfolioCards';
-import { OffersRowList } from '../shared/Offers';
+import { OffersRowList } from 'components/shared/Offers';
 import { API_ENDPOINT } from 'utils/URL';
 import { OfferIcon } from 'components/utils/Icons';
 import PaginatedContent from 'components/common/PaginatedContent';
-import { PropertiesRowList } from './JustForYou';
+import { PropertiesRowList } from '@/components/common/PropertiesRowList';
 
 const Portfolio = () => {
   const [toast, setToast] = useToast();
@@ -20,7 +20,7 @@ const Portfolio = () => {
   );
 };
 
-const Content = ({ setToast, recommendedProperties }) => (
+const Content = ({ setToast }) => (
   <>
     <div className="container-fluid">
       <div className="row">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import PaginatedContent from 'components/common/PaginatedContent';
 import Select from 'components/forms/Select';
 import { generateNumOptions, valuesToOptions } from 'utils/helpers';
@@ -95,7 +95,7 @@ const ReportedPropertiesRow = ({
     <tr>
       <td>{number}</td>
       <td>
-        <Link to={`/${userType}/property/${_id}`}>
+        <Link href={`/${userType}/property/${_id}`}>
           <Image
             src={propertyInfo?.mainImage}
             name={`property ${propertyInfo?._id}`}
@@ -111,11 +111,8 @@ const ReportedPropertiesRow = ({
         <UserCard user={reportedBy} />
       </td>
       <td>
-        <Link
-          className="btn btn-xs btn-secondary"
-          to={`/${userType}/property/${propertyInfo?._id}`}
-        >
-          View
+        <Link href={`/${userType}/property/${propertyInfo?._id}`}>
+          <a className="btn btn-xs btn-secondary">View</a>
         </Link>
         <Spacing />
         <FlagProperty

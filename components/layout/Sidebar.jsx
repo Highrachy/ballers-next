@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BallersLogo from 'assets/img/logo/ballers-logo.png';
 import classNames from 'classnames';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { useMenu } from 'hooks/useMenu';
+import Image from 'next/image';
 
 const Sidebar = ({ showSidebar, closeSidebar, ...props }) => {
   const sideMenu = useMenu();
@@ -22,8 +22,16 @@ const Sidebar = ({ showSidebar, closeSidebar, ...props }) => {
         })}
       >
         <div className="sidebar__logo">
-          <Link to="/">
-            <img alt="Ballers Logo" src={BallersLogo} />
+          <Link href="/" passHref>
+            <a>
+              <Image
+                src="/img/ballers-logo.png"
+                alt="ballers logo"
+                className="ballers-logo-footer"
+                width="86"
+                height="55"
+              />
+            </a>
           </Link>
           <div className="sidebar__close" onClick={closeSidebar}>
             <button
@@ -54,14 +62,11 @@ Sidebar.Navigation = ({ menus, closeSidebar }) => {
     <ul className="sidebar-menu">
       {menus.map(({ title, to, icon }) => (
         <li key={title}>
-          <Link
-            getProps={isActive}
-            onClick={closeSidebar}
-            to={to}
-            className="sidebar-menu__item"
-          >
-            <span className="sidebar__icon">{icon}</span> &nbsp;
-            {title}
+          <Link passHref href={to}>
+            <a onClick={closeSidebar} className="sidebar-menu__item">
+              <span className="sidebar__icon">{icon}</span> &nbsp;
+              {title}
+            </a>
           </Link>
         </li>
       ))}
@@ -75,10 +80,12 @@ Sidebar.Navigation.propTypes = {
   menus: PropTypes.array.isRequired,
 };
 
-const isActive = ({ isCurrent }) => {
-  return isCurrent
-    ? { className: 'sidebar-menu__item active' }
-    : { className: 'sidebar-menu__item' };
-};
+Sidebar.Navigation.displayName = 'Sidebar Navigation';
+
+// const isActive = ({ isCurrent }) => {
+//   return isCurrent
+//     ? { className: 'sidebar-menu__item active' }
+//     : { className: 'sidebar-menu__item' };
+// };
 
 export default Sidebar;

@@ -18,17 +18,19 @@ const Header = () => {
     <>
       <Navbar fixed="top" bg="white" expand="lg">
         <div className="container-fluid">
-          <Navbar.Brand as={Link} href="/">
-            <div className="me-5">
-              <Image
-                className="ballers-logo"
-                src="/img/ballers-logo.png"
-                alt="Ballers logo"
-                width={96}
-                height={64}
-              />
-            </div>
-          </Navbar.Brand>
+          <Link href="/">
+            <Navbar.Brand>
+              <div className="me-5">
+                <Image
+                  className="ballers-logo"
+                  src="/img/ballers-logo.png"
+                  alt="Ballers logo"
+                  width={96}
+                  height={64}
+                />
+              </div>
+            </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="ballers-nav" />
           <Navbar.Collapse id="ballers-nav">
             <Nav className="me-auto">

@@ -5,6 +5,7 @@ import Toast, { useToast } from 'components/utils/Toast';
 import { moneyFormatInNaira } from 'utils/helpers';
 import { API_ENDPOINT } from 'utils/URL';
 import { useGetQuery } from 'hooks/useQuery';
+import 'chart.js/auto';
 
 const PROPERTY_COLOR = '#2dca73';
 const CONTRIBUTION_REWARD_COLOR = '#161d3f';

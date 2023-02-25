@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
 
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { Formik, Form } from 'formik';
 import Axios from 'axios';
 import Input from 'components/forms/Input';
@@ -93,9 +93,8 @@ const Content = ({ redirectTo, sid, token }) => {
               <section className="auth__footer">
                 <div className="register mt-6 text-center">
                   Registered?{' '}
-                  <Link className="auth__link" to="/login">
-                    {' '}
-                    Sign In
+                  <Link href="/login">
+                    <a className="auth__link">Sign In</a>
                   </Link>
                 </div>
               </section>

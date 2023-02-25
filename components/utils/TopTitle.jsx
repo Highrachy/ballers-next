@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { AddNewButton } from 'components/forms/Button';
 import { PlusIcon } from './Icons';
 
-const TopTitle = ({ children, buttonText, to }) => {
+const TopTitle = ({ children, buttonText, href }) => {
   return (
     <div className="container-fluid">
       <h4>
         {children}
-        {buttonText && to && (
+        {buttonText && href && (
           <div className="float-end">
-            <AddNewButton to={to}>
+            <AddNewButton href={href}>
               {<PlusIcon />} {buttonText}
             </AddNewButton>
           </div>
@@ -23,12 +23,12 @@ const TopTitle = ({ children, buttonText, to }) => {
 TopTitle.propTypes = {
   buttonText: PropTypes.string,
   children: PropTypes.node.isRequired,
-  to: PropTypes.any,
+  href: PropTypes.any,
 };
 
 TopTitle.defaultProps = {
   buttonText: null,
-  to: null,
+  href: null,
 };
 
 export default TopTitle;

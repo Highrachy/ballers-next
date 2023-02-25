@@ -17,7 +17,8 @@ import { addContentPropertySchema } from 'components/forms/schemas/propertySchem
 import InputFormat from 'components/forms/InputFormat';
 import { getError, valuesToOptions } from 'utils/helpers';
 import Select from 'components/forms/Select';
-import { Link, navigate } from '@reach/router';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const AddContentProperty = ({ id }) => (
   <BackendPage>
@@ -101,7 +102,7 @@ const EditContentPropertyForm = ({ id }) => {
         // console.log('error', error.response);
       });
   }, [id]);
-
+  const router = useRouter();
   return (
     <Formik
       enableReinitialize={true}
@@ -122,7 +123,7 @@ const EditContentPropertyForm = ({ id }) => {
           .then(function (response) {
             const { status } = response;
             if (status === 200) {
-              navigate(`/editor/content-property/area/${values.areaId}`);
+              router.push(`/editor/content-property/area/${values.areaId}`);
               actions.setSubmitting(false);
               actions.resetForm();
             }
@@ -225,7 +226,7 @@ const PropertyInfoForm = ({ values, id, defaultPlaceholder }) => {
           <h5 className="mb-2">{id ? 'Edit' : 'Add a new'} Content Property</h5>
           <p className="text-muted small mb-4">
             If the property state or area is not in the dropdown, you can{' '}
-            <Link to="/editor/area/new">add a new one here</Link>
+            <Link href="/editor/area/new">add a new one here</Link>
           </p>
           <div className="form-row">
             <Select

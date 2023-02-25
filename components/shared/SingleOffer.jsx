@@ -36,7 +36,7 @@ import { CancelOfferLetter } from './ProcessOffer';
 import { AssignOfferLetter } from './ProcessOffer';
 import { AllocateOfferLetter } from './ProcessOffer';
 import { RevertOfferLetter } from './ProcessOffer';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { CopyToClipBoardIcon } from 'components/utils/Icons';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { CheckIcon } from 'components/utils/Icons';
@@ -324,7 +324,7 @@ const DisplayOfferLetterTemplate = ({ offerId, setConcerns }) => {
               <div className="my-5 text-end">
                 <Link
                   className="btn btn-dark btn-wide"
-                  to={`/vendor/offer/template/${offer._id}`}
+                  href={`/vendor/offer/template/${offer._id}`}
                 >
                   Create Offer Template
                 </Link>
@@ -395,7 +395,7 @@ const DisplayOfferLetterTemplate = ({ offerId, setConcerns }) => {
                   link={`${process.env.REACT_APP_HOST}/offer/${offer._id}`}
                 />
                 <Link
-                  to={`${process.env.REACT_APP_HOST}/offer/${offer._id}`}
+                  href={`${process.env.REACT_APP_HOST}/offer/${offer._id}`}
                   className="btn btn-sm btn-dark btn-wide"
                 >
                   View Public Offer

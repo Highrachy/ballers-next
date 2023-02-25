@@ -1,10 +1,8 @@
 import React from 'react';
-import userSideMenu, { userLoadingMenu } from 'content/menu/userMenu';
-import adminSideMenu from 'content/menu/adminMenu';
-import editorSideMenu from 'content/menu/editorMenu';
-import vendorSideMenu, {
-  unVerifiedVendorSideMenu,
-} from 'content/menu/vendorMenu';
+import userSideMenu, { userLoadingMenu } from 'data/menu/userMenu';
+import adminSideMenu from 'data/menu/adminMenu';
+import editorSideMenu from 'data/menu/editorMenu';
+import vendorSideMenu, { unVerifiedVendorSideMenu } from 'data/menu/vendorMenu';
 import { USER_TYPES } from 'utils/constants';
 import { UserContext } from 'context/UserContext';
 import { getUserRoleFromStore } from 'utils/localStorage';
@@ -25,7 +23,7 @@ export const useMenu = () => {
   }
 
   //unloaded userState
-  if (!userState.isLoggedIn) {
+  if (!userState?.isLoggedIn) {
     return userLoadingMenu;
   }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import ProfileAvatar from 'assets/img/placeholder/user.jpg';
 import Image from 'components/utils/Image';
 import { USER_TYPES } from 'utils/constants';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { useCurrentRole } from 'hooks/useUser';
 import { UserIcon } from 'components/utils/Icons';
 
@@ -69,8 +69,8 @@ const UserCard = ({ user, hideImage, nameOnly }) => {
   return (
     <>
       {roleIsAdmin ? (
-        <Link className="user-card" to={`/admin/user/${_id}`}>
-          {UserInfo}
+        <Link passHref href={`/admin/user/${_id}`}>
+          <a className="user-card">{UserInfo}</a>
         </Link>
       ) : (
         <div className="user-card">{UserInfo}</div>

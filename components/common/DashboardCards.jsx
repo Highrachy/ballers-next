@@ -8,7 +8,7 @@ import { PortfolioIcon } from 'components/utils/Icons';
 import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
 import { ArrowRightIcon } from 'components/utils/Icons';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { useCurrentRole } from 'hooks/useUser';
 import Humanize from 'humanize-plus';
 import { ReportedPropertyIcon } from 'components/utils/Icons';
@@ -190,7 +190,7 @@ const DashboardCards = () => {
           <DashboardCard
             Icon={Icon}
             title={title}
-            to={to}
+            href={to}
             key={index}
             footer={footer}
             total={dashboardCountQuery?.data?.models?.[name] || 0}
@@ -204,7 +204,7 @@ const DashboardCards = () => {
 };
 
 const DashboardCard = ({ title, children, Icon, footer, to, total }) => (
-  <Link to={`/${useCurrentRole().name}/${to}`} className="col-md-6 mb-4">
+  <Link href={`/${useCurrentRole().name}/${to}`} className="col-md-6 mb-4">
     <div className="card verification-card">
       <div className="verification-card__block">
         <div className="verification-card__img">{Icon}</div>

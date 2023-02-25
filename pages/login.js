@@ -39,9 +39,6 @@ const Login = () => {
   );
 };
 
-// write 1 to 35 in an array
-const numbers = Array.from(Array(35).keys());
-
 const Content = ({ redirectTo, sid, token }) => {
   return (
     <section>
@@ -120,7 +117,7 @@ const LoginForm = ({ redirectTo, sid, token }) => {
   React.useEffect(() => {
     if (userState?.token && !token) {
       const dashboardUrl = `/${DASHBOARD_PAGE[userState.role]}/dashboard`;
-      router.push('/');
+      router.push(dashboardUrl);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userState, redirectTo, token]);
@@ -185,18 +182,6 @@ const LoginForm = ({ redirectTo, sid, token }) => {
             />
             <Button loading={isSubmitting} onClick={handleSubmit}>
               Sign in
-            </Button>
-
-            <Button
-              color="danger"
-              onClick={() =>
-                setToast({
-                  message: `Redirecting to ${redirectTo}`,
-                  type: 'error',
-                })
-              }
-            >
-              Testing 123
             </Button>
           </Form>
         );

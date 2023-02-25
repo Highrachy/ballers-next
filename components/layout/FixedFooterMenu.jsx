@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { MenuIcon } from 'components/utils/Icons';
 import { useMenu } from 'hooks/useMenu';
 
@@ -12,20 +12,24 @@ const FixedFooterMenu = () => {
           ({ title, to, icon, footer }) =>
             footer && (
               <li className="list-group-item flex-fill" key={title}>
-                <Link getProps={isActive} to={to}>
-                  <span className="footer-fixed__icon">{icon}</span>
-                  <p className="footer-fixed__menu-title">{title}</p>
+                <Link href={to} passHref>
+                  <a>
+                    <span className="footer-fixed__icon">{icon}</span>
+                    <p className="footer-fixed__menu-title">{title}</p>
+                  </a>
                 </Link>{' '}
               </li>
             )
         )}
         <li className="list-group-item flex-fill">
-          <Link to="/user/menu">
-            <span className="footer-fixed__icon">
-              <MenuIcon />
-            </span>
+          <Link href="/user/menu" passHref>
+            <a>
+              <span className="footer-fixed__icon">
+                <MenuIcon />
+              </span>
 
-            <p className="footer-fixed__menu-title">Menu</p>
+              <p className="footer-fixed__menu-title">Menu</p>
+            </a>
           </Link>
         </li>
       </ul>

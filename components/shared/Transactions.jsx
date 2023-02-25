@@ -33,7 +33,7 @@ import { formatFilterString, getRange, valuesToOptions } from 'utils/helpers';
 import InputFormat from 'components/forms/InputFormat';
 import FilterRange from 'components/forms/FilterRange';
 import DatePicker from 'components/forms/DatePicker';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 
 const Transactions = () => (
   <BackendPage>
@@ -524,7 +524,7 @@ const TransactionsRow = (transaction) => {
           )
         ) : (
           <Link
-            to={`/${userType}/transaction/${_id}`}
+            href={`/${userType}/transaction/${_id}`}
             className="btn btn-xs btn-wide btn-dark"
           >
             View

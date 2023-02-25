@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
-import { Link, navigate } from '@reach/router';
+import Link from 'next/link';
 import { Formik, Form } from 'formik';
 import Axios from 'axios';
 import Input from 'components/forms/Input';
@@ -23,9 +23,10 @@ import {
 } from 'utils/localStorage';
 import { getError } from 'utils/helpers';
 import store from 'store2';
+import { useRouter } from 'next/router';
 
 const Login = ({ location }) => {
-  const queryParams = queryString.parse(location.search);
+  const { query } = useRouter();
   const { token } = queryParams;
 
   return (
@@ -59,9 +60,8 @@ const Content = ({ redirectTo, sid, token }) => {
               <section className="auth__footer">
                 <div className="register mt-6 text-center">
                   Not Registered?{' '}
-                  <Link className="auth__link" to="/register">
-                    {' '}
-                    Create Account
+                  <Link href="/register">
+                    <a className="auth__link">Create Account</a>
                   </Link>
                 </div>
               </section>
@@ -113,12 +113,15 @@ const LoginForm = ({ redirectTo, sid, token }) => {
         });
   }, [token, setToast]);
 
+  const router = useRouter();
+
   // CHECK IF USER HAS SIGNED IN
   React.useEffect(() => {
-    if (userState && userState.isLoggedIn && !token) {
+    if (userState && userState?.isLoggedIn && !token) {
       const dashboardUrl = `/${DASHBOARD_PAGE[userState.role]}/dashboard`;
-      navigate(redirectTo || dashboardUrl);
+      router.push(redirectTo || dashboardUrl);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userState, redirectTo, token]);
 
   return (

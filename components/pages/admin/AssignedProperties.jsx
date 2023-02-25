@@ -11,7 +11,7 @@ import NoContent from 'components/utils/NoContent';
 import { getError } from 'utils/helpers';
 import { MessageIcon } from 'components/utils/Icons';
 import TopTitle from 'components/utils/TopTitle';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 
 const AssignedProperties = () => {
   const [toast, setToast] = useToast();
@@ -103,8 +103,8 @@ const EnquiriesRow = ({
     <td>{phone}</td>
     <td>{propertyInfo[0] && propertyInfo[0].name}</td>
     <td>
-      <Link className="btn btn-sm btn-secondary" to={`/admin/enquiry/${_id}`}>
-        View Enquiry
+      <Link href={`/admin/enquiry/${_id}`}>
+        <a className="btn btn-sm btn-secondary">View Enquiry</a>
       </Link>
     </td>
   </tr>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 
 const NoContent = ({
   text,
@@ -26,10 +26,11 @@ const NoContent = ({
         className={classNames(
           { 'text-muted d-block': !isButton },
           {
-            'btn btn-danger d-inline-block mt-3 btn-wide btn-transparent': isButton,
+            'btn btn-danger d-inline-block mt-3 btn-wide btn-transparent':
+              isButton,
           }
         )}
-        to={linkTo}
+        href={linkTo}
       >
         {linkText}
       </Link>

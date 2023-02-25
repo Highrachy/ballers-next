@@ -1,7 +1,7 @@
 import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import { Card } from 'react-bootstrap';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { API_ENDPOINT } from 'utils/URL';
 import { PropertyIcon } from 'components/utils/Icons';
@@ -64,7 +64,7 @@ const PropertysRow = ({ number, propertyTemplate, setToast }) => {
           <Spacing />
           <Link
             className="btn btn-xs btn-dark btn-wide"
-            to={`/vendor/property-template/${_id}`}
+            href={`/vendor/property-template/${_id}`}
           >
             Edit Template
           </Link>

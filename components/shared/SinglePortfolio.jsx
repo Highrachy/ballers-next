@@ -1,13 +1,13 @@
 import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import { Card, ProgressBar } from 'react-bootstrap';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import { useToast } from 'components/utils/Toast';
 import { PortfolioIcon } from 'components/utils/Icons';
 import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
 import { ContentLoader } from 'components/utils/LoadingItems';
-import { OwnedPropertyCard } from '../shared/SingleProperty';
+import { OwnedPropertyCard } from './SingleProperty';
 import { moneyFormatInNaira } from 'utils/helpers';
 import { getTinyDate } from 'utils/date-helpers';
 import { LinkSeparator } from 'components/common/Helpers';
@@ -174,14 +174,14 @@ const AssignedPropertySidebar = ({ portfolio, setToast }) => {
         </table>
         <div className="text-center mt-3">
           <Link
-            to={`/user/offer/${portfolio._id}`}
+            href={`/user/offer/${portfolio._id}`}
             className="text-link text-secondary text-small"
           >
             View Offer Letter
           </Link>
           <LinkSeparator />
           <Link
-            to="/users/transaction"
+            href="/users/transaction"
             className="text-link text-secondary text-small"
           >
             Transaction History
@@ -202,7 +202,7 @@ const LovePropertySidebar = ({ portfolio, setToast }) => {
     <Card className="card-container property-holder">
       <h5 className="header-smaller">Love this Property?</h5>
       <Link
-        to={`/user/property/enquiry/${portfolio?.propertyInfo._id}`}
+        href={`/user/property/enquiry/${portfolio?.propertyInfo._id}`}
         className="btn btn-info btn-block my-3"
       >
         Buy Property Again

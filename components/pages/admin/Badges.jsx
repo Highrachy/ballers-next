@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { Form, Formik } from 'formik';
 import {
@@ -78,7 +78,7 @@ const BadgesRow = ({
       <td>{number}</td>
       <td>
         {image ? (
-          <Link to={`/${userType}/badge/${_id}`}>
+          <Link href={`/${userType}/badge/${_id}`}>
             <Image
               src={image}
               name={`badge ${_id}`}
@@ -103,7 +103,7 @@ const BadgesRow = ({
         <Spacing />
         <Link
           className="btn btn-xs btn-wide btn-secondary"
-          to={`/${userType}/badge/${_id}`}
+          href={`/${userType}/badge/${_id}`}
         >
           View badge
         </Link>

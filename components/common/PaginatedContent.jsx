@@ -56,7 +56,7 @@ const PaginatedContent = ({
   return (
     <>
       {showTitle && (
-        <TopTitle buttonText={`New ${pageName}`} to={addNewUrl}>
+        <TopTitle buttonText={`New ${pageName}`} href={addNewUrl}>
           {pagination?.total}{' '}
           {Humanize.pluralize(pagination?.total, pageName, pluralizePageName)}
         </TopTitle>

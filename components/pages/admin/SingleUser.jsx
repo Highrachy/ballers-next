@@ -30,7 +30,7 @@ import {
 import { createSchema } from 'components/forms/schemas/schema-helpers';
 import Textarea from 'components/forms/Textarea';
 import { VENDOR_STEPS } from 'utils/constants';
-import Image from 'components/utils/Image';
+import Image, { OnlineImage } from 'components/utils/Image';
 import ProfileAvatar from 'assets/img/avatar/profile.png';
 import Modal from 'components/common/Modal';
 import { SuccessIcon } from 'components/utils/Icons';
@@ -47,7 +47,7 @@ import { updateRemittanceSchema } from 'components/forms/schemas/userSchema';
 import InputFormat from 'components/forms/InputFormat';
 import { setQueryCache } from 'hooks/useQuery';
 import Select from 'components/forms/Select';
-import { Link } from '@reach/router';
+import Link from 'next/link';
 import BadgePlaceholderImage from 'assets/img/placeholder/property.png';
 import { BadgesIcon } from 'components/utils/Icons';
 
@@ -444,7 +444,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
                 </td>
                 <td colSpan="4">
                   {user.vendor?.companyLogo && (
-                    <Image
+                    <OnlineImage
                       name={user.firstName}
                       className="img-fluid dashboard-top-nav__company-logo mb-3"
                       src={user.vendor.companyLogo}
@@ -1154,7 +1154,7 @@ export const SingleUserBadge = ({ image, user, _id, name }) => {
     <div className="col-md-4 col-6 text-center mb-4">
       <div className="icon-xl mb-2 badge-gray">
         {image ? (
-          <Link to={`/${DASHBOARD_PAGE[user?.role]}/badge/${_id}`}>
+          <Link href={`/${DASHBOARD_PAGE[user?.role]}/badge/${_id}`}>
             <Image
               src={image}
               name={`badge ${_id}`}

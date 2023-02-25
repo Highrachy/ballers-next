@@ -21,7 +21,7 @@ import PortfolioCards from 'components/common/PortfolioCards';
 import { FileIcon } from 'components/utils/Icons';
 import { API_ENDPOINT } from 'utils/URL';
 import PaginatedContent from 'components/common/PaginatedContent';
-import { PropertiesRowList } from './JustForYou';
+import { PropertiesRowList } from '@/components/common/PropertiesRowList';
 
 const Dashboard = () => {
   const [toast, setToast] = useToast();
@@ -58,7 +58,7 @@ const Dashboard = () => {
 };
 
 const Welcome = () => {
-  const { userState /* userDispatch */ } = React.useContext(UserContext);
+  const { userState } = React.useContext(UserContext);
   const WINDOW_SIZE = useWindowSize();
   const [showSearch, setShowSearch] = React.useState(
     WINDOW_SIZE.width > MOBILE_WIDTH
@@ -73,7 +73,7 @@ const Welcome = () => {
           </div>
           <div className="col-sm-7">
             <section className="property-search__dashboard">
-              {showSearch ? (
+              {/* {showSearch ? (
                 <SearchForProperty />
               ) : (
                 <button
@@ -82,7 +82,7 @@ const Welcome = () => {
                 >
                   <SearchIcon /> Search Property
                 </button>
-              )}
+              )} */}
             </section>
           </div>
         </div>
@@ -109,12 +109,9 @@ const OffersRow = ({ _id, expires, status, propertyInfo, vendorInfo }) => {
       <div className="span toast-icon-holder icon-xl">
         <FileIcon />
       </div>
-      <div className="w-100 fw-normal">
-        <Link
-          className="btn btn-success btn-sm float-end"
-          href={`/user/offer/${_id}`}
-        >
-          View Offer Letter
+      <div className="w-100 font-weight-normal">
+        <Link href={`/user/offer/${_id}`} passHref>
+          <a className="btn btn-success btn-sm float-end">View Offer Letter</a>
         </Link>
         {vendorInfo?.vendor?.companyName} has sent you an offer letter for{' '}
         <strong>{propertyInfo.name}</strong>
@@ -150,8 +147,8 @@ const ReferAndEarn = () => (
       Refer your colleagues and friends to receive bonuses to grow your BALL net
       worth.
     </p>
-    <Link href="/user/refer-and-earn" className="btn btn-sm btn-secondary">
-      Refer and Earn
+    <Link href="/user/refer-and-earn">
+      <a className="btn btn-sm btn-secondary">Refer and Earn</a>
     </Link>
   </section>
 );
@@ -185,13 +182,15 @@ const Others = () => (
   </>
 );
 
-const LinkHeader = ({ name, to }) => (
+const LinkHeader = ({ name, href }) => (
   <>
     <div className="link-header">
       <span>{name}</span>
-      <Link href={to}>
-        View All &nbsp;
-        <RightArrowIcon />
+      <Link href={href}>
+        <a>
+          View All &nbsp;
+          <RightArrowIcon />
+        </a>
       </Link>
     </div>
   </>
@@ -202,8 +201,8 @@ const EnjoyYourBallingExperience = () => (
     <h5 className="mt-5">Enjoying your balling experience?</h5>
     <div className="mb-5">Expand your portfolio today</div>
 
-    <Link href="/user/just-for-you" className="btn btn-sm btn-secondary">
-      Add a new property +{' '}
+    <Link href="/user/just-for-you">
+      <a className="btn btn-sm btn-secondary">Add a new property + </a>
     </Link>
   </Card>
 );

@@ -5,10 +5,11 @@ import {
   customStylesJustForYou,
   customStylesDashboard,
 } from 'components/forms/Select';
-import { navigate } from '@reach/router';
+import { useRouter } from 'next/router';
 import { useAvailableOptions } from 'hooks/useAvailableOptions';
 
 const SearchPropertyForm = ({ defaultInputValue, useDashboardStyles }) => {
+  const router = useRouter();
   const statePlaceholder = 'Any State';
   const houseTypePlaceholder = 'Any House Type';
 
@@ -22,7 +23,8 @@ const SearchPropertyForm = ({ defaultInputValue, useDashboardStyles }) => {
     houseType: houseTypePlaceholder,
   });
 
-  const availableOptions = useAvailableOptions();
+  const availableOptions = useAvailableOptions() || {};
+  console.log('availableOptions', availableOptions);
 
   React.useEffect(() => {
     const defaults = placeholder;
@@ -46,7 +48,7 @@ const SearchPropertyForm = ({ defaultInputValue, useDashboardStyles }) => {
       params.push([`houseType=${formValue.houseType}`]);
     }
     const query = params.length > 0 ? `?${params.join('&')}` : '';
-    navigate(`/user/just-for-you${query}`, true);
+    router.push(`/user/just-for-you${query}`, true);
   };
 
   // Styles to use
