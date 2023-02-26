@@ -5,7 +5,9 @@ import Link from 'next/link';
 import { ReferIcon } from 'components/utils/Icons';
 import { RightArrowIcon, SearchIcon } from 'components/utils/Icons';
 import SearchForProperty from 'components/common/SearchDashboardPropertyForm';
-import ContributionGraph from 'components/common/ContributionGraph';
+import ContributionGraph, {
+  ContributionGraph2,
+} from 'components/common/ContributionGraph';
 import useWindowSize from 'hooks/useWindowSize';
 import { MOBILE_WIDTH, BASE_API_URL } from 'utils/constants';
 import { UserContext } from 'context/UserContext';
@@ -22,6 +24,7 @@ import { FileIcon } from 'components/utils/Icons';
 import { API_ENDPOINT } from 'utils/URL';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { PropertiesRowList } from '@/components/common/PropertiesRowList';
+import SquareBubbles from '@/components/common/SquareBubbles';
 
 const Dashboard = () => {
   const [toast, setToast] = useToast();
@@ -50,7 +53,7 @@ const Dashboard = () => {
     <BackendPage>
       <Toast {...toast} showToastOnly />
       <Welcome />
-      <ShowInfo offers={offers} />
+      {/* <ShowInfo offers={offers} /> */}
       <Overview />
       <Others />
     </BackendPage>
@@ -64,27 +67,12 @@ const Welcome = () => {
     WINDOW_SIZE.width > MOBILE_WIDTH
   );
   return (
-    <section className="container-fluid">
-      <div className="card bg-primary dashboard mb-3">
-        <div className="row">
-          <div className="col-sm-5">
-            <h4>Hello, {userState.firstName} </h4>
-            <p className="lead">Welcome to BALL!</p>
-          </div>
-          <div className="col-sm-7">
-            <section className="property-search__dashboard">
-              {/* {showSearch ? (
-                <SearchForProperty />
-              ) : (
-                <button
-                  className="btn btn-secondary btn-block"
-                  onClick={() => setShowSearch(true)}
-                >
-                  <SearchIcon /> Search Property
-                </button>
-              )} */}
-            </section>
-          </div>
+    <section className="position-relative mt-n5">
+      <div className="dashboard-hero mb-3">
+        <SquareBubbles />
+        <div className="px-5 py-6">
+          <h2 className="text-white">Hello, {userState.firstName} </h2>
+          <p className="lead">Welcome to BALL!</p>
         </div>
       </div>
     </section>
@@ -125,15 +113,16 @@ const OffersRow = ({ _id, expires, status, propertyInfo, vendorInfo }) => {
 };
 
 const Overview = () => (
-  <div className="container-fluid ">
-    <div className="row row-eq-height">
+  <div className="container-fluid mt-n6">
+    <ContributionGraph2 />
+    {/* <div className="row row-eq-height">
       <div className="col-sm-8 mb-3">
         <ContributionGraph />
       </div>
       <div className="col-sm-4 mb-3">
         <ReferAndEarn />
       </div>
-    </div>
+    </div> */}
   </div>
 );
 

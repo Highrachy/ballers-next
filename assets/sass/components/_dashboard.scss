@@ -93,8 +93,16 @@
     }
   }
 }
-.dashboard.bg-primary {
+.dashboard-hero {
   padding: 2rem;
+  background-image: linear-gradient(
+    to top,
+    #051937,
+    #0b1f43,
+    #122550,
+    #1b2b5c,
+    #253169
+  );
 
   h4,
   p {

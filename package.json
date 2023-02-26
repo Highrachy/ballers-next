@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "apexcharts": "^3.37.1",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.2.1",
@@ -22,6 +23,7 @@
     "number-to-words": "^1.2.4",
     "query-string": "^7.1.1",
     "react": "18.2.0",
+    "react-apexcharts": "^1.4.0",
     "react-awesome-reveal": "^3.8.1",
     "react-bootstrap": "^2.7.2",
     "react-chartjs-2": "^5.2.0",
@@ -42,6 +44,7 @@
   "devDependencies": {
     "eslint": "8.20.0",
     "eslint-config-next": "12.2.3",
-    "react-query-devtools": "^2.6.3"
+    "react-query-devtools": "^2.6.3",
+    "style-dictionary": "^3.7.2"
   }
 }
