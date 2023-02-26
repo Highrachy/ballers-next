@@ -1,0 +1,27 @@
+{
+  "source": [
+    "./style-dictionary/tokens/**/*.json"
+  ],
+  "platforms": {
+    "scss": {
+      "transformGroup": "scss",
+      "buildPath": "./style-dictionary/build/",
+      "files": [
+        {
+          "destination": "variables.scss",
+          "format": "scss/variables"
+        }
+      ]
+    },
+    "js": {
+      "transformGroup": "js",
+      "buildPath": "./style-dictionary/build/",
+      "files": [
+        {
+          "destination": "variables.js",
+          "format": "javascript/es6"
+        }
+      ]
+    }
+  }
+}

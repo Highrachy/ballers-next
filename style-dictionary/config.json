@@ -1,0 +1,35 @@
+{
+  "source": [
+    "./style-dictionary/tokens/**/*.json"
+  ],
+  "platforms": {
+    "web": {
+      "transformGroup": "js",
+      "buildPath": "./style-dictionary/build/",
+      "files": [
+        {
+          "destination": "js.source.tokens.json",
+          "format": "custom/sourceFile"
+        },
+        {
+          "destination": "color.tokens.js",
+          "format": "custom/color/object"
+        }
+      ]
+    },
+    "scss": {
+      "transformGroup": "custom1/scss",
+      "buildPath": "./style-dictionary/build/",
+      "files": [
+        {
+          "destination": "scss.source.tokens.json",
+          "format": "custom/sourceFile"
+        },
+        {
+          "destination": "color.tokens.scss",
+          "format": "scss/variables"
+        }
+      ]
+    }
+  }
+}

@@ -25,10 +25,13 @@ import { API_ENDPOINT } from 'utils/URL';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { PropertiesRowList } from '@/components/common/PropertiesRowList';
 import SquareBubbles from '@/components/common/SquareBubbles';
+import Color from 'style-dictionary/build/color.tokens.js';
 
 const Dashboard = () => {
   const [toast, setToast] = useToast();
   const [offers, setOffers] = React.useState(null);
+
+  console.log('Color', Color);
 
   React.useEffect(() => {
     Axios.get(`${BASE_API_URL}/offer/active`, {

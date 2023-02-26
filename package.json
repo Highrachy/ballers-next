@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build-dictionary": "node ./style-dictionary/custom-build.js",
     "start": "next start",
     "lint": "next lint"
   },
@@ -44,6 +45,7 @@
   "devDependencies": {
     "eslint": "8.20.0",
     "eslint-config-next": "12.2.3",
+    "lodash": "^4.17.21",
     "react-query-devtools": "^2.6.3",
     "style-dictionary": "^3.7.2"
   }

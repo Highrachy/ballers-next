@@ -13,6 +13,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { HeartAdd, Buildings, StatusUp, UserAdd } from 'iconsax-react';
 import Button from '../forms/Button';
+import Color from 'style-dictionary/build/color.tokens.js';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -91,7 +92,7 @@ export const Widget = ({
 };
 
 export const ContributionGraph2 = () => {
-  const radialchartColors = [' #5156be', ' #34c38f'];
+  const radialchartColors = [Color.primary['600'], Color.success['600']];
   const options = {
     chart: {
       height: 270,
@@ -141,7 +142,7 @@ export const ContributionGraph2 = () => {
     labels: ['Series A'],
   };
 
-  const series = [67];
+  const series = [100];
 
   return (
     <div className="row">
