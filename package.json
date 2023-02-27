@@ -10,7 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "apexcharts": "^3.37.1",
+    "@nivo/core": "^0.80.0",
+    "@nivo/pie": "^0.80.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.2.1",
@@ -24,7 +25,6 @@
     "number-to-words": "^1.2.4",
     "query-string": "^7.1.1",
     "react": "18.2.0",
-    "react-apexcharts": "^1.4.0",
     "react-awesome-reveal": "^3.8.1",
     "react-bootstrap": "^2.7.2",
     "react-chartjs-2": "^5.2.0",

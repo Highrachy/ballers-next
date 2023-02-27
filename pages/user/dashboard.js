@@ -5,9 +5,7 @@ import Link from 'next/link';
 import { ReferIcon } from 'components/utils/Icons';
 import { RightArrowIcon, SearchIcon } from 'components/utils/Icons';
 import SearchForProperty from 'components/common/SearchDashboardPropertyForm';
-import ContributionGraph, {
-  ContributionGraph2,
-} from 'components/common/ContributionGraph';
+import ContributionGraph from 'components/common/ContributionGraph';
 import useWindowSize from 'hooks/useWindowSize';
 import { MOBILE_WIDTH, BASE_API_URL } from 'utils/constants';
 import { UserContext } from 'context/UserContext';
@@ -25,13 +23,10 @@ import { API_ENDPOINT } from 'utils/URL';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { PropertiesRowList } from '@/components/common/PropertiesRowList';
 import SquareBubbles from '@/components/common/SquareBubbles';
-import Color from 'style-dictionary/build/color.tokens.js';
 
 const Dashboard = () => {
   const [toast, setToast] = useToast();
   const [offers, setOffers] = React.useState(null);
-
-  console.log('Color', Color);
 
   React.useEffect(() => {
     Axios.get(`${BASE_API_URL}/offer/active`, {
@@ -117,7 +112,7 @@ const OffersRow = ({ _id, expires, status, propertyInfo, vendorInfo }) => {
 
 const Overview = () => (
   <div className="container-fluid mt-n6">
-    <ContributionGraph2 />
+    <ContributionGraph />
     {/* <div className="row row-eq-height">
       <div className="col-sm-8 mb-3">
         <ContributionGraph />

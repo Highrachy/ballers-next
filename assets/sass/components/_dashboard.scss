@@ -52,11 +52,11 @@
 }
 
 .overview-price__circle {
-  padding-left: 1.25rem;
+  padding-left: 1rem;
   position: relative;
   &:before {
-    width: 10px;
-    height: 10px;
+    width: 0.5rem;
+    height: 0.5rem;
     content: ' ';
     background: $white;
     position: absolute;
@@ -64,7 +64,7 @@
     left: 0;
     top: 6px;
     @include media-breakpoint-up(md) {
-      top: 9px;
+      top: 4px;
     }
   }
   &-green:before {
@@ -82,11 +82,17 @@
 }
 .overview-price {
   &__title {
+    color: $dark-300;
+    font-size: 0.85rem;
+    font-weight: normal;
+    margin-bottom: 0;
+
     @include media-breakpoint-up(md) {
       display: block;
     }
   }
   &__amount {
+    font-size: 0.85rem;
     float: right;
     @include media-breakpoint-up(md) {
       float: none;
