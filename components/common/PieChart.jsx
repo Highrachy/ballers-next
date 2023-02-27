@@ -3,6 +3,7 @@
 import { ResponsivePie } from '@nivo/pie';
 import Colors from 'style-dictionary/build/color.tokens.js';
 import Humanize from 'humanize-plus';
+import { moneyFormatInNaira } from '@/utils/helpers';
 
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
@@ -25,8 +26,7 @@ const MyResponsivePie = ({ data /* see data tab */ }) => (
       modifiers: [['darker', 0.2]],
     }}
     arcLinkLabel={function (e) {
-      //TODO: fix this
-      return Humanize.capitalize(e.id);
+      return `${Humanize.capitalize(e.id)}`;
     }}
     arcLinkLabelsSkipAngle={0}
     arcLinkLabelsTextColor="#333333"
@@ -39,7 +39,7 @@ const MyResponsivePie = ({ data /* see data tab */ }) => (
       from: 'color',
       modifiers: [['darker', 2]],
     }}
-    colors={[Colors.primary[500], Colors.gray[200], Colors.warning[500]]}
+    colors={[Colors.secondary[500], Colors.primary[500], Colors.warning[200]]}
     defs={[
       {
         id: 'dots',
@@ -61,6 +61,7 @@ const MyResponsivePie = ({ data /* see data tab */ }) => (
       },
     ]}
     enableArcLabels={false}
+    enableArcLinkLabels={true}
     // fill={[
     //   {
     //     match: {
@@ -107,11 +108,12 @@ const MyResponsivePie = ({ data /* see data tab */ }) => (
         <div
           style={{
             background: 'white',
-            padding: '9px 12px',
+            padding: '8px 12px',
             border: '1px solid #ccc',
+            borderRadius: '3px',
           }}
         >
-          {t.id}
+          {Humanize.capitalize(t.id)} - {moneyFormatInNaira(t.value)}
         </div>
       );
     }}

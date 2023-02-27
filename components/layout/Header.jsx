@@ -45,7 +45,7 @@ const Header = () => {
                 <Nav.Link>Sign In</Nav.Link>
               </Link>
               <Link href="/register" passHref>
-                <Nav.Link className="btn btn-secondary">
+                <Nav.Link className="btn btn-secondary-light">
                   Register for Free
                 </Nav.Link>
               </Link>

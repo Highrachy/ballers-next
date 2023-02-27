@@ -19,7 +19,9 @@ export const DASHBOARD_PAGE = {
 export const COLOR_STYLE = [
   'none',
   'primary',
+  'primary-light',
   'secondary',
+  'secondary-light',
   'success',
   'danger',
   'error',

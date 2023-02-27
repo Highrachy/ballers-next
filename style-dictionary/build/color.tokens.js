@@ -1,5 +1,5 @@
 module.exports = {
-  primary: {
+  secondary: {
     50: '#eef1ff',
     100: '#cbd4fd',
     200: '#b2c0fd',
@@ -47,7 +47,7 @@ module.exports = {
     800: '#6f191d',
     900: '#551316',
   },
-  dark: {
+  primary: {
     50: '#e8e8ec',
     100: '#b7b9c3',
     200: '#9497a7',

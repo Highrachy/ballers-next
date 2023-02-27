@@ -10,8 +10,6 @@ import Humanize from 'humanize-plus';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { HeartAdd, Buildings, StatusUp, UserAdd } from 'iconsax-react';
-import Button from '../forms/Button';
-import Color from 'style-dictionary/build/color.tokens.js';
 
 const data = [
   {
@@ -20,8 +18,13 @@ const data = [
     value: 5_000_000,
   },
   {
-    id: 'contribution',
-    label: 'Contribution Rewards',
+    id: 'rewards',
+    label: 'Rewards',
+    value: 200_000,
+  },
+  {
+    id: 'pending Payment',
+    label: 'Pending Payment',
     value: 4_000_000,
   },
 ];
@@ -32,24 +35,24 @@ const MyResponsivePie = dynamic(() => import('./PieChart'), {
 
 const widgetLists = [
   {
-    name: 'Porfolio',
+    name: 'My Porfolio',
     link: 'my-properties',
     key: 'assignedProperty',
     color: 'primary',
     Icon: <Buildings variant="Bulk" />,
   },
   {
-    name: 'Active Services',
+    name: 'Offers',
     color: 'secondary',
     Icon: <StatusUp variant="Bulk" />,
   },
   {
-    name: 'Contribution Rewards',
+    name: 'Services',
     color: 'warning',
     Icon: <UserAdd variant="Bulk" />,
   },
   {
-    name: 'Referral Rewards',
+    name: 'Referrals',
     color: 'danger',
     key: 'interests',
     Icon: <HeartAdd variant="Bulk" />,
@@ -89,12 +92,12 @@ export const Widget = ({
         <a className="text-reset">
           <div className="card position-relative">
             <div className="card-body">
+              <span className="widget-icon float-end">{Icon}</span>
+
+              <h3 className="mt-6 pt-3 mb-1 fw-semibold">{number || 0}</h3>
               <h6 className="card-title mt-0" title="Number of Customers">
                 {Humanize.capitalize(name)}
               </h6>
-              <h2 className="text-muted mt-2 mb-3">{number || 0}</h2>
-              <div className="mt-5"></div>
-              <div className="float-end widget-icon">{Icon}</div>
             </div>{' '}
             {/* end card-body*/}
           </div>
@@ -119,32 +122,63 @@ export const OverviewGraph = () => {
               <MyResponsivePie data={data} />
             </div>
           </div>
-          <div className="row ">
-            <div className="col-sm">
-              <OverviewPrice
-                title="Transactions"
-                color="purple"
-                price={moneyFormatInNaira(15_000_000)}
-              />
-              <OverviewPrice
-                title="Contribution Rewards"
-                color="purple"
-                price={moneyFormatInNaira(15_000_000)}
-              />
-            </div>
-            <div className="col-sm">
-              <OverviewPrice
-                title="Transactions"
-                color="purple"
-                price={moneyFormatInNaira(15_000_000)}
-              />
-              <OverviewPrice
-                title="Contribution Rewards"
-                color="purple"
-                price={moneyFormatInNaira(15_000_000)}
-              />
+
+          <div className="row h-100 justify-content-between g-0">
+            <div className="col-12">
+              {/* <h6 className="text-md">Analysis</h6> */}
+              <div className="text-xs mt-3">
+                <div className="d-flex flex-between-center mb-1">
+                  <div className="d-flex align-items-center">
+                    <span className="dot bg-secondary" />
+                    <span className="fw-semi-bold">Transactions</span>
+                  </div>
+
+                  <span>{moneyFormatInNaira(data[0].value)}</span>
+                </div>
+                <div className="d-flex flex-between-center mb-1">
+                  <div className="d-flex align-items-center">
+                    <span className="dot bg-primary" />
+                    <span className="fw-semi-bold">Rewards</span>
+                  </div>
+                  <span>{moneyFormatInNaira(data[1].value)}</span>
+                </div>
+                <div className="d-flex flex-between-center mb-1">
+                  <div className="d-flex align-items-center">
+                    <span className="dot bg-warning" />
+                    <span className="fw-semi-bold">Pending Payments</span>
+                  </div>
+                  <span>{moneyFormatInNaira(data[2].value)}</span>
+                </div>
+              </div>
             </div>
           </div>
+
+          {/* <div className="row ">
+            <div className="col-sm">
+              <OverviewPrice
+                title="Transactions"
+                color="purple"
+                price={moneyFormatInNaira(15_000_000)}
+              />
+              <OverviewPrice
+                title="Contribution Rewards"
+                color="purple"
+                price={moneyFormatInNaira(15_000_000)}
+              />
+            </div>
+            <div className="col-sm">
+              <OverviewPrice
+                title="Transactions"
+                color="purple"
+                price={moneyFormatInNaira(15_000_000)}
+              />
+              <OverviewPrice
+                title="Contribution Rewards"
+                color="purple"
+                price={moneyFormatInNaira(15_000_000)}
+              />
+            </div>
+          </div> */}
         </div>
       </div>
     </div>

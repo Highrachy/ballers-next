@@ -4,6 +4,25 @@
   color: white !important;
 }
 
+.btn-primary-light {
+  background-color: $primary-50 !important;
+  color: $primary-600 !important;
+
+  &:hover {
+    background-color: $primary-500 !important;
+    color: $white !important;
+  }
+}
+.btn-secondary-light {
+  background-color: $secondary-50 !important;
+  color: $secondary-600 !important;
+
+  &:hover {
+    background-color: $secondary-500 !important;
+    color: $white !important;
+  }
+}
+
 .btn-xs {
   padding: 0.3rem 0.75rem;
   font-size: 0.7rem;
