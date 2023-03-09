@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useMenu } from 'hooks/useMenu';
 import Image from 'next/image';
+import ActiveLink from '../common/ActiveLink';
 
 const Sidebar = ({ showSidebar, closeSidebar, ...props }) => {
   const sideMenu = useMenu();
@@ -62,12 +63,15 @@ Sidebar.Navigation = ({ menus, closeSidebar }) => {
     <ul className="sidebar-menu">
       {menus.map(({ title, to, icon }) => (
         <li key={title}>
-          <Link passHref href={to}>
-            <a onClick={closeSidebar} className="sidebar-menu__item">
-              <span className="sidebar__icon">{icon}</span> &nbsp;
-              {title}
-            </a>
-          </Link>
+          <ActiveLink
+            passHref
+            href={to}
+            onClick={closeSidebar}
+            className="sidebar-menu__item"
+          >
+            <span className="sidebar__icon">{icon}</span>
+            {title}
+          </ActiveLink>
         </li>
       ))}
     </ul>

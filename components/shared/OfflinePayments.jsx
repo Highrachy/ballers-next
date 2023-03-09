@@ -11,7 +11,7 @@ import PaginatedContent from 'components/common/PaginatedContent';
 import { API_ENDPOINT } from 'utils/URL';
 import Button from 'components/forms/Button';
 import Modal from 'components/common/Modal';
-import { OfflinePaymentForm } from 'components/pages/shared/MakePayment';
+import { OfflinePaymentForm } from 'components/shared/MakePayment';
 import { Spacing } from 'components/common/Helpers';
 import { useCurrentRole } from 'hooks/useUser';
 import { getTokenFromStore } from 'utils/localStorage';

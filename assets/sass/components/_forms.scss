@@ -7,7 +7,7 @@ label {
 }
 
 .form-row {
-  display: flex;
+  @extend .row;
 }
 
 .form-label {

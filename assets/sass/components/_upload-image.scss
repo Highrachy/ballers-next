@@ -97,3 +97,30 @@
   border: 1px solid $secondary;
   padding: 10px;
 }
+
+// Next Images
+
+.img-wrapper {
+  font-size: 0;
+}
+
+.unset-img {
+  width: 100%;
+
+  img {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+  }
+
+  > div {
+    position: unset !important;
+  }
+}
+
+.image-cover,
+.img-cover {
+  object-fit: cover !important;
+  width: 100% !important;
+}

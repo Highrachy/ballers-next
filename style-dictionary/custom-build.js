@@ -2,7 +2,7 @@ const StyleDictionary = require('style-dictionary');
 const path = require('path');
 const fs = require('fs');
 
-console.log('   HomeKeeping...');
+console.log('HomeKeeping...');
 
 // Define the path to the output folder
 const outputDir = path.join(__dirname, '/build/');
@@ -33,10 +33,13 @@ StyleDictionary.registerTransform({
   },
 });
 
+// create an array from 30 to 60
+// const sizes = Array.from(Array(31).keys()).map((i) => i + 30);
+
 // REGISTER THE CUSTOM TRANSFORM GROUPS
 
 // if you want to see what a pre-defined group contains, uncomment the next line:
-console.log(StyleDictionary.transformGroup['scss']);
+// console.log(StyleDictionary.transformGroup['scss']);
 
 StyleDictionary.registerTransformGroup({
   name: 'custom1/scss',
@@ -76,21 +79,111 @@ StyleDictionary.registerFormat({
   },
 });
 
+// StyleDictionary.registerFormat({
+//   name: 'custom/scss',
+//   formatter(dictionary, config) {
+//     let scss = '';
+//     Object.keys(dictionary.properties.color).forEach((colorName) => {
+//       const color = dictionary.properties.color[colorName];
+//       Object.keys(color).forEach((item) => {
+//         if (item !== 'name') {
+//           const variableName = `$${colorName}-${item}`;
+//           const variableValue = color[item].value;
+//           scss += `${variableName}: ${variableValue};\n`;
+//         }
+//       });
+//     });
+//     return scss;
+//   },
+// });
+// StyleDictionary.registerFormat({
+//   name: 'custom/scss/colors',
+//   formatter: function (dictionary) {
+//     let output = '';
+
+//     // Loop through all the properties in the dictionary
+//     dictionary.allProperties.forEach((prop) => {
+//       // Only process color properties
+//       if (prop.attributes.category === 'color') {
+//         // Extract the color name and value
+//         const name = prop.name;
+//         const value = prop.value;
+
+//         // Extract the prefix and suffix from the name (e.g. primary-100 => primary)
+//         const prefix = name.split('-')[0];
+//         const suffix = name.split('-')[1];
+
+//         // Initialize the prefix object if it doesn't exist
+//         if (!output.includes(`$${prefix}: (`)) {
+//           output += `$${prefix}: (\n`;
+//         }
+
+//         // Append the color to the prefix object
+//         output += `  '${suffix}': ${value},\n`;
+//       }
+//     });
+
+//     // Remove the trailing comma and new line from the last item in each prefix object
+//     output = output.replace(/,\n([^\n]*)\n\)/g, '\n$1\n)');
+
+//     // Add a semicolon to the end of each prefix object
+//     output = output.replace(/\)$/gm, ');\n');
+
+//     return output;
+//   },
+// });
 StyleDictionary.registerFormat({
-  name: 'custom/scss',
-  formatter(dictionary, config) {
-    let scss = '';
-    Object.keys(dictionary.properties.color).forEach((colorName) => {
-      const color = dictionary.properties.color[colorName];
-      Object.keys(color).forEach((item) => {
-        if (item !== 'name') {
-          const variableName = `$${colorName}-${item}`;
-          const variableValue = color[item].value;
-          scss += `${variableName}: ${variableValue};\n`;
+  name: 'custom/scss/colors',
+  formatter: function (dictionary) {
+    let output = '$brand-colors: (\n';
+
+    // Create an object to store each prefix and its colors
+    const prefixes = {};
+
+    // Loop through all the properties in the dictionary
+    dictionary.allProperties.forEach((prop) => {
+      // Only process color properties
+      if (prop.attributes.category === 'color') {
+        // Extract the color name and value
+        const name = prop.name;
+        const value = prop.value;
+
+        // Extract the prefix and suffix from the name (e.g. primary-100 => primary)
+        const prefix = name.split('-')[0];
+        const suffix = name.split('-')[1];
+
+        // Initialize the prefix object if it doesn't exist
+        if (!prefixes[prefix]) {
+          prefixes[prefix] = {};
         }
-      });
+
+        // Add the color to the prefix object
+        prefixes[prefix][suffix] = value;
+      }
     });
-    return scss;
+
+    // Loop through the prefixes object and generate the output
+    for (const prefix in prefixes) {
+      if (prefixes.hasOwnProperty(prefix)) {
+        output += `  "${prefix}": (\n`;
+
+        // Loop through the colors for the current prefix and add them to the output
+        const colors = prefixes[prefix];
+        for (const suffix in colors) {
+          if (colors.hasOwnProperty(suffix)) {
+            output += `    '${suffix}': ${colors[suffix]},\n`;
+          }
+        }
+
+        // Remove the trailing comma and add the closing parenthesis and comma
+        output = output.replace(/,\n$/, '\n  ),\n');
+      }
+    }
+
+    // Remove the trailing comma and add the closing parenthesis
+    output = output.replace(/,\n$/, '\n);\n');
+
+    return output;
   },
 });
 

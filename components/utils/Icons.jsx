@@ -1,17 +1,14 @@
 import React from 'react';
 import {
-  FiGrid,
   FiPlus,
   FiUploadCloud,
   FiHeart,
   FiMenu,
-  FiSettings,
   FiCamera,
   FiFolder,
   FiArchive,
   FiFileText,
   FiServer,
-  FiGift,
   FiHelpCircle,
   FiChevronRight,
   FiChevronLeft,
@@ -29,7 +26,6 @@ import {
   FiClipboard,
   FiSearch,
   FiUser,
-  FiRepeat,
   FiClock,
 } from 'react-icons/fi';
 import {
@@ -46,7 +42,6 @@ import {
   FaBuilding,
   FaAmbulance,
   FaGrinStars,
-  FaRegFileAlt,
   FaFlag,
   FaBan,
   FaThumbsUp,
@@ -60,11 +55,9 @@ import {
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import {
   BiMessageDetail,
-  BiBuildingHouse,
   BiCheckCircle,
   BiFoodMenu,
   BiCameraMovie,
-  BiHomeCircle,
   BiFilter,
 } from 'react-icons/bi';
 import {
@@ -72,7 +65,6 @@ import {
   AiFillCar,
   AiFillSafetyCertificate,
   AiOutlineUserSwitch,
-  AiOutlineShoppingCart,
   AiOutlineCalendar,
 } from 'react-icons/ai';
 import {
@@ -82,6 +74,16 @@ import {
 } from 'react-icons/md';
 import { GoVerified } from 'react-icons/go';
 import { TiMessages } from 'react-icons/ti';
+import {
+  Activity,
+  Buildings,
+  DocumentText1,
+  Element3,
+  EmptyWalletTime,
+  Gift,
+  Home3,
+  Setting2,
+} from 'iconsax-react';
 
 export const ArrowLeftIcon = () => <FiChevronLeft />;
 export const ArrowDownIcon = () => <FiChevronDown />;
@@ -116,7 +118,7 @@ export const FacebookIcon = () => <FiFacebook />;
 export const FileIcon = () => <FiFileText />;
 export const FilterIcon = () => <BiFilter />;
 export const FlagIcon = () => <FaFlag />;
-export const HomeIcon = () => <FiGrid />;
+export const HomeIcon = () => <Element3 variant="Bulk" />;
 export const HospitalIcon = () => <FaAmbulance />;
 export const InfoIcon = () => <FaInfoCircle />;
 export const LoveIcon = () => <FiHeart />;
@@ -124,20 +126,20 @@ export const MallIcon = () => <MdLocalMall />;
 export const MapPinIcon = () => <FaMapMarkerAlt />;
 export const MessageIcon = () => <EnquiryIcon />;
 export const MenuIcon = () => <FiMenu />;
-export const PortfolioIcon = () => <BiHomeCircle />;
+export const PortfolioIcon = () => <Home3 variant="Bulk" />;
 export const NotificationIcon = () => <FiBell />;
-export const OfferIcon = () => <FaRegFileAlt />;
+export const OfferIcon = () => <DocumentText1 variant="Bulk" />;
 export const OfferSignedIcon = () => <FaFileContract />;
 export const PlayIcon = () => <FaPlay />;
 export const PlusIcon = () => <FiPlus />;
 export const PointOfInterestIcon = () => <FaGrinStars />;
-export const ProfileIcon = () => <FiSettings />;
-export const PropertyIcon = () => <BiBuildingHouse />;
+export const ProfileIcon = () => <Setting2 variant="Bulk" />;
+export const PropertyIcon = () => <Buildings variant="Bulk" />;
 export const PropertyVideosIcon = () => <FaFileVideo />;
 export const QuestionMarkIcon = () => <FiHelpCircle />;
 export const QuotesIcon = () => <FaQuoteLeft />;
 export const FoodMenuIcon = () => <BiFoodMenu />;
-export const ReferIcon = () => <FiGift />;
+export const ReferIcon = () => <Gift variant="Bulk" />;
 export const ReferralsIcon = () => <AiOutlineUserSwitch />;
 export const ReplyIcon = () => <FaReply />;
 export const ReportedPropertyIcon = () => <FaHouseDamage />;
@@ -150,11 +152,11 @@ export const TestimonialsIcon = () => <TiMessages />;
 export const ThreeDotsIcon = () => <BsThreeDotsVertical />;
 export const ThumbsUpIcon = () => <FaThumbsUp />;
 export const ToiletIcon = () => <FaToilet />;
-export const TransactionIcon = () => <FiRepeat />;
+export const TransactionIcon = () => <EmptyWalletTime variant="Bulk" />;
 export const TwitterIcon = () => <FiTwitter />;
 export const UserIcon = () => <FiUser />;
 export const UploadIcon = () => <FiUploadCloud />;
-export const VasIcon = () => <AiOutlineShoppingCart />;
+export const VasIcon = () => <Activity variant="Bulk" />;
 export const VasRequestIcon = () => <MdAddShoppingCart />;
 export const VisitationIcon = () => <AiOutlineCalendar />;
 export const WarningIcon = () => <FaExclamationTriangle />;
@@ -835,3 +837,54 @@ export const PolkaDot = () => (
     />
   </svg>
 );
+
+export const BgWave = ({ color = '#5775FA', isBig = false }) =>
+  isBig ? (
+    <svg
+      width={245}
+      height={245}
+      viewBox="0 0 245 245"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        opacity="0.07"
+        d="M208.313 58.1138C220.864 49.3897 245 43.6301 245 43.6301V245H109.427C110.117 240.826 110.833 238.535 112.099 234.488C113.795 229.068 114.602 225.894 117.445 220.938C121.7 213.521 126.685 211.14 132.265 204.586C138.096 197.738 141.699 194.089 146.6 186.598C152.227 177.999 154.262 172.541 158.505 163.237C163.799 151.63 166.846 145.07 170.41 132.868C173.344 122.826 173.021 116.735 175.999 106.704C178.94 96.7958 180.073 90.8413 185.474 81.9418C192.108 71.0124 197.646 65.5272 208.313 58.1138Z"
+        fill={color}
+      />
+      <path
+        opacity="0.07"
+        d="M226.338 137.754C233.157 134.312 245 130.89 245 130.89V245H20.551C20.551 245 26.818 236.119 32.3103 231.487C38.0562 226.641 42.0806 224.541 49.1823 221.191C55.2614 218.324 58.9303 217.044 65.543 215.186C73.4901 212.952 78.4123 213.153 86.5052 211.325C94.7059 209.472 99.176 208.054 107.212 205.748C115.758 203.295 120.74 202.275 128.941 199.099C135.227 196.664 138.505 194.876 144.535 192.021C152.84 188.087 157.672 186.084 165.497 181.51C172.725 177.286 176.323 174.399 183.136 169.713C189.492 165.342 193.313 163.122 199.241 158.345C203.979 154.528 205.931 151.8 210.745 148.05C216.423 143.625 219.698 141.106 226.338 137.754Z"
+        fill={color}
+      />
+      <path
+        opacity="0.07"
+        d="M139.753 47.049C135.609 27.0182 139.96 3.26094 142.86 0.465832C146.382 0.465822 245 0 245 0V215.913C245 215.913 234.311 207.405 229.254 200.075C221.897 189.41 222.395 180.462 217.445 168.165C212.731 156.454 210.787 149.396 204.6 138.585C196.322 124.12 189.726 117.424 178.495 105.744C170.555 97.4861 164.014 95.3859 156.948 86.1789C147.045 73.2738 143.896 67.0799 139.753 47.049Z"
+        fill={color}
+      />
+    </svg>
+  ) : (
+    <svg
+      width={149}
+      height={219}
+      viewBox="0 0 149 219"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        opacity="0.07"
+        d="M124.645 51.9466C132.978 44.1483 149 39 149 39V219H59C59.4581 215.269 59.9336 213.221 60.7742 209.603C61.8998 204.759 62.4354 201.921 64.3226 197.492C67.1473 190.862 70.4567 188.734 74.1613 182.875C78.0317 176.754 80.4237 173.492 83.6774 166.796C87.4126 159.109 88.7636 154.231 91.5807 145.914C95.0951 135.539 97.1176 129.675 99.4839 118.768C101.431 109.791 101.217 104.346 103.194 95.3805C105.146 86.5236 105.898 81.201 109.484 73.2459C113.888 63.4764 117.565 58.5733 124.645 51.9466Z"
+        fill={color}
+      />
+      <path
+        opacity="0.07"
+        d="M136.612 123.135C141.138 120.059 149 117 149 117V219H0C0 219 4.16032 211.062 7.80638 206.921C11.6208 202.589 14.2924 200.713 19.0068 197.718C23.0424 195.155 25.478 194.011 29.8679 192.35C35.1435 190.353 38.4111 190.533 43.7836 188.898C49.2276 187.242 52.1951 185.975 57.5296 183.914C63.2031 181.721 66.5103 180.809 71.9544 177.97C76.1276 175.793 78.3036 174.195 82.3064 171.643C87.8195 168.127 91.0275 166.337 96.2221 162.248C101.02 158.472 103.409 155.891 107.932 151.703C112.151 147.795 114.687 145.811 118.623 141.541C121.768 138.129 123.064 135.691 126.26 132.338C130.029 128.384 132.204 126.131 136.612 123.135Z"
+        fill={color}
+      />
+      <path
+        opacity="0.07"
+        d="M79.1317 42.0561C76.381 24.1509 79.2693 2.91488 81.1947 0.416397C83.5328 0.416388 149 0 149 0V193C149 193 141.904 185.395 138.547 178.842C133.663 169.309 133.993 161.311 130.708 150.319C127.578 139.851 126.288 133.542 122.18 123.878C116.685 110.948 112.306 104.963 104.851 94.5221C99.58 87.1407 95.2376 85.2633 90.5471 77.0334C83.9725 65.4978 81.8824 59.9613 79.1317 42.0561Z"
+        fill={color}
+      />
+    </svg>
+  );

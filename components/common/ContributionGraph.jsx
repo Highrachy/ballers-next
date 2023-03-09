@@ -1,15 +1,17 @@
 import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
-import { Card } from 'react-bootstrap';
-import Toast, { useToast } from 'components/utils/Toast';
 import { moneyFormatInNaira } from 'utils/helpers';
-import { API_ENDPOINT } from 'utils/URL';
-import { useGetQuery } from 'hooks/useQuery';
 import Humanize from 'humanize-plus';
+import Colors from 'style-dictionary/build/color.tokens.js';
 
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { HeartAdd, Buildings, StatusUp, UserAdd } from 'iconsax-react';
+import {
+  BgWave,
+  PortfolioIcon,
+  OfferIcon,
+  VasIcon,
+  ReferIcon,
+} from '../utils/Icons';
 
 const data = [
   {
@@ -29,6 +31,12 @@ const data = [
   },
 ];
 
+const ChartColors = [
+  Colors.secondary[500],
+  Colors.success[500],
+  Colors.danger[50],
+];
+
 const MyResponsivePie = dynamic(() => import('./PieChart'), {
   ssr: false,
 });
@@ -38,24 +46,24 @@ const widgetLists = [
     name: 'My Porfolio',
     link: 'my-properties',
     key: 'assignedProperty',
-    color: 'primary',
-    Icon: <Buildings variant="Bulk" />,
+    color: 'secondary',
+    Icon: <PortfolioIcon />,
   },
   {
     name: 'Offers',
-    color: 'secondary',
-    Icon: <StatusUp variant="Bulk" />,
+    color: 'success',
+    Icon: <OfferIcon />,
   },
   {
     name: 'Services',
     color: 'warning',
-    Icon: <UserAdd variant="Bulk" />,
+    Icon: <VasIcon />,
   },
   {
     name: 'Referrals',
     color: 'danger',
     key: 'interests',
-    Icon: <HeartAdd variant="Bulk" />,
+    Icon: <ReferIcon />,
   },
 ];
 
@@ -90,16 +98,21 @@ export const Widget = ({
     <section className={`widget ${className}`}>
       <Link href={url} passHref>
         <a className="text-reset">
-          <div className="card position-relative">
-            <div className="card-body">
-              <span className="widget-icon float-end">{Icon}</span>
+          <div className={`card position-relative`}>
+            <section className={`widget-${color}`}>
+              <div className="bg-holder">
+                <BgWave color={Colors[color][500]} />
+              </div>
+              <div className="card-body">
+                <span className="widget-icon">{Icon}</span>
 
-              <h3 className="mt-6 pt-3 mb-1 fw-semibold">{number || 0}</h3>
-              <h6 className="card-title mt-0" title="Number of Customers">
-                {Humanize.capitalize(name)}
-              </h6>
-            </div>{' '}
-            {/* end card-body*/}
+                <h3 className="mt-4 pt-3 mb-1 fw-semibold">{number || 0}</h3>
+                <h6 className="card-title mt-0" title="Number of Customers">
+                  {Humanize.capitalize(name)}
+                </h6>
+              </div>{' '}
+              {/* end card-body*/}
+            </section>
           </div>
         </a>
       </Link>
@@ -119,17 +132,20 @@ export const OverviewGraph = () => {
           </div>
           <div className="row align-items-center">
             <div className="col-12" style={{ height: '250px' }}>
-              <MyResponsivePie data={data} />
+              <MyResponsivePie data={data} colors={ChartColors} />
             </div>
           </div>
 
-          <div className="row h-100 justify-content-between g-0">
+          <div className="row justify-content-between g-0">
             <div className="col-12">
               {/* <h6 className="text-md">Analysis</h6> */}
-              <div className="text-xs mt-3">
+              <div className="text-sm mt-3">
                 <div className="d-flex flex-between-center mb-1">
                   <div className="d-flex align-items-center">
-                    <span className="dot bg-secondary" />
+                    <span
+                      className="dot"
+                      style={{ backgroundColor: ChartColors[0] }}
+                    />
                     <span className="fw-semi-bold">Transactions</span>
                   </div>
 
@@ -137,14 +153,20 @@ export const OverviewGraph = () => {
                 </div>
                 <div className="d-flex flex-between-center mb-1">
                   <div className="d-flex align-items-center">
-                    <span className="dot bg-primary" />
+                    <span
+                      className="dot"
+                      style={{ backgroundColor: ChartColors[1] }}
+                    />
                     <span className="fw-semi-bold">Rewards</span>
                   </div>
                   <span>{moneyFormatInNaira(data[1].value)}</span>
                 </div>
                 <div className="d-flex flex-between-center mb-1">
                   <div className="d-flex align-items-center">
-                    <span className="dot bg-warning" />
+                    <span
+                      className="dot"
+                      style={{ backgroundColor: ChartColors[2] }}
+                    />
                     <span className="fw-semi-bold">Pending Payments</span>
                   </div>
                   <span>{moneyFormatInNaira(data[2].value)}</span>
@@ -192,6 +214,7 @@ export const ContributionGraph = () => (
   </div>
 );
 
+// TODO: Refactor this
 // const PROPERTY_COLOR = '#2dca73';
 // const CONTRIBUTION_REWARD_COLOR = '#161d3f';
 // const REFERRAL_COLOR = '#F79B18';
@@ -311,13 +334,13 @@ export const ContributionGraph = () => (
 //   );
 // };
 
-const OverviewPrice = ({ color, title, price }) => (
-  <div
-    className={`overview-price__circle overview-price__circle-${color} mb-3`}
-  >
-    <h6 className="overview-price__title">{title}</h6>
-    <strong className="overview-price__amount">{price}</strong>
-  </div>
-);
+// const OverviewPrice = ({ color, title, price }) => (
+//   <div
+//     className={`overview-price__circle overview-price__circle-${color} mb-3`}
+//   >
+//     <h6 className="overview-price__title">{title}</h6>
+//     <strong className="overview-price__amount">{price}</strong>
+//   </div>
+// );
 
 export default ContributionGraph;

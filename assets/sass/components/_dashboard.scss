@@ -217,3 +217,343 @@
     margin-top: 1.5rem;
   }
 }
+
+.bg-bubbles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 9999999;
+}
+.bg-bubbles li {
+  position: absolute;
+  list-style: none;
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.03);
+  bottom: -50px;
+  -webkit-animation: square 20s infinite;
+  animation: square 20s infinite;
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+}
+.bg-bubbles li:first-child {
+  left: 10%;
+}
+.bg-bubbles li:nth-child(2) {
+  left: 20%;
+  width: 120px;
+  height: 120px;
+  -webkit-animation-delay: 2s;
+  animation-delay: 2s;
+  -webkit-animation-duration: 17s;
+  animation-duration: 17s;
+}
+.bg-bubbles li:nth-child(3) {
+  left: 25%;
+  -webkit-animation-delay: 4s;
+  animation-delay: 4s;
+}
+.bg-bubbles li:nth-child(4) {
+  left: 40%;
+  width: 80px;
+  height: 80px;
+  -webkit-animation-duration: 22s;
+  animation-duration: 22s;
+}
+.bg-bubbles li:nth-child(5) {
+  left: 70%;
+  width: 90px;
+  height: 90px;
+}
+.bg-bubbles li:nth-child(6) {
+  left: 70%;
+  width: 120px;
+  height: 120px;
+  -webkit-animation-delay: 3s;
+  animation-delay: 3s;
+}
+.bg-bubbles li:nth-child(7) {
+  left: 32%;
+  width: 150px;
+  height: 150px;
+  -webkit-animation-delay: 7s;
+  animation-delay: 7s;
+}
+.bg-bubbles li:nth-child(8) {
+  left: 55%;
+  width: 80px;
+  height: 80px;
+  -webkit-animation-delay: 15s;
+  animation-delay: 15s;
+  -webkit-animation-duration: 40s;
+  animation-duration: 40s;
+}
+.bg-bubbles li:nth-child(9) {
+  left: 25%;
+  width: 50px;
+  height: 50px;
+  -webkit-animation-delay: 2s;
+  animation-delay: 2s;
+  -webkit-animation-duration: 40s;
+  animation-duration: 40s;
+}
+.bg-bubbles li:nth-child(10) {
+  left: 90%;
+  width: 140px;
+  height: 140px;
+  -webkit-animation-delay: 11s;
+  animation-delay: 11s;
+}
+@-webkit-keyframes square {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  to {
+    -webkit-transform: translateY(-1000px) rotate(600deg);
+    transform: translateY(-1000px) rotate(600deg);
+  }
+}
+@keyframes square {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  to {
+    -webkit-transform: translateY(-1000px) rotate(600deg);
+    transform: translateY(-1000px) rotate(600deg);
+  }
+}
+
+.widget .card,
+.widget.card {
+  box-shadow: 0 2px 4px rgb(126 142 177 / 12%);
+  border-color: $gray-300;
+
+  .bg-holder {
+    position: absolute;
+    width: 100%;
+    min-height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    overflow: hidden;
+    will-change: transform, opacity, filter;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background-repeat: no-repeat;
+    z-index: 0;
+
+    svg {
+      float: right;
+    }
+
+    &.big {
+      svg {
+        width: auto;
+        height: 100%;
+      }
+    }
+  }
+  .card-body {
+    position: relative;
+    z-index: 1;
+  }
+
+  .widget-primary {
+    h3,
+    .card-title,
+    .widget-icon,
+    .widget-svg {
+      color: $primary-700;
+    }
+
+    .widget-icon {
+      background: $primary-50;
+    }
+  }
+
+  .widget-secondary {
+    h3,
+    .card-title,
+    .widget-icon,
+    .widget-svg {
+      color: $secondary-700;
+    }
+
+    .widget-icon {
+      background: $secondary-50;
+    }
+  }
+
+  .widget-danger {
+    h3,
+    .card-title,
+    .widget-icon,
+    .widget-svg {
+      color: $danger-700 !important;
+    }
+
+    .widget-icon {
+      background: $danger-50 !important;
+    }
+  }
+  .widget-warning {
+    h3,
+    .card-title,
+    .widget-icon,
+    .widget-svg {
+      color: $warning-700;
+    }
+
+    .widget-icon {
+      background: $warning-50;
+    }
+  }
+
+  .widget-success {
+    h3,
+    .card-title,
+    .widget-icon,
+    .widget-svg {
+      color: $success-700;
+    }
+
+    .widget-icon {
+      background: $success-50;
+    }
+  }
+
+  .widget-svg {
+    svg {
+      height: 10rem;
+      width: 10rem;
+      opacity: 0.4;
+    }
+  }
+
+  .card-title {
+    font-size: 1rem;
+    font-weight: 500 !important;
+    color: $primary;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  h3,
+  h4 {
+    color: $secondary-700;
+  }
+
+  .widget-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
+}
+
+.flex-between-center {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.widget-box {
+  border-radius: 8px;
+  border: 1px solid $gray-50;
+  background-color: #fff;
+  padding: 1.5rem;
+  box-sizing: border-box;
+
+  .widget-stack {
+    background: $gray-100;
+    border: 1px solid $gray-100;
+    border-radius: 6px;
+    padding: 16px;
+    font-size: 14px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+
+    &.service-box {
+      padding: 24px 24px 0;
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background: $gray-200;
+      border: 1px solid $gray-200;
+    }
+  }
+
+  .widget-title {
+    font-size: 1.1rem;
+    margin-top: 6px;
+    color: $secondary-700 !important;
+    font-weight: 400;
+  }
+
+  .status-badge {
+    .bg-success {
+      color: $success-700;
+      background: $success-50 !important;
+      border: 1px solid $success-300 !important;
+    }
+
+    .bg-primary {
+      color: $primary-500;
+      background: $primary-50 !important;
+      border: 1px solid $primary-300 !important;
+    }
+
+    .bg-danger {
+      color: $danger-500;
+      background: $danger-50 !important;
+      border: 1px solid $danger-300 !important;
+    }
+
+    .bg-secondary {
+      color: $secondary-500;
+      background: $secondary-50 !important;
+      border: 1px solid $secondary-300 !important;
+    }
+
+    .bg-warning {
+      color: $warning-500;
+      background: $warning-50 !important;
+      border: 1px solid $warning-300 !important;
+    }
+  }
+}
+
+.info-content {
+  margin: 1rem 0 2rem 0;
+  border: 1px solid $warning-200;
+  border-left: 4px solid $warning-200;
+  border-radius: 4px;
+  background: $warning-50;
+  padding: 1rem 1.5rem;
+  color: $warning-700;
+  font-weight: 400;
+  font-size: 0.8rem;
+
+  &__price {
+    font-size: 1rem;
+    font-weight: 500;
+    color: $warning-800;
+  }
+}

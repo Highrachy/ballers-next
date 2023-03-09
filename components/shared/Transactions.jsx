@@ -523,11 +523,8 @@ const TransactionsRow = (transaction) => {
             </div>
           )
         ) : (
-          <Link
-            href={`/${userType}/transaction/${_id}`}
-            className="btn btn-xs btn-wide btn-dark"
-          >
-            View
+          <Link href={`/${userType}/transaction/${_id}`}>
+            <a className="btn btn-sm btn-wide btn-secondary-light">View</a>
           </Link>
         )}
       </td>

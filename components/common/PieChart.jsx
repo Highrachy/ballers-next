@@ -10,7 +10,7 @@ import { moneyFormatInNaira } from '@/utils/helpers';
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
-const MyResponsivePie = ({ data /* see data tab */ }) => (
+const MyResponsivePie = ({ data, colors /* see data tab */ }) => (
   <ResponsivePie
     data={data}
     margin={{ top: 20, right: 80, bottom: 40, left: 80 }}
@@ -39,7 +39,7 @@ const MyResponsivePie = ({ data /* see data tab */ }) => (
       from: 'color',
       modifiers: [['darker', 2]],
     }}
-    colors={[Colors.secondary[500], Colors.primary[500], Colors.warning[200]]}
+    colors={colors}
     defs={[
       {
         id: 'dots',
@@ -122,28 +122,28 @@ const MyResponsivePie = ({ data /* see data tab */ }) => (
 
 export default MyResponsivePie;
 
-const hover = {
-  id: 'transactions',
-  label: 'Trasanctions',
-  hidden: false,
-  value: 5000000,
-  formattedValue: '5000000',
-  data: {
-    id: 'transactions',
-    label: 'Trasanctions',
-    value: 5000000,
-  },
-  color: '#5775fa',
-  arc: {
-    index: 0,
-    startAngle: -2.6179938779914944,
-    endAngle: 0.2895307303586149,
-    innerRadius: 57.8770255651225,
-    outerRadius: 104.46170927520417,
-    thickness: 38.58468371008167,
-    padAngle: 0.012217304763960306,
-    angle: 2.9075246083501094,
-    angleDeg: 166.5888888888889,
-  },
-  fill: 'url(#lines.bg.#5775fa)',
-};
+// const hover = {
+//   id: 'transactions',
+//   label: 'Trasanctions',
+//   hidden: false,
+//   value: 5000000,
+//   formattedValue: '5000000',
+//   data: {
+//     id: 'transactions',
+//     label: 'Trasanctions',
+//     value: 5000000,
+//   },
+//   color: '#5775fa',
+//   arc: {
+//     index: 0,
+//     startAngle: -2.6179938779914944,
+//     endAngle: 0.2895307303586149,
+//     innerRadius: 57.8770255651225,
+//     outerRadius: 104.46170927520417,
+//     thickness: 38.58468371008167,
+//     padAngle: 0.012217304763960306,
+//     angle: 2.9075246083501094,
+//     angleDeg: 166.5888888888889,
+//   },
+//   fill: 'url(#lines.bg.#5775fa)',
+// };

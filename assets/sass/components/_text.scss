@@ -13,7 +13,7 @@
 }
 
 .text-gray {
-  color: $gray-600;
+  color: $gray-600 !important;
 }
 
 .text-normal {
@@ -43,6 +43,11 @@
 
 .text-shadow-light {
   text-shadow: 3px 4px 7px rgb(183 183 183 / 60%);
+}
+
+.text-large,
+.text-lg {
+  font-size: 1.25rem;
 }
 
 .text-medium,

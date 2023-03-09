@@ -14,7 +14,7 @@ import {
  * @param {*} date
  */
 // https://date-fns.org/v2.29.3/docs/format
-export const getDate = (date) => format(parseISO(date), 'MMMM DD, YYYY');
+export const getDate = (date) => format(parseISO(date), 'MMMM dd, yyyy');
 export const getDateTime = (date) =>
   format(parseISO(date), 'ddd, MMM D, YYYY h:mm A');
 export const getShortDateTime = (date) =>
@@ -23,7 +23,7 @@ export const getShortDate = (date) => format(parseISO(date), 'do MMM,  yyyy');
 export const getTinyDate = (date) =>
   isValidDate(date) && format(parseISO(date), 'MMM d, yyyy');
 export const getLongDate = (date) =>
-  format(parseISO(date), 'dddd, Do MMMM YYYY');
+  format(parseISO(date), 'dddd, Do MMMM yyyy');
 export const getYear = (date) => format(parseISO(date), 'yyyy');
 export const getTime = (date) => format(parseISO(date), 'h:mm A');
 export const subtractDays = (date, numOfDays) =>

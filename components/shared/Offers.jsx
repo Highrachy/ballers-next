@@ -52,7 +52,7 @@ export const OffersRowList = ({ results, offset }) => (
   </div>
 );
 
-const OffersRow = ({
+export const OffersRow = ({
   status,
   _id,
   totalAmountPayable,
@@ -89,7 +89,7 @@ const OffersRow = ({
       )}
       <td>
         {ACTIVE_OFFER_STATUS.includes(status) ? (
-          <small className="text-green">
+          <small className="text-success">
             <SuccessIcon /> {status}
           </small>
         ) : (
@@ -105,11 +105,8 @@ const OffersRow = ({
       </td>
 
       <td>
-        <Link
-          className="btn btn-xs btn-dark btn-wide"
-          href={`/${useCurrentRole().name}/offer/${_id}`}
-        >
-          View Offer
+        <Link passHref href={`/${useCurrentRole().name}/offer/${_id}`}>
+          <a className="btn btn-sm btn-secondary-light btn-wide">View Offer</a>
         </Link>
       </td>
     </tr>

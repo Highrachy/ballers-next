@@ -13,26 +13,31 @@ import {
   DisplayFormikState,
   setInitialValues,
 } from 'components/forms/form-helper';
+import { WelcomeHero } from './dashboard';
 
 const JustForYou = ({ location }) => {
   const { userState } = React.useContext(UserContext);
 
   // From search query
-  // const queryParams = queryString.parse(location.search);
-  // const { state, houseType } = queryParams;
+  const queryParams = queryString.parse(location?.search);
+  const { state, houseType } = queryParams;
 
-  // const searchFilter = { state, houseType };
-  // const userPreferences = {
-  //   ...searchFilter,
-  //   state: userState.preferences.location,
-  //   houseType: userState.preferences.houseType,
-  // };
+  const searchFilter = { state, houseType };
+  const userPreferences = {
+    ...searchFilter,
+    state: userState?.preferences?.location,
+    houseType: userState?.preferences?.houseType,
+  };
 
   // use my preference
   // Show Favorites
 
   return (
     <BackendPage>
+      <WelcomeHero
+        title="Just for You"
+        subtitle="Find your dream property from a personalized selection just for you."
+      />
       {/* <SearchForm defaultInputValue={{ state, houseType }} /> */}
       <Formik
         initialValues={setInitialValues({
@@ -43,7 +48,7 @@ const JustForYou = ({ location }) => {
         {({ isSubmitting, handleSubmit, ...props }) => {
           return (
             <>
-              <Form className="container-fluid py-r border-bottom mb-4">
+              {/* <Form className="container-fluid py-r border-bottom mb-4">
                 <div className="form-row">
                   <Switch
                     formGroupClassName="col-md-6"
@@ -60,7 +65,7 @@ const JustForYou = ({ location }) => {
                   />
                   <DisplayFormikState {...props} hide />
                 </div>
-              </Form>
+              </Form> */}
               {props?.values?.favorites && (
                 <section className="mt-5">
                   <PropertiesRowList
@@ -70,19 +75,21 @@ const JustForYou = ({ location }) => {
                   <div className="my-5 border-bottom"></div>
                 </section>
               )}
-              <PaginatedContent
-                endpoint={API_ENDPOINT.searchProperties()}
-                initialFilter={
-                  props?.values?.preferences ? userPreferences : searchFilter
-                }
-                pageName="Property"
-                pluralPageName="Properties"
-                DataComponent={PropertiesRowList}
-                // FilterComponent={SearchForm}
-                PageIcon={<PropertyIcon />}
-                queryName="property"
-                showFetching
-              />
+              <div className="mt-5">
+                <PaginatedContent
+                  endpoint={API_ENDPOINT.searchProperties()}
+                  initialFilter={
+                    props?.values?.preferences ? userPreferences : searchFilter
+                  }
+                  pageName="Property"
+                  pluralPageName="Properties"
+                  DataComponent={PropertiesRowList}
+                  // FilterComponent={SearchForm}
+                  PageIcon={<PropertyIcon />}
+                  queryName="property"
+                  showFetching
+                />
+              </div>
             </>
           );
         }}
@@ -91,21 +98,21 @@ const JustForYou = ({ location }) => {
   );
 };
 
-const SearchForm = ({ defaultInputValue }) => (
-  <div className="text-center py-4 mb-3 border-bottom">
-    <h4>Search for your preferred Property</h4>
-    <div className="row">
-      <div className="col-sm-8 mx-auto">
-        <div className="property-search__dashboard just-for-you__search">
-          <SearchDashboardPropertyForm
-            defaultInputValue={defaultInputValue}
-            useDashboardStyles={false}
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-);
+// const SearchForm = ({ defaultInputValue }) => (
+//   <div className="text-center py-4 mb-3 border-bottom">
+//     <h4>Search for your preferred Property</h4>
+//     <div className="row">
+//       <div className="col-sm-8 mx-auto">
+//         <div className="property-search__dashboard just-for-you__search">
+//           <SearchDashboardPropertyForm
+//             defaultInputValue={defaultInputValue}
+//             useDashboardStyles={false}
+//           />
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// );
 
 export const PropertiesRowList = ({ results, title }) => {
   return results && results.length > 0 ? (

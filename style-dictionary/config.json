@@ -28,6 +28,10 @@
         {
           "destination": "color.tokens.scss",
           "format": "scss/variables"
+        },
+        {
+          "destination": "color.map.scss",
+          "format": "custom/scss/colors"
         }
       ]
     }

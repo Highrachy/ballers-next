@@ -100,19 +100,11 @@ const PropertyCard = (property) => {
                   </strong>
                 </span>
               </div>
-              <div className="row">
-                <div className="col-sm-6">
-                  {/* Price */}
-                  <h5 className="property-price property-spacing">
-                    {moneyFormatInNaira(price)}
-                  </h5>
-                </div>
-                <div className="col-sm-6 text-end">
-                  <button className="btn btn-sm btn-secondary">
-                    View Details
-                  </button>
-                </div>
-              </div>
+
+              {/* Price */}
+              <h5 className="property-price property-spacing">
+                {moneyFormatInNaira(price)}
+              </h5>
               {/* Info with Icons */}
               <div className="property-holder__separator my-3"></div>
               <div className="property-info property-spacing">
@@ -130,6 +122,12 @@ const PropertyCard = (property) => {
                   <ToiletIcon /> {property.toilets}{' '}
                   {Humanize.pluralize(property.toilets, 'toilet')}
                 </span>
+              </div>
+              {/* View Button */}
+              <div className="mt-4">
+                <button className="btn btn-sm btn-wide btn-secondary-light">
+                  View Details
+                </button>
               </div>
             </div>
           </article>
@@ -175,7 +173,7 @@ export const PropertyAvatar = ({
   const output = nameOnly ? (
     <span>{name}</span>
   ) : (
-    <>
+    <section className="d-flex">
       <div className="property-avatar">
         <Image
           alt={name}
@@ -195,7 +193,7 @@ export const PropertyAvatar = ({
         </span>
         <small className="user-email">{houseType}</small>
       </div>
-    </>
+    </section>
   );
   return !linkToPage ? (
     output

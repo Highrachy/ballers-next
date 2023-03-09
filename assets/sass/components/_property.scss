@@ -262,6 +262,7 @@
     // hover trick
     position: relative;
     display: block;
+    font-size: 0;
 
     &:before {
       position: absolute;
@@ -291,7 +292,7 @@
   }
 
   .property-spacing {
-    margin-top: 0.3rem;
+    margin-top: 0.75rem;
   }
 
   .property-item {
@@ -300,7 +301,7 @@
 
   .property-name {
     color: $black;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 700;
     line-height: 1.5rem;
   }

@@ -1,4 +1,5 @@
 @import '../../style-dictionary/build/color.tokens.scss';
+@import '../../style-dictionary/build/color.map.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Barlow:300,400,500,700,800&display=swap');
 $text-font: 'Barlow';
@@ -329,16 +330,16 @@ $purple-bg: #d4dcff;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
-// $theme-colors: (
-//   'primary': $primary,
-//   'secondary': $secondary,
-//   'success': $success,
-//   'info': $info,
-//   'warning': $warning,
-//   'danger': $danger,
-//   'light': $light,
-//   'dark': $dark,
-// ) !default;
+$theme-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'success': $success,
+  'info': $info,
+  'warning': $warning,
+  'danger': $danger,
+  'light': $light,
+  'dark': $dark,
+);
 // scss-docs-end theme-colors-map
 
 // Characters which are escaped by the escape-svg function
@@ -584,8 +585,8 @@ $font-size-base: 1rem; // Assumes the browser default, typically `16px`
 // $font-weight-lighter: lighter !default;
 // $font-weight-light: 300 !default;
 // $font-weight-normal: 400 !default;
-// $font-weight-semibold: 600 !default;
-$font-weight-bold: 500;
+$font-weight-semibold: 500;
+$font-weight-bold: 600;
 $font-weight-bolder: 700;
 
 // $font-weight-base: $font-weight-normal !default;
@@ -646,7 +647,7 @@ $small-font-size: 0.875rem;
 
 // $sub-sup-font-size: 0.75em !default;
 
-$text-muted: $gray-500;
+$text-muted: $gray-600;
 
 // $initialism-font-size: $small-font-size !default;
 
@@ -699,7 +700,7 @@ $table-cell-padding-y-sm: 1rem !default;
 
 // $table-striped-color: $table-color !default;
 // $table-striped-bg-factor: 0.05 !default;
-// $table-striped-bg: rgba($black, $table-striped-bg-factor) !default;
+$table-striped-bg: $gray-50;
 
 // $table-active-color: $table-color !default;
 // $table-active-bg-factor: 0.1 !default;
@@ -1358,7 +1359,7 @@ $dropdown-padding-y: 0;
 // $tooltip-opacity: 0.9 !default;
 // $tooltip-padding-y: $spacer * 0.25 !default;
 // $tooltip-padding-x: $spacer * 0.5 !default;
-// $tooltip-margin: null !default; // TODO: remove this in v6
+// $tooltip-margin: null !default;
 
 // $tooltip-arrow-width: 0.8rem !default;
 // $tooltip-arrow-height: 0.4rem !default;

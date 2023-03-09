@@ -10,25 +10,25 @@ import { PropertyIcon } from 'components/utils/Icons';
 import { API_ENDPOINT } from 'utils/URL';
 import { differenceInDays, isPastDate } from 'utils/date-helpers';
 import Humanize from 'humanize-plus';
-import { Spacing } from './Helpers';
 import { OnlineImage } from '../utils/Image';
 
 export const PortfolioPaymentProgress = ({ amountPaid, percentage }) => (
   <div className="row">
-    <div className="col-sm-12 mt-3">
-      <div className="small" style={{ paddingLeft: `${percentage - 5}%` }}>
-        {percentage}%
+    <div className="col-sm-12 mt-0">
+      <div className="text-sm mb-1">
+        <span className="text-primary">
+          Contributed: {moneyFormatInNaira(amountPaid)}
+        </span>
+        <span className="float-end">{`${percentage}%`}</span>
       </div>
       <ProgressBar
-        variant="success"
+        variant="secondary"
         now={percentage}
-        label={`${percentage}%`}
+        style={{
+          height: '6px',
+        }}
         srOnly
       />
-      <div className="small">
-        Amount Contributed: <strong>{moneyFormatInNaira(amountPaid)}</strong>
-        <span className="float-end text-green">Goal</span>
-      </div>
     </div>
   </div>
 );
@@ -40,57 +40,93 @@ export const PortfolioCard = ({
   nextPaymentInfo,
 }) => {
   return (
-    <Card className="card-container h-100 portfolio-holder property-card">
-      <Link href={`/user/portfolio/${_id}`}>
-        <article>
-          <div className="content-image">
-            <OnlineImage
-              name={propertyInfo.name}
-              src={propertyInfo.mainImage || PropertyPlaceholderImage}
-              alt="Property"
-              className="img-fluid property-holder__img"
-            />
-          </div>
-          <div className="property-item">
-            <h5 className="property-name mb-0">{}</h5>
-            {/* Details */}
-            <div className="property-details property-spacing">
-              <span className="property-holder__house-type">
-                <strong>
-                  <PropertyIcon /> {propertyInfo.houseType}
-                </strong>
-              </span>{' '}
-              &nbsp; | &nbsp;
-              <span className="property-holder__location">
-                <strong>
-                  <MapPinIcon /> {propertyInfo.address?.city},{' '}
-                  {propertyInfo.address?.state}
-                </strong>
-              </span>
+    <Card className="card-container portfolio-holder property-card">
+      <section className="card-body">
+        <article className="row row-eq-height">
+          <aside className="col-sm-6">
+            <div className="h-100">
+              <OnlineImage
+                name={propertyInfo.name}
+                src={propertyInfo.mainImage || PropertyPlaceholderImage}
+                alt="Property"
+                className="img-cover h-100"
+              />
             </div>
-            {/* Price */}
-            <h5 className="property-price property-spacing">
-              {moneyFormatInNaira(totalAmountPayable)}
-            </h5>
-          </div>
+          </aside>
+          <aside className="h-100 col-sm-6">
+            <div className="portfolio-content position-relative pt-2 pe-2">
+              <aside className="float-end">
+                <OverdueBadge
+                  date={
+                    nextPaymentInfo?.[0]?.dueDate ||
+                    nextPaymentInfo?.[0]?.expiresOn
+                  }
+                />
+              </aside>
+              <h5 className="property-name text-gray">{propertyInfo.name}</h5>
+              {/* Details */}
+              <div className="property-details property-spacing">
+                <span className="property-holder__house-type">
+                  <strong>
+                    <PropertyIcon /> {propertyInfo.houseType}
+                  </strong>
+                </span>{' '}
+                &nbsp; | &nbsp;
+                <span className="property-holder__location">
+                  <strong>
+                    <MapPinIcon /> {propertyInfo.address?.city},{' '}
+                    {propertyInfo.address?.state}
+                  </strong>
+                </span>
+              </div>
+              {/* Price */}
+              <h4 className="property-price text-dark property-spacing">
+                {moneyFormatInNaira(totalAmountPayable)}
+              </h4>
 
-          {/* Next Payment Info */}
-          <div className="property-holder__separator my-3"></div>
-          <div className="property-info property-spacing px-4">
-            Next Payment:{' '}
-            <strong>
-              {moneyFormatInNaira(nextPaymentInfo?.[0]?.expectedAmount)}
-            </strong>
-            <Spacing />
-            <Spacing />
-            <OverdueBadge
-              date={
-                nextPaymentInfo?.[0]?.dueDate || nextPaymentInfo?.[0]?.expiresOn
-              }
-            />
-          </div>
+              {/* Separator */}
+              <div className="property-holder__separator my-4"></div>
+
+              {/* Payment Progress */}
+              <PortfolioPaymentProgress
+                amountPaid={15_000_000}
+                percentage={30}
+              />
+
+              {/* Payment Info */}
+              {/* <p className="text-gray text-sm mt-4 mb-1">Next Payment</p> */}
+              <section className="info-content">
+                <span className="info-content__price">
+                  {moneyFormatInNaira(15_000_000)}
+                </span>
+                &nbsp;due on 15th March, 2023
+              </section>
+
+              {/* <section className="property-spacing">
+                <span className="property-holder__location icon-sm">
+                  <strong>
+                    <Clock variant="Bulk" /> &nbsp;15th March, 2023
+                  </strong>
+                </span>
+              </section> */}
+
+              {/* View Button */}
+              <div className="property-holder__btn text-end">
+                <Link href={`/portfolio/${_id}`}>
+                  <a className="btn btn-danger-light btn-wide btn-sm fw-bold me-3">
+                    Pay Now
+                  </a>
+                </Link>
+                <Link href={`/portfolio/${_id}`}>
+                  <a className="btn btn-secondary-light btn-wide fw-bold btn-sm">
+                    View Portfolio
+                  </a>
+                </Link>
+              </div>
+            </div>
+          </aside>
         </article>
-      </Link>
+      </section>
     </Card>
   );
 };
@@ -135,7 +171,7 @@ PortfolioCards.defaultProps = {
 
 const PortfoliosRowList = ({ results }) =>
   results.map((portfolio, index) => (
-    <div className="col-sm-6 mb-4" key={index}>
+    <div className="col-sm-12 mb-4" key={index}>
       <PortfolioCard {...portfolio} />
     </div>
   ));

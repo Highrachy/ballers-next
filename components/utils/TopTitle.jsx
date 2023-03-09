@@ -6,7 +6,7 @@ import { PlusIcon } from './Icons';
 const TopTitle = ({ children, buttonText, href }) => {
   return (
     <div className="container-fluid">
-      <h4>
+      <h3 className="mb-3">
         {children}
         {buttonText && href && (
           <div className="float-end">
@@ -15,7 +15,7 @@ const TopTitle = ({ children, buttonText, href }) => {
             </AddNewButton>
           </div>
         )}
-      </h4>
+      </h3>
     </div>
   );
 };

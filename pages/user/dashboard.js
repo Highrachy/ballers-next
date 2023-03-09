@@ -2,7 +2,7 @@ import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import { Card } from 'react-bootstrap';
 import Link from 'next/link';
-import { ReferIcon } from 'components/utils/Icons';
+import { BgWave, ReferIcon } from 'components/utils/Icons';
 import { RightArrowIcon, SearchIcon } from 'components/utils/Icons';
 import SearchForProperty from 'components/common/SearchDashboardPropertyForm';
 import ContributionGraph from 'components/common/ContributionGraph';
@@ -27,10 +27,12 @@ import Button from '@/components/forms/Button';
 import { OnlineImage } from '@/components/utils/Image';
 
 import PropertyPlaceholderImage from 'assets/img/placeholder/property.png';
+import colorTokens from 'style-dictionary/build/color.tokens';
+import classNames from 'classnames';
 
-const PegassusImage =
+export const PegassusImage =
   'https://ballers-staging.s3.amazonaws.com/63da062af9ec130016200f41/7de33a00-ab6a-11ed-9d59-6fa02cafbd66.jpg';
-const BlissvilleImage =
+export const BlissvilleImage =
   'https://ballers-staging.s3.amazonaws.com/63d73318936e55001633c84c/95a141e0-a04e-11ed-86c2-f1037f8bce01.jpg';
 
 const Dashboard = () => {
@@ -59,7 +61,7 @@ const Dashboard = () => {
   return (
     <BackendPage>
       <Toast {...toast} showToastOnly />
-      <Welcome />
+      <WelcomeHero />
       {/* <ShowInfo offers={offers} /> */}
       <Overview />
       <Others />
@@ -67,41 +69,71 @@ const Dashboard = () => {
   );
 };
 
-const WidgetBox = ({ children, title, buttonName = 'View All' }) => (
-  <div className="col-sm-6 mt-4">
+export const WidgetBox = ({
+  children,
+  title,
+  buttonName = 'View All',
+  buttonLink,
+  isStandAlone,
+}) => (
+  <div className={`col-sm-6 ${isStandAlone ? '' : 'mt-4'}`}>
     <div className="widget h-100 card widget-box">
       <div className="d-flex align-items-center justify-content-between">
         <h6 className="fw-bold mb-4">{title}</h6>
-        <Button color="secondary-light" className="px-4 py-1 mb-4 text-sm">
-          {buttonName}
-        </Button>
+        {!isStandAlone && (
+          <Button color="secondary-light" className="px-4 py-1 mb-4 text-sm">
+            {buttonName}
+          </Button>
+        )}
       </div>
       {children}
     </div>
   </div>
 );
 // get first 2 letters of title
-const getInitials = (title) => {
+export const getInitials = (title) => {
   const words = title.split(' ');
   return words[0].charAt(0) + words[1].charAt(0);
 };
 
-const StackBox = ({
-  avatarColor = 'secondary',
+// assign color (warning, success, primary, danger) based on first letter of title
+export const getColor = (title) => {
+  const firstLetter = title.charAt(0).toUpperCase();
+  const warningLetters = ['A', 'F', 'K', 'P', 'U', 'Z'];
+  const successLetters = ['B', 'G', 'L', 'Q', 'V'];
+  const primaryLetters = ['C', 'H', 'M', 'R', 'W'];
+  const dangerLetters = ['D', 'I', 'N', 'S', 'X'];
+  // const secondaryLetters = ['E', 'J', 'O', 'T', 'Y'];
+
+  if (warningLetters.includes(firstLetter)) {
+    return 'warning';
+  }
+  if (successLetters.includes(firstLetter)) {
+    return 'success';
+  }
+  if (primaryLetters.includes(firstLetter)) {
+    return 'primary';
+  }
+  if (dangerLetters.includes(firstLetter)) {
+    return 'danger';
+  }
+  return 'secondary';
+};
+
+export const StackBox = ({
+  avatarColor = 'primary',
   src,
   title,
   date,
   price,
-  content,
   status,
   statusName = 'Received',
-  hideTitle = false,
 }) => (
   <div className="widget-stack">
     <section className="d-flex justify-content-between">
       <div className="d-flex flex-row">
-        {!src && !hideTitle && (
-          <div className={`avatar-rounded bg-${avatarColor}`}>
+        {!src && (
+          <div className={`avatar-rounded avatar-${getColor(title)}`}>
             {getInitials(title)}
           </div>
         )}
@@ -116,14 +148,8 @@ const StackBox = ({
           />
         )}
         <div className="d-flex flex-column">
-          <h4
-            className={`text-primary text-md fw-semibold mb-0 ${
-              content ? 'widget-title' : ''
-            }`}
-          >
-            {title}
-          </h4>
-          {date && <p className="text-sm text-primary mt-1 mb-0">{date}</p>}
+          <h4 className={`text-primary text-md fw-semibold my-0`}>{title}</h4>
+          {date && <p className="text-sm text-primary mt-1 my-0">{date}</p>}
         </div>
       </div>
       <div className="d-flex flex-column">
@@ -132,15 +158,12 @@ const StackBox = ({
             {price && (
               <p className="fw-bold text-end mb-0">
                 <span className="fw-semibold">
-                  {content && (
-                    <small className="text-muted fw-normal">From </small>
-                  )}
                   <span className="text-md fw-bold">₦</span>
                   {price}
                 </span>
               </p>
             )}
-            <div className="text-xs status-badge">
+            <div className="text-sm status-badge">
               {status === '0' && (
                 <div className="badge bg-danger rounded-pill">{statusName}</div>
               )}
@@ -155,32 +178,70 @@ const StackBox = ({
                 </div>
               )}
               {status === '3' && (
-                <div className="badge bg-dark rounded-pill">{statusName}</div>
+                <div className="badge bg-primary rounded-pill">
+                  {statusName}
+                </div>
               )}
             </div>
           </div>
         </div>
       </div>
     </section>
+  </div>
+);
+
+export const ServiceBox = ({ title, link, price, content }) => (
+  <div className="widget-stack service-box">
+    <section className="d-flex justify-content-between">
+      <div className="d-flex flex-row">
+        <div className="d-flex flex-column">
+          <h4
+            className={`text-secondary text-md fw-semibold my-0  widget-title`}
+          >
+            {title}
+          </h4>
+        </div>
+      </div>
+      <div className="d-flex flex-column">
+        <div className="d-flex flex-row">
+          <div className="text-end">
+            {price && (
+              <p className="fw-semibold text-end my-0">
+                <small className="text-muted fw-normal">From </small>
+                <span className="text-md text-primary fw-bold">₦ {price}</span>
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
     <section>
-      <p className="text-sm mt-2 text-primary mb-0">{content}</p>
+      <p className="text-md mt-2 text-primary mb-0">{content}</p>
+
+      <p className="mt-4">
+        <Link href={link}>
+          <a className="btn btn-primary-light btn-xs btn-wide">Learn More</a>
+        </Link>
+      </p>
     </section>
   </div>
 );
 
-const Welcome = () => {
+export const WelcomeHero = ({ title, subtitle }) => {
   const { userState } = React.useContext(UserContext);
-  const WINDOW_SIZE = useWindowSize();
-  const [showSearch, setShowSearch] = React.useState(
-    WINDOW_SIZE.width > MOBILE_WIDTH
-  );
+
   return (
     <section className="position-relative mt-n5">
       <div className="dashboard-hero mb-3">
         <SquareBubbles />
         <div className="px-5 py-6">
-          <h2 className="text-white">Hello, {userState.firstName} </h2>
-          <p className="lead">Welcome to BALL!</p>
+          <h2 className="text-white">
+            {title || `Hello, ${userState.firstName}`}{' '}
+          </h2>
+          <p className="lead">
+            {subtitle ||
+              `Welcome to BALL - your dream home is just a few clicks away.`}
+          </p>
         </div>
       </div>
     </section>
@@ -252,7 +313,7 @@ const Others = () => (
             src={BlissvilleImage}
             date="Mar 10th, 2023"
             price="150,000"
-            status="2"
+            status="1"
             statusName="Due: 5 days"
           />
         </WidgetBox>
@@ -261,7 +322,7 @@ const Others = () => (
           <StackBox
             title="Blissville Uno"
             date="Due: 7 days"
-            status="0"
+            status="2"
             statusName="Awaiting"
           />
           <StackBox
@@ -273,42 +334,37 @@ const Others = () => (
         </WidgetBox>
       </div>
       <div className="row row-eq-height">
-        <WidgetBox title="RecentTransactions">
+        <WidgetBox title="Recent Transactions">
           <StackBox
             title="Pegassus Duplexes"
             date="Mar 10th, 2023"
             src={PegassusImage}
             price="150,000"
-            status="2"
+            status="3"
             statusName="Paystack"
           />
           <StackBox
-            title="Title Validity"
+            title="Pegassus Duplexes"
             date="Mar 10th, 2023"
-            price="20,000"
-            status="2"
-            statusName="Bank Transfer"
+            src={PegassusImage}
+            price="150,000"
+            status="3"
+            statusName="Paystack"
           />
         </WidgetBox>
         <WidgetBox title="Recommended Services">
-          <StackBox
+          <ServiceBox
+            link="/services/title-validity"
             title="Title Validity"
-            hideTitle
             price="50,000"
-            content="This is the proof of ownership of the property and the right to sell, mortgage,..."
-          />
-          <StackBox
-            title="Survey Plan Investigation"
-            hideTitle
-            price="20,000"
-            content="This is a process of examining the official survey plan of a property to verify..."
+            content="Title validity refers to the legal status of the ownership of a property. It is essential to ensure that the title of a property is valid and clear before buying or selling it."
           />
         </WidgetBox>
       </div>
 
-      <EnjoyYourBallingExperience />
+      <ReferAndEarn />
 
-      <div className="row mt-5">
+      {/* <div className="row mt-5">
         <h4 className="mb-4">Recommended Properties</h4>
         <PaginatedContent
           endpoint={API_ENDPOINT.searchProperties()}
@@ -322,39 +378,64 @@ const Others = () => (
           hidePagination
           hideTitle
         />
+      </div> */}
+    </div>
+  </>
+);
+
+const ReferAndEarn = () => (
+  <InfoBox
+    title="Refer a friend, and BALL together!"
+    Icon={<ReferIcon />}
+    linkHref="user/refer"
+    linkText="Refer and Earn"
+  >
+    Invite your friends to join BALL and you can ball together! <br />
+    Share the love and achieve your homeownership goals with BALL!
+  </InfoBox>
+);
+
+export const InfoBox = ({
+  color = 'primary',
+  title,
+  children,
+  Icon,
+  linkHref,
+  linkText,
+}) => (
+  <Card className="widget card d-block my-4 position-relative h-100">
+    <section className={`widget-${color} p-3`}>
+      <div className="card-body">
+        <div className="row">
+          <div className="col-sm-8">
+            <h4 className={`fw-bold text-${color}`}>{title}</h4>
+            <p className="mt-3 mb-4 text-gray">{children}</p>
+            <Link href={linkHref}>
+              <a className={`btn btn-${color}`}>{linkText}</a>
+            </Link>
+          </div>
+          <div className="col-sm-4 text-end widget-svg">{Icon}</div>
+        </div>
       </div>
-    </div>
-  </>
-);
-
-const LinkHeader = ({ name, href }) => (
-  <>
-    <div className="link-header">
-      <span>{name}</span>
-      <Link href={href}>
-        <a>
-          View All &nbsp;
-          <RightArrowIcon />
-        </a>
-      </Link>
-    </div>
-  </>
-);
-
-const EnjoyYourBallingExperience = () => (
-  <Card className="widget card d-block text-center py-5 my-4 h-100">
-    <div className="icon-container">
-      <ReferIcon width={48} height={48} />
-    </div>
-    <h5 className="mt-3">Enjoying your balling experience?</h5>
-    <p className="mb-3">
-      Refer your colleagues and friends to receive bonuses to grow your BALL net
-      worth.
-    </p>
-    <Link href="/user/refer-and-earn">
-      <a className="btn btn-secondary">Refer and Earn</a>
-    </Link>
+    </section>
   </Card>
 );
+
+export const DashboardTable = ({ children, title, className }) => {
+  return (
+    <div className={classNames('table-responsive card mb-5', className)}>
+      <table className="table table-border table-striped">
+        <thead>
+          <tr>
+            <th colSpan="6">
+              <h5 className="my-3">{title}</h5>
+            </th>
+          </tr>
+        </thead>
+        <tbody>{children}</tbody>
+      </table>
+    </div>
+  );
+};
 
 export default Dashboard;

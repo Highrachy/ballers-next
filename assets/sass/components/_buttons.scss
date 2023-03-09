@@ -1,25 +1,20 @@
 .btn-primary,
 .btn-secondary,
-.btn-warning {
+.btn-warning,
+.btn-success {
   color: white !important;
 }
 
-.btn-primary-light {
-  background-color: $primary-50 !important;
-  color: $primary-600 !important;
+//   .btn-primary-light
+@each $name, $colors in $brand-colors {
+  .btn-#{$name}-light {
+    background-color: map-get($colors, '50') !important;
+    color: map-get($colors, '600') !important;
 
-  &:hover {
-    background-color: $primary-500 !important;
-    color: $white !important;
-  }
-}
-.btn-secondary-light {
-  background-color: $secondary-50 !important;
-  color: $secondary-600 !important;
-
-  &:hover {
-    background-color: $secondary-500 !important;
-    color: $white !important;
+    &:hover {
+      background-color: map-get($colors, '500') !important;
+      color: $white !important;
+    }
   }
 }
 
@@ -45,6 +40,7 @@ a {
   &.btn-sm {
     padding: 0.75rem 2.5rem;
     font-size: 0.9rem;
+    font-weight: 500;
     svg {
       height: 1.2rem;
     }

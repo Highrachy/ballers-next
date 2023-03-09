@@ -36,7 +36,7 @@ const userMenu = [
   },
   {
     title: 'Services',
-    to: '/user/service',
+    to: '/user/services',
     icon: <VasIcon />,
     footer: false,
   },
