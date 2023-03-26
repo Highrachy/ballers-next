@@ -52,17 +52,26 @@
 
 .text-medium,
 .text-md {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
+  @include media-breakpoint-up(md) {
+    font-size: 0.85rem;
+  }
 }
 
 .text-small,
 .text-sm {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
+  @include media-breakpoint-up(md) {
+    font-size: 0.75rem;
+  }
 }
 
 .text-smaller,
 .text-xs {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
+  @include media-breakpoint-up(md) {
+    font-size: 0.65rem;
+  }
 }
 
 .text-lighter {

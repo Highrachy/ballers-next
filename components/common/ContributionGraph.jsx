@@ -44,7 +44,7 @@ const MyResponsivePie = dynamic(() => import('./PieChart'), {
 const widgetLists = [
   {
     name: 'My Porfolio',
-    link: 'my-properties',
+    link: 'portfolio',
     key: 'assignedProperty',
     color: 'secondary',
     Icon: <PortfolioIcon />,
@@ -106,7 +106,7 @@ export const Widget = ({
               <div className="card-body">
                 <span className="widget-icon">{Icon}</span>
 
-                <h3 className="mt-4 pt-3 mb-1 fw-semibold">{number || 0}</h3>
+                <h3 className="mt-3 pt-3 mb-1 fw-semibold">{number || 0}</h3>
                 <h6 className="card-title mt-0" title="Number of Customers">
                   {Humanize.capitalize(name)}
                 </h6>
@@ -122,7 +122,7 @@ export const Widget = ({
 
 export const OverviewGraph = () => {
   return (
-    <div className="widget col-sm-6">
+    <div className="widget col-sm-6 mb-4">
       {/* card */}
       <div className="card h-100 position-relative">
         {/* card body */}

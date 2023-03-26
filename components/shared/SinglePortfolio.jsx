@@ -33,7 +33,7 @@ const pageOptions = {
   pageName: 'Portfolio',
 };
 
-const SinglePortfolio = ({ id }) => {
+const SinglePortfolio = ({ id = '63da0ab3f9ec130016200f5c' }) => {
   const [toast, setToast] = useToast();
   const [portfolioQuery, portfolio, setPortfolio] = useGetQuery({
     key: pageOptions.key,

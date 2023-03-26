@@ -102,10 +102,10 @@ const EnjoyingBallers = () => (
       linkHref={'user/refer'}
       linkText="Add a New Property"
     >
-      With BALL, you can easily build a diverse portfolio of quality homes in
-      well-planned communities that offer comfort and security. Start your
-      journey towards financial freedom today and become a BALLer with multiple
-      properties.
+      {/* With BALL, you can easily build a diverse portfolio of quality homes in
+      well-planned communities that offer comfort and security. */}
+      Start your journey towards financial freedom today and become a BALLer
+      with multiple properties.
     </InfoBox>
   </div>
 );

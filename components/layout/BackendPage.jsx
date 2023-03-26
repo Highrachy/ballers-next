@@ -7,6 +7,7 @@ import { getTokenFromStore } from 'utils/localStorage';
 import FixedFooterMenu from './FixedFooterMenu';
 import axios from 'axios';
 import { BASE_API_URL } from '@/utils/constants';
+import Placeholder from './Placeholder';
 
 const BackendPage = ({ children }) => {
   const router = useRouter();
@@ -53,10 +54,9 @@ const BackendPage = ({ children }) => {
 
   return (
     <div className="dashboard-page">
+      <Sidebar closeSidebar={closeSidebar} showSidebar={showSidebar} />
       {userState?.isLoggedIn ? (
         <>
-          <Sidebar closeSidebar={closeSidebar} showSidebar={showSidebar} />
-
           {/* Content Page */}
           <div className="content-page">
             <TopBar />
@@ -71,5 +71,5 @@ const BackendPage = ({ children }) => {
   );
 };
 
-const LoadingState = () => <h2>Loading...</h2>;
+const LoadingState = () => <Placeholder />;
 export default BackendPage;

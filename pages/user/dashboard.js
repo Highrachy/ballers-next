@@ -61,7 +61,7 @@ const Dashboard = () => {
   return (
     <BackendPage>
       <Toast {...toast} showToastOnly />
-      <WelcomeHero />
+      <WelcomeHero isIndex />
       {/* <ShowInfo offers={offers} /> */}
       <Overview />
       <Others />
@@ -227,15 +227,15 @@ export const ServiceBox = ({ title, link, price, content }) => (
   </div>
 );
 
-export const WelcomeHero = ({ title, subtitle }) => {
+export const WelcomeHero = ({ title, subtitle, isIndex = false }) => {
   const { userState } = React.useContext(UserContext);
 
   return (
     <section className="position-relative mt-n5">
-      <div className="dashboard-hero mb-3">
+      <div className={`dashboard-hero mb-3 ${isIndex ? 'index-page' : ''}`}>
         <SquareBubbles />
-        <div className="px-5 py-6">
-          <h2 className="text-white">
+        <div className="px-4 py-6">
+          <h2 className="text-white mt-4 mt-md-0">
             {title || `Hello, ${userState.firstName}`}{' '}
           </h2>
           <p className="lead">
@@ -391,7 +391,9 @@ const ReferAndEarn = () => (
     linkText="Refer and Earn"
   >
     Invite your friends to join BALL and you can ball together! <br />
-    Share the love and achieve your homeownership goals with BALL!
+    <span className="d-none d-md-inline">
+      Share the love and achieve your homeownership goals with BALL!
+    </span>
   </InfoBox>
 );
 
@@ -403,18 +405,18 @@ export const InfoBox = ({
   linkHref,
   linkText,
 }) => (
-  <Card className="widget card d-block my-4 position-relative h-100">
+  <Card className="info-box widget card  d-block my-4 position-relative h-100">
     <section className={`widget-${color} p-3`}>
       <div className="card-body">
         <div className="row">
-          <div className="col-sm-8">
-            <h4 className={`fw-bold text-${color}`}>{title}</h4>
+          <h4 className={`fw-bold text-${color}`}>{title}</h4>
+          <div className="col-8">
             <p className="mt-3 mb-4 text-gray">{children}</p>
             <Link href={linkHref}>
               <a className={`btn btn-${color}`}>{linkText}</a>
             </Link>
           </div>
-          <div className="col-sm-4 text-end widget-svg">{Icon}</div>
+          <div className="col-3 col-sm-4 text-end widget-svg">{Icon}</div>
         </div>
       </div>
     </section>

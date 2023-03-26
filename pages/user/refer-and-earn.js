@@ -70,7 +70,7 @@ const EmailReferral = () => {
       <h4 className="my-4">Refer your friends and BALL together</h4>
       <Card className="mt-4 widget card-container">
         <section className="row py-4">
-          <div className="col-sm-5 my-5">
+          <div className="col-sm-5 text-center my-5">
             <LocalImage
               src="/img/pages/a-to-z/refer-n-earn.png"
               alt="Referral"

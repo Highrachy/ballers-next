@@ -73,3 +73,28 @@ td {
     font-size: 2rem !important;
   }
 }
+
+// https://stackoverflow.com/questions/72093603/how-to-make-table-fit-in-mobile-view
+.table-responsive {
+  min-height: 0.01%;
+  @include media-breakpoint-down(md) {
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid $gray-400;
+
+    > .table {
+      margin-bottom: 0;
+    }
+
+    > .table > thead > tr > th,
+    > .table > tbody > tr > th,
+    > .table > tfoot > tr > th,
+    > .table > thead > tr > td,
+    > .table > tbody > tr > td,
+    > .table > tfoot > tr > td {
+      white-space: nowrap;
+    }
+  }
+}

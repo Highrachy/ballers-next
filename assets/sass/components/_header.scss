@@ -9,8 +9,6 @@ body {
 }
 
 .navbar {
-  padding: 0.5rem 2rem 0.5rem 1rem;
-
   @include media-breakpoint-up(lg) {
     padding: 0 !important;
   }

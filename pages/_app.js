@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <UserProvider>
       <Component {...pageProps} />
-      {isDevEnvironment() && <ReactQueryDevtools />}
+      {/* {isDevEnvironment() && <ReactQueryDevtools />} */}
     </UserProvider>
   );
 }

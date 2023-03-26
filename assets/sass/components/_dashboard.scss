@@ -100,7 +100,15 @@
   }
 }
 .dashboard-hero {
-  padding: 2rem;
+  padding: 2rem 0 0;
+
+  &.index-page {
+    padding-bottom: 2rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    padding: 2rem;
+  }
   background-image: linear-gradient(
     to top,
     #051937,
@@ -173,6 +181,8 @@
   border-top: 1px solid transparent;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
   text-align: center;
+  z-index: 100;
+
   @include media-breakpoint-up(md) {
     display: none;
   }
@@ -231,9 +241,14 @@
   position: absolute;
   list-style: none;
   display: block;
-  width: 40px;
-  height: 40px;
-  border-radius: 30px;
+  // width: 1.5rem;
+  // height: 1.5rem;
+  // border-radius: 1rem;
+  // @include media-breakpoint-up(md) {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1.8rem;
+  // }
   background-color: rgba(255, 255, 255, 0.03);
   bottom: -50px;
   -webkit-animation: square 20s infinite;
@@ -246,8 +261,9 @@
 }
 .bg-bubbles li:nth-child(2) {
   left: 20%;
-  width: 120px;
-  height: 120px;
+  width: 7.5rem;
+  height: 7.5rem;
+
   -webkit-animation-delay: 2s;
   animation-delay: 2s;
   -webkit-animation-duration: 17s;
@@ -260,34 +276,38 @@
 }
 .bg-bubbles li:nth-child(4) {
   left: 40%;
-  width: 80px;
-  height: 80px;
+  width: 5rem;
+  height: 5rem;
+
   -webkit-animation-duration: 22s;
   animation-duration: 22s;
 }
 .bg-bubbles li:nth-child(5) {
   left: 70%;
-  width: 90px;
-  height: 90px;
+  width: 5.5rem;
+  height: 5.5rem;
 }
 .bg-bubbles li:nth-child(6) {
   left: 70%;
-  width: 120px;
-  height: 120px;
+  width: 7.5rem;
+  height: 7.5rem;
+
   -webkit-animation-delay: 3s;
   animation-delay: 3s;
 }
 .bg-bubbles li:nth-child(7) {
   left: 32%;
-  width: 150px;
-  height: 150px;
+  width: 9rem;
+  height: 9rem;
+
   -webkit-animation-delay: 7s;
   animation-delay: 7s;
 }
 .bg-bubbles li:nth-child(8) {
   left: 55%;
-  width: 80px;
-  height: 80px;
+  width: 7.5rem;
+  height: 7.5rem;
+
   -webkit-animation-delay: 15s;
   animation-delay: 15s;
   -webkit-animation-duration: 40s;
@@ -295,8 +315,9 @@
 }
 .bg-bubbles li:nth-child(9) {
   left: 25%;
-  width: 50px;
-  height: 50px;
+  width: 2.5rem;
+  height: 2.5rem;
+
   -webkit-animation-delay: 2s;
   animation-delay: 2s;
   -webkit-animation-duration: 40s;
@@ -304,8 +325,9 @@
 }
 .bg-bubbles li:nth-child(10) {
   left: 90%;
-  width: 140px;
-  height: 140px;
+  width: 8.5rem;
+  height: 8.5rem;
+
   -webkit-animation-delay: 11s;
   animation-delay: 11s;
 }
@@ -342,6 +364,7 @@
     top: 0;
     right: 0;
     bottom: 0;
+    left: 0;
     background-size: cover;
     overflow: hidden;
     will-change: transform, opacity, filter;
@@ -351,7 +374,12 @@
     z-index: 0;
 
     svg {
-      float: right;
+      position: absolute;
+      right: 0px;
+      bottom: -1px;
+      left: 1px;
+      width: 100%;
+      height: auto;
     }
 
     &.big {
@@ -432,8 +460,12 @@
 
   .widget-svg {
     svg {
-      height: 10rem;
-      width: 10rem;
+      height: 8rem;
+      width: 8rem;
+      @include media-breakpoint-up(md) {
+        height: 10rem;
+        width: 10rem;
+      }
       opacity: 0.4;
     }
   }
@@ -553,7 +585,11 @@
 
   &__price {
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     color: $warning-800;
   }
+}
+
+li .active {
+  color: $secondary;
 }

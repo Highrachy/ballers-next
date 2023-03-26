@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { MenuIcon } from 'components/utils/Icons';
 import { useMenu } from 'hooks/useMenu';
+import ActiveLink from '../common/ActiveLink';
 
 const FixedFooterMenu = () => {
   const sideMenu = useMenu();
@@ -12,12 +13,10 @@ const FixedFooterMenu = () => {
           ({ title, to, icon, footer }) =>
             footer && (
               <li className="list-group-item flex-fill" key={title}>
-                <Link href={to} passHref>
-                  <a>
-                    <span className="footer-fixed__icon">{icon}</span>
-                    <p className="footer-fixed__menu-title">{title}</p>
-                  </a>
-                </Link>{' '}
+                <ActiveLink href={to} passHref>
+                  <span className="footer-fixed__icon">{icon}</span>
+                  <p className="footer-fixed__menu-title">{title}</p>
+                </ActiveLink>
               </li>
             )
         )}

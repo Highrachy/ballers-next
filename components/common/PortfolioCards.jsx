@@ -53,7 +53,7 @@ export const PortfolioCard = ({
               />
             </div>
           </aside>
-          <aside className="h-100 col-sm-6">
+          <aside className="h-100 col-sm-6 pt-3 pt-md-0">
             <div className="portfolio-content position-relative pt-2 pe-2">
               <aside className="float-end">
                 <OverdueBadge
@@ -89,7 +89,7 @@ export const PortfolioCard = ({
 
               {/* Payment Progress */}
               <PortfolioPaymentProgress
-                amountPaid={15_000_000}
+                amountPaid={13_200_000}
                 percentage={30}
               />
 
@@ -97,9 +97,9 @@ export const PortfolioCard = ({
               {/* <p className="text-gray text-sm mt-4 mb-1">Next Payment</p> */}
               <section className="info-content">
                 <span className="info-content__price">
-                  {moneyFormatInNaira(15_000_000)}
+                  {moneyFormatInNaira(1_000_000)}
                 </span>
-                &nbsp;due on 15th March, 2023
+                &nbsp;due on 15th February, 2023
               </section>
 
               {/* <section className="property-spacing">

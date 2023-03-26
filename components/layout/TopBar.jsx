@@ -13,6 +13,7 @@ import { BASE_API_URL } from 'utils/constants';
 import { getTokenFromStore } from 'utils/localStorage';
 import { statusIsSuccessful } from 'utils/helpers';
 import { refreshQuery } from 'hooks/useQuery';
+import Image from 'next/image';
 
 // eslint-disable-next-line react/display-name
 const Empty = React.forwardRef(({ children, onClick }, ref) => (
@@ -35,7 +36,20 @@ const Header = () => {
         bg="transparent"
         expand="lg"
       >
-        <div className="container-fluid">
+        <div className="container-fluid py-0">
+          <Link href="/">
+            <Navbar.Brand className="p-0">
+              <div className="me-5 d-md-none d-block">
+                <Image
+                  className="ballers-logo"
+                  src="/img/ballers-logo.png"
+                  alt="Ballers logo"
+                  width={60}
+                  height={40}
+                />
+              </div>
+            </Navbar.Brand>
+          </Link>
           <Nav className="ms-auto d-flex flex-row align-items-center">
             {userState?.notifications?.length === 0 ? (
               <Link href={`/${currentRole}/notifications`}>
