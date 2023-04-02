@@ -3,7 +3,7 @@ import Header from 'components/layout/Header';
 import CommunityGallery from 'components/common/CommunityGallery';
 import Footer from 'components/layout/Footer';
 import TitleSection from 'components/common/TitleSection';
-import Image from 'components/utils/Image';
+import Image, { LocalImage } from 'components/utils/Image';
 
 const testImageURL =
   'https://ballers-staging.s3.amazonaws.com/test/property3.jpeg';
@@ -33,7 +33,7 @@ const Content = () => (
 const Images = () => (
   <section className="mt-5">
     <div className="thumbnail">
-      <img src={testImageURL} alt="test" className="img-fluid" />
+      <LocalImage src={testImageURL} alt="test" className="img-fluid" />
       <div className="caption">
         <strong>Original Image from Amazon S3</strong>
       </div>

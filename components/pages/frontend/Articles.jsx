@@ -4,6 +4,7 @@ import Footer from 'components/layout/Footer';
 import ArticleImage from 'assets/img/placeholder/article.jpg';
 import Author from 'assets/img/placeholder/author.png';
 import { FacebookIcon, TwitterIcon } from 'components/utils/Icons';
+import { LocalImage } from '@/components/utils/Image';
 
 const Articles = () => (
   <>
@@ -19,7 +20,7 @@ const Articles = () => (
       </div>
     </header>
 
-    <img src={ArticleImage} alt="Article" className="img-fluid" />
+    <LocalImage src={ArticleImage} alt="Article" className="img-fluid" />
 
     <article className="container-fluid articles-page">
       <div className="row">
@@ -28,7 +29,7 @@ const Articles = () => (
             <div className="row">
               <div className="col-sm-6">
                 <div className="d-flex mb-5">
-                  <img
+                  <LocalImage
                     className="rounded-circle me-3 border my-auto"
                     alt="Author"
                     src={Author}
@@ -114,7 +115,7 @@ const Articles = () => (
           <div className="dotted-border my-5"></div>
 
           <div className="d-flex mb-5">
-            <img
+            <LocalImage
               className="rounded-circle me-3 border my-auto"
               alt="Author"
               src={Author}

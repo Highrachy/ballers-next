@@ -11,7 +11,7 @@ import { ContentLoader } from 'components/utils/LoadingItems';
 import { UserIcon } from 'components/utils/Icons';
 import { getFormattedAddress } from 'utils/helpers';
 import Tooltip from 'components/common/Tooltip';
-import Image from 'components/utils/Image';
+import Image, { OnlineImage } from 'components/utils/Image';
 import { CertifiedIcon } from 'components/utils/Icons';
 
 const pageOptions = {
@@ -73,7 +73,7 @@ const ContentHeader = ({ user }) => {
         <div className="col-sm-9">
           <div className="d-flex">
             <div className="company-avatar-container">
-              <Image
+              <OnlineImage
                 name="vendor logo"
                 src={user.vendor.companyLogo}
                 className="avatar-company"

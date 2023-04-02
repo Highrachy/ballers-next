@@ -125,6 +125,7 @@ export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
             <div className="card-body d-flex flex-column">
               {/* Logo */}
               <div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img alt="Logo" className="invoice__logo" src={BallersLogo} />
               </div>
 

@@ -137,7 +137,7 @@ const CheckboxGroup = ({
   return (
     <>
       {label ? (
-        <CheckboxGroup.WithLabel
+        <CheckboxGroupWithLabel
           checkboxSizeClassName={checkboxSizeClassName}
           label={label}
           labelClassName={labelClassName}
@@ -149,7 +149,7 @@ const CheckboxGroup = ({
           tooltipText={tooltipText}
         >
           {checkedGroup}
-        </CheckboxGroup.WithLabel>
+        </CheckboxGroupWithLabel>
       ) : (
         checkedGroup
       )}
@@ -202,7 +202,7 @@ CheckboxGroup.defaultProps = {
   tooltipText: null,
 };
 
-CheckboxGroup.WithLabel = ({
+const CheckboxGroupWithLabel = ({
   children,
   label,
   labelClassName,
@@ -234,7 +234,7 @@ CheckboxGroup.WithLabel = ({
   );
 };
 
-CheckboxGroup.WithLabel.propTypes = {
+CheckboxGroupWithLabel.propTypes = {
   checkboxSizeClassName: PropTypes.string.isRequired,
   children: PropTypes.array.isRequired,
   label: PropTypes.node.isRequired,
@@ -247,7 +247,7 @@ CheckboxGroup.WithLabel.propTypes = {
   tooltipText: PropTypes.string,
 };
 
-CheckboxGroup.WithLabel.defaultProps = {
+CheckboxGroupWithLabel.defaultProps = {
   labelClassName: null,
   tooltipText: null,
   tooltipHeader: null,

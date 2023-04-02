@@ -4,7 +4,7 @@ import ProfileAvatar from 'assets/img/avatar/profile.png';
 import { getTokenFromStore } from 'utils/localStorage';
 import { UserContext } from 'context/UserContext';
 import BallersSpinner from 'components/utils/BallersSpinner';
-import Image from './Image';
+import Image, { OnlineImage } from './Image';
 import { BASE_API_URL } from 'utils/constants';
 import Toast, { useToast } from 'components/utils/Toast';
 import { getError } from 'utils/helpers';
@@ -68,7 +68,7 @@ const UploadProfileImage = () => {
     <>
       <div className="upload-button text-center mb-5">
         <Toast {...toast} showToastOnly />
-        <Image
+        <OnlineImage
           bordered
           rounded
           className="avatar--large uploaded-image mb-3"

@@ -18,6 +18,7 @@ import TopTitle from 'components/utils/TopTitle';
 import ProfileAvatar from 'assets/img/avatar/profile.png';
 import Modal from 'components/common/Modal';
 import { NewTransactionForm } from './NewTransaction';
+import { LocalImage } from '@/components/utils/Image';
 
 const AddTransaction = () => {
   const [toast, setToast] = useToast();
@@ -94,9 +95,8 @@ const OffersRow = ({
   propertyInfo,
   userInfo,
 }) => {
-  const [showAddTransactionModal, setShowAddTransactionModal] = React.useState(
-    false
-  );
+  const [showAddTransactionModal, setShowAddTransactionModal] =
+    React.useState(false);
   if (!ACTIVE_OFFER_STATUS.includes(status)) {
     return null;
   }
@@ -106,7 +106,7 @@ const OffersRow = ({
       <tr>
         {/* <td>{number}</td>{' '} */}
         <td>
-          <img
+          <LocalImage
             alt={propertyInfo.name}
             className="img-fluid avatar--medium--small rounded"
             src={

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tooltip from './FormToolTip';
+import Tooltip from './FormTooltip';
 import Link from 'next/link';
 import classNames from 'classnames';
 

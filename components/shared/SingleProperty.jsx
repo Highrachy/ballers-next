@@ -5,7 +5,7 @@ import Map from 'components/common/Map';
 import { PROPERTY_VIDEO_STATUS, USER_TYPES } from 'utils/constants';
 import { useToast } from 'components/utils/Toast';
 import { moneyFormatInNaira, getLocationFromAddress } from 'utils/helpers';
-import Image from 'components/utils/Image';
+import Image, { OnlineImage } from 'components/utils/Image';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property.png';
 import Link from 'next/link';
 import { BathIcon } from 'components/utils/Icons';
@@ -671,7 +671,7 @@ export const PropertyImage = ({ property, hideGallery }) => {
                 : undefined
             }
           >
-            <Image
+            <OnlineImage
               defaultImage={PropertyPlaceholderImage}
               src={property.mainImage}
               name="Property Image"

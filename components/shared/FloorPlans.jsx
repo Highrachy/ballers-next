@@ -17,7 +17,7 @@ import { addFloorPlansSchema } from 'components/forms/schemas/propertySchema';
 import { getError, statusIsSuccessful } from 'utils/helpers';
 import Upload from 'components/utils/Upload';
 import Input from 'components/forms/Input';
-import Image from 'components/utils/Image';
+import Image, { OnlineImage } from 'components/utils/Image';
 import { Accordion } from 'react-bootstrap';
 import { ArrowDownIcon } from 'components/utils/Icons';
 import { ContextAwareToggle } from 'components/common/FAQsAccordion';
@@ -283,7 +283,7 @@ export const FloorPlansList = ({ property, setProperty, setToast }) => {
             >
               <section className="row">
                 <div className="col-md-12 my-3 text-center">
-                  <Image
+                  <OnlineImage
                     src={floorPlan?.plan}
                     name={floorPlan?.name || 'unknown'}
                     options={{ h: 200 }}

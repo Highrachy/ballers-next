@@ -2,13 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Toast } from 'react-bootstrap';
 import { COLOR_STYLE } from 'utils/constants';
+import { LocalImage } from '@/components/utils/Image';
 
 const AlertMessage = ({ type, message }) => {
   return (
     message && (
       <Toast>
         <Toast.Header>
-          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+          <LocalImage
+            src="holder.js/20x20?text=%20"
+            className="rounded me-2"
+            alt=""
+          />
           <strong className="me-auto">Bootstrap</strong>
           <small>11 mins ago</small>
         </Toast.Header>
@@ -28,21 +33,21 @@ AlertMessage.defaultProps = {
   type: COLOR_STYLE[3],
 };
 
-// AlertMessage.Text
-AlertMessage.Text = ({ type, message }) => {
+// AlertMessageText
+const AlertMessageText = ({ type, message }, index) => {
   return (
-    <div className="small pb-4">
+    <div className="small pb-4" key={index}>
       {message && <div className={`text-${type}`}>{message && message}</div>}
     </div>
   );
 };
 
-AlertMessage.Text.propTypes = {
+AlertMessageText.propTypes = {
   message: PropTypes.any,
   type: PropTypes.oneOf(['success', 'error', 'primary', 'info']),
 };
 
-AlertMessage.Text.defaultProps = {
+AlertMessageText.defaultProps = {
   message: null,
   type: 'primary',
 };

@@ -18,7 +18,7 @@ import { signatorySchema } from 'components/forms/schemas/vendorSchema';
 import { getError, isValidURL, statusIsSuccessful } from 'utils/helpers';
 import Select from 'components/forms/Select';
 import { UploadSignature } from 'components/pages/shared/SingleOffer';
-import Image from 'components/utils/Image';
+import Image, { OnlineImage } from 'components/utils/Image';
 import { VerificationComments } from './AccountSetup';
 
 const Signatories = () => (
@@ -153,7 +153,7 @@ const SignatoriesInfoForm = ({
               <h3 className="signature-pad">
                 <>
                   {isValidURL(signature) ? (
-                    <Image
+                    <OnlineImage
                       className="signature-image uploaded-image mb-3"
                       name="Signature"
                       src={signature}
@@ -239,7 +239,7 @@ export const ShowDirectorsTable = ({ directors, moveToNextStep, setToast }) => {
                 <td>{director.isSignatory ? 'Yes' : 'No'}</td>
                 <td>
                   {director.signature ? (
-                    <Image
+                    <OnlineImage
                       className="small-image mb-3"
                       name="image"
                       src={director.signature}

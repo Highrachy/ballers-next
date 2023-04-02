@@ -20,6 +20,7 @@ import { useCurrentRole } from 'hooks/useUser';
 import { PlayIcon } from 'components/utils/Icons';
 import { WarningIcon } from 'components/utils/Icons';
 import Tooltip from 'components/common/Tooltip';
+import { OnlineImage } from '../utils/Image';
 
 export const VideosForm = ({
   hideForm,
@@ -123,7 +124,7 @@ export const VideosForm = ({
                   type="url"
                 />
                 {props?.values?.url && !isValidYoutubeVideo && (
-                  <div class="invalid-feedback mt-n3">
+                  <div className="invalid-feedback mt-n3">
                     Youtube Video URL seems invalid
                   </div>
                 )}
@@ -328,7 +329,7 @@ export const VideoYoutubeImage = ({ title, url }) => {
   // get last 11 characters of the url
   const videoId = url.substr(url.length - 11);
   return (
-    <img
+    <OnlineImage
       alt={title}
       className="img-fluid img-youtube-placeholder"
       src={`https://i1.ytimg.com/vi/${videoId}/0.jpg`}

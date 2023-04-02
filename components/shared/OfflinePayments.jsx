@@ -18,7 +18,7 @@ import { getTokenFromStore } from 'utils/localStorage';
 import Axios from 'axios';
 import { BASE_API_URL } from 'utils/constants';
 import { refreshQuery } from 'hooks/useQuery';
-import Image from 'components/utils/Image';
+import Image, { OnlineImage } from 'components/utils/Image';
 
 export const AllOfflinePayments = () => {
   return (
@@ -164,7 +164,7 @@ const OfflinePaymentsRowList = ({ results, offset, setToast }) => {
                   <tr>
                     <td>Receipt</td>
                     <td>
-                      <Image
+                      <OnlineImage
                         src={offlinePayment?.receipt}
                         name="receipt"
                         bordered

@@ -189,22 +189,26 @@ const AccountSetup = ({ id }) => {
   const ALL_STEPS = [
     null,
     <CompanyInformationForm
+      key="1"
       moveToNextStep={() => moveToStep(2)}
       setStepToast={setToast}
     />,
     <BankInformationForm
+      key="2"
       moveToNextStep={() => moveToStep(3)}
       setStepToast={setToast}
     />,
     <SignatoriesForm
+      key="3"
       moveToNextStep={() => moveToStep(4)}
       setStepToast={setToast}
     />,
     <CertificatesForm
+      key="4"
       moveToNextStep={() => moveToStep(5)}
       setStepToast={setToast}
     />,
-    <ReviewInfoForm />,
+    <ReviewInfoForm key="5" />,
   ];
 
   return (

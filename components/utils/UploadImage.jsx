@@ -6,7 +6,7 @@ import BallersSpinner from 'components/utils/BallersSpinner';
 import { BASE_API_URL } from 'utils/constants';
 import Toast, { useToast } from 'components/utils/Toast';
 import { getError } from 'utils/helpers';
-import Image from './Image';
+import Image, { OnlineImage } from './Image';
 import { FileIcon } from './Icons';
 
 export const UploadedDocument = ({ document }) => {
@@ -17,7 +17,7 @@ export const UploadedDocument = ({ document }) => {
   if (!allowedFormats.includes(extension)) return null;
 
   return extension !== 'pdf' ? (
-    <Image
+    <OnlineImage
       className="uploaded-image mb-3"
       name="document upload"
       src={document}

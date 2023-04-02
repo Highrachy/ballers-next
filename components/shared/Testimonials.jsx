@@ -28,6 +28,7 @@ import { getTinyDate } from 'utils/date-helpers';
 import { ReplyIcon } from 'components/utils/Icons';
 import { UserContext } from 'context/UserContext';
 import { EditIcon } from 'components/utils/Icons';
+import { OnlineImage } from '../utils/Image';
 // import { refreshQuery } from 'hooks/useQuery';
 
 const Testimonials = () => {
@@ -164,7 +165,7 @@ export const SingleTestimonial = ({
       <aside className="conversation-list">
         <li className="clearfix">
           <div className="chat-avatar">
-            <img
+            <OnlineImage
               src={testimonial?.user?.profileImage || ProfileAvatar}
               alt="user"
               className="rounded"
@@ -198,7 +199,7 @@ export const SingleTestimonial = ({
         {testimonial?.response && (
           <li className="clearfix odd">
             <div className="chat-avatar">
-              <img src={vendor?.companyLogo} alt="vendor" />
+              <OnlineImage src={vendor?.companyLogo} alt="vendor" />
             </div>
             <div className="conversation-text">
               <div className="ctext-wrap">

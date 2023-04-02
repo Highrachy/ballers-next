@@ -30,7 +30,7 @@ import {
 import { createSchema } from 'components/forms/schemas/schema-helpers';
 import Textarea from 'components/forms/Textarea';
 import { VENDOR_STEPS } from 'utils/constants';
-import Image, { OnlineImage } from 'components/utils/Image';
+import Image, { LocalImage, OnlineImage } from 'components/utils/Image';
 import ProfileAvatar from 'assets/img/avatar/profile.png';
 import Modal from 'components/common/Modal';
 import { SuccessIcon } from 'components/utils/Icons';
@@ -654,7 +654,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
           <strong>Identification</strong>
         </td>
         <td>
-          <Image
+          <LocalImage
             src={user.vendor?.identification && user.vendor?.identification.url}
             name="identification"
             bordered
@@ -670,7 +670,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
           <strong>Tax Certificate</strong>
         </td>
         <td>
-          <Image name="tax" src={user.vendor?.taxCertificate} bordered />
+          <LocalImage name="tax" src={user.vendor?.taxCertificate} bordered />
         </td>
       </tr>
       {((user.vendor?.identification && user.vendor?.identification?.url) ||

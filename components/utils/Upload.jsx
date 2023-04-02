@@ -8,7 +8,7 @@ import { getError } from 'utils/helpers';
 import Toast from './Toast';
 import BallersSpinner from './BallersSpinner';
 import { UploadIcon } from './Icons';
-import Image from './Image';
+import Image, { OnlineImage } from './Image';
 import Humanize from 'humanize-plus';
 
 const Upload = ({
@@ -123,7 +123,7 @@ const Upload = ({
       <Toast {...toast} showToastOnly />
       {children ||
         (inputHasAnImage && (
-          <Image
+          <OnlineImage
             defaultImage={defaultImage}
             src={uploadedFile || oldImage}
             name={name || 'uploaded-image'}

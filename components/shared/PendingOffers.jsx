@@ -30,6 +30,7 @@ import {
 } from 'components/forms/schemas/offerSchema';
 import { Spacing } from 'components/common/Helpers';
 import Link from 'next/link';
+import { OnlineImage } from '../utils/Image';
 
 const PendingOffers = () => (
   <BackendPage>
@@ -530,7 +531,7 @@ const OffersRow = ({ offer, number, showTermsAndConditionsModal }) => {
       <tr>
         <td>{number}</td>
         <td>
-          <img
+          <OnlineImage
             alt={propertyInfo.name}
             className="img-fluid avatar--medium--small rounded"
             src={

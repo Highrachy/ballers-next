@@ -6,7 +6,7 @@ import { UserContext } from 'context/UserContext';
 import { getFormattedAddress } from 'utils/helpers';
 import { navigate } from '@reach/router';
 import { ShowDirectorsTable } from './Signatories';
-import Image from 'components/utils/Image';
+import Image, { OnlineImage } from 'components/utils/Image';
 
 const ReviewInfo = () => (
   <BackendPage>
@@ -27,7 +27,7 @@ export const ReviewInfoForm = () => {
           </td>
           <td>
             {userState.vendor?.companyLogo && (
-              <img
+              <OnlineImage
                 alt={userState.firstName}
                 className="img-fluid dashboard-top-nav__company-logo mb-3"
                 src={userState.vendor.companyLogo}
@@ -112,7 +112,7 @@ export const ReviewInfoForm = () => {
             <strong>Identification</strong>
           </td>
           <td>
-            <Image
+            <OnlineImage
               src={userState.vendor?.identification?.url}
               name="identification"
               bordered
@@ -126,7 +126,11 @@ export const ReviewInfoForm = () => {
             <strong>Tax Certificate</strong>
           </td>
           <td>
-            <Image name="tax" src={userState.vendor?.taxCertificate} bordered />
+            <OnlineImage
+              name="tax"
+              src={userState.vendor?.taxCertificate}
+              bordered
+            />
           </td>
         </tr>
       </CardTableSection>

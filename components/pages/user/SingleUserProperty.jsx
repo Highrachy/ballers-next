@@ -301,7 +301,6 @@ export const ScheduleTourButton = ({
           <VisitationIcon />
         </span>
       </Button>
-      '{' '}
     </>
   );
 };

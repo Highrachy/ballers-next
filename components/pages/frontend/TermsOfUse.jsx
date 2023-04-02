@@ -7,7 +7,7 @@ import TitleSection from 'components/common/TitleSection';
 const TermsOfUse = () => (
   <>
     <Header />
-    <TitleSection name="Term of Use" content="Last updated: May 09, 2020" />
+    <TitleSection name="Term of Use" content="Last updated: May 09, 2022" />
     <Content />
     <CommunityGallery />
     <Footer />
@@ -26,12 +26,12 @@ const Content = () => (
         acceptance of and agreement to be bound by these terms.
       </p>
       <p>
-        These Terms of Use ("Terms") govern your use of the BALLERS website and
-        services ("Services"). As some of our Services may be software that is
-        downloaded to your computer, phone, tablet, or other device, you agree
-        that we may automatically update this software, and that these Terms
-        will apply to such updates. Please read these Terms carefully and
-        contact us if you have any questions.
+        These Terms of Use (&quot;Terms&quot;) govern your use of the BALLERS
+        website and services (&quot;Services&quot;). As some of our Services may
+        be software that is downloaded to your computer, phone, tablet, or other
+        device, you agree that we may automatically update this software, and
+        that these Terms will apply to such updates. Please read these Terms
+        carefully and contact us if you have any questions.
       </p>
       <p>
         By using this Website and agreeing to these Terms, you represent and
@@ -309,11 +309,11 @@ const Content = () => (
         collect and store information about your use of the Services, as
         described above. In addition to cookies, we and our partners use other
         tracking technologies that collect information about your use of the
-        Services, including mobile identifiers and "web beacons" which are small
-        graphic files (sometimes called “clear GIFs” or “web pixels”) embedded
-        in a web page or email typically used to monitor activity and send
-        relevant information back to a home server (which can belong to the host
-        site, a network advertiser or some other third party).
+        Services, including mobile identifiers and &quot;web beacons&quot; which
+        are small graphic files (sometimes called “clear GIFs” or “web pixels”)
+        embedded in a web page or email typically used to monitor activity and
+        send relevant information back to a home server (which can belong to the
+        host site, a network advertiser or some other third party).
       </p>
       <p>
         Our advertising service partners may use cookies and other tracking
@@ -421,25 +421,25 @@ const Content = () => (
         Sites as well as on third party websites. Certain content, services and
         advertisements offered to you through the Sites are served on, or
         contain links to, websites hosted and operated by a company other than
-        us ("Third Party Websites"). We do not share your personal information
-        with these Third Party Websites without your consent, but you should be
-        aware that any information you disclose to these Third Party Websites
-        once you access these Third Party Websites is not subject to this
-        Privacy Policy. We do not endorse and we are not responsible for the
-        privacy practices of these Third Party Websites. You should review the
-        privacy policy posted on the Third-Party Website to understand how that
-        Website collects and uses your information. We make an effort to make it
-        obvious to you when you leave a Site and enter a Third Party Website,
-        either by requiring you to click on a link or by notifying you on the
-        Site before you visit the third party site. In addition, if you see a
-        phrase such as "Powered by" or "in association with" followed by the
-        name of a company other than us, then you are on a website hosted by a
-        company other than us. When you use a co-branded service (a service
-        operated with a partner), or register or otherwise provide information
-        on a co-branded site, where applicable, we may pass the collected
-        information back to that partner, which may include third party service
-        providers whose services are embedded into and/or appear within the
-        Services.
+        us (&quot;Third Party Websites&quot;). We do not share your personal
+        information with these Third Party Websites without your consent, but
+        you should be aware that any information you disclose to these Third
+        Party Websites once you access these Third Party Websites is not subject
+        to this Privacy Policy. We do not endorse and we are not responsible for
+        the privacy practices of these Third Party Websites. You should review
+        the privacy policy posted on the Third-Party Website to understand how
+        that Website collects and uses your information. We make an effort to
+        make it obvious to you when you leave a Site and enter a Third Party
+        Website, either by requiring you to click on a link or by notifying you
+        on the Site before you visit the third party site. In addition, if you
+        see a phrase such as &quot;Powered by&quot; or &quot;in association
+        with&quot; followed by the name of a company other than us, then you are
+        on a website hosted by a company other than us. When you use a
+        co-branded service (a service operated with a partner), or register or
+        otherwise provide information on a co-branded site, where applicable, we
+        may pass the collected information back to that partner, which may
+        include third party service providers whose services are embedded into
+        and/or appear within the Services.
       </p>
       <h5 className="tou-title">
         Compliance with Law, Regulation, and Law Enforcement Requests
@@ -486,7 +486,7 @@ const Content = () => (
       <p>
         We reserve the right, at Our sole discretion, to modify or replace these
         Terms at any time. If a revision is material, we will make reasonable
-        efforts to provide at least 30 days' notice prior to any new terms
+        efforts to provide at least 30 days&apos; notice prior to any new terms
         taking effect. What constitutes a material change will be determined at
         Our sole discretion.
       </p>
@@ -549,22 +549,25 @@ const Content = () => (
         Some states do not allow the exclusion of implied warranties or
         limitation of liability for incidental or consequential damages, which
         means that some of the above limitations may not apply. In these states,
-        each party's liability will be limited to the greatest extent permitted
-        by law.
+        each party&apos;s liability will be limited to the greatest extent
+        permitted by law.
       </p>
 
-      <h5 className="tou-title">"AS IS" and "AS AVAILABLE" Disclaimer</h5>
+      <h5 className="tou-title">
+        &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; Disclaimer
+      </h5>
       <p>
-        The Service is provided to You "AS IS" and "AS AVAILABLE" and with all
-        faults and defects without warranty of any kind. To the maximum extent
-        permitted under applicable law, the Company, on its own behalf and on
-        behalf of its Affiliates and its and their respective licensors and
-        service providers, expressly disclaims all warranties, whether express,
-        implied, statutory or otherwise, with respect to the Service, including
-        all implied warranties of merchantability, fitness for a particular
-        purpose, title and non-infringement, and warranties that may arise out
-        of course of dealing, course of performance, usage or trade practice.
-        Without limitation to the foregoing, the Company provides no warranty or
+        The Service is provided to You &quot;AS IS&quot; and &quot;AS
+        AVAILABLE&quot; and with all faults and defects without warranty of any
+        kind. To the maximum extent permitted under applicable law, the Company,
+        on its own behalf and on behalf of its Affiliates and its and their
+        respective licensors and service providers, expressly disclaims all
+        warranties, whether express, implied, statutory or otherwise, with
+        respect to the Service, including all implied warranties of
+        merchantability, fitness for a particular purpose, title and
+        non-infringement, and warranties that may arise out of course of
+        dealing, course of performance, usage or trade practice. Without
+        limitation to the foregoing, the Company provides no warranty or
         undertaking, and makes no representation of any kind that the Service
         will meet Your requirements, achieve any intended results, be compatible
         or work with any other software, applications, systems or services,
@@ -574,8 +577,8 @@ const Content = () => (
       </p>
       <p>
         Without limiting the foregoing, neither the Company nor any of the
-        company's provider makes any representation or warranty of any kind,
-        express or implied: (i) as to the operation or availability of the
+        company&apos;s provider makes any representation or warranty of any
+        kind, express or implied: (i) as to the operation or availability of the
         Service, or the information, content, and materials or products included
         thereon; (ii) that the Service will be uninterrupted or error-free;
         (iii) as to the accuracy, reliability, or currency of any information or

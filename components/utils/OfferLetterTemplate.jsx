@@ -13,7 +13,7 @@ import {
   formatInDays,
 } from 'utils/helpers';
 import { getDate, isPastDate } from 'utils/date-helpers';
-import Image from './Image';
+import Image, { OnlineImage } from './Image';
 import DirectorSignature from 'assets/img/placeholder/signature.png';
 import {
   ACTIVE_OFFER_STATUS,
@@ -114,7 +114,7 @@ const OfferLetterTemplate = ({
   return (
     <Card className="mt-4 p-5 offer-letter-template">
       <div className="text-end">
-        <Image
+        <OnlineImage
           src={vendorInfo?.vendor?.companyLogo}
           width="150"
           name={`${companyName} Logo`}
@@ -491,7 +491,7 @@ const OfferLetterTemplate = ({
           <CompanySignatories vendorInfo={vendorInfo} />
         ) : (
           <>
-            <Image
+            <OnlineImage
               className="director-signature"
               name="Signature"
               src={DirectorSignature}
@@ -526,7 +526,7 @@ const OfferLetterTemplate = ({
             {shownSignature && (
               <>
                 {isValidURL(shownSignature) ? (
-                  <Image
+                  <OnlineImage
                     className="signature-image uploaded-image mb-3"
                     name="Signature"
                     src={shownSignature}
@@ -575,7 +575,7 @@ const CompanySignatories = ({ vendorInfo }) => {
     <section className="row">
       {signatories.map((signatory, index) => (
         <div className="col-sm-6 mb-5" key={index}>
-          <Image
+          <OnlineImage
             className="director-signature"
             name="Signature"
             src={signatory.signature}

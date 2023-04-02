@@ -28,9 +28,9 @@ const Content = () => (
         </div>
         <div className="col-md-8">
           <p>
-            Your privacy is important to us. It is Ballers' policy to respect
-            your privacy regarding any information we may collect from you
-            across our website,{' '}
+            Your privacy is important to us. It is Ballers&apos; policy to
+            respect your privacy regarding any information we may collect from
+            you across our website,{' '}
             <a href="http://ballers.ng">http://ballers.ng</a>, and other sites
             we own and operate.
           </p>

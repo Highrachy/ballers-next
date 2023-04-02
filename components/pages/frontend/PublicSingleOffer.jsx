@@ -7,7 +7,7 @@ import Axios from 'axios';
 import { getTokenFromStore } from 'utils/localStorage';
 import { getError } from 'utils/helpers';
 import OfferLetterTemplate from 'components/utils/OfferLetterTemplate';
-import Image from 'components/utils/Image';
+import Image, { OnlineImage } from 'components/utils/Image';
 import UploadImage from 'components/utils/UploadImage';
 import { Form, Formik } from 'formik';
 import Textarea from 'components/forms/Textarea';
@@ -291,7 +291,7 @@ export const UploadSignature = ({ image, setImage, setSignature }) => {
           <div className="mt-4 px-4">
             <h6 className="mb-3">Upload Your Signature</h6>
             {image && (
-              <Image
+              <OnlineImage
                 className="img-fluid uploaded-image mb-3"
                 name="Signature"
                 src={image}

@@ -89,8 +89,8 @@ const BadgeDetail = ({ badge, toast }) => (
         <tr>
           <td>
             <div className="row">
-              {badge?.assignedUsers?.map((user) => (
-                <div className="col py-4 border-bottom">
+              {badge?.assignedUsers?.map((user, index) => (
+                <div key={index} className="col py-4 border-bottom">
                   <UserCard user={user} />
                 </div>
               ))}{' '}

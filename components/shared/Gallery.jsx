@@ -21,7 +21,7 @@ import Upload from 'components/utils/Upload';
 import Input from 'components/forms/Input';
 import Link from 'next/link';
 import BackendPage from 'components/layout/BackendPage';
-import Image from 'components/utils/Image';
+import Image, { OnlineImage } from 'components/utils/Image';
 import { SlideDown } from 'react-slidedown';
 import { PlusIcon } from 'components/utils/Icons';
 import { CloseIcon } from 'components/utils/Icons';
@@ -127,7 +127,7 @@ export const GallerySlideShow = ({ images }) => {
     <Carousel activeIndex={index} onSelect={handleSelect}>
       {images.map(({ title, url }) => (
         <Carousel.Item key={url}>
-          <img className="d-block w-100" src={url} alt={title} />
+          <OnlineImage className="d-block w-100" src={url} alt={title} />
           <Carousel.Caption>
             <p>{title}</p>
           </Carousel.Caption>
@@ -158,7 +158,7 @@ export const GalleryList = ({ property }) => {
         <aside className="row gallery-row">
           {neededGalleryImages.slice(0, 3).map(({ _id, title, url }) => (
             <div className="gallery-col col-3 col-md-12" key={_id}>
-              <img
+              <OnlineImage
                 src={url}
                 alt={title}
                 className="img-fluid gallery-thumbnails property-img"
@@ -171,7 +171,7 @@ export const GalleryList = ({ property }) => {
               onClick={() => setShowSlideShowModal(true)}
               className="overlay overlay__secondary"
             >
-              <img
+              <OnlineImage
                 src={viewMoreImage?.url}
                 alt={viewMoreImage?.title || 'property'}
                 className="img-fluid gallery-thumbnails property-img mb-0"
@@ -404,7 +404,7 @@ const SingleGalleryImage = ({
       >
         <section className="row">
           <div className="col-md-12 my-3 text-center">
-            <Image
+            <OnlineImage
               src={url}
               name={title}
               options={{ h: 200 }}

@@ -184,8 +184,8 @@ export const CreateOfferTemplateForm = ({
                       letter.
                     </p>
                     <ul className="text-danger">
-                      {errors.map((error) => (
-                        <li>{error}</li>
+                      {errors.map((error, index) => (
+                        <li key={index}>{error}</li>
                       ))}
                     </ul>
                   </span>
