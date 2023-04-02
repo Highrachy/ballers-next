@@ -46,7 +46,7 @@ const vendorMenu = [
   },
   {
     title: 'Services',
-    to: '/vendor/service',
+    to: '/vendor/services',
     icon: <VasIcon />,
     footer: false,
   },

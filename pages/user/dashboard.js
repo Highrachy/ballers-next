@@ -281,9 +281,9 @@ const OffersRow = ({ _id, expires, status, propertyInfo, vendorInfo }) => {
   );
 };
 
-const Overview = () => (
+export const Overview = ({ type = 'user' }) => (
   <div className="container-fluid py-0 mt-n6">
-    <ContributionGraph />
+    <ContributionGraph type={type} />
     {/* <div className="row row-eq-height">
       <div className="col-sm-8 mb-3">
         <ContributionGraph />
@@ -383,7 +383,7 @@ const Others = () => (
   </>
 );
 
-const ReferAndEarn = () => (
+export const ReferAndEarn = () => (
   <InfoBox
     title="Refer a friend, and BALL together!"
     Icon={<ReferIcon />}

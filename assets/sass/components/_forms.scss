@@ -136,3 +136,18 @@ label {
     right: 2.75rem;
   }
 }
+
+.form-switch {
+  padding-left: 3rem;
+}
+
+.form-switch .form-check-input {
+  width: 2.5rem;
+  height: 1.25rem;
+  margin-left: -3rem;
+}
+
+.form-switch .form-check-label {
+  font-size: 0.75rem;
+  padding-top: 0.25rem;
+}

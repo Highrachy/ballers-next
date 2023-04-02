@@ -8,7 +8,7 @@ import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
 import { ContentLoader } from 'components/utils/LoadingItems';
 import { OwnedPropertyCard } from './SingleProperty';
-import { moneyFormatInNaira } from 'utils/helpers';
+import { getLocationFromAddress, moneyFormatInNaira } from 'utils/helpers';
 import { getTinyDate } from 'utils/date-helpers';
 import { LinkSeparator } from 'components/common/Helpers';
 import MakePayment from './MakePayment';
@@ -27,13 +27,14 @@ import Axios from 'axios';
 import { getTokenFromStore } from 'utils/localStorage';
 import { getError, statusIsSuccessful } from 'utils/helpers';
 import { addTestimonialSchema } from 'components/forms/schemas/propertySchema';
+import { WelcomeHero } from 'pages/user/dashboard';
 
 const pageOptions = {
   key: 'portfolio',
   pageName: 'Portfolio',
 };
 
-const SinglePortfolio = ({ id = '63da0ab3f9ec130016200f5c' }) => {
+const SinglePortfolio = ({ id }) => {
   const [toast, setToast] = useToast();
   const [portfolioQuery, portfolio, setPortfolio] = useGetQuery({
     key: pageOptions.key,
@@ -52,6 +53,13 @@ const SinglePortfolio = ({ id = '63da0ab3f9ec130016200f5c' }) => {
         name={pageOptions.pageName}
         toast={toast}
       >
+        <WelcomeHero
+          title={`Your Portfolio`}
+          subtitle={` ${portfolio?.propertyInfo?.name} - ${
+            portfolio?.propertyInfo?.address?.street1 &&
+            getLocationFromAddress(portfolio?.propertyInfo?.address)
+          }`}
+        />
         <OwnedPropertyCard
           property={{
             ...portfolio?.propertyInfo,
@@ -98,7 +106,9 @@ const AssignedPropertySidebar = ({ portfolio, setToast }) => {
                 <small className="ms-n1">Expected Payment</small>{' '}
               </td>
               <td>
-                <h5>{moneyFormatInNaira(nextPayment?.expectedAmount)}</h5>
+                <h5 className="text-end text-dark">
+                  {moneyFormatInNaira(nextPayment?.expectedAmount)}
+                </h5>
               </td>
             </tr>
             <tr>
@@ -106,7 +116,7 @@ const AssignedPropertySidebar = ({ portfolio, setToast }) => {
                 <small className="ms-n1">Due Date</small>{' '}
               </td>
               <td>
-                <h5>
+                <h5 className="text-end text-dark">
                   {getTinyDate(nextPayment?.dueDate || nextPayment?.expiresOn)}
                 </h5>
               </td>

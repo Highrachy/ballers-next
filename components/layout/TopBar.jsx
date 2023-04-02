@@ -96,7 +96,13 @@ const Header = () => {
                   <Dropdown.Item>Settings</Dropdown.Item>
                 </Link>
                 <Link href="/logout">
-                  <Dropdown.Item>Logout</Dropdown.Item>
+                  <a
+                    data-rr-ui-dropdown-item
+                    className="dropdown-item"
+                    role="button"
+                  >
+                    Logout
+                  </a>
                 </Link>
               </Dropdown.Menu>
             </Dropdown>

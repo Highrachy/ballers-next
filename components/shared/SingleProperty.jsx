@@ -98,6 +98,7 @@ export const OwnedPropertyCard = ({
   enquiryInfo,
   vendorInfo,
   Sidebar,
+  isPortfolioPage,
   Actionbar,
 }) => {
   const isVendor = useCurrentRole().role === USER_TYPES.vendor;
@@ -145,6 +146,7 @@ export const OwnedPropertyCard = ({
               enquiryInfo={enquiryInfo}
               vendorInfo={vendorInfo}
               Actionbar={Actionbar}
+              isPortfolioPage={isPortfolioPage}
             />
           </div>
           {Sidebar && <div className="col-sm-5">{Sidebar}</div>}
@@ -702,6 +704,7 @@ export const PropertyDescription = ({
         property={property}
         enquiryInfo={enquiryInfo}
         vendorInfo={vendorInfo}
+        isPortfolioPage={isPortfolioPage}
       />
 
       <h5 className="mt-5 header-smaller">About Property</h5>
@@ -764,26 +767,31 @@ export const PropertyDescription = ({
   );
 };
 
-export const PropertyHeader = ({ property, enquiryInfo, vendorInfo }) => {
+export const PropertyHeader = ({
+  property,
+  enquiryInfo,
+  vendorInfo,
+  isPortfolioPage,
+}) => {
   const userHasPreviousEnquiry = !!enquiryInfo;
   const isUser = useCurrentRole().isUser;
   return (
     <>
       <div className="row mb-3">
-        <div className="col-sm-8">
+        <div className="col-sm-12">
           <h3 className="property-holder__big-title">
             {property.name}{' '}
             {!isUser && <ShowPropertyStatus property={property} />}
           </h3>
         </div>
-        <div className="col-sm-4 text-end">
-          <Link
-            className="text-muted"
-            href={`/vendors/${vendorInfo?.vendor?.slug}`}
-          >
-            <VendorIcon /> {vendorInfo?.vendor?.companyName}
+
+        {/* <div className="col-sm-4 text-end">
+          <Link href={`/vendors/${vendorInfo?.vendor?.slug}`}>
+            <a className="text-muted">
+              <VendorIcon /> {vendorInfo?.vendor?.companyName}
+            </a>
           </Link>
-        </div>
+        </div> */}
       </div>
 
       <div className="row">
@@ -793,7 +801,7 @@ export const PropertyHeader = ({ property, enquiryInfo, vendorInfo }) => {
           </h4>
         </div>
         <div className="col-sm-4 text-end">
-          {isUser && (
+          {isUser && !isPortfolioPage && (
             <>
               {(enquiryInfo?.approved || !userHasPreviousEnquiry) && (
                 <Link

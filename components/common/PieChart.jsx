@@ -1,7 +1,6 @@
 // install (please make sure versions match peerDependencies)
 // yarn add @nivo/core @nivo/pie
 import { ResponsivePie } from '@nivo/pie';
-import Colors from 'style-dictionary/build/color.tokens.js';
 import Humanize from 'humanize-plus';
 import { moneyFormatInNaira } from '@/utils/helpers';
 import useWindowSize from '@/hooks/useWindowSize';

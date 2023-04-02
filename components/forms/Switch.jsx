@@ -33,20 +33,21 @@ const Switch = ({
         row: inline,
       })}
     >
-      <div className="custom-control custom-switch">
+      <div className="form-check form-switch">
         <div className={inputSizeClassName}>
           <Field
             aria-describedby={name}
             autoComplete={autoComplete}
-            className={classNames('custom-control-input', inputClassName)}
+            className={classNames('form-check-input', inputClassName)}
             id={name}
             name={name}
             type="checkbox"
+            role="switch"
             placeholder={placeholder || label}
             {...props}
           />
           <Label
-            className={classNames('custom-control-label', labelClassName)}
+            className={classNames('form-check-label', labelClassName)}
             hideOptionalText
             labelLink={labelLink}
             name={name}

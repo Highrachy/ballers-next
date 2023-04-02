@@ -13,7 +13,7 @@ import {
   ReferIcon,
 } from '../utils/Icons';
 
-const data = [
+const userData = [
   {
     id: 'transactions',
     label: 'Trasanctions',
@@ -31,6 +31,19 @@ const data = [
   },
 ];
 
+const vendorData = [
+  {
+    id: 'transactions',
+    label: 'Trasanctions',
+    value: 6_000_000,
+  },
+  {
+    id: 'pending Payment',
+    label: 'Pending Payment',
+    value: 2_000_000,
+  },
+];
+
 const ChartColors = [
   Colors.secondary[500],
   Colors.success[500],
@@ -41,7 +54,7 @@ const MyResponsivePie = dynamic(() => import('./PieChart'), {
   ssr: false,
 });
 
-const widgetLists = [
+const userWidgetLists = [
   {
     name: 'My Porfolio',
     link: 'portfolio',
@@ -67,14 +80,41 @@ const widgetLists = [
   },
 ];
 
-const WidgetList = () => {
+const vendorWidgetLists = [
+  {
+    name: 'Porfolio',
+    link: 'portfolio',
+    key: 'assignedProperty',
+    color: 'secondary',
+    Icon: <PortfolioIcon />,
+  },
+  {
+    name: 'Properties',
+    color: 'success',
+    Icon: <OfferIcon />,
+  },
+  {
+    name: 'Enquiries',
+    color: 'warning',
+    Icon: <VasIcon />,
+  },
+  {
+    name: 'Scheduled Visits',
+    color: 'danger',
+    key: 'interests',
+    Icon: <ReferIcon />,
+  },
+];
+
+const WidgetList = ({ type }) => {
+  const widgetLists = type === 'user' ? userWidgetLists : vendorWidgetLists;
   return (
     <div className="col-sm-6">
       <div className="row g-4">
         {widgetLists.map((widget, index) => (
           <Widget
             key={index}
-            number={Math.floor(Math.random() * 200)}
+            number={Math.floor(Math.random() * 20)}
             {...widget}
           />
         ))}
@@ -120,9 +160,14 @@ export const Widget = ({
   );
 };
 
-export const OverviewGraph = () => {
+export const OverviewGraph = ({ type }) => {
+  const isUser = type === 'user';
+  const data = isUser ? userData : vendorData;
+  const chartColors = isUser ? ChartColors : [ChartColors[0], ChartColors[2]];
+  console.log('chartColors: ', chartColors);
+
   return (
-    <div className="widget col-sm-6 mb-4">
+    <div className="widget col-sm-6 mb-4 mb-md-0">
       {/* card */}
       <div className="card h-100 position-relative">
         {/* card body */}
@@ -132,7 +177,7 @@ export const OverviewGraph = () => {
           </div>
           <div className="row align-items-center">
             <div className="col-12" style={{ height: '250px' }}>
-              <MyResponsivePie data={data} colors={ChartColors} />
+              <MyResponsivePie data={data} colors={chartColors} />
             </div>
           </div>
 
@@ -151,16 +196,18 @@ export const OverviewGraph = () => {
 
                   <span>{moneyFormatInNaira(data[0].value)}</span>
                 </div>
-                <div className="d-flex flex-between-center mb-1">
-                  <div className="d-flex align-items-center">
-                    <span
-                      className="dot"
-                      style={{ backgroundColor: ChartColors[1] }}
-                    />
-                    <span className="fw-semi-bold">Rewards</span>
+                {isUser && (
+                  <div className="d-flex flex-between-center mb-1">
+                    <div className="d-flex align-items-center">
+                      <span
+                        className="dot"
+                        style={{ backgroundColor: ChartColors[1] }}
+                      />
+                      <span className="fw-semi-bold">Rewards</span>
+                    </div>
+                    <span>{moneyFormatInNaira(data[1].value)}</span>
                   </div>
-                  <span>{moneyFormatInNaira(data[1].value)}</span>
-                </div>
+                )}
                 <div className="d-flex flex-between-center mb-1">
                   <div className="d-flex align-items-center">
                     <span
@@ -169,7 +216,9 @@ export const OverviewGraph = () => {
                     />
                     <span className="fw-semi-bold">Pending Payments</span>
                   </div>
-                  <span>{moneyFormatInNaira(data[2].value)}</span>
+                  <span>
+                    {moneyFormatInNaira(data[2]?.value || data[1]?.value)}
+                  </span>
                 </div>
               </div>
             </div>
@@ -207,10 +256,10 @@ export const OverviewGraph = () => {
   );
 };
 
-export const ContributionGraph = () => (
+export const ContributionGraph = ({ type = 'user' }) => (
   <div className="row">
-    <OverviewGraph />
-    <WidgetList />
+    <OverviewGraph type={type} />
+    <WidgetList type={type} />
   </div>
 );
 

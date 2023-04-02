@@ -12,6 +12,7 @@ import {
 } from './dashboard';
 import MyResponsivePie from '@/components/common/PieChart';
 import { moneyFormatInNaira } from 'utils/helpers';
+import Colors from 'style-dictionary/build/color.tokens.js';
 
 const UserTransactions = () => (
   <BackendPage>

@@ -29,6 +29,7 @@ import ImagePlaceholder from 'assets/img/placeholder/image.png';
 import Label from 'components/forms/Label';
 import { refreshQuery } from 'hooks/useQuery';
 import { useBankAccounts } from 'hooks/useBankAccounts';
+import classNames from 'classnames';
 
 const KEY = {
   ONLINE: 'online',
@@ -40,7 +41,7 @@ const PAYMENT_TYPE = {
   [KEY.OFFLINE]: 'Bank Deposit/Transfer',
 };
 
-const MakePayment = ({ amount, model, setToast }) => {
+const MakePayment = ({ amount, model, setToast, className }) => {
   const [showPaymentModal, setShowPaymentModal] = React.useState(false);
   const [paymentType, setPaymentType] = React.useState(KEY.ONLINE);
 
@@ -86,9 +87,13 @@ const MakePayment = ({ amount, model, setToast }) => {
       </Modal>
 
       <button
-        className="btn btn-block btn-secondary"
+        className={classNames(
+          'btn btn-danger-light btn-wide btn-sm fw-bold',
+          className
+        )}
         onClick={() => setShowPaymentModal(true)}
       >
+        {' '}
         Make Payment
       </button>
     </>

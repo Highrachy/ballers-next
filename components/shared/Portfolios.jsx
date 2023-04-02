@@ -21,10 +21,15 @@ import { HOUSE_TYPES } from 'utils/constants';
 import { useCurrentRole } from 'hooks/useUser';
 import { API_ENDPOINT } from 'utils/URL';
 import { Spacing } from 'components/common/Helpers';
+import { WelcomeHero } from 'pages/user/dashboard';
 
 const Portfolios = () => {
   return (
     <BackendPage>
+      <WelcomeHero
+        title={`Portfolios`}
+        subtitle={`Manage your portfolios here`}
+      />
       <PaginatedContent
         endpoint={API_ENDPOINT.getAllPortfolios()}
         pageName="Portfolio"

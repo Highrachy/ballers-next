@@ -9,53 +9,65 @@ import { API_ENDPOINT } from 'utils/URL';
 import { OfferIcon } from 'components/utils/Icons';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { PropertiesRowList } from '@/components/common/PropertiesRowList';
-import { DashboardTable, InfoBox, WelcomeHero } from './dashboard';
+import {
+  DashboardTable,
+  InfoBox,
+  ServiceBox,
+  WelcomeHero,
+} from 'pages/user/dashboard';
 import { Card } from 'react-bootstrap';
 import colorTokens from 'style-dictionary/build/color.tokens';
-import { Home } from 'iconsax-react';
+import { Global, Home } from 'iconsax-react';
+import { allServices } from 'pages/user/services';
 
-const Portfolio = () => {
+const Services = () => {
   const [toast, setToast] = useToast();
   return (
     <BackendPage>
       <Toast {...toast} showToastOnly />
       <WelcomeHero
-        title="My Portfolio"
-        subtitle="Your Properties and Offers: A Record of Your BALL Journey"
+        title="Value Added Services"
+        subtitle="Discover value-added services that enhance your real estate experience."
       />
       <Content setToast={setToast} />
+      <div className="container-fluid">
+        <InfoBox
+          color="primary"
+          title="Need more information?"
+          Icon={<Global variant="Bulk" />}
+          linkHref={'user/refer'}
+          linkText="Contact Us"
+        >
+          Looking for more information or have questions about our services?
+          Don&apos;t hesitate to contact us! Our team is always here to help and
+          provide the support you need.
+        </InfoBox>
+      </div>
     </BackendPage>
   );
 };
+
+// get last 3 services from allServices
+const lastThreeServices = allServices.slice(-3);
 
 const Content = ({ setToast }) => (
   <>
     <div className="container-fluid">
       <div className="row mt-5">
-        <PortfolioCards setToast={setToast} />
-      </div>
-    </div>
-    <div className="container-fluid">
-      <EnjoyingBallers />
-      <Offers />
-    </div>
+        <h4>Value Added Services</h4>
 
-    {/* show this if portfolio is empty */}
-    <div className="container-fluid">
-      <h4 className="mt-5">Just for you</h4>
-      <div className="row">
-        <PaginatedContent
-          endpoint={API_ENDPOINT.searchProperties()}
-          // initialFilter={filter}
-          pageName="Property"
-          pluralPageName="Properties"
-          DataComponent={PropertiesRowList}
-          PageIcon={<PropertyIcon />}
-          queryName="property"
-          limit={2}
-          hidePagination
-          hideTitle
-        />
+        {lastThreeServices.map(({ title, content, price }) => (
+          <div className="col-sm-6 mt-4" key={title}>
+            <div className="widget card widget-box p-0">
+              <ServiceBox
+                link="/services/title-validity"
+                title={title}
+                price={price}
+                content={content}
+              />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </>
@@ -81,35 +93,6 @@ const Content = ({ setToast }) => (
 //   </section>
 // );
 
-const Offers = () => (
-  <PaginatedContent
-    endpoint={API_ENDPOINT.getAllOffers()}
-    pageName="Offer"
-    pluralPageName="Offers"
-    DataComponent={TransactionHistory}
-    PageIcon={<OfferIcon />}
-    queryName="offer"
-    hideTitle
-  />
-);
-
-const EnjoyingBallers = () => (
-  <div className="mt-n5">
-    <InfoBox
-      color="primary"
-      title="Enjoying your balling experience"
-      Icon={<Home variant="Bulk" />}
-      linkHref={'user/refer'}
-      linkText="Add a New Property"
-    >
-      {/* With BALL, you can easily build a diverse portfolio of quality homes in
-      well-planned communities that offer comfort and security. */}
-      Start your journey towards financial freedom today and become a BALLer
-      with multiple properties.
-    </InfoBox>
-  </div>
-);
-
 export const TransactionHistory = ({ results, offset }) => {
   return (
     <DashboardTable title={`${results.length} Offer`}>
@@ -130,4 +113,4 @@ export const TransactionHistory = ({ results, offset }) => {
   );
 };
 
-export default Portfolio;
+export default Services;

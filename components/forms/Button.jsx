@@ -68,17 +68,17 @@ Button.defaultProps = {
   onClick: () => {},
 };
 
-export const AddNewButton = ({ children, to }) => {
-  const isLink = typeof to !== 'function';
-  const btnClassName = 'btn btn-dark btn-xs btn-wide';
+export const AddNewButton = ({ children, href }) => {
+  const isLink = typeof href !== 'function';
+  const btnClassName = 'btn btn-primary-light btn-sm btn-wide';
   return (
     <div className="text-end">
       {isLink ? (
-        <Link href={to} className={btnClassName}>
-          {children}
+        <Link href={href}>
+          <a className={btnClassName}>{children}</a>
         </Link>
       ) : (
-        <button className={btnClassName} onClick={to}>
+        <button className={btnClassName} onClick={href}>
           {children}
         </button>
       )}
@@ -88,7 +88,7 @@ export const AddNewButton = ({ children, to }) => {
 
 AddNewButton.propTypes = {
   children: PropTypes.any.isRequired,
-  to: PropTypes.any.isRequired,
+  href: PropTypes.any.isRequired,
 };
 
 export default Button;

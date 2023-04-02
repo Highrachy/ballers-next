@@ -15,8 +15,8 @@ import {
  */
 // https://date-fns.org/v2.29.3/docs/format
 export const getDate = (date) => format(parseISO(date), 'MMMM dd, yyyy');
-export const getDateTime = (date) =>
-  format(parseISO(date), 'ddd, MMM D, YYYY h:mm A');
+export const getDateTime = (date) => `TODO - CHANGE THIS ${date}`;
+// format(parseISO(date), 'ddd, MMM D, YYYY h:mm A');
 export const getShortDateTime = (date) =>
   format(parseISO(date), 'do MMM YYYY h:mm A');
 export const getShortDate = (date) => format(parseISO(date), 'do MMM,  yyyy');

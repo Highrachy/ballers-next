@@ -14,7 +14,7 @@ import { Card } from 'react-bootstrap';
 import colorTokens from 'style-dictionary/build/color.tokens';
 import { Global, Home } from 'iconsax-react';
 
-const allServices = [
+export const allServices = [
   {
     title: 'Survey plan investigation',
     content: `Before buying a property, it's important to investigate the survey plan to ensure the property is correctly documented and there are no boundary disputes.`,

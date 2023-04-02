@@ -8,9 +8,11 @@ import { moneyFormatInNaira } from 'utils/helpers';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { PropertyIcon } from 'components/utils/Icons';
 import { API_ENDPOINT } from 'utils/URL';
-import { differenceInDays, isPastDate } from 'utils/date-helpers';
+import { differenceInDays, getTinyDate, isPastDate } from 'utils/date-helpers';
 import Humanize from 'humanize-plus';
 import { OnlineImage } from '../utils/Image';
+import MakePayment from '../shared/MakePayment';
+import { MODEL } from '@/utils/constants';
 
 export const PortfolioPaymentProgress = ({ amountPaid, percentage }) => (
   <div className="row">
@@ -35,9 +37,10 @@ export const PortfolioPaymentProgress = ({ amountPaid, percentage }) => (
 
 export const PortfolioCard = ({
   _id,
-  totalAmountPayable,
   propertyInfo,
   nextPaymentInfo,
+  setToast,
+  ...portfolio
 }) => {
   return (
     <Card className="card-container portfolio-holder property-card">
@@ -81,7 +84,7 @@ export const PortfolioCard = ({
               </div>
               {/* Price */}
               <h4 className="property-price text-dark property-spacing">
-                {moneyFormatInNaira(totalAmountPayable)}
+                {moneyFormatInNaira(portfolio?.totalAmountPayable)}
               </h4>
 
               {/* Separator */}
@@ -99,7 +102,12 @@ export const PortfolioCard = ({
                 <span className="info-content__price">
                   {moneyFormatInNaira(1_000_000)}
                 </span>
-                &nbsp;due on 15th February, 2023
+                {/* todo */}
+                &nbsp; due on
+                {getTinyDate(
+                  nextPaymentInfo?.[0]?.dueDate ||
+                    nextPaymentInfo?.[0]?.expiresOn
+                )}
               </section>
 
               {/* <section className="property-spacing">
@@ -112,12 +120,15 @@ export const PortfolioCard = ({
 
               {/* View Button */}
               <div className="property-holder__btn text-end">
-                <Link href={`/portfolio/${_id}`}>
-                  <a className="btn btn-danger-light btn-wide btn-sm fw-bold me-3">
-                    Pay Now
-                  </a>
-                </Link>
-                <Link href={`/portfolio/${_id}`}>
+                <MakePayment
+                  setToast={setToast}
+                  amount={nextPaymentInfo?.[0]?.expectedAmount || 0}
+                  model={{
+                    offerId: portfolio?._id,
+                    type: MODEL.OFFER,
+                  }}
+                />
+                <Link href={`/user/portfolio/${_id}`}>
                   <a className="btn btn-secondary-light btn-wide fw-bold btn-sm">
                     View Portfolio
                   </a>
@@ -169,10 +180,10 @@ PortfolioCards.defaultProps = {
   isSinglePortfolio: false,
 };
 
-const PortfoliosRowList = ({ results }) =>
+const PortfoliosRowList = ({ setToast, results }) =>
   results.map((portfolio, index) => (
     <div className="col-sm-12 mb-4" key={index}>
-      <PortfolioCard {...portfolio} />
+      <PortfolioCard setToast={setToast} {...portfolio} />
     </div>
   ));
 

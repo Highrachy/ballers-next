@@ -35,11 +35,16 @@ import { BathIcon } from 'components/utils/Icons';
 import InputFormat from 'components/forms/InputFormat';
 import { ToiletIcon } from 'components/utils/Icons';
 import FilterRange from 'components/forms/FilterRange';
+import { WelcomeHero } from 'pages/user/dashboard';
 
 const Properties = () => {
   const addNewUrl = useCurrentRole().isVendor ? '/vendor/property/new' : '';
   return (
     <BackendPage>
+      <WelcomeHero
+        title={`Properties`}
+        subtitle={`Manage your properties here`}
+      />
       <PaginatedContent
         addNewUrl={addNewUrl}
         endpoint={API_ENDPOINT.getAllProperties()}
@@ -121,18 +126,20 @@ const PropertiesRow = ({
             propertyIsFlagged ? 'overlay overlay__danger' : ''
           } d-inline-block`}
         >
-          <Link href={`/${userType}/property/${_id}`}>
-            <Image
-              src={mainImage}
-              name={`property ${_id}`}
-              width="80"
-              alt="property"
-              defaultImage={PropertyPlaceholderImage}
-            />
+          <Link href={`/${userType}/property/${_id}`} passHref>
+            <a>
+              <Image
+                src={mainImage}
+                name={`property ${_id}`}
+                width="80"
+                alt="property"
+                defaultImage={PropertyPlaceholderImage}
+              />
 
-            {propertyIsFlagged && (
-              <span className="overlay__content">Reported</span>
-            )}
+              {propertyIsFlagged && (
+                <span className="overlay__content">Reported</span>
+              )}
+            </a>
           </Link>
         </div>
       </td>

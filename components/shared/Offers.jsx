@@ -12,9 +12,11 @@ import { useCurrentRole } from 'hooks/useUser';
 import { OfferIcon } from 'components/utils/Icons';
 import UserCard from 'components/common/UserCard';
 import { PropertyAvatar } from 'components/common/PropertyCard';
+import { WelcomeHero } from 'pages/user/dashboard';
 
 const Offers = () => (
   <BackendPage>
+    <WelcomeHero title={`Offers`} subtitle={`Manage your offers here`} />
     <PaginatedContent
       endpoint={API_ENDPOINT.getAllOffers()}
       pageName="Offer"

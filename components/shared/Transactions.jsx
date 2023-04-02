@@ -34,9 +34,14 @@ import InputFormat from 'components/forms/InputFormat';
 import FilterRange from 'components/forms/FilterRange';
 import DatePicker from 'components/forms/DatePicker';
 import Link from 'next/link';
+import { WelcomeHero } from 'pages/user/dashboard';
 
 const Transactions = () => (
   <BackendPage>
+    <WelcomeHero
+      title={`Transactions`}
+      subtitle={`Manage your transactions here`}
+    />
     <AllTransactions />
   </BackendPage>
 );
@@ -472,6 +477,8 @@ const TransactionsRow = (transaction) => {
   const amountPaid = isVendor
     ? Math.round(((100 - remittancePercentage) / 100) * amount)
     : amount;
+
+  console.log('propertyInfo', propertyInfo);
 
   return (
     <tr
