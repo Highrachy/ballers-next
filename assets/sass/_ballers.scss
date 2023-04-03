@@ -25,9 +25,9 @@
 @import '~slick-carousel/slick/slick.css';
 @import '~slick-carousel/slick/slick-theme.css';
 @import 'components/slick';
-// @import 'plugins/range';
-// @import 'plugins/react-date-picker';
-// @import 'plugins/react-phone-number2';
+@import 'plugins/range';
+@import 'plugins/react-date-picker';
+@import 'plugins/react-phone-number2';
 
 html {
   font-size: 0.8rem;

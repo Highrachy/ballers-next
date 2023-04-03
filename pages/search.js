@@ -4,7 +4,7 @@ import Footer from 'components/layout/Footer';
 import SearchContentPropertyForm from 'components/common/SearchContentPropertyForm';
 import classNames from 'classnames';
 import Map from 'components/common/Map';
-import Slider from 'react-rangeslider';
+import ReactRangeSlider from 'react-rangeslider';
 import { commaNumber, moneyFormatInNaira, nearestMillion } from 'utils/helpers';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import {
@@ -90,13 +90,6 @@ const SearchResultContent = ({ result }) => {
           <h5 className="text-secondary py-0">
             {result.area}, {result.state}
           </h5>
-          {/* {!showMap && (
-            <button className="btn-view-map" onClick={() => setShowMap(true)}>
-              <span>
-                <MapPinIcon /> View Map
-              </span>
-            </button>
-          )} */}
 
           <section className="search-result__card text-center">
             <h5 className="text-muted fw-normal">
@@ -119,7 +112,7 @@ const SearchResultContent = ({ result }) => {
                 <div className="col-lg-3 text-start ps-4 fw-bold">
                   {nearestMillion(result.minimumPrice)}
                 </div>
-                <div className="col-lg-6 text-center text-secondary">
+                <div className="col-lg-6 text-center text-muted">
                   <InfoIcon /> Property price range of the selected location
                 </div>
                 <div className="col-lg-3 text-end fw-bold">
@@ -211,7 +204,7 @@ const RangeInput = ({
         />
       </div>
       <div className="w-100 search-result-range-label">
-        <Slider
+        <ReactRangeSlider
           min={parseInt(min, 10)}
           max={parseInt(max, 10)}
           step={step}
@@ -255,8 +248,6 @@ const DefineYourEligibility = ({ result }) => {
     });
     setOutput(recommendations);
   };
-
-  console.log('output', output);
 
   const handleChange = (name, value) => {
     setInputs({
@@ -395,7 +386,7 @@ const DefineYourEligibility = ({ result }) => {
                 </div>
 
                 <section className={`mt-5 comfort-level ${comfortLevelColor}`}>
-                  <Slider
+                  <ReactRangeSlider
                     min={0}
                     max={90}
                     step={1}

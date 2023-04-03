@@ -1,7 +1,7 @@
 export const FREQUENCY_IN_WORDS = {
-  '0.5': 'Bi-Weekly',
-  '1': 'Monthly',
-  '4': 'Quarterly',
+  0.5: 'Bi-Weekly',
+  1: 'Monthly',
+  4: 'Quarterly',
 };
 
 export const PACKAGES = {
@@ -49,55 +49,67 @@ export const PACKAGES = {
 
 export const recommendBallersPlan = ({
   initial,
-  periodic,
+  monthly,
   frequency,
-  averagePropertyCost,
+  comfortLevel,
+  result,
 }) => {
-  const balance = averagePropertyCost - initial;
+  let propertyCost = result.averagePrice;
+  const periodic = (monthly * comfortLevel) / 100;
+  const recommendedPropertyPrice = Math.min(
+    periodic * 12 + initial,
+    result.maximumPrice
+  );
+
+  if (frequency === 1) {
+    propertyCost = result.maximumPrice;
+  }
+
+  const balance = propertyCost - initial;
 
   let output = [];
 
   // Recommendations breakdown can be found here - https://docs.google.com/document/d/1gsomOY9qclUz9RzadN3ztJH4Y0ryGT-fukNBFLhJAIU/edit?pli=1#heading=h.yy9lcow7gkem
   const outrightPaymentPesonal =
-    initial >= averagePropertyCost * 0.5 && balance / periodic < 6 / frequency;
+    initial >= propertyCost * 0.5 && balance / periodic < 6;
 
   const completeSpreadPayment =
-    initial >= averagePropertyCost * 0.2 &&
-    balance / periodic > 6 / frequency &&
-    balance / periodic <= 24 / frequency;
+    initial >= propertyCost * 0.2 &&
+    balance / periodic > 6 &&
+    balance / periodic <= 24;
 
   const outrightMortgagePMI =
-    initial >= averagePropertyCost * 0.25 &&
-    balance / periodic > 24 / frequency &&
-    averagePropertyCost + 2500000 - initial <= 45000000;
+    initial >= propertyCost * 0.25 &&
+    balance / periodic > 24 &&
+    propertyCost + 2500000 - initial <= 45000000;
 
   const outrightMortgageNHF =
-    initial >= averagePropertyCost * 0.1 &&
-    averagePropertyCost + 2500000 - initial <= 15000000;
+    initial >= propertyCost * 0.1 &&
+    propertyCost + 2500000 - initial <= 15000000;
 
   const assistedMortgagePMI =
-    periodic * frequency * 24 >= averagePropertyCost * 0.25 &&
-    averagePropertyCost + 2500000 - initial > 15000000 &&
-    averagePropertyCost + 2500000 - initial <= 45000000;
+    periodic * frequency * 24 >= propertyCost * 0.25 &&
+    propertyCost + 2500000 - initial > 15000000 &&
+    propertyCost + 2500000 - initial <= 45000000;
 
   const assistedMortgageNHF =
-    periodic * frequency * 24 >= averagePropertyCost * 0.1 &&
-    averagePropertyCost + 2500000 - initial <= 15000000;
+    periodic * frequency * 24 >= propertyCost * 0.1 &&
+    propertyCost + 2500000 - initial <= 15000000;
 
   const rentToOwn =
-    initial >= averagePropertyCost * 0.05 &&
-    periodic >= averagePropertyCost * 0.01 &&
-    balance / periodic <= 120 / frequency;
+    initial >= propertyCost * 0.05 &&
+    periodic >= propertyCost * 0.01 &&
+    balance / periodic <= 120;
 
   const assistedRentToOwn =
-    initial <= averagePropertyCost * 0.05 &&
-    periodic >= averagePropertyCost * 0.01 &&
-    balance / periodic <= 120 / frequency;
+    initial <= propertyCost * 0.05 &&
+    periodic >= propertyCost * 0.01 &&
+    balance / periodic <= 120;
 
   const hybrid =
-    initial <= averagePropertyCost * 0.05 &&
-    periodic >= averagePropertyCost * 0.01 &&
-    balance / periodic <= 24 / frequency;
+    initial <= propertyCost * 0.05 &&
+    periodic >= propertyCost * 0.01 &&
+    balance / periodic <= 24;
 
   if (outrightPaymentPesonal) {
     output.push(PACKAGES.OUTRIGHT_PAYMENT);
@@ -141,16 +153,17 @@ export const recommendBallersPlan = ({
   }
 
   return {
-    output,
+    recommendations: output,
     initial,
-    periodic,
+    monthlyPayment: periodic,
     frequency,
-    averagePropertyCost,
+    propertyCost: Math.max(propertyCost, recommendedPropertyPrice),
+    ...result,
   };
 };
 
 //   const testObject = {
-//   averagePropertyCost: 20000000,
+//   propertyCost: 20000000,
 //   frequency: 1,
 //   initial: 363587,
 //   output: [
@@ -158,3 +171,5 @@ export const recommendBallersPlan = ({
 //   ],
 //   periodic: 8507,
 // };
+
+// Guide - https://nigeriapropertycentre.com/market-trends/average-prices/for-sale/houses/lagos

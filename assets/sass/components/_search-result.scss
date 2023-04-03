@@ -83,7 +83,7 @@
     padding: 2rem 1.5rem;
     text-align: center;
     @include media-breakpoint-up(sm) {
-      padding: 1.5rem 2.5rem;
+      padding: 1.5rem 2rem;
       text-align: left;
     }
     margin-bottom: 2rem;
@@ -116,7 +116,7 @@
     color: $secondary !important;
     padding: 0.7rem 1.5rem;
     font-size: 1rem;
-    margin: 0 1rem;
+    margin-right: 0.5rem;
 
     &.active {
       background: $secondary;
@@ -127,7 +127,7 @@
   }
 
   .bg-orange {
-    border: 1.5px solid $orange;
+    border: 1.5px solid #fdd58b;
     background-color: $orange-bg;
     label {
       color: $orange;
@@ -196,6 +196,83 @@
   //     border-left-color: $input-border-color;
   //   }
   // }
+}
+
+.comfort-level {
+  .rangeslider-horizontal {
+    height: 12px;
+  }
+  .rangeslider-horizontal .rangeslider__handle {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+  }
+
+  .rangeslider,
+  .rangeslider .rangeslider__handle,
+  .rangeslider-horizontal .rangeslider__fill {
+    transition-property: background, border, background-color;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-out;
+  }
+
+  &.green {
+    .rangeslider {
+      background: rgba($green, 0.25);
+    }
+    .rangeslider .rangeslider__handle {
+      background: $green;
+    }
+    .rangeslider-horizontal .rangeslider__fill {
+      background-color: $green;
+    }
+    .rangeslider-horizontal .rangeslider__handle {
+      border: 2px solid $green;
+    }
+  }
+
+  &.orange {
+    .rangeslider {
+      background: rgba($orange, 0.25);
+    }
+    .rangeslider .rangeslider__handle {
+      background: $orange;
+    }
+    .rangeslider-horizontal .rangeslider__fill {
+      background-color: $orange;
+    }
+    .rangeslider-horizontal .rangeslider__handle {
+      border: 2px solid $orange;
+    }
+  }
+
+  &.red {
+    .rangeslider {
+      background: rgba($red, 0.25);
+    }
+    .rangeslider .rangeslider__handle {
+      background: $red;
+    }
+    .rangeslider-horizontal .rangeslider__fill {
+      background-color: $red;
+    }
+    .rangeslider-horizontal .rangeslider__handle {
+      border: 2px solid $red;
+    }
+  }
+}
+
+.text-price {
+  color: #1c35a3;
+}
+
+.recommendation__card {
+  padding: 2rem;
+  text-align: center;
+  background: #fafbff;
+  border-radius: 4px;
+  margin-top: 1rem;
+  border: 1px solid #e8ecf6;
 }
 
 .awesome-text {
