@@ -62,7 +62,7 @@ const ReferAndEarn = () => {
 const EmailReferral = () => {
   const { userState } = React.useContext(UserContext);
   const referralCode = `${
-    process.env.REACT_APP_HOST || 'https://ballers.ng'
+    process.env.NEXT_PUBLIC_HOST || 'https://ballers.ng'
   }/ref/${userState.referralCode}`;
 
   return (

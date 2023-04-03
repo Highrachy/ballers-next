@@ -392,10 +392,10 @@ const DisplayOfferLetterTemplate = ({ offerId, setConcerns }) => {
 
               <div>
                 <SharePublicLink
-                  link={`${process.env.REACT_APP_HOST}/offer/${offer._id}`}
+                  link={`${process.env.NEXT_PUBLIC_HOST}/offer/${offer._id}`}
                 />
                 <Link
-                  href={`${process.env.REACT_APP_HOST}/offer/${offer._id}`}
+                  href={`${process.env.NEXT_PUBLIC_HOST}/offer/${offer._id}`}
                   className="btn btn-sm btn-dark btn-wide"
                 >
                   View Public Offer

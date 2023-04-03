@@ -114,7 +114,7 @@ const WidgetList = ({ type }) => {
         {widgetLists.map((widget, index) => (
           <Widget
             key={index}
-            number={Math.floor(Math.random() * 20)}
+            number={Math.floor(Math.random() * 2)}
             {...widget}
           />
         ))}

@@ -72,7 +72,7 @@ const MapPicker = ({ processLocation, mapLocation }) => {
           style={{ height: '33rem' }}
           onChangeLocation={handleChangeLocation}
           onChangeZoom={handleChangeZoom}
-          apiKey={process.env.REACT_APP_GOOGLE_MAP_API}
+          apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API}
         />
       )}
 

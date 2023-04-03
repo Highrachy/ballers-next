@@ -11,6 +11,7 @@ import FAQsContent from '@/data/faqs';
 import CommunityGallery from '@/components/common/CommunityGallery';
 import Footer from '@/components/layout/Footer';
 import Modal from '@/components/common/Modal';
+import SearchContentPropertyForm from '@/components/common/SearchContentPropertyForm';
 
 export default function Home() {
   return (
@@ -46,7 +47,7 @@ const HoldingSection = () => (
         </div>
 
         <section className="property-search__home">
-          <SearchPropertyForm />
+          <SearchContentPropertyForm />
         </section>
         <div className="dotted-polka">
           <PolkaDot />

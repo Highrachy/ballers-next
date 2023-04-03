@@ -50,6 +50,13 @@ export const HOUSE_TYPES = [
   'Terraced Duplex',
 ];
 
+// CONVERT HOUSE TYPES TO A single object
+
+export const ALL_HOUSE_TYPES = HOUSE_TYPES.reduce((acc, type) => {
+  acc[type] = type;
+  return acc;
+}, {});
+
 export const REFERRAL_STATUS = {
   Sent: {
     text: 'Invite Sent',

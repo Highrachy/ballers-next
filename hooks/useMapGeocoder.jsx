@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 const useMapGeocoder = ({ mapAddress }) => {
   // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
-  Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAP_API);
+  Geocode.setApiKey(process.env.NEXT_PUBLIC_GOOGLE_MAP_API);
 
   // set response language. Defaults to english.
   Geocode.setLanguage('en');

@@ -87,7 +87,7 @@ const Upload = ({
         })
           .then(() => {
             const AWS_BUCKET =
-              process.env.REACT_APP_AWS_S3_BUCKET || 'ballers-staging';
+              process.env.NEXT_PUBLIC_AWS_S3_BUCKET || 'ballers-staging';
             const fileURL = `https://${AWS_BUCKET}.s3.amazonaws.com/${uploadConfig.data.key}`;
             setUploadedFile(fileURL);
             afterUpload(fileURL);

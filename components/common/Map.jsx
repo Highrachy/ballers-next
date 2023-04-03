@@ -8,7 +8,7 @@ const Map = ({ children, coordinates, zoom, pinColor }) => {
       {children}
       <GoogleMapReact
         key={JSON.stringify(`${coordinates.lat} ${coordinates.lng}`)}
-        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API }}
+        bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API }}
         defaultCenter={{
           lat: parseFloat(coordinates.lat),
           lng: parseFloat(coordinates.lng),
