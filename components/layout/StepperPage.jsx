@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import BackendPage from 'components/layout/BackendPage';
 import TopTitle from 'components/utils/TopTitle';
-import { navigate } from '@reach/router';
+import { useRouter } from 'next/router';
 
 const MIN_STEP = 1;
 
@@ -16,6 +16,7 @@ const StepperPage = ({
 }) => {
   const [currentStep, setCurrentStep] = React.useState(initialStep);
   const MAX_STEP = allSteps.length - 1;
+  const router = useRouter();
 
   const handleCurrentStep = (step) => setCurrentStep(step);
   const moveToPreviousStep = () =>
@@ -30,15 +31,17 @@ const StepperPage = ({
 
   React.useEffect(() => {
     setCurrentStep(initialStep);
-    navigate(`/vendor/setup/${initialStep}`);
+    router.push(`/vendor/setup/${initialStep}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialStep]);
 
   React.useEffect(() => {
-    navigate(`/vendor/setup/${currentStep}`);
+    router.push(`/vendor/setup/${currentStep}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep]);
 
   return (
-    <BackendPage title={title}>
+    <>
       <TopTitle>
         {title} (Step {currentStep}/{MAX_STEP})
       </TopTitle>
@@ -58,7 +61,7 @@ const StepperPage = ({
           moveToPreviousStep={moveToPreviousStep}
         />
       </section>
-    </BackendPage>
+    </>
   );
 };
 

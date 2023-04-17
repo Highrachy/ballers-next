@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import queryString from 'query-string';
-import { isValidUrl } from '@/utils/helpers';
+import { isValidURL } from '@/utils/helpers';
 
 // https://github.com/lijinke666/react-image-process/blob/abf8db4b81a22cab2a12c2786718ce0029696401/example/example.js
 
@@ -86,7 +86,7 @@ export const LocalImage = (props) => (
   <Image name={props.alt || 'image'} {...props} serveImageFromCloud={false} />
 );
 export const OnlineImage = (props) => (
-  <Image {...props} serveImageFromCloud={isValidUrl(props?.src)} />
+  <Image {...props} serveImageFromCloud={isValidURL(props?.src)} />
 );
 
 export default Image;

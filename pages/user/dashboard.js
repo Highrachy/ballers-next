@@ -227,12 +227,22 @@ export const ServiceBox = ({ title, link, price, content }) => (
   </div>
 );
 
-export const WelcomeHero = ({ title, subtitle, isIndex = false }) => {
+export const WelcomeHero = ({
+  title,
+  subtitle,
+  isIndex = false,
+  isApproved = true,
+}) => {
   const { userState } = React.useContext(UserContext);
 
   return (
     <section className="position-relative mt-n5">
-      <div className={`dashboard-hero mb-3 ${isIndex ? 'index-page' : ''}`}>
+      <div
+        className={classNames('dashboard-hero mb-3', {
+          'index-page': isIndex,
+          'onboarding-user': !isApproved,
+        })}
+      >
         <SquareBubbles />
         <div className="px-4 py-6">
           <h2 className="text-white mt-4 mt-md-0">

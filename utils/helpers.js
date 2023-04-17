@@ -202,7 +202,7 @@ export const getFormattedAddress = ({
   </address>
 );
 
-export const isValidUrl = (url) => {
+export const isValidURL = (url) => {
   try {
     new URL(url);
     return true;

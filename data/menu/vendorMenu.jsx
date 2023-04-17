@@ -56,12 +56,6 @@ const vendorMenu = [
     icon: <ProfileIcon />,
     footer: false,
   },
-  {
-    title: 'Refer to Earn',
-    to: '/user/refer-and-earn',
-    icon: <ReferIcon />,
-    footer: true,
-  },
 ];
 
 export const unVerifiedVendorSideMenu = [
@@ -99,12 +93,6 @@ export const unVerifiedVendorSideMenu = [
     title: 'Settings',
     to: '/user/settings',
     icon: <ProfileIcon />,
-    footer: false,
-  },
-  {
-    title: 'Refer to Earn',
-    to: '/user/refer-and-earn',
-    icon: <ReferIcon />,
     footer: false,
   },
 ];

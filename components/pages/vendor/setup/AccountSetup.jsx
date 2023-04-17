@@ -9,11 +9,9 @@ import { CertificatesForm } from './Certificates';
 import { UserContext } from 'context/UserContext';
 import Humanize from 'humanize-plus';
 import { VENDOR_STEPS, VENDOR_VERIFICATION_STATUS } from 'utils/constants';
-import { SuccessIcon } from 'components/utils/Icons';
-import { InfoIcon } from 'components/utils/Icons';
-import { QuestionMarkIcon } from 'components/utils/Icons';
 import { ErrorIcon } from 'components/utils/Icons';
 import { MessageIcon } from 'components/utils/Icons';
+import { InfoCircle, MoreCircle, TickCircle } from 'iconsax-react';
 
 export const getCompletedSteps = (userState) => [
   //logo and maybe entity type
@@ -150,19 +148,19 @@ export const getVerificationStatus = (userState, index) => {
     case 'Verified':
       return {
         className: 'text-success',
-        icon: <SuccessIcon />,
+        icon: <TickCircle variant="Bulk" />,
         status: 'Information has been verified',
       };
     case 'Pending':
       return {
         className: 'text-danger',
-        icon: <QuestionMarkIcon />,
+        icon: <MoreCircle variant="Bulk" />,
         status: 'Awaiting your input',
       };
     case 'In Review':
       return {
         className: 'text-secondary',
-        icon: <InfoIcon />,
+        icon: <InfoCircle variant="Bulk" />,
         status: 'Currently in Review',
       };
     default:
@@ -179,8 +177,8 @@ const AccountSetup = ({ id }) => {
   const { userState } = React.useContext(UserContext);
 
   React.useEffect(() => {
-    setInitialStep(id);
-  }, [id]);
+    if (id?.toString() !== initialStep?.toString()) setInitialStep(id);
+  }, [id, initialStep]);
 
   const [toast, setToast] = useToast();
 
@@ -225,7 +223,7 @@ const AccountSetup = ({ id }) => {
   );
 };
 
-const ADD_ENTERTAINER_STEPS = {
+export const ADD_ENTERTAINER_STEPS = {
   companyInformation: { title: 'Company Information' },
   bankInformation: { title: 'Bank Information' },
   signatories: { title: 'Directors and Signatories' },

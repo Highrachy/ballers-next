@@ -194,6 +194,8 @@ const CompanyLogo = ({ image, setImage }) => {
               afterUpload={(image) => setImage(image)}
               changeText={`Update Company Logo`}
               defaultImage={image}
+              oldImage={image}
+              name="Company Logo"
               imgOptions={{ options: { h: 100 }, className: 'mb-3' }}
               uploadText={`Upload Company Logo`}
             />

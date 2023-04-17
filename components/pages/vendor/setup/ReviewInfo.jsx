@@ -4,7 +4,7 @@ import BackendPage from 'components/layout/BackendPage';
 import CardTableSection from 'components/common/CardTableSection';
 import { UserContext } from 'context/UserContext';
 import { getFormattedAddress } from 'utils/helpers';
-import { navigate } from '@reach/router';
+import { useRouter } from 'next/router';
 import { ShowDirectorsTable } from './Signatories';
 import Image, { OnlineImage } from 'components/utils/Image';
 
@@ -18,6 +18,8 @@ const ReviewInfo = () => (
 
 export const ReviewInfoForm = () => {
   const { userState } = React.useContext(UserContext);
+  const router = useRouter();
+
   return (
     <>
       <CardTableSection name="Company Information">
@@ -136,7 +138,7 @@ export const ReviewInfoForm = () => {
       </CardTableSection>
       <button
         className="btn btn-secondary"
-        onClick={() => navigate('/vendor/dashboard')}
+        onClick={() => router.push('/vendor/dashboard')}
       >
         Finish Verification
       </button>

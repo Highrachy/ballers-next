@@ -118,6 +118,18 @@
     #253169
   );
 
+  &.onboarding-user {
+    background: linear-gradient(
+      0deg,
+      #333333 0%,
+      #474747 17%,
+      #494949 25%,
+      #4e4e4e 50%,
+      #505050 75%,
+      #5e5e5e 100%
+    );
+  }
+
   h4,
   p {
     color: white;

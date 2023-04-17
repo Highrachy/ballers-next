@@ -17,9 +17,9 @@ import { UserContext } from 'context/UserContext';
 import { signatorySchema } from 'components/forms/schemas/vendorSchema';
 import { getError, isValidURL, statusIsSuccessful } from 'utils/helpers';
 import Select from 'components/forms/Select';
-import { UploadSignature } from 'components/pages/shared/SingleOffer';
 import Image, { OnlineImage } from 'components/utils/Image';
 import { VerificationComments } from './AccountSetup';
+import { UploadSignature } from '@/components/shared/SingleOffer';
 
 const Signatories = () => (
   <BackendPage>
