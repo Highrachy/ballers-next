@@ -10,8 +10,12 @@ import { UserContext } from 'context/UserContext';
 import Humanize from 'humanize-plus';
 import { VENDOR_STEPS, VENDOR_VERIFICATION_STATUS } from 'utils/constants';
 import { ErrorIcon } from 'components/utils/Icons';
-import { MessageIcon } from 'components/utils/Icons';
-import { InfoCircle, MoreCircle, TickCircle } from 'iconsax-react';
+import {
+  InfoCircle,
+  MessageNotif,
+  MoreCircle,
+  TickCircle,
+} from 'iconsax-react';
 
 export const getCompletedSteps = (userState) => [
   //logo and maybe entity type
@@ -37,7 +41,7 @@ export const VerificationComments = ({ step }) => {
 
   return pendingComments.length > 0 ? (
     <section className="my-4">
-      <h6>Pending Comments</h6>
+      <h6 className="text-dark">Pending Comments</h6>
       {pendingComments.map(({ comment }, index) => (
         <p key={index} className="speech-bubble">
           {comment}
@@ -135,8 +139,8 @@ export const getVerificationStatus = (userState, index) => {
 
   if (pendingComments.length > 0) {
     return {
-      className: 'text-muted',
-      icon: <MessageIcon />,
+      className: 'primary',
+      icon: <MessageNotif variant="Bold" />,
       status: `${pendingComments.length} pending  ${Humanize.pluralize(
         comments.length,
         'comment'
@@ -147,25 +151,25 @@ export const getVerificationStatus = (userState, index) => {
   switch (status) {
     case 'Verified':
       return {
-        className: 'text-success',
-        icon: <TickCircle variant="Bulk" />,
+        className: 'success',
+        icon: <TickCircle variant="Bold" />,
         status: 'Information has been verified',
       };
     case 'Pending':
       return {
-        className: 'text-danger',
-        icon: <MoreCircle variant="Bulk" />,
+        className: 'primary',
+        icon: <MoreCircle variant="Bold" />,
         status: 'Awaiting your input',
       };
     case 'In Review':
       return {
-        className: 'text-secondary',
-        icon: <InfoCircle variant="Bulk" />,
+        className: 'secondary',
+        icon: <InfoCircle variant="Bold" />,
         status: 'Currently in Review',
       };
     default:
       return {
-        class: 'text-muted',
+        class: 'muted',
         icon: <ErrorIcon />,
         status: '',
       };

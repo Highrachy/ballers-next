@@ -124,7 +124,7 @@ export const CompanyInformationForm = ({ moveToNextStep, setStepToast }) => {
             Save Changes
           </Button>
 
-          <DisplayFormikState {...props} />
+          <DisplayFormikState showAll {...props} />
         </Form>
       )}
     </Formik>

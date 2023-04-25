@@ -45,32 +45,35 @@
   text-shadow: 3px 4px 7px rgb(183 183 183 / 60%);
 }
 
+.text-normal {
+  font-size: 1rem !important;
+}
 .text-large,
 .text-lg {
-  font-size: 1.25rem;
+  font-size: 1.25rem !important;
 }
 
 .text-medium,
 .text-md {
-  font-size: 0.95rem;
+  font-size: 0.95rem !important;
   @include media-breakpoint-up(md) {
-    font-size: 0.85rem;
+    font-size: 0.85rem !important;
   }
 }
 
 .text-small,
 .text-sm {
-  font-size: 0.85rem;
+  font-size: 0.85rem !important;
   @include media-breakpoint-up(md) {
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
   }
 }
 
 .text-smaller,
 .text-xs {
-  font-size: 0.75rem;
+  font-size: 0.75rem !important;
   @include media-breakpoint-up(md) {
-    font-size: 0.65rem;
+    font-size: 0.65rem !important;
   }
 }
 

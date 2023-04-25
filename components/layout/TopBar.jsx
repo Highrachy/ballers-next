@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { NotificationIcon, ThreeDotsIcon } from 'components/utils/Icons';
 import ProfileAvatar from 'assets/img/avatar/profile.png';
 import { UserContext } from 'context/UserContext';
-import { OnlineImage } from 'components/utils/Image';
+import { LocalImage } from 'components/utils/Image';
 import { useCurrentRole } from 'hooks/useUser';
 import TimeAgo from 'react-timeago';
 import { NOTIFICATION_ACTION, NOTIFICATION_TYPE } from 'utils/constants';
@@ -66,19 +66,19 @@ const Header = () => {
 
             <Dropdown>
               <Dropdown.Toggle as={Empty} id="user-dropdown">
-                <OnlineImage
+                <LocalImage
                   name={userName}
                   className={
                     isCompanyLogo
                       ? 'dashboard-top-nav__company-logo'
                       : 'dashboard-top-nav__avatar'
                   }
-                  defaultImage={ProfileAvatar}
+                  defaultImage={`/img/avatar/profile.png`}
                   rounded
                   src={
                     isCompanyLogo
-                      ? userState.vendor.companyLogo
-                      : userState.profileImage
+                      ? userState.vendor?.companyLogo
+                      : userState?.profileImage
                   }
                   options={{ h: 200 }}
                 />{' '}

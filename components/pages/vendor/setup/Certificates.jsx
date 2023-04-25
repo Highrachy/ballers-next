@@ -22,11 +22,9 @@ import { certificateSchema } from 'components/forms/schemas/vendorSchema';
 import Select from 'components/forms/Select';
 import { VerificationComments } from './AccountSetup';
 import Upload from 'components/utils/Upload';
-import Image from 'components/utils/Image';
+import { OnlineImage } from 'components/utils/Image';
 import { FileIcon } from 'components/utils/Icons';
 import { Loading } from 'components/utils/LoadingItems';
-import CertificatePlaceholderImage from 'assets/img/placeholder/document.png';
-import TaxPlaceholderImage from 'assets/img/placeholder/image.png';
 
 const Certificates = () => (
   <BackendPage>
@@ -114,7 +112,7 @@ export const CertificatesForm = ({ moveToNextStep, setStepToast }) => {
                     <UploadDocument
                       key="0"
                       name="certificate"
-                      defaultImage={CertificatePlaceholderImage}
+                      defaultImage={`/img/placeholder/document.png`}
                       document={
                         certificateDocument ||
                         userState.vendor?.identification?.url
@@ -137,7 +135,7 @@ export const CertificatesForm = ({ moveToNextStep, setStepToast }) => {
                     <UploadDocument
                       key="1"
                       name="tax"
-                      defaultImage={TaxPlaceholderImage}
+                      defaultImage={`/img/placeholder/image.png`}
                       document={taxDocument || userState.vendor?.taxCertificate}
                       setDocument={setTaxDocument}
                       title="Tax Certificate"
@@ -192,7 +190,7 @@ const UploadDocument = ({
           uploadText={`Upload ${title}`}
         >
           {children}
-          <Image
+          <OnlineImage
             bordered
             name={`${name}_uploaded_document`}
             src={document}

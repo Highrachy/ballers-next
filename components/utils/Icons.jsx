@@ -80,6 +80,7 @@ import {
   DocumentText1,
   Element3,
   EmptyWalletTime,
+  Folder,
   Gift,
   Home3,
   Setting2,
@@ -105,7 +106,7 @@ export const CheckIcon = () => <FiCheck />;
 export const CheckSquareIcon = () => <AiFillCheckSquare />;
 export const CheckCircleIcon = () => <BiCheckCircle />;
 export const CloseIcon = () => <FiX />;
-export const CompanyInfoIcon = () => <FiFolder />;
+export const CompanyInfoIcon = () => <Folder variant="Bulk" />;
 export const CopyToClipBoardIcon = () => <FiClipboard />;
 export const ClockIcon = () => <FiClock />;
 export const DeleteIcon = () => <FiTrash2 />;

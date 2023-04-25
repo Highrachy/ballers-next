@@ -23,11 +23,12 @@ import {
   getVerificationState,
   getVerificationStatus,
 } from '@/components/pages/vendor/setup/AccountSetup';
+import Humanize from 'humanize-plus';
 
 const Dashboard = () => {
   const [toast, setToast] = useToast();
   const { userState } = React.useContext(UserContext);
-  const isVerifiedVendor = userState.vendor?.verified;
+  const isVerifiedVendor = !!userState?.vendor?.verified;
 
   return (
     <BackendPage>
@@ -150,8 +151,8 @@ const UnVerifiedVendorContent = () => {
           <div className="card-inner p-4">
             <div className="row">
               <div className="col-md-8">
-                <h6>You need setup a verified Account to get started</h6>
-                <p className="text-muted">
+                <h5>Ready to sell your property? Verify your account now!</h5>
+                <p className="text-dark">
                   <strong>Status: </strong>
 
                   {verificationState.noOfComments ? (
@@ -200,10 +201,7 @@ const UnVerifiedVendorContent = () => {
           index={0}
           key={0}
           status={getVerificationStatus(userState, 0)}
-        >
-          See your profile data and manage your Account to choose what is saved
-          in our system.
-        </VerificationCard>
+        />
 
         <VerificationCard
           icon={<BankInfoIcon />}
@@ -211,10 +209,7 @@ const UnVerifiedVendorContent = () => {
           index={1}
           key={1}
           status={getVerificationStatus(userState, 1)}
-        >
-          See your profile data and manage your Account to choose what is saved
-          in our system.
-        </VerificationCard>
+        />
 
         <VerificationCard
           icon={<UserIcon />}
@@ -222,10 +217,7 @@ const UnVerifiedVendorContent = () => {
           index={2}
           key={2}
           status={getVerificationStatus(userState, 2)}
-        >
-          See your profile data and manage your Account to choose what is saved
-          in our system.
-        </VerificationCard>
+        />
 
         <VerificationCard
           icon={<FileIcon />}
@@ -233,52 +225,29 @@ const UnVerifiedVendorContent = () => {
           status={getVerificationStatus(userState, 3)}
           index={3}
           key={3}
-        >
-          See your profile data and manage your Account to choose what is saved
-          in our system.
-        </VerificationCard>
+        />
       </div>
     </section>
   );
 };
-
-const VerificationCard2 = ({ title, children, icon, index, status }) => (
-  <Link href={`/vendor/setup/${index + 1}`} passHref>
-    <a className="col-md-6 mb-4">
-      <div className="card verification-card">
-        <div className="verification-card__block">
-          <div className="verification-card__img">{icon}</div>
-          <div>
-            <h5 className="verification-card__title">
-              {title}{' '}
-              <span className={`${status.className} verification__icon`}>
-                {status.icon}
-              </span>
-            </h5>
-            <p className="verification-card__text">{children}</p>
-          </div>
-        </div>
-        <div className="verification-card__action">
-          {status.icon} {status.status}
-        </div>
-      </div>
-    </a>
-  </Link>
-);
 
 const VerificationCard = ({ title, children, icon, index, status }) => (
   <Link href={`/vendor/setup/${index + 1}`} passHref>
     <a className="col-md-12 mb-4">
       <div className="card verification-card">
         <div className="d-flex items-center p-4">
-          <button className="w-10 h-10 rounded-circle btn btn-primary p-0">
+          <div className={`bg-${status.className} verification-card__circle`}>
             {index + 1}
-          </button>
-          <div className="mb-0 ms-3">
-            <h5>{title}</h5>
-            <div className="text-sm">{status.status}</div>
           </div>
-          <div className={`${status.className} icon-xl ms-auto`}>
+          <div className="mb-0 ms-3">
+            <h5 className={`text-${status.className} mb-0`}>{title}</h5>
+            <div className={`text-${status.className} text-md`}>
+              {status.status}
+            </div>
+          </div>
+          <div
+            className={`text-${status.className} icon-xl ms-auto verification-card__icon`}
+          >
             {status.icon}
           </div>
         </div>

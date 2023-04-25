@@ -20,6 +20,7 @@ import Select from 'components/forms/Select';
 import Image, { OnlineImage } from 'components/utils/Image';
 import { VerificationComments } from './AccountSetup';
 import { UploadSignature } from '@/components/shared/SingleOffer';
+import Switch from '@/components/forms/Switch';
 
 const Signatories = () => (
   <BackendPage>
@@ -42,7 +43,7 @@ export const SignatoriesForm = ({ moveToNextStep }) => {
       onSubmit={(values, actions) => {
         let payload = { vendor: { directors: [{ ...values }] } };
 
-        if (values.isSignatory === 'true' && !signature) {
+        if (values.isSignatory && !signature) {
           setToast({
             message: 'You need to upload a signatory signature',
           });
@@ -54,8 +55,7 @@ export const SignatoriesForm = ({ moveToNextStep }) => {
           payload.vendor.directors[0].signature = signature;
         }
 
-        payload.vendor.directors[0].isSignatory =
-          values.isSignatory === 'true' ? true : false;
+        payload.vendor.directors[0].isSignatory = !!values.isSignatory;
 
         Axios.put(`${BASE_API_URL}/user/vendor/update`, payload, {
           headers: { Authorization: getTokenFromStore() },
@@ -126,28 +126,31 @@ const SignatoriesInfoForm = ({
   return (
     <section className="row">
       <div className="col-md-10 px-4">
-        <h5 className="mb-4">Add a New Director / Signatory</h5>
+        <h5 className="mb-4">Add a New Signatory / Director </h5>
         <VerificationComments step="3" />
-        <Input label="Director Name" name="name" />
+
         <div className="form-row">
+          <Switch
+            label="Director is a Signatory?"
+            labelClassName="text-normal"
+            name="isSignatory"
+          />
+        </div>
+
+        <div className="form-row">
+          <Input
+            label="Director Name"
+            name="name"
+            formGroupClassName="col-md-6"
+          />
           <Input
             formGroupClassName="col-md-6"
             label="Phone Number"
             name="phone"
           />
-          <Select
-            formGroupClassName="col-md-6"
-            label="Signatory"
-            name="isSignatory"
-            placeholder="Is Director a Signatory?"
-            options={[
-              { value: 'true', label: 'Yes, Director is a Signatory' },
-              { value: 'false', label: 'No, Director is not a Signatory' },
-            ]}
-          />
         </div>
 
-        {props.values.isSignatory === 'true' && (
+        {props.values.isSignatory && (
           <div className="mt-3">
             {signature && (
               <h3 className="signature-pad">
@@ -169,8 +172,13 @@ const SignatoriesInfoForm = ({
               setImage={setImage}
               setSignature={setSignature}
             />
+            <div className="text-md mt-2">
+              Note: Uploaded signature will be used to sign offer letters
+            </div>
           </div>
         )}
+
+        <hr className="my-4" />
 
         <Button
           className="mt-4 btn-right"
@@ -259,9 +267,6 @@ export const ShowDirectorsTable = ({ directors, moveToNextStep, setToast }) => {
                 </td>
               </tr>
             ))}
-            <tr>
-              <td colSpan="6"></td>
-            </tr>
           </tbody>
         </table>
       </div>

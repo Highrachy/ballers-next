@@ -68,9 +68,10 @@ label {
   }
 
   [type='file'] + label {
-    border: 2px solid $gray-600;
+    border: 1px solid $secondary-500;
+    background: $secondary-50;
     border-radius: 5px;
-    color: $gray-600;
+    color: $secondary-600;
     cursor: pointer;
     display: inline-block;
     font-family: 'Rubik', sans-serif;
@@ -84,7 +85,7 @@ label {
     vertical-align: middle;
 
     &:hover {
-      background-color: darken($gray-600, 15%);
+      background-color: $secondary-500;
       color: $white;
     }
   }

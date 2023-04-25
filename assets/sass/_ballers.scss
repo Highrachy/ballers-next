@@ -139,11 +139,12 @@ html {
 
 .speech-bubble {
   position: relative;
-  background: $gray-300;
+  background: $primary-300;
   border-radius: 0.4rem;
   padding: 1rem;
   margin-bottom: 1rem;
   font-size: 0.75rem;
+  color: $white;
 }
 
 .speech-bubble:after {
@@ -154,7 +155,7 @@ html {
   width: 0;
   height: 0;
   border: 20px solid transparent;
-  border-right-color: $gray-300;
+  border-right-color: $primary-300;
   border-left: 0;
   border-bottom: 0;
   margin-top: -10px;
@@ -162,111 +163,164 @@ html {
 }
 
 .verification-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
   transition: all 0.5s ease-in;
 
-  &__block {
+  &__circle {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    color: white;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
-  @media (min-width: 576px) {
-    &__block {
-      padding: 1.5rem;
-    }
+  .text-danger {
+    color: $danger-700 !important;
   }
 
-  &__img {
-    width: 84px;
-    margin-right: 0;
-    margin-bottom: 1.5rem;
-    flex-shrink: 0;
-    text-align: center;
-    padding: 0.125rem;
-
-    @media (min-width: 576px) {
-      margin-right: 1.5rem;
-      margin-bottom: 0;
-    }
-
-    svg {
-      height: 5rem;
-      width: 5rem;
-      stroke-width: 0.4;
-      fill: lighten($secondary, 30%);
-      stroke: $secondary;
-    }
+  .bg-danger {
+    background-color: $danger-700 !important;
   }
 
-  &__title {
-    font-size: 1.1rem;
+  .text-secondary {
+    color: $secondary-700 !important;
   }
 
-  &__text {
-    color: #8094ae;
-    font-size: 0.9rem;
+  .bg-secondary {
+    background-color: $secondary-700 !important;
   }
 
-  &__action {
-    margin-top: auto;
-    border-top: 1px solid #e5e9f2;
-    position: relative;
-    display: block;
-    line-height: 1.3;
-    padding: 1.25rem 2.5rem;
-    white-space: inherit;
-    font-size: 0.8rem;
-    color: $text-muted;
-    svg {
-      height: 0.9rem;
-      margin-top: -0.2rem;
-    }
+  .text-success {
+    color: $success-700 !important;
+  }
 
-    &.strong {
-      color: $gray-600;
-      font-weight: bold;
+  .bg-success {
+    background-color: $success-700 !important;
+  }
 
-      svg {
-        height: 1rem;
-        width: 1rem;
-        margin-top: -0.2rem;
-        color: $gray-600;
-      }
-    }
+  &__circle,
+  &__icon {
+    opacity: 0.85;
   }
 
   &:hover {
-    background-color: $gray-100;
-    .verification-card__img svg {
-      fill: lighten($secondary, 25%);
-      stroke: $secondary;
-    }
-
-    h5 {
-      color: $secondary;
-    }
-
-    .verification-card__text {
-      color: darken($secondary, 20%);
-    }
-    .strong {
-      color: $secondary;
-
-      svg {
-        color: $secondary;
-      }
+    background: $secondary-50;
+    .verification-card__circle,
+    .verification-card__icon {
+      opacity: 1;
     }
   }
 }
 
-.verification__icon svg {
-  height: 1.25rem;
-}
+// .verification-card {
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+// transition: all 0.5s ease-in;
+
+//   &__block {
+//     display: flex;
+//     flex-direction: row;
+//     align-items: center;
+//     padding-top: 2rem;
+//     padding-bottom: 2rem;
+//   }
+
+//   @media (min-width: 576px) {
+//     &__block {
+//       padding: 1.5rem;
+//     }
+//   }
+
+//   &__img {
+//     width: 84px;
+//     margin-right: 0;
+//     margin-bottom: 1.5rem;
+//     flex-shrink: 0;
+//     text-align: center;
+//     padding: 0.125rem;
+
+//     @media (min-width: 576px) {
+//       margin-right: 1.5rem;
+//       margin-bottom: 0;
+//     }
+
+//     svg {
+//       height: 5rem;
+//       width: 5rem;
+//       stroke-width: 0.4;
+//       fill: lighten($secondary, 30%);
+//       stroke: $secondary;
+//     }
+//   }
+
+//   &__title {
+//     font-size: 1.1rem;
+//   }
+
+//   &__text {
+//     color: #8094ae;
+//     font-size: 0.9rem;
+//   }
+
+//   &__action {
+//     margin-top: auto;
+//     border-top: 1px solid #e5e9f2;
+//     position: relative;
+//     display: block;
+//     line-height: 1.3;
+//     padding: 1.25rem 2.5rem;
+//     white-space: inherit;
+//     font-size: 0.8rem;
+//     color: $text-muted;
+//     svg {
+//       height: 0.9rem;
+//       margin-top: -0.2rem;
+//     }
+
+//     &.strong {
+//       color: $gray-600;
+//       font-weight: bold;
+
+//       svg {
+//         height: 1rem;
+//         width: 1rem;
+//         margin-top: -0.2rem;
+//         color: $gray-600;
+//       }
+//     }
+//   }
+
+//   &:hover {
+//     background-color: $gray-100;
+//     .verification-card__img svg {
+//       fill: lighten($secondary, 25%);
+//       stroke: $secondary;
+//     }
+
+//     h5 {
+//       color: $secondary;
+//     }
+
+//     .verification-card__text {
+//       color: darken($secondary, 20%);
+//     }
+//     .strong {
+//       color: $secondary;
+
+//       svg {
+//         color: $secondary;
+//       }
+//     }
+//   }
+// }
+
+// .verification__icon svg {
+//   height: 1.25rem;
+// }
 
 .card-progress-bar {
   position: absolute;
@@ -586,11 +640,4 @@ html {
   border-radius: 50%;
   display: inline-block;
   margin-right: 0.5rem;
-}
-
-.w-10 {
-  width: 2.5rem;
-}
-.h-10 {
-  height: 2.5rem;
 }

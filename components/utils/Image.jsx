@@ -27,8 +27,10 @@ const Image = ({
     ...options,
   };
 
-  const imgSrc = src
+  const imgSrc = serveImageFromCloud
     ? `${IMAGE_SERVE_URL}?${queryString.stringify(query)}`
+    : !!src
+    ? src
     : defaultImage;
 
   const classes = classNames(
@@ -52,7 +54,7 @@ const Image = ({
     <img
       alt={name}
       className={classes}
-      src={serveImageFromCloud ? imgSrc : src}
+      src={imgSrc}
       title={name}
       {...otherProps}
     />

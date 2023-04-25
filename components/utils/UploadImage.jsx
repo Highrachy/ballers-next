@@ -102,10 +102,10 @@ const UploadImage = ({ defaultImage, uploadText, changeText, afterUpload }) => {
           <input
             id="image"
             type="file"
-            className="custom-file-input"
+            className="custom-file-input form-control"
             onChange={onChangeHandler}
           />
-          <label className="custom-file-label" htmlFor="image">
+          <label className="custom-file-label text-md mt-3" htmlFor="image">
             {loading ? (
               <>
                 <BallersSpinner small /> &nbsp; &nbsp; Uploading Image
