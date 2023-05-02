@@ -1,7 +1,8 @@
 import * as yup from 'yup';
 import { parse } from 'date-fns';
 import { moneyFormatInNaira } from 'utils/helpers';
-import { getDateTime } from 'utils/date-helpers';
+import { parseISO } from 'date-fns';
+import { getDate } from 'utils/date-helpers';
 
 export const required = (label) =>
   yup.string().required(`${label} is required`);
@@ -115,21 +116,24 @@ export const yearValidation = (label) =>
     .positive(`${label} must be a valid year`)
     .integer(`${label} must be a valid year`);
 
-export const minDateValidation = (label, minDate) =>
+export const minDateValidation = (label, minDate = new Date()) =>
   yup
     .object()
     .transform((value, originalValue) => {
       return (
-        (value?.date && { date: parse(value.date) }) ||
-        (originalValue && { date: parse(originalValue) }) || { date: undefined }
+        (value?.date && { date: parseISO(value.date) }) ||
+        (originalValue && { date: parseISO(originalValue) }) || {
+          date: undefined,
+        }
       );
     })
     .shape({
       date: yup
         .date()
         .required(`${label} is required`)
-        .min(minDate, `${label} must be greater than ${getDateTime(minDate)}`),
+        .min(minDate, `${label} must be greater than ${getDate(minDate)}`),
     });
+
 export const autocompleteValidation = (label, minSelection = 1) =>
   yup
     .array()

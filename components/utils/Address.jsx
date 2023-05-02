@@ -18,6 +18,7 @@ const Address = ({ showCountry, companyAddress }) => {
       />
       <Input
         label="Street Line 2"
+        optional
         name={
           companyAddress ? 'vendor.companyAddress.street2' : 'address.street2'
         }

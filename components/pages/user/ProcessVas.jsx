@@ -20,10 +20,11 @@ import {
 import Select from 'components/forms/Select';
 import { refreshQuery } from 'hooks/useQuery';
 import { useCurrentRole } from 'hooks/useUser';
-import { navigate } from '@reach/router';
+import { useRouter } from 'next/router';
 
 export const ProcessVasForm = ({ hideForm, setToast, vasInfo, propertyId }) => {
   const userType = useCurrentRole().name;
+  const router = useRouter();
   return (
     <section className="row">
       <div className="col-md-10">
@@ -49,7 +50,7 @@ export const ProcessVasForm = ({ hideForm, setToast, vasInfo, propertyId }) => {
                   refreshQuery('vasRequest', true);
                   actions.setSubmitting(false);
                   actions.resetForm();
-                  manualWait(() => navigate(`/${userType}/service`), 1000);
+                  manualWait(() => router.push(`/${userType}/service`), 1000);
                 }
               })
               .catch(function (error) {

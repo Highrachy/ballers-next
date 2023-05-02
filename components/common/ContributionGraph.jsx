@@ -112,11 +112,7 @@ const WidgetList = ({ type }) => {
     <div className="col-sm-6">
       <div className="row g-4">
         {widgetLists.map((widget, index) => (
-          <Widget
-            key={index}
-            number={Math.floor(Math.random() * 2)}
-            {...widget}
-          />
+          <Widget key={index} number={0} role={type} {...widget} />
         ))}
       </div>
     </div>
@@ -132,7 +128,7 @@ export const Widget = ({
   className = 'col-6',
   role = 'user',
 }) => {
-  const url = `/app/${role}/${link || name}`;
+  const url = `/${role}/${(link || name).toLowerCase()}`;
 
   return (
     <section className={`widget ${className}`}>
@@ -164,7 +160,6 @@ export const OverviewGraph = ({ type }) => {
   const isUser = type === 'user';
   const data = isUser ? userData : vendorData;
   const chartColors = isUser ? ChartColors : [ChartColors[0], ChartColors[2]];
-  console.log('chartColors: ', chartColors);
 
   return (
     <div className="widget col-sm-6 mb-4 mb-md-0">

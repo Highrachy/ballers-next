@@ -1,7 +1,7 @@
 import {
   stringValidation,
   optionalValidation,
-  // minDateValidation,
+  minDateValidation,
   required,
 } from './schema-helpers';
 
@@ -12,7 +12,7 @@ export const addEnquirySchema = {
   otherName: optionalValidation(required('Other Name')),
   occupation: stringValidation('Occupation'),
   nameOnTitleDocument: stringValidation('Name on Title Document'),
-  investmentStartDate: required('Investment Start Date', new Date()),
+  investmentStartDate: minDateValidation('Investment Start Date'),
   initialInvestmentAmount: stringValidation('Initial Investment Amount'),
   investmentFrequency: required('Investment Frequency'),
   periodicInvestmentAmount: stringValidation('Periodic Investment Amount'),

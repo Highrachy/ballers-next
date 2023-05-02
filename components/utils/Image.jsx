@@ -27,11 +27,13 @@ const Image = ({
     ...options,
   };
 
-  const imgSrc = serveImageFromCloud
+  const imgSrc = !src
+    ? defaultImage
+    : serveImageFromCloud
     ? `${IMAGE_SERVE_URL}?${queryString.stringify(query)}`
-    : !!src
-    ? src
-    : defaultImage;
+    : src;
+
+  console.log('imgSrc', imgSrc);
 
   const classes = classNames(
     className,

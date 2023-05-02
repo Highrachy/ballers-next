@@ -54,7 +54,7 @@ import { ErrorIcon } from 'components/utils/Icons';
 import { QuestionMarkIcon } from 'components/utils/Icons';
 import { TestimonialsList } from './Testimonials';
 import { AssignedPropertyIcon } from 'components/utils/Icons';
-import { VendorIcon } from 'components/utils/Icons';
+import { WelcomeHero } from 'pages/user/dashboard';
 
 const pageOptions = {
   key: 'property',
@@ -80,6 +80,13 @@ const SingleProperty = ({ id, Sidebar }) => {
         name={pageOptions.pageName}
         toast={toast}
       >
+        <WelcomeHero
+          title={`${property?.name}`}
+          subtitle={`${
+            property?.address?.street1 &&
+            getLocationFromAddress(property?.address)
+          }`}
+        />
         <OwnedPropertyCard
           property={property}
           setToast={setToast}
@@ -708,6 +715,7 @@ export const PropertyDescription = ({
       />
 
       <h5 className="mt-5 header-smaller">About Property</h5>
+
       <div className="position-relative">
         {hideSomePropertyDescription
           ? Humanize.truncate(property.description, DESCRIPTION_LENGTH, '...')
@@ -722,6 +730,11 @@ export const PropertyDescription = ({
             </button>
           </div>
         )}
+
+        <p className="my-3 text-primary">
+          Title:{' '}
+          <strong>{property?.titleDocument || 'Deed of Assignment'}</strong>
+        </p>
       </div>
 
       {/* action bar */}
@@ -804,11 +817,10 @@ export const PropertyHeader = ({
           {isUser && !isPortfolioPage && (
             <>
               {(enquiryInfo?.approved || !userHasPreviousEnquiry) && (
-                <Link
-                  href={`/user/property/enquiry/${property._id}`}
-                  className="btn btn-sm btn-wide btn-secondary"
-                >
-                  {userHasPreviousEnquiry ? 'Buy Property Again' : 'Buy Now'}
+                <Link href={`/user/property/enquiry/${property._id}`} passHref>
+                  <a className="btn btn-sm btn-wide btn-secondary">
+                    {userHasPreviousEnquiry ? 'Buy Property Again' : 'Buy Now'}
+                  </a>
                 </Link>
               )}
             </>

@@ -10,7 +10,7 @@ import {
 import Label from './Label';
 import ReactDatePicker from 'react-datepicker';
 import { getIn } from 'formik';
-import { isValid, parse } from 'date-fns';
+import { isValid, parseISO } from 'date-fns';
 import { convertToUTC } from 'utils/date-helpers';
 
 const DatePicker = ({
@@ -35,7 +35,7 @@ const DatePicker = ({
   tooltipPosition,
   ...props
 }) => (
-  <div className={classNames('form-group mb-4', formGroupClassName)}>
+  <div className={classNames('mb-4', formGroupClassName)}>
     <div>
       <Label
         className={labelClassName}
@@ -54,11 +54,11 @@ const DatePicker = ({
           if (
             typeof currentValue === 'object' &&
             currentValue.date &&
-            isValid(parse(currentValue.date))
+            isValid(parseISO(currentValue.date))
           ) {
-            selectedValue = parse(currentValue.date);
-          } else if (currentValue !== '' && isValid(parse(currentValue))) {
-            selectedValue = parse(currentValue);
+            selectedValue = parseISO(currentValue.date);
+          } else if (currentValue !== '' && isValid(parseISO(currentValue))) {
+            selectedValue = parseISO(currentValue);
           }
 
           return (
@@ -93,7 +93,7 @@ const DatePicker = ({
                   form.setFieldValue(name, '');
                 }
               }}
-              placeholderText={placeholder}
+              placeholderText={placeholder || label}
               selected={selectedValue}
               showTimeSelect={showTimeSelect}
               showTimeSelectOnly={showTimeSelectOnly}
@@ -139,7 +139,7 @@ DatePicker.propTypes = {
 DatePicker.defaultProps = {
   className: null,
   dateFormat: 'MMMM d, yyyy',
-  formGroupClassName: null,
+  formGroupClassName: '',
   helpText: null,
   isValidMessage: '',
   label: '',

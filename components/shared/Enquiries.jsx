@@ -82,11 +82,8 @@ const EnquiriesRow = ({
       />
     </td>
     <td>
-      <Link
-        className="btn btn-sm btn-secondary"
-        href={`/vendor/enquiry/${_id}`}
-      >
-        View Enquiry
+      <Link href={`/vendor/enquiries/${_id}`} passHref>
+        <a className="btn btn-sm btn-wide btn-secondary-light">View Enquiry</a>
       </Link>
     </td>
   </tr>

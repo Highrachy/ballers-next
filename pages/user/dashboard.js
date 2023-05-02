@@ -7,7 +7,7 @@ import { RightArrowIcon, SearchIcon } from 'components/utils/Icons';
 import SearchForProperty from 'components/common/SearchDashboardPropertyForm';
 import ContributionGraph from 'components/common/ContributionGraph';
 import useWindowSize from 'hooks/useWindowSize';
-import { MOBILE_WIDTH, BASE_API_URL } from 'utils/constants';
+import { MOBILE_WIDTH, BASE_API_URL, USER_TYPES } from 'utils/constants';
 import { UserContext } from 'context/UserContext';
 import { PropertyIcon } from 'components/utils/Icons';
 import Axios from 'axios';
@@ -234,6 +234,7 @@ export const WelcomeHero = ({
   isApproved = true,
 }) => {
   const { userState } = React.useContext(UserContext);
+  const isVendor = userState.role === USER_TYPES.vendor;
 
   return (
     <section className="position-relative mt-n5">
@@ -241,6 +242,7 @@ export const WelcomeHero = ({
         className={classNames('dashboard-hero mb-3', {
           'index-page': isIndex,
           'onboarding-user': !isApproved,
+          vendor: isApproved && isVendor,
         })}
       >
         <SquareBubbles />

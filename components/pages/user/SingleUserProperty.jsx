@@ -11,7 +11,6 @@ import { ScheduleVisitForm } from './ProcessVisitation';
 import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
 import { ContentLoader } from 'components/utils/LoadingItems';
-import { OwnedPropertyCard } from '../shared/SingleProperty';
 import { ProcessVasForm } from './ProcessVas';
 import Button from 'components/forms/Button';
 import { VAS_TYPE } from 'utils/constants';
@@ -20,6 +19,9 @@ import { FileIcon } from 'components/utils/Icons';
 import { SearchIcon } from 'components/utils/Icons';
 import { DoubleSpacing } from 'components/common/Helpers';
 import { Spacing } from 'components/common/Helpers';
+import { OwnedPropertyCard } from '@/components/shared/SingleProperty';
+import { WelcomeHero } from 'pages/user/dashboard';
+import { getLocationFromAddress } from '@/utils/helpers';
 
 const pageOptions = {
   key: 'property',
@@ -63,6 +65,13 @@ const SingleUserProperty = ({ id }) => {
         name={pageOptions.pageName}
         toast={toast}
       >
+        <WelcomeHero
+          title={`${property?.name}`}
+          subtitle={`${
+            property?.address?.street1 &&
+            getLocationFromAddress(property?.address)
+          }`}
+        />
         <OwnedPropertyCard
           property={property}
           setToast={setToast}
@@ -133,7 +142,15 @@ export const ViewTitleDocumentButton = ({ property }) => {
         onHide={setShowModalToFalse}
         showFooter={false}
       >
-        {property.titleDocument}
+        <h3 className="mt-5">{property.titleDocument}</h3>
+
+        <Button
+          color="secondary"
+          className="btn-wide btn-wide-sm btn-sm mb-5"
+          onClick={setShowModalToFalse}
+        >
+          Request for Title Document
+        </Button>
       </Modal>
 
       <Button
@@ -141,7 +158,7 @@ export const ViewTitleDocumentButton = ({ property }) => {
         className="btn-wide btn-wide-sm btn-sm btn-outline-secondary"
         onClick={setShowModalToTrue}
       >
-        View Title Document
+        Request for Title Document
         <Spacing />
         <span className="icon-md">
           <FileIcon />

@@ -31,6 +31,15 @@ export const COLOR_STYLE = [
   'dark',
 ];
 
+export const TITLE_DOCUMENTS = [
+  'Certificate of Occupancy',
+  'Deed of Assignment',
+  'Deed of Conveyance',
+  'Deed of Lease',
+  'Deed of Sublease',
+  'Land Certificate',
+];
+
 export const MALE_TITLES = ['Mr.', 'Master', 'Chief (Mr)', 'Alhaji'];
 export const FEMALE_TITLES = ['Mrs.', 'Ms.', 'Miss', 'Chief (Mrs)', 'Alhaja'];
 export const TITLES = [...MALE_TITLES, ...FEMALE_TITLES].sort();

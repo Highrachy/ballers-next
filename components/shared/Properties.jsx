@@ -181,21 +181,15 @@ const PropertiesRow = ({
         <h5 className="text-dark">{moneyFormatInNaira(price)}</h5>
       </td>
       <td>
-        <Link
-          className="btn btn-xs btn-wide btn-secondary"
-          href={`/${userType}/property/${_id}`}
-        >
-          View
+        <Link href={`/${userType}/property/${_id}`} passHref>
+          <a className="btn btn-xs btn-wide btn-secondary">View</a>
         </Link>
         {useCurrentRole().isVendor && (
           <>
             <Spacing />
             <Spacing />
-            <Link
-              className="btn btn-xs btn-wide btn-info"
-              href={`/${userType}/property/edit/${_id}`}
-            >
-              Edit
+            <Link href={`/${userType}/property/edit/${_id}`} passHref>
+              <a className="btn btn-xs btn-wide btn-primary-light">Edit</a>
             </Link>
           </>
         )}

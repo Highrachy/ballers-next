@@ -19,7 +19,12 @@ import {
   addressSchema,
 } from 'components/forms/schemas/schema-helpers';
 import { UserContext } from 'context/UserContext';
-import { getError, objectToOptions, valuesToOptions } from 'utils/helpers';
+import {
+  getError,
+  getLocationFromAddress,
+  objectToOptions,
+  valuesToOptions,
+} from 'utils/helpers';
 import { getTokenFromStore } from 'utils/localStorage';
 import InputFormat from 'components/forms/InputFormat';
 import Select from 'components/forms/Select';
@@ -27,9 +32,12 @@ import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
 import { ContentLoader } from 'components/utils/LoadingItems';
 import { MessageIcon } from 'components/utils/Icons';
-import { PropertyImage } from '../shared/SingleProperty';
-import { PropertyHeader } from '../shared/SingleProperty';
-import { navigate } from '@reach/router';
+import { useRouter } from 'next/router';
+import {
+  PropertyHeader,
+  PropertyImage,
+} from '@/components/shared/SingleProperty';
+import { WelcomeHero } from 'pages/user/dashboard';
 
 const pageOptions = {
   key: 'property',
@@ -48,29 +56,36 @@ const PropertyEnquiry = ({ id }) => {
 
   return (
     <BackendPage>
-      <section className="container-fluid">
-        <h4>Property Enquiry</h4>
-        <ContentLoader
-          hasContent={!!property}
-          Icon={<MessageIcon />}
-          query={propertyQuery}
-          name={pageOptions.pageName}
-          toast={toast}
-        >
+      <ContentLoader
+        hasContent={!!property}
+        Icon={<MessageIcon />}
+        query={propertyQuery}
+        name={pageOptions.pageName}
+        toast={toast}
+      >
+        <WelcomeHero
+          title="Buy Property"
+          subtitle={` ${property?.name} - ${
+            property?.address?.street1 &&
+            getLocationFromAddress(property?.address)
+          }`}
+        />
+        <section className="container-fluid">
           <Card className="card-container mb-4 h-100 property-holder__big">
             <PropertyImage property={property} hideGallery />
             <div className="my-4">
-              <PropertyHeader property={property} />
+              <PropertyHeader property={property} isPortfolioPage />
             </div>
           </Card>
-        </ContentLoader>
-        <EnquiryForm id={id} setToast={setToast} />
-      </section>
+          <EnquiryForm id={id} setToast={setToast} />
+        </section>
+      </ContentLoader>
     </BackendPage>
   );
 };
 
 const EnquiryForm = ({ id, setToast }) => {
+  const router = useRouter();
   const { userState } = React.useContext(UserContext);
 
   return (
@@ -79,7 +94,6 @@ const EnquiryForm = ({ id, setToast }) => {
       initialValues={{
         ...setInitialValues(addEnquirySchema, {
           ...userState,
-          investmentStartDate: { date: new Date() },
         }),
         address: setInitialValues(addressSchema, userState.address),
       }}
@@ -110,7 +124,7 @@ const EnquiryForm = ({ id, setToast }) => {
                 type: 'success',
                 message: 'Your enquiry has been successfully submitted',
               });
-              navigate(`/user/property/${id}`);
+              router.push(`/user/property/${id}`);
               actions.setSubmitting(false);
               actions.resetForm();
             }
@@ -140,7 +154,7 @@ const EnquiryForm = ({ id, setToast }) => {
           >
             Submit Enquiry
           </Button>
-          <DisplayFormikState {...props} hide showAll />
+          <DisplayFormikState {...props} showAll />
         </Form>
       )}
     </Formik>
@@ -230,6 +244,7 @@ const InvestmentDetailsForm = () => (
           <DatePicker
             formGroupClassName="col-md-6"
             label="Start Date"
+            helpText="The date you want to start paying"
             name="investmentStartDate"
             placeholder="State Date"
           />
@@ -238,6 +253,7 @@ const InvestmentDetailsForm = () => (
             formGroupClassName="col-md-6"
             label="Initial Investment Amount"
             name="initialInvestmentAmount"
+            helpText="The initial amount you want pay."
             placeholder="Initial Investment"
           />
         </div>
@@ -247,12 +263,14 @@ const InvestmentDetailsForm = () => (
             formGroupClassName="col-md-6"
             label="Periodic Investment"
             name="periodicInvestmentAmount"
+            helpText="The amount you want to pay periodically"
             placeholder="Periodic Investment"
           />
           <Select
             formGroupClassName="col-md-6"
             label="Investment Frequency"
             name="investmentFrequency"
+            helpText="The frequency of your periodic investment"
             placeholder="Investment Frequency"
             options={objectToOptions(PAYMENT_FREQUENCY, null, true)}
           />

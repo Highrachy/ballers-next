@@ -1,6 +1,5 @@
 import React from 'react';
-import ProfileAvatar from 'assets/img/placeholder/user.jpg';
-import Image from 'components/utils/Image';
+import { OnlineImage } from 'components/utils/Image';
 import { USER_TYPES } from 'utils/constants';
 import Link from 'next/link';
 import { useCurrentRole } from 'hooks/useUser';
@@ -32,9 +31,9 @@ const UserCard = ({ user, hideImage, nameOnly }) => {
     <>
       {!hideImage ? (
         <div className="user-avatar">
-          <Image
+          <OnlineImage
             alt={firstName}
-            defaultImage={ProfileAvatar}
+            defaultImage={'/img/placeholder/user.jpg'}
             src={image}
             title={firstName}
             name={firstName}

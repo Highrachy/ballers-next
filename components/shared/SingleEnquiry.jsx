@@ -4,7 +4,6 @@ import Toast, { useToast } from 'components/utils/Toast';
 import { moneyFormatInNaira, getFormattedAddress } from 'utils/helpers';
 import { getDateTime, getShortDate } from 'utils/date-helpers';
 import { MessageIcon } from 'components/utils/Icons';
-import CreateOfferLetter from '../vendor/CreateOfferLetter';
 import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
 import { ContentLoader } from 'components/utils/LoadingItems';
@@ -12,6 +11,7 @@ import CardTableSection from 'components/common/CardTableSection';
 import { useCurrentRole } from 'hooks/useUser';
 import { PAYMENT_FREQUENCY } from 'utils/constants';
 import Humanize from 'humanize-plus';
+import CreateOfferLetter from '../pages/vendor/CreateOfferLetter';
 
 const pageOptions = {
   key: 'enquiry',

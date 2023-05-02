@@ -14,7 +14,8 @@ import {
  * @param {*} date
  */
 // https://date-fns.org/v2.29.3/docs/format
-export const getDate = (date) => format(parseISO(date), 'MMMM dd, yyyy');
+export const getDate = (date) =>
+  isValidDate(date) ? format(parseISO(date), 'MMMM dd, yyyy') : date;
 export const getDateTime = (date) => `TODO - CHANGE THIS ${date}`;
 // format(parseISO(date), 'ddd, MMM D, YYYY h:mm A');
 export const getShortDateTime = (date) =>
