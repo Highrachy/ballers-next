@@ -12,8 +12,8 @@ const FormTooltip = ({ header, text, position }) => {
       placement={position}
       overlay={
         <Popover>
-          <Popover.Title as="h6">{header || 'Information'}</Popover.Title>
-          <Popover.Content>{text}</Popover.Content>
+          <Popover.Header as="h6">{header || 'Information'}</Popover.Header>
+          <Popover.Body>{text}</Popover.Body>
         </Popover>
       }
     >

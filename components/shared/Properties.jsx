@@ -188,7 +188,7 @@ const PropertiesRow = ({
           <>
             <Spacing />
             <Spacing />
-            <Link href={`/${userType}/property/edit/${_id}`} passHref>
+            <Link href={`/${userType}/property/new/${_id}`} passHref>
               <a className="btn btn-xs btn-wide btn-primary-light">Edit</a>
             </Link>
           </>

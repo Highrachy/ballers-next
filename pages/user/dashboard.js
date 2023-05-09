@@ -2,7 +2,12 @@ import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import { Card } from 'react-bootstrap';
 import Link from 'next/link';
-import { BgWave, ReferIcon } from 'components/utils/Icons';
+import {
+  BgWave,
+  OfferIcon,
+  PortfolioIcon,
+  ReferIcon,
+} from 'components/utils/Icons';
 import { RightArrowIcon, SearchIcon } from 'components/utils/Icons';
 import SearchForProperty from 'components/common/SearchDashboardPropertyForm';
 import ContributionGraph from 'components/common/ContributionGraph';
@@ -14,7 +19,7 @@ import Axios from 'axios';
 import { getTokenFromStore } from 'utils/localStorage';
 import { getError } from 'utils/helpers';
 import Toast, { useToast } from 'components/utils/Toast';
-import { getShortDate } from 'utils/date-helpers';
+import { getDate, getShortDate } from 'utils/date-helpers';
 import TimeAgo from 'react-timeago';
 import { isPast } from 'date-fns';
 import PortfolioCards from 'components/common/PortfolioCards';
@@ -29,6 +34,8 @@ import { OnlineImage } from '@/components/utils/Image';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property.png';
 import colorTokens from 'style-dictionary/build/color.tokens';
 import classNames from 'classnames';
+import { useGetQuery } from '@/hooks/useQuery';
+import { ContentLoader } from '@/components/utils/LoadingItems';
 
 export const PegassusImage =
   'https://ballers-staging.s3.amazonaws.com/63da062af9ec130016200f41/7de33a00-ab6a-11ed-9d59-6fa02cafbd66.jpg';
@@ -37,34 +44,45 @@ export const BlissvilleImage =
 
 const Dashboard = () => {
   const [toast, setToast] = useToast();
-  const [offers, setOffers] = React.useState(null);
 
-  React.useEffect(() => {
-    Axios.get(`${BASE_API_URL}/offer/active`, {
-      headers: {
-        Authorization: getTokenFromStore(),
-      },
-    })
-      .then(function (response) {
-        const { status, data } = response;
-        if (status === 200) {
-          setOffers(data.offers);
-        }
-      })
-      .catch(function (error) {
-        setToast({
-          message: getError(error),
-        });
-      });
-  }, [setToast]);
+  const [offersQuery] = useGetQuery({
+    axiosOptions: {},
+    childrenKey: 'offer',
+    key: 'pendingOffers',
+    name: ['pendingOffers'],
+    endpoint: `${BASE_API_URL}/offer/active`,
+    refresh: true,
+  });
+
+  const [portfoliosQuery] = useGetQuery({
+    axiosOptions: { limit: 0 },
+    childrenKey: 'portfolio',
+    key: 'portfolios',
+    name: ['portfolios', { limit: 0 }],
+    endpoint: API_ENDPOINT.getAllPortfolios(),
+    refresh: true,
+  });
+
+  const allPortfolios = portfoliosQuery?.data?.result;
+  const allOffers = offersQuery?.data?.offers;
 
   return (
     <BackendPage>
       <Toast {...toast} showToastOnly />
       <WelcomeHero isIndex />
       {/* <ShowInfo offers={offers} /> */}
-      <Overview />
-      <Others />
+      <Overview
+        result={{
+          activeOffers: allOffers?.length,
+          portfolios: allPortfolios?.length,
+        }}
+      />
+      <Others
+        allPortfolios={allPortfolios}
+        allOffers={allOffers}
+        portfoliosQuery={portfoliosQuery}
+        offersQuery={offersQuery}
+      />
     </BackendPage>
   );
 };
@@ -73,7 +91,7 @@ export const WidgetBox = ({
   children,
   title,
   buttonName = 'View All',
-  buttonLink,
+  href = '#',
   isStandAlone,
 }) => (
   <div className={`col-sm-6 ${isStandAlone ? '' : 'mt-4'}`}>
@@ -81,7 +99,11 @@ export const WidgetBox = ({
       <div className="d-flex align-items-center justify-content-between">
         <h6 className="fw-bold mb-4">{title}</h6>
         {!isStandAlone && (
-          <Button color="secondary-light" className="px-4 py-1 mb-4 text-sm">
+          <Button
+            color="secondary-light"
+            href={href}
+            className="px-4 py-1 mb-4 text-sm"
+          >
             {buttonName}
           </Button>
         )}
@@ -121,73 +143,92 @@ export const getColor = (title) => {
 };
 
 export const StackBox = ({
-  avatarColor = 'primary',
+  avatarColor = null,
   src,
   title,
   date,
+  subtitle,
   price,
+  topContent,
   status,
   statusName = 'Received',
+  href = '#',
 }) => (
-  <div className="widget-stack">
-    <section className="d-flex justify-content-between">
-      <div className="d-flex flex-row">
-        {!src && (
-          <div className={`avatar-rounded avatar-${getColor(title)}`}>
-            {getInitials(title)}
-          </div>
-        )}
-        {src && (
-          <OnlineImage
-            src={src}
-            name={`property`}
-            width="40"
-            className="img-rounded"
-            alt="property"
-            defaultImage={PropertyPlaceholderImage}
-          />
-        )}
-        <div className="d-flex flex-column">
-          <h4 className={`text-primary text-md fw-semibold my-0`}>{title}</h4>
-          {date && <p className="text-sm text-primary mt-1 my-0">{date}</p>}
-        </div>
-      </div>
-      <div className="d-flex flex-column">
+  <Link href={href}>
+    <div className="widget-stack">
+      <section className="d-flex justify-content-between">
         <div className="d-flex flex-row">
-          <div className="text-end">
-            {price && (
-              <p className="fw-bold text-end mb-0">
-                <span className="fw-semibold">
-                  <span className="text-md fw-bold">₦</span>
-                  {price}
-                </span>
-              </p>
+          {!src && (
+            <div
+              className={`avatar-rounded avatar-${
+                avatarColor || getColor(title)
+              }`}
+            >
+              {getInitials(title)}
+            </div>
+          )}
+          {src && (
+            <OnlineImage
+              src={src}
+              name={`property`}
+              width="40"
+              className="img-rounded"
+              alt="property"
+              defaultImage={PropertyPlaceholderImage}
+            />
+          )}
+          <div className="d-flex flex-column">
+            <h4 className={`text-primary text-md fw-semibold my-0`}>{title}</h4>
+            {date && <p className="text-sm text-primary mt-1 my-0">{date}</p>}
+            {subtitle && (
+              <p className="text-sm text-primary mt-1 my-0">{subtitle}</p>
             )}
-            <div className="text-sm status-badge">
-              {status === '0' && (
-                <div className="badge bg-danger rounded-pill">{statusName}</div>
+          </div>
+        </div>
+        <div className="d-flex flex-column">
+          <div className="d-flex flex-row">
+            <div className="text-end">
+              {price && (
+                <p className="fw-bold text-end mb-0">
+                  <span className="fw-semibold">
+                    <span className="text-md fw-bold">₦</span>
+                    {price}
+                  </span>
+                </p>
               )}
-              {status === '1' && (
-                <div className="badge bg-success rounded-pill">
-                  {statusName}
-                </div>
+              {topContent && (
+                <p className="fw-bold text-end mb-0">
+                  <span className="fw-semibold">{topContent}</span>
+                </p>
               )}
-              {status === '2' && (
-                <div className="badge bg-secondary rounded-pill">
-                  {statusName}
-                </div>
-              )}
-              {status === '3' && (
-                <div className="badge bg-primary rounded-pill">
-                  {statusName}
-                </div>
-              )}
+              <div className="text-sm status-badge">
+                {status === '0' && (
+                  <div className="badge bg-danger rounded-pill">
+                    {statusName}
+                  </div>
+                )}
+                {status === '1' && (
+                  <div className="badge bg-success rounded-pill">
+                    {statusName}
+                  </div>
+                )}
+                {status === '2' && (
+                  <div className="badge bg-secondary rounded-pill">
+                    {statusName}
+                  </div>
+                )}
+                {status === '3' && (
+                  <div className="badge bg-primary rounded-pill">
+                    {statusName}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
+  </Link>
 );
 
 export const ServiceBox = ({ title, link, price, content }) => (
@@ -260,54 +301,13 @@ export const WelcomeHero = ({
   );
 };
 
-const ShowInfo = ({ offers }) =>
-  offers ? (
-    <div className="container-fluid">
-      {offers.map((offer, index) => (
-        <OffersRow key={index} number={index + 1} {...offer} />
-      ))}
-    </div>
-  ) : null;
-
-const OffersRow = ({ _id, expires, status, propertyInfo, vendorInfo }) => {
-  if (isPast(expires) || status !== 'Generated') {
-    return null;
-  }
-  return (
-    <div className="card d-flex flex-row toast-alert info">
-      <div className="span toast-icon-holder icon-xl">
-        <FileIcon />
-      </div>
-      <div className="w-100 font-weight-normal">
-        <Link href={`/user/offer/${_id}`} passHref>
-          <a className="btn btn-success btn-sm float-end">View Offer Letter</a>
-        </Link>
-        {vendorInfo?.vendor?.companyName} has sent you an offer letter for{' '}
-        <strong>{propertyInfo.name}</strong>
-        <br />
-        <small className="text-muted">
-          Expires on {getShortDate(expires)} (<TimeAgo date={expires} />)
-        </small>
-      </div>
-    </div>
-  );
-};
-
-export const Overview = ({ type = 'user' }) => (
+export const Overview = ({ type = 'user', result }) => (
   <div className="container-fluid py-0 mt-n6">
-    <ContributionGraph type={type} />
-    {/* <div className="row row-eq-height">
-      <div className="col-sm-8 mb-3">
-        <ContributionGraph />
-      </div>
-      <div className="col-sm-4 mb-3">
-        <ReferAndEarn />
-      </div>
-    </div> */}
+    <ContributionGraph type={type} result={result} />
   </div>
 );
 
-const Others = () => (
+const Others = ({ offersQuery, allOffers }) => (
   <>
     <div className="container-fluid py-0">
       <div className="row">
@@ -330,19 +330,25 @@ const Others = () => (
           />
         </WidgetBox>
 
-        <WidgetBox title="Active Offers">
-          <StackBox
-            title="Blissville Uno"
-            date="Due: 7 days"
-            status="2"
-            statusName="Awaiting"
-          />
-          <StackBox
-            title="Pegassus Duplexes"
-            date="Mar 10th, 2023"
-            status="1"
-            statusName="Signed"
-          />
+        <WidgetBox title="Active Offers" href={`/user/portfolio`}>
+          <ContentLoader
+            hasContent={allOffers?.length > 0}
+            Icon={<OfferIcon />}
+            query={offersQuery}
+            name={'Active Offer'}
+            noContentText={`You have no pending offers`}
+          >
+            {allOffers?.map((offer, index) => (
+              <StackBox
+                href={`/user/offer/${offer?._id}`}
+                key={`offer-${index}`}
+                title={offer?.propertyInfo.name}
+                date={getDate(offer?.expires)}
+                status="2"
+                statusName="Awaiting"
+              />
+            ))}
+          </ContentLoader>
         </WidgetBox>
       </div>
       <div className="row row-eq-height">
@@ -375,22 +381,6 @@ const Others = () => (
       </div>
 
       <ReferAndEarn />
-
-      {/* <div className="row mt-5">
-        <h4 className="mb-4">Recommended Properties</h4>
-        <PaginatedContent
-          endpoint={API_ENDPOINT.searchProperties()}
-          // initialFilter={filter}
-          pageName="Property"
-          pluralPageName="Properties"
-          DataComponent={PropertiesRowList}
-          PageIcon={<PropertyIcon />}
-          queryName="property"
-          limit={2}
-          hidePagination
-          hideTitle
-        />
-      </div> */}
     </div>
   </>
 );

@@ -50,14 +50,17 @@ import { ContentLoader } from 'components/utils/LoadingItems';
 import { PropertyIcon } from 'components/utils/Icons';
 import { setQueryCache } from 'hooks/useQuery';
 import { refreshQuery } from 'hooks/useQuery';
+import { useRouter } from 'next/router';
 
 const pageOptions = {
   key: 'property',
   pageName: 'Property',
 };
 
-const PropertyForm = ({ id }) => {
+const PropertyForm = () => {
   const [toast, setToast] = useToast();
+  const router = useRouter();
+  const { id } = router.query;
   return (
     <BackendPage>
       <div className="container-fluid">

@@ -227,6 +227,7 @@ const DefineYourEligibility = ({ result }) => {
   const [inputs, setInputs] = React.useState(initialValues);
   const [output, setOutput] = React.useState({});
   const [showResultCard, setShowResultCard] = React.useState(false);
+  const userIsEligible = output?.recommendations?.[0]?.title !== 'Ineligible';
 
   const cancelEligibilityStatus = () => {
     setInputs(initialValues);
@@ -411,26 +412,34 @@ const DefineYourEligibility = ({ result }) => {
                     {output?.recommendations?.length > 2 && 's'}{' '}
                   </h6>
                   <div>
-                    {output?.recommendations?.map((recommendation, index) => (
-                      <div
-                        key={index}
-                        className="d-flex justify-content-between mt-1"
-                      >
-                        <p>&nbsp;</p>
-                        <p className="text-secondary">
-                          <TitleInfo
-                            {...recommendation}
-                            content={recommendation?.advice}
-                          />
-                        </p>
-                      </div>
-                    ))}
+                    {output?.recommendations?.map((recommendation, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className="d-flex justify-content-between mt-1"
+                        >
+                          <p>&nbsp;</p>
+                          <p className="text-secondary">
+                            <TitleInfo
+                              {...recommendation}
+                              content={recommendation?.advice}
+                            />
+                          </p>
+                        </div>
+                      );
+                    })}
                   </div>
                 </section>
 
                 <section>
-                  {showResultCard && (
+                  {showResultCard && userIsEligible && (
                     <RecommendationCard
+                      result={output}
+                      cancelEligibilityStatus={cancelEligibilityStatus}
+                    />
+                  )}
+                  {showResultCard && userIsEligible && (
+                    <InEligibleCard
                       result={output}
                       cancelEligibilityStatus={cancelEligibilityStatus}
                     />
@@ -486,6 +495,43 @@ const RecommendationCard = ({ result, cancelEligibilityStatus }) => {
   );
 };
 
+const InEligibleCard = ({ result, cancelEligibilityStatus }) => {
+  return (
+    <section>
+      <div className="recommendation__card mb-5">
+        <p>
+          Sorry, based on your income, the properties in this location might be
+          above your budget.{' '}
+        </p>
+        <h3 className="text-price">
+          {moneyFormatInNaira(result?.propertyCost)}
+        </h3>
+        <div>
+          with an initial investment of{' '}
+          <strong> {moneyFormatInNaira(result.initial)}</strong> <br />
+          and a monthly payment of{' '}
+          <strong>{moneyFormatInNaira(result.monthlyPayment)} </strong>{' '}
+        </div>
+        <p className="">Let&apos;s explore other options within your budget.</p>
+      </div>
+      <div className="button-container mt-5 mb-3">
+        <button
+          className="btn btn-link"
+          onClick={() => cancelEligibilityStatus(false)}
+        >
+          <ArrowLeftIcon /> Redefine your Eligibility status
+        </button>
+
+        <Link href="/register" passHref>
+          <a className="btn btn-success">Create a free account</a>
+        </Link>
+      </div>
+      <small className="text-primary">
+        Open a free account and own your dream home
+      </small>
+    </section>
+  );
+};
 // const ResultCard = ({ result, setShowResultCard }) => {
 //   const WINDOW_SIZE = useWindowSize();
 //   return (
@@ -555,8 +601,8 @@ const TitleInfo = ({ title, content }) => (
       placement="top"
       overlay={
         <Popover>
-          <Popover.Title as="h6">{title}</Popover.Title>
-          <Popover.Content>{content}</Popover.Content>
+          <Popover.Header as="h6">{title}</Popover.Header>
+          <Popover.Body>{content}</Popover.Body>
         </Popover>
       }
     >

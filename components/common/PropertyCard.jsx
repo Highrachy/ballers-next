@@ -21,8 +21,8 @@ import Image, { OnlineImage } from 'components/utils/Image';
 import ProfileAvatar from 'assets/img/placeholder/property-holder.jpg';
 import { useCurrentRole } from 'hooks/useUser';
 
-const PropertyCard = (property) => {
-  const { name, address, favorites, houseType, mainImage, price, _id } =
+const PropertyCard = ({ isPublic, ...property }) => {
+  const { name, address, favorites, houseType, mainImage, price, _id, slug } =
     property;
   const [loading, setLoading] = React.useState(false);
   const isFavorite = (favorites || []).includes(_id);
@@ -52,6 +52,9 @@ const PropertyCard = (property) => {
       });
   };
   const currentRole = useCurrentRole().name;
+  const propertyLink = isPublic
+    ? `/properties/${slug}`
+    : `/${currentRole}/property/${_id}`;
 
   return (
     <section>
@@ -74,7 +77,7 @@ const PropertyCard = (property) => {
             </span>
           </div>
         )}
-        <Link href={`/${currentRole}/property/${_id}`}>
+        <Link href={propertyLink}>
           <article>
             <div className="content-image">
               <OnlineImage
@@ -137,13 +140,21 @@ const PropertyCard = (property) => {
   );
 };
 
-export const RecommendedPropertyLists = ({ properties, propertyClassName }) => {
+export const RecommendedPropertyLists = ({
+  properties,
+  propertyClassName,
+  isPublic,
+}) => {
   const { userState } = React.useContext(UserContext);
-  let favoritePropertyIds = userState.favorites.map((p) => p._id);
+  let favoritePropertyIds = userState?.favorites?.map((p) => p._id);
 
   return properties.map((property) => (
     <div className={propertyClassName} key={property._id}>
-      <PropertyCard {...property} favorites={favoritePropertyIds} />
+      <PropertyCard
+        {...property}
+        favorites={favoritePropertyIds}
+        isPublic={isPublic}
+      />
     </div>
   ));
 };
@@ -151,6 +162,7 @@ export const RecommendedPropertyLists = ({ properties, propertyClassName }) => {
 RecommendedPropertyLists.propTypes = {
   properties: PropTypes.array.isRequired,
   propertyClassName: PropTypes.string,
+  isPublic: PropTypes.bool,
 };
 
 RecommendedPropertyLists.defaultProps = {

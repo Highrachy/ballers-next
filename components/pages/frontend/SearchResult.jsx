@@ -453,8 +453,8 @@ const TabTitle = ({ title, content }) => (
       placement="right"
       overlay={
         <Popover>
-          <Popover.Title as="h6">{title} Package</Popover.Title>
-          <Popover.Content>{content}</Popover.Content>
+          <Popover.Header as="h6">{title} Package</Popover.Header>
+          <Popover.Body>{content}</Popover.Body>
         </Popover>
       }
     >

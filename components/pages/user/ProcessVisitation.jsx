@@ -40,7 +40,7 @@ export const ScheduleVisitForm = ({ propertyId, hideForm, setToast }) => {
                 if (status === 201) {
                   setToast({
                     type: 'success',
-                    message: `Your visitation has been scheduled. We will contact you within 24 hours).`,
+                    message: `Your visitation has been scheduled. We will contact you within 24 hours.`,
                   });
                   hideForm();
                   actions.setSubmitting(false);

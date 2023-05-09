@@ -3,6 +3,7 @@ import { BASE_API_URL } from 'utils/constants';
 export const API_ENDPOINT = {
   getOneProperty: (id) => `${BASE_API_URL}/property/${id}`,
   getAllProperties: () => `${BASE_API_URL}/property/all`,
+  getPropertyBySlug: (slug) => `${BASE_API_URL}/property/all?slug=${slug}`,
   searchProperties: () => `${BASE_API_URL}/property/search`,
 
   getOnePortfolio: (id) => `${BASE_API_URL}/property/portfolio/${id}`,

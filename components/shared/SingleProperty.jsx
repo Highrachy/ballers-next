@@ -629,7 +629,7 @@ const ReportProperty = ({ property, setToast, setProperty }) => {
 const ManagePropertyLink = ({ property, setToast, setProperty }) => (
   <section className="mt-3">
     <Link
-      href={`/vendor/property/edit/${property._id}`}
+      href={`/vendor/property/new/${property._id}`}
       className="text-link text-muted"
     >
       Edit Property
@@ -731,7 +731,7 @@ export const PropertyDescription = ({
           </div>
         )}
 
-        <p className="my-3 text-primary">
+        <p className="my-3 text-primary bg-primary-light">
           Title:{' '}
           <strong>{property?.titleDocument || 'Deed of Assignment'}</strong>
         </p>
@@ -887,21 +887,21 @@ export const ShowPropertyStatus = ({ property }) => {
   );
 };
 
-export const PropertyMap = ({ mapLocation }) =>
-  mapLocation ? (
-    mapLocation.latitude &&
-    mapLocation.longitude && (
-      <div style={{ height: '15rem', marginTop: '-2px' }}>
-        <Map
-          coordinates={{
-            lat: mapLocation.latitude,
-            lng: mapLocation.longitude,
-          }}
-        />
-      </div>
-    )
-  ) : (
-    <></>
-  );
+export const PropertyMap = ({ mapLocation }) => <></>;
+// mapLocation ? (
+//   mapLocation.latitude &&
+//   mapLocation.longitude && (
+//     <div style={{ height: '15rem', marginTop: '-2px' }}>
+//       <Map
+//         coordinates={{
+//           lat: mapLocation.latitude,
+//           lng: mapLocation.longitude,
+//         }}
+//       />
+//     </div>
+//   )
+// ) : (
+//   <></>
+// );
 
 export default SingleProperty;

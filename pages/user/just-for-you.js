@@ -120,7 +120,7 @@ export const PropertiesRowList = ({ results, title }) => {
       {title && <h4 className="mb-5">{title}</h4>}
       <div className="row">
         <RecommendedPropertyLists
-          propertyClassName="col-sm-6"
+          propertyClassName="col-sm-6 col-md-4 col-lg-3"
           properties={results}
         />
       </div>

@@ -11,6 +11,7 @@ import {
   OfferIcon,
   VasIcon,
   ReferIcon,
+  PropertyIcon,
 } from '../utils/Icons';
 
 const userData = [
@@ -58,12 +59,14 @@ const userWidgetLists = [
   {
     name: 'My Porfolio',
     link: 'portfolio',
-    key: 'assignedProperty',
+    key: 'portfolios',
     color: 'secondary',
     Icon: <PortfolioIcon />,
   },
   {
-    name: 'Offers',
+    name: 'Active Offers',
+    link: 'portfolio',
+    key: 'activeOffers',
     color: 'success',
     Icon: <OfferIcon />,
   },
@@ -82,14 +85,12 @@ const userWidgetLists = [
 
 const vendorWidgetLists = [
   {
-    name: 'Porfolio',
-    link: 'portfolio',
-    key: 'assignedProperty',
+    name: 'Properties',
     color: 'secondary',
-    Icon: <PortfolioIcon />,
+    Icon: <PropertyIcon />,
   },
   {
-    name: 'Properties',
+    name: 'Offers',
     color: 'success',
     Icon: <OfferIcon />,
   },
@@ -101,18 +102,25 @@ const vendorWidgetLists = [
   {
     name: 'Scheduled Visits',
     color: 'danger',
-    key: 'interests',
+    link: 'scheduled-visits',
+    key: 'visitations',
     Icon: <ReferIcon />,
   },
 ];
 
-const WidgetList = ({ type }) => {
+const WidgetList = ({ type, result = {} }) => {
   const widgetLists = type === 'user' ? userWidgetLists : vendorWidgetLists;
+  console.log('result', result);
   return (
     <div className="col-sm-6">
       <div className="row g-4">
         {widgetLists.map((widget, index) => (
-          <Widget key={index} number={0} role={type} {...widget} />
+          <Widget
+            key={index}
+            number={result?.[widget?.key || widget?.name?.toLowerCase()] || 0}
+            role={type}
+            {...widget}
+          />
         ))}
       </div>
     </div>
@@ -146,8 +154,7 @@ export const Widget = ({
                 <h6 className="card-title mt-0" title="Number of Customers">
                   {Humanize.capitalize(name)}
                 </h6>
-              </div>{' '}
-              {/* end card-body*/}
+              </div>
             </section>
           </div>
         </a>
@@ -178,7 +185,6 @@ export const OverviewGraph = ({ type }) => {
 
           <div className="row justify-content-between g-0">
             <div className="col-12">
-              {/* <h6 className="text-md">Analysis</h6> */}
               <div className="text-sm mt-3">
                 <div className="d-flex flex-between-center mb-1">
                   <div className="d-flex align-items-center">
@@ -218,43 +224,16 @@ export const OverviewGraph = ({ type }) => {
               </div>
             </div>
           </div>
-
-          {/* <div className="row ">
-            <div className="col-sm">
-              <OverviewPrice
-                title="Transactions"
-                color="purple"
-                price={moneyFormatInNaira(15_000_000)}
-              />
-              <OverviewPrice
-                title="Contribution Rewards"
-                color="purple"
-                price={moneyFormatInNaira(15_000_000)}
-              />
-            </div>
-            <div className="col-sm">
-              <OverviewPrice
-                title="Transactions"
-                color="purple"
-                price={moneyFormatInNaira(15_000_000)}
-              />
-              <OverviewPrice
-                title="Contribution Rewards"
-                color="purple"
-                price={moneyFormatInNaira(15_000_000)}
-              />
-            </div>
-          </div> */}
         </div>
       </div>
     </div>
   );
 };
 
-export const ContributionGraph = ({ type = 'user' }) => (
+export const ContributionGraph = ({ type = 'user', result }) => (
   <div className="row">
-    <OverviewGraph type={type} />
-    <WidgetList type={type} />
+    <OverviewGraph type={type} result={result} />
+    <WidgetList type={type} result={result} />
   </div>
 );
 

@@ -92,15 +92,15 @@ const SingleUserProperty = ({ id }) => {
   );
 };
 
-const Actionbar = ({ property, visitationInfo, setToast, vasQuery }) => {
+export const Actionbar = ({ property, visitationInfo, setToast, vasQuery }) => {
   const userHasScheduledVisit =
     visitationInfo?.length > 0 &&
     visitationInfo?.[visitationInfo.length - 1].status === 'Pending';
 
   return (
     <section className="mt-3">
-      <ViewTitleDocumentButton property={property} />
-      <DoubleSpacing />
+      {/* <ViewTitleDocumentButton property={property} />
+      <DoubleSpacing /> */}
       <ScheduleTourButton
         property={property}
         visitationInfo={visitationInfo}
@@ -183,7 +183,7 @@ export const ScheduleTourButton = ({
   return (
     <>
       <Modal
-        title="Schedula a Tour Today"
+        title="Schedule a Tour Today"
         show={showModal}
         onHide={setShowModalToFalse}
         showFooter={false}

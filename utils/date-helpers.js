@@ -15,18 +15,18 @@ import {
  */
 // https://date-fns.org/v2.29.3/docs/format
 export const getDate = (date) =>
-  isValidDate(date) ? format(parseISO(date), 'MMMM dd, yyyy') : date;
-export const getDateTime = (date) => `TODO - CHANGE THIS ${date}`;
-// format(parseISO(date), 'ddd, MMM D, YYYY h:mm A');
+  isValidDate(date) ? format(parseISO(date), 'LLLL do, yyyy') : date;
+export const getDateTime = (date) =>
+  format(parseISO(date), 'do, LLLL yyyy h:mm b');
 export const getShortDateTime = (date) =>
-  format(parseISO(date), 'do MMM YYYY h:mm A');
-export const getShortDate = (date) => format(parseISO(date), 'do MMM,  yyyy');
+  format(parseISO(date), 'do LLL yyyy h:mm b');
+export const getShortDate = (date) => format(parseISO(date), 'do LLL yyyy');
 export const getTinyDate = (date) =>
-  isValidDate(date) && format(parseISO(date), 'MMM d, yyyy');
+  isValidDate(date) && format(parseISO(date), 'LLL e, yyyy');
 export const getLongDate = (date) =>
-  format(parseISO(date), 'dddd, Do MMMM yyyy');
+  format(parseISO(date), 'EEEE, do LLLL yyyy');
 export const getYear = (date) => format(parseISO(date), 'yyyy');
-export const getTime = (date) => format(parseISO(date), 'h:mm A');
+export const getTime = (date) => format(parseISO(date), 'h:mm b');
 export const subtractDays = (date, numOfDays) =>
   getElapsedTime(subDays(date, numOfDays));
 export const getTimeOfDay = (date) => {
@@ -42,7 +42,7 @@ export const isPastDate = (date) => isPast(parseISO(date));
 export const differenceInDays = (date) =>
   differenceInCalendarDays(Date.now(), parseISO(date));
 
-export const formatFilterDate = (date) => format(parseISO(date), 'YYYY-MM-DD');
+export const formatFilterDate = (date) => format(parseISO(date), 'YYYY-L-D');
 export const convertToUTC = (date) =>
   new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString();
 export const isValidDate = (date) => isValid(parseISO(date));

@@ -134,7 +134,6 @@ const LoginForm = ({ redirectTo, sid, token }) => {
             const { status, data } = response;
             if (statusIsSuccessful(status)) {
               clearStorage();
-              console.log('data success', data);
               storeToken(data.user.token);
               storeUserRole(data.user.role);
               loginUser(data.user, data.user.token);

@@ -15,6 +15,7 @@ const BackendPage = ({ children }) => {
 
   const { userState, loginUser, logoutUser } = useContext(UserContext);
   const [showSidebar, setShowSidebar] = React.useState(false);
+
   const closeSidebar = () => {
     document.body.classList.remove('modal-open');
     setShowSidebar(false);

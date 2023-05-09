@@ -74,11 +74,8 @@ const VasRequestsRow = ({ _id, number, status, vasInfo }) => {
       <td>{moneyFormatInNaira(vasInfo?.price)}</td>
       <td>{status}</td>
       <td>
-        <Link
-          href={`/${userType}/service/requests/${_id}`}
-          className="btn btn-xs btn-secondary btn-wide"
-        >
-          View Request{' '}
+        <Link href={`/${userType}/service/requests/${_id}`} passHref>
+          <a className="btn btn-xs btn-secondary btn-wide">View Request</a>
         </Link>
       </td>
     </tr>
