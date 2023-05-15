@@ -36,12 +36,12 @@ export default function Home() {
 const HoldingSection = () => (
   <section>
     <div className="row me-0 ms-0">
-      <section className="col-md-6 ps-lg-6 home-hero-container">
+      <section className="col-md-6 ps-lg-6 pt-4 home-hero-container">
         <div className="home-hero">
-          <h1 className="text-shadow-light">
+          <h1 className="text-shadow-light pt-5 pt-md-0">
             Become <br className="d-none d-lg-block" /> a <span>Landlord</span>
           </h1>
-          <p className="mt-4 text-primary">
+          <p className="mt-4 text-primary mb-5 mb-md-0">
             We make owning a home simpler and achievable.
           </p>
         </div>
@@ -70,17 +70,17 @@ const AboutSection = () => {
             src={`/img/pages/${isDesktop ? 'home.png' : 'home-tab.png'}`}
             className="img-cover"
             alt="home"
-            width={'808'}
-            height={'939'}
+            width={isDesktop ? '808' : '363'}
+            height={isDesktop ? '939' : '367'}
           />
         </div>
         <div className="col-sm-6 col-12 pb-5">
           <h6 className="header-secondary d-none d-lg-block">ABOUT BALL</h6>
-          <h2>
+          <h2 className="my-4 my-md-0">
             Game-changing service <br /> that makes owning <br /> your home
             easier
           </h2>
-          <p className="my-5 text-normal">
+          <p className="my-md-5 my-3 text-normal">
             We make owning a home simpler and achievable. <br /> With BALL
             unique saving plan tailored to you and your <br /> financial
             position,owning a home has never been easier.

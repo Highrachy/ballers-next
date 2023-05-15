@@ -30,7 +30,7 @@ import {
 } from 'components/forms/schemas/offerSchema';
 import { Spacing } from 'components/common/Helpers';
 import Link from 'next/link';
-import { OnlineImage } from '../utils/Image';
+import { OnlineImage } from '@/components/utils/Image';
 
 const PendingOffers = () => (
   <BackendPage>

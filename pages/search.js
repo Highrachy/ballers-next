@@ -84,7 +84,7 @@ const SearchResultContent = ({ result }) => {
             'offset-lg-1': !showMap,
           })}
         >
-          <h2 className="text-start mt-6 mb-0 text-primary">
+          <h2 className="text-start mt-4 mt-md-6 mb-0 text-primary">
             {result.type} <br />
           </h2>
           <h5 className="text-secondary py-0">
@@ -99,23 +99,22 @@ const SearchResultContent = ({ result }) => {
               {nearestMillion(result.averagePrice)}
             </h2>
             <ul className="list-inline">
-              <li className="list-inline-item px-2">
+              <li className="list-inline-item px-3">
                 <LocationIcon /> {result.area}
               </li>
-              <li className="list-inline-item px-2">
+              <li className="list-inline-item px-3">
                 <ApartmentIcon /> {result.type}
               </li>
             </ul>
             <div className="search-result-price-range">
-              <RangeLine />
               <div className="row">
-                <div className="col-lg-3 text-start ps-4 fw-bold">
+                <div className="col-lg-3 col-6 order-0 order-lg-0 text-start fw-bold">
                   {nearestMillion(result.minimumPrice)}
                 </div>
-                <div className="col-lg-6 text-center text-muted">
+                <div className="col-lg-6 col-12 order-2 order-lg-1 text-center text-muted">
                   <InfoIcon /> Property price range of the selected location
                 </div>
-                <div className="col-lg-3 text-end fw-bold">
+                <div className="col-lg-3 col-6 order-1 order-lg-2 text-end fw-bold">
                   {nearestMillion(result.maximumPrice)}
                 </div>
               </div>
@@ -438,7 +437,7 @@ const DefineYourEligibility = ({ result }) => {
                       cancelEligibilityStatus={cancelEligibilityStatus}
                     />
                   )}
-                  {showResultCard && userIsEligible && (
+                  {showResultCard && !userIsEligible && (
                     <InEligibleCard
                       result={output}
                       cancelEligibilityStatus={cancelEligibilityStatus}
@@ -478,19 +477,16 @@ const RecommendationCard = ({ result, cancelEligibilityStatus }) => {
       </div>
       <div className="button-container mt-5 mb-3">
         <button
-          className="btn btn-link"
+          className="btn btn-link p-0 text-secondary fw-bold"
           onClick={() => cancelEligibilityStatus(false)}
         >
           <ArrowLeftIcon /> Redefine your Eligibility status
         </button>
 
         <Link href="/register" passHref>
-          <a className="btn btn-success">Create a free account</a>
+          <a className="btn btn-success float-end">Create a free account</a>
         </Link>
       </div>
-      <small className="text-primary">
-        Open a free account and own your dream home
-      </small>
     </section>
   );
 };

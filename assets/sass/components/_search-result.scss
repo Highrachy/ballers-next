@@ -49,6 +49,9 @@
 
 .search-result-price-range {
   overflow: hidden;
+  border-top: 1px dashed $secondary;
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
 
   svg {
     height: 1rem;

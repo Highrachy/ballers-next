@@ -24,7 +24,7 @@ export const ContextAwareToggle = ({
   return (
     <h5 className="m-0" onClick={decoratedOnClick}>
       {children}
-      <span className="accordion-icon float-end">
+      <span className="accordion-icon float-end d-none d-md-inline">
         {isCurrentEventKey ? iconOpen : iconClose}
       </span>
     </h5>
