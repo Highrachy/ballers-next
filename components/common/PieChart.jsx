@@ -5,13 +5,14 @@ import Humanize from 'humanize-plus';
 import { moneyFormatInNaira } from '@/utils/helpers';
 import useWindowSize from '@/hooks/useWindowSize';
 import { MOBILE_WIDTH } from '@/utils/constants';
+import Colors from 'style-dictionary/build/color.tokens.js';
 
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
-const MyResponsivePie = ({ data, colors /* see data tab */ }) => {
+const MyResponsivePie = ({ data, isAllZero, colors /* see data tab */ }) => {
   const WINDOW_SIZE = useWindowSize();
   const isMobileDevice = WINDOW_SIZE.width <= MOBILE_WIDTH;
   return (
@@ -50,7 +51,7 @@ const MyResponsivePie = ({ data, colors /* see data tab */ }) => {
         from: 'color',
         modifiers: [['darker', 2]],
       }}
-      colors={colors}
+      colors={isAllZero ? [Colors.primary[50]] : colors}
       defs={[
         {
           id: 'dots',
@@ -72,7 +73,7 @@ const MyResponsivePie = ({ data, colors /* see data tab */ }) => {
         },
       ]}
       enableArcLabels={false}
-      enableArcLinkLabels={true}
+      enableArcLinkLabels={!isAllZero}
       // fill={[
       //   {
       //     match: {

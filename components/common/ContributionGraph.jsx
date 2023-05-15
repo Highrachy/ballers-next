@@ -18,17 +18,17 @@ const userData = [
   {
     id: 'transactions',
     label: 'Trasanctions',
-    value: 5_000_000,
+    value: 0,
   },
   {
     id: 'rewards',
     label: 'Rewards',
-    value: 200_000,
+    value: 0,
   },
   {
     id: 'pending Payment',
     label: 'Pending Payment',
-    value: 4_000_000,
+    value: 0,
   },
 ];
 
@@ -36,12 +36,12 @@ const vendorData = [
   {
     id: 'transactions',
     label: 'Trasanctions',
-    value: 6_000_000,
+    value: 0,
   },
   {
     id: 'pending Payment',
     label: 'Pending Payment',
-    value: 2_000_000,
+    value: 0,
   },
 ];
 
@@ -165,7 +165,18 @@ export const Widget = ({
 
 export const OverviewGraph = ({ type }) => {
   const isUser = type === 'user';
+  const emptyData = [
+    {
+      id: 'noTransactions',
+      label: 'No Trasanctions Yet',
+      value: 1000,
+    },
+  ];
   const data = isUser ? userData : vendorData;
+  const isAllZero = data.every((item) => item.value === 0);
+
+  const graphData = isAllZero ? emptyData : data;
+
   const chartColors = isUser ? ChartColors : [ChartColors[0], ChartColors[2]];
 
   return (
@@ -179,7 +190,11 @@ export const OverviewGraph = ({ type }) => {
           </div>
           <div className="row align-items-center">
             <div className="col-12" style={{ height: '250px' }}>
-              <MyResponsivePie data={data} colors={chartColors} />
+              <MyResponsivePie
+                data={graphData}
+                colors={chartColors}
+                isAllZero={isAllZero}
+              />
             </div>
           </div>
 

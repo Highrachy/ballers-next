@@ -7,6 +7,7 @@ import {
   OfferIcon,
   PortfolioIcon,
   ReferIcon,
+  TransactionIcon,
 } from 'components/utils/Icons';
 import { RightArrowIcon, SearchIcon } from 'components/utils/Icons';
 import SearchForProperty from 'components/common/SearchDashboardPropertyForm';
@@ -311,7 +312,7 @@ const Others = ({ offersQuery, allOffers }) => (
   <>
     <div className="container-fluid py-0">
       <div className="row">
-        <WidgetBox title="Upcoming Payments">
+        {/* <WidgetBox title="Upcoming Payments">
           <StackBox
             title="Pegassus Duplexes"
             src={PegassusImage}
@@ -328,6 +329,29 @@ const Others = ({ offersQuery, allOffers }) => (
             status="1"
             statusName="Due: 5 days"
           />
+        </WidgetBox> */}
+
+        <WidgetBox title="Upcoming Payments" href={`/user/transactions`}>
+          <ContentLoader
+            hasContent={allOffers?.length > 0}
+            Icon={<TransactionIcon />}
+            query={offersQuery}
+            name={'Active Offer'}
+            noContentText={`You have no upcoming payments`}
+          >
+            {/* TODO: */}
+            {allOffers?.map((offer, index) => (
+              <StackBox
+                key={index}
+                title="Pegassus Duplexes"
+                src={PegassusImage}
+                date="Mar 10th, 2023"
+                price="100,000"
+                status="0"
+                statusName="Overdue: 7 days"
+              />
+            ))}
+          </ContentLoader>
         </WidgetBox>
 
         <WidgetBox title="Active Offers" href={`/user/portfolio`}>
@@ -352,27 +376,31 @@ const Others = ({ offersQuery, allOffers }) => (
         </WidgetBox>
       </div>
       <div className="row row-eq-height">
-        <WidgetBox title="Recent Transactions">
-          <StackBox
-            title="Pegassus Duplexes"
-            date="Mar 10th, 2023"
-            src={PegassusImage}
-            price="150,000"
-            status="3"
-            statusName="Paystack"
-          />
-          <StackBox
-            title="Pegassus Duplexes"
-            date="Mar 10th, 2023"
-            src={PegassusImage}
-            price="150,000"
-            status="3"
-            statusName="Paystack"
-          />
+        <WidgetBox title="Recent Transactions" href={`/user/transactions`}>
+          <ContentLoader
+            hasContent={allOffers?.length > 0}
+            Icon={<TransactionIcon />}
+            query={offersQuery}
+            name={'Active Offer'}
+            noContentText={`You have no recent transactions`}
+          >
+            {/* TODO: */}
+            {allOffers?.map((offer, index) => (
+              <StackBox
+                key={index}
+                title="Pegassus Duplexes"
+                src={PegassusImage}
+                date="Mar 10th, 2023"
+                price="100,000"
+                status="0"
+                statusName="Overdue: 7 days"
+              />
+            ))}
+          </ContentLoader>
         </WidgetBox>
         <WidgetBox title="Recommended Services">
           <ServiceBox
-            link="/services/title-validity"
+            link="/services"
             title="Title Validity"
             price="50,000"
             content="Title validity refers to the legal status of the ownership of a property. It is essential to ensure that the title of a property is valid and clear before buying or selling it."
@@ -389,7 +417,7 @@ export const ReferAndEarn = () => (
   <InfoBox
     title="Refer a friend, and BALL together!"
     Icon={<ReferIcon />}
-    linkHref="user/refer"
+    linkHref="/user/referrals"
     linkText="Refer and Earn"
   >
     Invite your friends to join BALL and you can ball together! <br />

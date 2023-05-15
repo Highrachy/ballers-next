@@ -2,7 +2,7 @@
   background: url('../../img/backgrounds/hero.svg') center center no-repeat;
   background-size: cover;
   z-index: -100;
-  min-height: 45rem;
+  min-height: 55rem;
   @include media-breakpoint-down(lg) {
     margin-top: -10rem;
   }
