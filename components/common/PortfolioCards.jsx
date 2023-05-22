@@ -103,7 +103,7 @@ export const PortfolioCard = ({
                   {moneyFormatInNaira(1_000_000)}
                 </span>
                 {/* todo */}
-                &nbsp; due on
+                &nbsp; due on &nbsp;
                 {getTinyDate(
                   nextPaymentInfo?.[0]?.dueDate ||
                     nextPaymentInfo?.[0]?.expiresOn
@@ -129,7 +129,7 @@ export const PortfolioCard = ({
                   }}
                 />
                 <Link href={`/user/portfolio/${_id}`}>
-                  <a className="btn btn-secondary-light btn-wide fw-bold btn-sm">
+                  <a className="btn btn-secondary-light btn-wide fw-bold btn-sm ms-3">
                     View Portfolio
                   </a>
                 </Link>

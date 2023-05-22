@@ -103,7 +103,9 @@ export const TestimonialRow = ({ currentUser, testimonial, number }) => {
 };
 
 export const TestimonialsList = ({ property, setProperty, setToast }) => {
-  const noTestimonials = property?.testimonials?.length === 0;
+  const noTestimonials =
+    property?.testimonials === undefined ||
+    property?.testimonials?.length === 0;
   const [testimonial, setTestimonial] = React.useState(null);
   const [showReplyModal, setShowReplyModal] = React.useState(false);
 

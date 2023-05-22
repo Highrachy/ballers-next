@@ -63,14 +63,6 @@ const LoadProperty = ({ slug }) => {
         setProperty={setProperty}
         enquiryInfo={loadedProperty?.enquiryInfo}
         vendorInfo={loadedProperty?.vendorInfo}
-        Actionbar={
-          <Actionbar
-            property={loadedProperty}
-            visitationInfo={loadedProperty?.visitationInfo}
-            setToast={setToast}
-            vasQuery={{}}
-          />
-        }
       />
     </ContentLoader>
   );

@@ -18,9 +18,14 @@ import { UserContext } from 'context/UserContext';
 import { PropertyIcon } from 'components/utils/Icons';
 import Axios from 'axios';
 import { getTokenFromStore } from 'utils/localStorage';
-import { getError } from 'utils/helpers';
+import { getError, moneyFormat } from 'utils/helpers';
 import Toast, { useToast } from 'components/utils/Toast';
-import { getDate, getShortDate } from 'utils/date-helpers';
+import {
+  differenceInDays,
+  getDate,
+  getShortDate,
+  isPastDate,
+} from 'utils/date-helpers';
 import TimeAgo from 'react-timeago';
 import { isPast } from 'date-fns';
 import PortfolioCards from 'components/common/PortfolioCards';
@@ -37,6 +42,7 @@ import colorTokens from 'style-dictionary/build/color.tokens';
 import classNames from 'classnames';
 import { useGetQuery } from '@/hooks/useQuery';
 import { ContentLoader } from '@/components/utils/LoadingItems';
+import Humanize from 'humanize-plus';
 
 export const PegassusImage =
   'https://ballers-staging.s3.amazonaws.com/63da062af9ec130016200f41/7de33a00-ab6a-11ed-9d59-6fa02cafbd66.jpg';
@@ -51,7 +57,7 @@ const Dashboard = () => {
     childrenKey: 'offer',
     key: 'pendingOffers',
     name: ['pendingOffers'],
-    endpoint: `${BASE_API_URL}/offer/active`,
+    endpoint: API_ENDPOINT.getAllPortfolios(),
     refresh: true,
   });
 
@@ -63,15 +69,23 @@ const Dashboard = () => {
     endpoint: API_ENDPOINT.getAllPortfolios(),
     refresh: true,
   });
+  const [transactionsQuery] = useGetQuery({
+    axiosOptions: { limit: 0 },
+    childrenKey: 'transaction',
+    key: 'transactions',
+    name: ['transactions', { limit: 0 }],
+    endpoint: API_ENDPOINT.getAllTransactions(),
+    refresh: true,
+  });
 
   const allPortfolios = portfoliosQuery?.data?.result;
-  const allOffers = offersQuery?.data?.offers;
+  const allOffers = offersQuery?.data?.result;
+  const allTransactions = transactionsQuery?.data?.result;
 
   return (
     <BackendPage>
       <Toast {...toast} showToastOnly />
       <WelcomeHero isIndex />
-      {/* <ShowInfo offers={offers} /> */}
       <Overview
         result={{
           activeOffers: allOffers?.length,
@@ -81,8 +95,10 @@ const Dashboard = () => {
       <Others
         allPortfolios={allPortfolios}
         allOffers={allOffers}
+        allTransactions={allTransactions}
         portfoliosQuery={portfoliosQuery}
         offersQuery={offersQuery}
+        transactionsQuery={transactionsQuery}
       />
     </BackendPage>
   );
@@ -193,7 +209,7 @@ export const StackBox = ({
                 <p className="fw-bold text-end mb-0">
                   <span className="fw-semibold">
                     <span className="text-md fw-bold">₦</span>
-                    {price}
+                    {moneyFormat(price)}
                   </span>
                 </p>
               )}
@@ -308,7 +324,14 @@ export const Overview = ({ type = 'user', result }) => (
   </div>
 );
 
-const Others = ({ offersQuery, allOffers }) => (
+const Others = ({
+  offersQuery,
+  allOffers,
+  allPortfolios,
+  portfoliosQuery,
+  allTransactions,
+  transactionsQuery,
+}) => (
   <>
     <div className="container-fluid py-0">
       <div className="row">
@@ -331,26 +354,36 @@ const Others = ({ offersQuery, allOffers }) => (
           />
         </WidgetBox> */}
 
-        <WidgetBox title="Upcoming Payments" href={`/user/transactions`}>
+        <WidgetBox title="Upcoming Payments" href={`/user/portfolio`}>
           <ContentLoader
-            hasContent={allOffers?.length > 0}
+            hasContent={allPortfolios?.length > 0}
             Icon={<TransactionIcon />}
-            query={offersQuery}
+            query={portfoliosQuery}
             name={'Active Offer'}
             noContentText={`You have no upcoming payments`}
           >
-            {/* TODO: */}
-            {allOffers?.map((offer, index) => (
-              <StackBox
-                key={index}
-                title="Pegassus Duplexes"
-                src={PegassusImage}
-                date="Mar 10th, 2023"
-                price="100,000"
-                status="0"
-                statusName="Overdue: 7 days"
-              />
-            ))}
+            {allPortfolios?.map((portfolio, index) => {
+              const nextPayment = portfolio?.nextPaymentInfo?.[0];
+              const property = portfolio?.propertyInfo;
+              const days =
+                Math.abs(differenceInDays(nextPayment?.expiresOn)) || 0;
+              const daysInWords = `${days} ${Humanize.pluralize(days, 'day')}`;
+              const isOverdueDate = isPastDate(nextPayment?.expiresOn);
+
+              return (
+                <StackBox
+                  key={index}
+                  title={property.name}
+                  src={property.mainImage}
+                  date={getDate(nextPayment?.expiresOn)}
+                  price={nextPayment?.expectedAmount}
+                  status={isOverdueDate ? '0' : '1'}
+                  statusName={`${
+                    isOverdueDate ? 'Overdue' : 'Due'
+                  }: ${daysInWords}`}
+                />
+              );
+            })}
           </ContentLoader>
         </WidgetBox>
 
@@ -378,24 +411,27 @@ const Others = ({ offersQuery, allOffers }) => (
       <div className="row row-eq-height">
         <WidgetBox title="Recent Transactions" href={`/user/transactions`}>
           <ContentLoader
-            hasContent={allOffers?.length > 0}
+            hasContent={allTransactions?.length > 0}
             Icon={<TransactionIcon />}
-            query={offersQuery}
-            name={'Active Offer'}
+            query={transactionsQuery}
+            name={'Recent Transactions'}
             noContentText={`You have no recent transactions`}
           >
-            {/* TODO: */}
-            {allOffers?.map((offer, index) => (
-              <StackBox
-                key={index}
-                title="Pegassus Duplexes"
-                src={PegassusImage}
-                date="Mar 10th, 2023"
-                price="100,000"
-                status="0"
-                statusName="Overdue: 7 days"
-              />
-            ))}
+            {allTransactions?.map((transaction, index) => {
+              console.log('transaction.propertyInfo', transaction);
+              const property = transaction?.propertyInfo;
+              return (
+                <StackBox
+                  key={index}
+                  title={property?.name || '3 Bedroom Property'}
+                  src={property?.mainImage || PegassusImage}
+                  date={getShortDate(transaction?.paidOn)}
+                  price={transaction.amount}
+                  status={transaction.paymentSource === 'Paystack' ? '1' : '2'}
+                  statusName={transaction.paymentSource}
+                />
+              );
+            })}
           </ContentLoader>
         </WidgetBox>
         <WidgetBox title="Recommended Services">

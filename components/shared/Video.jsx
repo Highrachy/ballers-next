@@ -222,7 +222,8 @@ export const VideosList = ({ property, setProperty, setToast }) => {
       });
   };
   const userIsVendor = useCurrentRole().isVendor;
-  const noVideos = property?.videos?.length === 0;
+  const noVideos =
+    property?.videos === undefined || property?.videos?.length === 0;
 
   return (
     <>
