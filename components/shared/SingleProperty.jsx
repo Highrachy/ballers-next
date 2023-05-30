@@ -55,6 +55,7 @@ import { QuestionMarkIcon } from 'components/utils/Icons';
 import { TestimonialsList } from './Testimonials';
 import { AssignedPropertyIcon } from 'components/utils/Icons';
 import { WelcomeHero } from 'pages/user/dashboard';
+import Sharer from '../utils/Sharer';
 
 const pageOptions = {
   key: 'property',
@@ -127,7 +128,6 @@ export const OwnedPropertyCard = ({
 
       <Card className="card-container mt-4 h-100 property-holder__big">
         <PropertyImage property={property} />
-
         {isAdminOrVendor && property?.flagged?.status && (
           <CaseComment
             flaggedCase={property?.flagged?.case[0]}

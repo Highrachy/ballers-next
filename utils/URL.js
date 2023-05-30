@@ -60,4 +60,5 @@ export const API_ENDPOINT = {
   getOneVasRequest: (id) => `${BASE_API_URL}/vas/request/${id}`,
 
   getVendor: (slug) => `${BASE_API_URL}/user/vendor/${slug}`,
+  getAllVendors: () => `${BASE_API_URL}/user/all?role=2`,
 };

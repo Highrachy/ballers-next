@@ -641,3 +641,16 @@ html {
   display: inline-block;
   margin-right: 0.5rem;
 }
+
+.error-404 {
+  p {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  h2 {
+    font-size: 6rem;
+    text-transform: uppercase;
+    color: $primary;
+    margin-bottom: 2rem;
+  }
+}

@@ -8,6 +8,8 @@ import Input from 'components/forms/Input';
 import Button from 'components/forms/Button';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
 import { forgotPasswordSchema } from 'components/forms/schemas/userSchema';
+import { BASE_API_URL } from '@/utils/constants';
+import Toast, { useToast } from 'components/utils/Toast';
 
 const ForgotPassword = () => (
   <>
@@ -44,43 +46,47 @@ const Content = () => {
 };
 
 const ForgotPasswordForm = () => {
-  // const [message, setMessage] = React.useState(null);
+  const [toast, setToast] = useToast();
   return (
     <Formik
       initialValues={{
         email: '',
       }}
       onSubmit={(values, actions) => {
-        // post to api
-        Axios.post('/api/v1/users/forgot-password', values)
+        setToast({
+          type: 'warning',
+          message: `A password reset link has been sent to your mail. If you don't receive an email, and it's not in your spam folder this could mean you signed up with a different address.`,
+        });
+        Axios.post(`${BASE_API_URL}/user/reset-password`, values)
           .then(function (response) {
             const { status } = response;
             if (status === 200) {
-              // setMessage({
-              //   type: 'warning',
-              //   message: `A password reset link has been sent to your mail. If you don't receive an email, and it's not in your spam folder this could mean you signed up with a different address.`,
-              // });
+              setToast({
+                type: 'warning',
+                message: `A password reset link has been sent to your mail. If you don't receive an email, and it's not in your spam folder this could mean you signed up with a different address.`,
+              });
               actions.resetForm();
             }
           })
           .catch(function (error) {
-            // setMessage({
-            //   message: error.response.data.message,
-            // });
+            setToast({
+              message: error.response.data.message,
+            });
           });
         actions.setSubmitting(false);
       }}
-      render={({ isSubmitting, handleSubmit }) => (
+      validationSchema={createSchema(forgotPasswordSchema)}
+    >
+      {({ isSubmitting, handleSubmit }) => (
         <Form>
-          {/* <AlertMessage {...message} /> */}
+          <Toast {...toast} />
           <Input label="Email" name="email" placeholder="Email Address" />
           <Button loading={isSubmitting} onClick={handleSubmit}>
             Reset Password
           </Button>
         </Form>
       )}
-      validationSchema={createSchema(forgotPasswordSchema)}
-    />
+    </Formik>
   );
 };
 

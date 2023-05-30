@@ -13,6 +13,14 @@ import Tooltip from 'components/common/Tooltip';
 import { OnlineImage } from 'components/utils/Image';
 import { CertifiedIcon } from 'components/utils/Icons';
 import { PropertiesRowList } from 'pages/user/just-for-you';
+import Link from 'next/link';
+import UserCard from '@/components/common/UserCard';
+import { Card } from 'react-bootstrap';
+import { USER_TYPES } from '@/utils/constants';
+import { getUserStatus } from '@/components/pages/admin/Users';
+import Humanize from 'humanize-plus';
+import Button from '@/components/forms/Button';
+import TitleSection from '@/components/common/TitleSection';
 
 const pageOptions = {
   key: 'user',
@@ -25,7 +33,7 @@ const VendorProfile = ({ slug = 'blissville' }) => {
     key: pageOptions.key,
     name: [pageOptions.key, slug],
     setToast,
-    endpoint: API_ENDPOINT.getVendor(slug),
+    endpoint: API_ENDPOINT.getAllVendors(),
     refresh: true,
   });
 
@@ -33,32 +41,23 @@ const VendorProfile = ({ slug = 'blissville' }) => {
     <>
       <Header />
       <Toast {...toast} showToastOnly />
+      <TitleSection
+        name="All Vendors"
+        content="Connect with the best developers in the real estate space."
+      />
 
       <section className="container-fluid">
-        <ContentLoader
-          hasContent={!!user}
-          Icon={<UserIcon />}
-          loadingText="Loading Vendor Information"
-          query={userQuery}
-          name={pageOptions.pageName}
-          toast={toast}
-        >
-          <ContentHeader user={user} />
-          <div className="row">
-            {user?._id && (
-              <PaginatedContent
-                endpoint={API_ENDPOINT.searchProperties()}
-                initialFilter={{ addedBy: user?._id }}
-                pageName="Property"
-                pluralPageName="Properties"
-                DataComponent={PropertiesRowList}
-                PageIcon={<PropertyIcon />}
-                queryName="property"
-                hideTitle
-              />
-            )}
-          </div>
-        </ContentLoader>
+        <PaginatedContent
+          endpoint={API_ENDPOINT.getAllVendors()}
+          initialFilter={{
+            sortBy: 'createdAt',
+            sortDirection: 'desc',
+          }}
+          pageName="Vendor"
+          DataComponent={UsersRowList}
+          PageIcon={<UserIcon />}
+          queryName="vendor"
+        />
       </section>
 
       <Footer />
@@ -66,42 +65,47 @@ const VendorProfile = ({ slug = 'blissville' }) => {
   );
 };
 
-const ContentHeader = ({ user }) => {
+const UsersRowList = ({ results, offset }) => {
   return (
-    <>
-      <div className="row mt-5">
-        <div className="col-sm-9">
-          <div className="d-flex">
-            <div className="company-avatar-container">
-              <OnlineImage
-                name="vendor logo"
-                src={user.vendor.companyLogo}
-                className="avatar-company"
-              />
-              <div className="certified-icon">
-                <Tooltip text="Certified Vendor">
-                  <CertifiedIcon />
-                </Tooltip>
-              </div>
-            </div>
+    <div className="container-fluid">
+      <div className="row">
+        {results.map((user, index) => (
+          <UsersRow key={index} number={offset + index + 1} {...user} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
-            <div>
-              <h5 className="mb-0 mt-3">{user.vendor.companyName}</h5>
-              <p className="text-secondary text-small mt-2">View Badges</p>
-            </div>
-          </div>
+const UsersRow = ({ number, ...user }) => {
+  const status = getUserStatus(user);
+  if (!user.vendor.companyLogo) return null;
+
+  return (
+    <div className="col-md-4 col-lg-3 mb-5">
+      <div className="card">
+        <div
+          style={{
+            height: '100px',
+            textAlign: 'center',
+            margin: '1rem',
+            paddingTop: '1rem',
+          }}
+        >
+          <OnlineImage src={user.vendor.companyLogo} width="200px" />
         </div>
-        <div className="col-sm-3">
-          <h6 className="mb-2 text-secondary">Office Address</h6>
-          <p className="text-gray">
-            {getFormattedAddress({
-              ...user.vendor.companyAddress,
-              hideCountry: true,
-            })}
-          </p>
+        <div className="card-body bg-light">
+          <h5 className="card-title">{user.vendor.companyName}</h5>
+          <Button
+            className="btn-sm px-3 mt-3"
+            color="secondary"
+            href={`/vendors/${user?.vendor?.slug}`}
+          >
+            View Vendor
+          </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

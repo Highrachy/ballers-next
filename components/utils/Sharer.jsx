@@ -15,7 +15,7 @@ import {
 
 const CONTENT_BODY = `Hi there! Join Ballers today -- the easiest way to become a Landlord`;
 
-const Sharer = ({ shareUrl, content }) => (
+const Sharer = ({ shareUrl, content, contentBody }) => (
   <ul className="list-unstyled list-inline sharer__icons mt-4">
     <li>
       <FacebookShareButton quote={content} url={shareUrl}>
@@ -23,7 +23,7 @@ const Sharer = ({ shareUrl, content }) => (
       </FacebookShareButton>
     </li>
     <li>
-      <TwitterShareButton title={CONTENT_BODY} url={shareUrl}>
+      <TwitterShareButton title={contentBody || CONTENT_BODY} url={shareUrl}>
         <TwitterIcon round width="48" />
       </TwitterShareButton>
     </li>
@@ -51,10 +51,12 @@ const Sharer = ({ shareUrl, content }) => (
 Sharer.propTypes = {
   content: PropTypes.string,
   shareUrl: PropTypes.string,
+  contentBody: PropTypes.string,
 };
 
 Sharer.defaultProps = {
   content: CONTENT_BODY,
   shareUrl: 'https://duvlive.com',
+  contentBody: null,
 };
 export default Sharer;

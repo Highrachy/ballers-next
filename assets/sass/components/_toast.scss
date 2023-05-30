@@ -5,6 +5,7 @@
     box-sizing: border-box;
     position: fixed;
     z-index: 100000;
+    max-width: 20rem;
   }
 
   &__top-right {
@@ -77,16 +78,16 @@
 
   &.warning {
     .toast-icon-holder {
-      color: $orange;
+      color: $warning-600;
     }
 
     .toast-header,
     .toast-message-content {
-      color: darken($orange, 5%);
+      color: $warning-700;
     }
 
     .toast-body {
-      color: darken($orange, 30%);
+      color: $warning-700;
     }
   }
 }
