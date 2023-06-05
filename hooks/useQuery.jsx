@@ -14,15 +14,23 @@ export const setQueryCache = (name, value) =>
   queryCache.setQueryData(name, value);
 
 const fetchQuery =
-  ({ endpoint, key, setResult, setToast, axiosOptions }) =>
+  ({
+    endpoint,
+    key,
+    setResult,
+    setToast,
+    axiosOptions,
+    noAuthentication = false,
+  }) =>
   async () => {
     const source = CancelToken.source();
 
     // await new Promise((resolve) => setTimeout(resolve, 10_000));
     const promise = Axios.get(endpoint, {
       cancelToken: source.token,
+
       headers: {
-        Authorization: getTokenFromStore(),
+        Authorization: !noAuthentication && getTokenFromStore(),
       },
       ...axiosOptions,
     })
@@ -66,6 +74,7 @@ export const useGetQuery = ({
   childrenKey,
   queryOptions = {},
   axiosOptions = {},
+  noAuthentication = false,
 }) => {
   const [result, setResult] = React.useState(null);
 
@@ -75,7 +84,14 @@ export const useGetQuery = ({
 
   const queryResult = useQuery(
     name,
-    fetchQuery({ endpoint, key, setResult, setToast, axiosOptions }),
+    fetchQuery({
+      endpoint,
+      key,
+      setResult,
+      setToast,
+      axiosOptions,
+      noAuthentication,
+    }),
     getQueryOptions(queryOptions)
   );
   const output = result || queryResult?.data?.[key];
@@ -98,6 +114,7 @@ export const usePaginationQuery = ({
   childrenKey,
   queryOptions = {},
   axiosOptions = {},
+  noAuthentication = false,
 }) => {
   let queryName = [name, axiosOptions.params];
 
@@ -107,7 +124,7 @@ export const usePaginationQuery = ({
 
   const queryResult = usePaginatedQuery(
     queryName,
-    fetchQuery({ endpoint, key, setToast, axiosOptions }),
+    fetchQuery({ endpoint, key, setToast, axiosOptions, noAuthentication }),
     getQueryOptions(queryOptions)
   );
   const result = queryResult?.resolvedData?.[key];

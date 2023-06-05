@@ -33,8 +33,6 @@ const Image = ({
     ? `${IMAGE_SERVE_URL}?${queryString.stringify(query)}`
     : src;
 
-  console.log('imgSrc', imgSrc);
-
   const classes = classNames(
     className,
     {

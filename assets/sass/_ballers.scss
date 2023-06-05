@@ -654,3 +654,10 @@ html {
     margin-bottom: 2rem;
   }
 }
+
+.compare-property__dropdown {
+  .dropdown-item {
+    padding: 0;
+    border-bottom: 1px solid $gray-300;
+  }
+}

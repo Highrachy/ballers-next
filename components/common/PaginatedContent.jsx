@@ -28,6 +28,7 @@ const PaginatedContent = ({
   hideNoContent,
   hideTitle,
   showFetching,
+  noAuthentication = false,
   ...props
 }) => {
   const [filters, setFilters] = React.useState({});
@@ -47,6 +48,7 @@ const PaginatedContent = ({
     endpoint,
     childrenKey: childrenKey || queryName,
     refresh: true,
+    noAuthentication,
   });
 
   const pagination = query?.latestData?.pagination;

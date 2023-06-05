@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { OwnedPropertyCard } from '@/components/shared/SingleProperty';
 import { Actionbar } from '@/components/pages/user/SingleUserProperty';
 import Sharer from '@/components/utils/Sharer';
+import Link from 'next/link';
 
 const PublicPropertySingle = () => {
   const router = useRouter();
@@ -48,6 +49,7 @@ const LoadProperty = ({ slug }) => {
     setToast,
     endpoint: API_ENDPOINT.getPropertyBySlug(slug),
     refresh: true,
+    noAuthentication: true,
   });
   const loadedProperty = propertyQuery?.data?.result[0];
   const { asPath } = useRouter();
@@ -75,6 +77,11 @@ const LoadProperty = ({ slug }) => {
         enquiryInfo={loadedProperty?.enquiryInfo}
         vendorInfo={loadedProperty?.vendorInfo}
       />
+      <div className="mt-3 align-end d-flex flex-row justify-content-start ms-1 ps-5">
+        <Link href={`/compare-properties/${loadedProperty?.slug}`} passHref>
+          <a className="btn btn-primary">Compare with Another Property</a>
+        </Link>
+      </div>
     </ContentLoader>
   );
 };

@@ -102,7 +102,7 @@ const SingleProperty = ({ id, Sidebar }) => {
 export const OwnedPropertyCard = ({
   property,
   setToast,
-  setProperty,
+  setProperty = () => {},
   enquiryInfo,
   vendorInfo,
   Sidebar,
