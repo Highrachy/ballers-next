@@ -42,7 +42,9 @@ const Content = ({ token }) => {
         <div className="row">
           <div className="col-lg-5 auth__text">
             <h1>Change your password</h1>
-            <p className="lead">Token: {token}</p>
+            <p className="lead">
+              Reset Your Password: Regain Access and Strengthen Security
+            </p>
           </div>
           <div className="offset-lg-2 col-lg-5">
             <div className="card p-5 my-6">
