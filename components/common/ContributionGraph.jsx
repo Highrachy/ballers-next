@@ -108,9 +108,55 @@ const vendorWidgetLists = [
   },
 ];
 
+const adminWidgetLists = [
+  {
+    name: 'Properties',
+    color: 'secondary',
+    Icon: <PropertyIcon />,
+  },
+  {
+    name: 'Offers',
+    color: 'success',
+    Icon: <OfferIcon />,
+  },
+  {
+    name: 'Portfolios',
+    color: 'warning',
+    Icon: <VasIcon />,
+  },
+  {
+    name: 'Transactions',
+    color: 'danger',
+    link: 'scheduled-visits',
+    key: 'visitations',
+    Icon: <ReferIcon />,
+  },
+  {
+    name: 'Services',
+    color: 'secondary',
+    Icon: <PropertyIcon />,
+  },
+  {
+    name: 'Badges',
+    color: 'success',
+    Icon: <OfferIcon />,
+  },
+  {
+    name: 'Enquiries',
+    color: 'warning',
+    Icon: <VasIcon />,
+  },
+  {
+    name: 'Scheduled Visits',
+    color: 'danger',
+    link: 'scheduled-visits',
+    key: 'visitations',
+    Icon: <ReferIcon />,
+  },
+];
+
 const WidgetList = ({ type, result = {} }) => {
   const widgetLists = type === 'user' ? userWidgetLists : vendorWidgetLists;
-  console.log('result', result);
   return (
     <div className="col-sm-6">
       <div className="row g-4">
@@ -119,6 +165,25 @@ const WidgetList = ({ type, result = {} }) => {
             key={index}
             number={result?.[widget?.key || widget?.name?.toLowerCase()] || 0}
             role={type}
+            {...widget}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export const AdminWidgetList = ({ result = {} }) => {
+  const widgetLists = adminWidgetLists;
+  return (
+    <div className="col-sm-12">
+      <div className="row g-4">
+        {widgetLists.map((widget, index) => (
+          <Widget
+            key={index}
+            number={result?.[widget?.key || widget?.name?.toLowerCase()] || 0}
+            role="admin"
+            className="col-3"
             {...widget}
           />
         ))}

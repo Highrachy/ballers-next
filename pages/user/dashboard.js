@@ -2,13 +2,7 @@ import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import { Card } from 'react-bootstrap';
 import Link from 'next/link';
-import {
-  BgWave,
-  OfferIcon,
-  PortfolioIcon,
-  ReferIcon,
-  TransactionIcon,
-} from 'components/utils/Icons';
+import { OfferIcon, ReferIcon, TransactionIcon } from 'components/utils/Icons';
 import { RightArrowIcon, SearchIcon } from 'components/utils/Icons';
 import SearchForProperty from 'components/common/SearchDashboardPropertyForm';
 import ContributionGraph from 'components/common/ContributionGraph';
@@ -209,7 +203,7 @@ export const StackBox = ({
                 <p className="fw-bold text-end mb-0">
                   <span className="fw-semibold">
                     <span className="text-md fw-bold">₦</span>
-                    {moneyFormat(price)}
+                    {price}
                   </span>
                 </p>
               )}
@@ -293,6 +287,7 @@ export const WelcomeHero = ({
 }) => {
   const { userState } = React.useContext(UserContext);
   const isVendor = userState.role === USER_TYPES.vendor;
+  const isAdmin = userState.role === USER_TYPES.admin;
 
   return (
     <section className="position-relative mt-n5">
@@ -301,6 +296,7 @@ export const WelcomeHero = ({
           'index-page': isIndex,
           'onboarding-user': !isApproved,
           vendor: isApproved && isVendor,
+          admin: isApproved && isAdmin,
         })}
       >
         <SquareBubbles />
