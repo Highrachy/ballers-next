@@ -286,8 +286,8 @@ export const WelcomeHero = ({
   isApproved = true,
 }) => {
   const { userState } = React.useContext(UserContext);
-  const isVendor = userState.role === USER_TYPES.vendor;
-  const isAdmin = userState.role === USER_TYPES.admin;
+  const isVendor = userState?.role === USER_TYPES.vendor;
+  const isAdmin = userState?.role === USER_TYPES.admin;
 
   return (
     <section className="position-relative mt-n5">
@@ -302,7 +302,7 @@ export const WelcomeHero = ({
         <SquareBubbles />
         <div className="px-4 py-6">
           <h2 className="text-white mt-4 mt-md-0">
-            {title || `Hello, ${userState.firstName}`}{' '}
+            {title || `Hello, ${userState?.firstName}`}{' '}
           </h2>
           <p className="lead">
             {subtitle ||

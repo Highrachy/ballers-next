@@ -216,7 +216,7 @@ ul.timeline li.timeline__border:after {
     }
 
     .card-header {
-      padding: 2.5rem 0 2rem;
+      padding: 0;
       background: white;
       margin-bottom: 0;
       border: none;
@@ -225,7 +225,7 @@ ul.timeline li.timeline__border:after {
         position: relative;
         padding-left: 3rem;
         font-weight: $font-weight-bold;
-        padding: 0 5rem 0 3rem;
+        padding: 2.5rem 5rem 2rem 3rem;
         line-height: 1.6;
         cursor: pointer;
 
@@ -242,7 +242,7 @@ ul.timeline li.timeline__border:after {
           background: $primary;
           position: absolute;
           left: 0;
-          top: 0.6rem;
+          top: 3.1rem;
         }
       }
     }

@@ -434,14 +434,7 @@ const BallersCreed = () => (
     </h4>
     <Image
       className="az-creed-q-down"
-      src="/img/icons/quote-up.png"
-      alt="quotation mark"
-      width="100"
-      height="100"
-    />
-    <Image
-      className="az-creed-q-up-mobile"
-      src="/img/icons/quote-up.png"
+      src="/img/icons/quote-down.png"
       alt="quotation mark"
       width="100"
       height="100"

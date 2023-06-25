@@ -36,18 +36,22 @@ const BackendPage = ({ children }) => {
           },
         });
         if (response.status !== 200) {
+          console.log('wrong status');
           cancelLoginRequest('Wrong Status');
         } else {
           loginUser(response.data.user);
+          console.log('logging user in');
         }
       } catch (error) {
         cancelLoginRequest(error);
       }
     }
+
     if (!token) {
       cancelLoginRequest(`token: ${token}`);
     } else {
       !userState.isLoggedIn && confirmPreviousLogin();
+      console.log('confirming previous login');
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

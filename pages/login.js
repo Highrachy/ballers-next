@@ -27,6 +27,7 @@ import { UserContext } from '@/context/UserContext';
 const Login = () => {
   const { query } = useRouter();
   const { token, url } = query;
+  console.log('token', token);
 
   return (
     <>
@@ -86,8 +87,10 @@ Content.defaultProps = {
 };
 
 const LoginForm = ({ redirectTo, sid, token }) => {
+  const router = useRouter();
   const [toast, setToast] = useToast();
   const { userState, loginUser } = React.useContext(UserContext);
+  console.log('userState: ', userState);
 
   // CHECK TOKEN ACTIVATION
   React.useEffect(() => {
@@ -103,6 +106,7 @@ const LoginForm = ({ redirectTo, sid, token }) => {
               type: 'success',
               message: data.message,
             });
+            router.push('/login');
           }
         })
         .catch(function (error) {
@@ -110,17 +114,15 @@ const LoginForm = ({ redirectTo, sid, token }) => {
             message: getError(error),
           });
         });
-  }, [token, setToast]);
+  }, [token, setToast, router]);
 
-  const router = useRouter();
   // CHECK IF USER HAS SIGNED IN
   React.useEffect(() => {
-    if (userState?.token && !token) {
+    if (userState && userState?.isLoggedIn && !token) {
       const dashboardUrl = `/${DASHBOARD_PAGE[userState.role]}/dashboard`;
       router.push(dashboardUrl);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userState, redirectTo, token]);
+  }, [router, userState, token]);
 
   return (
     <Formik
