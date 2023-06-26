@@ -6,6 +6,9 @@ import {
   ProfileIcon,
   ReferIcon,
   UserIcon,
+  EnquiryIcon,
+  NotificationIcon,
+  OfferIcon,
 } from 'components/utils/Icons';
 // import { VisitationIcon } from 'components/utils/Icons';
 // import { MessageIcon } from 'components/utils/Icons';
@@ -39,27 +42,27 @@ const adminMenu = [
     footer: true,
   },
   {
+    title: 'Offers',
+    to: '/admin/offers',
+    icon: <OfferIcon />,
+    footer: true,
+  },
+  {
     title: 'Transaction',
     to: '/admin/transactions',
     icon: <TransactionIcon />,
     footer: true,
   },
   {
-    title: 'Referrals',
-    to: '/admin/referrals',
-    icon: <ReferralsIcon />,
+    title: 'Enquiries',
+    to: '/admin/enquiries',
+    icon: <EnquiryIcon />,
     footer: true,
   },
   {
-    title: 'Settings',
-    to: '/user/settings',
-    icon: <ProfileIcon />,
-    footer: false,
-  },
-  {
-    title: 'Refer to Earn',
-    to: '/user/refer-and-earn',
-    icon: <ReferIcon />,
+    title: 'Referrals',
+    to: '/admin/referrals',
+    icon: <ReferralsIcon />,
     footer: true,
   },
 ];

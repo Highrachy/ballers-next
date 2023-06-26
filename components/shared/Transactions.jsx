@@ -434,7 +434,7 @@ const ModalForTransactionDetails = ({
         )}
 
         {!payment?.remittance?.status && isAdmin && (
-          <div className="col-md-12 text-center">
+          <div className="col-md-12 text-center mt-5">
             <Button
               className="btn btn-secondary mb-5"
               onClick={showRemitPaymentModal}

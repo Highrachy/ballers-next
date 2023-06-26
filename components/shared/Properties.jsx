@@ -89,11 +89,10 @@ const PropertiesRowList = ({ results, offset }) => (
     </Card>
     {useCurrentRole().isAdmin && (
       <div className="my-5 text-end">
-        <Link
-          className="btn btn-wide btn-dark"
-          href="/admin/reported-properties"
-        >
-          View Reported Properties
+        <Link href="/admin/reported-properties">
+          <a className="btn btn-wide btn-danger-light">
+            View Reported Properties
+          </a>
         </Link>
       </div>
     )}

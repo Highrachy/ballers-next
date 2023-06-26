@@ -117,11 +117,8 @@ const PortfoliosRow = ({
       <td>
         <Spacing />
         <Spacing />
-        <Link
-          className="btn btn-xs btn-wide btn-secondary"
-          href={`/${userType}/portfolio/${_id}`}
-        >
-          View portfolio
+        <Link href={`/${userType}/portfolio/${_id}`}>
+          <a className="btn btn-xs btn-wide btn-secondary">View portfolio</a>
         </Link>
       </td>
     </tr>

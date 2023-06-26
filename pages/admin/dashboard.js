@@ -1,8 +1,8 @@
 import React from 'react';
-import BackendPage from 'components/layout/BackendPage';
-import { OfferIcon, TransactionIcon } from 'components/utils/Icons';
-import { AdminWidgetList } from 'components/common/ContributionGraph';
-import Toast, { useToast } from 'components/utils/Toast';
+import BackendPage from '@/components/layout/BackendPage';
+import { OfferIcon, TransactionIcon } from '@/components/utils/Icons';
+import { AdminWidgetList } from '@/components/common/ContributionGraph';
+import Toast, { useToast } from '@/components/utils/Toast';
 import {
   differenceInDays,
   getDate,

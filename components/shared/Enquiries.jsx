@@ -7,9 +7,11 @@ import Link from 'next/link';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { API_ENDPOINT } from 'utils/URL';
 import UserCard from 'components/common/UserCard';
+import { WelcomeHero } from 'pages/user/dashboard';
 
 const Enquiries = () => (
   <BackendPage>
+    <WelcomeHero title={`Enquiries`} subtitle={`Manage your enquiries here`} />
     <PaginatedContent
       endpoint={API_ENDPOINT.getAllEnquiries()}
       initialFilter={{ approved: false }}

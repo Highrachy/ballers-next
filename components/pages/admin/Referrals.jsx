@@ -36,6 +36,7 @@ import { Spacing } from 'components/common/Helpers';
 import { SuccessIcon } from 'components/utils/Icons';
 import { WarningIcon } from 'components/utils/Icons';
 import { PropertyAvatar } from 'components/common/PropertyCard';
+import { WelcomeHero } from 'pages/user/dashboard';
 // import Axios from 'axios';
 // import { BASE_API_URL } from 'utils/constants';
 // import { getTokenFromStore } from 'utils/localStorage';
@@ -43,6 +44,7 @@ import { PropertyAvatar } from 'components/common/PropertyCard';
 
 const Referrals = () => (
   <BackendPage>
+    <WelcomeHero title={`Referrals`} subtitle={`Manage your referrals here`} />{' '}
     <PaginatedContent
       endpoint={API_ENDPOINT.getAllReferrals()}
       initialFilter={{ sortBy: 'createdAt', sortDirection: 'desc' }}

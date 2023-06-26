@@ -31,7 +31,6 @@ import { createSchema } from 'components/forms/schemas/schema-helpers';
 import Textarea from 'components/forms/Textarea';
 import { VENDOR_STEPS } from 'utils/constants';
 import Image, { LocalImage, OnlineImage } from 'components/utils/Image';
-import ProfileAvatar from 'assets/img/avatar/profile.png';
 import Modal from 'components/common/Modal';
 import { SuccessIcon } from 'components/utils/Icons';
 import BallersSpinner from 'components/utils/BallersSpinner';
@@ -50,6 +49,7 @@ import Select from 'components/forms/Select';
 import Link from 'next/link';
 import BadgePlaceholderImage from 'assets/img/placeholder/property.png';
 import { BadgesIcon } from 'components/utils/Icons';
+import { WelcomeHero } from 'pages/user/dashboard';
 
 const pageOptions = {
   key: 'user',
@@ -68,6 +68,7 @@ const SingleUser = ({ id }) => {
 
   return (
     <BackendPage>
+      <WelcomeHero title={`Single User`} subtitle={`Manage User information`} />{' '}
       <div className="container-fluid">
         <ContentLoader
           hasContent={!!user}
@@ -425,13 +426,13 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
         >
           <tr>
             <td colSpan="5" className="text-center">
-              <Image
+              <OnlineImage
                 bordered
                 circle
                 alt={user.firstName}
                 className={'img-fluid avatar--large'}
                 src={user.profileImage}
-                defaultImage={ProfileAvatar}
+                defaultImage={'/img/placeholder/user.jpg'}
                 name={user.firstName}
               />
             </td>
@@ -557,13 +558,17 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
             <tr>
               <td colSpan="5">
                 <Button
-                  color={user.role === USER_TYPES.user ? 'info' : 'danger'}
+                  color="none"
                   loading={loading}
-                  className="btn mt-3"
+                  className={
+                    user.role === USER_TYPES.user
+                      ? 'btn-secondary-light'
+                      : 'btn-danger-light'
+                  }
                   onClick={processRoleChange}
                 >
                   Change Role to{' '}
-                  {user.role === USER_TYPES.user ? 'a User' : 'an Editor'}
+                  {user.role === USER_TYPES.user ? 'an Editor' : 'a User'}
                 </Button>
               </td>
             </tr>

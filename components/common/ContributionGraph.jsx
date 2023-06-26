@@ -12,6 +12,9 @@ import {
   VasIcon,
   ReferIcon,
   PropertyIcon,
+  BadgesIcon,
+  EnquiryIcon,
+  VisitationIcon,
 } from '../utils/Icons';
 
 const userData = [
@@ -133,25 +136,26 @@ const adminWidgetLists = [
   },
   {
     name: 'Services',
-    color: 'secondary',
-    Icon: <PropertyIcon />,
-  },
-  {
-    name: 'Badges',
-    color: 'success',
-    Icon: <OfferIcon />,
-  },
-  {
-    name: 'Enquiries',
-    color: 'warning',
+    key: 'service',
+    color: 'danger',
     Icon: <VasIcon />,
   },
   {
+    name: 'Badges',
+    color: 'purple',
+    Icon: <BadgesIcon />,
+  },
+  {
+    name: 'Enquiries',
+    color: 'primary',
+    Icon: <EnquiryIcon />,
+  },
+  {
     name: 'Scheduled Visits',
-    color: 'danger',
+    color: 'secondary',
     link: 'scheduled-visits',
     key: 'visitations',
-    Icon: <ReferIcon />,
+    Icon: <VisitationIcon />,
   },
 ];
 

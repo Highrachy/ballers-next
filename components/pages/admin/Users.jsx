@@ -39,9 +39,11 @@ import { ApprovedIcon } from 'components/utils/Icons';
 import DatePicker from 'components/forms/DatePicker';
 import { formatFilterDate } from 'utils/date-helpers';
 import Tooltip from 'components/common/Tooltip';
+import { WelcomeHero } from 'pages/user/dashboard';
 
 const Users = () => (
   <BackendPage>
+    <WelcomeHero title={`Users`} subtitle={`Manage your users here`} />
     <PaginatedContent
       endpoint={API_ENDPOINT.getAllUsers()}
       initialFilter={{
@@ -121,11 +123,8 @@ const UsersRow = ({ number, ...user }) => {
         </Tooltip>
       </td>
       <td>
-        <Link
-          className="btn btn-xs btn-wide btn-secondary"
-          href={`/admin/user/${user?._id}`}
-        >
-          View
+        <Link href={`/admin/user/${user?._id}`}>
+          <a className="btn btn-xs btn-wide btn-secondary">View</a>
         </Link>
       </td>
     </tr>
