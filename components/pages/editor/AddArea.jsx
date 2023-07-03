@@ -17,7 +17,6 @@ import { addAreaSchema } from 'components/forms/schemas/propertySchema';
 import { getError, valuesToOptions } from 'utils/helpers';
 import Select from 'components/forms/Select';
 import MapLocation from 'components/utils/MapLocation';
-import { navigate } from '@reach/router';
 
 const AddArea = ({ id }) => (
   <BackendPage>
@@ -100,6 +99,7 @@ const EditAreaForm = ({ id }) => {
   const [location, setLocation] = React.useState(null);
 
   const [area, setArea] = React.useState(null);
+  const router = useRouter();
 
   React.useEffect(() => {
     Axios.get(`${BASE_API_URL}/area/${id}`, {
@@ -144,7 +144,7 @@ const EditAreaForm = ({ id }) => {
           .then(function (response) {
             const { status } = response;
             if (status === 200) {
-              navigate(`/editor/content-property`);
+              router.push(`/editor/content-property`);
               actions.setSubmitting(false);
               actions.resetForm();
             }

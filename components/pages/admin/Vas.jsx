@@ -25,7 +25,7 @@ import { BASE_API_URL } from 'utils/constants';
 import { getTokenFromStore } from 'utils/localStorage';
 import axios from 'axios';
 import { refreshQuery } from 'hooks/useQuery';
-import { VasRequestsList } from '../shared/VasRequests';
+import { VasRequestsList } from '@/components/shared/VasRequests';
 
 const Vas = () => {
   return (

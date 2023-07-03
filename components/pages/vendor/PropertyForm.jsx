@@ -42,7 +42,6 @@ import Select from 'components/forms/Select';
 import MapLocation from 'components/utils/MapLocation';
 import Upload from 'components/utils/Upload';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property.png';
-import { navigate } from '@reach/router';
 import AutoComplete from 'components/forms/AutoComplete';
 import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
@@ -97,6 +96,7 @@ const EditPropertyForm = ({ id, toast, setToast }) => {
 };
 
 const NewPropertyForm = ({ property, toast, setToast }) => {
+  const router = useRouter();
   const [location, setLocation] = React.useState(null);
   const [image, setImage] = React.useState(
     property?.mainImage || getPropertyImage()
@@ -161,7 +161,7 @@ const NewPropertyForm = ({ property, toast, setToast }) => {
                 }`,
               });
 
-              navigate(`/vendor/property/${data.property?._id}`);
+              router.push(`/vendor/property/${data.property?._id}`);
               refreshQuery('property');
               actions.setSubmitting(false);
               actions.resetForm();

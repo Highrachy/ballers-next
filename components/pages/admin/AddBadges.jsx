@@ -20,13 +20,13 @@ import {
   statusIsSuccessful,
   // valuesToOptions,
 } from 'utils/helpers';
-import { navigate } from '@reach/router';
 import Upload from 'components/utils/Upload';
 import { setQueryCache } from 'hooks/useQuery';
 import ImagePlaceholder from 'assets/img/placeholder/image.png';
 import Label from 'components/forms/Label';
 import Select from 'components/forms/Select';
 import { refreshQuery } from 'hooks/useQuery';
+import { useRouter } from 'next/router';
 
 const AddBadges = ({ id }) => (
   <BackendPage>
@@ -38,6 +38,7 @@ const AddBadges = ({ id }) => (
 const BadgesForm = ({ badge }) => {
   const [toast, setToast] = useToast();
   const [image, setImage] = React.useState('');
+  const router = useRouter();
 
   return (
     <Formik
@@ -70,7 +71,7 @@ const BadgesForm = ({ badge }) => {
               });
               setQueryCache(['badge', data.badge._id], data.badge);
               refreshQuery('badge', true);
-              navigate('/admin/badges');
+              router.push('/admin/badges');
               actions.setSubmitting(false);
               actions.resetForm();
             }

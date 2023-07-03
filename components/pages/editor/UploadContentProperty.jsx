@@ -15,8 +15,9 @@ import { getTokenFromStore } from 'utils/localStorage';
 import { uploadContentPropertySchema } from 'components/forms/schemas/propertySchema';
 import { getError, valuesToOptions } from 'utils/helpers';
 import Select from 'components/forms/Select';
-import { Link, navigate } from '@reach/router';
 import { ReactExcel, readFile, generateObjects } from '@ramonak/react-excel';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const UploadContentProperty = () => (
   <BackendPage>
@@ -31,6 +32,8 @@ const UploadContentPropertyForm = () => {
 
   const [initialData, setInitialData] = React.useState(undefined);
   const [currentSheet, setCurrentSheet] = React.useState({});
+
+  const router = useRouter();
 
   const handleUpload = (event) => {
     const file = event.target.files[0];
@@ -84,7 +87,7 @@ const UploadContentPropertyForm = () => {
 
         Promise.all(promises)
           .then(() => {
-            navigate(`/editor/content-property/area/${values.areaId}`);
+            router.push(`/editor/content-property/area/${values.areaId}`);
 
             actions.setSubmitting(false);
             actions.resetForm();

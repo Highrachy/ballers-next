@@ -2,21 +2,22 @@ import React, { useEffect } from 'react';
 import store from 'store2';
 import { UserContext } from 'context/UserContext';
 import BackendPage from 'components/layout/BackendPage';
-import { navigate } from '@reach/router';
 import { storeUserFirstName } from 'utils/localStorage';
+import { useRouter } from 'next/router';
 
 const Logout = () => {
   const { userState, userDispatch } = React.useContext(UserContext);
+  const router = useRouter();
 
   const firstName = userState.firstName;
   useEffect(() => {
     if (firstName) {
       store(false);
       userDispatch({ type: 'user-logout' });
-      navigate('/');
+      router.push('/');
       storeUserFirstName(firstName);
     }
-  }, [userDispatch, firstName]);
+  }, [userDispatch, firstName, router]);
 
   return (
     <BackendPage title="Log Out">

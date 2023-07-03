@@ -16,13 +16,11 @@ import { PropertyVideosIcon } from 'components/utils/Icons';
 import Humanize from 'humanize-plus';
 import { PROPERTY_VIDEO_STATUS } from 'utils/constants';
 import { API_ENDPOINT } from 'utils/URL';
-import { VideoModal } from '../shared/Video';
 import { BASE_API_URL } from 'utils/constants';
 import Axios from 'axios';
 import { getTokenFromStore } from 'utils/localStorage';
 import { getError, statusIsSuccessful } from 'utils/helpers';
 import Modal from 'components/common/Modal';
-import { VideoYoutubeImage } from '../shared/Video';
 import { PropertyAvatar } from 'components/common/PropertyCard';
 import { requestVideoReviewSchema } from 'components/forms/schemas/propertySchema';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
@@ -31,6 +29,7 @@ import { LinkSeparator } from 'components/common/Helpers';
 import { SuccessIcon } from 'components/utils/Icons';
 import { ErrorIcon } from 'components/utils/Icons';
 import { PropertyIcon } from 'components/utils/Icons';
+import { VideoModal, VideoYoutubeImage } from '@/components/shared/Video';
 
 const PropertyVideos = () => {
   return (

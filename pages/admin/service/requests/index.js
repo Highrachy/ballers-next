@@ -1,4 +1,4 @@
-import VasRequests from 'components/pages/shared/VasRequests';
+import VasRequests from '@/components/shared/VasRequests';
 
 const AllVasRequests = () => {
   return <VasRequests />;

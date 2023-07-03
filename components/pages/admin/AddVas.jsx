@@ -20,12 +20,12 @@ import {
   statusIsSuccessful,
   // valuesToOptions,
 } from 'utils/helpers';
-import { navigate } from '@reach/router';
 import { setQueryCache } from 'hooks/useQuery';
 import Select from 'components/forms/Select';
 import { refreshQuery } from 'hooks/useQuery';
 import InputFormat from 'components/forms/InputFormat';
 import Textarea from 'components/forms/Textarea';
+import { useRouter } from 'next/router';
 
 const AddVas = ({ id }) => (
   <BackendPage>
@@ -37,6 +37,7 @@ const AddVas = ({ id }) => (
 
 export const VasForm = ({ vas, setShowEditVasModal }) => {
   const [toast, setToast] = useToast();
+  const router = useRouter();
 
   return (
     <Formik
@@ -67,7 +68,7 @@ export const VasForm = ({ vas, setShowEditVasModal }) => {
               setTimeout(() => {
                 vas?._id
                   ? setShowEditVasModal(false)
-                  : navigate('/admin/service');
+                  : router.push('/admin/service');
               }, 1000);
             }
           })

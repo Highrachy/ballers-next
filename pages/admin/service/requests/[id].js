@@ -1,4 +1,4 @@
-import SingleVasRequest from 'components/pages/shared/SingleVasRequest';
+import SingleVasRequest from '@/components/shared/SingleVasRequest';
 import { useRouter } from 'next/router';
 import React from 'react';
 

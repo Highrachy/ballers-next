@@ -27,7 +27,6 @@ import {
   getAutoComplete,
 } from 'utils/helpers';
 import MapLocation from 'components/utils/MapLocation';
-import { navigate } from '@reach/router';
 import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
 import { ContentLoader } from 'components/utils/LoadingItems';
@@ -37,6 +36,7 @@ import { refreshQuery } from 'hooks/useQuery';
 import { PropertyInfoForm } from './PropertyForm';
 import { PropertyAddress } from './PropertyForm';
 import { PropertyImage } from '../shared/SingleProperty';
+import { useRouter } from 'next/router';
 
 const pageOptions = {
   key: 'propertyTemplate',
@@ -85,6 +85,7 @@ const NewPropertyForm = ({ property, toast, setToast }) => {
   const [image, setImage] = React.useState(
     property?.mainImage || getPropertyImage()
   );
+  const router = useRouter();
 
   const saveImage = (image) => {
     setImage(image);
@@ -143,7 +144,7 @@ const NewPropertyForm = ({ property, toast, setToast }) => {
                 }`,
               });
 
-              navigate(`/vendor/property/${data.property?._id}`);
+              router.push(`/vendor/property/${data.property?._id}`);
               refreshQuery('property');
               actions.setSubmitting(false);
               actions.resetForm();
