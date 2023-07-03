@@ -14,6 +14,7 @@ import { getTokenFromStore } from 'utils/localStorage';
 import { statusIsSuccessful } from 'utils/helpers';
 import { refreshQuery } from 'hooks/useQuery';
 import Image from 'next/image';
+import BallersLogo from '../utils/BallersLogo';
 
 // eslint-disable-next-line react/display-name
 const Empty = React.forwardRef(({ children, onClick }, ref) => (
@@ -40,9 +41,8 @@ const Header = () => {
           <Link href="/">
             <Navbar.Brand className="p-0">
               <div className="me-5 d-md-none d-block">
-                <Image
+                <BallersLogo
                   className="ballers-logo"
-                  src="/img/ballers-logo.png"
                   alt="Ballers logo"
                   width={60}
                   height={40}

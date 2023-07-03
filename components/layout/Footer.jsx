@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import BallersLogo from '../utils/BallersLogo';
 
 const Footer = () => (
   <footer className="footer">
@@ -76,13 +77,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="col-lg-3 col-sm-12 bg-light-blue footer-content ps-lg-5">
-        <Image
-          src="/img/ballers-logo.png"
-          alt="ballers logo"
-          className="ballers-logo-footer"
-          width="86"
-          height="55"
-        />
+        <BallersLogo className="ballers-logo-footer" width="86" height="55" />
         <p className="my-4 px-7 px-lg-0 pe-lg-6 footer-bottom-text">
           We make owning a home simpler and achievable.
         </p>

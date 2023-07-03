@@ -1,7 +1,7 @@
 export const OFFICE_LOCATION = { lat: 6.4297284, lng: 3.4297021 };
-export const BASE_API_URL =
-  process.env.NEXT_PUBLIC_API_URL ||
-  'https://staging-ballers-api.herokuapp.com/api/v1';
+export const BASE_API_URL = !!process.env.NEXT_PUBLIC_API_URL
+  ? process.env.NEXT_PUBLIC_API_URL
+  : 'https://staging-ballers-api.herokuapp.com/api/v1';
 // export const BASE_API_URL = 'http://localhost:4000/api/v1';
 
 export const USER_TYPES = {

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useMenu } from 'hooks/useMenu';
 import Image from 'next/image';
 import ActiveLink from '../common/ActiveLink';
+import BallersLogo from '../utils/BallersLogo';
 
 const Sidebar = ({ showSidebar, closeSidebar, ...props }) => {
   const sideMenu = useMenu();
@@ -25,9 +26,7 @@ const Sidebar = ({ showSidebar, closeSidebar, ...props }) => {
         <div className="sidebar__logo">
           <Link href="/" passHref>
             <a>
-              <Image
-                src="/img/ballers-logo.png"
-                alt="ballers logo"
+              <BallersLogo
                 className="ballers-logo-footer"
                 width="86"
                 height="55"

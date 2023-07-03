@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import Container from 'react-bootstrap/Container';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import BallersLogo from '../utils/BallersLogo';
 
 const Header = () => {
   const MENUS = [
@@ -22,9 +23,8 @@ const Header = () => {
           <Link href="/">
             <Navbar.Brand>
               <div className="me-5">
-                <Image
+                <BallersLogo
                   className="ballers-logo"
-                  src="/img/ballers-logo.png"
                   alt="Ballers logo"
                   width={96}
                   height={64}
