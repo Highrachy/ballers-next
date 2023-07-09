@@ -307,7 +307,7 @@ export const ScheduleTourButton = ({
       </Modal>
       <Button
         color="none"
-        className="btn-wide btn-wide-sm btn-sm btn-outline-warning"
+        className="btn-wide btn-wide-sm btn-sm btn-danger-light"
         onClick={setShowModalToTrue}
       >
         {alreadyVisitedProperty

@@ -40,6 +40,10 @@
     }
   }
 
+  &-header {
+    pointer-events: all;
+  }
+
   &.error {
     .toast-message-content {
       color: $red;

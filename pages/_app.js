@@ -11,7 +11,7 @@ import Script from 'next/script';
 function MyApp({ Component, pageProps }) {
   return (
     <UserProvider>
-      <NextNProgress color="#28256B" />
+      <NextNProgress color="#5775fa" />
       <DefaultSeo
         defaultTitle="Become A Landlord (BALL) - Own Your Dream Home with Ease"
         description="BALL (Become A Landlord) is the innovative online platform that simplifies the process of owning your dream home. Start your journey to homeownership, make convenient contributions, and access a wealth of real estate knowledge. Join the community of Ballers and unlock the path to a million new homeowners. Visit us at BALLers.ng."

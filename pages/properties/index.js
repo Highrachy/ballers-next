@@ -3,50 +3,50 @@ import Header from 'components/layout/Header';
 import CommunityGallery from 'components/common/CommunityGallery';
 import Footer from 'components/layout/Footer';
 import TitleSection from 'components/common/TitleSection';
-import PaginatedContent from 'components/common/PaginatedContent';
 import { API_ENDPOINT } from 'utils/URL';
-import { PropertyIcon } from 'components/utils/Icons';
 import { RecommendedPropertyLists } from 'components/common/PropertyCard';
+import Axios from 'axios';
 
-const PublicProperties = () => (
-  <>
-    <Header />
-    <TitleSection
-      name="Our Properties"
-      content="The only realistic burden free process of owning your ideal home."
-    />
-    <PaginatedContent
-      endpoint={API_ENDPOINT.getAllProperties()}
-      // initialFilter={
-      //   props?.values?.preferences ? userPreferences : searchFilter
-      // }
-      pageName="Property"
-      pluralPageName="Properties"
-      DataComponent={PropertiesRowList}
-      // FilterComponent={SearchForm}
-      PageIcon={<PropertyIcon />}
-      queryName="property"
-      showFetching
-      noAuthentication
-    />
-    <CommunityGallery />
-    <Footer />
-  </>
-);
+const PublicProperties = ({ result }) => {
+  console.log('result: ', result);
+  return (
+    <>
+      <Header />
+      <TitleSection
+        name="Our Properties"
+        content="The only realistic burden free process of owning your ideal home."
+      />
+      <PropertiesRowList result={result} title="Available Properties" />
+      <CommunityGallery />
+      <Footer />
+    </>
+  );
+};
 
-export const PropertiesRowList = ({ results, title }) => {
-  return results && results.length > 0 ? (
+export const PropertiesRowList = ({ result, title }) => {
+  return result && result.length > 0 ? (
     <div className="container-fluid">
-      {title && <h4 className="mb-5">{title}</h4>}
+      {title && <h3 className="my-5">{title}</h3>}
       <div className="row">
         <RecommendedPropertyLists
-          propertyClassName="col-sm-4 col-lg-3"
-          properties={results}
+          propertyClassName="col-sm-6 col-lg-6 col-xl-4"
+          properties={result}
           isPublic
         />
       </div>
     </div>
   ) : null;
 };
+
+export async function getStaticProps() {
+  const propertiesRes = await Axios.get(API_ENDPOINT.getAllProperties());
+
+  return {
+    props: {
+      ...propertiesRes.data,
+    },
+    revalidate: 10,
+  };
+}
 
 export default PublicProperties;

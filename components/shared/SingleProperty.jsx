@@ -8,7 +8,7 @@ import { moneyFormatInNaira, getLocationFromAddress } from 'utils/helpers';
 import Image, { OnlineImage } from 'components/utils/Image';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property.png';
 import Link from 'next/link';
-import { BathIcon } from 'components/utils/Icons';
+import { BathIcon, LocationIcon, VendorIcon } from 'components/utils/Icons';
 import { ToiletIcon } from 'components/utils/Icons';
 import { BedIcon } from 'components/utils/Icons';
 import Humanize from 'humanize-plus';
@@ -56,6 +56,9 @@ import { TestimonialsList } from './Testimonials';
 import { AssignedPropertyIcon } from 'components/utils/Icons';
 import { WelcomeHero } from 'pages/user/dashboard';
 import Sharer from '../utils/Sharer';
+import { useRouter } from 'next/router';
+import { GrDocumentText } from 'react-icons/gr';
+import { BiGitCompare } from 'react-icons/bi';
 
 const pageOptions = {
   key: 'property',
@@ -147,6 +150,12 @@ export const OwnedPropertyCard = ({
         )}
 
         <div className="row mt-5">
+          <PropertyHeader
+            property={property}
+            enquiryInfo={enquiryInfo}
+            vendorInfo={vendorInfo}
+            isPortfolioPage={isPortfolioPage}
+          />
           <div className={Sidebar ? 'col-sm-7' : 'col-sm-12'}>
             <PropertyDescription
               property={property}
@@ -701,20 +710,16 @@ export const PropertyDescription = ({
   Actionbar,
 }) => {
   const [showDescription, setShowDescription] = React.useState(false);
+  const [showSafetyTips, setShowSafetyTips] = React.useState(false);
   const DESCRIPTION_LENGTH = 600;
   const hideSomePropertyDescription =
     !showDescription && property.description.length > DESCRIPTION_LENGTH;
 
+  const { asPath } = useRouter();
+
   return (
     <>
-      <PropertyHeader
-        property={property}
-        enquiryInfo={enquiryInfo}
-        vendorInfo={vendorInfo}
-        isPortfolioPage={isPortfolioPage}
-      />
-
-      <h5 className="mt-5 header-smaller">About Property</h5>
+      <h5 className="mt-3 header-smaller">About Property</h5>
 
       <div className="position-relative">
         {hideSomePropertyDescription
@@ -730,15 +735,13 @@ export const PropertyDescription = ({
             </button>
           </div>
         )}
-
-        <p className="my-3 text-primary bg-primary-light">
-          Title:{' '}
-          <strong>{property?.titleDocument || 'Deed of Assignment'}</strong>
+        <p className="mt-3 text-gray fw-bold ">
+          Title Document:{' '}
+          <span className="fw-bold">
+            {property?.titleDocument || 'No Title Document'}
+          </span>
         </p>
       </div>
-
-      {/* action bar */}
-      <section className="actionbar">{Actionbar}</section>
 
       <h5 className="mt-5 header-smaller">Features</h5>
       <ul className="list-unstyled row lh-2">
@@ -751,87 +754,133 @@ export const PropertyDescription = ({
           </li>
         ))}
       </ul>
+
+      <section className="actionbar">{Actionbar}</section>
+
       {useCurrentRole().role !== USER_TYPES.vendor && !isPortfolioPage && (
         <div className="my-5">
           <div className="hero-holder">
-            <h5 className="text-primary header-smaller">Important Notice</h5>
-            <ol className="ms-n3">
+            <h5 className="header-smaller">Safety Tips</h5>
+            <ol className="ms-n3 mb-0">
               <li>
                 Do not make any upfront payment as inspection fee when visiting
                 the property.
               </li>
-              <li>
-                When you find a property of your interest, make sure you ask
-                appropriate questions before accepting your offer.
-              </li>
-              <li>
-                All meetings with agents should be done in open locations.
-              </li>
-              <li>
-                The agent is not a representative from Baller.ng neither does
-                Baller.ng control the affairs of the agent as both parties are
-                different entities.
-              </li>
+
+              {showSafetyTips && (
+                <>
+                  <li>
+                    When you find a property of your interest, make sure you ask
+                    appropriate questions before accepting your offer.
+                  </li>
+                  <li>
+                    All meetings with agents should be done in open locations.
+                  </li>
+                  <li>
+                    The agent is not a representative from Baller.ng neither
+                    does Baller.ng control the affairs of the agent as both
+                    parties are different entities.
+                  </li>
+                </>
+              )}
+
+              {!showSafetyTips && (
+                <button
+                  className="btn btn-xs btn-wide btn-warning bg-warning-800 mt-2 mb-0 fw-bold"
+                  onClick={() => setShowSafetyTips(true)}
+                >
+                  Show All
+                </button>
+              )}
             </ol>
           </div>
         </div>
       )}
+
+      {/* <div className="row my-5 text-gray">
+        <div className="col-sm-6">
+          <GrDocumentText /> &nbsp; Title:{' '}
+          <strong>{property?.titleDocument || 'Deed of Assignment'}</strong>
+        </div>
+        <div className="col-sm-6">
+          <VendorIcon /> Vendor:&nbsp;
+          <Link href={`/vendors/${vendorInfo?.vendor?.slug}`}>
+            <a className="text-muted">{vendorInfo?.vendor?.companyName}</a>
+          </Link>
+        </div>
+      </div> */}
     </>
   );
 };
+
+export const ComparePropertyButton = ({ property }) => (
+  <Link href={`/compare-properties/${property?.slug}`} passHref>
+    <a className="btn btn-secondary-light btn-wide btn-wide-sm btn-sm">
+      Compare with Another Property <BiGitCompare />
+    </a>
+  </Link>
+);
+
+export const ViewVendorButton = ({ property }) => (
+  <Link href={`/vendors/${property?.vendorInfo?.vendor?.slug}`}>
+    <a className="btn btn-primary-light btn-wide btn-wide-sm btn-sm">
+      View Vendor Information <VendorIcon />
+      {/* {vendorInfo?.vendor?.companyName} */}
+    </a>
+  </Link>
+);
 
 export const PropertyHeader = ({
   property,
   enquiryInfo,
   vendorInfo,
   isPortfolioPage,
+  actionButton = null,
 }) => {
   const userHasPreviousEnquiry = !!enquiryInfo;
   const isUser = useCurrentRole().isUser;
   return (
     <>
-      <div className="row mb-3">
+      <div className="row">
         <div className="col-sm-12">
-          <h3 className="property-holder__big-title">
+          <h2 className="property-holder__big-title">
             {property.name}{' '}
-            {!isUser && <ShowPropertyStatus property={property} />}
-          </h3>
+            {/* {!isUser && <ShowPropertyStatus property={property} />} */}
+          </h2>
         </div>
-
-        {/* <div className="col-sm-4 text-end">
-          <Link href={`/vendors/${vendorInfo?.vendor?.slug}`}>
-            <a className="text-muted">
-              <VendorIcon /> {vendorInfo?.vendor?.companyName}
-            </a>
-          </Link>
-        </div> */}
       </div>
 
       <div className="row">
-        <div className="col-sm-8">
-          <h4 className="text-secondary mb-3">
+        <div className="col-sm-6">
+          <h3 className="text-secondary mb-2">
             {moneyFormatInNaira(property.price)}
-          </h4>
+          </h3>
         </div>
-        <div className="col-sm-4 text-end">
-          {isUser && !isPortfolioPage && (
-            <>
-              {(enquiryInfo?.approved || !userHasPreviousEnquiry) && (
-                <Link href={`/user/property/enquiry/${property._id}`} passHref>
-                  <a className="btn btn-sm btn-wide btn-secondary">
-                    {userHasPreviousEnquiry ? 'Buy Property Again' : 'Buy Now'}
-                  </a>
-                </Link>
-              )}
-            </>
-          )}
+        <div className="col-sm-6 text-end">
+          {actionButton ||
+            (isUser && !isPortfolioPage && (
+              <>
+                {(enquiryInfo?.approved || !userHasPreviousEnquiry) && (
+                  <Link
+                    href={`/user/property/enquiry/${property._id}`}
+                    passHref
+                  >
+                    <a className="btn btn-sm btn-wide btn-secondary">
+                      {userHasPreviousEnquiry
+                        ? 'Buy Property Again'
+                        : 'Buy Now'}
+                    </a>
+                  </Link>
+                )}
+              </>
+            ))}
         </div>
       </div>
 
-      <p className="mb-2 text-muted">
-        {getLocationFromAddress(property.address)}
-      </p>
-      <div className="property-info-details">
+      <div className="mb-2 text-muted">
+        <LocationIcon /> {getLocationFromAddress(property.address)}
+      </div>
+      <div className="property-info-details mb-5">
         <span className="pe-3">
           <BedIcon /> <Spacing /> {property.bedrooms}{' '}
           {Humanize.pluralize(property.bedrooms, 'bed')}

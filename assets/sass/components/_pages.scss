@@ -253,32 +253,33 @@ ul.timeline li.timeline__border:after {
 }
 
 .title-section {
-  background: url('../../img/backgrounds/title-section.png');
-  background-size: cover;
-  height: 24rem;
-  padding: 6rem 3rem 8rem;
+  // background: url('../../img/backgrounds/title-section.png');
+  background: $gray-900;
+  color: white;
+  // background-size: cover;
+  padding: 6rem 0;
   text-align: center;
+  margin-top: 6rem;
+  overflow: hidden;
+  position: relative;
 
   &.with-extra-content {
-    height: 30rem;
     padding: 5rem 3rem;
   }
   @include media-breakpoint-up(lg) {
-    height: 30rem;
-    padding: 10rem;
-
     &.with-extra-content {
       padding: 6rem 10rem 10rem;
     }
     p {
-      font-size: 1.2rem;
+      font-size: 1rem;
+      max-width: 60rem;
     }
   }
 
-  &__background {
-    background: url('../../img/backgrounds/title-section.png');
-    background-size: cover;
-  }
+  // &__background {
+  //   background: url('../../img/backgrounds/title-section.png');
+  //   background-size: cover;
+  // }
 }
 
 .core-values-card {
@@ -354,7 +355,6 @@ ul.timeline li.timeline__border:after {
 }
 
 .sharer__icons {
-  text-align: center;
   li {
     margin-bottom: 1rem;
     margin-right: 1rem;

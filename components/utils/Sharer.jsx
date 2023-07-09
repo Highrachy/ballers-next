@@ -3,38 +3,44 @@ import PropTypes from 'prop-types';
 import {
   EmailShareButton,
   FacebookShareButton,
-  // LinkedinShareButton,
+  LinkedinShareButton,
   TwitterShareButton,
   WhatsappShareButton,
   EmailIcon,
   FacebookIcon,
-  // LinkedinIcon,
+  LinkedinIcon,
   TwitterIcon,
   WhatsappIcon,
 } from 'react-share';
 
 const CONTENT_BODY = `Hi there! Join Ballers today -- the easiest way to become a Landlord`;
 
-const Sharer = ({ shareUrl, content, contentBody }) => (
-  <ul className="list-unstyled list-inline sharer__icons mt-4">
+const Sharer = ({
+  shareUrl,
+  content,
+  contentBody,
+  width = 48,
+  className = 'text-center',
+}) => (
+  <ul className={`list-unstyled list-inline sharer__icons ${className} mt-4`}>
     <li>
       <FacebookShareButton quote={content} url={shareUrl}>
-        <FacebookIcon round width="48" />
+        <FacebookIcon round width={width} />
       </FacebookShareButton>
     </li>
     <li>
       <TwitterShareButton title={contentBody || CONTENT_BODY} url={shareUrl}>
-        <TwitterIcon round width="48" />
+        <TwitterIcon round width={width} />
       </TwitterShareButton>
     </li>
     {/* <li>
       <LinkedinShareButton source={shareUrl} summary={content} title="Ballers">
-        <LinkedinIcon round width="48" />
+        <LinkedinIcon round width={width} />
       </LinkedinShareButton>
     </li> */}
     <li>
       <WhatsappShareButton separator=":: " title={content} url={shareUrl}>
-        <WhatsappIcon round width="48" />
+        <WhatsappIcon round width={width} />
       </WhatsappShareButton>
     </li>
     <li>
@@ -42,7 +48,7 @@ const Sharer = ({ shareUrl, content, contentBody }) => (
         body={content}
         subject={`Hey Friend! Check out Ballers ${shareUrl}`}
       >
-        <EmailIcon round width="48" />
+        <EmailIcon round width={width} />
       </EmailShareButton>
     </li>
   </ul>
@@ -56,7 +62,8 @@ Sharer.propTypes = {
 
 Sharer.defaultProps = {
   content: CONTENT_BODY,
-  shareUrl: 'https://duvlive.com',
+  shareUrl: 'https://ballers.ng',
   contentBody: null,
 };
+
 export default Sharer;

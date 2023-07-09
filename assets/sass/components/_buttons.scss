@@ -18,6 +18,10 @@
   }
 }
 
+.btn-warning-light {
+  color: $warning-800 !important;
+}
+
 .btn-xs {
   padding: 0.3rem 0.75rem;
   font-size: 0.85rem;
@@ -116,6 +120,11 @@ a {
   }
 
   &-warning {
-    border-color: #ffc34e;
+    border-color: $warning-700;
   }
+}
+
+.btn-warning {
+  background: $warning-600;
+  border-color: $warning-600;
 }

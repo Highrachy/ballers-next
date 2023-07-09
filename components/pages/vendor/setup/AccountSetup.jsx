@@ -157,7 +157,7 @@ export const getVerificationStatus = (userState, index) => {
       };
     case 'Pending':
       return {
-        className: 'primary',
+        className: 'dark',
         icon: <MoreCircle variant="Bold" />,
         status: 'Awaiting your input',
       };

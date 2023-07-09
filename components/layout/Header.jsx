@@ -1,11 +1,9 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import Image from 'next/image';
 import Link from 'next/link';
-
-import Container from 'react-bootstrap/Container';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import BallersLogo from '../utils/BallersLogo';
+import Axios from 'axios';
+import { BASE_API_URL } from '@/utils/constants';
 
 const Header = () => {
   const MENUS = [
@@ -16,6 +14,13 @@ const Header = () => {
     { name: 'FAQs', href: '/faqs' },
     { name: 'Contact Us', href: '/contact-us' },
   ];
+
+  React.useEffect(() => {
+    Axios.get(`${BASE_API_URL}/`)
+      .then(function () {})
+      .catch(function () {});
+  }, []);
+
   return (
     <>
       <Navbar fixed="top" bg="white" expand="lg">

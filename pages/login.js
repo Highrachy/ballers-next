@@ -27,7 +27,6 @@ import { UserContext } from '@/context/UserContext';
 const Login = () => {
   const { query } = useRouter();
   const { token, url } = query;
-  console.log('token', token);
 
   return (
     <>
@@ -40,7 +39,7 @@ const Login = () => {
   );
 };
 
-const Content = ({ redirectTo, sid, token }) => {
+const Content = ({ redirectTo, token }) => {
   return (
     <section>
       <div className="container-fluid">
@@ -56,7 +55,7 @@ const Content = ({ redirectTo, sid, token }) => {
           </div>
           <div className="offset-lg-2 col-lg-5">
             <div className="card p-5 my-6">
-              <LoginForm redirectTo={redirectTo} sid={sid} token={token} />
+              <LoginForm redirectTo={redirectTo} token={token} />
               <section className="auth__footer">
                 <div className="register mt-6 text-center">
                   Not Registered?{' '}
@@ -76,17 +75,15 @@ const Content = ({ redirectTo, sid, token }) => {
 
 Content.propTypes = {
   redirectTo: PropTypes.string,
-  sid: PropTypes.string,
   token: PropTypes.string,
 };
 
 Content.defaultProps = {
   redirectTo: null,
-  sid: null,
   token: null,
 };
 
-const LoginForm = ({ redirectTo, sid, token }) => {
+const LoginForm = ({ redirectTo, token }) => {
   const router = useRouter();
   const [toast, setToast] = useToast();
   const { userState, loginUser } = React.useContext(UserContext);
@@ -98,7 +95,6 @@ const LoginForm = ({ redirectTo, sid, token }) => {
       Axios.get(`${BASE_API_URL}/user/activate`, { params: { token } })
         .then(function (response) {
           const { status, data } = response;
-          // handle success
           if (status === 200) {
             // clear storage
             store(false);
@@ -106,23 +102,24 @@ const LoginForm = ({ redirectTo, sid, token }) => {
               type: 'success',
               message: data.message,
             });
-            router.push('/login');
           }
         })
         .catch(function (error) {
           setToast({
-            message: getError(error),
+            message: 'Your account could not be activated. Please try again.',
           });
         });
-  }, [token, setToast, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   // CHECK IF USER HAS SIGNED IN
   React.useEffect(() => {
-    if (userState && userState?.isLoggedIn && !token) {
+    if (userState && userState?.isLoggedIn) {
       const dashboardUrl = `/${DASHBOARD_PAGE[userState.role]}/dashboard`;
       router.push(dashboardUrl);
     }
-  }, [router, userState, token]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userState]);
 
   return (
     <Formik
@@ -193,13 +190,11 @@ const LoginForm = ({ redirectTo, sid, token }) => {
 
 LoginForm.propTypes = {
   redirectTo: PropTypes.string,
-  sid: PropTypes.string,
   token: PropTypes.string,
 };
 
 LoginForm.defaultProps = {
   redirectTo: null,
-  sid: null,
   token: null,
 };
 
