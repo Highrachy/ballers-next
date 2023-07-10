@@ -9,7 +9,7 @@ const Header = () => {
   const MENUS = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about-us' },
-    { name: 'A-Z of Ball', href: '/a-z-of-ball' },
+    // { name: 'A-Z of Ball', href: '/a-z-of-ball' },
     { name: 'Properties', href: '/properties' },
     { name: 'FAQs', href: '/faqs' },
     { name: 'Contact Us', href: '/contact-us' },

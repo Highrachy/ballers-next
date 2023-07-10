@@ -14,8 +14,7 @@ import {
   InfoIcon,
   HouseIcon,
   CloseIcon,
-  LocationIcon,
-  ApartmentIcon,
+  PropertyIcon,
   RangeLine,
 } from 'components/utils/Icons';
 import NumberFormat from 'react-number-format';
@@ -25,10 +24,17 @@ import { Slide } from 'react-awesome-reveal';
 import { useRouter } from 'next/router';
 import contentProperty from '@/data/contentProperty';
 import Link from 'next/link';
+import SquareBubbles from '@/components/common/SquareBubbles';
+import { CloseCircle, TickCircle } from 'iconsax-react';
+import Axios from 'axios';
+import { API_ENDPOINT } from 'utils/URL';
+import { PropertiesRowList } from './properties';
 
-const Search = () => {
+const Search = ({ properties }) => {
   const { query } = useRouter();
   const { area, houseType } = query;
+
+  console.log('properties', properties);
 
   const defaultInputValue = { area, houseType };
   const allData = contentProperty[area || 'lekki'];
@@ -42,7 +48,7 @@ const Search = () => {
       <Header />
       <SearchForm defaultInputValue={defaultInputValue} />
       {result ? (
-        <SearchResultContent result={result} />
+        <SearchResultContent properties={properties} result={result} />
       ) : (
         <NoSearchResultFound />
       )}
@@ -54,7 +60,11 @@ const Search = () => {
 const SearchForm = ({ defaultInputValue }) => (
   <section className="container-fluid property-search-holder">
     <div className="row">
-      <section className="property-search__page mx-auto pt-5 my-3">
+      <section className="property-search__page mx-auto pt-5 my-5">
+        {/* <SquareBubbles /> */}
+        <div className="col-12">
+          <h2 className="pb-3 text-white text-center">Search for Property</h2>
+        </div>
         <SearchContentPropertyForm defaultInputValue={defaultInputValue} />
       </section>
     </div>
@@ -70,11 +80,11 @@ const NoSearchResultFound = () => (
   </div>
 );
 
-const SearchResultContent = ({ result }) => {
-  console.log('result', result);
-
+const SearchResultContent = ({ properties, result }) => {
   // const WINDOW_SIZE = useWindowSize();
   const [showMap, setShowMap] = React.useState(false);
+  // get first 2 arrays in properties.result
+  const propertiesResult = properties.result.slice(0, 2);
 
   return (
     <div className="container-fluid search-result-section">
@@ -85,41 +95,37 @@ const SearchResultContent = ({ result }) => {
           })}
         >
           <h2 className="text-start mt-4 mt-md-6 mb-0 text-primary">
-            {result.type} <br />
+            {result.type}, {result.area} <br />
           </h2>
-          <h5 className="text-secondary py-0">
-            {result.area}, {result.state}
-          </h5>
 
           <section className="search-result__card text-center">
-            <h5 className="text-muted fw-normal">
-              <InfoIcon /> Average property price
-            </h5>
-            <h2 className="h1 my-3 text-secondary-600">
+            <h5 className="text-muted fw-normal">Average property price</h5>
+            <h2 className="h1 my-3 text-secondary-700">
               {nearestMillion(result.averagePrice)}
             </h2>
             <ul className="list-inline">
-              <li className="list-inline-item px-3">
-                <LocationIcon /> {result.area}
+              <li className="list-inline-item text-dark">
+                <PropertyIcon /> {result.type}
               </li>
-              <li className="list-inline-item px-3">
-                <ApartmentIcon /> {result.type}
+              <li className="list-inline-item px-3 text-dark">|</li>
+              <li className="list-inline-item text-dark">
+                <MapPinIcon /> {result.area}
               </li>
             </ul>
-            <div className="search-result-price-range">
+            <div className="search-result-price-range mt-4">
               <div className="row">
                 <div className="col-lg-3 col-6 order-0 order-lg-0 text-start fw-bold">
                   {nearestMillion(result.minimumPrice)}
                 </div>
-                <div className="col-lg-6 col-12 order-2 order-lg-1 text-center text-muted">
-                  <InfoIcon /> Property price range of the selected location
+                <div className="col-lg-6 col-12 order-2 order-lg-1 text-center text-sm text-muted">
+                  Property price range of the selected location
                 </div>
                 <div className="col-lg-3 col-6 order-1 order-lg-2 text-end fw-bold">
                   {nearestMillion(result.maximumPrice)}
                 </div>
               </div>
             </div>
-            <article className="mt-7 row text-start">
+            {/* <article className="mt-7 row text-start">
               <div className="col-sm-6">
                 <h3>About {result.area}</h3>
                 {result.content}
@@ -134,8 +140,15 @@ const SearchResultContent = ({ result }) => {
                   pinColor="red"
                 />
               </div>
-            </article>
+            </article> */}
           </section>
+
+          <div className="row">
+            <PropertiesRowList
+              result={propertiesResult}
+              title="Available Properties"
+            />
+          </div>
 
           <DefineYourEligibility result={result} />
         </div>
@@ -296,166 +309,214 @@ const DefineYourEligibility = ({ result }) => {
 
   return (
     <section className="eligibility-section" ref={myRef}>
-      <div className="text-center">
-        <h3>Define your eligibility</h3>
-        <p className="lead-header">
-          Fill in the details below to define your eligibility to owning this
-          property
-        </p>
-      </div>
-
-      <div className="row text-start">
-        <div className="col-sm-4">
-          <div className="text-start eligibility-form mt-5">
-            <section className="col-12 bg-orange">
-              <RangeInput
-                min={1_000_000}
-                max={50_000_000}
-                name="initial"
-                title="Initial investment amount"
-                info="The amount you will pay upfront for the property"
-                step={1_000_000}
-                placeholder="10,000,000"
-                handleChange={handleChange}
-                inputs={inputs}
-              />
-            </section>
-
-            <section className="col-12 bg-green">
-              <RangeInput
-                min={100_000}
-                max={result.averagePrice}
-                name="monthly"
-                title="Monthly Income"
-                info="Your entire monthly income or salary + any extra income"
-                step={100_000}
-                placeholder="1,000,000"
-                handleChange={handleChange}
-                inputs={inputs}
-              />
-            </section>
-
-            <section className="col-12 bg-blue">
-              <strong>Package Type</strong>
-              <p className="text-xs mt-1 mb-2">
-                Select one of the options below
-              </p>
-              <div className="btn-group-toggle d-flex" data-toggle="buttons">
-                <OptionButton name="Any" value={0} />
-                <OptionButton name="Premium" value={1} />
-              </div>
-            </section>
+      {!showResultCard ? (
+        <section className="card p-5 mt-n6">
+          <div className="text-center">
+            <h3>Define your eligibility</h3>
+            <p className="lead-header">
+              Fill in the details below to define your eligibility to owning
+              this property
+            </p>
           </div>
-          <div className="row search-calculate">
-            <div className="col-lg-4">
-              <button
-                className="btn btn-secondary"
-                name="calculate-investment"
-                disabled={!enableCalculateButton}
-                onClick={handleEligibility}
-              >
-                Calculate
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="col-sm-8">
-          <div className="card p-5 mt-5">
-            <h3 className="text-start text-price">
-              {moneyFormatInNaira(output.monthlyPayment)}
-            </h3>
-            <p>Your approximate monthly contribution</p>
-            <div className="d-flex justify-content-between mt-4">
-              <p>Location</p>
-              <strong> Lekki, Lagos State</strong>
-            </div>
-            <div className="d-flex justify-content-between mt-4">
-              <p>House Type</p>
-              <strong> Flat</strong>
-            </div>
-            <div className="d-flex justify-content-between mt-4">
-              <p>Average Property Price</p>
-              <strong> {moneyFormatInNaira(result.averagePrice)}</strong>
-            </div>
-
-            {showResultCard ? (
-              <>
-                <strong className="mt-4 mb-2">Savings to Payment ratio</strong>
-                <div>
-                  <strong>{inputs.comfortLevel}% </strong>({comfortLevelText})
-                </div>
-
-                <section className={`mt-5 comfort-level ${comfortLevelColor}`}>
-                  <ReactRangeSlider
-                    min={0}
-                    max={90}
-                    step={1}
-                    tooltip={false}
-                    value={inputs.comfortLevel}
-                    onChange={(value) => {
-                      setInputs({
-                        ...inputs,
-                        comfortLevel: value,
-                      });
-                      findEligibilityResult({
-                        ...inputs,
-                        comfortLevel: value,
-                      });
-                    }}
+          <div className="container-fluid">
+            <section className="row eligibility-form mt-5">
+              <div className="col-4">
+                <section className="bg-orange">
+                  <RangeInput
+                    min={1_000_000}
+                    max={50_000_000}
+                    name="initial"
+                    title="Initial investment amount"
+                    info="The amount you will pay upfront for the property"
+                    step={1_000_000}
+                    placeholder="10,000,000"
+                    handleChange={handleChange}
+                    inputs={inputs}
                   />
                 </section>
-
-                <section className="d-flex justify-content-between mt-5">
-                  <h6>
-                    Recommended Plan
-                    {output?.recommendations?.length > 2 && 's'}{' '}
-                  </h6>
-                  <div>
-                    {output?.recommendations?.map((recommendation, index) => {
-                      return (
-                        <div
-                          key={index}
-                          className="d-flex justify-content-between mt-1"
-                        >
-                          <p>&nbsp;</p>
-                          <p className="text-secondary">
-                            <TitleInfo
-                              {...recommendation}
-                              content={recommendation?.advice}
-                            />
-                          </p>
-                        </div>
-                      );
-                    })}
+              </div>
+              <div className="col-4">
+                <section className="bg-green">
+                  <RangeInput
+                    min={100_000}
+                    max={result.averagePrice}
+                    name="monthly"
+                    title="Monthly Income"
+                    info="Your entire monthly income or salary + any extra income"
+                    step={100_000}
+                    placeholder="1,000,000"
+                    handleChange={handleChange}
+                    inputs={inputs}
+                  />
+                </section>
+              </div>
+              <div className="col-4">
+                <section className="bg-blue h-100">
+                  <strong>Package Type</strong>
+                  <p className="text-xs mt-1 mb-2">
+                    Select one of the options below
+                  </p>
+                  <div
+                    className="btn-group-toggle d-flex"
+                    data-toggle="buttons"
+                  >
+                    <OptionButton name="Any" value={0} />
+                    <OptionButton name="Premium" value={1} />
                   </div>
                 </section>
-
+              </div>
+            </section>
+            <div className="row mt-5 search-calculate">
+              <div className="col-lg-4">
+                <button
+                  className="btn btn-secondary"
+                  name="calculate-investment"
+                  disabled={!enableCalculateButton}
+                  onClick={handleEligibility}
+                >
+                  Confirm Eligibility
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section>
+          <h3 className="mb-4">Eligibility Result</h3>
+          <div className="card p-5 mt-3">
+            <h4 className="mb-4 pb-2 text-primary">
+              {' '}
+              {userIsEligible ? (
+                <span>
+                  You can afford a home in {result.area}, {result.state}
+                </span>
+              ) : (
+                <span>
+                  Not Eligilble <CloseCircle size="32" variant="Bulk" />
+                </span>
+              )}
+            </h4>
+            {/* <section>
+              <h3 className="text-start text-price">
+                {moneyFormatInNaira(output.monthlyPayment)}
+              </h3>
+              <p className="text-muted">
+                Your approximate monthly contribution
+              </p>
+            </section> */}
+            <div className="row">
+              <div className="col-sm-6">
                 <section>
-                  {showResultCard && userIsEligible && (
+                  {userIsEligible ? (
                     <RecommendationCard
                       result={output}
                       cancelEligibilityStatus={cancelEligibilityStatus}
                     />
-                  )}
-                  {showResultCard && !userIsEligible && (
+                  ) : (
                     <InEligibleCard
                       result={output}
                       cancelEligibilityStatus={cancelEligibilityStatus}
                     />
                   )}
                 </section>
-              </>
-            ) : (
-              <div className="recommendation__card mb-5">
-                <p className="text-muted">
-                  Fill the Eligibility Form to enable us to suggest a home for
-                  you.
-                </p>
               </div>
-            )}
+              <div className="col-sm-6 text-primary">
+                <ul className="list-dotted list-unstyled">
+                  <li>
+                    <span className="list-dotted__label">Location </span>
+                    <span className="list-dotted__value">
+                      {result.area}, {result.state}
+                    </span>
+                  </li>
+                  <li>
+                    <span className="list-dotted__label">House Type </span>
+                    <span className="list-dotted__value">{result.type}</span>
+                  </li>
+                  <li>
+                    <span className="list-dotted__label">Average Price </span>
+                    <span className="list-dotted__value">
+                      {moneyFormatInNaira(result.averagePrice)}
+                    </span>
+                  </li>
+                  <li>
+                    <span className="list-dotted__label">Status</span>
+                    <span className="list-dotted__value">
+                      {userIsEligible ? (
+                        <span className="text-secondary">
+                          Eligible <TickCircle size="32" variant="Bulk" />
+                        </span>
+                      ) : (
+                        <span className="text-danger">
+                          Not Eligilble <CloseCircle size="32" variant="Bulk" />
+                        </span>
+                      )}
+                    </span>
+                  </li>
+                </ul>{' '}
+              </div>
+            </div>
+            <section>
+              <strong className="mt-4 mb-2">Savings to Payment ratio</strong>
+              <div>
+                <strong>{inputs.comfortLevel}% </strong>({comfortLevelText})
+              </div>
+
+              <div className={`mt-3 comfort-level ${comfortLevelColor}`}>
+                <ReactRangeSlider
+                  min={0}
+                  max={90}
+                  step={1}
+                  tooltip={false}
+                  value={inputs.comfortLevel}
+                  onChange={(value) => {
+                    setInputs({
+                      ...inputs,
+                      comfortLevel: value,
+                    });
+                    findEligibilityResult({
+                      ...inputs,
+                      comfortLevel: value,
+                    });
+                  }}
+                />
+              </div>
+            </section>
+            <div className="bottom-range-border pt-5 mt-5"></div>
+            <section className="mt-5">
+              <h4>
+                Recommended Plan
+                {output?.recommendations?.length > 2 && 's'}{' '}
+              </h4>
+              <div>
+                {output?.recommendations?.map(({ title, advice }, index) => {
+                  return (
+                    <SingleRecommendationCard
+                      title={title}
+                      advice={advice}
+                      key={index}
+                    />
+                  );
+                })}
+              </div>
+            </section>
           </div>
-        </div>
-      </div>
+
+          <div className="button-container mt-5 mb-3">
+            <button
+              className="btn btn-primary-light fw-bold"
+              onClick={() => cancelEligibilityStatus(false)}
+            >
+              <ArrowLeftIcon /> Redefine your Eligibility status
+            </button>
+
+            <Link href="/register" passHref>
+              <a className="btn btn-secondary float-end">
+                Create a free account
+              </a>
+            </Link>
+          </div>
+        </section>
+      )}
     </section>
   );
 };
@@ -463,35 +524,29 @@ const DefineYourEligibility = ({ result }) => {
 const RecommendationCard = ({ result, cancelEligibilityStatus }) => {
   return (
     <section>
-      <div className="recommendation__card mb-5">
+      <div className="recommendation__card mb-5 py-5">
         <p>You can afford a home of up to: </p>
-        <h3 className="text-price">
+        <h2 className="mb-3 text-secondary-dark">
           {moneyFormatInNaira(result?.propertyCost)}
-        </h3>
+        </h2>
         <div>
           with an initial investment of{' '}
-          <strong> {moneyFormatInNaira(result.initial)}</strong> <br />
+          <strong className="text-lg">
+            {' '}
+            {moneyFormatInNaira(result.initial)}
+          </strong>{' '}
+          <br />
           and a monthly payment of{' '}
-          <strong>{moneyFormatInNaira(result.monthlyPayment)} </strong>{' '}
+          <strong className="text-lg">
+            {moneyFormatInNaira(result.monthlyPayment)}{' '}
+          </strong>{' '}
         </div>
-      </div>
-      <div className="button-container mt-5 mb-3">
-        <button
-          className="btn btn-link p-0 text-secondary fw-bold"
-          onClick={() => cancelEligibilityStatus(false)}
-        >
-          <ArrowLeftIcon /> Redefine your Eligibility status
-        </button>
-
-        <Link href="/register" passHref>
-          <a className="btn btn-success float-end">Create a free account</a>
-        </Link>
       </div>
     </section>
   );
 };
 
-const InEligibleCard = ({ result, cancelEligibilityStatus }) => {
+const InEligibleCard = ({ result }) => {
   return (
     <section>
       <div className="recommendation__card mb-5">
@@ -499,7 +554,7 @@ const InEligibleCard = ({ result, cancelEligibilityStatus }) => {
           Sorry, based on your income, the properties in this location might be
           above your budget.{' '}
         </p>
-        <h3 className="text-price">
+        <h3 className="text-secondary-700">
           {moneyFormatInNaira(result?.propertyCost)}
         </h3>
         <div>
@@ -509,18 +564,6 @@ const InEligibleCard = ({ result, cancelEligibilityStatus }) => {
           <strong>{moneyFormatInNaira(result.monthlyPayment)} </strong>{' '}
         </div>
         <p className="">Let&apos;s explore other options within your budget.</p>
-      </div>
-      <div className="button-container mt-5 mb-3">
-        <button
-          className="btn btn-link"
-          onClick={() => cancelEligibilityStatus(false)}
-        >
-          <ArrowLeftIcon /> Redefine your Eligibility status
-        </button>
-
-        <Link href="/register" passHref>
-          <a className="btn btn-success">Create a free account</a>
-        </Link>
       </div>
       <small className="text-primary">
         Open a free account and own your dream home
@@ -610,6 +653,31 @@ const TitleInfo = ({ title, content }) => (
   </>
 );
 
+const SingleRecommendationCard = ({ title, advice }) => {
+  return (
+    <div className="recommendation-box col-sm-6">
+      <section className="d-flex justify-content-between">
+        <div className="d-flex flex-row">
+          <div className="d-flex flex-column">
+            <h4 className={`text-secondary fw-semibold`}>{title}</h4>
+          </div>
+        </div>
+      </section>
+      <section>
+        <p className="text-md mt-2 text-primary mb-0">{advice}</p>
+
+        <p className="mt-4">
+          <Link href={'/register'}>
+            <a className="btn btn-secondary-light btn-xs btn-wide">
+              Get Started
+            </a>
+          </Link>
+        </p>
+      </section>
+    </div>
+  );
+};
+
 const GetSearch = () => {
   const { query } = useRouter();
   const { area, houseType } = query;
@@ -619,5 +687,16 @@ const GetSearch = () => {
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const propertiesRes = await Axios.get(API_ENDPOINT.getAllProperties());
+
+  return {
+    props: {
+      properties: { ...propertiesRes.data },
+    },
+    revalidate: 10,
+  };
+}
 
 export default Search;

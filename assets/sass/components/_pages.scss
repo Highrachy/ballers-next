@@ -253,10 +253,8 @@ ul.timeline li.timeline__border:after {
 }
 
 .title-section {
-  // background: url('../../img/backgrounds/title-section.png');
   background: $gray-900;
   color: white;
-  // background-size: cover;
   padding: 6rem 0;
   text-align: center;
   margin-top: 6rem;
@@ -275,10 +273,14 @@ ul.timeline li.timeline__border:after {
       max-width: 60rem;
     }
   }
+}
 
-  // &__background {
-  //   background: url('../../img/backgrounds/title-section.png');
-  //   background-size: cover;
+.empty-section {
+  background: url('../../img/backgrounds/title-section.png');
+  background-size: cover;
+
+  // h1 {
+  //   color: white !important;
   // }
 }
 

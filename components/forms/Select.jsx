@@ -135,9 +135,7 @@ export const customStyles = {
   control: (provided, state) => {
     return {
       ...provided,
-      backgroundColor: state.isDisabled
-        ? '#f5f5f5'
-        : 'rgba(232, 237, 255, 0.38)',
+      backgroundColor: '#f5f5f5',
       borderColor: state.isDisabled ? '#dddddd' : 'rgba(87, 117, 250, 0.2)',
       borderRadius: 3,
       cursor: 'default',

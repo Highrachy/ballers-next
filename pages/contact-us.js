@@ -19,7 +19,7 @@ const ContactUs = () => (
         <>
           Do you have questions about BALL or would you like to hear more about
           the platform? <br /> Then feel free to contact us by mail, phone or
-          chat. We&aps;re usually pretty quick.
+          chat. We&apos;re usually pretty quick.
         </>
       }
     />

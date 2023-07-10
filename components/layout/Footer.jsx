@@ -59,11 +59,11 @@ const Footer = () => (
               <li>&nbsp;</li>
               <li>
                 <Link
-                  href="mailto:support@ballers.ng"
+                  href="mailto:info@ballers.ng"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  support@ballers.ng
+                  info@ballers.ng
                 </Link>
               </li>
               <li>

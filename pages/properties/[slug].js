@@ -89,7 +89,7 @@ const LoadProperty = ({ property }) => {
             <>
               <SharerModal />
               <Spacing />
-              <Button>Make Enquiry</Button>
+              <Button href="/contact-us">Make Enquiry</Button>
             </>
           }
         />
@@ -119,7 +119,7 @@ const LoadProperty = ({ property }) => {
           </div>
         </div>
 
-        <div className="property-contact">
+        {/* <div className="property-contact">
           <div className="row">
             <div className="col-md-12 interested-contact">
               <h5>Interested in this property?</h5>
@@ -183,7 +183,7 @@ const LoadProperty = ({ property }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <FloorPlansList
           property={property}
@@ -214,7 +214,6 @@ export default PublicPropertySingle;
 
 export async function getStaticProps({ params }) {
   const slug = params['slug'];
-  console.log('slug: ', slug);
   const singleProperty = await Axios.get(API_ENDPOINT.getPropertyBySlug(slug));
 
   const property = singleProperty.data.result?.[0] || {};

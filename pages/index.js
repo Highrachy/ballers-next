@@ -41,8 +41,9 @@ const HoldingSection = () => (
           <h1 className="text-shadow-light pt-5 pt-md-0">
             Become <br className="d-none d-lg-block" /> a <span>Landlord</span>
           </h1>
-          <p className="mt-4 text-primary mb-5 mb-md-0">
-            We make owning a home simpler and achievable.
+          <p className="mt-3 text-primary mb-5 mb-md-2 text-md">
+            Ready to own your dream home? Start Exploring Eligible Properties
+            Now!
           </p>
         </div>
 

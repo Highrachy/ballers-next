@@ -296,11 +296,11 @@ const MoreQuestions = () => (
         <h5 className="text-normal mt-4">
           <a
             className="text-primary"
-            href="mailto:support@ballers.ng"
+            href="mailto:info@ballers.ng"
             target="_blank"
             rel="noopener noreferrer"
           >
-            support@ballers.ng
+            info@ballers.ng
           </a>
         </h5>
         <p className="text-muted">The best way to get answer faster.</p>

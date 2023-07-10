@@ -7,13 +7,12 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ClipboardTick, DocumentCopy } from 'iconsax-react';
 import { FaShareAlt } from 'react-icons/fa';
 
-const SharerModal = () => {
+const SharerModal = ({ url, title = 'Share Page', iconWidth = 64 }) => {
   const [showDetailsModal, setShowDetailsModal] = React.useState(false);
   const { asPath } = useRouter();
   const [copied, setCopied] = React.useState(false);
-  const URL = `${
-    process.env.NEXT_PUBLIC_HOST || 'https://ballers.ng'
-  }${asPath}`;
+  const URL =
+    url || `${process.env.NEXT_PUBLIC_HOST || 'https://ballers.ng'}${asPath}`;
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -28,13 +27,13 @@ const SharerModal = () => {
         <FaShareAlt /> &nbsp; Share
       </Button>
       <Modal
-        title="Referral Details"
+        title={title}
         show={showDetailsModal}
         onHide={() => setShowDetailsModal(false)}
         showFooter={false}
       >
         <section>
-          <h2>Testinge Shaere</h2>
+          <p className="text-dark text-md">Copy URL and share with friends</p>
           {copied && (
             <div className="mb-3 text-xs text-success">
               Your link has been successfully copied!
@@ -83,7 +82,7 @@ const SharerModal = () => {
                 'This property will be shared on social media networks'
               }
               className=""
-              width={64}
+              width={iconWidth}
             />
           </div>
         </section>

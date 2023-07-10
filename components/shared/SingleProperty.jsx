@@ -8,7 +8,7 @@ import { moneyFormatInNaira, getLocationFromAddress } from 'utils/helpers';
 import Image, { OnlineImage } from 'components/utils/Image';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property.png';
 import Link from 'next/link';
-import { BathIcon, LocationIcon, VendorIcon } from 'components/utils/Icons';
+import { BathIcon, MapPinIcon, VendorIcon } from 'components/utils/Icons';
 import { ToiletIcon } from 'components/utils/Icons';
 import { BedIcon } from 'components/utils/Icons';
 import Humanize from 'humanize-plus';
@@ -878,9 +878,9 @@ export const PropertyHeader = ({
       </div>
 
       <div className="mb-2 text-muted">
-        <LocationIcon /> {getLocationFromAddress(property.address)}
+        <MapPinIcon /> {getLocationFromAddress(property.address)}
       </div>
-      <div className="property-info-details mb-5">
+      <div className="property-info-details mb-4">
         <span className="pe-3">
           <BedIcon /> <Spacing /> {property.bedrooms}{' '}
           {Humanize.pluralize(property.bedrooms, 'bed')}

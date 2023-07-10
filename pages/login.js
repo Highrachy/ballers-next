@@ -10,7 +10,9 @@ import { feedback } from 'components/forms/form-helper';
 import Button from 'components/forms/Button';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
 import { loginSchema } from 'components/forms/schemas/userSchema';
-import { EmptyTitleSection } from 'components/common/TitleSection';
+import TitleSection, {
+  EmptyTitleSection,
+} from 'components/common/TitleSection';
 import Toast, { useToast } from 'components/utils/Toast';
 import { BASE_API_URL, DASHBOARD_PAGE } from 'utils/constants';
 import {
@@ -31,6 +33,7 @@ const Login = () => {
   return (
     <>
       <Header />
+      <TitleSection name="Login Page" content="Log into your account" />
       <EmptyTitleSection>
         <Content token={token} redirectTo={url} />
       </EmptyTitleSection>

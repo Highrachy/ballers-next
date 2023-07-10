@@ -8,7 +8,6 @@ import { RecommendedPropertyLists } from 'components/common/PropertyCard';
 import Axios from 'axios';
 
 const PublicProperties = ({ result }) => {
-  console.log('result: ', result);
   return (
     <>
       <Header />
