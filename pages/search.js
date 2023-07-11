@@ -11,16 +11,12 @@ import {
   QuestionMarkIcon,
   MapPinIcon,
   ArrowLeftIcon,
-  InfoIcon,
   HouseIcon,
   CloseIcon,
   PropertyIcon,
-  RangeLine,
 } from 'components/utils/Icons';
 import NumberFormat from 'react-number-format';
 import { recommendBallersPlan } from 'utils/search-result-helpers';
-import * as queryString from 'query-string';
-import { Slide } from 'react-awesome-reveal';
 import { useRouter } from 'next/router';
 import contentProperty from '@/data/contentProperty';
 import Link from 'next/link';
@@ -29,6 +25,7 @@ import { CloseCircle, TickCircle } from 'iconsax-react';
 import Axios from 'axios';
 import { API_ENDPOINT } from 'utils/URL';
 import { PropertiesRowList } from './properties';
+import CommunityGallery from '@/components/common/CommunityGallery';
 
 const Search = ({ properties }) => {
   const { query } = useRouter();
@@ -52,6 +49,7 @@ const Search = ({ properties }) => {
       ) : (
         <NoSearchResultFound />
       )}
+      <CommunityGallery />
       <Footer />
     </>
   );
@@ -61,7 +59,7 @@ const SearchForm = ({ defaultInputValue }) => (
   <section className="container-fluid property-search-holder">
     <div className="row">
       <section className="property-search__page mx-auto pt-5 my-5">
-        {/* <SquareBubbles /> */}
+        <SquareBubbles />
         <div className="col-12">
           <h2 className="pb-3 text-white text-center">Search for Property</h2>
         </div>
@@ -125,22 +123,6 @@ const SearchResultContent = ({ properties, result }) => {
                 </div>
               </div>
             </div>
-            {/* <article className="mt-7 row text-start">
-              <div className="col-sm-6">
-                <h3>About {result.area}</h3>
-                {result.content}
-              </div>
-              <div className="col-sm-6">
-                <Map
-                  coordinates={{
-                    lng: result.longitude,
-                    lat: result.latitude,
-                  }}
-                  zoom={16}
-                  pinColor="red"
-                />
-              </div>
-            </article> */}
           </section>
 
           <div className="row">
@@ -151,6 +133,7 @@ const SearchResultContent = ({ properties, result }) => {
           </div>
 
           <DefineYourEligibility result={result} />
+          <PropertyInfo result={result} />
         </div>
         {showMap && (
           <div className="col-lg-4 search-result-map">
@@ -184,6 +167,25 @@ const SearchResultContent = ({ properties, result }) => {
     </div>
   );
 };
+
+const PropertyInfo = ({ result }) => (
+  <article className="my-7 row text-start">
+    <div className="col-sm-6">
+      <h3>About {result.area}</h3>
+      {result.content}
+    </div>
+    <div className="col-sm-6">
+      <Map
+        coordinates={{
+          lng: result.longitude,
+          lat: result.latitude,
+        }}
+        zoom={16}
+        pinColor="red"
+      />
+    </div>
+  </article>
+);
 
 const RangeInput = ({
   name,
@@ -674,16 +676,6 @@ const SingleRecommendationCard = ({ title, advice }) => {
           </Link>
         </p>
       </section>
-    </div>
-  );
-};
-
-const GetSearch = () => {
-  const { query } = useRouter();
-  const { area, houseType } = query;
-  return (
-    <div>
-      Search: {area} - {houseType}
     </div>
   );
 };

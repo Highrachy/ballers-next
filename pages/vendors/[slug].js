@@ -12,9 +12,9 @@ import { getFormattedAddress } from 'utils/helpers';
 import Tooltip from 'components/common/Tooltip';
 import { OnlineImage } from 'components/utils/Image';
 import { CertifiedIcon } from 'components/utils/Icons';
-import { PropertiesRowList } from 'pages/user/just-for-you';
 import { useRouter } from 'next/router';
 import Sharer from '@/components/utils/Sharer';
+import { PropertiesRowList } from 'pages/user/just-for-you';
 
 const pageOptions = {
   key: 'user',

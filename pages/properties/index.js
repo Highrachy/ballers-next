@@ -25,7 +25,7 @@ const PublicProperties = ({ result }) => {
 export const PropertiesRowList = ({ result, title }) => {
   return result && result.length > 0 ? (
     <div className="container-fluid">
-      {title && <h3 className="my-5">{title}</h3>}
+      {title && <h3 className="mt-7 mb-4">{title}</h3>}
       <div className="row">
         <RecommendedPropertyLists
           propertyClassName="col-sm-6 col-lg-6 col-xl-4"

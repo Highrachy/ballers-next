@@ -13,6 +13,7 @@ import {
   DisplayFormikState,
   setInitialValues,
 } from 'components/forms/form-helper';
+import { PropertiesRowList } from 'pages/properties';
 
 const JustForYou = ({ location }) => {
   const { userState } = React.useContext(UserContext);
@@ -106,19 +107,5 @@ const SearchForm = ({ defaultInputValue }) => (
     </div>
   </div>
 );
-
-export const PropertiesRowList = ({ results, title }) => {
-  return results && results.length > 0 ? (
-    <div className="container-fluid">
-      {title && <h4 className="mb-5">{title}</h4>}
-      <div className="row">
-        <RecommendedPropertyLists
-          propertyClassName="col-sm-6"
-          properties={results}
-        />
-      </div>
-    </div>
-  ) : null;
-};
 
 export default JustForYou;

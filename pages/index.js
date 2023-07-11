@@ -1,33 +1,36 @@
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AttentionSeeker, Slide } from 'react-awesome-reveal';
 import Header from '@/components/layout/Header';
-import SearchPropertyForm from '@/components/common/SearchPropertyForm';
-import { HouseIcon, PolkaDot } from '@/components/utils/Icons';
+import { PolkaDot } from '@/components/utils/Icons';
 import useWindowSize from '@/hooks/useWindowSize';
 import { MOBILE_WIDTH } from '@/utils/constants';
 import FAQsAccordion from '@/components/common/FAQsAccordion';
 import FAQsContent from '@/data/faqs';
 import CommunityGallery from '@/components/common/CommunityGallery';
 import Footer from '@/components/layout/Footer';
-import Modal from '@/components/common/Modal';
 import SearchContentPropertyForm from '@/components/common/SearchContentPropertyForm';
+import axios from 'axios';
+import { PropertiesRowList } from './properties';
+import { API_ENDPOINT } from '@/utils/URL';
+import ReferralModal from '@/components/common/ReferralModal';
 
-export default function Home() {
+export default function Home({
+  properties,
+  referralCode = null,
+  inviteCode = null,
+}) {
   return (
     <>
       <Header />
       <HoldingSection />
       <AboutSection />
+      <PropertiesRowList result={properties} title="Available Properties" />
       <HowItWorksSection />
       <FAQsSection />
       <CommunityGallery />
-      {/* <ReferralModal
-        referral={referral}
-        showReferralModal={showReferralModal}
-        setShowReferralModal={setShowReferralModal}
-      /> */}
-
+      <ReferralModal referralCode={referralCode} inviteCode={inviteCode} />
       <Footer />
     </>
   );
@@ -156,38 +159,6 @@ const HowItWorksSection = () => (
   </section>
 );
 
-// const ReferralModal = ({
-//   referral,
-//   showReferralModal,
-//   setShowReferralModal,
-// }) => {
-//   return referral ? (
-//     <Modal
-//       title="Welcome to Ball"
-//       show={showReferralModal}
-//       onHide={() => setShowReferralModal(false)}
-//       showFooter={false}
-//     >
-//       <section className="row">
-//         <div className="col-md-12 my-3 text-center">
-//           <HouseIcon />
-//           <h3 className="my-4">
-//             Hello{referral.firstName ? ` ${referral.firstName}` : ''},
-//           </h3>
-//           <p className="lead">
-//             {referral.referrer.firstName} has invited you to{' '}
-//             <strong>become a Landlord.</strong>
-//           </p>
-
-//           <Link href="/register" className="btn btn-secondary my-4">
-//             Register for Free
-//           </Link>
-//         </div>
-//       </section>
-//     </Modal>
-//   ) : null;
-// };
-
 const FAQsSection = () => {
   const FAQs = Object.values(FAQsContent).reduce((result, { faqs }, index) => {
     const homeFAQs = faqs.filter(({ showOnHomePage }) => showOnHomePage);
@@ -207,3 +178,13 @@ const FAQsSection = () => {
     </section>
   );
 };
+
+export async function getStaticProps() {
+  const propertiesRes = await axios.get(API_ENDPOINT.getAllProperties());
+  return {
+    props: {
+      properties: propertiesRes.data?.result,
+    },
+    revalidate: 10,
+  };
+}

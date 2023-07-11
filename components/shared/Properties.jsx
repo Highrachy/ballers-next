@@ -51,7 +51,7 @@ const Properties = () => {
         initialFilter={{ sortBy: 'createdAt', sortDirection: 'desc' }}
         pageName="Property"
         pluralPageName="Properties"
-        DataComponent={PropertiesRowList}
+        DataComponent={PropertiesRowLists}
         FilterComponent={FilterForm}
         PageIcon={<PropertyIcon />}
         queryName="property"
@@ -60,7 +60,7 @@ const Properties = () => {
   );
 };
 
-const PropertiesRowList = ({ results, offset }) => (
+const PropertiesRowLists = ({ results, offset }) => (
   <div className="container-fluid">
     <Card>
       <div className="table-responsive">
