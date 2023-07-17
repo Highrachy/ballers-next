@@ -17,13 +17,14 @@ import { WelcomeHero } from 'pages/user/dashboard';
 
 const Single = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id = 1 } = router.query;
   const [initialStep, setInitialStep] = React.useState(id);
   const { userState } = React.useContext(UserContext);
 
   React.useEffect(() => {
     if (id?.toString() !== initialStep?.toString()) setInitialStep(id);
-  }, [id, initialStep]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const [toast, setToast] = useToast();
 

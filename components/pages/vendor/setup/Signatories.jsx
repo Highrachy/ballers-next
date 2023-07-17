@@ -21,6 +21,7 @@ import Image, { OnlineImage } from 'components/utils/Image';
 import { VerificationComments } from './AccountSetup';
 import { UploadSignature } from '@/components/shared/SingleOffer';
 import Switch from '@/components/forms/Switch';
+import Upload from '@/components/utils/Upload';
 
 const Signatories = () => (
   <BackendPage>
@@ -51,7 +52,7 @@ export const SignatoriesForm = ({ moveToNextStep }) => {
           return;
         }
 
-        if (values.isSignatory === 'true') {
+        if (values.isSignatory) {
           payload.vendor.directors[0].signature = signature;
         }
 
@@ -152,7 +153,7 @@ const SignatoriesInfoForm = ({
 
         {props.values.isSignatory && (
           <div className="mt-3">
-            {signature && (
+            {/* {signature && (
               <h3 className="signature-pad">
                 <>
                   {isValidURL(signature) ? (
@@ -171,9 +172,24 @@ const SignatoriesInfoForm = ({
               image={image}
               setImage={setImage}
               setSignature={setSignature}
+            /> */}
+            <Upload
+              afterUpload={(image) => {
+                setSignature(image);
+              }}
+              changeText={`Update Signature`}
+              defaultImage={image}
+              oldImage={image}
+              name="Signature"
+              imgOptions={{ options: { h: 200 }, className: 'mb-3' }}
+              uploadText={`Upload Signature`}
             />
-            <div className="text-md mt-2">
+            {/* <div className="text-md mt-2">
               Note: Uploaded signature will be used to sign offer letters
+            </div> */}
+            <div className="warning-alert mt-4">
+              <h5 className="header-smaller">Note</h5>
+              <p> Uploaded signature will be used to sign offer letters</p>
             </div>
           </div>
         )}

@@ -63,7 +63,7 @@ const Content = ({ redirectTo, token }) => {
                 <div className="register mt-6 text-center">
                   Not Registered?{' '}
                   <Link href="/register">
-                    <a className='className="auth__link"'> Create Account</a>
+                    <a className="auth__link"> Create Account</a>
                   </Link>
                 </div>
               </section>
@@ -98,13 +98,14 @@ const LoginForm = ({ redirectTo, token }) => {
       Axios.get(`${BASE_API_URL}/user/activate`, { params: { token } })
         .then(function (response) {
           const { status, data } = response;
-          if (status === 200) {
-            // clear storage
-            store(false);
+          if (statusIsSuccessful(status)) {
             setToast({
               type: 'success',
               message: data.message,
             });
+            setTimeout(() => {
+              router.push('/login');
+            }, 3000);
           }
         })
         .catch(function (error) {
@@ -137,8 +138,8 @@ const LoginForm = ({ redirectTo, token }) => {
             if (statusIsSuccessful(status)) {
               clearStorage();
               storeToken(data.user.token);
-              storeUserRole(data.user.role);
               loginUser(data.user, data.user.token);
+              storeUserRole(data.user.role);
             }
           })
           .catch(function (error) {

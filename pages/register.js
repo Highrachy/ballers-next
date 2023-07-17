@@ -15,7 +15,9 @@ import Button from 'components/forms/Button';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
 import { registerSchema } from 'components/forms/schemas/userSchema';
 import CheckboxGroup from 'components/forms/CheckboxGroup';
-import { EmptyTitleSection } from 'components/common/TitleSection';
+import TitleSection, {
+  EmptyTitleSection,
+} from 'components/common/TitleSection';
 import Toast, { useToast } from 'components/utils/Toast';
 import { BASE_API_URL } from 'utils/constants';
 import { getError } from 'utils/helpers';
@@ -25,6 +27,7 @@ import PhoneNumber from 'components/forms/PhoneNumber';
 const Register = () => (
   <>
     <Header />
+    <TitleSection name="Registration Page" content="Create a new account" />
     <EmptyTitleSection>
       <Content />
     </EmptyTitleSection>

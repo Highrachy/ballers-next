@@ -40,7 +40,6 @@ export const BankInformationForm = ({ moveToNextStep, setStepToast }) => {
       initialValues={setInitialValues(bankSchema, TEST_DATA)}
       onSubmit={(values, actions) => {
         let payload = { vendor: { bankInfo: values } };
-        console.log('payload', payload);
 
         Axios.put(`${BASE_API_URL}/user/vendor/update`, payload, {
           headers: { Authorization: getTokenFromStore() },

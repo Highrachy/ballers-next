@@ -759,7 +759,7 @@ export const PropertyDescription = ({
 
       {useCurrentRole().role !== USER_TYPES.vendor && !isPortfolioPage && (
         <div className="my-5">
-          <div className="hero-holder">
+          <div className="warning-alert">
             <h5 className="header-smaller">Safety Tips</h5>
             <ol className="ms-n3 mb-0">
               <li>

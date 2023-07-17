@@ -356,6 +356,16 @@ ul.timeline li.timeline__border:after {
   padding-top: 5rem;
 }
 
+.auth__link {
+  color: $secondary-600;
+  text-decoration: none;
+  transition: all 0.3s ease-out;
+  &:hover {
+    color: $secondary-700;
+    text-decoration: none;
+  }
+}
+
 .sharer__icons {
   li {
     margin-bottom: 1rem;
