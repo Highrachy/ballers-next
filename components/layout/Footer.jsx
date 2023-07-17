@@ -45,12 +45,12 @@ const Footer = () => (
           <div className="col-lg-3 col-sm-6">
             <h5 className="pb-2 pb-lg-0">Contact Us</h5>
             <ul className="list-inline">
-              {Object.entries(SOCIAL_MEDIA).map(([media, url]) => (
+              {Object.entries(SOCIAL_MEDIA).map(([media, url], index) => (
                 <li
                   className="list-inline-item me-2 social-media-links"
-                  key={media}
+                  key={index}
                 >
-                  <Link href={url}>
+                  <Link href={url || '/'}>
                     <Image
                       width="32"
                       height="32"
