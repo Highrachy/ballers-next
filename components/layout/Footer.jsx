@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import BallersLogo from '../utils/BallersLogo';
+import { SOCIAL_MEDIA } from '@/utils/constants';
 
 const Footer = () => (
   <footer className="footer">
@@ -23,10 +24,10 @@ const Footer = () => (
             <h5>About Us</h5>
             <ul className="list-unstyled">
               <li>
-                <Link href="/">Our Story</Link>
+                <Link href="/about-us">About BALL</Link>
               </li>
               <li>
-                <Link href="/">Meet the Team</Link>
+                <Link href="/about-us">Meet the Team</Link>
               </li>
             </ul>
           </div>
@@ -44,9 +45,12 @@ const Footer = () => (
           <div className="col-lg-3 col-sm-6">
             <h5 className="pb-2 pb-lg-0">Contact Us</h5>
             <ul className="list-inline">
-              {['facebook', 'twitter', 'instagram', 'linkedin'].map((media) => (
-                <li className="list-inline-item me-2" key={media}>
-                  <Link href="/">
+              {Object.entries(SOCIAL_MEDIA).map(([media, url]) => (
+                <li
+                  className="list-inline-item me-2 social-media-links"
+                  key={media}
+                >
+                  <Link href={url}>
                     <Image
                       width="32"
                       height="32"
@@ -81,16 +85,20 @@ const Footer = () => (
         <p className="my-4 px-7 px-lg-0 pe-lg-6 footer-bottom-text">
           We make owning a home simpler and achievable.
         </p>
-        <h5 className="highrachy-text mb-5">
-          <span>An initiative of</span>
-          <Image
-            src="/img/highrachy-logo.png"
-            alt="highrachy logo"
-            className="highrachy-logo-footer"
-            width="86"
-            height="25"
-          />{' '}
-        </h5>
+        <Link href="https://highrachy.com" passHref>
+          <a target="_blank" rel="noopener noreferrer">
+            <h5 className="highrachy-text mb-5">
+              <span>An initiative of</span>
+              <Image
+                src="/img/highrachy-logo.png"
+                alt="highrachy logo"
+                className="highrachy-logo-footer"
+                width="86"
+                height="25"
+              />
+            </h5>
+          </a>
+        </Link>
       </div>
     </div>
   </footer>

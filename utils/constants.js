@@ -372,3 +372,11 @@ export const MODEL = {
   OFFER: 'offers',
   VAS_REQUEST: 'vasrequests',
 };
+
+export const SOCIAL_MEDIA = {
+  facebook: 'https://www.facebook.com/Highrachy/',
+  twitter: 'https://twitter.com/highrachy',
+  instagram: 'https://www.instagram.com/highrachyhq/',
+  linkedin:
+    'https://www.linkedin.com/company/highrachy-investment-and-technology-limited',
+};
