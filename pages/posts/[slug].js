@@ -10,6 +10,7 @@ import SectionSeparator from '@/components/blog/SectionSeparator';
 import MoreStories from '@/components/blog/MoreStories';
 import Header from '@/components/layout/Header';
 import TitleSection from '@/components/common/TitleSection';
+import { BlogContainer } from 'pages/blog';
 
 export default function Post({ post, posts, preview }) {
   const router = useRouter();
@@ -34,27 +35,16 @@ export default function Post({ post, posts, preview }) {
               />
             </Head>
             <Header />
-            {/* <TitleSection name={'Article'} content={post.title} /> */}
-            <section className="container-fluid">
-              <div className="row">
-                <div className="col-sm-8 col-10 my-6 mx-auto">
-                  <PostHeader
-                    title={post.title}
-                    coverImage={post.featuredImage}
-                    date={post.date}
-                    author={post.author}
-                    categories={post.categories}
-                  />
-                  <PostBody content={post.content} />
-                  <footer>
-                    {post.tags.edges.length > 0 && <Tags tags={post.tags} />}
-                  </footer>
+            <BlogContainer>
+              <PostHeader {...post} heroImage />
+              <PostBody content={post.content} />
+              <footer>
+                {post.tags.edges.length > 0 && <Tags tags={post.tags} />}
+              </footer>
 
-                  <SectionSeparator />
-                  {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-                </div>
-              </div>
-            </section>
+              <SectionSeparator />
+              {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+            </BlogContainer>
           </article>
         </>
       )}

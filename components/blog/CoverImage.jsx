@@ -1,13 +1,19 @@
 import cn from 'classnames';
 import Link from 'next/link';
 
-export default function CoverImage({ title, coverImage, slug }) {
+export default function CoverImage({
+  title,
+  coverImage,
+  slug,
+  heroImage = false,
+}) {
   const image = (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       alt={`Cover Image for ${title}`}
       src={coverImage?.node.sourceUrl}
-      className={cn('shadow-sm img-fluid img-cover', {
-        'hover:shadow-md transition-shadow duration-200': slug,
+      className={cn('img-fluid img-cover', {
+        'blog-card-img': slug && !heroImage,
       })}
     />
   );

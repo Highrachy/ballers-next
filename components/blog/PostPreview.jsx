@@ -12,20 +12,17 @@ export default function PostPreview({
   slug,
 }) {
   return (
-    <div className="col">
+    <div className="col-sm-6">
       <div className="card mb-4">
-        {/* <Link href={`/posts/${slug}`} passHref>
+        <Link href={`/posts/${slug}`} passHref>
           <a className="card-img-top">
             <CoverImage title={title} coverImage={coverImage} slug={slug} />
           </a>
-        </Link> */}
+        </Link>
         <div className="card-body">
           <Link href={`/posts/${slug}`}>
-            <a className="text-decoration-none mt-4">
-              <h4
-                className="card-title"
-                dangerouslySetInnerHTML={{ __html: title }}
-              />
+            <a className="blog-card-title mt-4">
+              <h4 dangerouslySetInnerHTML={{ __html: title }} />
             </a>
           </Link>
           <Avatar author={author} noImage />

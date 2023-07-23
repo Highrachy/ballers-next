@@ -185,3 +185,16 @@
 .text-secondary-dark {
   color: $secondary-900;
 }
+
+.text-lead {
+  line-height: 1.8;
+  color: $gray-800;
+}
+
+.text-lead-after {
+  letter-spacing: 1px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: $secondary-800;
+  text-transform: uppercase;
+}

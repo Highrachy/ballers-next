@@ -1,36 +1,53 @@
+import React from 'react';
+import Link from 'next/link';
 import Avatar from './Avatar';
 import Categories from './Categories';
 import CoverImage from './CoverImage';
 import DateComponent from './DateComponent';
 import PostTitle from './PostTitle';
 
-export default function PostHeader({
+const PostHeader = ({
   title,
-  coverImage,
+  featuredImage,
+  slug,
   date,
-  author,
+  noLink,
+  // author,
   categories,
-}) {
+  heroImage,
+}) => {
+  const category = categories?.edges[0].node.name;
+  const postTitle = (
+    <h2 className="blog-title" dangerouslySetInnerHTML={{ __html: title }} />
+  );
+
   return (
     <>
-      <PostTitle>{title}</PostTitle>
-      <div className="d-none d-md-block mb-4">
-        <Avatar author={author} />
-      </div>
-      {coverImage && (
-        <div className="mt-4">
-          <CoverImage title={title} coverImage={coverImage} slug={slug} />
-        </div>
+      <CoverImage
+        title={title}
+        coverImage={featuredImage}
+        {...(!noLink && { slug })}
+        heroImage
+      />
+
+      <div className="start-dash">{category}</div>
+
+      {noLink ? (
+        postTitle
+      ) : (
+        <Link href={`/posts/${slug}`}>
+          <a>{postTitle}</a>
+        </Link>
       )}
-      <div className="container">
-        <div className="d-block d-md-none">
-          <Avatar author={author} />
-        </div>
-        <div className="mb-3">
-          Posted <DateComponent dateString={date} />
-          <Categories categories={categories} />
-        </div>
+
+      <div className="my-4 text-lead-after d-flex">
+        <DateComponent dateString={date} />
+
+        {/* <span>&nbsp; / &nbsp;</span>{' '}
+        <Avatar author={author} noImage /> */}
       </div>
     </>
   );
-}
+};
+
+export default PostHeader;

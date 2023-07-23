@@ -410,3 +410,23 @@ ul.timeline li.timeline__border:after {
     padding: 5px 3rem;
   }
 }
+
+.start-dash {
+  position: relative;
+  margin: 1.2rem 5rem !important;
+  color: $danger-500;
+  font-weight: 500;
+  font-size: 1rem;
+  text-transform: uppercase;
+  &:before {
+    content: '';
+    display: inline-block;
+    width: 4em;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: -5em;
+    border-style: solid;
+    border-width: 1px 0 0;
+  }
+}
