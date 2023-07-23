@@ -22,7 +22,7 @@ const ArticlesPage = ({ allPosts: { edges }, allCategories }) => {
       <BlogContainer>
         {heroPost && <HeroPost {...heroPost} />}
         <div className="dotted-border my-6"></div>
-        <h2 className="mt-6 mb-4">More Posts</h2>
+        {/* <h2 className="mt-6 mb-4">More Posts</h2> */}
         <CategoriesComponent categories={allCategories} />
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}
       </BlogContainer>

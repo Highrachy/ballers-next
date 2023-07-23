@@ -103,7 +103,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
     name: 'available-badge',
     setToast,
     endpoint: API_ENDPOINT.getAllBadgesByRole(
-      user?.role !== USER_TYPES.editor ? user.role || 1 : 1
+      user?.role !== USER_TYPES.editor ? user?.role || 1 : 1
     ),
     axiosOptions: {
       params: { assignedRole: `${BADGE_ACCESS_LEVEL.ALL}:${user?._id}` },

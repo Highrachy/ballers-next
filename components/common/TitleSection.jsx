@@ -11,14 +11,14 @@ const TitleSection = ({ name, content, children }) => {
     >
       <SquareBubbles />
       <h2 className="pb-3 text-white">{name}</h2>
-      <p className="mx-auto col-xl-6 col-lg-8 col-sm-9 col-11">{content}</p>
+      <div className="mx-auto col-xl-6 col-lg-8 col-sm-9 col-11">{content}</div>
       {children}
     </section>
   );
 };
 
 TitleSection.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.any.isRequired,
   content: PropTypes.any.isRequired,
   children: PropTypes.any,
 };

@@ -6,7 +6,7 @@ import { getUserRoleFromStore } from 'utils/localStorage';
 export const useCurrentRole = () => {
   const { userState } = React.useContext(UserContext);
 
-  const role = userState.role || getUserRoleFromStore();
+  const role = userState?.role || getUserRoleFromStore();
   return {
     isAdmin: role === USER_TYPES.admin,
     isEditor: role === USER_TYPES.editor,

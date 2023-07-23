@@ -27,6 +27,6 @@ export const useMenu = () => {
     return userLoadingMenu;
   }
 
-  const currentUserRole = userState.role || getUserRoleFromStore();
+  const currentUserRole = userState?.role || getUserRoleFromStore();
   return SIDE_MENU[currentUserRole];
 };

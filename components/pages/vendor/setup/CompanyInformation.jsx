@@ -21,11 +21,17 @@ import {
   companyInfoSchema,
   phoneNumbersSchema,
 } from 'components/forms/schemas/vendorSchema';
-import { getError, statusIsSuccessful, valuesToOptions } from 'utils/helpers';
+import {
+  generateYearsArray,
+  getError,
+  statusIsSuccessful,
+  valuesToOptions,
+} from 'utils/helpers';
 import Address from 'components/utils/Address';
 import Select from 'components/forms/Select';
 import { VerificationComments } from './AccountSetup';
 import Upload from 'components/utils/Upload';
+import Textarea from '@/components/forms/Textarea';
 
 const CompanyInformation = () => (
   <BackendPage>
@@ -140,11 +146,22 @@ const CompanyInfoForm = () => {
 
           <VerificationComments step="1" />
 
-          <Input
-            label="Company Name"
-            name="vendor.companyName"
-            placeholder="Company Name"
-          />
+          <div className="form-row">
+            <Input
+              label="Company Name"
+              name="vendor.companyName"
+              placeholder="Company Name"
+              formGroupClassName="col-md-6"
+            />
+
+            <Select
+              formGroupClassName="col-md-6"
+              label="Year Established"
+              name="vendor.established"
+              options={valuesToOptions(generateYearsArray())}
+              placeholder="Select Year the company was established"
+            />
+          </div>
 
           <div className="form-row">
             <Input
@@ -176,6 +193,21 @@ const CompanyInfoForm = () => {
               optional
             />
           </div>
+
+          <Input
+            label="Company Tagline"
+            name="vendor.tagline"
+            placeholder="Enter your company's tagline"
+            optional
+          />
+
+          <Textarea
+            label="Description"
+            name="vendor.about"
+            placeholder="Description"
+            rows="3"
+            optional
+          />
         </div>
       </section>
     </Card>

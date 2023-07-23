@@ -53,6 +53,7 @@ const VendorProfile = ({ slug = 'blissville' }) => {
             sortBy: 'createdAt',
             sortDirection: 'desc',
           }}
+          limit="20"
           pageName="Vendor"
           DataComponent={UsersRowList}
           PageIcon={<UserIcon />}
@@ -70,7 +71,11 @@ const UsersRowList = ({ results, offset }) => {
     <div className="container-fluid">
       <div className="row">
         {results.map((user, index) => (
-          <UsersRow key={index} number={offset + index + 1} {...user} />
+          <VendorComponent
+            key={index}
+            number={offset + index + 1}
+            user={user}
+          />
         ))}
       </div>
     </div>
@@ -79,7 +84,7 @@ const UsersRowList = ({ results, offset }) => {
 
 const UsersRow = ({ number, ...user }) => {
   const status = getUserStatus(user);
-  if (!user.vendor.companyLogo) return null;
+  // if (!user.vendor.companyLogo) return null;
 
   return (
     <div className="col-md-4 col-lg-3 mb-5">
@@ -92,7 +97,7 @@ const UsersRow = ({ number, ...user }) => {
             paddingTop: '1rem',
           }}
         >
-          <OnlineImage src={user.vendor.companyLogo} width="200px" />
+          <OnlineImage src={user?.vendor?.companyLogo} width="200px" />
         </div>
         <div className="card-body bg-light">
           <h5 className="card-title">{user.vendor.companyName}</h5>
@@ -103,6 +108,27 @@ const UsersRow = ({ number, ...user }) => {
           >
             View Vendor
           </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const VendorComponent = ({ user }) => {
+  return (
+    <div className="vendor vendor-grid-item vendor-grid-item col-md-4 col-lg-3 mb-5">
+      <div className="vendor-inner">
+        <div className="vendor-image">
+          <Link href={`/vendors/${user?.vendor?.slug}`}>
+            <a>
+              <div className="vendor-logo">
+                <OnlineImage src={user?.vendor?.companyLogo} width="200px" />
+              </div>
+              <div className="vendor-hover-logo">
+                <OnlineImage src={user?.vendor?.companyLogo} width="200px" />
+              </div>
+            </a>
+          </Link>
         </div>
       </div>
     </div>

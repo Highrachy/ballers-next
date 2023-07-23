@@ -304,3 +304,15 @@ export const flattenErrorMessages = (obj, result = []) => {
   });
   return result;
 };
+
+export const generateYearsArray = () => {
+  const currentYear = new Date().getFullYear();
+  const startYear = 1960;
+  const yearsArray = [];
+
+  for (let year = currentYear; year >= startYear; year--) {
+    yearsArray.push(year);
+  }
+
+  return yearsArray;
+};
