@@ -24,7 +24,7 @@ const SharerModal = ({ url, title = 'Share Page', iconWidth = 64 }) => {
   return (
     <>
       <Button color="primary-light" onClick={() => setShowDetailsModal(true)}>
-        <FaShareAlt /> &nbsp; Share
+        <FaShareAlt /> &nbsp; {title}
       </Button>
       <Modal
         title={title}

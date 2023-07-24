@@ -83,6 +83,7 @@ import {
   Folder,
   Gift,
   Home3,
+  SafeHome,
   Setting2,
 } from 'iconsax-react';
 
@@ -102,6 +103,7 @@ export const BedIcon = () => <FaBed />;
 export const CameraIcon = () => <FiCamera />;
 export const CarIcon = () => <AiFillCar />;
 export const CertifyIcon = () => <GoVerified />;
+export const CertifiedIcon = () => <SafeHome variant="Bulk" />;
 export const CheckIcon = () => <FiCheck />;
 export const CheckSquareIcon = () => <AiFillCheckSquare />;
 export const CheckCircleIcon = () => <BiCheckCircle />;
@@ -163,7 +165,7 @@ export const VisitationIcon = () => <AiOutlineCalendar />;
 export const WarningIcon = () => <FaExclamationTriangle />;
 export const VendorIcon = () => <FaUserCircle />;
 
-export const CertifiedIcon = () => (
+export const CertifiedIconOld = () => (
   <svg
     width={50}
     height={50}

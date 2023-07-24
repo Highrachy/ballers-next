@@ -21,7 +21,7 @@ export default function PostPreview({
         </Link>
         <div className="card-body">
           <Link href={`/posts/${slug}`}>
-            <a className="blog-card-title mt-4">
+            <a className="blog-card-title text-single-line mt-4">
               <h4 dangerouslySetInnerHTML={{ __html: title }} />
             </a>
           </Link>

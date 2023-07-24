@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
-import { PropertyIcon } from 'components/utils/Icons';
+import { CertifyIcon, MapPinIcon, PropertyIcon } from 'components/utils/Icons';
 import { API_ENDPOINT } from 'utils/URL';
 import PaginatedContent from 'components/common/PaginatedContent';
 import Toast, { useToast } from 'components/utils/Toast';
@@ -14,28 +14,17 @@ import { OnlineImage } from 'components/utils/Image';
 import { CertifiedIcon } from 'components/utils/Icons';
 import { PropertiesRowList } from 'pages/user/just-for-you';
 import Link from 'next/link';
-import UserCard from '@/components/common/UserCard';
-import { Card } from 'react-bootstrap';
-import { USER_TYPES } from '@/utils/constants';
-import { getUserStatus } from '@/components/pages/admin/Users';
-import Humanize from 'humanize-plus';
-import Button from '@/components/forms/Button';
 import TitleSection from '@/components/common/TitleSection';
+import { BlogContainer } from 'pages/blog';
+import axios from 'axios';
 
 const pageOptions = {
   key: 'user',
   pageName: 'User',
 };
 
-const VendorProfile = ({ slug = 'blissville' }) => {
+const VendorProfile = ({ result }) => {
   const [toast, setToast] = useToast();
-  const [userQuery, user] = useGetQuery({
-    key: pageOptions.key,
-    name: [pageOptions.key, slug],
-    setToast,
-    endpoint: API_ENDPOINT.getAllVendors(),
-    refresh: true,
-  });
 
   return (
     <>
@@ -47,18 +36,7 @@ const VendorProfile = ({ slug = 'blissville' }) => {
       />
 
       <section className="container-fluid">
-        <PaginatedContent
-          endpoint={API_ENDPOINT.getAllVendors()}
-          initialFilter={{
-            sortBy: 'createdAt',
-            sortDirection: 'desc',
-          }}
-          limit="20"
-          pageName="Vendor"
-          DataComponent={UsersRowList}
-          PageIcon={<UserIcon />}
-          queryName="vendor"
-        />
+        <VendorRowList results={result} />
       </section>
 
       <Footer />
@@ -66,73 +44,56 @@ const VendorProfile = ({ slug = 'blissville' }) => {
   );
 };
 
-const UsersRowList = ({ results, offset }) => {
+const VendorRowList = ({ results, offset }) => {
   return (
-    <div className="container-fluid">
+    <BlogContainer>
       <div className="row">
         {results.map((user, index) => (
-          <VendorComponent
-            key={index}
-            number={offset + index + 1}
-            user={user}
-          />
+          <VendorComponent key={index} number={offset + index + 1} {...user} />
         ))}
       </div>
-    </div>
+    </BlogContainer>
   );
 };
 
-const UsersRow = ({ number, ...user }) => {
-  const status = getUserStatus(user);
-  // if (!user.vendor.companyLogo) return null;
-
+const VendorComponent = ({ number, ...user }) => {
+  const address = user.vendor.companyAddress;
   return (
-    <div className="col-md-4 col-lg-3 mb-5">
-      <div className="card">
-        <div
-          style={{
-            height: '100px',
-            textAlign: 'center',
-            margin: '1rem',
-            paddingTop: '1rem',
-          }}
-        >
-          <OnlineImage src={user?.vendor?.companyLogo} width="200px" />
-        </div>
-        <div className="card-body bg-light">
-          <h5 className="card-title">{user.vendor.companyName}</h5>
-          <Button
-            className="btn-sm px-3 mt-3"
-            color="secondary"
-            href={`/vendors/${user?.vendor?.slug}`}
-          >
-            View Vendor
-          </Button>
-        </div>
-      </div>
+    <div className="col-md-6 col-lg-4 mb-4 vendor-container">
+      <Link href={`/vendors/${user?.vendor?.slug}`}>
+        <a className="card vendor-card">
+          <div className="card-header bg-white">
+            <OnlineImage src={user?.vendor?.companyLogo} width="200px" />
+          </div>
+          <div className="card-body px-4 py-3 bg-light">
+            <h5 className="vendor-name fw-semibold text-single-line">
+              {user?.vendor?.companyName}
+              {user?.vendor?.certified && (
+                <span className="text-secondary">
+                  &nbsp;
+                  <CertifyIcon />
+                </span>
+              )}
+            </h5>
+            <p className="text-muted text-md">
+              <MapPinIcon /> {address?.city}, {address?.state}
+            </p>
+          </div>
+        </a>
+      </Link>
     </div>
   );
 };
 
-const VendorComponent = ({ user }) => {
-  return (
-    <div className="vendor vendor-grid-item vendor-grid-item col-md-4 col-lg-3 mb-5">
-      <div className="vendor-inner">
-        <div className="vendor-image">
-          <Link href={`/vendors/${user?.vendor?.slug}`}>
-            <a>
-              <div className="vendor-logo">
-                <OnlineImage src={user?.vendor?.companyLogo} width="200px" />
-              </div>
-              <div className="vendor-hover-logo">
-                <OnlineImage src={user?.vendor?.companyLogo} width="200px" />
-              </div>
-            </a>
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-};
+export async function getStaticProps() {
+  const vendors = await axios.get(API_ENDPOINT.getAllVendors());
+
+  return {
+    props: {
+      ...vendors?.data,
+    },
+    revalidate: 10,
+  };
+}
 
 export default VendorProfile;

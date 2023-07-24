@@ -25,7 +25,7 @@ const PostCard = ({
           <Link href={`/posts/${slug}`}>
             <a>
               <h5
-                className="fw-semibold blog-card-title"
+                className="fw-semibold blog-card-title text-single-line"
                 dangerouslySetInnerHTML={{ __html: title }}
               />
             </a>

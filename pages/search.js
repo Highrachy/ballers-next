@@ -31,8 +31,6 @@ const Search = ({ properties }) => {
   const { query } = useRouter();
   const { area, houseType } = query;
 
-  console.log('properties', properties);
-
   const defaultInputValue = { area, houseType };
   const allData = contentProperty[area || 'lekki'];
   const propertyContent = allData?.houseType?.[houseType];

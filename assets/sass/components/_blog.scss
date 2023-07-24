@@ -106,12 +106,6 @@
   display: block;
 }
 
-.blog-card-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .blog-card-title,
 .blog-title {
   color: $secondary-700 !important;

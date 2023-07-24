@@ -666,7 +666,6 @@ html {
 
 .vendor-company-tagline {
   margin-top: 1rem;
-  color: $primary-500;
   font-size: 1rem;
   letter-spacing: 1px;
   font-weight: 500;
@@ -675,10 +674,36 @@ html {
 
 .vendor-company-content {
   margin-top: 2rem;
-  color: $gray-700;
+  color: $primary-500;
   font-size: 1.25rem;
   line-height: 1.8;
   font-weight: 400;
+}
+
+.vendor-card {
+  h5,
+  p {
+    color: $primary-400;
+    transition: all 0.3s ease-in-out;
+  }
+  img {
+    display: block;
+    padding: 1.5rem 0.75rem;
+    height: 8rem;
+    object-fit: contain;
+    margin: 0 auto;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover {
+    h5,
+    p {
+      color: $secondary-700 !important;
+    }
+    img {
+      transform: scale(1.1);
+    }
+  }
 }
 
 .img-badge {
@@ -687,57 +712,18 @@ html {
   width: 100px;
 }
 
-.vendor .vendor-image {
-  line-height: 0;
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
-  overflow: hidden;
-}
-
-.vendor .vendor-image a {
-  display: inline-block;
-}
-
-.vendor .vendor-logo {
-  display: inline-block;
-  width: auto;
-  transform: translateY(0);
-  will-change: transform;
-  transition: transform 0.33s ease;
-  opacity: 0.85;
-}
-
-.vendor .vendor-hover-logo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: inline-block;
-  width: auto;
-  transform: translateY(-100%);
-  will-change: transform;
-  transition: transform 0.33s ease;
-}
-
-.vendor:hover .vendor-logo {
-  transform: translateY(100%);
-}
-
-.vendor:hover .vendor-hover-logo {
-  transform: translateY(0);
-}
-
 .vendor-stats-title {
   text-transform: uppercase;
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 1px;
-  color: $secondary-700;
+  color: $primary-200;
   margin-bottom: 0;
 }
 
 .vendor-stats-value {
   font-size: 3rem;
-  font-weight: 500;
-  color: $secondary-800;
+  font-weight: 700;
+  color: $primary-400;
+  margin-bottom: 0;
 }

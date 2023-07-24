@@ -61,7 +61,6 @@ const SingleContentProperty = ({ id }) => {
 };
 
 const ContentPropertyGraph = ({ properties }) => {
-  console.log('properties', properties);
   let datasets = [];
   const output = properties.reduce((acc, property) => {
     if (!acc[property.houseType]) {

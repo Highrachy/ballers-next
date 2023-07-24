@@ -13,10 +13,10 @@ const Footer = () => (
             <h5>Community</h5>
             <ul className="list-unstyled">
               <li>
-                <Link href="/">Search Properties</Link>
+                <Link href="/blog">Blog</Link>
               </li>
               <li>
-                <Link href="faq.php">FAQs</Link>
+                <Link href="/vendors">All Vendors</Link>
               </li>
             </ul>
           </div>
