@@ -38,13 +38,16 @@ export default function Post({ posts, term }) {
       ) : (
         <BlogContainer>
           <SearchModal>
-            <h3>Search Result for {searchTerm}</h3>
+            <h3>
+              Search Result for{' '}
+              <span className="text-danger">{searchTerm}</span>
+            </h3>
           </SearchModal>
           {allPosts.length > 0 ? (
             <MoreStories posts={allPosts} />
           ) : (
             <h2 className="text-center my-8 text-muted">
-              No posts found with the{' '}
+              No posts found with the term{' '}
               <span className="text-danger">{searchTerm}</span>
             </h2>
           )}

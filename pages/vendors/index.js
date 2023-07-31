@@ -76,7 +76,8 @@ const VendorComponent = ({ number, ...user }) => {
               )}
             </h5>
             <p className="text-muted text-md">
-              <MapPinIcon /> {address?.city}, {address?.state}
+              <MapPinIcon /> {address?.city || 'Lekki'},{' '}
+              {address?.state || 'Lagos'}
             </p>
           </div>
         </a>

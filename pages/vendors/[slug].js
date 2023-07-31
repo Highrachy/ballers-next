@@ -118,6 +118,7 @@ const VendorInfo = ({ user }) => {
             name="vendor logo"
             src={user.vendor.companyLogo}
             className="img-fluid"
+            style={{ maxWidth: '250px' }}
           />
         </div>
       </div>

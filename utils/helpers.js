@@ -192,7 +192,7 @@ export const getFormattedAddress = ({
         {street2} <br />{' '}
       </>
     )}
-    {city}, {state}
+    {city || 'Lekki'}, {state || 'Lagos'}
     {!hideCountry && (
       <>
         <br />
