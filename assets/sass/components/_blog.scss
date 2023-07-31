@@ -128,9 +128,9 @@
 }
 
 .blog-categories-list {
+  margin-bottom: 0;
   li {
     margin-right: 2rem !important;
-    margin-bottom: 2rem !important;
     text-transform: uppercase;
     transition: color 0.3s ease-in-out;
 
@@ -151,36 +151,20 @@
   font-size: 1.1rem;
 }
 
-// /* For modern browsers */
-// .blog-title {
-//   display: -webkit-box;
-//   -webkit-box-orient: vertical;
-//   -webkit-line-clamp: 1;
-//   overflow: hidden;
-// }
+.blog-search-button {
+  font-size: 1rem;
+  cursor: pointer;
+  color: $primary-200;
+  display: inline-block;
+  transition: all 0.2s ease-out;
+  display: flex;
+  align-items: center;
 
-// /* For Firefox */
-// .blog-title {
-//   display: -moz-box;
-//   -moz-box-orient: vertical;
-//   -moz-line-clamp: 1;
-//   overflow: hidden;
-// }
+  &:hover {
+    color: $secondary;
+  }
 
-// /* For IE and Edge */
-// .blog-title {
-//   display: -ms-box;
-//   -ms-box-orient: vertical;
-//   -ms-line-clamp: 1;
-//   overflow: hidden;
-// }
-
-// /* Fallback for other browsers */
-// .blog-title {
-//   display: block;
-//   /* Set a fixed height if needed */
-//   max-height: 1.9rem; /* 2 lines * line-height (1.8em) */
-//   /* Ensure text doesn't overflow the box */
-//   overflow: hidden;
-//   text-overflow: ellipsis;
-// }
+  svg {
+    margin-right: 5px;
+  }
+}

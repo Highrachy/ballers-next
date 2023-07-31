@@ -6,11 +6,12 @@ import PostTitle from '@/components/blog/PostTitle';
 import PostHeader from '@/components/blog/PostHeader';
 import PostBody from '@/components/blog/PostBody';
 import Tags from '@/components/blog/Tags';
-import SectionSeparator from '@/components/blog/SectionSeparator';
 import MoreStories from '@/components/blog/MoreStories';
 import Header from '@/components/layout/Header';
 import TitleSection from '@/components/common/TitleSection';
-import { BlogContainer } from 'pages/blog';
+import { BlogContainer, SearchModal } from 'pages/blog';
+import CommunityGallery from '@/components/common/CommunityGallery';
+import Footer from '@/components/layout/Footer';
 
 export default function Post({ post, posts, preview }) {
   const router = useRouter();
@@ -35,17 +36,27 @@ export default function Post({ post, posts, preview }) {
               />
             </Head>
             <Header />
+            <TitleSection
+              name={post.title}
+              content="Unlocking the Pathway to Homeownership: Explore, Engage, and Empower with BALL."
+            />
             <BlogContainer>
+              <SearchModal />
               <PostHeader {...post} heroImage />
               <PostBody content={post.content} />
               <footer>
                 {post.tags.edges.length > 0 && <Tags tags={post.tags} />}
               </footer>
 
-              <SectionSeparator />
+              <div className="dotted-border my-6" />
+              <SearchModal>
+                <h3>Other Posts</h3>
+              </SearchModal>
               {morePosts.length > 0 && <MoreStories posts={morePosts} />}
             </BlogContainer>
           </article>
+          <CommunityGallery />
+          <Footer />
         </>
       )}
     </>

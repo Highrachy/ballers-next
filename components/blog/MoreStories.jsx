@@ -4,7 +4,7 @@ import PostCard from './PostCard';
 export default function MoreStories({ posts }) {
   return (
     <section>
-      <div className="row mb-5 border-bottom">
+      <div className="row mb-5">
         {posts.map(({ node }) => (
           <PostCard key={node.slug} {...node} />
         ))}
