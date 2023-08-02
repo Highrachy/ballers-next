@@ -27,7 +27,7 @@ import Axios from 'axios';
 import { getTokenFromStore } from 'utils/localStorage';
 import { getError, statusIsSuccessful } from 'utils/helpers';
 import { addTestimonialSchema } from 'components/forms/schemas/propertySchema';
-import { WelcomeHero } from 'pages/user/dashboard';
+import WelcomeHero from '../common/WelcomeHero';
 
 const pageOptions = {
   key: 'portfolio',

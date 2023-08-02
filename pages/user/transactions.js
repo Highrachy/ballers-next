@@ -3,18 +3,13 @@ import BackendPage from 'components/layout/BackendPage';
 import ContributionGraph from 'components/common/ContributionGraph';
 import { AllOfflinePayments } from '@/components/shared/OfflinePayments';
 import { AllTransactions } from '@/components/shared/Transactions';
-import {
-  BlissvilleImage,
-  PegassusImage,
-  StackBox,
-  WelcomeHero,
-  WidgetBox,
-} from './dashboard';
+import WidgetBox from '@/components/dashboard/WidgetBox';
 import MyResponsivePie from '@/components/common/PieChart';
 import { moneyFormatInNaira } from 'utils/helpers';
 import Colors from 'style-dictionary/build/color.tokens.js';
 import NoContent from '@/components/utils/NoContent';
 import { TransactionIcon } from '@/components/utils/Icons';
+import WelcomeHero from '@/components/common/WelcomeHero';
 
 const UserTransactions = () => (
   <BackendPage>

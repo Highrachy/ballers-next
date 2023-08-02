@@ -13,7 +13,7 @@ import {
   DisplayFormikState,
   setInitialValues,
 } from 'components/forms/form-helper';
-import { WelcomeHero } from './dashboard';
+import WelcomeHero from '@/components/common/WelcomeHero';
 
 const JustForYou = ({ location }) => {
   const { userState } = React.useContext(UserContext);

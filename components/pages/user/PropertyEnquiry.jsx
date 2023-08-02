@@ -37,7 +37,7 @@ import {
   PropertyHeader,
   PropertyImage,
 } from '@/components/shared/SingleProperty';
-import { WelcomeHero } from 'pages/user/dashboard';
+import WelcomeHero from '@/components/common/WelcomeHero';
 
 const pageOptions = {
   key: 'property',

@@ -54,7 +54,7 @@ import Link from 'next/link';
 import BadgePlaceholderImage from 'assets/img/placeholder/property.png';
 import { BadgesIcon } from 'components/utils/Icons';
 import Input from 'components/forms/Input';
-import { WelcomeHero } from 'pages/user/dashboard';
+import WelcomeHero from '@/components/common/WelcomeHero';
 
 const pageOptions = {
   key: 'user',

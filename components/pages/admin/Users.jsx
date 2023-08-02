@@ -44,7 +44,6 @@ import { ApprovedIcon } from 'components/utils/Icons';
 import DatePicker from 'components/forms/DatePicker';
 import { formatFilterDate } from 'utils/date-helpers';
 import Tooltip from 'components/common/Tooltip';
-import { WelcomeHero } from 'pages/user/dashboard';
 import Modal from 'components/common/Modal';
 import axios from 'axios';
 import { getTokenFromStore } from 'utils/localStorage';
@@ -52,6 +51,7 @@ import { fastTrackVendorSchema } from 'components/forms/schemas/userSchema';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
 import Toast, { useToast } from 'components/utils/Toast';
 import Upload from 'components/forms/UploadFormik';
+import WelcomeHero from '@/components/common/WelcomeHero';
 
 const Users = () => (
   <BackendPage>

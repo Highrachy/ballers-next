@@ -20,8 +20,8 @@ import { SearchIcon } from 'components/utils/Icons';
 import { DoubleSpacing } from 'components/common/Helpers';
 import { Spacing } from 'components/common/Helpers';
 import { OwnedPropertyCard } from '@/components/shared/SingleProperty';
-import { WelcomeHero } from 'pages/user/dashboard';
 import { getLocationFromAddress } from '@/utils/helpers';
+import WelcomeHero from '@/components/common/WelcomeHero';
 
 const pageOptions = {
   key: 'property',

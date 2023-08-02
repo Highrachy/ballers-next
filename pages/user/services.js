@@ -9,10 +9,13 @@ import { API_ENDPOINT } from 'utils/URL';
 import { OfferIcon } from 'components/utils/Icons';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { PropertiesRowList } from '@/components/common/PropertiesRowList';
-import { DashboardTable, InfoBox, ServiceBox, WelcomeHero } from './dashboard';
 import { Card } from 'react-bootstrap';
 import colorTokens from 'style-dictionary/build/color.tokens';
 import { Global, Home } from 'iconsax-react';
+import { InfoBox } from '@/components/dashboard/InfoBox';
+import WelcomeHero from '@/components/common/WelcomeHero';
+import ServiceBox from '@/components/dashboard/ServiceBox';
+import { DashboardTable } from '@/components/dashboard/DashboardTable';
 
 export const allServices = [
   {

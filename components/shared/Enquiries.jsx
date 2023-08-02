@@ -7,7 +7,7 @@ import Link from 'next/link';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { API_ENDPOINT } from 'utils/URL';
 import UserCard from 'components/common/UserCard';
-import { WelcomeHero } from 'pages/user/dashboard';
+import WelcomeHero from '../common/WelcomeHero';
 
 const Enquiries = () => (
   <BackendPage>

@@ -13,12 +13,10 @@ import { API_ENDPOINT } from 'utils/URL';
 import { useGetQuery } from '@/hooks/useQuery';
 import { ContentLoader } from '@/components/utils/LoadingItems';
 import Humanize from 'humanize-plus';
-import {
-  ServiceBox,
-  StackBox,
-  WelcomeHero,
-  WidgetBox,
-} from 'pages/user/dashboard';
+import WidgetBox from '@/components/dashboard/WidgetBox';
+import WelcomeHero from '@/components/common/WelcomeHero';
+import StackBox from '@/components/dashboard/StackBox';
+import { ServiceBox } from 'pages/user/dashboard';
 
 export const PegassusImage =
   'https://ballers-staging.s3.amazonaws.com/63da062af9ec130016200f41/7de33a00-ab6a-11ed-9d59-6fa02cafbd66.jpg';

@@ -34,7 +34,7 @@ import InputFormat from 'components/forms/InputFormat';
 import FilterRange from 'components/forms/FilterRange';
 import DatePicker from 'components/forms/DatePicker';
 import Link from 'next/link';
-import { WelcomeHero } from 'pages/user/dashboard';
+import WelcomeHero from '../common/WelcomeHero';
 
 const Transactions = () => (
   <BackendPage>

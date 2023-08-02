@@ -1,7 +1,6 @@
-import { WelcomeHero } from 'pages/user/dashboard';
 import React from 'react';
 import { Placeholder as RPlaceHolder } from 'react-bootstrap';
-import BackendPage from './BackendPage';
+import WelcomeHero from '../common/WelcomeHero';
 
 const Placeholder = () => {
   return (

@@ -12,7 +12,7 @@ import { useCurrentRole } from 'hooks/useUser';
 import { OfferIcon } from 'components/utils/Icons';
 import UserCard from 'components/common/UserCard';
 import { PropertyAvatar } from 'components/common/PropertyCard';
-import { WelcomeHero } from 'pages/user/dashboard';
+import WelcomeHero from '../common/WelcomeHero';
 
 const Offers = () => (
   <BackendPage>

@@ -13,7 +13,7 @@ import {
   getCompletedSteps,
 } from '@/components/pages/vendor/setup/AccountSetup';
 import BackendPage from '@/components/layout/BackendPage';
-import { WelcomeHero } from 'pages/user/dashboard';
+import WelcomeHero from '@/components/common/WelcomeHero';
 
 const Single = () => {
   const router = useRouter();

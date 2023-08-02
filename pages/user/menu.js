@@ -3,7 +3,7 @@ import BackendPage from 'components/layout/BackendPage';
 import { Card } from 'react-bootstrap';
 import Link from 'next/link';
 import { useMenu } from 'hooks/useMenu';
-import { WelcomeHero } from './dashboard';
+import WelcomeHero from '@/components/common/WelcomeHero';
 
 const Menu = () => {
   const menus = useMenu();

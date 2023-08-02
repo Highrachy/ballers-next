@@ -28,8 +28,8 @@ import PaginatedContent from 'components/common/PaginatedContent';
 import { API_ENDPOINT } from 'utils/URL';
 import { refreshQuery } from 'hooks/useQuery';
 import UserCard from 'components/common/UserCard';
-import { WelcomeHero } from './dashboard';
 import { LocalImage } from '@/components/utils/Image';
+import WelcomeHero from '@/components/common/WelcomeHero';
 
 const ReferAndEarn = () => {
   const { userState } = React.useContext(UserContext);

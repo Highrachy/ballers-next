@@ -21,7 +21,7 @@ import { HOUSE_TYPES } from 'utils/constants';
 import { useCurrentRole } from 'hooks/useUser';
 import { API_ENDPOINT } from 'utils/URL';
 import { Spacing } from 'components/common/Helpers';
-import { WelcomeHero } from 'pages/user/dashboard';
+import WelcomeHero from '../common/WelcomeHero';
 
 const Portfolios = () => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import ContentGraph from '@/components/common/ContentGraph';
-import { WelcomeHero } from './dashboard';
+import WelcomeHero from '@/components/common/WelcomeHero';
 
 const Dashboard = () => {
   return (

@@ -1,15 +1,7 @@
 import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import Toast, { useToast } from 'components/utils/Toast';
-import {
-  BlissvilleImage,
-  Overview,
-  PegassusImage,
-  ServiceBox,
-  StackBox,
-  WelcomeHero,
-  WidgetBox,
-} from 'pages/user/dashboard';
+import WidgetBox from '@/components/dashboard/WidgetBox';
 import Link from 'next/link';
 import {
   BankInfoIcon,
@@ -32,6 +24,15 @@ import { ContentLoader } from '@/components/utils/LoadingItems';
 import { EnquiryIcon } from '@/components/utils/Icons';
 import { VisitationIcon } from '@/components/utils/Icons';
 import { getShortDate } from '@/utils/date-helpers';
+import WelcomeHero from '@/components/common/WelcomeHero';
+import { OverviewGraph } from '@/components/common/ContributionGraph';
+import StackBox from '@/components/dashboard/StackBox';
+import ServiceBox from '@/components/dashboard/ServiceBox';
+
+const PegassusImage =
+  'https://ballers-staging.s3.amazonaws.com/63da062af9ec130016200f41/7de33a00-ab6a-11ed-9d59-6fa02cafbd66.jpg';
+const BlissvilleImage =
+  'https://ballers-staging.s3.amazonaws.com/63d73318936e55001633c84c/95a141e0-a04e-11ed-86c2-f1037f8bce01.jpg';
 
 const Dashboard = () => {
   const [toast, setToast] = useToast();
@@ -109,7 +110,7 @@ const VerifiedVendorContent = () => {
 
   return (
     <>
-      <Overview
+      <OverviewGraph
         type="vendor"
         result={{
           enquiries: allEnquiries?.length,

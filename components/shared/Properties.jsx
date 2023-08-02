@@ -35,7 +35,7 @@ import { BathIcon } from 'components/utils/Icons';
 import InputFormat from 'components/forms/InputFormat';
 import { ToiletIcon } from 'components/utils/Icons';
 import FilterRange from 'components/forms/FilterRange';
-import { WelcomeHero } from 'pages/user/dashboard';
+import WelcomeHero from '../common/WelcomeHero';
 
 const Properties = () => {
   const addNewUrl = useCurrentRole().isVendor ? '/vendor/property/new' : '';

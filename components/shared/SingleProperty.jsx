@@ -54,11 +54,11 @@ import { ErrorIcon } from 'components/utils/Icons';
 import { QuestionMarkIcon } from 'components/utils/Icons';
 import { TestimonialsList } from './Testimonials';
 import { AssignedPropertyIcon } from 'components/utils/Icons';
-import { WelcomeHero } from 'pages/user/dashboard';
 import Sharer from '../utils/Sharer';
 import { useRouter } from 'next/router';
 import { GrDocumentText } from 'react-icons/gr';
 import { BiGitCompare } from 'react-icons/bi';
+import WelcomeHero from '../common/WelcomeHero';
 
 const pageOptions = {
   key: 'property',

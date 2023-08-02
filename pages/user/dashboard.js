@@ -47,17 +47,17 @@ const Dashboard = () => {
     <BackendPage>
       <Toast {...toast} showToastOnly />
       <WelcomeHero isIndex />
-      {/* <ContentLoader
+      <ContentLoader
         hasContent={!!result}
         Icon={<HomeIcon />}
         query={dashboardQuery}
         name="Dashboard"
         toast={toast}
-      > */}
-      <Overview result={result} />
-      <UpcomingPaymentsAndRecentOffers result={result} />
-      <RecentTransactionsAndServices result={result} />
-      {/* </ContentLoader> */}
+      >
+        <Overview result={result} />
+        <UpcomingPaymentsAndRecentOffers result={result} />
+        <RecentTransactionsAndServices result={result} />
+      </ContentLoader>
       <ReferAndEarn />
     </BackendPage>
   );

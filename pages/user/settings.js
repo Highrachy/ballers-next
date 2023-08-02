@@ -30,7 +30,7 @@ import { useAvailableOptions } from 'hooks/useAvailableOptions';
 import ProfileAvatar from 'assets/img/avatar/profile.png';
 import Upload from 'components/utils/Upload';
 import { bankSchema } from 'components/forms/schemas/vendorSchema';
-import { WelcomeHero } from './dashboard';
+import WelcomeHero from '@/components/common/WelcomeHero';
 
 const Settings = () => (
   <BackendPage>
