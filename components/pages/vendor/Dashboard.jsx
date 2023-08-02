@@ -19,9 +19,15 @@ import { EnquiryIcon } from 'components/utils/Icons';
 import { Alert } from 'react-bootstrap';
 import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
-import { OFFER_STATUS, VISITATION_STATUS } from 'utils/constants';
+import {
+  FAST_TRACK_VENDOR,
+  OFFER_STATUS,
+  VISITATION_STATUS,
+} from 'utils/constants';
 import DashboardCards from 'components/common/DashboardCards';
 import { OfferIcon } from 'components/utils/Icons';
+import NeedVendorInfo from 'components/common/NeedVendorInfo';
+import Toast, { useToast } from 'components/utils/Toast';
 
 const Dashboard = () => (
   <BackendPage>
@@ -31,6 +37,7 @@ const Dashboard = () => (
 
 const Welcome = () => {
   const { userState } = React.useContext(UserContext);
+  const [toast, setToast] = useToast();
 
   if (!userState.firstName) {
     return <Loading Icon={<UserIcon />} text="Retrieving your Information" />;
@@ -38,6 +45,7 @@ const Welcome = () => {
 
   return (
     <section className="container-fluid">
+      <Toast {...toast} />
       <div className="card bg-primary dashboard mb-3">
         <div className="row">
           <div className="col-sm-12">
@@ -51,7 +59,7 @@ const Welcome = () => {
       </div>
 
       {userState.vendor?.verified ? (
-        <VerifiedVendorContent />
+        <VerifiedVendorContent setToast={setToast} />
       ) : (
         <UnVerifiedVendorContent />
       )}
@@ -169,6 +177,7 @@ const UnVerifiedVendorContent = () => {
 };
 
 const VerifiedVendorContent = () => {
+  const { userState } = React.useContext(UserContext);
   const axiosOptionForVisitations = {
     params: { limit: 0, status: VISITATION_STATUS.PENDING },
   };
@@ -184,6 +193,7 @@ const VerifiedVendorContent = () => {
     axiosOptions: axiosOptionForVisitations,
     key: 'scheduleVisits',
     name: ['scheduleVisits', axiosOptionForVisitations],
+    setToast,
     endpoint: API_ENDPOINT.getAllVisitations(),
     refresh: true,
   });
@@ -191,6 +201,7 @@ const VerifiedVendorContent = () => {
     axiosOptions: axiosOptionForEnquiries,
     key: 'enquiries',
     name: ['enquiries', axiosOptionForEnquiries],
+    setToast,
     endpoint: API_ENDPOINT.getAllEnquiries(),
     refresh: true,
   });
@@ -200,11 +211,26 @@ const VerifiedVendorContent = () => {
     childrenKey: 'offer',
     key: 'pendingOffers',
     name: ['pendingOffers', axiosOptionForOffers],
+    setToast,
     endpoint: API_ENDPOINT.getAllOffers(),
     refresh: true,
   });
 
-  return (
+  const needVendorInfo =
+    userState?.vendor?.fastTrack === FAST_TRACK_VENDOR.REQUIRE_INFO;
+
+  return needVendorInfo ? (
+    <>
+      <NoticeCard
+        Icon={<OfferIcon />}
+        link="/vendor/respond-to-offers"
+        name="Offers"
+        type="warning"
+        message={`You need to complete your information to use platform`}
+      />
+      <NeedVendorInfo setToast={setToast} />
+    </>
+  ) : (
     <>
       {visitationsQuery.isLoading ||
       enquiriesQuery.isLoading ||

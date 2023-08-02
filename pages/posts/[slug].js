@@ -78,7 +78,7 @@ export default function Post({ post, posts, preview }) {
   );
 }
 
-const AddComments = ({ postId, setTaost }) => {
+const AddComments = ({ postId, setToast }) => {
   const [showCommentModal, setShowCommentModal] = React.useState(false);
   return (
     <div className="my-5">
@@ -123,9 +123,6 @@ const AddComments = ({ postId, setTaost }) => {
                 const response = await axios.post(WORDPRESS_API_URL, {
                   query: mutation,
                 });
-
-                // Handle the response (e.g., show a success message or update the comment list)
-                console.log('Comment added:', response);
 
                 if (response.status === 200) {
                   setToast({

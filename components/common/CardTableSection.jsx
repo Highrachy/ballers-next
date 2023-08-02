@@ -8,7 +8,7 @@ const CardTableSection = ({ name, className, children }) => (
         {name && <h5>{name}</h5>}
 
         <div className="table-responsive">
-          <table className="table table-border table-sm">
+          <table className="table table-border table-md">
             <tbody>{children}</tbody>
           </table>
         </div>

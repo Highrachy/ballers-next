@@ -142,7 +142,7 @@ const OfferLetterTemplate = ({
         to offer you a {houseType} on the following terms and conditions:
       </p>
       <div className="table-responsive">
-        <table className="table table-md table-borderless">
+        <table className="table table-sm table-borderless">
           <tbody>
             <tr>
               <td width="30%">

@@ -49,6 +49,12 @@ export const registerSchema = (isUser = true) => {
   };
 };
 
+export const fastTrackVendorSchema = {
+  companyName: stringValidation('Company Name'),
+  companyLogo: optionalValidation(stringValidation('Company Logo')),
+  entity: stringValidation('Entity'),
+};
+
 export const changePasswordSchema = {
   oldPassword: strongPassword,
   password: strongPassword,
@@ -97,6 +103,7 @@ export const userFilterSchema = {
 };
 
 export const forgotPasswordSchema = { email };
+export const emailSchema = { email };
 
 export const updateRemittanceSchema = {
   percentage: validPercentage('Remittance'),

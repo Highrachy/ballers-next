@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getIn } from 'formik';
+import { getIn, useFormikContext } from 'formik';
 import { getRange, isDevEnvironment } from 'utils/helpers';
 
 const validityOptions = {
@@ -51,12 +51,12 @@ export const getValidityClass = (
 };
 
 export const FeedbackMessage = ({
-  formik,
   helpText,
   name,
   showFeedback,
   validMessage,
 }) => {
+  const formik = useFormikContext();
   const className = getValidityClass(
     formik,
     name,
@@ -74,7 +74,6 @@ export const FeedbackMessage = ({
 };
 
 FeedbackMessage.propTypes = {
-  formik: PropTypes.object.isRequired,
   helpText: PropTypes.string,
   name: PropTypes.string.isRequired,
   showFeedback: PropTypes.string.isRequired,
@@ -87,7 +86,7 @@ FeedbackMessage.defaultProps = {
 };
 
 export const HelpText = ({ name, text }) => (
-  <small className="form-text text-muted" id={`${name}-help`}>
+  <small className="form-text text-muted" id={`${name}-help-block`}>
     {text}
   </small>
 );
@@ -98,18 +97,21 @@ HelpText.propTypes = {
 };
 
 export const DisplayFormikState = (props) => {
-  // return null;
   const displayFormikValues = (
-    <div className="my-5">
-      <pre className="form-control text-small p-3">
-        {props.showAll ? (
-          <div>
-            <strong>props</strong> = {JSON.stringify(props, null, 2)}
-          </div>
-        ) : (
-          JSON.stringify(props.values, null, 2)
-        )}
-      </pre>
+    <div className="formik-values">
+      <div className="container">
+        <div className="col-md-9">
+          <pre className="form-control text-small p-3">
+            {props.showAll ? (
+              <>
+                <strong>props</strong> = {JSON.stringify(props, null, 2)}
+              </>
+            ) : (
+              JSON.stringify(props.values, null, 2)
+            )}
+          </pre>
+        </div>
+      </div>
     </div>
   );
   if (!isDevEnvironment()) return null;
@@ -137,7 +139,8 @@ export const setInitialValues = (
     if (initialValues?.[key] || initialValues?.[key] === 0) {
       values[key] = initialValues[key];
     } else {
-      values[key] = keepInitial ? schema[key] : '';
+      values[key] =
+        initialValues?.[key] !== undefined ? initialValues?.[key] : '';
     }
   });
   return values;

@@ -49,6 +49,13 @@ export const TITLE_DOCUMENTS = [
   'Land Certificate',
 ];
 
+export const FAST_TRACK_VENDOR = {
+  AUTO: 'AUTO',
+  REQUIRE_INFO: 'REQUIRE INFO',
+  COMPLETED: 'COMPLETED',
+  NONE: 'NONE',
+};
+
 export const MALE_TITLES = ['Mr.', 'Master', 'Chief (Mr)', 'Alhaji'];
 export const FEMALE_TITLES = ['Mrs.', 'Ms.', 'Miss', 'Chief (Mrs)', 'Alhaja'];
 export const TITLES = [...MALE_TITLES, ...FEMALE_TITLES].sort();

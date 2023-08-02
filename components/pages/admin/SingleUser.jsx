@@ -4,6 +4,7 @@ import {
   BADGE_ACCESS_LEVEL,
   BASE_API_URL,
   DASHBOARD_PAGE,
+  FAST_TRACK_VENDOR,
   STATUS,
   USER_TYPES,
 } from 'utils/constants';
@@ -17,7 +18,7 @@ import {
   statusIsSuccessful,
 } from 'utils/helpers';
 import { Card, Tabs, Tab } from 'react-bootstrap';
-import { UserIcon } from 'components/utils/Icons';
+import { FastTrackVendorIcon, UserIcon } from 'components/utils/Icons';
 import CardTableSection from 'components/common/CardTableSection';
 import { ShowDirectorsTable } from '../vendor/setup/Signatories';
 import Button from 'components/forms/Button';
@@ -42,13 +43,17 @@ import { LogTimeline } from 'components/common/Timeline';
 import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
 import { ContentLoader } from 'components/utils/LoadingItems';
-import { updateRemittanceSchema } from 'components/forms/schemas/userSchema';
+import {
+  emailSchema,
+  updateRemittanceSchema,
+} from 'components/forms/schemas/userSchema';
 import InputFormat from 'components/forms/InputFormat';
 import { setQueryCache } from 'hooks/useQuery';
 import Select from 'components/forms/Select';
 import Link from 'next/link';
 import BadgePlaceholderImage from 'assets/img/placeholder/property.png';
 import { BadgesIcon } from 'components/utils/Icons';
+import Input from 'components/forms/Input';
 import { WelcomeHero } from 'pages/user/dashboard';
 
 const pageOptions = {
@@ -103,7 +108,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
     name: 'available-badge',
     setToast,
     endpoint: API_ENDPOINT.getAllBadgesByRole(
-      user?.role !== USER_TYPES.editor ? user?.role || 1 : 1
+      user?.role !== USER_TYPES.editor ? user.role || 1 : 1
     ),
     axiosOptions: {
       params: { assignedRole: `${BADGE_ACCESS_LEVEL.ALL}:${user?._id}` },
@@ -261,7 +266,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
           }
           return (
             <Form>
-              <p className="text-uppercase lead fw-bold mt-3">
+              <p className="mt-3 text-uppercase lead fw-bold">
                 Status: {user.vendor?.verification[step]?.status}
               </p>
 
@@ -293,7 +298,6 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
                             </>
                           ) : status === STATUS.Resolved ? (
                             <span className="text-success">
-                              {' '}
                               <SuccessIcon />
                             </span>
                           ) : (
@@ -332,7 +336,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
                   <Textarea label="Comment" name="comment" />
                   <Button
                     color="info"
-                    className="btn-sm btn-info mt-3"
+                    className="mt-3 btn-sm btn-info"
                     loading={isSubmitting}
                     onClick={handleSubmit}
                   >
@@ -343,7 +347,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
                     onClick={() => {
                       setHideForm(true);
                     }}
-                    className="btn btn-sm btn-outline-dark mt-3"
+                    className="mt-3 btn btn-sm btn-outline-dark"
                   >
                     Close Comment
                   </button>
@@ -368,6 +372,9 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
     directorInfo: getVerificationStatus(user, 2),
     documentUpload: getVerificationStatus(user, 3),
   };
+
+  const isFastTrackUser =
+    user.vendor?.fastTrack && user.vendor?.fastTrack === FAST_TRACK_VENDOR.AUTO;
 
   // to remove all
   // const verificationState = getVerificationState(user);
@@ -416,8 +423,18 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
             <span className="title">
               User Information{' '}
               {isVendor && (
-                <span className={verificationState.userInfo.className}>
-                  {verificationState.userInfo.icon}
+                <span
+                  className={
+                    isFastTrackUser
+                      ? 'text-info'
+                      : verificationState.userInfo.className
+                  }
+                >
+                  {isFastTrackUser ? (
+                    <FastTrackVendorIcon />
+                  ) : (
+                    verificationState.userInfo.icon
+                  )}
                 </span>
               )}
             </span>
@@ -481,12 +498,26 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
             </td>
             <td>{user.email}</td>
             <td></td>
-            <td>
-              <strong>Phone</strong>
-            </td>
-            <td>
-              {user.phone} <br /> {user.phone2}
-            </td>
+            {isFastTrackUser ? (
+              <>
+                <td>
+                  <strong>Password</strong>
+                </td>
+                <td>{`${user.email
+                  .toLowerCase()
+                  .substring(0, 4)
+                  .toLowerCase()}@007#`}</td>
+              </>
+            ) : (
+              <>
+                <td>
+                  <strong>Phone</strong>
+                </td>
+                <td>
+                  {user.phone} <br /> {user.phone2}
+                </td>
+              </>
+            )}
           </tr>
 
           {isVendor && (
@@ -503,83 +534,114 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
             </tr>
           )}
 
-          <tr>
-            <td>
-              <strong>Address</strong>
-            </td>
-            <td colSpan="4">
-              {user.address && getFormattedAddress(user.address)}
-            </td>
-          </tr>
+          {isFastTrackUser ||
+            (user.vendor?.fastTrack === FAST_TRACK_VENDOR.REQUIRE_INFO && (
+              <>
+                <tr>
+                  <td>
+                    <strong>Fast Track Status</strong>
+                  </td>
+                  <td colSpan="4">{user.vendor.fastTrack}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Hand Over Account</strong>
+                  </td>
+                  <td colSpan="4">
+                    <TransferToVendorForm
+                      user={user}
+                      setUser={setUser}
+                      setToast={setToast}
+                    />
+                  </td>
+                </tr>
+              </>
+            ))}
+          {!isFastTrackUser && (
+            <>
+              <tr>
+                <td>
+                  <strong>Address</strong>
+                </td>
+                <td colSpan="4">
+                  {user.address && getFormattedAddress(user.address)}
+                </td>
+              </tr>
 
-          <tr>
-            <td>
-              <strong>Badges</strong>
-            </td>
-            <td colSpan="4">
-              {user?.badges?.length > 0 && (
-                <LoadCurrentUserBadges user={user} badges={user?.badges} />
+              <tr>
+                <td>
+                  <strong>Badges</strong>
+                </td>
+                <td colSpan="4">
+                  {user?.badges?.length > 0 && (
+                    <LoadCurrentUserBadges user={user} badges={user?.badges} />
+                  )}
+
+                  <AssignBadge
+                    badges={badges}
+                    user={user}
+                    setToast={setToast}
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Referral Bonus</strong>
+                </td>
+                <td colSpan="4">
+                  <ReferralBonusForm
+                    user={user}
+                    setUser={setUser}
+                    setToast={setToast}
+                  />
+                </td>
+              </tr>
+
+              {isVendor && (
+                <tr>
+                  <td>
+                    <strong>Remittance</strong>
+                  </td>
+                  <td colSpan="4">
+                    <RemittanceForm
+                      user={user}
+                      setUser={setUser}
+                      setToast={setToast}
+                    />
+                  </td>
+                </tr>
               )}
 
-              <AssignBadge badges={badges} user={user} setToast={setToast} />
-            </td>
-          </tr>
+              {(user.role === USER_TYPES.user ||
+                user.role === USER_TYPES.editor) && (
+                <tr>
+                  <td colSpan="5">
+                    <Button
+                      color="none"
+                      loading={loading}
+                      className={
+                        user.role === USER_TYPES.user
+                          ? 'btn-secondary-light'
+                          : 'btn-danger-light'
+                      }
+                      onClick={processRoleChange}
+                    >
+                      Change Role to{' '}
+                      {user.role === USER_TYPES.user ? 'a User' : 'an Editor'}
+                    </Button>
+                  </td>
+                </tr>
+              )}
 
-          <tr>
-            <td>
-              <strong>Referral Bonus</strong>
-            </td>
-            <td colSpan="4">
-              <ReferralBonusForm
-                user={user}
-                setUser={setUser}
-                setToast={setToast}
-              />
-            </td>
-          </tr>
-
-          {isVendor && (
-            <tr>
-              <td>
-                <strong>Remittance</strong>
-              </td>
-              <td colSpan="4">
-                <RemittanceForm
-                  user={user}
-                  setUser={setUser}
-                  setToast={setToast}
-                />
-              </td>
-            </tr>
-          )}
-
-          {(user.role === USER_TYPES.user ||
-            user.role === USER_TYPES.editor) && (
-            <tr>
-              <td colSpan="5">
-                <Button
-                  color="none"
-                  loading={loading}
-                  className={
-                    user.role === USER_TYPES.user
-                      ? 'btn-secondary-light'
-                      : 'btn-danger-light'
-                  }
-                  onClick={processRoleChange}
-                >
-                  Change Role to{' '}
-                  {user.role === USER_TYPES.user ? 'an Editor' : 'a User'}
-                </Button>
-              </td>
-            </tr>
-          )}
-
-          {isVendor && (
-            <tr>
-              <td colSpan="5">
-                <StepAction step={VENDOR_STEPS_KEY[0]} />
-              </td>
-            </tr>
+              {isVendor && (
+                <tr>
+                  <td colSpan="5">
+                    <StepAction step={VENDOR_STEPS_KEY[0]} />
+                  </td>
+                </tr>
+              )}
+            </>
           )}
         </CardTableSection>
       </>
@@ -626,7 +688,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
   );
 
   const Directors = () => (
-    <Card className="card-container my-5 pt-5 border-0">
+    <Card className="pt-5 my-5 border-0 card-container">
       <span className="title">
         Directors / Signatories{' '}
         <span className={verificationState.directorInfo.className}>
@@ -652,7 +714,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
           </span>
         </span>
       }
-      className="border-0 my-5 pt-4"
+      className="pt-4 my-5 border-0"
     >
       <tr>
         <td>
@@ -708,7 +770,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
       <Toast {...toast} showToastOnly />
       {/* <AlertToast message="Awaiting your Review" /> */}
       <Card className="card-container mb-5">
-        {isVendor ? (
+        {isVendor && !isFastTrackUser ? (
           <Tabs defaultActiveKey="0">
             <Tab
               eventKey="0"
@@ -840,6 +902,88 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
   );
 };
 
+const TransferToVendorForm = ({ user, setUser, setToast }) => {
+  const [showTransferForm, setShowTransferForm] = React.useState(false);
+
+  return (
+    <Formik
+      enableReinitialize={true}
+      initialValues={setInitialValues(emailSchema)}
+      onSubmit={({ email }, actions) => {
+        console.log('email');
+        const payload = { email, vendorId: user._id };
+        Axios.put(`${BASE_API_URL}/user/transfer-to-vendor`, payload, {
+          headers: { Authorization: getTokenFromStore() },
+        })
+          .then(function (response) {
+            const { status, data } = response;
+            if (statusIsSuccessful(status)) {
+              setToast({
+                type: 'success',
+                message: `The email has been successfully updated`,
+              });
+              setUser(data.user);
+              setQueryCache([pageOptions.key, user._id], {
+                user: data.user,
+              });
+            }
+          })
+          .catch(function (error) {
+            setToast({
+              message: getError(error),
+            });
+            actions.setSubmitting(false);
+          });
+      }}
+      validationSchema={createSchema(emailSchema)}
+    >
+      {({ isSubmitting, handleSubmit, ...props }) => {
+        return (
+          <Form>
+            <div className="input-group">
+              <Input type="email" placeholder="Email Address" name="email" />
+              <div className="input-group-append">
+                <Button
+                  color="dark"
+                  onClick={() => setShowTransferForm(true)}
+                  disabled={props.values?.email?.toString() === null}
+                >
+                  Update
+                </Button>
+              </div>
+            </div>
+
+            <DisplayFormikState {...props} hide />
+
+            <Modal
+              title="Hand Over Account To Vendor"
+              show={showTransferForm}
+              onHide={() => setShowTransferForm(false)}
+              showFooter={false}
+            >
+              <section>
+                <h5 className="mb-4 confirmation-text">
+                  Are you sure you want to hand over the{' '}
+                  {user.vendor.companyName} account to{' '}
+                  <strong>{props.values?.email}?</strong>
+                </h5>
+                <div className="text-center col-md-12">
+                  <Button
+                    className="mt-4 btn-secondary"
+                    loading={isSubmitting}
+                    onClick={handleSubmit}
+                  >
+                    Yes, Hand Over Account
+                  </Button>
+                </div>
+              </section>
+            </Modal>
+          </Form>
+        );
+      }}
+    </Formik>
+  );
+};
 const RemittanceForm = ({ user, setUser, setToast }) => {
   const [showRemitModal, setShowRemitModal] = React.useState(false);
   const defaultPercentage = user?.vendor?.remittancePercentage || 5;
@@ -911,7 +1055,7 @@ const RemittanceForm = ({ user, setUser, setToast }) => {
               showFooter={false}
             >
               <section>
-                <h5 className=" confirmation-text mb-4">
+                <h5 className="mb-4 confirmation-text">
                   Are you sure you want to update this Remittance?
                 </h5>
                 <table className="table table-sm">
@@ -932,9 +1076,9 @@ const RemittanceForm = ({ user, setUser, setToast }) => {
                     </tr>
                   </tbody>
                 </table>
-                <div className="col-md-12 text-center">
+                <div className="text-center col-md-12">
                   <Button
-                    className="btn-secondary mt-4"
+                    className="mt-4 btn-secondary"
                     loading={isSubmitting}
                     onClick={handleSubmit}
                   >
@@ -968,7 +1112,6 @@ const ReferralBonusForm = ({ user, setUser, setToast }) => {
           .then(function (response) {
             const { status, data } = response;
             if (statusIsSuccessful(status)) {
-              console.log(`data`, data);
               setToast({
                 type: 'success',
                 message: `Referral Percentage has been successfully updated`,
@@ -1024,7 +1167,7 @@ const ReferralBonusForm = ({ user, setUser, setToast }) => {
               showFooter={false}
             >
               <section>
-                <h5 className=" confirmation-text mb-4">
+                <h5 className="mb-4 confirmation-text">
                   Are you sure you want to update this Referral Bonus?
                 </h5>
                 <table className="table table-sm">
@@ -1045,9 +1188,9 @@ const ReferralBonusForm = ({ user, setUser, setToast }) => {
                     </tr>
                   </tbody>
                 </table>
-                <div className="col-md-12 text-center">
+                <div className="text-center col-md-12">
                   <Button
-                    className="btn-secondary mt-4"
+                    className="mt-4 btn-secondary"
                     loading={isSubmitting}
                     onClick={handleSubmit}
                   >
@@ -1076,7 +1219,7 @@ const AssignBadge = ({ user, setToast, badges }) => {
         Assign Badge
       </Button>
 
-      {/* Flag Property Modals */}
+      {/* Assign BAdge Modals */}
       <Modal
         title="Assign Badge"
         show={showFlagModal}
@@ -1084,7 +1227,7 @@ const AssignBadge = ({ user, setToast, badges }) => {
         showFooter={false}
       >
         <section className="row">
-          <div className="col-md-12 my-3">
+          <div className="my-3 col-md-12">
             <Formik
               initialValues={setInitialValues({})}
               onSubmit={({ badge }, actions) => {
@@ -1129,7 +1272,7 @@ const AssignBadge = ({ user, setToast, badges }) => {
                     options={dataToOptions(badges, 'name')}
                   />
                   <Button
-                    className="btn-secondary mt-4"
+                    className="mt-4 btn-secondary"
                     loading={isSubmitting}
                     onClick={handleSubmit}
                   >
@@ -1147,7 +1290,7 @@ const AssignBadge = ({ user, setToast, badges }) => {
 };
 
 export const LoadCurrentUserBadges = ({ badges }) => (
-  <section className="row py-4">
+  <section className="py-4 row">
     {badges.map((badge, index) => (
       <SingleUserBadge key={index} {...badge} />
     ))}
@@ -1156,8 +1299,8 @@ export const LoadCurrentUserBadges = ({ badges }) => (
 
 export const SingleUserBadge = ({ image, user, _id, name }) => {
   return (
-    <div className="col-md-4 col-6 text-center mb-4">
-      <div className="icon-xl mb-2 badge-gray">
+    <div className="mb-4 text-center col-md-4 col-6">
+      <div className="mb-2 icon-xl badge-gray">
         {image ? (
           <Link href={`/${DASHBOARD_PAGE[user?.role]}/badge/${_id}`}>
             <Image

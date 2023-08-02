@@ -63,7 +63,11 @@ const VendorComponent = ({ number, ...user }) => {
       <Link href={`/vendors/${user?.vendor?.slug}`}>
         <a className="card vendor-card">
           <div className="card-header bg-white">
-            <OnlineImage src={user?.vendor?.companyLogo} width="200px" />
+            <OnlineImage
+              name={user?.vendor?.companyName}
+              src={user?.vendor?.companyLogo}
+              width="200px"
+            />
           </div>
           <div className="card-body px-4 py-3 bg-light">
             <h5 className="vendor-name fw-semibold text-single-line">

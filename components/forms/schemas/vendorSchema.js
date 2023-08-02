@@ -17,6 +17,10 @@ export const phoneNumbersSchema = {
   phone2: optionalValidation(phoneNumber),
 };
 
+export const logoSchema = {
+  companyLogo: required('Company Logo'),
+};
+
 export const bankSchema = {
   accountName: stringValidation('Account Name'),
   accountNumber: lengthValidation('Account Number', 10),

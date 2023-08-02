@@ -74,6 +74,7 @@ import {
 } from 'react-icons/md';
 import { GoVerified } from 'react-icons/go';
 import { TiMessages } from 'react-icons/ti';
+import { SiFastapi } from 'react-icons/si';
 import {
   Activity,
   Buildings,
@@ -121,6 +122,7 @@ export const FacebookIcon = () => <FiFacebook />;
 export const FileIcon = () => <FiFileText />;
 export const FilterIcon = () => <BiFilter />;
 export const FlagIcon = () => <FaFlag />;
+export const FastTrackVendorIcon = () => <SiFastapi />;
 export const HomeIcon = () => <Element3 variant="Bulk" />;
 export const HospitalIcon = () => <FaAmbulance />;
 export const InfoIcon = () => <FaInfoCircle />;

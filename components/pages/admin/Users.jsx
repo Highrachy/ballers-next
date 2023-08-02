@@ -7,6 +7,8 @@ import {
   ENTITY_SHORTCODE,
   VENDOR_IDENTIFICATION_TYPE,
   VENDOR_INFO_STATUS,
+  BASE_API_URL,
+  FAST_TRACK_VENDOR,
 } from 'utils/constants';
 import Link from 'next/link';
 import Humanize from 'humanize-plus';
@@ -15,13 +17,15 @@ import { Form, Formik } from 'formik';
 import Select from 'components/forms/Select';
 import UserCard from 'components/common/UserCard';
 import BackendPage from 'components/layout/BackendPage';
-import { UserIcon } from 'components/utils/Icons';
+import { FastTrackVendorIcon, UserIcon } from 'components/utils/Icons';
 import { API_ENDPOINT } from 'utils/URL';
 import {
   booleanOptions,
   formatFilterBoolean,
   formatFilterString,
+  getError,
   objectToOptions,
+  statusIsSuccessful,
   valuesToOptions,
 } from 'utils/helpers';
 import Input from 'components/forms/Input';
@@ -29,6 +33,7 @@ import Button from 'components/forms/Button';
 import {
   DisplayFormikState,
   processFilterValues,
+  setInitialValues,
 } from 'components/forms/form-helper';
 import { CertifyIcon } from 'components/utils/Icons';
 import { SuccessIcon } from 'components/utils/Icons';
@@ -40,6 +45,13 @@ import DatePicker from 'components/forms/DatePicker';
 import { formatFilterDate } from 'utils/date-helpers';
 import Tooltip from 'components/common/Tooltip';
 import { WelcomeHero } from 'pages/user/dashboard';
+import Modal from 'components/common/Modal';
+import axios from 'axios';
+import { getTokenFromStore } from 'utils/localStorage';
+import { fastTrackVendorSchema } from 'components/forms/schemas/userSchema';
+import { createSchema } from 'components/forms/schemas/schema-helpers';
+import Toast, { useToast } from 'components/utils/Toast';
+import Upload from 'components/forms/UploadFormik';
 
 const Users = () => (
   <BackendPage>
@@ -60,8 +72,12 @@ const Users = () => (
 );
 
 const UsersRowList = ({ results, offset }) => {
+  const [showFastTrackVendor, setShowFastTrackVendor] = React.useState(false);
+  const [toast, setToast] = useToast();
+
   return (
     <div className="container-fluid">
+      <Toast {...toast} showToastOnly />
       <Card>
         <div className="table-responsive">
           <table className="table table-border table-hover">
@@ -84,6 +100,16 @@ const UsersRowList = ({ results, offset }) => {
           </table>
         </div>
       </Card>
+      <div className="mt-5 float-end">
+        <Button onClick={() => setShowFastTrackVendor(true)}>
+          Add fast tracked Vendor
+        </Button>
+        <FastTrackVendorModal
+          showFastTrackVendor={showFastTrackVendor}
+          setShowFastTrackVendor={setShowFastTrackVendor}
+          setToast={setToast}
+        />
+      </div>
     </div>
   );
 };
@@ -148,6 +174,10 @@ export const getUserStatus = (user) => {
       Icon: <InfoIcon />,
       tooltip: 'Awaiting Account Activation',
     },
+    fastTrack: {
+      Icon: <FastTrackVendorIcon />,
+      tooltip: 'Fast Track Vendor',
+    },
     certified: {
       className: 'text-warning',
       Icon: <CertifyIcon />,
@@ -164,9 +194,24 @@ export const getUserStatus = (user) => {
     return userStatus.banned;
   }
 
+  if (
+    user?.vendor?.fastTrack &&
+    user?.vendor?.fastTrack !== FAST_TRACK_VENDOR.NONE
+  ) {
+    let fastTrackClassName = 'text-danger';
+    if (user?.vendor?.fastTrack === FAST_TRACK_VENDOR.REQUIRED_INFO) {
+      fastTrackClassName = 'text-warning';
+    } else if (user?.vendor?.fastTrack === FAST_TRACK_VENDOR.COMPLETED) {
+      fastTrackClassName = 'text-success';
+    }
+
+    return { ...userStatus.fastTrack, className: fastTrackClassName };
+  }
+
   if (!user?.vendor?.certified && user?.vendor?.verified) {
     return userStatus.verified;
   }
+
   if (user?.vendor?.certified) {
     return userStatus.certified;
   }
@@ -323,6 +368,101 @@ const FilterForm = ({ setFilterTerms }) => {
         </Form>
       )}
     </Formik>
+  );
+};
+
+const FastTrackVendorModal = ({
+  showFastTrackVendor,
+  setShowFastTrackVendor,
+  setToast,
+}) => {
+  return (
+    <Modal
+      title="Process Video"
+      show={showFastTrackVendor}
+      onHide={() => setShowFastTrackVendor(false)}
+      showFooter={false}
+    >
+      <section className="row">
+        <div className="col-md-12 my-3">
+          <Formik
+            initialValues={setInitialValues(fastTrackVendorSchema)}
+            onSubmit={(values, actions) => {
+              const payload = {
+                companyLogo: '',
+                ...values,
+              };
+              axios
+                .post(
+                  `${BASE_API_URL}/user/fast-track-vendor`,
+                  { ...payload },
+                  {
+                    headers: { Authorization: getTokenFromStore() },
+                  }
+                )
+                .then(function (response) {
+                  const { status } = response;
+                  if (statusIsSuccessful(status)) {
+                    setToast({
+                      type: 'success',
+                      message: `The vendor has been successfully created`,
+                    });
+                    actions.setSubmitting(false);
+                    actions.resetForm();
+                    setShowFastTrackVendor(false);
+                  }
+                })
+                .catch(function (error) {
+                  setToast({
+                    message: getError(error),
+                  });
+                  actions.setSubmitting(false);
+                });
+            }}
+            validationSchema={createSchema(fastTrackVendorSchema)}
+          >
+            {({ isSubmitting, handleSubmit, ...props }) => (
+              <Form>
+                <Input label="Company Name" name="companyName" />
+
+                <Select
+                  formGroupClassName="col-md-6"
+                  label="Entity"
+                  name="entity"
+                  options={valuesToOptions(
+                    Object.keys(VENDOR_IDENTIFICATION_TYPE)
+                  )}
+                  placeholder="Select Entity Type"
+                />
+
+                <Upload
+                  label="Upload your image"
+                  changeText="Update Picture"
+                  // defaultImage="/assets/img/placeholder/image.png"
+                  imgOptions={{
+                    className: 'mb-3 img-xxl',
+                    width: 200,
+                    height: 300,
+                  }}
+                  name="companyLogo"
+                  uploadText={`Upload Picture`}
+                  folder={'company-logo'}
+                />
+                <Button
+                  color="secondary"
+                  className="mt-4"
+                  loading={isSubmitting}
+                  onClick={handleSubmit}
+                >
+                  Add Fast Tracked Vendor
+                </Button>
+                <DisplayFormikState {...props} hide showAll />
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </section>
+    </Modal>
   );
 };
 
