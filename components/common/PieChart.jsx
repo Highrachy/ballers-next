@@ -31,14 +31,11 @@ const MyResponsivePie = ({ data, isAllZero, colors /* see data tab */ }) => {
         modifiers: [['darker', 0.2]],
       }}
       arcLabel={function (e) {
-        console.log('e', e);
-        return e.id;
+        return e.label;
       }}
       arcLinkLabel={function (e) {
-        const word = Humanize.capitalize(e.id);
+        const word = Humanize.capitalize(e?.label);
         return Humanize.truncate(word, isMobileDevice ? 10 : 20);
-        // return `${Humanize.capitalize(e.id)}`;
-        // return Humanize.intword(e.value, 'this is a nop', 0);
       }}
       arcLinkLabelsSkipAngle={0}
       arcLinkLabelsTextColor="#333333"
@@ -51,7 +48,7 @@ const MyResponsivePie = ({ data, isAllZero, colors /* see data tab */ }) => {
         from: 'color',
         modifiers: [['darker', 2]],
       }}
-      colors={isAllZero ? [Colors.primary[50]] : colors}
+      colors={colors}
       defs={[
         {
           id: 'dots',
@@ -125,7 +122,7 @@ const MyResponsivePie = ({ data, isAllZero, colors /* see data tab */ }) => {
               borderRadius: '3px',
             }}
           >
-            {Humanize.capitalize(t.id)} - {moneyFormatInNaira(t.value)}
+            {Humanize.capitalize(t.label)} - {moneyFormatInNaira(t.value)}
           </div>
         );
       }}

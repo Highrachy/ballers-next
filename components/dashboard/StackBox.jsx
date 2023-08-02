@@ -1,0 +1,64 @@
+import React from 'react';
+import { OnlineImage } from '../utils/Image';
+import Link from 'next/link';
+import Avatar from '../blog/Avatar';
+import AvatarColor from './AvatarColor';
+
+const StackBox = ({
+  avatarColor = null,
+  src,
+  title,
+  subtitle,
+  value,
+  statusColor,
+  statusName = 'Received',
+  href = '#',
+}) => {
+  return (
+    <Link href={href}>
+      <a className="widget-stack">
+        <section className="d-flex justify-content-between">
+          <div className="d-flex flex-row">
+            {src ? (
+              <OnlineImage
+                src={src}
+                name={`property`}
+                width="40"
+                className="img-rounded"
+                alt="property"
+              />
+            ) : (
+              <AvatarColor title={title} avatarColor={avatarColor} />
+            )}
+            <div className="d-flex flex-column">
+              <h4 className={`text-primary text-md fw-semibold my-0`}>
+                {title}
+              </h4>
+              {subtitle && (
+                <p className="text-sm text-primary mt-1 my-0">{subtitle}</p>
+              )}
+            </div>
+          </div>
+          <div className="d-flex flex-column">
+            <div className="d-flex flex-row">
+              <div className="text-end">
+                {value && (
+                  <p className="fw-bold text-end mb-0">
+                    <span className="fw-semibold">{value}</span>
+                  </p>
+                )}
+                <div className="text-sm status-badge">
+                  <div className={`badge bg-${statusColor} rounded-pill`}>
+                    {statusName}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </a>
+    </Link>
+  );
+};
+
+export default StackBox;
