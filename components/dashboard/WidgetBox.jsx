@@ -6,6 +6,8 @@ export const WidgetBox = ({
   buttonName = 'View All',
   href = '#',
   isStandAlone,
+  data = [],
+  Icon = null,
 }) => {
   const classes = `col-sm-6 ${isStandAlone ? '' : 'mt-4'}`;
 
@@ -24,7 +26,13 @@ export const WidgetBox = ({
             </Button>
           )}
         </div>
-        {children}
+        {data?.length > 0 ? (
+          children
+        ) : (
+          <h6 className="text-muted text-center my-5 fw-normal">
+            {Icon} You have no {title}
+          </h6>
+        )}
       </div>
     </div>
   );

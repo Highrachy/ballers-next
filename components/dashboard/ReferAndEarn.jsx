@@ -16,3 +16,5 @@ export const ReferAndEarn = () => (
     </InfoBox>
   </div>
 );
+
+export default ReferAndEarn;

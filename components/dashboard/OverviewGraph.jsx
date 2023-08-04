@@ -63,3 +63,5 @@ export const OverviewGraph = ({ data }) => {
     </div>
   );
 };
+
+export default OverviewGraph;

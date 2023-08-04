@@ -8,7 +8,7 @@ import {
   differenceInCalendarDays,
   isValid,
 } from 'date-fns';
-
+import Humanize from 'humanize-plus';
 /**
  * Date and Time
  * @param {*} date
@@ -46,3 +46,12 @@ export const formatFilterDate = (date) => format(parseISO(date), 'YYYY-L-D');
 export const convertToUTC = (date) =>
   new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString();
 export const isValidDate = (date) => isValid(parseISO(date));
+
+export const getDateStatus = (date, successColor = '') => {
+  const days = Math.abs(differenceInDays(date)) || 0;
+  const daysInWords = `${days} ${Humanize.pluralize(days, 'day')}`;
+  const isOverdueDate = isPastDate(date);
+  const statusColor = isOverdueDate ? 'danger' : successColor || 'success';
+  const statusName = `${isOverdueDate ? 'Overdue' : 'Due'}: ${daysInWords}`;
+  return { statusColor, statusName };
+};

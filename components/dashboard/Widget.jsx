@@ -38,3 +38,5 @@ export const Widget = ({
     </section>
   );
 };
+
+export default Widget;

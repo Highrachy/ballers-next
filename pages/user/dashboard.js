@@ -8,23 +8,28 @@ import {
   ReferIcon,
   VasIcon,
 } from 'components/utils/Icons';
-import { OFFER_STATUS, USER_TYPES } from 'utils/constants';
+import { ACTIVE_OFFER_STATUS, OFFER_STATUS, USER_TYPES } from 'utils/constants';
 import { UserContext } from 'context/UserContext';
 import Toast, { useToast } from 'components/utils/Toast';
-import { differenceInDays, getDate, isPastDate } from 'utils/date-helpers';
+import {
+  differenceInDays,
+  getDate,
+  getDateStatus,
+  isPastDate,
+} from 'utils/date-helpers';
 import { API_ENDPOINT } from 'utils/URL';
 import { useGetQuery } from '@/hooks/useQuery';
 import { ContentLoader } from '@/components/utils/LoadingItems';
 import Humanize from 'humanize-plus';
-import { OverviewGraph } from '@/components/dashboard/OverviewGraph';
-import { Widget } from '@/components/dashboard/Widget';
+import OverviewGraph from '@/components/dashboard/OverviewGraph';
+import Widget from '@/components/dashboard/Widget';
 import Colors from 'style-dictionary/build/color.tokens.js';
 import WidgetBox from '@/components/dashboard/WidgetBox';
 import StackBox from '@/components/dashboard/StackBox';
 import { moneyFormatInNaira } from '@/utils/helpers';
 import WelcomeHero from '@/components/common/WelcomeHero';
 import ServiceBox from '@/components/dashboard/ServiceBox';
-import { ReferAndEarn } from '@/components/dashboard/ReferAndEarn';
+import ReferAndEarn from '@/components/dashboard/ReferAndEarn';
 
 export const PegassusImage =
   'https://ballers-staging.s3.amazonaws.com/63da062af9ec130016200f41/7de33a00-ab6a-11ed-9d59-6fa02cafbd66.jpg';
@@ -65,17 +70,17 @@ const Dashboard = () => {
 
 const UpcomingPaymentsAndRecentOffers = ({ result }) => {
   const { upcomingPayments, recentOffers } = result;
-  console.log('upcomingPayments: ', upcomingPayments);
 
   return (
     <div className="container-fluid py-0">
       <div className="row">
-        <WidgetBox title="Upcoming Payments" href={`/user/portfolio`}>
+        <WidgetBox
+          title="Upcoming Payments"
+          href={`/user/portfolio`}
+          data={upcomingPayments}
+        >
           {upcomingPayments?.map((nextPayment, index) => {
             const property = nextPayment?.propertyInfo;
-            const days = Math.abs(differenceInDays(nextPayment?.dueDate)) || 0;
-            const daysInWords = `${days} ${Humanize.pluralize(days, 'day')}`;
-            const isOverdueDate = isPastDate(nextPayment?.dueDate);
 
             return (
               <StackBox
@@ -84,40 +89,40 @@ const UpcomingPaymentsAndRecentOffers = ({ result }) => {
                 title={property.name}
                 subtitle={`Due on ${getDate(nextPayment?.dueDate)}`}
                 value={moneyFormatInNaira(nextPayment?.expectedAmount)}
-                statusColor={isOverdueDate ? 'danger' : 'success'}
-                statusName={`${
-                  isOverdueDate ? 'Overdue' : 'Due'
-                }: ${daysInWords}`}
+                {...getDateStatus(nextPayment?.dueDate)}
               />
             );
           })}
         </WidgetBox>
-        <WidgetBox title="Recent Offers" href={`/user/portfolio`}>
+        <WidgetBox
+          title="Recent Offers"
+          href={`/user/portfolio`}
+          data={recentOffers}
+        >
           {recentOffers?.map((offer, index) => {
             const vendor = offer?.vendorInfo;
             const property = offer?.propertyInfo;
             const days = Math.abs(differenceInDays(offer?.expires)) || 0;
             const daysInWords = `${days} ${Humanize.pluralize(days, 'day')}`;
+            const offerHasExpired = isPastDate(offer?.expires);
             const dueText = `${
-              isPastDate(offer?.expires) ? 'Overdue in' : 'Due in'
+              offerHasExpired ? 'Expired in' : 'Due in'
             }: ${daysInWords}`;
+            const activeOffer = ACTIVE_OFFER_STATUS.includes(offer.status);
+            const offerColor = activeOffer
+              ? 'success'
+              : offerHasExpired
+              ? 'danger'
+              : 'secondary';
 
             return (
               <StackBox
+                avatarColor={offerColor}
                 key={index}
                 title={property.name}
-                subtitle={`By ${vendor.firstName}`}
-                value={offer.status}
-                statusColor={
-                  offer.status === OFFER_STATUS.GENERATED
-                    ? 'danger'
-                    : 'secondary'
-                }
-                statusName={
-                  offer.status === OFFER_STATUS.GENERATED
-                    ? dueText
-                    : offer.status
-                }
+                subtitle={`By ${vendor?.vendor?.companyName}`}
+                statusColor={offerColor}
+                statusName={activeOffer ? 'Active' : dueText}
               />
             );
           })}
@@ -133,7 +138,11 @@ const RecentTransactionsAndServices = ({ result }) => {
   return (
     <div className="container-fluid py-0">
       <div className="row">
-        <WidgetBox title="Recent Payments" href={`/user/portfolio`}>
+        <WidgetBox
+          title="Recent Payments"
+          href={`/user/portfolio`}
+          data={recentTransactions}
+        >
           {recentTransactions?.map((transaction, index) => {
             const property = transaction?.propertyInfo;
 
@@ -154,7 +163,7 @@ const RecentTransactionsAndServices = ({ result }) => {
             );
           })}
         </WidgetBox>
-        <WidgetBox title="Recommended Services">
+        <WidgetBox title="Recommended Services" data={['service']}>
           <ServiceBox
             link="/services"
             title="Title Validity"
