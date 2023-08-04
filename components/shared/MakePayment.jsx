@@ -88,8 +88,7 @@ const MakePayment = ({ amount, model, setToast, className }) => {
 
       <button
         className={classNames(
-          'btn btn-danger-light btn-wide btn-sm fw-bold',
-          className
+          className || 'btn btn-danger-light btn-sm btn-wide fw-bold'
         )}
         onClick={() => setShowPaymentModal(true)}
       >

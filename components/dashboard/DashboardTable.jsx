@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 export const DashboardTable = ({ children, title, className }) => {
   return (
     <div className={classNames('table-responsive card mb-5', className)}>

@@ -1,8 +1,6 @@
 import * as yup from 'yup';
-import { parse } from 'date-fns';
-import { moneyFormatInNaira } from 'utils/helpers';
 import { parseISO } from 'date-fns';
-import { getDate } from 'utils/date-helpers';
+import { moneyFormatInNaira } from 'utils/helpers';
 
 export const required = (label) =>
   yup.string().required(`${label} is required`);
@@ -59,8 +57,7 @@ export const positiveNumberValidation = (label, type = 'number') =>
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
     .required(`${label} must be a valid ${type}`)
-    .positive(`${label} must be a positive ${type}`)
-    .integer(`${label} must be a ${type}`);
+    .positive(`${label} must be a positive ${type}`);
 
 export const numberValidation = (label, type = 'number') =>
   yup
@@ -78,15 +75,33 @@ export const percentageValidation = (label, type = 'number') =>
     .integer(`${label} must be a ${type}`)
     .max(100, `${label} must be lesser than 100`);
 
-export const moneyRange = (label, type = 'number', min, max = 0) =>
+export const moneyRange = (
+  label,
+  type = 'number',
+  min,
+  max = 0,
+  isMoneyFormat = true
+) =>
   yup
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
     .required(`${label} must be a valid ${type}`)
     .positive(`${label} must be a positive ${type}`)
-    .integer(`${label} must be a ${type}`)
-    .min(min, `${label} must be greater than ${moneyFormatInNaira(min)}`)
-    .max(max, `${label} must be lesser than ${moneyFormatInNaira(max)}`);
+    .min(
+      min,
+      `${label} must be greater than ${
+        isMoneyFormat ? moneyFormatInNaira(min) : min
+      }`
+    )
+    .max(
+      max,
+      `${label} must be lesser than ${
+        isMoneyFormat ? moneyFormatInNaira(max) : max
+      }`
+    );
+
+export const numberRange = (label, type = 'number', min, max = 0) =>
+  moneyRange(label, type, min, max, false);
 
 export const validPercentage = (label) =>
   yup
@@ -102,8 +117,10 @@ export const requiredDate = (label) =>
     .object()
     .transform((value, originalValue) => {
       return (
-        (value?.date && { date: parse(value.date) }) ||
-        (originalValue && { date: parse(originalValue) }) || { date: undefined }
+        (value?.date && { date: parseISO(value.date) }) ||
+        (originalValue && { date: parseISO(originalValue) }) || {
+          date: undefined,
+        }
       );
     })
     .shape({
@@ -116,7 +133,7 @@ export const yearValidation = (label) =>
     .positive(`${label} must be a valid year`)
     .integer(`${label} must be a valid year`);
 
-export const minDateValidation = (label, minDate = new Date()) =>
+export const minDateValidation = (label, minDate) =>
   yup
     .object()
     .transform((value, originalValue) => {
@@ -131,9 +148,8 @@ export const minDateValidation = (label, minDate = new Date()) =>
       date: yup
         .date()
         .required(`${label} is required`)
-        .min(minDate, `${label} must be greater than ${getDate(minDate)}`),
+        .min(minDate, `${label} must be greater than ${minDate}`),
     });
-
 export const autocompleteValidation = (label, minSelection = 1) =>
   yup
     .array()
@@ -177,6 +193,19 @@ export const lengthValidation = (label, length = 10) =>
 export const createSchema = (object) => {
   return yup.object().shape(object);
 };
+
+export const arrayValidation = (label) => yup.array().label(label);
+
+export const customSelectValidation = (label) =>
+  yup.lazy((val) =>
+    Array.isArray(val)
+      ? yup
+          .array()
+          .label(label)
+          .min(1, `You must select at least one ${label}.`)
+          .of(yup.string().required())
+      : yup.string(label).nullable()
+  );
 
 export const multiSelectValidation = (label) =>
   yup

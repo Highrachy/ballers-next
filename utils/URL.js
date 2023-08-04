@@ -56,6 +56,7 @@ export const API_ENDPOINT = {
   getAllPropertyTestimonials: () => `${BASE_API_URL}/property/testimonial/all`,
 
   getAllVas: () => `${BASE_API_URL}/vas/all`,
+  getOneVas: (id) => `${BASE_API_URL}/vas/${id}`,
   getAllVasRequests: () => `${BASE_API_URL}/vas/request/all`,
   getOneVasRequest: (id) => `${BASE_API_URL}/vas/request/${id}`,
 

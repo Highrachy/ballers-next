@@ -16,6 +16,8 @@ import Humanize from 'humanize-plus';
 import { API_ENDPOINT } from 'utils/URL';
 import Link from 'next/link';
 import { useCurrentRole } from 'hooks/useUser';
+import MakePayment from './MakePayment';
+import { MODEL } from '@/utils/constants';
 
 const VasRequests = () => (
   <BackendPage>
@@ -34,7 +36,7 @@ export const VasRequestsList = () => (
   />
 );
 
-const VasRequestsRowList = ({ results, offset }) => {
+const VasRequestsRowList = ({ results, offset, setToast }) => {
   return (
     <div className="container-fluid">
       <Card className="mt-2">
@@ -54,6 +56,7 @@ const VasRequestsRowList = ({ results, offset }) => {
                 <VasRequestsRow
                   key={index}
                   number={offset + index + 1}
+                  setToast={setToast}
                   {...vasRequest}
                 />
               ))}
@@ -65,7 +68,7 @@ const VasRequestsRowList = ({ results, offset }) => {
   );
 };
 
-const VasRequestsRow = ({ _id, number, status, vasInfo }) => {
+const VasRequestsRow = ({ _id, number, status, vasInfo, setToast }) => {
   const userType = useCurrentRole().name;
   return (
     <tr>
@@ -75,8 +78,18 @@ const VasRequestsRow = ({ _id, number, status, vasInfo }) => {
       <td>{status}</td>
       <td>
         <Link href={`/${userType}/service/requests/${_id}`} passHref>
-          <a className="btn btn-xs btn-secondary btn-wide">View Request</a>
+          <a className="btn btn-xs btn-secondary me-3 btn-wide">View Request</a>
         </Link>
+
+        <MakePayment
+          className="btn btn-danger btn-wide btn-xs"
+          setToast={setToast}
+          amount={vasInfo.price || 0}
+          model={{
+            vasRequestId: _id,
+            type: MODEL.VAS_REQUEST,
+          }}
+        />
       </td>
     </tr>
   );

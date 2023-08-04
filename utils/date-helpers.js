@@ -1,3 +1,4 @@
+import Humanize from 'humanize-plus';
 import {
   format,
   parseISO,
@@ -8,25 +9,24 @@ import {
   differenceInCalendarDays,
   isValid,
 } from 'date-fns';
-import Humanize from 'humanize-plus';
+
 /**
  * Date and Time
  * @param {*} date
  */
-// https://date-fns.org/v2.29.3/docs/format
 export const getDate = (date) =>
-  isValidDate(date) ? format(parseISO(date), 'LLLL do, yyyy') : date;
+  isValidDate(date) ? format(parseISO(date), 'MMMM dd, yyyy') : date;
 export const getDateTime = (date) =>
-  format(parseISO(date), 'do, LLLL yyyy h:mm b');
+  format(parseISO(date), 'ddd, MMM d, yyyy h:mm A');
 export const getShortDateTime = (date) =>
-  format(parseISO(date), 'do LLL yyyy h:mm b');
-export const getShortDate = (date) => format(parseISO(date), 'do LLL yyyy');
+  format(parseISO(date), 'Do MMM yyyy h:mm A');
+export const getShortDate = (date) => format(parseISO(date), 'E, MMM d, yyyy');
 export const getTinyDate = (date) =>
-  isValidDate(date) && format(parseISO(date), 'LLL e, yyyy');
+  isValidDate(date) && format(parseISO(date), 'MMM d, yyyy');
 export const getLongDate = (date) =>
-  format(parseISO(date), 'EEEE, do LLLL yyyy');
+  format(parseISO(date), 'dddd, Do MMMM yyyy');
 export const getYear = (date) => format(parseISO(date), 'yyyy');
-export const getTime = (date) => format(parseISO(date), 'h:mm b');
+export const getTime = (date) => format(parseISO(date), 'h:mm A');
 export const subtractDays = (date, numOfDays) =>
   getElapsedTime(subDays(date, numOfDays));
 export const getTimeOfDay = (date) => {
@@ -38,11 +38,13 @@ export const getTimeOfDay = (date) => {
     'Night'
   );
 };
-export const isPastDate = (date) => isPast(parseISO(date));
-export const differenceInDays = (date) =>
-  differenceInCalendarDays(Date.now(), parseISO(date));
 
-export const formatFilterDate = (date) => format(parseISO(date), 'YYYY-L-D');
+export const getMonthYear = (date) => format(parseISO(date), 'MMMM, yyyy');
+export const isPastDate = (date) => isPast(date);
+export const differenceInDays = (date) =>
+  differenceInCalendarDays(Date.now(), date);
+
+export const formatFilterDate = (date) => format(parseISO(date), 'yyyy-MM-DD');
 export const convertToUTC = (date) =>
   new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString();
 export const isValidDate = (date) => isValid(parseISO(date));

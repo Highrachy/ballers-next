@@ -145,12 +145,13 @@ const RecentTransactionsAndServices = ({ result }) => {
         >
           {recentTransactions?.map((transaction, index) => {
             const property = transaction?.propertyInfo;
+            const vas = transaction?.vasInfo;
 
             return (
               <StackBox
                 key={index}
-                src={property.mainImage}
-                title={property?.name}
+                src={property?.mainImage}
+                title={property?.name || vas?.name}
                 subtitle={`Paid on ${getDate(transaction?.paidOn)}`}
                 value={moneyFormatInNaira(transaction.amount)}
                 statusColor={
@@ -194,7 +195,7 @@ const Overview = ({ result }) => {
     {
       id: 'pendingPayment',
       label: 'Pending Payment',
-      value: payments?.totalPropertyPrice - payments?.totalAmountPaid || 0,
+      value: payments?.pendingPayment || 0,
       color: Colors.danger[50],
     },
   ];

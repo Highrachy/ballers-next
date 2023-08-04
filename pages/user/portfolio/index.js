@@ -1,21 +1,52 @@
 import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
-import Link from 'next/link';
 import Toast, { useToast } from 'components/utils/Toast';
-import { BgWave, PropertyIcon } from 'components/utils/Icons';
+import { PropertyIcon } from 'components/utils/Icons';
 import PortfolioCards from 'components/common/PortfolioCards';
 import { OffersRow, OffersRowList } from 'components/shared/Offers';
 import { API_ENDPOINT } from 'utils/URL';
 import { OfferIcon } from 'components/utils/Icons';
 import PaginatedContent from 'components/common/PaginatedContent';
 import { PropertiesRowList } from '@/components/common/PropertiesRowList';
-import { DashboardTable, InfoBox, WelcomeHero } from '../dashboard';
-import { Card } from 'react-bootstrap';
-import colorTokens from 'style-dictionary/build/color.tokens';
 import { Home } from 'iconsax-react';
+import WelcomeHero from '@/components/common/WelcomeHero';
+import { InfoBox } from '@/components/dashboard/InfoBox';
+import { DashboardTable } from '@/components/dashboard/DashboardTable';
+import TabContent from '@/components/dashboard/TabContent';
 
 const Portfolio = () => {
   const [toast, setToast] = useToast();
+  const allTabs = [
+    {
+      title: 'Portfolios',
+      component: (
+        <div className="container-fluid">
+          <div className="row mt-5">
+            <PortfolioCards setToast={setToast} />
+
+            <EnjoyingBallers />
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: 'Offers',
+      component: (
+        <div className="container-fluid">
+          <h3 className="mt-5 mb-4">All Offers</h3>
+          <PaginatedContent
+            endpoint={API_ENDPOINT.getAllOffers()}
+            pageName="Offer"
+            pluralPageName="Offers"
+            DataComponent={OfferLetterList}
+            PageIcon={<OfferIcon />}
+            queryName="offer"
+            hideTitle
+          />
+        </div>
+      ),
+    },
+  ];
   return (
     <BackendPage>
       <Toast {...toast} showToastOnly />
@@ -23,27 +54,18 @@ const Portfolio = () => {
         title="My Portfolio"
         subtitle="Your Properties and Offers: A Record of Your BALL Journey"
       />
-      <Content setToast={setToast} />
+      <TabContent allTabs={allTabs} />
+      <AdditionalContent setToast={setToast} />
     </BackendPage>
   );
 };
 
-const Content = ({ setToast }) => (
-  <>
-    <div className="container-fluid">
-      <div className="row mt-5">
-        <PortfolioCards setToast={setToast} />
-      </div>
-    </div>
-    <div className="container-fluid">
-      <EnjoyingBallers />
-      <Offers />
-    </div>
-
-    {/* show this if portfolio is empty */}
-    <div className="container-fluid">
-      <h4 className="mt-5">Just for you</h4>
-      <div className="row">
+const AdditionalContent = () => {
+  return (
+    <>
+      {/* show this if portfolio is empty */}
+      <div className="container-fluid">
+        <h4 className="mt-5 ps-3">Just for you</h4>
         <PaginatedContent
           endpoint={API_ENDPOINT.searchProperties()}
           // initialFilter={filter}
@@ -57,9 +79,9 @@ const Content = ({ setToast }) => (
           hideTitle
         />
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
 
 // const EnjoyingBallers = () => (
 //   <section className="container-fluid">
@@ -80,18 +102,6 @@ const Content = ({ setToast }) => (
 //     </div>
 //   </section>
 // );
-
-const Offers = () => (
-  <PaginatedContent
-    endpoint={API_ENDPOINT.getAllOffers()}
-    pageName="Offer"
-    pluralPageName="Offers"
-    DataComponent={OfferLetterList}
-    PageIcon={<OfferIcon />}
-    queryName="offer"
-    hideTitle
-  />
-);
 
 const EnjoyingBallers = () => (
   <div className="mt-n5">

@@ -8,15 +8,24 @@ import {
   REWARD_STATUS,
 } from './constants';
 
-export const commaNumber = (value, prependCurrency = false) => {
-  const number = parseInt(value, 10);
+export const commaNumber = (
+  value,
+  prependCurrency = false,
+  showDecimal = false
+) => {
+  const number = Math.round(value * 100) / 100;
   const currency = prependCurrency ? '₦' : '';
   const sign = number < 0 ? '— ' : '';
-  return sign + currency + Humanize.intComma(Math.abs(number));
+  return `${sign}${currency}${
+    showDecimal
+      ? Math.abs(number).toFixed(2)
+      : Humanize.intComma(Math.abs(number))
+  }`;
 };
 
 export const moneyFormat = (value) => Humanize.formatNumber(value, 2);
-export const moneyFormatInNaira = (value) => commaNumber(value, true);
+export const moneyFormatInNaira = (value, showDecimal = false) =>
+  commaNumber(value, true, showDecimal);
 export const moneyFormatElement = (value) => (
   <>
     <span className="money__amount-in-naira">{Humanize.intComma(value)}</span>

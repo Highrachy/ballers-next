@@ -25,7 +25,7 @@ export const AllOfflinePayments = () => {
     <section className="my-5">
       <PaginatedContent
         endpoint={API_ENDPOINT.getAllOfflinePayments()}
-        pageName="Offline Payment"
+        pageName="Pending Transaction"
         DataComponent={OfflinePaymentsRowList}
         PageIcon={<TransactionIcon />}
         queryName="payment"
@@ -34,7 +34,6 @@ export const AllOfflinePayments = () => {
           sortBy: 'createdAt',
           sortDirection: 'desc',
         }}
-        hideNoContent
       />
     </section>
   );

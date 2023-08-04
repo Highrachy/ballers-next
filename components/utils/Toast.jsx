@@ -126,13 +126,13 @@ const TOAST_STYLE = {
   },
 };
 
-export const InfoBox = ({ children }) => (
-  <div className="card d-flex flex-row toast-alert info">
-    <div className="span toast-icon-holder">
-      <InfoIcon />
-    </div>
-    <span className="d-block ms-2 w-100 toast-message-content">{children}</span>
-  </div>
-);
+// const InfoBox = ({ children }) => (
+//   <div className="card d-flex flex-row toast-alert info">
+//     <div className="span toast-icon-holder">
+//       <InfoIcon />
+//     </div>
+//     <span className="d-block ms-2 w-100 toast-message-content">{children}</span>
+//   </div>
+// );
 
 export default Toast;

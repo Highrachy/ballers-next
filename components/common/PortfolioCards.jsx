@@ -13,6 +13,7 @@ import Humanize from 'humanize-plus';
 import { OnlineImage } from '../utils/Image';
 import MakePayment from '../shared/MakePayment';
 import { MODEL } from '@/utils/constants';
+import { parseISO } from 'date-fns';
 
 export const PortfolioPaymentProgress = ({ amountPaid, percentage }) => (
   <div className="row">
@@ -42,6 +43,16 @@ export const PortfolioCard = ({
   setToast,
   ...portfolio
 }) => {
+  const nextPayment = nextPaymentInfo?.[0];
+  const overdueDate = nextPayment?.dueDate || nextPayment?.expiresOn;
+  const amountPaid = nextPayment?.totalTransactions || 0;
+  const propertyPrice = portfolio?.totalAmountPayable || 0;
+  const percentage = Math.round(
+    Math.min(100, (amountPaid / propertyPrice) * 100)
+  );
+  const expectedAmount =
+    Math.round((nextPayment?.expectedAmount || 0) * 100) / 100;
+
   return (
     <Card className="card-container portfolio-holder property-card">
       <section className="card-body">
@@ -49,8 +60,8 @@ export const PortfolioCard = ({
           <aside className="col-sm-6">
             <div className="h-100">
               <OnlineImage
-                name={propertyInfo.name}
-                src={propertyInfo.mainImage || PropertyPlaceholderImage}
+                name={propertyInfo?.name}
+                src={propertyInfo?.mainImage || PropertyPlaceholderImage}
                 alt="Property"
                 className="img-cover h-100"
               />
@@ -59,32 +70,27 @@ export const PortfolioCard = ({
           <aside className="h-100 col-sm-6 pt-3 pt-md-0">
             <div className="portfolio-content position-relative pt-2 pe-2">
               <aside className="float-end">
-                <OverdueBadge
-                  date={
-                    nextPaymentInfo?.[0]?.dueDate ||
-                    nextPaymentInfo?.[0]?.expiresOn
-                  }
-                />
+                <OverdueBadge date={overdueDate} />
               </aside>
-              <h5 className="property-name text-gray">{propertyInfo.name}</h5>
+              <h5 className="property-name text-gray">{propertyInfo?.name}</h5>
               {/* Details */}
               <div className="property-details property-spacing">
                 <span className="property-holder__house-type">
                   <strong>
-                    <PropertyIcon /> {propertyInfo.houseType}
+                    <PropertyIcon /> {propertyInfo?.houseType}
                   </strong>
                 </span>{' '}
                 &nbsp; | &nbsp;
                 <span className="property-holder__location">
                   <strong>
-                    <MapPinIcon /> {propertyInfo.address?.city},{' '}
-                    {propertyInfo.address?.state}
+                    <MapPinIcon /> {propertyInfo?.address?.city},{' '}
+                    {propertyInfo?.address?.state}
                   </strong>
                 </span>
               </div>
               {/* Price */}
               <h4 className="property-price text-dark property-spacing">
-                {moneyFormatInNaira(portfolio?.totalAmountPayable)}
+                {moneyFormatInNaira(propertyPrice)}
               </h4>
 
               {/* Separator */}
@@ -92,22 +98,19 @@ export const PortfolioCard = ({
 
               {/* Payment Progress */}
               <PortfolioPaymentProgress
-                amountPaid={13_200_000}
-                percentage={30}
+                amountPaid={amountPaid}
+                percentage={percentage}
               />
 
               {/* Payment Info */}
               {/* <p className="text-gray text-sm mt-4 mb-1">Next Payment</p> */}
               <section className="info-content">
                 <span className="info-content__price">
-                  {moneyFormatInNaira(1_000_000)}
+                  {moneyFormatInNaira(expectedAmount, true)}
                 </span>
                 {/* todo */}
                 &nbsp; due on &nbsp;
-                {getTinyDate(
-                  nextPaymentInfo?.[0]?.dueDate ||
-                    nextPaymentInfo?.[0]?.expiresOn
-                )}
+                {getTinyDate(overdueDate)}
               </section>
 
               {/* <section className="property-spacing">
@@ -122,7 +125,7 @@ export const PortfolioCard = ({
               <div className="property-holder__btn text-end">
                 <MakePayment
                   setToast={setToast}
-                  amount={nextPaymentInfo?.[0]?.expectedAmount || 0}
+                  amount={expectedAmount}
                   model={{
                     offerId: portfolio?._id,
                     type: MODEL.OFFER,
@@ -143,9 +146,10 @@ export const PortfolioCard = ({
 };
 
 export const OverdueBadge = ({ date }) => {
-  const days = Math.abs(differenceInDays(date)) || 0;
+  const formattedDate = parseISO(date);
+  const days = Math.abs(differenceInDays(formattedDate)) || 0;
   const daysInWords = `${days} ${Humanize.pluralize(days, 'day')}`;
-  return isPastDate(date) ? (
+  return isPastDate(formattedDate) ? (
     <div className="badge badge-overdue badge-overdue__danger">
       Overdue: <strong>{daysInWords} ago</strong>
     </div>

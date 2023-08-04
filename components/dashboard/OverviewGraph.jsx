@@ -38,7 +38,7 @@ export const OverviewGraph = ({ data }) => {
         <section className="row justify-content-between g-0">
           <div className="col-12">
             <div className="text-sm mt-3">
-              {data.map((item) => (
+              {graphData.map((item) => (
                 <div className="d-flex flex-between-center mb-1" key={item.id}>
                   <div className="d-flex align-items-center">
                     <span

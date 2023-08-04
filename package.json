@@ -17,6 +17,7 @@
     "bootstrap": "^5.2.3",
     "chart.js": "^4.2.1",
     "classnames": "^2.3.1",
+    "date-fns": "^2.30.0",
     "formik": "^2.2.9",
     "formik-persist": "^1.1.0",
     "google-map-react": "^2.2.0",
