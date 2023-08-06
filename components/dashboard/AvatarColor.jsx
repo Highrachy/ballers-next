@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function getColor(title) {
-  const firstLetter = title.charAt(0).toUpperCase();
+  const firstLetter = title?.charAt(0)?.toUpperCase();
   const colorMapping = {
     A: 'secondary',
     B: 'purple',
@@ -31,12 +31,13 @@ export function getColor(title) {
     Z: 'purple',
   };
 
-  return colorMapping[firstLetter] || 'secondary';
+  return colorMapping[firstLetter] || 'danger';
 }
 
 function getInitials(title) {
+  if (!title) return 'ZZ';
   const words = title.split(' ');
-  return words[0].charAt(0) + words[1].charAt(0);
+  return words?.[0]?.charAt(0) + words?.[1]?.charAt(0) || '';
 }
 
 const AvatarColor = ({ title, avatarColor }) => {

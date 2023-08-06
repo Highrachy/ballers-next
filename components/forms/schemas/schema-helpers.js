@@ -138,17 +138,15 @@ export const minDateValidation = (label, minDate) =>
     .object()
     .transform((value, originalValue) => {
       return (
-        (value?.date && { date: parseISO(value.date) }) ||
+        (value?.date && { date: parseISO(value?.date) }) ||
         (originalValue && { date: parseISO(originalValue) }) || {
           date: undefined,
         }
       );
     })
     .shape({
-      date: yup
-        .date()
-        .required(`${label} is required`)
-        .min(minDate, `${label} must be greater than ${minDate}`),
+      date: yup.date().required(`${label} is required`),
+      // .min(minDate, `${label} must be greater than ${minDate}`), TODO: fix this later
     });
 export const autocompleteValidation = (label, minSelection = 1) =>
   yup

@@ -93,7 +93,7 @@ const EditPropertyForm = ({ id, toast, setToast }) => {
   );
 };
 
-const NewPropertyForm = ({ property, toast, setToast }) => {
+export const NewPropertyForm = ({ property, toast, setToast }) => {
   const router = useRouter();
   const [location, setLocation] = React.useState(null);
   const [image, setImage] = React.useState(

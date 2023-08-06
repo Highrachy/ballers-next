@@ -1,11 +1,21 @@
 import React from 'react';
 import BackendPage from '@/components/layout/BackendPage';
-import { OfferIcon, TransactionIcon } from '@/components/utils/Icons';
-import { AdminWidgetList } from '@/components/common/ContributionGraph';
+import {
+  BadgesIcon,
+  EnquiryIcon,
+  OfferIcon,
+  PortfolioIcon,
+  PropertyIcon,
+  ReferIcon,
+  TransactionIcon,
+  VasIcon,
+  VisitationIcon,
+} from '@/components/utils/Icons';
 import Toast, { useToast } from '@/components/utils/Toast';
 import {
   differenceInDays,
   getDate,
+  getDateStatus,
   getShortDate,
   isPastDate,
 } from 'utils/date-helpers';
@@ -16,77 +26,160 @@ import Humanize from 'humanize-plus';
 import WidgetBox from '@/components/dashboard/WidgetBox';
 import WelcomeHero from '@/components/common/WelcomeHero';
 import StackBox from '@/components/dashboard/StackBox';
-import { ServiceBox } from 'pages/user/dashboard';
-
-export const PegassusImage =
-  'https://ballers-staging.s3.amazonaws.com/63da062af9ec130016200f41/7de33a00-ab6a-11ed-9d59-6fa02cafbd66.jpg';
-export const BlissvilleImage =
-  'https://ballers-staging.s3.amazonaws.com/63d73318936e55001633c84c/95a141e0-a04e-11ed-86c2-f1037f8bce01.jpg';
+import Widget from '@/components/dashboard/Widget';
+import { moneyFormatInNaira } from '@/utils/helpers';
+import RecentOffersWidget from '@/components/dashboard/widgets/RecentOffersWidget';
+import RemittanceWidget from '@/components/dashboard/widgets/RemittanceWidget';
+import RecentTransactionsWidget from '@/components/dashboard/widgets/RecentTransactionsWidget';
+import ServiceBox from '@/components/dashboard/ServiceBox';
 
 const Dashboard = () => {
-  const [toast, setToast] = useToast();
+  const [toast] = useToast();
 
-  const [offersQuery] = useGetQuery({
+  const [dashboardQuery] = useGetQuery({
     axiosOptions: {},
-    childrenKey: 'offer',
-    key: 'pendingOffers',
-    name: ['pendingOffers'],
-    endpoint: API_ENDPOINT.getAllPortfolios(),
+    name: 'dashboard',
+    endpoint: API_ENDPOINT.getDashboardInfo(),
     refresh: true,
   });
 
-  const [portfoliosQuery] = useGetQuery({
-    axiosOptions: { limit: 0 },
-    childrenKey: 'portfolio',
-    key: 'portfolios',
-    name: ['portfolios', { limit: 0 }],
-    endpoint: API_ENDPOINT.getAllPortfolios(),
-    refresh: true,
-  });
-  const [transactionsQuery] = useGetQuery({
-    axiosOptions: { limit: 0 },
-    childrenKey: 'transaction',
-    key: 'transactions',
-    name: ['transactions', { limit: 0 }],
-    endpoint: API_ENDPOINT.getAllTransactions(),
-    refresh: true,
-  });
-
-  const allPortfolios = portfoliosQuery?.data?.result;
-  const allOffers = offersQuery?.data?.result;
-  const allTransactions = transactionsQuery?.data?.result;
+  const result = dashboardQuery?.data || {};
 
   return (
     <BackendPage>
       <Toast {...toast} showToastOnly />
       <WelcomeHero subtitle="Welcome to the Admnistrative Dashboard" />
-      <AdminOverview
-        result={{
-          activeOffers: allOffers?.length,
-          portfolios: allPortfolios?.length,
-        }}
-      />
-      <Others
-        allPortfolios={allPortfolios}
-        allOffers={allOffers}
-        allTransactions={allTransactions}
-        portfoliosQuery={portfoliosQuery}
-        offersQuery={offersQuery}
-        transactionsQuery={transactionsQuery}
-      />
+      <AdminOverview result={result} />
+      <PendingPropertiesAndOffers result={result} />
+      <ReceivedPaymentsAndRemittance result={result} />
     </BackendPage>
   );
 };
 
-const AdminOverview = ({ result }) => (
-  <div className="container-fluid py-0 mt-n6">
-    <AdminWidgetList result={result} />
-  </div>
-);
+const AdminOverview = ({ result }) => {
+  const { widgets } = result;
+
+  const widgetLists = [
+    {
+      name: 'Properties',
+      color: 'danger',
+      Icon: <PropertyIcon />,
+      value: widgets?.propertyCount || 0,
+    },
+    {
+      name: 'Portfolios',
+      color: 'secondary',
+      Icon: <PortfolioIcon />,
+      value: widgets?.portfolioCount || 0,
+    },
+    {
+      name: 'Offers',
+      color: 'success',
+      Icon: <OfferIcon />,
+      value: widgets?.offerCount || 0,
+    },
+    {
+      name: 'Transactions',
+      color: 'pink',
+      Icon: <TransactionIcon />,
+      value: widgets?.transactionCount || 0,
+    },
+    {
+      name: 'Services',
+      key: 'service',
+      link: 'service',
+      color: 'warning',
+      Icon: <VasIcon />,
+      value: widgets?.serviceCount || 0,
+    },
+    {
+      name: 'Enquiries',
+      color: 'pink',
+      Icon: <EnquiryIcon />,
+      value: widgets?.enquiryCount || 0,
+    },
+    {
+      name: 'Scheduled Visits',
+      color: 'primary',
+      link: 'scheduled-visits',
+      key: 'visitations',
+      Icon: <VisitationIcon />,
+      value: widgets?.visitationCount || 0,
+    },
+    {
+      name: 'Badges',
+      color: 'secondary',
+      Icon: <BadgesIcon />,
+      value: widgets?.badgeCount || 0,
+    },
+  ];
+
+  return (
+    <div className="container-fluid py-0 mt-n6">
+      <div className="row g-4">
+        {widgetLists.map((widget, index) => (
+          <Widget
+            key={index}
+            {...widget}
+            role="admin"
+            className="col-6 col-md-3"
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const PendingPropertiesAndOffers = ({ result }) => {
+  const { pendingProperties } = result;
+
+  return (
+    <div className="container-fluid py-0">
+      <div className="row">
+        <WidgetBox
+          title="Pending Properties"
+          href={`/admin/properties`}
+          data={pendingProperties}
+        >
+          {pendingProperties?.map((property, index) => {
+            const vendorInfo = property?.vendorInfo;
+            return (
+              <StackBox
+                key={index}
+                src={property.mainImage}
+                title={`${property.name} (${property.houseType})`}
+                subtitle={vendorInfo?.vendor?.companyName}
+                value={moneyFormatInNaira(property?.price)}
+                {...getDateStatus(property?.createdAt)}
+              />
+            );
+          })}
+        </WidgetBox>
+        <RecentOffersWidget result={result?.recentOffers} role="admin" />
+      </div>
+    </div>
+  );
+};
+
+const ReceivedPaymentsAndRemittance = ({ result }) => {
+  return (
+    <div className="container-fluid py-0">
+      <div className="row">
+        <RecentTransactionsWidget
+          result={result?.recentTransactions}
+          role="admin"
+        />
+        <RemittanceWidget
+          title="Pending Remittance"
+          role="admin"
+          result={result?.pendingRemittances}
+        />
+      </div>
+    </div>
+  );
+};
 
 const Others = ({
-  offersQuery,
-  allOffers,
   allPortfolios,
   portfoliosQuery,
   allTransactions,
@@ -94,37 +187,6 @@ const Others = ({
 }) => (
   <>
     <div className="container-fluid py-0">
-      <div className="row">
-        <WidgetBox title="Pending Property Approval">
-          <StackBox
-            title="Pegassus Duplexes"
-            src={PegassusImage}
-            date="Mar 10th, 2023"
-            price="150,0000,000"
-          />
-          <StackBox
-            title="Blissville Uno"
-            src={BlissvilleImage}
-            date="Apr 10th, 2023"
-            price="60,000,000"
-          />
-        </WidgetBox>
-
-        <WidgetBox title="Pending Offer Letter Approval">
-          <StackBox
-            title="Blissville Uno"
-            date="Submitted: 7 days"
-            status="0"
-            statusName="Awaiting"
-          />
-          <StackBox
-            title="Pegassus Duplexes"
-            date="Submitted: 8 days"
-            status="0"
-            statusName="Awaiting"
-          />
-        </WidgetBox>
-      </div>
       <div className="row row-eq-height">
         <WidgetBox title="Pending Video Approval" href={`/user/portfolio`}>
           <StackBox
@@ -198,13 +260,12 @@ const Others = ({
             noContentText={`You have no recent transactions`}
           >
             {allTransactions?.map((transaction, index) => {
-              console.log('transaction.propertyInfo', transaction);
               const property = transaction?.propertyInfo;
               return (
                 <StackBox
                   key={index}
                   title={property?.name || '3 Bedroom Property'}
-                  src={property?.mainImage || PegassusImage}
+                  src={property?.mainImage}
                   date={getShortDate(transaction?.paidOn)}
                   price={transaction.amount}
                   status={transaction.paymentSource === 'Paystack' ? '1' : '2'}

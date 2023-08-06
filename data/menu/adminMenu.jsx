@@ -9,6 +9,7 @@ import {
   EnquiryIcon,
   NotificationIcon,
   OfferIcon,
+  VasIcon,
 } from 'components/utils/Icons';
 // import { VisitationIcon } from 'components/utils/Icons';
 // import { MessageIcon } from 'components/utils/Icons';
@@ -54,9 +55,9 @@ const adminMenu = [
     footer: true,
   },
   {
-    title: 'Enquiries',
-    to: '/admin/enquiries',
-    icon: <EnquiryIcon />,
+    title: 'Services',
+    to: '/admin/service',
+    icon: <VasIcon />,
     footer: true,
   },
   {

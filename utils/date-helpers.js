@@ -28,9 +28,9 @@ export const getLongDate = (date) =>
 export const getYear = (date) => format(parseISO(date), 'yyyy');
 export const getTime = (date) => format(parseISO(date), 'h:mm A');
 export const subtractDays = (date, numOfDays) =>
-  getElapsedTime(subDays(date, numOfDays));
+  getElapsedTime(subDays(parseISO(date), numOfDays));
 export const getTimeOfDay = (date) => {
-  const hour = getHours(date);
+  const hour = getHours(parseISO(date));
   return (
     (hour < 12 && 'Morning') ||
     (hour < 16 && 'Afternoon') ||
@@ -40,20 +40,20 @@ export const getTimeOfDay = (date) => {
 };
 
 export const getMonthYear = (date) => format(parseISO(date), 'MMMM, yyyy');
-export const isPastDate = (date) => isPast(date);
+export const isPastDate = (date) => isPast(parseISO(date));
 export const differenceInDays = (date) =>
-  differenceInCalendarDays(Date.now(), date);
+  differenceInCalendarDays(Date.now(), parseISO(date));
 
 export const formatFilterDate = (date) => format(parseISO(date), 'yyyy-MM-DD');
 export const convertToUTC = (date) =>
   new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString();
 export const isValidDate = (date) => isValid(parseISO(date));
 
-export const getDateStatus = (date, successColor = '') => {
+export const getDateStatus = (date, successColor = 'success') => {
   const days = Math.abs(differenceInDays(date)) || 0;
   const daysInWords = `${days} ${Humanize.pluralize(days, 'day')}`;
   const isOverdueDate = isPastDate(date);
-  const statusColor = isOverdueDate ? 'danger' : successColor || 'success';
+  const statusColor = isOverdueDate ? 'danger' : successColor;
   const statusName = `${isOverdueDate ? 'Overdue' : 'Due'}: ${daysInWords}`;
   return { statusColor, statusName };
 };

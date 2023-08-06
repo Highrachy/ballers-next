@@ -90,7 +90,6 @@ const LoginForm = ({ redirectTo, token }) => {
   const router = useRouter();
   const [toast, setToast] = useToast();
   const { userState, loginUser } = React.useContext(UserContext);
-  console.log('userState: ', userState);
 
   // CHECK TOKEN ACTIVATION
   React.useEffect(() => {

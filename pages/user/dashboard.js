@@ -30,11 +30,8 @@ import { moneyFormatInNaira } from '@/utils/helpers';
 import WelcomeHero from '@/components/common/WelcomeHero';
 import ServiceBox from '@/components/dashboard/ServiceBox';
 import ReferAndEarn from '@/components/dashboard/ReferAndEarn';
-
-export const PegassusImage =
-  'https://ballers-staging.s3.amazonaws.com/63da062af9ec130016200f41/7de33a00-ab6a-11ed-9d59-6fa02cafbd66.jpg';
-export const BlissvilleImage =
-  'https://ballers-staging.s3.amazonaws.com/63d73318936e55001633c84c/95a141e0-a04e-11ed-86c2-f1037f8bce01.jpg';
+import RecentOffersWidget from '@/components/dashboard/widgets/RecentOffersWidget';
+import RecentTransactionsWidget from '@/components/dashboard/widgets/RecentTransactionsWidget';
 
 const Dashboard = () => {
   const [toast, setToast] = useToast();
@@ -69,14 +66,13 @@ const Dashboard = () => {
 };
 
 const UpcomingPaymentsAndRecentOffers = ({ result }) => {
-  const { upcomingPayments, recentOffers } = result;
-
+  const { upcomingPayments } = result;
   return (
     <div className="container-fluid py-0">
       <div className="row">
         <WidgetBox
           title="Upcoming Payments"
-          href={`/user/portfolio`}
+          href={`/user/transactions`}
           data={upcomingPayments}
         >
           {upcomingPayments?.map((nextPayment, index) => {
@@ -94,77 +90,25 @@ const UpcomingPaymentsAndRecentOffers = ({ result }) => {
             );
           })}
         </WidgetBox>
-        <WidgetBox
-          title="Recent Offers"
-          href={`/user/portfolio`}
-          data={recentOffers}
-        >
-          {recentOffers?.map((offer, index) => {
-            const vendor = offer?.vendorInfo;
-            const property = offer?.propertyInfo;
-            const days = Math.abs(differenceInDays(offer?.expires)) || 0;
-            const daysInWords = `${days} ${Humanize.pluralize(days, 'day')}`;
-            const offerHasExpired = isPastDate(offer?.expires);
-            const dueText = `${
-              offerHasExpired ? 'Expired in' : 'Due in'
-            }: ${daysInWords}`;
-            const activeOffer = ACTIVE_OFFER_STATUS.includes(offer.status);
-            const offerColor = activeOffer
-              ? 'success'
-              : offerHasExpired
-              ? 'danger'
-              : 'secondary';
-
-            return (
-              <StackBox
-                avatarColor={offerColor}
-                key={index}
-                title={property.name}
-                subtitle={`By ${vendor?.vendor?.companyName}`}
-                statusColor={offerColor}
-                statusName={activeOffer ? 'Active' : dueText}
-              />
-            );
-          })}
-        </WidgetBox>
+        <RecentOffersWidget result={result?.recentOffers} />
       </div>
     </div>
   );
 };
 
 const RecentTransactionsAndServices = ({ result }) => {
-  const { recentTransactions } = result;
-
   return (
     <div className="container-fluid py-0">
       <div className="row">
+        <RecentTransactionsWidget
+          result={result?.recentTransactions}
+          role="user"
+        />
         <WidgetBox
-          title="Recent Payments"
-          href={`/user/portfolio`}
-          data={recentTransactions}
+          title="Recommended Services"
+          href="/user/services"
+          data={['service']}
         >
-          {recentTransactions?.map((transaction, index) => {
-            const property = transaction?.propertyInfo;
-            const vas = transaction?.vasInfo;
-
-            return (
-              <StackBox
-                key={index}
-                src={property?.mainImage}
-                title={property?.name || vas?.name}
-                subtitle={`Paid on ${getDate(transaction?.paidOn)}`}
-                value={moneyFormatInNaira(transaction.amount)}
-                statusColor={
-                  transaction.paymentSource === 'Paystack'
-                    ? 'secondary'
-                    : 'success'
-                }
-                statusName={transaction.paymentSource}
-              />
-            );
-          })}
-        </WidgetBox>
-        <WidgetBox title="Recommended Services" data={['service']}>
           <ServiceBox
             link="/services"
             title="Title Validity"
@@ -218,12 +162,14 @@ const Overview = ({ result }) => {
     },
     {
       name: 'All Services',
+      link: 'services',
       color: 'warning',
       Icon: <VasIcon />,
       value: widgets?.serviceCount || 0,
     },
     {
       name: 'All Referrals',
+      link: 'referrals',
       color: 'danger',
       key: 'interests',
       Icon: <ReferIcon />,

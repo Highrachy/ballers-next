@@ -48,7 +48,7 @@ const JustForYou = ({ location }) => {
         {({ isSubmitting, handleSubmit, ...props }) => {
           return (
             <>
-              {/* <Form className="container-fluid py-r border-bottom mb-4">
+              <Form className="container-fluid py-r border-bottom mb-4">
                 <div className="form-row">
                   <Switch
                     formGroupClassName="col-md-6"
@@ -65,7 +65,7 @@ const JustForYou = ({ location }) => {
                   />
                   <DisplayFormikState {...props} hide />
                 </div>
-              </Form> */}
+              </Form>
               {props?.values?.favorites && (
                 <section className="mt-5">
                   <PropertiesRowList
@@ -84,7 +84,7 @@ const JustForYou = ({ location }) => {
                   pageName="Property"
                   pluralPageName="Properties"
                   DataComponent={PropertiesRowList}
-                  // FilterComponent={SearchForm}
+                  FilterComponent={SearchForm}
                   PageIcon={<PropertyIcon />}
                   queryName="property"
                   showFetching
@@ -98,21 +98,21 @@ const JustForYou = ({ location }) => {
   );
 };
 
-// const SearchForm = ({ defaultInputValue }) => (
-//   <div className="text-center py-4 mb-3 border-bottom">
-//     <h4>Search for your preferred Property</h4>
-//     <div className="row">
-//       <div className="col-sm-8 mx-auto">
-//         <div className="property-search__dashboard just-for-you__search">
-//           <SearchDashboardPropertyForm
-//             defaultInputValue={defaultInputValue}
-//             useDashboardStyles={false}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-// );
+const SearchForm = ({ defaultInputValue }) => (
+  <div className="text-center py-4 mb-3 border-bottom">
+    <h4>Search for your preferred Property</h4>
+    <div className="row">
+      <div className="col-sm-8 mx-auto">
+        <div className="property-search__dashboard just-for-you__search">
+          <SearchDashboardPropertyForm
+            defaultInputValue={defaultInputValue}
+            useDashboardStyles={false}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 export const PropertiesRowList = ({ results, title }) => {
   return results && results.length > 0 ? (
@@ -120,7 +120,7 @@ export const PropertiesRowList = ({ results, title }) => {
       {title && <h4 className="mb-5">{title}</h4>}
       <div className="row">
         <RecommendedPropertyLists
-          propertyClassName="col-sm-6 col-md-4 col-lg-3"
+          propertyClassName="col-sm-6"
           properties={results}
         />
       </div>

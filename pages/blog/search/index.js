@@ -7,10 +7,8 @@ import React from 'react';
 import { getAllCategories, searchPost } from 'lib/api';
 
 export default function Post({ posts, slug }) {
-  console.log('posts, slug: ', posts, slug);
   const router = useRouter();
   const { term } = router.query;
-  console.log('term: ', term);
 
   // Function to fetch search results
   const search = async (searchTerm) => {
@@ -31,8 +29,6 @@ export default function Post({ posts, slug }) {
       });
     }
   }, [term]);
-
-  console.log('router.query', router.query);
 
   const categoryName = 'Ball';
 

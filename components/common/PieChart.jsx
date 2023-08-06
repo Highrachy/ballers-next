@@ -113,7 +113,9 @@ const MyResponsivePie = ({ data, isAllZero, colors /* see data tab */ }) => {
       legends={[]}
       tooltip={function (e) {
         var t = e.datum;
-        return (
+        return isAllZero ? (
+          ''
+        ) : (
           <div
             style={{
               background: 'white',

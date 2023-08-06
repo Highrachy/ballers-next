@@ -52,7 +52,6 @@ export default function Post({ posts, slug }) {
 export const getStaticProps = async ({ params }) => {
   const slug = params?.slug;
   const data = await getSingleCategory(slug);
-  console.log('data: ', data);
 
   return {
     props: {
@@ -68,7 +67,6 @@ export const getStaticPaths = async () => {
 
   return {
     paths: allCategories.nodes.map((category) => {
-      console.log('category', category);
       return {
         params: {
           slug: category.slug.toString(),

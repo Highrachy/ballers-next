@@ -25,7 +25,7 @@ const Offers = () => (
       PageIcon={<OfferIcon />}
       queryName="offer"
     />
-    <section className="container-fluid">
+    {/* <section className="container-fluid">
       <div className="text-end">
         <Link
           href="/vendor/offer-templates"
@@ -34,7 +34,7 @@ const Offers = () => (
           View Offer Templates
         </Link>
       </div>
-    </section>
+    </section> */}
   </BackendPage>
 );
 

@@ -248,7 +248,6 @@ export const getUserTitle = (title) => {
 // Manual Waiting
 //  manualWait(() => {
 //   setCommentLoading(null);
-//   console.log('payload', payload);
 // }, 3000);
 export const manualWait = async (func, delay = 1000) =>
   await new Promise((resolve) =>
@@ -332,4 +331,10 @@ export const convertToNormalCase = (str) => {
     .split('-')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
+};
+
+export const getUserName = (user) => {
+  if (!user) return '';
+  const userInitialName = `${user?.firstName} ${user?.lastName}`;
+  return user?.vendor?.companyName || userInitialName;
 };

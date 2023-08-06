@@ -1,5 +1,4 @@
 import {
-  EnquiryIcon,
   HomeIcon,
   OfferIcon,
   PortfolioIcon,
@@ -18,13 +17,15 @@ import {
   differenceInDays,
   getDate,
   getDateStatus,
-  getShortDate,
   isPastDate,
 } from '@/utils/date-helpers';
 import Humanize from 'humanize-plus';
 import { moneyFormatInNaira } from '@/utils/helpers';
 import { ACTIVE_OFFER_STATUS } from '@/utils/constants';
 import ServiceBox from './ServiceBox';
+import RemittanceWidget from './widgets/RemittanceWidget';
+import PendingPropertiesWidget from './widgets/PendingPropertiesWidget';
+import PendingPropertyVideosWidget from './widgets/PendingPropertyVideosWidget';
 
 const VerifiedVendorContent = ({ toast }) => {
   const [dashboardQuery] = useGetQuery({
@@ -48,6 +49,7 @@ const VerifiedVendorContent = ({ toast }) => {
         <Overview result={result} />
         <EnquiriesAndVisitations result={result} />
         <ReceivedPaymentsAndRemittance result={result} />
+        <PendingPropertiesAndVideos result={result} />
         <OfferAndServices result={result} />
       </ContentLoader>
     </>
@@ -67,18 +69,9 @@ const Overview = ({ result }) => {
       id: 'pendingRemittance',
       label: 'Pending Remittance',
       value: payments?.pendingRemittanceAmount || 0,
-      color: colorTokens.success[500],
-    },
-    {
-      id: 'pendingPayment',
-      label: 'Pending Payment',
-      value:
-        payments?.totalPropertyPrice -
-          (payments?.totalReceivedAmount + payments?.pendingRemittance) || 0,
       color: colorTokens.danger[50],
     },
   ];
-  console.log('data first', data);
 
   const widgetLists = [
     {
@@ -89,7 +82,7 @@ const Overview = ({ result }) => {
     },
     {
       name: 'Portfolios',
-      link: 'portfolio',
+      link: 'portfolios',
       key: 'portfolios',
       color: 'secondary',
       Icon: <PortfolioIcon />,
@@ -118,7 +111,7 @@ const Overview = ({ result }) => {
         <section className="widget col-sm-6 mb-4 mb-md-0">
           <div className="row g-4">
             {widgetLists.map((widget, index) => (
-              <Widget key={index} {...widget} />
+              <Widget key={index} {...widget} role="vendor" />
             ))}
           </div>
         </section>
@@ -156,7 +149,7 @@ const EnquiriesAndVisitations = ({ result }) => {
         </WidgetBox>
         <WidgetBox
           title="Upcoming Visitations"
-          href={`/user/portfolio`}
+          href={`/vendor/scheduled-visits`}
           data={recentVisitations}
         >
           {recentVisitations?.map((visitation, index) => {
@@ -179,61 +172,19 @@ const EnquiriesAndVisitations = ({ result }) => {
 };
 
 const ReceivedPaymentsAndRemittance = ({ result }) => {
-  const { receivedRemittances, pendingRemittances } = result;
-
   return (
     <div className="container-fluid py-0">
       <div className="row">
-        <WidgetBox
+        <RemittanceWidget
           title="Received Payments"
-          href={`/vendor/transactions`}
-          data={receivedRemittances}
-        >
-          {receivedRemittances?.map((transaction, index) => {
-            const property = transaction?.propertyInfo;
-
-            return (
-              <StackBox
-                key={index}
-                src={property.mainImage}
-                title={property?.name}
-                subtitle={`Paid on ${getDate(transaction?.paidOn)}`}
-                value={moneyFormatInNaira(transaction.amount)}
-                statusColor={
-                  transaction.paymentSource === 'Paystack'
-                    ? 'secondary'
-                    : 'success'
-                }
-                statusName={transaction.paymentSource}
-              />
-            );
-          })}
-        </WidgetBox>
-        <WidgetBox
-          title="Pending Remittance"
-          href={`/vendor/transactions`}
-          data={pendingRemittances}
-        >
-          {pendingRemittances?.map((transaction, index) => {
-            const property = transaction?.propertyInfo;
-
-            return (
-              <StackBox
-                key={index}
-                src={property.mainImage}
-                title={property?.name}
-                subtitle={`Paid on ${getDate(transaction?.paidOn)}`}
-                value={moneyFormatInNaira(transaction.amount)}
-                statusColor={
-                  transaction.paymentSource === 'Paystack'
-                    ? 'secondary'
-                    : 'success'
-                }
-                statusName={transaction.paymentSource}
-              />
-            );
-          })}
-        </WidgetBox>
+          role="vendor"
+          result={result?.receivedRemittances}
+        />
+        <RemittanceWidget
+          title="Pending Payments"
+          role="vendor"
+          result={result?.pendingRemittances}
+        />
       </div>
     </div>
   );
@@ -247,7 +198,7 @@ const OfferAndServices = ({ result }) => {
       <div className="row">
         <WidgetBox
           title="Recent Offers"
-          href={`/user/portfolio`}
+          href={`/vendor/portfolios`}
           data={recentOffers}
         >
           {recentOffers?.map((offer, index) => {
@@ -281,7 +232,11 @@ const OfferAndServices = ({ result }) => {
             );
           })}
         </WidgetBox>
-        <WidgetBox title="Recommended Services" data={['services']}>
+        <WidgetBox
+          title="Recommended Services"
+          href="/vendor/services"
+          data={['services']}
+        >
           <ServiceBox
             link="/services/title-validity"
             title="Structural integrity tests"
@@ -289,6 +244,33 @@ const OfferAndServices = ({ result }) => {
             content="Conducting structural integrity tests help in assessing the structural soundness of the property, identifying potential defects or damages, and ensuring the safety of the occupants."
           />
         </WidgetBox>
+      </div>
+    </div>
+  );
+};
+
+const PendingPropertiesAndVideos = ({ result }) => {
+  const { recentOffers } = result;
+
+  return (
+    <div className="container-fluid py-0">
+      <div className="row">
+        <PendingPropertiesWidget
+          result={result?.pendingProperties}
+          role="vendor"
+        />
+        <PendingPropertyVideosWidget
+          result={result?.pendingPropertyVideos}
+          role="vendor"
+        />
+        {/* <WidgetBox title="Recommended Services" data={['services']}>
+          <ServiceBox
+            link="/services/title-validity"
+            title="Structural integrity tests"
+            price="400,000"
+            content="Conducting structural integrity tests help in assessing the structural soundness of the property, identifying potential defects or damages, and ensuring the safety of the occupants."
+          />
+        </WidgetBox> */}
       </div>
     </div>
   );

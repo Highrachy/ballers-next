@@ -19,9 +19,11 @@ import { DashboardTable } from '@/components/dashboard/DashboardTable';
 import { moneyFormatInNaira } from '@/utils/helpers';
 import { USER_TYPES } from '@/utils/constants';
 import { VasRequestsList } from '@/components/shared/VasRequests';
+import { UserContext } from 'context/UserContext';
 
 const Services = () => {
   const [toast, setToast] = useToast();
+  const { userState } = React.useContext(UserContext);
   return (
     <BackendPage>
       <Toast {...toast} showToastOnly />
@@ -33,7 +35,7 @@ const Services = () => {
       <VasRequestsList />
       <PaginatedContent
         endpoint={API_ENDPOINT.getAllVas()}
-        initialFilter={{ assignedRole: USER_TYPES.user }}
+        initialFilter={{ assignedRole: userState?.role || USER_TYPES?.user }}
         pageName="Service"
         DataComponent={ServiceRowList}
         PageIcon={<VasIcon />}

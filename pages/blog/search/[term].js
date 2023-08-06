@@ -61,7 +61,6 @@ export default function Post({ posts, term }) {
 export const getStaticProps = async ({ params }) => {
   const term = params?.term;
   const data = await searchPost(term);
-  console.log('data: ', data);
 
   return {
     props: {

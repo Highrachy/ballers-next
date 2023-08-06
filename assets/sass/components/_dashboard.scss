@@ -428,67 +428,18 @@
     z-index: 1;
   }
 
-  .widget-primary {
-    h3,
-    .card-title,
-    .widget-icon,
-    .widget-svg {
-      color: $primary-700;
-    }
+  @each $color-name, $color-shades in $brand-colors {
+    .widget-#{$color-name} {
+      h3,
+      .card-title,
+      .widget-icon,
+      .widget-svg {
+        color: map-get($color-shades, '700') !important;
+      }
 
-    .widget-icon {
-      background: $primary-50;
-    }
-  }
-
-  .widget-secondary {
-    h3,
-    .card-title,
-    .widget-icon,
-    .widget-svg {
-      color: $secondary-700;
-    }
-
-    .widget-icon {
-      background: $secondary-50;
-    }
-  }
-
-  .widget-danger {
-    h3,
-    .card-title,
-    .widget-icon,
-    .widget-svg {
-      color: $danger-700 !important;
-    }
-
-    .widget-icon {
-      background: $danger-50 !important;
-    }
-  }
-  .widget-warning {
-    h3,
-    .card-title,
-    .widget-icon,
-    .widget-svg {
-      color: $warning-700;
-    }
-
-    .widget-icon {
-      background: $warning-50;
-    }
-  }
-
-  .widget-success {
-    h3,
-    .card-title,
-    .widget-icon,
-    .widget-svg {
-      color: $success-700;
-    }
-
-    .widget-icon {
-      background: $success-50;
+      .widget-icon {
+        background: map-get($color-shades, '50') !important;
+      }
     }
   }
 

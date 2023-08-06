@@ -11,7 +11,7 @@ const StackBox = ({
   subtitle,
   value,
   statusColor,
-  statusName = 'Received',
+  statusName = '',
   href = '#',
 }) => {
   return (

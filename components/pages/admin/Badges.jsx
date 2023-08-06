@@ -20,10 +20,12 @@ import { DASHBOARD_PAGE, HOUSE_TYPES } from 'utils/constants';
 import { useCurrentRole } from 'hooks/useUser';
 import { API_ENDPOINT } from 'utils/URL';
 import { Spacing } from 'components/common/Helpers';
+import WelcomeHero from '@/components/common/WelcomeHero';
 
 const Badges = () => {
   return (
     <BackendPage>
+      <WelcomeHero title={`Badges`} subtitle={`Manage your badges here`} />
       <PaginatedContent
         addNewUrl="/admin/badges/new"
         endpoint={API_ENDPOINT.getAllBadges()}
