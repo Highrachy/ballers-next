@@ -726,22 +726,23 @@ export const PropertyDescription = ({
           ? Humanize.truncate(property.description, DESCRIPTION_LENGTH, '...')
           : property.description}
         {hideSomePropertyDescription && (
-          <div className="show-more-holder">
+          <>
+            <div className="show-more-holder" />
             <button
               className="btn btn-xs btn-dark btn-wide show-more-button"
               onClick={() => setShowDescription(true)}
             >
               Show All
             </button>
-          </div>
+          </>
         )}
-        <p className="mt-3 text-gray fw-bold ">
-          Title Document:{' '}
-          <span className="fw-bold">
-            {property?.titleDocument || 'No Title Document'}
-          </span>
-        </p>
       </div>
+      <p className="mt-5 text-gray fw-bold ">
+        Title Document:{' '}
+        <span className="fw-bold">
+          {property?.titleDocument || 'No Title Document'}
+        </span>
+      </p>
 
       <h5 className="mt-5 header-smaller">Features</h5>
       <ul className="list-unstyled row lh-2">

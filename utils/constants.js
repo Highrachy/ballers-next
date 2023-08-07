@@ -5,7 +5,6 @@ export const BASE_API_URL = !!process.env.NEXT_PUBLIC_API_URL
 
 export const WORDPRESS_API_URL =
   process.env.WORDPRESS_API_URL || 'https://appstaging.ballers.ng/wp/graphql';
-// export const BASE_API_URL = 'http://localhost:4000/api/v1';
 
 export const USER_TYPES = {
   admin: 0,

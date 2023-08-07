@@ -4,19 +4,18 @@ export const WidgetBox = ({
   children,
   title,
   buttonName = 'View All',
-  href = '#',
-  isStandAlone,
+  href = null,
   data = [],
   Icon = null,
 }) => {
-  const classes = `col-sm-6 ${isStandAlone ? '' : 'mt-4'}`;
+  const classes = 'col-sm-6 mt-4';
 
   return (
     <div className={classes}>
       <div className="widget h-100 card widget-box">
         <div className="d-flex align-items-center justify-content-between">
           <h6 className="fw-bold mb-4">{title}</h6>
-          {!isStandAlone && (
+          {!!href && (
             <Button
               color="secondary-light"
               href={href}

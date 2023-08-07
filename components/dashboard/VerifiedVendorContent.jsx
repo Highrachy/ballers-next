@@ -20,12 +20,14 @@ import {
   isPastDate,
 } from '@/utils/date-helpers';
 import Humanize from 'humanize-plus';
-import { moneyFormatInNaira } from '@/utils/helpers';
-import { ACTIVE_OFFER_STATUS } from '@/utils/constants';
+import { getUserName, moneyFormatInNaira } from '@/utils/helpers';
+import { ACTIVE_OFFER_STATUS, FAST_TRACK_VENDOR } from '@/utils/constants';
 import ServiceBox from './ServiceBox';
 import RemittanceWidget from './widgets/RemittanceWidget';
 import PendingPropertiesWidget from './widgets/PendingPropertiesWidget';
 import PendingPropertyVideosWidget from './widgets/PendingPropertyVideosWidget';
+import { UserContext } from '@/context/UserContext';
+import { useContext } from 'react';
 
 const VerifiedVendorContent = ({ toast }) => {
   const [dashboardQuery] = useGetQuery({
@@ -123,6 +125,10 @@ const Overview = ({ result }) => {
 const EnquiriesAndVisitations = ({ result }) => {
   const { recentEnquiries, recentVisitations } = result;
 
+  if (recentEnquiries?.length === 0 && recentVisitations?.length === 0) {
+    return null;
+  }
+
   return (
     <div className="container-fluid py-0">
       <div className="row">
@@ -172,18 +178,23 @@ const EnquiriesAndVisitations = ({ result }) => {
 };
 
 const ReceivedPaymentsAndRemittance = ({ result }) => {
+  const { receivedRemittances, pendingRemittances } = result;
+
+  if (receivedRemittances?.length === 0 && pendingRemittances?.length === 0) {
+    return null;
+  }
   return (
     <div className="container-fluid py-0">
       <div className="row">
         <RemittanceWidget
           title="Received Payments"
           role="vendor"
-          result={result?.receivedRemittances}
+          result={receivedRemittances}
         />
         <RemittanceWidget
           title="Pending Payments"
           role="vendor"
-          result={result?.pendingRemittances}
+          result={pendingRemittances}
         />
       </div>
     </div>
@@ -191,46 +202,33 @@ const ReceivedPaymentsAndRemittance = ({ result }) => {
 };
 
 const OfferAndServices = ({ result }) => {
-  const { recentOffers } = result;
+  const { badgesCount = 0 } = result;
+  const { userState } = useContext(UserContext);
+  const { vendor } = userState;
+
+  const isAutoEnroll = vendor?.fastTrack === FAST_TRACK_VENDOR;
 
   return (
     <div className="container-fluid py-0">
       <div className="row">
-        <WidgetBox
-          title="Recent Offers"
-          href={`/vendor/portfolios`}
-          data={recentOffers}
-        >
-          {recentOffers?.map((offer, index) => {
-            const user = offer?.userInfo;
-            const property = offer?.propertyInfo;
-            const days = Math.abs(differenceInDays(offer?.expires)) || 0;
-            const daysInWords = `${days} ${Humanize.pluralize(days, 'day')}`;
-            const offerHasExpired = isPastDate(offer?.expires);
-            const dueText = `${
-              offerHasExpired ? 'Expired in' : 'Due in'
-            }: ${daysInWords}`;
-            const activeOffer = ACTIVE_OFFER_STATUS.includes(offer.status);
-            const offerColor = activeOffer
-              ? 'success'
-              : offerHasExpired
-              ? 'danger'
-              : 'secondary';
-            const userFullName = `${user?.title || ''} ${user?.firstName} ${
-              user?.lastName
-            }`;
-
-            return (
-              <StackBox
-                avatarColor={offerColor}
-                key={index}
-                title={property.name}
-                subtitle={`For ${userFullName}`}
-                statusColor={offerColor}
-                statusName={activeOffer ? 'Active' : dueText}
-              />
-            );
-          })}
+        <WidgetBox title="Quick Look" data={['info']}>
+          {isAutoEnroll && (
+            <StackBox
+              avatarColor={'danger'}
+              title={'Fast Tracked Account'}
+              subtitle={'This account is automatically managed by BALL'}
+            />
+          )}
+          {badgesCount > 0 && (
+            <StackBox
+              src="https://user-images.githubusercontent.com/26963369/255422209-359b5f2b-66c6-44f6-8224-c240dc43556c.svg"
+              title={`You have earned ${badgesCount} Badge${
+                badgesCount !== 1 ? 's' : ''
+              }`}
+              subtitle={`Your Collection of Achievements on BALL`}
+              href="/vendor/badges"
+            />
+          )}
         </WidgetBox>
         <WidgetBox
           title="Recommended Services"
@@ -250,7 +248,11 @@ const OfferAndServices = ({ result }) => {
 };
 
 const PendingPropertiesAndVideos = ({ result }) => {
-  const { recentOffers } = result;
+  const { pendingProperties, pendingPropertyVideos } = result;
+
+  if (pendingProperties?.length === 0 && pendingPropertyVideos?.length === 0) {
+    return null;
+  }
 
   return (
     <div className="container-fluid py-0">
@@ -263,14 +265,6 @@ const PendingPropertiesAndVideos = ({ result }) => {
           result={result?.pendingPropertyVideos}
           role="vendor"
         />
-        {/* <WidgetBox title="Recommended Services" data={['services']}>
-          <ServiceBox
-            link="/services/title-validity"
-            title="Structural integrity tests"
-            price="400,000"
-            content="Conducting structural integrity tests help in assessing the structural soundness of the property, identifying potential defects or damages, and ensuring the safety of the occupants."
-          />
-        </WidgetBox> */}
       </div>
     </div>
   );
