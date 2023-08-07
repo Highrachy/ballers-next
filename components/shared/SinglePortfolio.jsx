@@ -211,11 +211,10 @@ const LovePropertySidebar = ({ portfolio, setToast }) => {
   return (
     <Card className="card-container property-holder">
       <h5 className="header-smaller">Love this Property?</h5>
-      <Link
-        href={`/user/property/enquiry/${portfolio?.propertyInfo._id}`}
-        className="btn btn-info btn-block my-3"
-      >
-        Buy Property Again
+      <Link href={`/user/property/enquiry/${portfolio?.propertyInfo._id}`}>
+        <a className="btn btn-primary-light btn-block my-3">
+          Buy Property Again
+        </a>
       </Link>
 
       {!hasTestimonial && portfolio?.amountContributed > 0 && (

@@ -202,11 +202,11 @@ const ReceivedPaymentsAndRemittance = ({ result }) => {
 };
 
 const OfferAndServices = ({ result }) => {
-  const { badgesCount = 0 } = result;
+  const { badgesCount = 1 } = result;
   const { userState } = useContext(UserContext);
   const { vendor } = userState;
 
-  const isAutoEnroll = vendor?.fastTrack === FAST_TRACK_VENDOR;
+  const isAutoEnroll = vendor?.fastTrack === FAST_TRACK_VENDOR.AUTO;
 
   return (
     <div className="container-fluid py-0">

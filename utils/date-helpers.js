@@ -14,19 +14,60 @@ import {
  * Date and Time
  * @param {*} date
  */
+const f = {
+  year: 'yyyy',
+  monthDigits: 'M',
+  monthTwoDigits: 'MM',
+  monthOrdinal: 'Mo',
+  monthShortWords: 'MMM',
+  monthLongWords: 'MMMM',
+  day: 'd',
+  dayDigitss: 'dd',
+  dayOrdinal: 'do',
+  dayOfWeek: 'EEEE',
+  dayOfWeekShort: 'E',
+  am: 'aaa',
+  hours: 'h',
+  hoursOrdinal: 'ho',
+  hoursTwoDigits: 'hh',
+  minutes: 'm',
+  minutesOrdinal: 'mo',
+  minutesTwoDigits: 'mm',
+  seconds: 's',
+  secondsOrdinal: 'so',
+  secondsTwoDigits: 'ss',
+};
+
 export const getDate = (date) =>
-  isValidDate(date) ? format(parseISO(date), 'MMMM dd, yyyy') : date;
+  isValidDate(date)
+    ? format(parseISO(date), `${f.monthLongWords} ${f.day}, ${f.year}`)
+    : date;
 export const getDateTime = (date) =>
-  format(parseISO(date), 'ddd, MMM d, yyyy h:mm A');
+  format(
+    parseISO(date),
+    `${f.dayOfWeek}, ${f.monthShortWords} ${f.day}, ${f.year} ${f.hours}:${f.minutesTwoDigits} ${f.am}`
+  );
 export const getShortDateTime = (date) =>
-  format(parseISO(date), 'Do MMM yyyy h:mm A');
-export const getShortDate = (date) => format(parseISO(date), 'E, MMM d, yyyy');
+  format(
+    parseISO(date),
+    `${f.dayOfWeek} ${f.monthShortWords} ${f.year} ${f.hours}:${f.minutesTwoDigits} ${f.am}`
+  );
+export const getShortDate = (date) =>
+  format(
+    parseISO(date),
+    `${f.dayOfWeekShort}, ${f.monthShortWords} ${f.day}, ${f.year}`
+  );
 export const getTinyDate = (date) =>
-  isValidDate(date) && format(parseISO(date), 'MMM d, yyyy');
+  isValidDate(date) &&
+  format(parseISO(date), `${f.monthShortWords} ${f.day}, ${f.year}`);
 export const getLongDate = (date) =>
-  format(parseISO(date), 'dddd, Do MMMM yyyy');
-export const getYear = (date) => format(parseISO(date), 'yyyy');
-export const getTime = (date) => format(parseISO(date), 'h:mm A');
+  format(
+    parseISO(date),
+    `${dayOfWeek}, ${f.dayOrdinal} ${f.monthLongWords} ${f.year}`
+  );
+export const getYear = (date) => format(parseISO(date), `${f.year}`);
+export const getTime = (date) =>
+  format(parseISO(date), `${f.hours}:${f.minutesTwoDigits} ${f.am}`);
 export const subtractDays = (date, numOfDays) =>
   getElapsedTime(subDays(parseISO(date), numOfDays));
 export const getTimeOfDay = (date) => {
@@ -39,12 +80,14 @@ export const getTimeOfDay = (date) => {
   );
 };
 
-export const getMonthYear = (date) => format(parseISO(date), 'MMMM, yyyy');
+export const getMonthYear = (date) =>
+  format(parseISO(date), `${f.monthLongWords}, ${f.year}`);
 export const isPastDate = (date) => isPast(parseISO(date));
 export const differenceInDays = (date) =>
   differenceInCalendarDays(Date.now(), parseISO(date));
 
-export const formatFilterDate = (date) => format(parseISO(date), 'yyyy-MM-DD');
+export const formatFilterDate = (date) =>
+  format(parseISO(date), `${f.year}-${f.monthDigits}-${f.dayDigits}`);
 export const convertToUTC = (date) =>
   new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString();
 export const isValidDate = (date) => isValid(parseISO(date));
