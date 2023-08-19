@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { AttentionSeeker, Slide } from 'react-awesome-reveal';
 import Header from '@/components/layout/Header';
-import { PolkaDot } from '@/components/utils/Icons';
+import { HeroArrow, PolkaDot } from '@/components/utils/Icons';
 import useWindowSize from '@/hooks/useWindowSize';
 import { MOBILE_WIDTH } from '@/utils/constants';
 import FAQsAccordion from '@/components/common/FAQsAccordion';
@@ -15,6 +15,9 @@ import axios from 'axios';
 import { PropertiesRowList } from './properties';
 import { API_ENDPOINT } from '@/utils/URL';
 import ReferralModal from '@/components/common/ReferralModal';
+import TabContent from '@/components/dashboard/TabContent';
+import { Tab, Tabs } from 'react-bootstrap';
+import AdvancedSearchPropertyForm from '@/components/common/AdvancedSearchPropertyForm';
 
 export default function Home({
   properties,
@@ -41,21 +44,18 @@ const HoldingSection = () => (
     <div className="row me-0 ms-0">
       <section className="col-md-6 ps-lg-6 pt-4 home-hero-container">
         <div className="home-hero">
-          <h1 className="text-shadow-light pt-5 pt-md-0">
-            Become <br className="d-none d-lg-block" /> a <span>Landlord</span>
+          <h1 className="text-shadow-light pt-5 pt-md-0 home-hero-title">
+            Ready to own your <span>dream home</span> <HeroArrow />
           </h1>
-          <p className="mt-3 text-primary mb-5 mb-md-2 text-md">
-            Ready to own your dream home? Start Exploring Eligible Properties
-            Now!
-          </p>
         </div>
 
-        <section className="property-search__home">
-          <SearchContentPropertyForm />
+        <section className="position-relative">
+          <SearchTabComponent />
+          {/* <SearchContentPropertyForm /> */}
+          <div className="dotted-polka">
+            <PolkaDot />
+          </div>
         </section>
-        <div className="dotted-polka">
-          <PolkaDot />
-        </div>
       </section>
       <section className="col-md-6 home-bg  mb-n4"></section>
     </div>
@@ -188,3 +188,109 @@ export async function getStaticProps() {
     revalidate: 10,
   };
 }
+
+const SearchTabComponent = () => {
+  const allTabs = [
+    {
+      title: 'Confirm Eligibility',
+      component: <SearchContentPropertyForm />,
+    },
+    {
+      title: 'Search Property',
+      component: <AdvancedSearchPropertyForm />,
+    },
+  ];
+
+  return (
+    <Tabs defaultActiveKey={allTabs[0].title} id="tranasction-tabs">
+      {allTabs.map((tab, index) => (
+        <Tab key={index} eventKey={tab.title} title={tab.title}>
+          {tab.component}
+        </Tab>
+      ))}
+    </Tabs>
+  );
+};
+
+// <div>
+//   <ul className="nav nav-tabs">
+//     <li className="nav-item">
+//       <a className="nav-link active" data-bs-toggle="tab" href="#desc">
+//         Buy
+//       </a>
+//     </li>
+//     <li className="nav-item">
+//       <a className="nav-link" data-bs-toggle="tab" href="#addi__info">
+//         Sale
+//       </a>
+//     </li>
+//     <li className="nav-item">
+//       <a className="nav-link" data-bs-toggle="tab" href="#review">
+//         Rent
+//       </a>
+//     </li>
+//   </ul>
+//   <div className="tab-content">
+//     <div className="tab-pane active" id="desc">
+//       <form action="/listing-1.html">
+//         <div className="input-group">
+//           <input
+//             type="text"
+//             className="form-control"
+//             placeholder="Search for city, property, agent and more..."
+//           />
+//           <button type="submit" className="btn btn-primary">
+//             Search Property
+//           </button>
+//           <div className="input-group-append">
+//             <a href="#">
+//               <span className="input-group-text icon-magnifying-glass"></span>
+//             </a>
+//           </div>
+//         </div>
+//       </form>
+//     </div>
+
+//     <div className="tab-pane" id="addi__info">
+{
+  /* <form action="/listing-1.html">
+  <div className="input-group">
+    <input
+      type="text"
+      className="form-control"
+      placeholder="Search for city, property, agent and more..."
+    />
+    <button type="submit" className="btn btn-primary">
+      Search Property
+    </button>
+    <div className="input-group-append">
+      <a href="#">
+        <span className="input-group-text icon-magnifying-glass"></span>
+      </a>
+    </div>
+  </div>
+</form>; */
+}
+//     </div>
+
+//     <div className="tab-pane" id="review">
+//       <form action="/listing-1.html">
+//         <div className="input-group">
+//           <input
+//             type="text"
+//             className="form-control"
+//             placeholder="Search for city, property, agent and more..."
+//           />
+//           <button type="submit" className="btn btn-primary">
+//             Search Property
+//           </button>
+//           <div className="input-group-append">
+//             <a href="#">
+//               <span className="input-group-text icon-magnifying-glass"></span>
+//             </a>
+//           </div>
+//         </div>
+//       </form>
+//     </div>
+//   </div>
+// </div>

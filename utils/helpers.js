@@ -82,7 +82,7 @@ export const generateNumOptions = (number = 12, type = '', options = {}) => {
   const startFrom =
     options.startFrom || options.startFrom === 0 ? options.startFrom : 1;
   const firstMonthText = options.firstMonthText;
-  const pluralizeText = options.pluralizeText || true;
+  const pluralizeText = options?.pluralizeText === false ? false : true;
 
   return [...Array(number).keys()].map((value) => {
     const num = value + startFrom;

@@ -109,3 +109,7 @@ export const addTestimonialSchema = {
 export const replyTestimonialSchema = {
   response: required('Response'),
 };
+
+export const searchPropertySchema = {
+  term: stringValidation('Search Term', 3),
+};

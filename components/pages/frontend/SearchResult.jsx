@@ -107,7 +107,7 @@ const NoSearchResultFound = () => (
   <div className="container-fluid search-result-section text-center full-height">
     <div className="mt-6">
       <HouseIcon />
-      <h3 className="mt-4">No Search Results Found</h3>
+      <h4 className="mt-4">No Search Results Found</h4>
     </div>
   </div>
 );
@@ -116,7 +116,7 @@ const LoadingSearchResult = () => (
   <div className="container-fluid search-result-section text-center full-height">
     <div className="mt-6">
       <HouseIcon />
-      <h3 className="mt-4">Loading Search Results</h3>
+      <h4 className="mt-4 mb-4">Loading Search Results</h4>
       <div className="dot-flashing"></div>
     </div>
   </div>

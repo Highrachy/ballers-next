@@ -113,7 +113,7 @@ const SearchPropertyForm = ({ defaultInputValue }) => {
 
   const handleSearch = () => {
     router.push(
-      `/search?state=${formValue.state}&area=${formValue.area}&houseType=${formValue.houseType}`,
+      `/confirm-eligibility?state=${formValue.state}&area=${formValue.area}&houseType=${formValue.houseType}`,
       true
     );
   };

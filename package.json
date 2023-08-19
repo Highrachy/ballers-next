@@ -37,7 +37,7 @@
     "react-dom": "18.2.0",
     "react-geocode": "^0.2.3",
     "react-google-map-picker": "^1.2.3",
-    "react-icons": "^4.4.0",
+    "react-icons": "^4.10.1",
     "react-number-format": "4",
     "react-phone-input-2": "^2.15.1",
     "react-query": "2.26.4",

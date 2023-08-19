@@ -59,7 +59,7 @@ const SearchForm = ({ defaultInputValue }) => (
       <section className="property-search__page mx-auto pt-5 my-5">
         <SquareBubbles />
         <div className="col-12">
-          <h2 className="pb-3 text-white text-center">Search for Property</h2>
+          <h2 className="pb-3 text-white text-center">Confirm Eligibility</h2>
         </div>
         <SearchContentPropertyForm defaultInputValue={defaultInputValue} />
       </section>
@@ -320,7 +320,7 @@ const DefineYourEligibility = ({ result }) => {
           </div>
           <div className="container-fluid">
             <section className="row eligibility-form mt-5">
-              <div className="col-4">
+              <div className="col-md-4">
                 <section className="bg-orange">
                   <RangeInput
                     min={1_000_000}
@@ -335,7 +335,7 @@ const DefineYourEligibility = ({ result }) => {
                   />
                 </section>
               </div>
-              <div className="col-4">
+              <div className="col-md-4">
                 <section className="bg-green">
                   <RangeInput
                     min={100_000}
@@ -350,7 +350,7 @@ const DefineYourEligibility = ({ result }) => {
                   />
                 </section>
               </div>
-              <div className="col-4">
+              <div className="col-md-4">
                 <section className="bg-blue h-100">
                   <strong>Package Type</strong>
                   <p className="text-xs mt-1 mb-2">

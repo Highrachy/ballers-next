@@ -60,7 +60,7 @@ const SearchContentPropertyForm = ({ defaultInputValue }) => {
 
   const handleSearch = () => {
     router.push(
-      `/search?area=${formValue.area}&houseType=${formValue.houseType}`
+      `/confirm-eligibility?area=${formValue.area}&houseType=${formValue.houseType}`
     );
   };
 
@@ -68,7 +68,7 @@ const SearchContentPropertyForm = ({ defaultInputValue }) => {
   const enableButton = formValue.area && formValue.houseType;
 
   return (
-    <div className="input-group">
+    <div className="input-group search-property-form">
       <Toast {...toast} showToastOnly />
       <div className="select-holder">
         <Select
@@ -106,7 +106,7 @@ const SearchContentPropertyForm = ({ defaultInputValue }) => {
         disabled={!enableButton}
         onClick={handleSearch}
       >
-        Search
+        Confirm
       </button>
     </div>
   );

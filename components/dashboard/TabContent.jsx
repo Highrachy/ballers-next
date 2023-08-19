@@ -1,13 +1,16 @@
 import React from 'react';
-import { Card, Tab, Tabs } from 'react-bootstrap';
+import { Tab, Tabs } from 'react-bootstrap';
 
-export const TabContent = ({ title, allTabs }) => {
+export const TabContent = ({ title, allTabs, activeKey }) => {
+  const [key, setKey] = React.useState(activeKey || allTabs[0].title);
+
   return (
     <section className="container-fluid mt-5">
-      <h4 className="mb-3">{title}</h4>
+      {title && <h4 className="mb-3">{title}</h4>}
       <Tabs
-        defaultActiveKey={allTabs[0].title}
         id="tranasction-tabs"
+        activeKey={key}
+        onSelect={(k) => setKey(k)}
         className="mb-3"
       >
         {allTabs.map((tab, index) => (

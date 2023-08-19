@@ -54,7 +54,7 @@ const Input = ({
 
   return (
     <div
-      className={classNames('mb-4 position-relative', formGroupClassName, {
+      className={classNames('position-relative', formGroupClassName, {
         'form-floating': floatingLabel,
       })}
     >

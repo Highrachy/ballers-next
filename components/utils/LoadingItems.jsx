@@ -32,10 +32,10 @@ LoadItems.defaultProps = {
   size: null,
 };
 
-export const Loading = ({ Icon, text, size }) => (
+export const Loading = ({ Icon, text, size, className = '' }) => (
   <div className={`text-center mt-5 w-100 loading-icon ${size ? size : ''}`}>
     {Icon && Icon}
-    {text && <h5 className="my-4">{text} &nbsp;</h5>}
+    {text && <h5 className={`my-4 ${className}`}>{text} &nbsp;</h5>}
     <BallersSpinner small={size === 'small'} />{' '}
   </div>
 );
