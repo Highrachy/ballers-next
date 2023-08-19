@@ -111,5 +111,5 @@ export const replyTestimonialSchema = {
 };
 
 export const searchPropertySchema = {
-  term: stringValidation('Search Term', 3),
+  all: stringValidation('Search Term', 3),
 };

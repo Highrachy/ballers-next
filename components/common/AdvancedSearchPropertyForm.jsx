@@ -35,10 +35,11 @@ const AdvancedSearchPropertyForm = ({ advanced = false, term = '' }) => {
   return (
     <Formik
       initialValues={{
-        term,
+        all: term,
       }}
-      onSubmit={({ term }, actions) => {
-        router.push(`/properties/search?term=${term}`);
+      enableReinitialize={true}
+      onSubmit={({ all }, actions) => {
+        router.push(`/properties/search?all=${all}`);
         actions.setSubmitting(false);
       }}
       validationSchema={createSchema(searchPropertySchema)}
@@ -55,7 +56,7 @@ const AdvancedSearchPropertyForm = ({ advanced = false, term = '' }) => {
               <div className="input-group search-property-form">
                 <div className="select-holder">
                   <Input
-                    name="term"
+                    name="all"
                     label=""
                     formGroupClassName="mb-0"
                     inputClassName="w-100"
@@ -73,7 +74,7 @@ const AdvancedSearchPropertyForm = ({ advanced = false, term = '' }) => {
               <div className="container search-property-container mt-4">
                 <div className="w-100 position-relative">
                   <Input
-                    name="term"
+                    name="all"
                     formGroupClassName="mb-0"
                     inputClassName="form-control pe-5 bigger-search-input"
                     placeholder="Search for Property"
@@ -108,12 +109,17 @@ const AdvancedSearchPropertyForm = ({ advanced = false, term = '' }) => {
 
 export const FilterButton = () => {
   const [showSearchModal, setShowSearchModal] = React.useState(false);
-  const [selectedOption, setSelectedOption] = React.useState({});
+  const [selectedOptions, setSelectedOptions] = React.useState({});
   const router = useRouter();
+  const NUM_OPTIONS = [
+    { label: 'Any', value: null },
+    ...generateNumOptions(3, '', { noPluralText: true }),
+    { label: '4+', value: '4:' },
+  ];
   return (
     <>
       <Button
-        color="primary-light"
+        color="light"
         className="btn me-3 btn-wide d-flex align-items-center"
         onClick={() => setShowSearchModal(true)}
       >
@@ -129,41 +135,15 @@ export const FilterButton = () => {
         <section className="px-4 pt-3">
           <Formik
             initialValues={{
-              term: '',
+              all: '',
               price: [0, 0],
             }}
-            onSubmit={({ term, price }, actions) => {
-              let termOutput = `${term}`;
-
-              let output = '';
-              const { bathrooms, features, type } = selectedOption;
-
-              if (features) {
-                termOutput += ` ${features}`;
-              }
-              if (type) {
-                termOutput += ` ${type}`;
-              }
-
-              if (bathrooms) {
-                termOutput += ` ${bathrooms}`;
-              }
-
-              // if (toilets) {
-              //   output += `&toilets=${toilets}:`;
-              // }
-              // if (bedrooms) {
-              //   output += `&bedrooms=${bedrooms}:`;
-              // }
-
-              // if (price[0] > 0 || price[1] > 0) {
-              //   output += [`&price=${price[0]}:${price[1]}`];
-              // }
-
-              const finalOutput = `term=${termOutput}`;
-
+            onSubmit={(values, actions) => {
+              const finalOutput = convertToQueryString({
+                ...values,
+                ...selectedOptions,
+              });
               router.push(`/properties/search?${finalOutput}`);
-
               setShowSearchModal(false);
             }}
           >
@@ -172,7 +152,7 @@ export const FilterButton = () => {
                 <section>
                   <Input
                     label="What are you looking for"
-                    name="term"
+                    name="all"
                     placeholder="Enter name, location, city or state"
                   />
 
@@ -216,39 +196,30 @@ export const FilterButton = () => {
                         icon: <BiSolidBuildingHouse />,
                       },
                     ]}
-                    selectedOption={selectedOption}
-                    setSelectedOption={setSelectedOption}
+                    selectedOptions={selectedOptions}
+                    setSelectedOptions={setSelectedOptions}
                   />
 
                   <ListFilter
                     name="bedrooms"
                     title="Bedrooms"
-                    options={[
-                      { label: 'Any', value: null },
-                      ...generateNumOptions(5, '+', { pluralizeText: false }),
-                    ]}
-                    selectedOption={selectedOption}
-                    setSelectedOption={setSelectedOption}
+                    options={NUM_OPTIONS}
+                    selectedOptions={selectedOptions}
+                    setSelectedOptions={setSelectedOptions}
                   />
                   <ListFilter
                     name="bathrooms"
                     title="Bathrooms"
-                    options={[
-                      { label: 'Any', value: null },
-                      ...generateNumOptions(5, '+', { pluralizeText: false }),
-                    ]}
-                    selectedOption={selectedOption}
-                    setSelectedOption={setSelectedOption}
+                    options={NUM_OPTIONS}
+                    selectedOptions={selectedOptions}
+                    setSelectedOptions={setSelectedOptions}
                   />
                   <ListFilter
                     name="toilets"
                     title="Toilets"
-                    options={[
-                      { label: 'Any', value: null },
-                      ...generateNumOptions(5, '+', { pluralizeText: false }),
-                    ]}
-                    selectedOption={selectedOption}
-                    setSelectedOption={setSelectedOption}
+                    options={NUM_OPTIONS}
+                    selectedOptions={selectedOptions}
+                    setSelectedOptions={setSelectedOptions}
                   />
 
                   <ListFilter
@@ -271,16 +242,16 @@ export const FilterButton = () => {
                         icon: <BiWater />,
                       },
                       {
-                        label: 'Tiled Road',
+                        label: 'Paved Road',
                         value: 'road',
                         icon: <FaRoad />,
                       },
                     ]}
-                    selectedOption={selectedOption}
-                    setSelectedOption={setSelectedOption}
+                    selectedOptions={selectedOptions}
+                    setSelectedOptions={setSelectedOptions}
                   />
                 </section>
-                <DisplayFormikState {...props} showAll hide />
+                <DisplayFormikState {...props} showAll />
                 <Button
                   className="btn-secondary mt-4"
                   loading={isSubmitting}
@@ -301,11 +272,11 @@ const ListFilter = ({
   name,
   title,
   options,
-  selectedOption,
-  setSelectedOption,
+  selectedOptions,
+  setSelectedOptions,
 }) => {
   const getClassName = (value) =>
-    `btn btn-secondary${selectedOption[name] === value ? '' : '-light'} me-3`;
+    `btn btn-secondary${selectedOptions[name] === value ? '' : '-light'} me-3`;
 
   return (
     <div className="row mb-5">
@@ -321,7 +292,7 @@ const ListFilter = ({
             type="button"
             className={getClassName(value)}
             onClick={() =>
-              setSelectedOption({ ...selectedOption, [name]: value })
+              setSelectedOptions({ ...selectedOptions, [name]: value })
             }
           >
             {icon && (
@@ -334,5 +305,25 @@ const ListFilter = ({
     </div>
   );
 };
+
+function convertToQueryString(values) {
+  const queryParams = [];
+
+  for (const key in values) {
+    if (values.hasOwnProperty(key)) {
+      const value = values[key];
+      if (Array.isArray(value)) {
+        const [min, max] = value;
+        if (min !== 0 || max !== 0) {
+          queryParams.push(`${key}=${min}:${max}`);
+        }
+      } else if (value && value !== '' && value !== '0') {
+        queryParams.push(`${key}=${encodeURIComponent(value)}`);
+      }
+    }
+  }
+
+  return queryParams.length > 0 ? queryParams.join('&') : '';
+}
 
 export default AdvancedSearchPropertyForm;

@@ -11,11 +11,13 @@ import { FaBed, FaSwimmingPool } from 'react-icons/fa';
 import NoContent from '@/components/utils/NoContent';
 import { Loading } from '@/components/utils/LoadingItems';
 
-const searchProperty = async (searchTerm) => {
+const searchProperty = async (searchQuery) => {
   try {
     // use axios to fetch data from API
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/search?all=${searchTerm}`
+      `${process.env.NEXT_PUBLIC_API_URL}/property/search${convertToQueryString(
+        searchQuery
+      )}`
     );
     return data;
     // return data;
@@ -27,8 +29,10 @@ const searchProperty = async (searchTerm) => {
 
 export default function Search() {
   const router = useRouter();
-  const { term } = router.query;
+  const searchQuery = router.query;
+
   const [result, setResult] = React.useState(null);
+  const [searchTerm, setSearchTerm] = React.useState('');
 
   const search = async (searchTerm) => {
     try {
@@ -41,15 +45,16 @@ export default function Search() {
   };
 
   React.useEffect(() => {
-    if (term) {
-      search(term).then((searchResults) => {
+    if (searchQuery) {
+      search(searchQuery).then((searchResults) => {
+        setSearchTerm(convertToReadableFormat(searchQuery));
         setResult(searchResults);
       });
     }
-  }, [term]);
+  }, [searchQuery]);
 
   console.log('result', result);
-  const title = `Search result for '${term}'`;
+  const title = `Search result for '${searchTerm}'`;
 
   return (
     <>
@@ -66,7 +71,7 @@ export default function Search() {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-8 mx-auto">
-              <AdvancedSearchPropertyForm advanced term={term} />
+              <AdvancedSearchPropertyForm advanced term={searchQuery?.all} />
             </div>
           </div>
         </div>
@@ -85,7 +90,7 @@ export default function Search() {
               <h2 className="mt-5 mb-3">{title}</h2>
 
               {result.length === 0 ? (
-                <NoContent text={`No result found for ${term}`} />
+                <NoContent text={`No result found for ${searchTerm}`} />
               ) : (
                 <PropertiesRowList result={result} />
               )}
@@ -123,3 +128,33 @@ const FilterList = () => (
     </div>
   </div>
 );
+
+function convertToQueryString(obj) {
+  const queryParams = [];
+
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      const value = obj[key];
+      queryParams.push(
+        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+      );
+    }
+  }
+
+  return queryParams.length > 0 ? '?' + queryParams.join('&') : '';
+}
+
+function convertToReadableFormat(values) {
+  const readableOptions = [];
+
+  for (const key in values) {
+    const value = values[key];
+    if (key === 'all' && value !== '') {
+      readableOptions.push(value);
+    } else if (value && value !== '0') {
+      readableOptions.push(`${key}: ${value}`);
+    }
+  }
+
+  return readableOptions.join(', ');
+}
