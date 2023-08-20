@@ -30,24 +30,46 @@
 
 .home-hero {
   h1 {
-    position: relative;
     margin-top: 1rem;
     font-weight: 800;
     color: #3a4451;
-    font-size: 5vw;
+    font-size: 3rem;
+    white-space: nowrap;
+    @include media-breakpoint-up(md) {
+      font-size: 3.5rem;
+    }
+    @include media-breakpoint-up(lg) {
+      font-size: 5vw;
+    }
     span {
       color: #32469e;
-      display: inline-block;
+      position: relative;
+      display: block;
       margin-right: 0.5rem;
+      z-index: 1001;
     }
     svg {
       position: absolute;
-      bottom: -6rem;
       z-index: 1000;
+      right: auto;
+      @include media-breakpoint-up(lg) {
+        bottom: -6rem;
+      }
     }
   }
   &-container {
     background: rgba(87, 117, 250, 0.04);
+    @media (min-width: 992px) {
+      section {
+        margin-right: -15rem;
+      }
+    }
+    @include media-breakpoint-up(xl) {
+      section {
+        margin-right: -5rem;
+      }
+      // bottom: -6rem;
+    }
   }
   text-align: center;
   margin-top: 2.5rem;

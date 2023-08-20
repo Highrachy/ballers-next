@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLoadScript } from '@react-google-maps/api';
-import Map from 'sink/map/Map';
+import Map from 'sink/map/Map-Test';
 
 const TestMap = () => {
   const { isLoaded } = useLoadScript({

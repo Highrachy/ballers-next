@@ -11,7 +11,7 @@ import { FaBed, FaSwimmingPool } from 'react-icons/fa';
 import NoContent from '@/components/utils/NoContent';
 import { Loading } from '@/components/utils/LoadingItems';
 
-const searchProperty = async (searchQuery) => {
+export const searchProperty = async (searchQuery) => {
   try {
     // use axios to fetch data from API
     const { data } = await axios.get(

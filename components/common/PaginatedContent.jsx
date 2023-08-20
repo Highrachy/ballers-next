@@ -3,7 +3,6 @@ import { UserIcon } from 'components/utils/Icons';
 import TopTitle from 'components/utils/TopTitle';
 import Humanize from 'humanize-plus';
 import Pagination from 'components/common/Pagination';
-import 'react-slidedown/lib/slidedown.css';
 import { CloseIcon } from 'components/utils/Icons';
 import { useToast } from 'components/utils/Toast';
 import { usePaginationQuery } from 'hooks/useQuery';

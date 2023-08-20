@@ -1,13 +1,5 @@
-import { useState, useMemo, useCallback, useRef } from 'react';
-import {
-  GoogleMap,
-  Marker,
-  DirectionsRenderer,
-  Circle,
-  MarkerClusterer,
-} from '@react-google-maps/api';
-// import Places from './places';
-// import Distance from './distance';
+import { useMemo, useCallback, useRef } from 'react';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 
 export default function Map() {
   const mapRef = useRef();

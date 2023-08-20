@@ -26,17 +26,59 @@ import Axios from 'axios';
 import { API_ENDPOINT } from 'utils/URL';
 import { PropertiesRowList } from './properties';
 import CommunityGallery from '@/components/common/CommunityGallery';
+import axios from 'axios';
 
-const Search = ({ properties }) => {
+export const searchProperty = async (searchQuery) => {
+  try {
+    // use axios to fetch data from API
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/property/search?${searchQuery}`
+    );
+    return data;
+    // return data;
+  } catch (error) {
+    console.error('Error fetching search results:', error);
+    return [];
+  }
+};
+
+const Search = () => {
   const { query } = useRouter();
   const { area, houseType } = query;
+  const searchQuery = `all=${area} ${houseType}`;
+  const [properties, setProperties] = React.useState(null);
 
   const defaultInputValue = { area, houseType };
   const allData = contentProperty[area || 'lekki'];
   const propertyContent = allData?.houseType?.[houseType];
+  console.log('propertyContent: ', propertyContent);
+
   const result = propertyContent
     ? { ...propertyContent, area, type: houseType, ...allData }
     : null;
+
+  const search = async (searchTerm) => {
+    try {
+      const data = await searchProperty(
+        propertyContent?.minimumPrice
+          ? `${searchTerm}&price=${propertyContent?.minimumPrice}:${propertyContent?.maximumPrice}`
+          : searchTerm
+      );
+      return data?.result;
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+      return [];
+    }
+  };
+
+  React.useEffect(() => {
+    if (searchQuery) {
+      search(searchQuery).then((searchResults) => {
+        setProperties(searchResults);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery]);
 
   return (
     <>
@@ -78,18 +120,14 @@ const NoSearchResultFound = () => (
 
 const SearchResultContent = ({ properties, result }) => {
   // const WINDOW_SIZE = useWindowSize();
-  const [showMap, setShowMap] = React.useState(false);
+  // const [showMap, setShowMap] = React.useState(true);
   // get first 2 arrays in properties.result
-  const propertiesResult = properties.result.slice(0, 2);
+  const propertiesResult = properties?.slice(0, 2) || [];
 
   return (
     <div className="container-fluid search-result-section">
       <div className="row">
-        <div
-          className={classNames('col-lg-10', {
-            'offset-lg-1': !showMap,
-          })}
-        >
+        <div className={classNames('col-lg-10 mx-auto')}>
           <h2 className="text-start mt-4 mt-md-6 mb-0 text-primary">
             {result.type}, {result.area} <br />
           </h2>
@@ -133,7 +171,7 @@ const SearchResultContent = ({ properties, result }) => {
           <DefineYourEligibility result={result} />
           <PropertyInfo result={result} />
         </div>
-        {showMap && (
+        {/* {showMap && (
           <div className="col-lg-4 search-result-map">
             {result && (
               <>
@@ -160,7 +198,7 @@ const SearchResultContent = ({ properties, result }) => {
               </>
             )}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
@@ -320,7 +358,7 @@ const DefineYourEligibility = ({ result }) => {
           </div>
           <div className="container-fluid">
             <section className="row eligibility-form mt-5">
-              <div className="col-md-4">
+              <div className="col-md-4 mb-3">
                 <section className="bg-orange">
                   <RangeInput
                     min={1_000_000}
@@ -335,7 +373,7 @@ const DefineYourEligibility = ({ result }) => {
                   />
                 </section>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-4 mb-3">
                 <section className="bg-green">
                   <RangeInput
                     min={100_000}
@@ -350,7 +388,7 @@ const DefineYourEligibility = ({ result }) => {
                   />
                 </section>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-4 mb-3">
                 <section className="bg-blue h-100">
                   <strong>Package Type</strong>
                   <p className="text-xs mt-1 mb-2">
@@ -677,16 +715,5 @@ const SingleRecommendationCard = ({ title, advice }) => {
     </div>
   );
 };
-
-export async function getStaticProps() {
-  const propertiesRes = await Axios.get(API_ENDPOINT.getAllProperties());
-
-  return {
-    props: {
-      properties: { ...propertiesRes.data },
-    },
-    revalidate: 10,
-  };
-}
 
 export default Search;

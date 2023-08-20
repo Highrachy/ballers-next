@@ -42,10 +42,13 @@ export default function Home({
 const HoldingSection = () => (
   <section>
     <div className="row me-0 ms-0">
-      <section className="col-md-6 ps-lg-6 pt-4 home-hero-container">
+      <section className="col-lg-6 ps-lg-6 pt-4 home-hero-container">
         <div className="home-hero">
-          <h1 className="text-shadow-light pt-5 pt-md-0 home-hero-title">
-            Ready to own your <span>dream home</span> <HeroArrow />
+          <h1 className="text-shadow-light pt-5 pt-lg-0 home-hero-title">
+            Ready to own your{' '}
+            <span>
+              dream home <HeroArrow />
+            </span>
           </h1>
         </div>
 
@@ -57,7 +60,7 @@ const HoldingSection = () => (
           </div>
         </section>
       </section>
-      <section className="col-md-6 home-bg  mb-n4"></section>
+      <section className="col-lg-6 home-bg  mb-n4"></section>
     </div>
   </section>
 );

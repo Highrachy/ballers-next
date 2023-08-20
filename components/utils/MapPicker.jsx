@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import ReactMapPicker from 'react-google-map-picker';
+// import ReactMapPicker from 'react-google-map-picker';
 import { OFFICE_LOCATION } from 'utils/constants';
 
 const DEFAULT_ZOOM = 15;
@@ -66,14 +66,14 @@ const MapPicker = ({ processLocation, mapLocation }) => {
       </div>
 
       {location && location.lat && location.lng && (
-        <ReactMapPicker
-          defaultLocation={location}
-          zoom={zoom}
-          style={{ height: '33rem' }}
-          onChangeLocation={handleChangeLocation}
-          onChangeZoom={handleChangeZoom}
-          apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API}
-        />
+        // <ReactMapPicker
+        //   defaultLocation={location}
+        //   zoom={zoom}
+        //   style={{ height: '33rem' }}
+        //   onChangeLocation={handleChangeLocation}
+        //   onChangeZoom={handleChangeZoom}
+        //   apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API}
+        // />
       )}
 
       <div>

@@ -1,50 +1,48 @@
-import React from 'react';
-import GoogleMapReact from 'google-map-react';
-import { Popover, OverlayTrigger } from 'react-bootstrap';
+import React, { useMemo } from 'react';
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 
-const Map = ({ children, coordinates, zoom, pinColor }) => {
+const Map = ({ coordinates, zoom }) => {
+  const center = useMemo(
+    () => ({ lat: coordinates.lat, lng: coordinates.lng }),
+    [coordinates]
+  );
+  const options = useMemo(
+    () => ({
+      mapId: '7a8a72380bd8a9e',
+      zoomControl: true,
+      disableDefaultUI: true,
+      clickableIcons: false,
+    }),
+    []
+  );
+
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY,
+  });
+
+  if (loadError) {
+    return <div>Map cannot be loaded right now, sorry.</div>;
+  }
+
+  if (!isLoaded) return <div>Loading...</div>;
+
   return (
     <>
-      {children}
-      <GoogleMapReact
-        key={JSON.stringify(`${coordinates.lat} ${coordinates.lng}`)}
-        bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API }}
-        defaultCenter={{
-          lat: parseFloat(coordinates.lat),
-          lng: parseFloat(coordinates.lng),
+      <GoogleMap
+        zoom={zoom}
+        center={center}
+        mapContainerStyle={{
+          width: '100%',
+          height: '100%',
+          minHeight: '20rem',
         }}
-        defaultZoom={zoom || 18}
+        options={options}
       >
-        <Marker
-          lat={coordinates.lat}
-          lng={coordinates.lng}
-          pinColor={pinColor}
-        />
-      </GoogleMapReact>
+        {/* <StreetViewPanorama position={center} visible={true} /> */}
+        <Marker position={center} animation={google.maps.Animation.BOUNCE} />
+      </GoogleMap>
     </>
   );
 };
-
-const Marker = ({ pinColor }) => (
-  <>
-    <OverlayTrigger
-      trigger={['hover', 'focus']}
-      placement="top"
-      overlay={popover}
-    >
-      <div className={`pin ${pinColor}`}></div>
-    </OverlayTrigger>
-    <div className="pulse"></div>
-  </>
-);
-
-const popover = (
-  <Popover id="popover-basic">
-    <Popover.Header as="h3">Popover right</Popover.Header>
-    <Popover.Body>
-      Some <strong>amazing</strong> content.
-    </Popover.Body>
-  </Popover>
-);
 
 export default Map;

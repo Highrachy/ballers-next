@@ -36,11 +36,7 @@ const MarkerExample = () => {
         zoom={16}
         center={center}
       >
-        <Marker
-          position={position}
-          title="test Marker"
-          animation={google.maps.Animation.DROP}
-        />
+        <Marker position={position} animation={google.maps.Animation.DROP} />
       </GoogleMap>
     </div>
   );
