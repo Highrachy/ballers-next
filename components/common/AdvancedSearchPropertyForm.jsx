@@ -4,31 +4,18 @@ import Input from '../forms/Input';
 import Button from '../forms/Button';
 import { useRouter } from 'next/router';
 import { createSchema } from '../forms/schemas/schema-helpers';
-import {
-  DisplayFormikState,
-  feedback,
-  processFilterValues,
-} from '../forms/form-helper';
+import { DisplayFormikState, feedback } from '../forms/form-helper';
 import { searchPropertySchema } from '../forms/schemas/propertySchema';
 import { FilterIcon, SearchIcon } from '../utils/Icons';
-import {
-  booleanOptions,
-  generateNumOptions,
-  manualWait,
-  valuesToOptions,
-} from '@/utils/helpers';
+import { generateNumOptions } from '@/utils/helpers';
 import Modal from './Modal';
-import FilterRange from '../forms/FilterRange';
-import Select from '../forms/Select';
 import InputFormat from '../forms/InputFormat';
-import { HOUSE_TYPES } from '@/utils/constants';
-import Label from '../forms/Label';
 import { BsFillHouseFill } from 'react-icons/bs';
 import { BiSolidBuildingHouse, BiWater } from 'react-icons/bi';
 import { GiFamilyHouse, GiSelect } from 'react-icons/gi';
 import { PiHouseFill } from 'react-icons/pi';
 import { FaParking, FaRoad } from 'react-icons/fa';
-import { be } from 'date-fns/locale';
+import classNames from 'classnames';
 
 const AdvancedSearchPropertyForm = ({ advanced = false, term = '' }) => {
   const router = useRouter();
@@ -66,6 +53,7 @@ const AdvancedSearchPropertyForm = ({ advanced = false, term = '' }) => {
                     onKeyDown={(e) => submitFormWithEnterKey(e)}
                   />
                 </div>
+                <FilterButton />
                 <Button loading={isSubmitting} onClick={handleSubmit}>
                   Search
                 </Button>
@@ -82,14 +70,17 @@ const AdvancedSearchPropertyForm = ({ advanced = false, term = '' }) => {
                     onKeyDown={(e) => submitFormWithEnterKey(e)}
                   />
                   {props?.touched?.term && props?.errors?.term ? null : (
-                    <span className="position-absolute top-50 input-search-icon translate-middle-y">
+                    <span
+                      onClick={handleSubmit}
+                      className="position-absolute top-50 input-search-icon translate-middle-y"
+                    >
                       <SearchIcon />
                     </span>
                   )}
                 </div>
 
                 <div className="d-flex justify-content-center mt-3">
-                  <FilterButton />
+                  <FilterButton advanced />
                   <Button
                     loading={isSubmitting}
                     className="btn btn-wide d-flex align-items-center"
@@ -107,7 +98,7 @@ const AdvancedSearchPropertyForm = ({ advanced = false, term = '' }) => {
   );
 };
 
-export const FilterButton = () => {
+export const FilterButton = ({ advanced = false }) => {
   const [showSearchModal, setShowSearchModal] = React.useState(false);
   const [selectedOptions, setSelectedOptions] = React.useState({});
   const router = useRouter();
@@ -120,149 +111,157 @@ export const FilterButton = () => {
     <>
       <Button
         color="light"
-        className="btn me-3 btn-wide d-flex align-items-center"
+        className={classNames('me-md-3 mb-md-0 mb-3', {
+          'btn-wide': advanced,
+        })}
         onClick={() => setShowSearchModal(true)}
       >
-        <FilterIcon /> &nbsp;Filters
+        <FilterIcon />
+        &nbsp; Filters
       </Button>
       <Modal
-        title="Search our Articles"
+        title="Filters"
         show={showSearchModal}
         onHide={() => setShowSearchModal(false)}
         showFooter={false}
         size="lg"
       >
-        <section className="px-4 pt-3">
-          <Formik
-            initialValues={{
-              all: '',
-              price: [0, 0],
-            }}
-            onSubmit={(values, actions) => {
-              const finalOutput = convertToQueryString({
-                ...values,
-                ...selectedOptions,
-              });
-              router.push(`/properties/search?${finalOutput}`);
-              setShowSearchModal(false);
-            }}
-          >
-            {({ isSubmitting, handleSubmit, ...props }) => (
-              <Form>
-                <section>
-                  <Input
-                    label="What are you looking for"
-                    name="all"
-                    placeholder="Enter name, location, city or state"
-                  />
+        <Formik
+          initialValues={{
+            all: '',
+            price: [0, 0],
+          }}
+          onSubmit={(values, actions) => {
+            const finalOutput = convertToQueryString({
+              ...values,
+              ...selectedOptions,
+            });
+            router.push(`/properties/search?${finalOutput}`);
+            setShowSearchModal(false);
+          }}
+        >
+          {({ isSubmitting, handleSubmit, ...props }) => (
+            <Form className="filter-container">
+              <FilterSection title="Search by Name, Type, City or keywords">
+                <Input
+                  name="all"
+                  optional
+                  placeholder="Enter your search keywords here"
+                />
+              </FilterSection>
 
-                  <div className="form-row">
-                    <InputFormat
-                      formGroupClassName="col-md-6"
-                      name="price[0]"
-                      label="From Price"
-                      showFeedback={feedback.ERROR}
-                    />
-                    <InputFormat
-                      formGroupClassName="col-md-6"
-                      name="price[1]"
-                      label="From Price"
-                      showFeedback={feedback.ERROR}
-                    />
-                  </div>
+              <FilterSection title="Price Range">
+                <div className="form-row">
+                  <InputFormat
+                    formGroupClassName="col-md-6"
+                    name="price[0]"
+                    helpText="Lowest Price"
+                    optional
+                    showFeedback={feedback.ERROR}
+                  />
+                  <InputFormat
+                    formGroupClassName="col-md-6"
+                    name="price[1]"
+                    helpText="Highest Price"
+                    optional
+                    hide
+                    showFeedback={feedback.ERROR}
+                  />
+                </div>
+              </FilterSection>
 
-                  <ListFilter
-                    name="type"
-                    title="Property Type"
-                    options={[
-                      {
-                        label: 'Any',
-                        value: null,
-                        icon: <PiHouseFill />,
-                      },
-                      {
-                        label: 'Bungalow',
-                        value: 'bungalow',
-                        icon: <BsFillHouseFill />,
-                      },
-                      {
-                        label: 'Flat',
-                        value: 'Flat',
-                        icon: <GiFamilyHouse />,
-                      },
-                      {
-                        label: 'Duplex',
-                        value: 'Duplex',
-                        icon: <BiSolidBuildingHouse />,
-                      },
-                    ]}
-                    selectedOptions={selectedOptions}
-                    setSelectedOptions={setSelectedOptions}
-                  />
+              <ListFilter
+                name="bedrooms"
+                title="Bedrooms"
+                options={NUM_OPTIONS}
+                selectedOptions={selectedOptions}
+                setSelectedOptions={setSelectedOptions}
+              />
+              <ListFilter
+                name="bathrooms"
+                title="Bathrooms"
+                options={NUM_OPTIONS}
+                selectedOptions={selectedOptions}
+                setSelectedOptions={setSelectedOptions}
+              />
+              <ListFilter
+                name="toilets"
+                title="Toilets"
+                options={NUM_OPTIONS}
+                selectedOptions={selectedOptions}
+                setSelectedOptions={setSelectedOptions}
+              />
 
-                  <ListFilter
-                    name="bedrooms"
-                    title="Bedrooms"
-                    options={NUM_OPTIONS}
-                    selectedOptions={selectedOptions}
-                    setSelectedOptions={setSelectedOptions}
-                  />
-                  <ListFilter
-                    name="bathrooms"
-                    title="Bathrooms"
-                    options={NUM_OPTIONS}
-                    selectedOptions={selectedOptions}
-                    setSelectedOptions={setSelectedOptions}
-                  />
-                  <ListFilter
-                    name="toilets"
-                    title="Toilets"
-                    options={NUM_OPTIONS}
-                    selectedOptions={selectedOptions}
-                    setSelectedOptions={setSelectedOptions}
-                  />
+              <ListFilter
+                name="houseType"
+                title="Property Type"
+                options={[
+                  {
+                    label: 'Any',
+                    value: null,
+                    icon: <PiHouseFill />,
+                  },
+                  {
+                    label: 'Bungalow',
+                    value: 'bungalow',
+                    icon: <BsFillHouseFill />,
+                  },
+                  {
+                    label: 'Flat',
+                    value: 'Flat',
+                    icon: <GiFamilyHouse />,
+                  },
+                  {
+                    label: 'Duplex',
+                    value: 'Duplex',
+                    icon: <BiSolidBuildingHouse />,
+                  },
+                ]}
+                selectedOptions={selectedOptions}
+                setSelectedOptions={setSelectedOptions}
+              />
 
-                  <ListFilter
-                    name="features"
-                    title="Features"
-                    options={[
-                      {
-                        label: 'Any',
-                        value: null,
-                        icon: <GiSelect />,
-                      },
-                      {
-                        label: 'Parking',
-                        value: 'parking',
-                        icon: <FaParking />,
-                      },
-                      {
-                        label: 'Portable Water',
-                        value: 'water',
-                        icon: <BiWater />,
-                      },
-                      {
-                        label: 'Paved Road',
-                        value: 'road',
-                        icon: <FaRoad />,
-                      },
-                    ]}
-                    selectedOptions={selectedOptions}
-                    setSelectedOptions={setSelectedOptions}
-                  />
-                </section>
-                <DisplayFormikState {...props} showAll />
-                <Button
-                  className="btn-secondary mt-4"
-                  loading={isSubmitting}
-                  onClick={handleSubmit}
-                >
-                  Filter Properties
-                </Button>
-              </Form>
-            )}
-          </Formik>
-        </section>
+              <ListFilter
+                name="features"
+                title="Features"
+                options={[
+                  {
+                    label: 'Any',
+                    value: null,
+                    icon: <GiSelect />,
+                  },
+                  {
+                    label: 'Parking',
+                    value: 'Car Parking',
+                    icon: <FaParking />,
+                  },
+                  {
+                    label: 'Portable Water',
+                    value: 'Portable Water',
+                    icon: <BiWater />,
+                  },
+                  {
+                    label: 'Paved Roads',
+                    value: 'Paved Roads',
+                    icon: <FaRoad />,
+                  },
+                ]}
+                selectedOptions={selectedOptions}
+                setSelectedOptions={setSelectedOptions}
+              />
+
+              <DisplayFormikState {...props} showAll hide />
+              <Button
+                className="ms-4 mt-3 mb-5"
+                color={'primary'}
+                loading={isSubmitting}
+                onClick={handleSubmit}
+              >
+                <FilterIcon /> Filter Properties
+              </Button>
+            </Form>
+          )}
+        </Formik>
       </Modal>
     </>
   );
@@ -275,34 +274,31 @@ const ListFilter = ({
   selectedOptions,
   setSelectedOptions,
 }) => {
-  const getClassName = (value) =>
-    `btn btn-secondary${selectedOptions[name] === value ? '' : '-light'} me-3`;
-
   return (
-    <div className="row mb-5">
-      <div className="col-12">
-        <Label name={name} hideOptionalText>
-          {title}
-        </Label>
+    <FilterSection title={title}>
+      <div className="row mb-4">
+        <div className="col">
+          {options.map(({ label, value, icon }) => (
+            <button
+              key={value}
+              type="button"
+              className={classNames('list-filter', {
+                active: selectedOptions[name] === value,
+                'with-icon': !!icon,
+              })}
+              onClick={() =>
+                setSelectedOptions({ ...selectedOptions, [name]: value })
+              }
+            >
+              {icon && (
+                <div className="icon-lg py-2 px-3 list-filter-icon">{icon}</div>
+              )}
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
-      <div className="col">
-        {options.map(({ label, value, icon }) => (
-          <button
-            key={value}
-            type="button"
-            className={getClassName(value)}
-            onClick={() =>
-              setSelectedOptions({ ...selectedOptions, [name]: value })
-            }
-          >
-            {icon && (
-              <div className="icon-lg py-2 px-3 list-filter-icon">{icon}</div>
-            )}
-            {label}
-          </button>
-        ))}
-      </div>
-    </div>
+    </FilterSection>
   );
 };
 
@@ -325,5 +321,12 @@ function convertToQueryString(values) {
 
   return queryParams.length > 0 ? queryParams.join('&') : '';
 }
+
+const FilterSection = ({ title, children }) => (
+  <section className="my-4 pb-3 px-4 border-bottom-dotted">
+    <p className="fw-bold text-md mb-2">{title}</p>
+    {children}
+  </section>
+);
 
 export default AdvancedSearchPropertyForm;

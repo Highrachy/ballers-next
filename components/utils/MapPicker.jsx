@@ -65,7 +65,7 @@ const MapPicker = ({ processLocation, mapLocation }) => {
         </div>
       </div>
 
-      {location && location.lat && location.lng && (
+      {/* {location && location.lat && location.lng && (
         // <ReactMapPicker
         //   defaultLocation={location}
         //   zoom={zoom}
@@ -74,7 +74,7 @@ const MapPicker = ({ processLocation, mapLocation }) => {
         //   onChangeZoom={handleChangeZoom}
         //   apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API}
         // />
-      )}
+      )} */}
 
       <div>
         <button

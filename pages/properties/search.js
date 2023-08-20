@@ -10,14 +10,13 @@ import AdvancedSearchPropertyForm from '@/components/common/AdvancedSearchProper
 import { FaBed, FaSwimmingPool } from 'react-icons/fa';
 import NoContent from '@/components/utils/NoContent';
 import { Loading } from '@/components/utils/LoadingItems';
+import { BASE_API_URL } from '@/utils/constants';
 
 export const searchProperty = async (searchQuery) => {
   try {
     // use axios to fetch data from API
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/search${convertToQueryString(
-        searchQuery
-      )}`
+      `${BASE_API_URL}/property/search${convertToQueryString(searchQuery)}`
     );
     return data;
     // return data;

@@ -15,7 +15,6 @@ import axios from 'axios';
 import { PropertiesRowList } from './properties';
 import { API_ENDPOINT } from '@/utils/URL';
 import ReferralModal from '@/components/common/ReferralModal';
-import TabContent from '@/components/dashboard/TabContent';
 import { Tab, Tabs } from 'react-bootstrap';
 import AdvancedSearchPropertyForm from '@/components/common/AdvancedSearchPropertyForm';
 
@@ -54,7 +53,6 @@ const HoldingSection = () => (
 
         <section className="position-relative">
           <SearchTabComponent />
-          {/* <SearchContentPropertyForm /> */}
           <div className="dotted-polka">
             <PolkaDot />
           </div>

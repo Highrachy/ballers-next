@@ -727,3 +727,7 @@ html {
   color: $primary-400;
   margin-bottom: 0;
 }
+
+.border-bottom-dotted {
+  border-bottom: 1px dotted $gray-300;
+}

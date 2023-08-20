@@ -51,9 +51,21 @@
     svg {
       position: absolute;
       z-index: 1000;
-      right: auto;
+      bottom: -5rem;
+      z-index: -300;
+      width: 55px;
+      height: 90px;
+      @include media-breakpoint-up(md) {
+        width: 75px;
+        height: 100px;
+      }
       @include media-breakpoint-up(lg) {
-        bottom: -6rem;
+        width: 92px;
+        height: 118px;
+      }
+      @media (min-width: 2200px) {
+        width: 120px;
+        height: 150px;
       }
     }
   }
@@ -533,6 +545,9 @@ ul.timeline li.timeline__border:after {
 .search-property-form {
   button {
     border-radius: 3px !important;
+    max-height: 3.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
   }
 }
 
@@ -553,6 +568,44 @@ ul.timeline li.timeline__border:after {
   opacity: 0.5;
 }
 
-.list-filter-icon {
-  color: $secondary-300;
+.filter-container {
+  .form-control {
+    border: 1px solid $primary-200;
+    background-color: $white;
+  }
+
+  .list-filter {
+    display: inline-block;
+    white-space: nowrap;
+    padding: 0.5rem 2rem;
+    margin-right: 0.75rem;
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    border-radius: 1.25rem;
+    min-width: 4rem;
+    font-size: 0.8rem;
+    border: 1px solid $primary-200;
+    background-color: $white;
+    color: $primary-400;
+    margin-bottom: 0.75rem;
+
+    &.with-icon {
+      padding: 1rem;
+      border-radius: 0.75rem;
+      min-width: 8rem;
+    }
+
+    &:hover {
+      background-color: $primary-50;
+      color: $primary-700;
+    }
+    &.active {
+      border-color: $primary-700;
+      background-color: $primary-700;
+      color: $white;
+    }
+  }
 }

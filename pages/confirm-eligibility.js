@@ -27,12 +27,13 @@ import { API_ENDPOINT } from 'utils/URL';
 import { PropertiesRowList } from './properties';
 import CommunityGallery from '@/components/common/CommunityGallery';
 import axios from 'axios';
+import { BASE_API_URL } from '@/utils/constants';
 
 export const searchProperty = async (searchQuery) => {
   try {
     // use axios to fetch data from API
     const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/property/search?${searchQuery}`
+      `${BASE_API_URL}/property/search?${searchQuery}`
     );
     return data;
     // return data;
