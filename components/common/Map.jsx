@@ -39,7 +39,7 @@ const Map = ({ coordinates, zoom }) => {
         options={options}
       >
         {/* <StreetViewPanorama position={center} visible={true} /> */}
-        <Marker position={center} animation={google.maps.Animation.BOUNCE} />
+        <Marker position={center} animation={google.maps.Animation.DROP} />
       </GoogleMap>
     </>
   );

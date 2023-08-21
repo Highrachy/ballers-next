@@ -8,19 +8,11 @@ import {
   ReferIcon,
   VasIcon,
 } from 'components/utils/Icons';
-import { ACTIVE_OFFER_STATUS, OFFER_STATUS, USER_TYPES } from 'utils/constants';
-import { UserContext } from 'context/UserContext';
 import Toast, { useToast } from 'components/utils/Toast';
-import {
-  differenceInDays,
-  getDate,
-  getDateStatus,
-  isPastDate,
-} from 'utils/date-helpers';
+import { getDate, getDateStatus } from 'utils/date-helpers';
 import { API_ENDPOINT } from 'utils/URL';
 import { useGetQuery } from '@/hooks/useQuery';
 import { ContentLoader } from '@/components/utils/LoadingItems';
-import Humanize from 'humanize-plus';
 import OverviewGraph from '@/components/dashboard/OverviewGraph';
 import Widget from '@/components/dashboard/Widget';
 import Colors from 'style-dictionary/build/color.tokens.js';
@@ -32,9 +24,13 @@ import ServiceBox from '@/components/dashboard/ServiceBox';
 import ReferAndEarn from '@/components/dashboard/ReferAndEarn';
 import RecentOffersWidget from '@/components/dashboard/widgets/RecentOffersWidget';
 import RecentTransactionsWidget from '@/components/dashboard/widgets/RecentTransactionsWidget';
+import MoreStories from '@/components/blog/MoreStories';
+import { getAllCategories, getAllPostsForHome } from 'lib/api';
+import { CategoriesComponent } from 'pages/blog';
 
-const Dashboard = () => {
+const Dashboard = ({ allPosts: { edges }, allCategories }) => {
   const [toast, setToast] = useToast();
+  const morePosts = edges.slice(0, 2);
 
   const [dashboardQuery] = useGetQuery({
     axiosOptions: {},
@@ -61,6 +57,11 @@ const Dashboard = () => {
         <RecentTransactionsAndServices result={result} />
       </ContentLoader>
       <ReferAndEarn />
+      <div className="container-fluid py-0">
+        <h3 className="mt-5 mb-4">From our Blog</h3>
+        <CategoriesComponent categories={allCategories} />
+        {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+      </div>
     </BackendPage>
   );
 };
@@ -193,6 +194,16 @@ const Overview = ({ result }) => {
       </div>
     </div>
   );
+};
+
+export const getStaticProps = async ({ preview = false }) => {
+  const allPosts = await getAllPostsForHome(preview);
+  const allCategories = await getAllCategories(preview);
+
+  return {
+    props: { allPosts, allCategories },
+    revalidate: 10,
+  };
 };
 
 export default Dashboard;

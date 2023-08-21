@@ -52,7 +52,7 @@ export const BlogContainer = ({ children }) => (
   </section>
 );
 
-const CategoriesComponent = ({ categories }) => {
+export const CategoriesComponent = ({ categories }) => {
   return (
     <SearchModal>
       <ul className="list-inline blog-categories-list">

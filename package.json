@@ -51,6 +51,7 @@
     "sass": "^1.54.0",
     "slick-carousel": "^1.8.1",
     "store2": "^2.14.2",
+    "typewriter-effect": "^2.20.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {

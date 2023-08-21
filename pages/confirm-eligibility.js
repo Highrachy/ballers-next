@@ -14,6 +14,7 @@ import {
   HouseIcon,
   CloseIcon,
   PropertyIcon,
+  SearchIcon,
 } from 'components/utils/Icons';
 import NumberFormat from 'react-number-format';
 import { recommendBallersPlan } from 'utils/search-result-helpers';
@@ -28,6 +29,7 @@ import { PropertiesRowList } from './properties';
 import CommunityGallery from '@/components/common/CommunityGallery';
 import axios from 'axios';
 import { BASE_API_URL } from '@/utils/constants';
+import Button from '@/components/forms/Button';
 
 export const searchProperty = async (searchQuery) => {
   try {
@@ -526,7 +528,7 @@ const DefineYourEligibility = ({ result }) => {
                 Recommended Plan
                 {output?.recommendations?.length > 2 && 's'}{' '}
               </h4>
-              <div>
+              <div className="row">
                 {output?.recommendations?.map(({ title, advice }, index) => {
                   return (
                     <SingleRecommendationCard
@@ -536,13 +538,21 @@ const DefineYourEligibility = ({ result }) => {
                     />
                   );
                 })}
+
+                <Button
+                  color="purple-light"
+                  className="mt-5 mb-5"
+                  href={`/properties/search?all=${result.type} ${result.area}, ${result.state}`}
+                >
+                  <SearchIcon /> Search for related Properties on BALL
+                </Button>
               </div>
             </section>
           </div>
 
           <div className="button-container mt-5 mb-3">
             <button
-              className="btn btn-primary-light fw-bold"
+              className="btn btn-light"
               onClick={() => cancelEligibilityStatus(false)}
             >
               <ArrowLeftIcon /> Redefine your Eligibility status
@@ -694,26 +704,26 @@ const TitleInfo = ({ title, content }) => (
 
 const SingleRecommendationCard = ({ title, advice }) => {
   return (
-    <div className="recommendation-box col-sm-6">
-      <section className="d-flex justify-content-between">
-        <div className="d-flex flex-row">
-          <div className="d-flex flex-column">
-            <h4 className={`text-secondary fw-semibold`}>{title}</h4>
+    <section className="col-sm-6">
+      <div className="recommendation-box">
+        <section className="d-flex justify-content-between">
+          <div className="d-flex flex-row">
+            <div className="d-flex flex-column">
+              <h4 className={`text-secondary fw-bold`}>{title}</h4>
+            </div>
           </div>
-        </div>
-      </section>
-      <section>
-        <p className="text-md mt-2 text-primary mb-0">{advice}</p>
+        </section>
+        <section>
+          <p className="text-md mt-2 text-primary mb-0">{advice}</p>
 
-        <p className="mt-4">
-          <Link href={'/register'}>
-            <a className="btn btn-secondary-light btn-xs btn-wide">
-              Get Started
-            </a>
-          </Link>
-        </p>
-      </section>
-    </div>
+          <p className="mt-4">
+            <Link href={'/register'}>
+              <a className="btn btn-secondary btn-xs btn-wide">Get Started</a>
+            </Link>
+          </p>
+        </section>
+      </div>
+    </section>
   );
 };
 

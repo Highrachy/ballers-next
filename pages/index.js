@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { AttentionSeeker, Slide } from 'react-awesome-reveal';
+import { AttentionSeeker, Fade, Slide } from 'react-awesome-reveal';
 import Header from '@/components/layout/Header';
 import { HeroArrow, PolkaDot } from '@/components/utils/Icons';
 import useWindowSize from '@/hooks/useWindowSize';
@@ -17,6 +17,7 @@ import { API_ENDPOINT } from '@/utils/URL';
 import ReferralModal from '@/components/common/ReferralModal';
 import { Tab, Tabs } from 'react-bootstrap';
 import AdvancedSearchPropertyForm from '@/components/common/AdvancedSearchPropertyForm';
+import Typewriter from 'typewriter-effect';
 
 export default function Home({
   properties,
@@ -42,14 +43,27 @@ const HoldingSection = () => (
   <section>
     <div className="row me-0 ms-0">
       <section className="col-lg-6 ps-lg-6 pt-4 home-hero-container">
-        <div className="home-hero">
-          <h1 className="text-shadow-light pt-5 pt-lg-0 home-hero-title">
-            Ready to own your{' '}
-            <span>
-              dream home <HeroArrow />
-            </span>
-          </h1>
-        </div>
+        <Fade triggerOnce>
+          <div className="home-hero">
+            <h1 className="text-shadow-light pt-5 pt-lg-0 home-hero-title">
+              Ready to own your <br />
+              <span className="home-hero__text">
+                <Typewriter
+                  options={{
+                    strings: [
+                      'dream home',
+                      'rental investment',
+                      'income property',
+                    ],
+                    autoStart: true,
+                    loop: true,
+                  }}
+                />
+                <HeroArrow />
+              </span>
+            </h1>
+          </div>
+        </Fade>
 
         <section className="position-relative">
           <SearchTabComponent />
@@ -58,7 +72,7 @@ const HoldingSection = () => (
           </div>
         </section>
       </section>
-      <section className="col-lg-6 home-bg  mb-n4"></section>
+      <section className="col-lg-6 home-bg mb-n4"></section>
     </div>
   </section>
 );
@@ -71,26 +85,30 @@ const AboutSection = () => {
       <div className="row my-4">
         <div className="col-sm-6 col-12 text-center mb-n4">
           <h6 className="header-secondary d-lg-none d-block">ABOUT BALL</h6>
-          <Image
-            src={`/img/pages/${isDesktop ? 'home.png' : 'home-tab.png'}`}
-            className="img-cover"
-            alt="home"
-            width={isDesktop ? '808' : '363'}
-            height={isDesktop ? '939' : '367'}
-          />
+          <Slide triggerOnce direction="left">
+            <Image
+              src={`/img/pages/home.png`}
+              className="img-cover"
+              alt="home"
+              width="808"
+              height="939"
+            />
+          </Slide>
         </div>
         <div className="col-sm-6 col-12 pb-5">
-          <h6 className="header-secondary d-none d-lg-block">ABOUT BALL</h6>
-          <h2 className="my-4 my-md-0">
-            Game-changing service <br /> that makes owning <br /> your home
-            easier
-          </h2>
-          <p className="my-md-5 my-3 text-normal">
-            We make owning a home simpler and achievable. <br /> With BALL
-            unique saving plan tailored to you and your <br /> financial
-            position,owning a home has never been easier.
-          </p>
-          <button className="btn btn-secondary">LEARN MORE</button>
+          <Fade triggerOnce cascade damping={0.2}>
+            <h6 className="header-secondary d-none d-lg-block">ABOUT BALL</h6>
+            <h2 className="my-4 my-md-0">
+              Game-changing service <br /> that makes owning <br /> your home
+              easier
+            </h2>
+            <p className="my-md-5 my-3 text-normal">
+              We make owning a home simpler and achievable. <br /> With BALL
+              unique saving plan tailored to you and your <br /> financial
+              position,owning a home has never been easier.
+            </p>
+            <button className="btn btn-secondary">LEARN MORE</button>
+          </Fade>
         </div>
       </div>
     </section>
