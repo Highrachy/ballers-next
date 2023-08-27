@@ -7,7 +7,10 @@ import { valuesToOptions } from 'utils/helpers';
 import contentProperty from '@/data/contentProperty';
 import { Router, useRouter } from 'next/router';
 
-const SearchContentPropertyForm = ({ defaultInputValue }) => {
+const SearchContentPropertyForm = ({
+  defaultInputValue,
+  customForm = false,
+}) => {
   const router = useRouter();
   const [toast, setToast] = useToast();
 
@@ -59,13 +62,17 @@ const SearchContentPropertyForm = ({ defaultInputValue }) => {
   };
 
   const handleSearch = () => {
+    const enableButton = formValue.area && formValue.houseType;
+    if (!enableButton) {
+      setToast({
+        message: 'You need to select a `Preferred Area` and `HouseType`',
+      });
+      return;
+    }
     router.push(
       `/confirm-eligibility?area=${formValue.area}&houseType=${formValue.houseType}`
     );
   };
-
-  // Button
-  const enableButton = formValue.area && formValue.houseType;
 
   return (
     <div className="input-group search-property-form">
@@ -74,7 +81,7 @@ const SearchContentPropertyForm = ({ defaultInputValue }) => {
         <Select
           options={locations}
           key={JSON.stringify(defaultInputValue.area)}
-          styles={customStyles}
+          styles={customStyles(customForm)}
           placeholder={placeholder.area}
           onChange={getHouseType}
         />
@@ -95,7 +102,7 @@ const SearchContentPropertyForm = ({ defaultInputValue }) => {
           )}
           placeholder={placeholder.houseType}
           options={houseType}
-          styles={customStyles}
+          styles={customStyles(customForm)}
           isDisabled={disableHouseType}
           onChange={getHouseValue}
         />
@@ -103,7 +110,6 @@ const SearchContentPropertyForm = ({ defaultInputValue }) => {
       <button
         className="btn btn-secondary"
         type="button"
-        disabled={!enableButton}
         onClick={handleSearch}
       >
         Confirm

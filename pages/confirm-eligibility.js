@@ -106,7 +106,10 @@ const SearchForm = ({ defaultInputValue }) => (
         <div className="col-12">
           <h2 className="pb-3 text-white text-center">Confirm Eligibility</h2>
         </div>
-        <SearchContentPropertyForm defaultInputValue={defaultInputValue} />
+        <SearchContentPropertyForm
+          defaultInputValue={defaultInputValue}
+          customForm
+        />
       </section>
     </div>
   </section>

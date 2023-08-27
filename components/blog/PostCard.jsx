@@ -22,24 +22,21 @@ const PostCard = ({
           </a>
         </Link>
         <div className="card-body p-4">
-          <Link href={`/posts/${slug}`}>
-            <a>
-              <h5
-                className="fw-semibold blog-card-title text-single-line"
-                dangerouslySetInnerHTML={{ __html: title }}
-              />
-            </a>
-          </Link>
-
           <div className="text-lead-after text-sm d-flex">
-            <DateComponent dateString={date} />
-            {/* <span>&nbsp; / &nbsp;</span>{' '}
-            <Avatar author={author} noImage /> */}
+            <span className="start-dash start-dash__small">
+              {categories?.edges[0]?.node?.name}
+            </span>
           </div>
 
-          <div className="position-relative mb-5">
+          <div className="position-relative blog-content mb-5">
+            <Link href={`/posts/${slug}`}>
+              <h5
+                className="blog-card-title mt-3"
+                dangerouslySetInnerHTML={{ __html: title }}
+              />
+            </Link>
             <div
-              className="card-text mt-3 blog-text-content"
+              className="card-text blog-text-content"
               dangerouslySetInnerHTML={{ __html: excerpt }}
             />
             <div className="gradient-overlay"></div>

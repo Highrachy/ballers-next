@@ -108,14 +108,23 @@
 
 .blog-card-title,
 .blog-title {
-  color: $secondary-700 !important;
+  color: $primary-500;
+  font-weight: bold;
+  line-height: 1.6;
+}
+
+.blog-content {
+  height: 15rem;
+  max-height: 15rem;
+  overflow: hidden;
 }
 
 .blog-text-content {
-  height: 8.2rem;
-  max-height: 8.2rem;
-  overflow: hidden;
   margin-bottom: 1.5rem;
+  margin-top: 1.25rem;
+  color: $primary-300;
+  font-size: 1rem;
+  line-height: 1.8;
 }
 
 .gradient-overlay {

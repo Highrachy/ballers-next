@@ -1,7 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { AttentionSeeker, Fade, Slide } from 'react-awesome-reveal';
+import {
+  AttentionSeeker,
+  Fade,
+  JackInTheBox,
+  Slide,
+} from 'react-awesome-reveal';
 import Header from '@/components/layout/Header';
 import { HeroArrow, PolkaDot } from '@/components/utils/Icons';
 import useWindowSize from '@/hooks/useWindowSize';
@@ -39,43 +44,36 @@ export default function Home({
   );
 }
 
-const HoldingSection = () => (
-  <section>
-    <div className="row me-0 ms-0">
-      <section className="col-lg-6 ps-lg-6 pt-4 home-hero-container">
-        <Fade triggerOnce>
+const HoldingSection = () => {
+  const [showArrow, setShowArrow] = React.useState(false);
+
+  return (
+    <section>
+      <div className="row me-0 ms-0">
+        <section className="col-lg-6 ps-lg-6 pt-4 home-hero-container">
           <div className="home-hero">
             <h1 className="text-shadow-light pt-5 pt-lg-0 home-hero-title">
               Ready to own your <br />
               <span className="home-hero__text">
-                <Typewriter
-                  options={{
-                    strings: [
-                      'dream home',
-                      'rental investment',
-                      'income property',
-                    ],
-                    autoStart: true,
-                    loop: true,
-                  }}
+                <TypewriterWrapper
+                  texts={['dream home', 'rental investment', 'income property']}
                 />
-                <HeroArrow />
               </span>
             </h1>
           </div>
-        </Fade>
 
-        <section className="position-relative">
-          <SearchTabComponent />
-          <div className="dotted-polka">
-            <PolkaDot />
-          </div>
+          <section className="position-relative">
+            <SearchTabComponent />
+            <div className="dotted-polka">
+              <PolkaDot />
+            </div>
+          </section>
         </section>
-      </section>
-      <section className="col-lg-6 home-bg mb-n4"></section>
-    </div>
-  </section>
-);
+        <section className="col-lg-6 home-bg mb-n4"></section>
+      </div>
+    </section>
+  );
+};
 
 const AboutSection = () => {
   const WINDOW_SIZE = useWindowSize();
@@ -231,85 +229,48 @@ const SearchTabComponent = () => {
   );
 };
 
-// <div>
-//   <ul className="nav nav-tabs">
-//     <li className="nav-item">
-//       <a className="nav-link active" data-bs-toggle="tab" href="#desc">
-//         Buy
-//       </a>
-//     </li>
-//     <li className="nav-item">
-//       <a className="nav-link" data-bs-toggle="tab" href="#addi__info">
-//         Sale
-//       </a>
-//     </li>
-//     <li className="nav-item">
-//       <a className="nav-link" data-bs-toggle="tab" href="#review">
-//         Rent
-//       </a>
-//     </li>
-//   </ul>
-//   <div className="tab-content">
-//     <div className="tab-pane active" id="desc">
-//       <form action="/listing-1.html">
-//         <div className="input-group">
-//           <input
-//             type="text"
-//             className="form-control"
-//             placeholder="Search for city, property, agent and more..."
-//           />
-//           <button type="submit" className="btn btn-primary">
-//             Search Property
-//           </button>
-//           <div className="input-group-append">
-//             <a href="#">
-//               <span className="input-group-text icon-magnifying-glass"></span>
-//             </a>
-//           </div>
-//         </div>
-//       </form>
-//     </div>
+const TypewriterWrapper = ({ texts }) => {
+  const [showArrow, setShowArrow] = React.useState(false);
 
-//     <div className="tab-pane" id="addi__info">
-{
-  /* <form action="/listing-1.html">
-  <div className="input-group">
-    <input
-      type="text"
-      className="form-control"
-      placeholder="Search for city, property, agent and more..."
-    />
-    <button type="submit" className="btn btn-primary">
-      Search Property
-    </button>
-    <div className="input-group-append">
-      <a href="#">
-        <span className="input-group-text icon-magnifying-glass"></span>
-      </a>
-    </div>
-  </div>
-</form>; */
-}
-//     </div>
+  const typeTextWithArrow = (typewriter, text) => {
+    typewriter
+      .typeString(text)
+      .callFunction(() => {
+        setShowArrow(true);
+      })
+      .pauseFor(3000)
+      .callFunction(() => {
+        setShowArrow(false);
+      })
+      .deleteAll()
+      .stop();
+  };
 
-//     <div className="tab-pane" id="review">
-//       <form action="/listing-1.html">
-//         <div className="input-group">
-//           <input
-//             type="text"
-//             className="form-control"
-//             placeholder="Search for city, property, agent and more..."
-//           />
-//           <button type="submit" className="btn btn-primary">
-//             Search Property
-//           </button>
-//           <div className="input-group-append">
-//             <a href="#">
-//               <span className="input-group-text icon-magnifying-glass"></span>
-//             </a>
-//           </div>
-//         </div>
-//       </form>
-//     </div>
-//   </div>
-// </div>
+  const initializeTypewriter = (typewriter) => {
+    texts.forEach((text, index) => {
+      typeTextWithArrow(typewriter, text);
+      if (index < texts.length - 1) {
+        typewriter.pauseFor(1000);
+      }
+    });
+    typewriter.start();
+  };
+
+  return (
+    <>
+      <Typewriter
+        onInit={initializeTypewriter}
+        options={{
+          autoStart: true,
+          loop: true,
+        }}
+      />
+
+      {showArrow && (
+        <JackInTheBox duration={1500}>
+          <HeroArrow />
+        </JackInTheBox>
+      )}
+    </>
+  );
+};

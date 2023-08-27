@@ -184,7 +184,7 @@ const Forms = () => {
 
           <ReactSelect
             placeholder="Select Hand Over Date"
-            styles={customStyles}
+            styles={customStyles()}
             options={generateNumOptions(61, 'Month', {
               startFrom: 0,
               firstMonthText: 'Immediately',

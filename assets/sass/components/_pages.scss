@@ -44,15 +44,15 @@
     .home-hero__text {
       color: #32469e;
       position: relative;
-      display: block;
+      display: inline-block;
       margin-right: 0.5rem;
       z-index: 1001;
     }
     svg {
       position: absolute;
-      z-index: 1000;
+      z-index: -1;
       bottom: -5rem;
-      right: 0;
+      right: -6rem;
       z-index: -300;
       width: 55px;
       height: 90px;
@@ -463,6 +463,14 @@ ul.timeline li.timeline__border:after {
   font-weight: 500;
   font-size: 1rem;
   text-transform: uppercase;
+  &.start-dash__small {
+    margin: 0 0 0 2rem !important;
+    font-size: 0.75rem;
+    &:before {
+      width: 2em;
+      left: -2rem;
+    }
+  }
   &:before {
     content: '';
     display: inline-block;
@@ -517,6 +525,7 @@ ul.timeline li.timeline__border:after {
   border-radius: 0 8px 8px 8px;
   position: relative !important;
   margin-top: -1px;
+  box-shadow: 0 5px 40px rgba(192, 204, 218, 0.3);
 
   padding: 2rem;
   background: white;

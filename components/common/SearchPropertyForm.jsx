@@ -128,7 +128,7 @@ const SearchPropertyForm = ({ defaultInputValue }) => {
         <Select
           options={states}
           key={JSON.stringify(defaultInputValue.state)}
-          styles={customStyles}
+          styles={customStyles()}
           placeholder={placeholder.state}
           onChange={getArea}
         />
@@ -146,7 +146,7 @@ const SearchPropertyForm = ({ defaultInputValue }) => {
         <Select
           placeholder={placeholder.area}
           options={area}
-          styles={customStyles}
+          styles={customStyles()}
           isDisabled={disableArea}
           onChange={getHouseType}
           key={JSON.stringify(`${defaultInputValue.area} ${formValue.state}`)}
@@ -168,7 +168,7 @@ const SearchPropertyForm = ({ defaultInputValue }) => {
           )}
           placeholder={placeholder.houseType}
           options={houseType}
-          styles={customStyles}
+          styles={customStyles()}
           isDisabled={disableHouseType}
           onChange={getHouseValue}
         />

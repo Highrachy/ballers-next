@@ -10,6 +10,7 @@ import {
   feedback,
 } from 'components/forms/form-helper';
 import Label from './Label';
+import colorTokens from 'style-dictionary/build/color.tokens';
 
 const Select = ({
   formGroupClassName,
@@ -90,7 +91,7 @@ const Select = ({
                 onChange={(option) => handleChange(option)}
                 options={options}
                 placeholder={placeholder || `Select ${label}...`}
-                styles={customStyles}
+                styles={customStyles()}
                 value={value}
                 {...props}
               />
@@ -109,11 +110,13 @@ const Select = ({
   );
 };
 
-export const customStyles = {
+export const customStyles = (customForm = false) => ({
   option: (provided, state) => {
     return {
       ...provided,
-      color: state.isSelected ? '#5775FA' : '#161D3F',
+      color: state.isSelected
+        ? colorTokens.secondary[500]
+        : colorTokens.primary[500],
       backgroundColor: 'white',
       textAlign: 'left',
       whiteSpace: 'nowrap',
@@ -122,7 +125,7 @@ export const customStyles = {
       ':hover': {
         ...provided[':hover'],
         backgroundColor: 'rgba(232, 237, 255, 0.38)',
-        color: '#5775fa',
+        color: colorTokens.secondary[500],
       },
     };
   },
@@ -135,7 +138,7 @@ export const customStyles = {
   control: (provided, state) => {
     return {
       ...provided,
-      backgroundColor: '#f5f5f5', //'#e8edff61',
+      backgroundColor: customForm ? '#f5f5f5' : '#e8edff61',
       borderColor: state.isDisabled ? '#dddddd' : 'rgba(87, 117, 250, 0.2)',
       borderRadius: 3,
       cursor: 'default',
@@ -173,7 +176,7 @@ export const customStyles = {
 
     return { ...provided, opacity, transition, color: '#5775fa' };
   },
-};
+});
 
 export const customStylesDashboard = {
   ...customStyles,
