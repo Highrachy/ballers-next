@@ -1,8 +1,10 @@
-.home-bg {
+.home-hero-bg {
   background: url('../../img/backgrounds/hero.svg') center center no-repeat;
   background-size: cover;
   z-index: -100;
   min-height: 55rem;
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
   @include media-breakpoint-down(lg) {
     margin-top: -10rem;
   }
@@ -52,11 +54,12 @@
       position: absolute;
       z-index: -1;
       bottom: -5rem;
-      right: -6rem;
+      right: 1rem;
       z-index: -300;
       width: 55px;
       height: 90px;
       @include media-breakpoint-up(md) {
+        right: -6rem;
         width: 75px;
         height: 100px;
       }
@@ -497,8 +500,8 @@ ul.timeline li.timeline__border:after {
   & .nav-link {
     padding: 1rem 1.5rem;
     transition: all 0.2s ease-out;
-    color: $primary-100;
-    background: $gray-50;
+    color: $primary-200;
+    background: $gray-200;
     border-color: transparent;
     border-radius: 0 !important;
     border-color: transparent !important;

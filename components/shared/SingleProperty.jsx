@@ -59,6 +59,7 @@ import { useRouter } from 'next/router';
 import { GrDocumentText } from 'react-icons/gr';
 import { BiGitCompare } from 'react-icons/bi';
 import WelcomeHero from '../common/WelcomeHero';
+import { AddMilestones, MilestonesList } from './Milestone';
 
 const pageOptions = {
   key: 'property',
@@ -175,6 +176,12 @@ export const OwnedPropertyCard = ({
         />
 
         <NeighborhoodList
+          property={property}
+          setToast={setToast}
+          setProperty={setProperty}
+        />
+
+        <MilestonesList
           property={property}
           setToast={setToast}
           setProperty={setProperty}
@@ -645,7 +652,7 @@ const ManagePropertyLink = ({ property, setToast, setProperty }) => (
     </Link>
     <LinkSeparator />
     <Link
-      href={`/vendor/gallery/${property._id}`}
+      href={`/vendor/property/gallery/${property._id}`}
       className="text-link  text-muted"
     >
       {property?.gallery?.length > 0 ? 'Edit Gallery' : 'Add Gallery'}
@@ -666,6 +673,13 @@ const ManagePropertyLink = ({ property, setToast, setProperty }) => (
     />
     <LinkSeparator />
     <AddNeighborhood
+      className="text-link text-muted"
+      property={property}
+      setToast={setToast}
+      setProperty={setProperty}
+    />
+    <LinkSeparator />
+    <AddMilestones
       className="text-link text-muted"
       property={property}
       setToast={setToast}

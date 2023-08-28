@@ -69,6 +69,16 @@ export const addVideoSchema = {
   url: required('Video URL'),
 };
 
+export const addMilestoneSchema = {
+  title: required('Title'),
+  description: optionalValidation(required('Milestone Description')),
+};
+
+export const milestoneImageSchema = {
+  title: required('Title'),
+  url: required('Image URL'),
+};
+
 export const addFloorPlansSchema = {
   name: required('Title'),
 };

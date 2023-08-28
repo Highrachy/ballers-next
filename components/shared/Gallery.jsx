@@ -22,7 +22,6 @@ import Input from 'components/forms/Input';
 import Link from 'next/link';
 import BackendPage from 'components/layout/BackendPage';
 import Image, { OnlineImage } from 'components/utils/Image';
-import { SlideDown } from 'react-slidedown';
 import { PlusIcon } from 'components/utils/Icons';
 import { CloseIcon } from 'components/utils/Icons';
 import { EditIcon } from 'components/utils/Icons';
@@ -32,6 +31,8 @@ import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
 import { ContentLoader } from 'components/utils/LoadingItems';
 import { setQueryCache } from 'hooks/useQuery';
+import WelcomeHero from '../common/WelcomeHero';
+import { Fade } from 'react-awesome-reveal';
 
 const pageOptions = {
   key: 'property',
@@ -52,41 +53,49 @@ const Gallery = ({ propertyId }) => {
 
   return (
     <BackendPage>
+      <WelcomeHero
+        title={`${pageOptions.pageName}`}
+        subtitle={`Add images to your property`}
+      />
       <div className="container-fluid">
         <Toast {...toast} showToastOnly />
 
-        <h4>
-          Gallery
+        <h2 className="clearfix mt-5">
+          <Link href={`/vendor/property/${property?._id}`}>
+            {property?.name}
+          </Link>
           <div className="float-end">
             {showGalleryForm ? (
               <Button
-                className="btn btn-danger btn-xs btn-wide"
+                color="none"
+                className="btn btn-danger-light btn-sm btn-wide"
                 onClick={() => setShowGalleryForm(false)}
               >
                 {<CloseIcon />} Close Form
               </Button>
             ) : (
               <Button
-                className="btn btn-dark btn-xs btn-wide"
+                color="none"
+                className="btn btn-secondary-light btn-sm btn-wide"
                 onClick={() => setShowGalleryForm(true)}
               >
                 {<PlusIcon />} Add Image
               </Button>
             )}
           </div>
-        </h4>
-        <p className="fw-bold">{property?.name}</p>
+        </h2>
+        <br />
 
-        <SlideDown className={''}>
-          {showGalleryForm && (
+        {showGalleryForm && (
+          <Fade>
             <GalleryForm
               property={property}
               setProperty={setProperty}
               setToast={setToast}
               hideForm={hideForm}
             />
-          )}
-        </SlideDown>
+          </Fade>
+        )}
 
         <ContentLoader
           hasContent={!!property?.gallery?.length > 0}
@@ -105,11 +114,8 @@ const Gallery = ({ propertyId }) => {
           )}
         </ContentLoader>
 
-        <Link
-          className="btn btn-secondary btn-wide mt-5"
-          href={`/vendor/property/${property?._id}`}
-        >
-          Back to Property
+        <Link href={`/vendor/property/${property?._id}`}>
+          <a className="btn btn-secondary btn-wide mt-5">Back to Property</a>
         </Link>
       </div>
     </BackendPage>
@@ -261,7 +267,7 @@ export const GalleryForm = ({
         <Form>
           <Toast {...toast} showToastOnly />
 
-          <Card className="card-container">
+          <Card className="card-container mb-5">
             <section className="row">
               <div className="col-md-10 px-4">
                 <h5>Add Image to Gallery</h5>

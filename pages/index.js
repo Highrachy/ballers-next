@@ -69,7 +69,11 @@ const HoldingSection = () => {
             </div>
           </section>
         </section>
-        <section className="col-lg-6 home-bg mb-n4"></section>
+        <section className="col-lg-6">
+          <Slide direction="right">
+            <div className="home-hero-bg"></div>
+          </Slide>
+        </section>
       </div>
     </section>
   );
@@ -231,6 +235,8 @@ const SearchTabComponent = () => {
 
 const TypewriterWrapper = ({ texts }) => {
   const [showArrow, setShowArrow] = React.useState(false);
+  const WINDOW_SIZE = useWindowSize();
+  const isDesktop = WINDOW_SIZE.width > MOBILE_WIDTH;
 
   const typeTextWithArrow = (typewriter, text) => {
     typewriter

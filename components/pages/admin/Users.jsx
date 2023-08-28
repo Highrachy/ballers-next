@@ -378,7 +378,7 @@ const FastTrackVendorModal = ({
 }) => {
   return (
     <Modal
-      title="Process Video"
+      title="Fast Track Vendor"
       show={showFastTrackVendor}
       onHide={() => setShowFastTrackVendor(false)}
       showFooter={false}
