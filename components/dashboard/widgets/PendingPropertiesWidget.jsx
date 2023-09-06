@@ -13,6 +13,10 @@ const PendingPropertiesWidget = ({ result, role = 'vendor' }) => {
     >
       {result?.map((property, index) => {
         const vendorInfo = property?.vendorInfo;
+        const { statusColor, statusName } = getDateStatus(
+          property?.createdAt,
+          'secondary'
+        );
         return (
           <StackBox
             key={index}
@@ -24,7 +28,8 @@ const PendingPropertiesWidget = ({ result, role = 'vendor' }) => {
                 : vendorInfo?.vendor?.companyName
             }
             value={moneyFormatInNaira(property?.price)}
-            {...getDateStatus(property?.createdAt)}
+            statusColor={statusColor}
+            statusName={statusName}
           />
         );
       })}

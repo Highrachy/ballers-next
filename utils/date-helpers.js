@@ -92,11 +92,15 @@ export const convertToUTC = (date) =>
   new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString();
 export const isValidDate = (date) => isValid(parseISO(date));
 
-export const getDateStatus = (date, successColor = 'success') => {
+export const getDateStatus = (
+  date,
+  successColor = 'success',
+  dangerColor = 'danger'
+) => {
   const days = Math.abs(differenceInDays(date)) || 0;
   const daysInWords = `${days} ${Humanize.pluralize(days, 'day')}`;
   const isOverdueDate = isPastDate(date);
-  const statusColor = isOverdueDate ? 'danger' : successColor;
+  const statusColor = isOverdueDate ? dangerColor : successColor;
   const statusName = `${isOverdueDate ? 'Overdue' : 'Due'}: ${daysInWords}`;
   return { statusColor, statusName };
 };

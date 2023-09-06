@@ -50,7 +50,7 @@ const BackendPage = ({ children }) => {
     if (!token) {
       cancelLoginRequest(`token: ${token}`);
     } else {
-      !userState.isLoggedIn && confirmPreviousLogin();
+      !userState?.isLoggedIn && confirmPreviousLogin();
       console.log('confirming previous login');
     }
 

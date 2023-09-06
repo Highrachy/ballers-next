@@ -207,6 +207,7 @@ const OfferAndServices = ({ result }) => {
   const { vendor } = userState;
 
   const isAutoEnroll = vendor?.fastTrack === FAST_TRACK_VENDOR.AUTO;
+  const isDemoAccount = userState?.isDemoAccount;
 
   return (
     <div className="container-fluid py-0">
@@ -227,6 +228,13 @@ const OfferAndServices = ({ result }) => {
               }`}
               subtitle={`Your Collection of Achievements on BALL`}
               href="/vendor/badges"
+            />
+          )}
+          {isDemoAccount > 0 && (
+            <StackBox
+              avatarColor={'danger'}
+              title={'Demo Account'}
+              subtitle={'This is a demo account'}
             />
           )}
         </WidgetBox>

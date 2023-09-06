@@ -90,7 +90,7 @@ export const MilestonesForm = ({
           <Toast {...toast} showToastOnly />
           <section className="row">
             <div className="col-md-10 px-4">
-              <h5>Add Milestones</h5>
+              <h5>Add Property Updates</h5>
               <Input label="Title" name="title" placeholder="Title" />
               <Textarea
                 label="Description"
@@ -118,7 +118,7 @@ export const MilestonesForm = ({
                 loading={isSubmitting}
                 onClick={handleSubmit}
               >
-                {milestone?._id ? 'Update' : 'Add'} Milestone
+                {milestone?._id ? 'Update' : 'Add'} Property Update
               </Button>
               <DisplayFormikState {...props} showAll />
             </div>
@@ -179,7 +179,7 @@ export const AddMilestoneImage = ({
           <Toast {...toast} showToastOnly />
           <section className="row">
             <div className="col-md-10 px-4">
-              <h5>Add Image to Milestone</h5>
+              <h5>Add Image to Property Update</h5>
               <Input label="Title" name="title" placeholder="Title" />
               <div className="my-4">
                 <Upload
@@ -226,11 +226,11 @@ export const AddMilestones = ({
         className={className}
         onClick={() => setShowAddMilestonesModal(true)}
       >
-        Add Milestones
+        Add Property Updates
       </span>
 
       <Modal
-        title="Milestones"
+        title="Property Updates"
         show={showAddMilestonesModal}
         onHide={() => setShowAddMilestonesModal(false)}
         showFooter={false}
@@ -249,7 +249,7 @@ export const AddMilestones = ({
 
 const pageOptions = {
   key: 'property',
-  pageName: 'Milestones',
+  pageName: 'Property Updates',
 };
 
 export const MilestonesList = ({ property, setProperty, setToast }) => {
@@ -274,7 +274,7 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
         if (statusIsSuccessful(status)) {
           setToast({
             type: 'success',
-            message: `Milestone has been successfully deleted`,
+            message: `Property Update has been successfully deleted`,
           });
           setProperty(data.property);
           setQueryCache([pageOptions.key, property._id], {
@@ -297,7 +297,7 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
     <>
       <div className="property__floor-plans">
         {(!noMilestones || userIsVendor) && (
-          <h5 className="header-smaller mb-3 mt-5">Milestones</h5>
+          <h5 className="header-smaller mb-3 mt-5">Property Updates</h5>
         )}
         {!noMilestones &&
           property?.milestone?.map((milestone, index) => (
@@ -362,7 +362,7 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
                           setShowEditMilestonesModal(true);
                         }}
                       >
-                        Edit Milestone
+                        Edit Property Update
                       </span>
                       <LinkSeparator />
                       <span
@@ -372,7 +372,7 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
                           setShowDeleteMilestonesModal(true);
                         }}
                       >
-                        Delete Milestone
+                        Delete Property Update
                       </span>
                     </p>
                   </>
@@ -393,9 +393,9 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
                 />
               </Modal>
 
-              {/* Edit Milestones Modal */}
+              {/* Edit Property Updates Modal */}
               <Modal
-                title="Milestones"
+                title="Property Updates"
                 show={showEditMilestonesModal}
                 onHide={() => setShowEditMilestonesModal(false)}
                 showFooter={false}
@@ -410,7 +410,7 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
                 />
               </Modal>
 
-              {/* Delete Milestones Modal */}
+              {/* Delete Property Updates Modal */}
               <Modal
                 title="Verify Vendor"
                 show={showDeleteMilestonesModal}
@@ -427,7 +427,7 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
                       className="btn btn-secondary mb-5"
                       onClick={() => deleteMilestone()}
                     >
-                      Delete Milestone
+                      Delete Property Update
                     </Button>
                   </div>
                 </section>

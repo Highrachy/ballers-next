@@ -166,7 +166,7 @@ export const customStyles = (customForm = false) => ({
   placeholder: (provided, state) => {
     return {
       ...provided,
-      color: state.isDisabled ? '#b4b4b4' : '#979797',
+      color: state.isDisabled ? colorTokens.gray[400] : colorTokens.gray[500],
     };
   },
 
@@ -174,7 +174,12 @@ export const customStyles = (customForm = false) => ({
     const opacity = state.isDisabled ? 0.5 : 1;
     const transition = 'opacity 300ms';
 
-    return { ...provided, opacity, transition, color: '#5775fa' };
+    return {
+      ...provided,
+      opacity,
+      transition,
+      color: colorTokens.secondary[500],
+    };
   },
 });
 

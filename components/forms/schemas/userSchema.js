@@ -48,6 +48,13 @@ export const registerSchema = (isUser = true) => {
     agreement,
   };
 };
+export const demoAccountSchema = {
+  companyName: stringValidation('Company Name'),
+  email,
+  password: strongPassword,
+  confirmPassword: confirmPassword,
+  agreement,
+};
 
 export const fastTrackVendorSchema = {
   companyName: stringValidation('Company Name'),

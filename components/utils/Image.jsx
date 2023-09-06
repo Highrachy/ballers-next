@@ -27,9 +27,11 @@ const Image = ({
     ...options,
   };
 
+  const isPlaceholderImage = src?.includes('placehold.co');
+
   const imgSrc = !src
     ? defaultImage
-    : serveImageFromCloud
+    : serveImageFromCloud && !isPlaceholderImage
     ? `${IMAGE_SERVE_URL}?${queryString.stringify(query)}`
     : src;
 

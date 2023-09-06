@@ -924,7 +924,7 @@ export const RangeLine = () => (
 );
 
 export const HeroArrow = () => {
-  const fillColor = colorTokens.primary[200];
+  const fillColor = colorTokens.primary[400];
   return (
     <svg
       width={92}

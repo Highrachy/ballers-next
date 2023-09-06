@@ -70,9 +70,7 @@ const HoldingSection = () => {
           </section>
         </section>
         <section className="col-lg-6">
-          <Slide direction="right">
-            <div className="home-hero-bg"></div>
-          </Slide>
+          <div className="home-hero-bg"></div>
         </section>
       </div>
     </section>
@@ -263,7 +261,7 @@ const TypewriterWrapper = ({ texts }) => {
   };
 
   return (
-    <>
+    <div>
       <Typewriter
         onInit={initializeTypewriter}
         options={{
@@ -277,6 +275,6 @@ const TypewriterWrapper = ({ texts }) => {
           <HeroArrow />
         </JackInTheBox>
       )}
-    </>
+    </div>
   );
 };

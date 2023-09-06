@@ -169,11 +169,11 @@ export const OwnedPropertyCard = ({
           {Sidebar && <div className="col-sm-5">{Sidebar}</div>}
         </div>
 
-        <FloorPlansList
+        {/* <FloorPlansList
           property={property}
           setToast={setToast}
           setProperty={setProperty}
-        />
+        /> */}
 
         <NeighborhoodList
           property={property}
