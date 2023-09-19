@@ -4,10 +4,16 @@ import StackBox from '../StackBox';
 import { moneyFormatInNaira } from '@/utils/helpers';
 import { DEFAULT_VENDOR_PERCENTAGE } from '@/utils/constants';
 
-const RemittanceWidget = ({ result, title, role = 'user' }) => {
+const RemittanceWidget = ({
+  result,
+  title,
+  role = 'user',
+  avatarColor = 'danger',
+}) => {
   return (
     <WidgetBox title={title} href={`/${role}/transactions`} data={result}>
       {result?.map((transaction, index) => {
+        console.log('transaction', transaction);
         const { propertyInfo, vendorInfo, remittance, userInfo } = transaction;
         const remittancePercentage =
           vendorInfo?.vendor?.remittancePercentage || DEFAULT_VENDOR_PERCENTAGE;
@@ -18,7 +24,7 @@ const RemittanceWidget = ({ result, title, role = 'user' }) => {
         return (
           <StackBox
             key={index}
-            src={propertyInfo?.mainImage}
+            // src={propertyInfo?.mainImage}
             title={propertyInfo?.name}
             subtitle={
               role === 'admin'
@@ -27,6 +33,7 @@ const RemittanceWidget = ({ result, title, role = 'user' }) => {
             }
             value={moneyFormatInNaira(amountPaid)}
             statusColor={remittance?.status ? 'success' : 'danger'}
+            avatarColor={avatarColor}
             statusName={remittance?.status ? 'Paid' : 'Awaiting Payment'}
           />
         );

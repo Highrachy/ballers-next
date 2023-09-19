@@ -13,6 +13,7 @@ import { getError } from 'utils/helpers';
 import { getTinyDate } from 'utils/date-helpers';
 import TopTitle from 'components/utils/TopTitle';
 import Button from 'components/forms/Button';
+import WelcomeHero from '@/components/common/WelcomeHero';
 
 const ScheduledVisits = () => {
   const [toast, setToast] = useToast();
@@ -39,6 +40,10 @@ const ScheduledVisits = () => {
   return (
     <BackendPage>
       <Toast {...toast} showToastOnly />
+      <WelcomeHero
+        title={`Scheduled Visits`}
+        subtitle={`Manage your scheduled visits here`}
+      />
       <TopTitle>Scheduled Visits</TopTitle>
       <AllScheduledVisits scheduledVisits={scheduledVisits} toast={toast} />
     </BackendPage>

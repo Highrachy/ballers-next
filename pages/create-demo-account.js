@@ -129,7 +129,8 @@ const DemoAccountForm = () => {
         delete values.agreement;
         const payload = {
           ...values,
-          companyLogo: logoURL + `&text=${values.companyName}`,
+          companyLogo:
+            logoURL + `&text=${getFirstLettersOrWord(values.companyName)}`,
         };
         console.log('payload', payload);
 
@@ -156,7 +157,8 @@ const DemoAccountForm = () => {
     >
       {({ isSubmitting, handleSubmit, ...props }) => {
         const companyName = props?.values?.companyName;
-        const companyLogo = logoURL + `&text=${companyName}`;
+        const companyLogo =
+          logoURL + `&text=${getFirstLettersOrWord(companyName)}`;
         return (
           <Form>
             <Toast {...toast} />
@@ -252,7 +254,7 @@ const DemoAccountForm = () => {
  */
 function generateRandomLogoUrl() {
   const width = 200; // Constant width
-  const height = 80; // Constant height
+  const height = 120; // Constant height
 
   // Define possible values for bgColor, fontColor, and fontName with contrast
   const possibleColors = [
@@ -344,6 +346,24 @@ function shuffleArray(array) {
     [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
   }
   return shuffledArray;
+}
+
+function getFirstLettersOrWord(inputString) {
+  // Split the input string by spaces
+  const words = inputString.split(' ');
+
+  // If there are multiple words, extract the first letter of each word
+  if (words.length > 1) {
+    const firstLetters = words.map((word) => word[0]);
+    return firstLetters.join('');
+  } else {
+    // If there's only one word or no spaces
+    if (inputString.length < 6) {
+      return inputString;
+    } else {
+      return inputString.slice(0, 3);
+    }
+  }
 }
 
 export default CreateDemoAccount;

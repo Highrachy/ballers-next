@@ -27,7 +27,8 @@ import RemittanceWidget from './widgets/RemittanceWidget';
 import PendingPropertiesWidget from './widgets/PendingPropertiesWidget';
 import PendingPropertyVideosWidget from './widgets/PendingPropertyVideosWidget';
 import { UserContext } from '@/context/UserContext';
-import { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+// import ReactJoyride from 'react-joyride';
 
 const VerifiedVendorContent = ({ toast }) => {
   const [dashboardQuery] = useGetQuery({
@@ -39,6 +40,32 @@ const VerifiedVendorContent = ({ toast }) => {
 
   const result = dashboardQuery?.data || {};
 
+  const [steps] = React.useState([
+    {
+      target: '.overview-graph',
+      content: 'This is your transaction overview',
+    },
+    {
+      target: '.quick-access',
+      content: 'This is your quick access cards to important functionalities',
+    },
+    {
+      target: '.enquiries',
+      content:
+        'Your pending enquiries and upcoming visitations will be shown here',
+    },
+    {
+      target: '.payments',
+      content:
+        'Your most recent payment and remittance details will be shown here',
+    },
+    {
+      target: '.quick-look',
+      content:
+        'This contains a summary of your account information, services and badges earned',
+    },
+  ]);
+
   return (
     <>
       <ContentLoader
@@ -48,6 +75,7 @@ const VerifiedVendorContent = ({ toast }) => {
         name="Dashboard"
         toast={toast}
       >
+        {/* <ReactJoyride run steps={steps} /> */}
         <Overview result={result} />
         <EnquiriesAndVisitations result={result} />
         <ReceivedPaymentsAndRemittance result={result} />
@@ -107,10 +135,10 @@ const Overview = ({ result }) => {
   return (
     <div className="container-fluid py-0 mt-n6">
       <div className="row">
-        <section className="widget col-sm-6 mb-4 mb-md-0">
+        <section className="widget col-sm-6 mb-4 mb-md-0 overview-graph">
           <OverviewGraph data={data} />
         </section>
-        <section className="widget col-sm-6 mb-4 mb-md-0">
+        <section className="widget col-sm-6 mb-4 mb-md-0 quick-access">
           <div className="row g-4">
             {widgetLists.map((widget, index) => (
               <Widget key={index} {...widget} role="vendor" />
@@ -130,7 +158,7 @@ const EnquiriesAndVisitations = ({ result }) => {
   }
 
   return (
-    <div className="container-fluid py-0">
+    <div className="container-fluid py-0 enquiries">
       <div className="row">
         <WidgetBox
           title="Pending Enquiries"
@@ -184,12 +212,13 @@ const ReceivedPaymentsAndRemittance = ({ result }) => {
     return null;
   }
   return (
-    <div className="container-fluid py-0">
+    <div className="container-fluid py-0 payments">
       <div className="row">
         <RemittanceWidget
           title="Received Payments"
           role="vendor"
           result={receivedRemittances}
+          avatarColor="success"
         />
         <RemittanceWidget
           title="Pending Payments"
@@ -210,7 +239,7 @@ const OfferAndServices = ({ result }) => {
   const isDemoAccount = userState?.isDemoAccount;
 
   return (
-    <div className="container-fluid py-0">
+    <div className="container-fluid py-0 quick-look">
       <div className="row">
         <WidgetBox title="Quick Look" data={['info']}>
           {isAutoEnroll && (
