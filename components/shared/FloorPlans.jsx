@@ -212,11 +212,7 @@ export const FloorPlansList = ({ property, setProperty, setToast }) => {
           <Accordion>
             {property?.floorPlans.map(({ _id, name, plan }, index) => (
               <Card key={_id}>
-                <Accordion.Toggle
-                  as={Card.Header}
-                  variant="link"
-                  eventKey={index + 1}
-                >
+                <Card.Header>
                   <ContextAwareToggle
                     iconOpen={<ArrowUpIcon />}
                     iconClose={<ArrowDownIcon />}
@@ -224,7 +220,7 @@ export const FloorPlansList = ({ property, setProperty, setToast }) => {
                   >
                     {name}
                   </ContextAwareToggle>
-                </Accordion.Toggle>
+                </Card.Header>
                 <Accordion.Collapse eventKey={index + 1}>
                   <Card.Body>
                     <Image src={plan} alt={name} name={name} />
@@ -258,50 +254,6 @@ export const FloorPlansList = ({ property, setProperty, setToast }) => {
                 </Accordion.Collapse>
               </Card>
             ))}
-            {/* Edit FloorPlans Modal */}
-            <Modal
-              title="FloorPlans"
-              show={showEditFloorPlansModal}
-              onHide={() => setShowEditFloorPlansModal(false)}
-              showFooter={false}
-            >
-              <FloorPlansForm
-                hideForm={() => setShowEditFloorPlansModal(false)}
-                property={property}
-                setProperty={setProperty}
-                setToast={setToast}
-                floorPlan={floorPlan}
-              />
-            </Modal>
-
-            {/* Delete FloorPlans Modal */}
-            <Modal
-              title="Verify Vendor"
-              show={showDeleteFloorPlansModal}
-              onHide={() => setShowDeleteFloorPlansModal(false)}
-              showFooter={false}
-            >
-              <section className="row">
-                <div className="col-md-12 my-3 text-center">
-                  <OnlineImage
-                    src={floorPlan?.plan}
-                    name={floorPlan?.name || 'unknown'}
-                    options={{ h: 200 }}
-                    responsiveImage={true}
-                  />
-                  <p className="my-4 confirmation-text fw-bold">
-                    Are you sure you want to delete this Floor Plan?
-                  </p>
-                  <Button
-                    loading={loading}
-                    className="btn btn-secondary mb-5"
-                    onClick={() => deleteFloorPlan()}
-                  >
-                    Delete Floor Plan
-                  </Button>
-                </div>
-              </section>
-            </Modal>
           </Accordion>
         )}
       </div>

@@ -6,7 +6,7 @@ export const InfoBox = ({
   title,
   children,
   Icon,
-  linkHref,
+  linkHref = '#',
   linkText,
 }) => (
   <Card className="info-box widget card  d-block my-4 position-relative h-100">
@@ -16,9 +16,11 @@ export const InfoBox = ({
           <h4 className={`fw-bold text-${color}`}>{title}</h4>
           <div className="col-8">
             <p className="mt-3 mb-4 text-gray">{children}</p>
-            <Link href={linkHref}>
-              <a className={`btn btn-${color}`}>{linkText}</a>
-            </Link>
+            {linkText && (
+              <Link href={linkHref}>
+                <a className={`btn btn-${color}`}>{linkText}</a>
+              </Link>
+            )}
           </div>
           <div className="col-3 col-sm-4 text-end widget-svg">{Icon}</div>
         </div>

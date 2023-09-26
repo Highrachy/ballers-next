@@ -13,6 +13,7 @@ const StackBox = ({
   statusColor,
   statusName = '',
   href = '#',
+  isButton = false,
 }) => {
   return (
     <Link href={href}>
@@ -41,18 +42,30 @@ const StackBox = ({
           </div>
           <div className="d-flex flex-column">
             <div className="d-flex flex-row">
-              <div className="text-end">
-                {value && (
-                  <p className="fw-bold text-end mb-0">
-                    <span className="fw-semibold">{value}</span>
-                  </p>
-                )}
-                <div className="text-sm status-badge">
-                  <div className={`badge bg-${statusColor} rounded-pill`}>
-                    {statusName}
+              {isButton ? (
+                <>
+                  {value && (
+                    <p className="fw-bold text-end mb-0 btn btn-secondary-light btn">
+                      <span className="fw-semibold">{value}</span>
+                    </p>
+                  )}
+                </>
+              ) : (
+                <>
+                  <div className="text-end">
+                    {value && (
+                      <p className="fw-bold text-end mb-0">
+                        <span className="fw-semibold">{value}</span>
+                      </p>
+                    )}
+                    <div className="text-sm status-badge">
+                      <div className={`badge bg-${statusColor} rounded-pill`}>
+                        {statusName}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </>
+              )}
             </div>
           </div>
         </section>

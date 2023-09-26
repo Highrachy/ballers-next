@@ -27,7 +27,8 @@ const Image = ({
     ...options,
   };
 
-  const isPlaceholderImage = src?.includes('placehold.co');
+  const isPlaceholderImage =
+    src && typeof src === 'string' && src?.includes('placehold.co');
 
   const imgSrc = !src
     ? defaultImage

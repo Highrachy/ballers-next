@@ -767,3 +767,25 @@ html {
 .Typewriter__cursor {
   display: none;
 }
+
+.tour__content {
+  h4 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: $gray-600;
+    margin-bottom: 0;
+  }
+}
+
+.milestone_payment {
+  h5 {
+    padding: 1rem 0;
+    font-weight: normal;
+    font-size: 1rem;
+    color: $secondary-700;
+  }
+}

@@ -51,6 +51,13 @@ const Header = () => {
             </Navbar.Brand>
           </Link>
           <Nav className="ms-auto d-flex flex-row align-items-center">
+            {userState?.isDemoAccount && (
+              <Link href="/vendor/demo-account">
+                <Nav.Link className="demo-account text-muted">
+                  Demo Account
+                </Nav.Link>
+              </Link>
+            )}
             {userState?.notifications?.length === 0 ? (
               <Link href={`/${currentRole}/notifications`}>
                 <Nav.Link className="notifications">
@@ -143,7 +150,6 @@ export const NotificationsDropdown = ({ notifications, currentRole }) => {
     } else {
       navigate(`/${currentRole}/notifications`);
     }
-    console.log(`actionId`, actionId);
   };
 
   return (

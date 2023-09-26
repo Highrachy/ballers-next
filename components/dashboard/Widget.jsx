@@ -18,7 +18,9 @@ export const Widget = ({
     <section className={`widget ${className}`}>
       <Link href={url} passHref>
         <a className="text-reset">
-          <div className={`card position-relative`}>
+          <div
+            className={`card position-relative ${name?.toLowerCase()}-widget`}
+          >
             <section className={`widget-${color}`}>
               <div className="bg-holder">
                 <BgWave color={Colors[color][500]} />
