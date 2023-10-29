@@ -1,9 +1,7 @@
-import React from 'react';
-import PropertyPlaceholderImage from 'assets/img/placeholder/property.png';
+import React, { useState } from 'react';
 import Modal from 'components/common/Modal';
 import { Card } from 'react-bootstrap';
 import Toast, { useToast } from 'components/utils/Toast';
-import Axios from 'axios';
 import {
   setInitialValues,
   DisplayFormikState,
@@ -11,108 +9,194 @@ import {
 import Button from 'components/forms/Button';
 import { Formik, Form } from 'formik';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
-import { BASE_API_URL } from 'utils/constants';
-import { getTokenFromStore } from 'utils/localStorage';
-import { addFloorPlansSchema } from 'components/forms/schemas/propertySchema';
-import { getError, statusIsSuccessful } from 'utils/helpers';
-import Upload from 'components/utils/Upload';
+import { addMilestoneSchema } from 'components/forms/schemas/propertySchema';
 import Input from 'components/forms/Input';
-import Image, { OnlineImage } from 'components/utils/Image';
 import { Accordion } from 'react-bootstrap';
-import { ArrowDownIcon } from 'components/utils/Icons';
 import { ContextAwareToggle } from 'components/common/FAQsAccordion';
-import { ArrowUpIcon } from 'components/utils/Icons';
-import { LinkSeparator } from 'components/common/Helpers';
 import { useCurrentRole } from 'hooks/useUser';
-import { setQueryCache } from 'hooks/useQuery';
+import Textarea from '../forms/Textarea';
+import InputFormat from '../forms/InputFormat';
+import store from 'store2';
+import Select from '../forms/Select';
+import { dataToOptions } from '@/utils/helpers';
 
-export const MileStonePayment = ({
+const MILESTONE_STONE = `ballers-milestone`;
+export const storeMilestone = (milestone) => store(MILESTONE_STONE, milestone);
+export const getMilestone = () => store(MILESTONE_STONE);
+export const removeMilestone = () => store.remove(MILESTONE_STONE);
+
+const DEFAULT_MILESTONE = [
+  {
+    id: 'initiation',
+    title: 'Initiation',
+    description: 'Documentation and preliminaries, foundation',
+    percentage: '50',
+    editable: false, // First milestone, not editable
+  },
+  {
+    id: 'carcass',
+    title: 'Carcass',
+    description: 'Frames, walls, roof and M&E first fix',
+    percentage: '10',
+    editable: true,
+  },
+  {
+    id: 'shell',
+    title: 'Shell',
+    description: 'Windows, doors, ironmongery, external building finishes',
+    percentage: '10',
+    editable: true,
+  },
+  {
+    id: 'internal',
+    title: 'Internal finishes and decorations ',
+    description:
+      'Floor finishes, wall finishes, ceiling finishes, M&E installations, fixture, fittings, painting and decorations',
+    percentage: '10',
+    editable: true,
+  },
+  {
+    id: 'external',
+    title: 'External works',
+    description:
+      'External walls and gate, driveway and parking, ancillary buildings, external services',
+    percentage: '10',
+    editable: true,
+  },
+  {
+    id: 'final',
+    title: 'Final Finishes',
+    description: 'Testing, commissioning and handing over.',
+    percentage: '10',
+    editable: false,
+  },
+];
+
+export const MilestonePayment = ({
   hideForm,
   setToast,
   setProperty,
   property,
-  floorPlan,
+  milestone,
 }) => {
-  const [toast] = useToast();
-  const [image, setImage] = React.useState(null);
+  // Deep copy of milestones to avoid mutating the original data
+  const updatedMilestones = JSON.parse(
+    JSON.stringify(getMilestone() || DEFAULT_MILESTONE)
+  );
+
+  const handleUpdateMilestone = (values) => {
+    let currentMilestone = milestone;
+    let updatedMilestonesCopy = [...updatedMilestones];
+
+    if (values?.addAfter) {
+      console.log('values', values);
+      const newMilestoneId = values.title.toLowerCase().replace(' ', '-');
+      const insertAfterIndex = updatedMilestonesCopy.findIndex(
+        (item) => item.id === values.addAfter
+      );
+
+      if (insertAfterIndex !== -1) {
+        updatedMilestonesCopy.splice(insertAfterIndex + 1, 0, {
+          ...values,
+          id: newMilestoneId,
+          editable: true,
+        });
+        currentMilestone = { ...values, id: newMilestoneId };
+      } else {
+        setToast({
+          type: 'error',
+          message: 'Invalid position selected for the new milestone.',
+        });
+        return;
+      }
+    }
+
+    // Find the index of the milestone to be updated
+    const index = updatedMilestonesCopy.findIndex(
+      (item) => item.id === currentMilestone.id
+    );
+
+    if (index !== -1) {
+      const difference = values.percentage - currentMilestone.percentage;
+      const totalPercentage = updatedMilestonesCopy
+        .slice(1) // Exclude the first milestone
+        .reduce((sum, item) => sum + Number(item.percentage), 0);
+
+      if (totalPercentage + difference <= 90) {
+        // Total percentage (excluding the first milestone) plus difference is less than or equal to 90%
+        updatedMilestonesCopy[index] = {
+          ...updatedMilestonesCopy[index],
+          ...values,
+        };
+      } else {
+        // Calculate the maximum percentage value for the update
+        const maxPercentage =
+          90 - totalPercentage + Number(currentMilestone.percentage);
+
+        setToast({
+          type: 'error',
+          message: `The maximum percentage you can set for ${currentMilestone.title} is ${maxPercentage}%.`,
+        });
+        return;
+      }
+
+      // Ensure that the sum is always 100%
+      const sumExcludingFirst = updatedMilestonesCopy
+        .slice(1)
+        .reduce((sum, item) => sum + Number(item.percentage), 0);
+      updatedMilestonesCopy[0].percentage = (
+        100 - sumExcludingFirst
+      ).toString();
+
+      storeMilestone(updatedMilestonesCopy);
+      hideForm();
+      setToast({
+        type: 'success',
+        message: 'Your milestone has been successfully updated',
+      });
+    }
+  };
 
   return (
     <Formik
       enableReinitialize={true}
-      initialValues={setInitialValues(addFloorPlansSchema, {
-        name: floorPlan?.name,
+      initialValues={setInitialValues(addMilestoneSchema, {
+        ...milestone,
       })}
-      onSubmit={({ name }, actions) => {
-        const payload = {
-          name,
-          plan: image || floorPlan?.plan,
-        };
-
-        if (!payload.plan) {
-          setToast({ message: 'Kindly upload a Floor Plans' });
-          return;
-        }
-
-        Axios({
-          method: floorPlan?._id ? 'put' : 'post',
-          url: `${BASE_API_URL}/property/${property._id}/floorplan`,
-          data: floorPlan?._id
-            ? { ...payload, floorPlanId: floorPlan?._id }
-            : payload,
-          headers: { Authorization: getTokenFromStore() },
-        })
-          .then(function (response) {
-            const { status, data } = response;
-            if (statusIsSuccessful(status)) {
-              setToast({
-                type: 'success',
-                message: `Your floor plans has been successfully ${
-                  floorPlan?._id ? 'updated' : 'added'
-                }`,
-              });
-              hideForm();
-              setProperty(data.property);
-              setQueryCache([pageOptions.key, property._id], {
-                property: data.property,
-              });
-              actions.setSubmitting(false);
-              actions.resetForm();
-            }
-          })
-          .catch(function (error) {
-            setToast({
-              message: getError(error),
-            });
-            actions.setSubmitting(false);
-          });
-      }}
-      validationSchema={createSchema(addFloorPlansSchema)}
+      onSubmit={(values, actions) => handleUpdateMilestone(values)}
+      validationSchema={createSchema(addMilestoneSchema)}
     >
       {({ isSubmitting, handleSubmit, ...props }) => (
         <Form>
-          <Toast {...toast} showToastOnly />
           <section className="row">
             <div className="col-md-10 px-4">
-              <h5>Add Floor Plans</h5>
-              <Input label="Title" name="name" placeholder="Title" />
-              <div className="my-4">
-                <Upload
-                  afterUpload={(image) => setImage(image)}
-                  allowPdf
-                  changeText={`Update Floor Plan`}
-                  defaultImage={PropertyPlaceholderImage}
-                  imgOptions={{ className: 'mb-3', watermark: true }}
-                  name="floorPlan"
-                  oldImage={floorPlan?.plan}
-                  uploadText={`Upload Floor Plan`}
+              <Input label="Title" name="title" placeholder="Title" />
+              {milestone?.id !== 'initiation' && (
+                <InputFormat
+                  label="Percentage"
+                  formGroupClassName="mb-4"
+                  suffix="%"
+                  prefix=""
+                  name="percentage"
                 />
-              </div>
+              )}
+
+              {!milestone?.id && (
+                <Select
+                  label="Place new milestone after"
+                  name="addAfter"
+                  options={dataToOptions(updatedMilestones, 'title', 'id')}
+                  placeholder="Select Entity Type"
+                />
+              )}
+
+              <Textarea label="Description" name="description" />
               <Button
                 className="btn-secondary mt-4"
                 loading={isSubmitting}
                 onClick={handleSubmit}
               >
-                {floorPlan?._id ? 'Update' : 'Add'} Floor Plan
+                {milestone?.id ? 'Update' : 'Add'} Milestone
               </Button>
               <DisplayFormikState {...props} showAll />
             </div>
@@ -123,32 +207,32 @@ export const MileStonePayment = ({
   );
 };
 
-export const AddFloorPlans = ({
+export const AddMilestonePayment = ({
   className,
   setToast,
   setProperty,
   property,
 }) => {
-  const [showAddFloorPlansModal, setShowAddFloorPlansModal] =
+  const [showAddMilestonesModal, setShowAddMilestonesModal] =
     React.useState(false);
   return (
     <>
       <span
         className={className}
-        onClick={() => setShowAddFloorPlansModal(true)}
+        onClick={() => setShowAddMilestonesModal(true)}
       >
-        Add Floor Plans
+        Add Milestone
       </span>
 
       <Modal
-        title="Floor Plans"
-        show={showAddFloorPlansModal}
-        onHide={() => setShowAddFloorPlansModal(false)}
+        title="Milestone"
+        show={showAddMilestonesModal}
+        onHide={() => setShowAddMilestonesModal(false)}
         showFooter={false}
         size="lg"
       >
-        <MileStonePayment
-          hideForm={() => setShowAddFloorPlansModal(false)}
+        <MilestonePayment
+          hideForm={() => setShowAddMilestonesModal(false)}
           setToast={setToast}
           setProperty={setProperty}
           property={property}
@@ -158,140 +242,129 @@ export const AddFloorPlans = ({
   );
 };
 
-const pageOptions = {
-  key: 'property',
-  pageName: 'Floor Plans',
-};
-
 export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
-  const [showEditFloorPlansModal, setShowEditFloorPlansModal] =
-    React.useState(false);
-  const [showDeleteFloorPlansModal, setShowDeleteFloorPlansModal] =
-    React.useState(false);
+  const [showEditMilestoneModal, setShowEditMilestoneModal] = useState(false);
+  const [showDeleteMilestoneModal, setShowDeleteMilestoneModal] =
+    useState(false);
 
-  const [floorPlan, setFloorPlan] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
+  const [milestone, setMilestone] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const deleteFloorPlan = () => {
-    setLoading(true);
-    Axios.delete(`${BASE_API_URL}/property/${property._id}/floorPlan`, {
-      headers: { Authorization: getTokenFromStore() },
-      data: { floorPlanId: floorPlan._id },
-    })
-      .then(function (response) {
-        const { status, data } = response;
-        if (statusIsSuccessful(status)) {
-          setToast({
-            type: 'success',
-            message: `Floor plan has been successfully deleted`,
-          });
-          setProperty(data.property);
-          setQueryCache([pageOptions.key, property._id], {
-            property: data.property,
-          });
-          setShowDeleteFloorPlansModal(false);
-          setLoading(false);
+  const deleteMilestone = () => {
+    if (milestone) {
+      const updatedMilestones = getMilestone() || DEFAULT_MILESTONE;
+      const index = updatedMilestones.findIndex(
+        (item) => item.id === milestone.id
+      );
+
+      if (index !== -1) {
+        const deletedPercentage = Number(updatedMilestones[index].percentage);
+
+        // Only add the percentage to the first milestone if it's not the first milestone itself.
+        if (index !== 0) {
+          updatedMilestones[0].percentage = (
+            Number(updatedMilestones[0].percentage) + deletedPercentage
+          ).toString();
         }
-      })
-      .catch(function (error) {
-        setToast({
-          message: getError(error),
-        });
-        setLoading(false);
-      });
+
+        updatedMilestones.splice(index, 1);
+        storeMilestone(updatedMilestones);
+      }
+    }
+    setToast({
+      type: 'success',
+      message: `Your milestone has been successfully deleted`,
+    });
+    setShowDeleteMilestoneModal(false);
   };
+
   const userIsVendor = useCurrentRole().isVendor;
-  const floorPlans = [
-    {
-      _id: 1,
-      name: 'First Milestone',
-      content: 'Testing 12345',
-    },
-  ];
+  const milestones = getMilestone() || DEFAULT_MILESTONE;
+
   return (
     <>
-      <div className="property__floor-plans">
-        <h5 className="header-smaller mb-3 mt-5">Milestone Payment</h5>
+      <div className="property__milestone-payments">
+        <h4 className="header-smaller mb-3 mt-5">Milestone Payments</h4>
 
         <Accordion>
-          {floorPlans.map(({ _id, name, content }, index) => (
-            <Card key={_id}>
-              <Accordion.Toggle
-                as={Card.Header}
-                variant="link"
-                eventKey={index + 1}
-              >
-                <ContextAwareToggle
-                  iconOpen={<ArrowUpIcon />}
-                  iconClose={<ArrowDownIcon />}
-                  eventKey={index + 1}
-                >
-                  {name}
+          {milestones.map((milestone, index) => (
+            <Card key={index + 1}>
+              <Card.Header>
+                <ContextAwareToggle eventKey={index + 1}>
+                  <strong className="fw-semibold">
+                    Milestone {index + 1} :
+                  </strong>{' '}
+                  {milestone.title} - {milestone.percentage}%
                 </ContextAwareToggle>
-              </Accordion.Toggle>
+              </Card.Header>
               <Accordion.Collapse eventKey={index + 1}>
-                <Card.Body>
-                  {content}
-                  {userIsVendor && (
-                    <>
-                      <hr />
-                      <p className="px-4 my-4">
+                <>
+                  <Card.Body>{milestone.description}</Card.Body>
+
+                  <div className="mt-2 ms-3 mb-3 text-danger">
+                    <span
+                      className="text-link text-muted"
+                      onClick={() => {
+                        setMilestone({ ...milestone });
+                        setShowEditMilestoneModal(true);
+                      }}
+                    >
+                      Edit Milestone
+                    </span>
+                    {milestone.editable && userIsVendor && (
+                      <>
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
                         <span
                           className="text-link text-muted"
                           onClick={() => {
-                            setFloorPlan({ _id, name, plan });
-                            setShowEditFloorPlansModal(true);
+                            setMilestone({ ...milestone });
+                            setShowDeleteMilestoneModal(true);
                           }}
                         >
-                          Edit Floor Plan
+                          Remove Milestone
                         </span>
-                      </p>
-                    </>
-                  )}
-                </Card.Body>
+                      </>
+                    )}
+                  </div>
+                </>
               </Accordion.Collapse>
             </Card>
           ))}
-          {/* Edit FloorPlans Modal */}
+          {/* Edit Milestone Modal */}
           <Modal
-            title="FloorPlans"
-            show={showEditFloorPlansModal}
-            onHide={() => setShowEditFloorPlansModal(false)}
+            title="Edit Milestone"
+            show={showEditMilestoneModal}
+            onHide={() => setShowEditMilestoneModal(false)}
             showFooter={false}
           >
-            <MileStonePayment
-              hideForm={() => setShowEditFloorPlansModal(false)}
+            <MilestonePayment
+              hideForm={() => setShowEditMilestoneModal(false)}
               property={property}
               setProperty={setProperty}
               setToast={setToast}
-              floorPlan={floorPlan}
+              milestone={milestone}
             />
           </Modal>
 
-          {/* Delete FloorPlans Modal */}
+          {/* Delete Milestone Modal */}
           <Modal
-            title="Verify Vendor"
-            show={showDeleteFloorPlansModal}
-            onHide={() => setShowDeleteFloorPlansModal(false)}
+            title="Delete Milestone"
+            show={showDeleteMilestoneModal}
+            onHide={() => setShowDeleteMilestoneModal(false)}
             showFooter={false}
           >
             <section className="row">
               <div className="col-md-12 my-3 text-center">
-                <OnlineImage
-                  src={floorPlan?.plan}
-                  name={floorPlan?.name || 'unknown'}
-                  options={{ h: 200 }}
-                  responsiveImage={true}
-                />
+                <h3>{milestone?.title}</h3>
                 <p className="my-4 confirmation-text fw-bold">
-                  Are you sure you want to delete this Floor Plan?
+                  Are you sure you want to delete this Milestone Payment?
                 </p>
                 <Button
                   loading={loading}
                   className="btn btn-secondary mb-5"
-                  onClick={() => deleteFloorPlan()}
+                  onClick={deleteMilestone}
                 >
-                  Delete Floor Plan
+                  Delete Milestone Payment
                 </Button>
               </div>
             </section>
@@ -300,9 +373,9 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
       </div>
 
       {userIsVendor && (
-        <div className="row">
+        <div className="row mt-5">
           <div className="col-12">
-            <AddFloorPlans
+            <AddMilestonePayment
               className="btn btn-secondary btn-xs btn-wide"
               property={property}
               setToast={setToast}

@@ -7,6 +7,7 @@ import {
   required,
   optionalValidation,
   autocompleteValidation,
+  percentageValidation,
 } from './schema-helpers';
 
 export const newPropertySchema = {
@@ -74,16 +75,14 @@ export const addVideoSchema = {
 export const addMilestoneSchema = {
   title: required('Title'),
   description: optionalValidation(required('Milestone Description')),
-};
-
-export const milestoneImageSchema = {
-  title: required('Title'),
-  url: required('Image URL'),
+  addAfter: optionalValidation(required('Add After')),
+  percentage: percentageValidation('Percentage'),
 };
 
 export const addFloorPlansSchema = {
   name: required('Title'),
 };
+
 export const neighborhoodTypeSchema = {
   type: required('Type'),
 };

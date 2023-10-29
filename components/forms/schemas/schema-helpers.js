@@ -66,14 +66,14 @@ export const numberValidation = (label, type = 'number') =>
     .required(`${label} must be a valid ${type}`)
     .integer(`${label} must be a ${type}`);
 
-export const percentageValidation = (label, type = 'number') =>
+export const percentageValidation = (label, type = 'number', max = 100) =>
   yup
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
     .required(`${label} must be a valid ${type}`)
     .positive(`${label} must be a positive ${type}`)
     .integer(`${label} must be a ${type}`)
-    .max(100, `${label} must be lesser than 100`);
+    .max(max, `${label} must be lesser than ${max}%`);
 
 export const moneyRange = (
   label,

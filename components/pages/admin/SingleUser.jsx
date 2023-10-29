@@ -864,14 +864,28 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
                 Verify Vendor
               </Button>
             )}
-          {user.vendor?.verified && !user.vendor?.certified && (
-            <Button
-              loading={loadingVerification}
-              onClick={() => setVerifyVendorModal(true)}
-              className="btn btn-secondary"
-            >
-              Certify Vendor
-            </Button>
+          {user.vendor?.verified &&
+            !user.vendor?.certified &&
+            !user?.isDemoAccount && (
+              <Button
+                loading={loadingVerification}
+                onClick={() => setVerifyVendorModal(true)}
+                className="btn btn-secondary"
+              >
+                Certify Vendor
+              </Button>
+            )}
+          {user?.isDemoAccount && (
+            <>
+              <Button
+                color="danger"
+                loading={loadingVerification}
+                onClick={() => setVerifyVendorModal(true)}
+                className="me-3"
+              >
+                Delete Demo Account
+              </Button>
+            </>
           )}
 
           {/*  Modals */}

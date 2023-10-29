@@ -62,6 +62,7 @@ import WelcomeHero from '../common/WelcomeHero';
 import { AddMilestones, MilestonesList } from './Milestone';
 import { Accordion } from 'react-bootstrap';
 import { ContextAwareToggle } from '../common/FAQsAccordion';
+import { MilestonePaymentList } from './MilestonePayment';
 
 const pageOptions = {
   key: 'property',
@@ -176,77 +177,11 @@ export const OwnedPropertyCard = ({
           setToast={setToast}
           setProperty={setProperty}
         /> */}
-        {/* <MilestonePaymentList
+        <MilestonePaymentList
           property={property}
           setToast={setToast}
           setProperty={setProperty}
-        /> */}
-
-        <div className="container mt-5">
-          <h5>Milestone Payment</h5>
-          <Accordion className="milestone_payment" defaultActiveKey={1}>
-            {[
-              {
-                header: 'Initiation',
-                content: 'Documentation and preliminaries, foundation',
-                price: '50',
-              },
-              {
-                header: 'Carcass',
-                content: 'Frames, walls, roof and M&E first fix',
-                price: '10',
-              },
-              {
-                header: 'Shell',
-                content:
-                  'Windows, doors, ironmongery, external building finishes',
-                price: '10',
-              },
-              {
-                header: 'Internal finishes and decorations ',
-                content:
-                  'Floor finishes, wall finishes, ceiling finishes, M&E installations, fixture, fittings, painting and decorations',
-                price: '10',
-              },
-              {
-                header: 'External works',
-                content:
-                  'External walls and gate, driveway and parking, ancillary buildings, external services',
-                price: '10',
-              },
-              {
-                header: 'Final Finishes',
-                content: 'Testing, commissioning and handing over.',
-                price: '10',
-              },
-            ].map((faq, index) => (
-              <Card key={index + 1}>
-                <Card.Header>
-                  <ContextAwareToggle eventKey={index + 1}>
-                    <strong className="fw-semibold">
-                      Milestone {index + 1} :
-                    </strong>{' '}
-                    {faq.header} - {faq.price}%
-                  </ContextAwareToggle>
-                </Card.Header>
-                <Accordion.Collapse eventKey={index + 1}>
-                  <>
-                    <Card.Body>{faq.content}</Card.Body>
-                    {index !== 0 && (
-                      <div className="mt-2 ms-3 mb-3 text-danger">
-                        <span>Edit Percentage</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-                        <span>Edit Description</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-                        <span>Remove Milestone</span>&nbsp;&nbsp;
-                      </div>
-                    )}
-                  </>
-                </Accordion.Collapse>
-              </Card>
-            ))}
-          </Accordion>
-
-          <p className="mt-3 btn btn-secondary-light">Update Milestone</p>
-        </div>
+        />
 
         <NeighborhoodList
           property={property}

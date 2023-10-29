@@ -392,6 +392,7 @@ export const VAS_TYPE = {
 export const MODEL = {
   OFFER: 'offers',
   VAS_REQUEST: 'vasrequests',
+  WALLET: 'wallet',
 };
 
 export const SOCIAL_MEDIA = {
