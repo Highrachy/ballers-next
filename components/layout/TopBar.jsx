@@ -1,7 +1,11 @@
 import React from 'react';
 import { Navbar, Nav, Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
-import { NotificationIcon, ThreeDotsIcon } from 'components/utils/Icons';
+import {
+  NotificationIcon,
+  ThreeDotsIcon,
+  TourIcon,
+} from 'components/utils/Icons';
 import ProfileAvatar from 'assets/img/avatar/profile.png';
 import { UserContext } from 'context/UserContext';
 import { LocalImage } from 'components/utils/Image';
@@ -10,11 +14,13 @@ import TimeAgo from 'react-timeago';
 import { NOTIFICATION_ACTION, NOTIFICATION_TYPE } from 'utils/constants';
 import Axios from 'axios';
 import { BASE_API_URL } from 'utils/constants';
-import { getTokenFromStore } from 'utils/localStorage';
+import { getTokenFromStore, removeTourValue } from 'utils/localStorage';
 import { statusIsSuccessful } from 'utils/helpers';
 import { refreshQuery } from 'hooks/useQuery';
 import Image from 'next/image';
 import BallersLogo from '../utils/BallersLogo';
+import { useRouter } from 'next/router';
+import { Popover, OverlayTrigger } from 'react-bootstrap';
 
 // eslint-disable-next-line react/display-name
 const Empty = React.forwardRef(({ children, onClick }, ref) => (
@@ -29,6 +35,7 @@ const Header = () => {
   const isCompanyLogo =
     !userState.profileImage && userState.vendor && userState.vendor.companyLogo;
   const currentRole = useCurrentRole().name;
+  const router = useRouter();
   return (
     <>
       <Navbar
@@ -52,11 +59,41 @@ const Header = () => {
           </Link>
           <Nav className="ms-auto d-flex flex-row align-items-center">
             {userState?.isDemoAccount && (
-              <Link href="/vendor/demo-account">
-                <Nav.Link className="demo-account text-muted">
-                  Demo Account
-                </Nav.Link>
-              </Link>
+              <>
+                <Link href="/vendor/demo-account">
+                  <Nav.Link className="demo-account text-muted">
+                    Demo Account
+                  </Nav.Link>
+                </Link>
+
+                <span
+                  onClick={() => {
+                    removeTourValue();
+                    window.location.href = '/vendor/dashboard?tour=true';
+                  }}
+                >
+                  <Nav.Link className="demo-account text-muted">
+                    <OverlayTrigger
+                      trigger={['hover', 'focus']}
+                      placement={'bottom'}
+                      overlay={
+                        <Popover>
+                          <Popover.Header as="h6">Start Tour</Popover.Header>
+                          <Popover.Body>
+                            Explore BALL features with our guided tour. Click to
+                            start your experience.
+                          </Popover.Body>
+                        </Popover>
+                      }
+                    >
+                      <span className="form-help-icon">
+                        &nbsp;
+                        <TourIcon />
+                      </span>
+                    </OverlayTrigger>
+                  </Nav.Link>
+                </span>
+              </>
             )}
             {userState?.notifications?.length === 0 ? (
               <Link href={`/${currentRole}/notifications`}>

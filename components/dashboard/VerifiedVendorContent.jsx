@@ -29,6 +29,8 @@ import PendingPropertyVideosWidget from './widgets/PendingPropertyVideosWidget';
 import { UserContext } from '@/context/UserContext';
 import React, { useContext, useState } from 'react';
 import ReactJoyride, { STATUS } from 'react-joyride';
+import { getTourValue, storeTourValue } from '@/utils/localStorage';
+import { useRouter } from 'next/router';
 
 const VerifiedVendorContent = ({ toast }) => {
   const [dashboardQuery] = useGetQuery({
@@ -40,8 +42,14 @@ const VerifiedVendorContent = ({ toast }) => {
 
   const result = dashboardQuery?.data || {};
 
+  const router = useRouter();
+  const { tour } = router.query;
+  const tourValue = getTourValue();
+  const runTour = tour === 'true' ? true : !tourValue;
+  console.log('runTour: ', runTour);
+
   const [{ run, steps }, setState] = React.useState({
-    run: true,
+    run: runTour,
     steps: [
       {
         content: (
@@ -165,9 +173,14 @@ const VerifiedVendorContent = ({ toast }) => {
     ],
   });
 
+  console.log('run', run);
+  console.log('tour', tour);
+  console.log('tourValue', tourValue);
+
   const handleJoyrideCallback = (data) => {
     const { status, type } = data;
     if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
+      storeTourValue();
       // Tour is finished or skipped, you can update state accordingly
       console.log('finished', type);
     }

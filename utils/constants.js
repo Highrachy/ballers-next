@@ -74,6 +74,18 @@ export const HOUSE_TYPES = [
   'Terraced Duplex',
 ];
 
+export const PRICING_MODEL = [
+  'Timeline (Monthly Payment)',
+  'Milestone (Progress Payment)',
+];
+
+export const PROPERTY_DELIVERY_STATE = [
+  'Carcass',
+  'Shell',
+  'Completed',
+  'Furnished',
+];
+
 // CONVERT HOUSE TYPES TO A single object
 
 export const ALL_HOUSE_TYPES = HOUSE_TYPES.reduce((acc, type) => {

@@ -19,6 +19,8 @@ import {
   BASE_API_URL,
   DEFAULT_PROPERTY_FEATURES,
   HOUSE_TYPES,
+  PRICING_MODEL,
+  PROPERTY_DELIVERY_STATE,
   TITLE_DOCUMENTS,
 } from 'utils/constants';
 import {
@@ -122,9 +124,17 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
       }}
       onSubmit={(values, actions) => {
         let payload;
+        delete values.pricingModel;
+        delete values.deliveryState;
+
+        console.log('values', values);
+
         const payloadData = {
           ...values,
-          mainImage: image || property?.mainImage,
+          mainImage:
+            image ||
+            property?.mainImage ||
+            `https://placehold.co/800x500/black/white?text=${values.name}`,
           features: getAutoComplete(values.features),
         };
 
@@ -212,16 +222,104 @@ export const PropertyInfoForm = () => {
   };
 
   return (
-    <Card className="card-container">
+    <>
+      <Card className="card-container">
+        <section className="row">
+          <div className="col-md-10 px-4">
+            <h5 className="mb-4">Property Information</h5>
+            <Input
+              label="Property Name"
+              name="name"
+              placeholder="Property Name"
+            />
+
+            <div className="form-row">
+              {displayForm.houseType ? (
+                <Input
+                  formGroupClassName="col-md-6"
+                  label="House Type"
+                  name="houseType"
+                  placeholder="House Type"
+                  labelLink={{
+                    onClick: () => toggleForm('houseType'),
+                    text: 'Select House Type',
+                    to: '',
+                  }}
+                />
+              ) : (
+                <Select
+                  placeholder="Select House Type"
+                  formGroupClassName="col-md-6"
+                  label="House Type"
+                  labelLink={{
+                    onClick: () => toggleForm('houseType'),
+                    text: 'Type Manually',
+                    to: '',
+                  }}
+                  name="houseType"
+                  options={valuesToOptions(HOUSE_TYPES)}
+                />
+              )}
+              <Select
+                formGroupClassName="col-md-6"
+                label="Bedrooms"
+                name="bedrooms"
+                options={generateNumOptions(9, 'Bedroom')}
+                placeholder="Select Bedrooms"
+              />
+            </div>
+
+            <div className="form-row">
+              <Select
+                formGroupClassName="col-md-6"
+                label="Bathrooms"
+                name="bathrooms"
+                options={generateNumOptions(9, 'Bathroom')}
+                placeholder="Select Bathrooms"
+              />
+              <Select
+                formGroupClassName="col-md-6"
+                label="Toilets"
+                name="toilets"
+                options={generateNumOptions(9, 'Toilet')}
+                placeholder="Select Toilets"
+              />
+            </div>
+
+            <Textarea
+              label="Description"
+              name="description"
+              placeholder="A detailed description of the property"
+            />
+
+            <AutoComplete
+              name="features"
+              label="Features"
+              suggestions={setAutoComplete(ALL_PROPERTY_FEATURES)}
+            />
+
+            <Select
+              name="titleDocument"
+              optional
+              placeholder="Title Document"
+              label="Title Document"
+              options={valuesToOptions(TITLE_DOCUMENTS)}
+            />
+          </div>
+        </section>
+      </Card>
+
+      <PropertyPriceForm />
+    </>
+  );
+};
+
+const PropertyPriceForm = () => {
+  return (
+    <Card className="card-container mt-5">
       <section className="row">
         <div className="col-md-10 px-4">
-          <h5 className="mb-4">Property Information</h5>
-          <Input
-            label="Property Name"
-            name="name"
-            placeholder="Property Name"
-          />
-
+          <h5 className="mb-4">Property Pricing / Units</h5>
           <div className="form-row">
             <InputFormat
               formGroupClassName="col-md-6"
@@ -239,77 +337,21 @@ export const PropertyInfoForm = () => {
           </div>
 
           <div className="form-row">
-            {displayForm.houseType ? (
-              <Input
-                formGroupClassName="col-md-6"
-                label="House Type"
-                name="houseType"
-                placeholder="House Type"
-                labelLink={{
-                  onClick: () => toggleForm('houseType'),
-                  text: 'Select House Type',
-                  to: '',
-                }}
-              />
-            ) : (
-              <Select
-                placeholder="Select House Type"
-                formGroupClassName="col-md-6"
-                label="House Type"
-                labelLink={{
-                  onClick: () => toggleForm('houseType'),
-                  text: 'Type Manually',
-                  to: '',
-                }}
-                name="houseType"
-                options={valuesToOptions(HOUSE_TYPES)}
-              />
-            )}
             <Select
+              placeholder="Select Pricing Model"
               formGroupClassName="col-md-6"
-              label="Bedrooms"
-              name="bedrooms"
-              options={generateNumOptions(9, 'Bedroom')}
-              placeholder="Select Bedrooms"
+              label="Pricing Model"
+              name="pricingModel"
+              options={valuesToOptions(PRICING_MODEL)}
+            />
+            <Select
+              placeholder="Select Delivery State"
+              formGroupClassName="col-md-6"
+              label="Pricing Delivery State"
+              name="deliveryState"
+              options={valuesToOptions(PROPERTY_DELIVERY_STATE)}
             />
           </div>
-
-          <div className="form-row">
-            <Select
-              formGroupClassName="col-md-6"
-              label="Bathrooms"
-              name="bathrooms"
-              options={generateNumOptions(9, 'Bathroom')}
-              placeholder="Select Bathrooms"
-            />
-            <Select
-              formGroupClassName="col-md-6"
-              label="Toilets"
-              name="toilets"
-              options={generateNumOptions(9, 'Toilet')}
-              placeholder="Select Toilets"
-            />
-          </div>
-
-          <Textarea
-            label="Description"
-            name="description"
-            placeholder="A detailed description of the property"
-          />
-
-          <AutoComplete
-            name="features"
-            label="Features"
-            suggestions={setAutoComplete(ALL_PROPERTY_FEATURES)}
-          />
-
-          <Select
-            name="titleDocument"
-            optional
-            placeholder="Title Document"
-            label="Title Document"
-            options={valuesToOptions(TITLE_DOCUMENTS)}
-          />
         </div>
       </section>
     </Card>

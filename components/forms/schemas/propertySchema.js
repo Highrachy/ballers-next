@@ -20,6 +20,8 @@ export const newPropertySchema = {
   description: stringValidation('Description'),
   titleDocument: optionalValidation(required('Title Document')),
   features: optionalValidation(autocompleteValidation('Available for')),
+  pricingModel: optionalValidation(required('Pricing Model')),
+  deliveryState: optionalValidation(required('Delivery State')),
   // floorPlans: optionalValidation(required('Floor Plans')),
   // mapLocation: optionalValidation(required('Map Location')),
   // neighborhood: Joi.array().label('Property neighborhood').optional(),

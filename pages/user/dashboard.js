@@ -27,6 +27,8 @@ import RecentTransactionsWidget from '@/components/dashboard/widgets/RecentTrans
 import MoreStories from '@/components/blog/MoreStories';
 import { getAllCategories, getAllPostsForHome } from 'lib/api';
 import { CategoriesComponent } from 'pages/blog';
+import ReactJoyride, { STATUS } from 'react-joyride';
+import colorTokens from 'style-dictionary/build/color.tokens.js';
 
 const Dashboard = ({ allPosts: { edges }, allCategories }) => {
   const [toast, setToast] = useToast();
@@ -41,6 +43,86 @@ const Dashboard = ({ allPosts: { edges }, allCategories }) => {
 
   const result = dashboardQuery?.data || {};
 
+  const [{ run, steps }, setState] = React.useState({
+    run: true,
+    steps: [
+      {
+        content: (
+          <div className="tour__content">
+            <h3 className="pb-3">Welcome to BALL!</h3>
+            <p>
+              Let&apos;s embark on a guided tour and explore our powerful
+              features together.
+            </p>
+          </div>
+        ),
+        placement: 'center',
+        target: 'body',
+        disableBeacon: true,
+      },
+      {
+        content: (
+          <div className="tour__content">
+            <h4>Transaction Overview</h4>
+            <p>
+              Delve into the details of your financial transactions with our
+              overview graph.
+            </p>
+          </div>
+        ),
+        target: '.overview-graph',
+        disableBeacon: true,
+      },
+      {
+        content: (
+          <div className="tour__content">
+            <h4>Quick Access Cards</h4>
+            <p>
+              Easily confirm important figures using our accessible quick access
+              cards.
+            </p>
+          </div>
+        ),
+        target: '.quick-access',
+        disableBeacon: true,
+      },
+      {
+        content: (
+          <div className="tour__content">
+            <h4>Your Properties</h4>
+            <p>
+              Keep track of the properties you&apos;ve added to the platform
+              with this widget.
+            </p>
+          </div>
+        ),
+        target: '.properties-widget',
+        disableBeacon: true,
+      },
+      {
+        title: 'Final Step',
+        content: (
+          <div className="tour__content">
+            <h3 className="pb-3">Congratulations!</h3>
+            <p>You&apos;ve reached the end of the tour.</p>
+          </div>
+        ),
+        placement: 'center',
+        target: 'body',
+        disableBeacon: true,
+      },
+    ],
+  });
+
+  const handleJoyrideCallback = (data) => {
+    const { status, type } = data;
+    if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
+      // Tour is finished or skipped, you can update state accordingly
+      console.log('finished', type);
+    }
+    // Handle other events as needed
+  };
+
   return (
     <BackendPage>
       <Toast {...toast} showToastOnly />
@@ -52,6 +134,30 @@ const Dashboard = ({ allPosts: { edges }, allCategories }) => {
         name="Dashboard"
         toast={toast}
       >
+        <ReactJoyride
+          run={run}
+          steps={steps}
+          showProgress
+          showSkipButton
+          spotlightClicks={false}
+          continuous
+          callback={handleJoyrideCallback}
+          styles={{
+            buttonSkip: {
+              color: colorTokens.danger[600],
+            },
+            buttonBack: {
+              color: colorTokens.gray[600],
+            },
+            buttonNext: {
+              background: colorTokens.secondary[400],
+              padding: '1rem 1.5rem',
+            },
+            tooltipContainer: {
+              padding: '1rem 2rem 0',
+            },
+          }}
+        />
         <Overview result={result} />
         <UpcomingPaymentsAndRecentOffers result={result} />
         <RecentTransactionsAndServices result={result} />
@@ -181,10 +287,10 @@ const Overview = ({ result }) => {
   return (
     <div className="container-fluid py-0 mt-n6">
       <div className="row">
-        <section className="widget col-sm-6 mb-4 mb-md-0">
+        <section className="widget col-sm-6 mb-4 mb-md-0 overview-graph">
           <OverviewGraph data={data} />
         </section>
-        <section className="widget col-sm-6 mb-4 mb-md-0">
+        <section className="widget col-sm-6 mb-4 mb-md-0 quick-access">
           <div className="row g-4">
             {widgetLists.map((widget, index) => (
               <Widget key={index} {...widget} />

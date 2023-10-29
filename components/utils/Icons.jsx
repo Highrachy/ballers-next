@@ -88,6 +88,7 @@ import {
   Setting2,
 } from 'iconsax-react';
 import { LuSettings2 } from 'react-icons/lu';
+import { RiPlanetFill } from 'react-icons/ri';
 import colorTokens from 'style-dictionary/build/color.tokens';
 
 export const ArrowLeftIcon = () => <FiChevronLeft />;
@@ -161,6 +162,7 @@ export const ThumbsUpIcon = () => <FaThumbsUp />;
 export const ToiletIcon = () => <FaToilet />;
 export const TransactionIcon = () => <EmptyWalletTime variant="Bulk" />;
 export const TwitterIcon = () => <FiTwitter />;
+export const TourIcon = () => <RiPlanetFill />;
 export const UserIcon = () => <FiUser />;
 export const UploadIcon = () => <FiUploadCloud />;
 export const VasIcon = () => <Activity variant="Bulk" />;
