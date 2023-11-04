@@ -8,10 +8,9 @@ export const TabContent = ({ title, allTabs, activeKey }) => {
     <section className="container-fluid mt-5">
       {title && <h4 className="mb-3">{title}</h4>}
       <Tabs
-        id="tranasction-tabs"
+        id={`tab-content-${title || 'default'}`}
         activeKey={key}
         onSelect={(k) => setKey(k)}
-        className="mb-3"
       >
         {allTabs.map((tab, index) => (
           <Tab key={index} eventKey={tab.title} title={tab.title}>

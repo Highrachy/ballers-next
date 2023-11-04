@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Card } from 'react-bootstrap';
+import Button from '../forms/Button';
 
 export const InfoBox = ({
   color = 'primary',
@@ -17,9 +18,9 @@ export const InfoBox = ({
           <div className="col-8">
             <p className="mt-3 mb-4 text-gray">{children}</p>
             {linkText && (
-              <Link href={linkHref}>
-                <a className={`btn btn-${color}`}>{linkText}</a>
-              </Link>
+              <Button color={color} href={linkHref}>
+                {linkText}
+              </Button>
             )}
           </div>
           <div className="col-3 col-sm-4 text-end widget-svg">{Icon}</div>

@@ -81,6 +81,7 @@ import {
   DocumentText1,
   Element3,
   EmptyWalletTime,
+  EmptyWalletAdd,
   Folder,
   Gift,
   Home3,
@@ -168,6 +169,7 @@ export const UploadIcon = () => <FiUploadCloud />;
 export const VasIcon = () => <Activity variant="Bulk" />;
 export const VasRequestIcon = () => <MdAddShoppingCart />;
 export const VisitationIcon = () => <AiOutlineCalendar />;
+export const WalletIcon = () => <EmptyWalletAdd variant="Bulk" />;
 export const WarningIcon = () => <FaExclamationTriangle />;
 export const VendorIcon = () => <FaUserCircle />;
 

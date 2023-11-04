@@ -16,7 +16,11 @@ import { Spacing } from 'components/common/Helpers';
 import { useCurrentRole } from 'hooks/useUser';
 import { getTokenFromStore } from 'utils/localStorage';
 import Axios from 'axios';
-import { BASE_API_URL, DEFAULT_VENDOR_PERCENTAGE } from 'utils/constants';
+import {
+  BASE_API_URL,
+  DEFAULT_VENDOR_PERCENTAGE,
+  MODEL,
+} from 'utils/constants';
 import { refreshQuery } from 'hooks/useQuery';
 import TimeAgo from 'react-timeago';
 import { PropertyAvatar } from 'components/common/PropertyCard';
@@ -127,7 +131,7 @@ const TransactionsRowList = ({ results, offset, setToast }) => {
               <tr>
                 <td>S/N</td>
                 <td>Date</td>
-                <td>Property</td>
+                <td>Paid For</td>
                 <td>Type</td>
                 <td className="text-end">Amount (NGN)</td>
                 <td> {!isUser && 'Remittance'}</td>
@@ -461,11 +465,13 @@ const TransactionsRow = (transaction) => {
     offerId,
     vasInfo,
     vendorInfo,
+    model,
   } = transaction;
   const isAdmin = useCurrentRole().isAdmin;
   const isVendor = useCurrentRole().isVendor;
   const isAdminOrVendor = isAdmin || isVendor;
   const userType = useCurrentRole().name;
+  const isWallet = model.type === MODEL.WALLET;
 
   const { userState } = React.useContext(UserContext);
 
@@ -501,6 +507,7 @@ const TransactionsRow = (transaction) => {
           />
         )}
         {vasInfo && vasInfo?.name}
+        {isWallet && 'Wallet'}
       </td>
       <td>
         <strong className="text-primary">{paymentSource}</strong>

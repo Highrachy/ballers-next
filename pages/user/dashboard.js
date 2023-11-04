@@ -29,6 +29,7 @@ import { getAllCategories, getAllPostsForHome } from 'lib/api';
 import { CategoriesComponent } from 'pages/blog';
 import ReactJoyride, { STATUS } from 'react-joyride';
 import colorTokens from 'style-dictionary/build/color.tokens.js';
+import { WalletInfoBox } from '@/components/dashboard/WalletInfoBox';
 
 const Dashboard = ({ allPosts: { edges }, allCategories }) => {
   const [toast, setToast] = useToast();
@@ -44,7 +45,7 @@ const Dashboard = ({ allPosts: { edges }, allCategories }) => {
   const result = dashboardQuery?.data || {};
 
   const [{ run, steps }, setState] = React.useState({
-    run: true,
+    run: false,
     steps: [
       {
         content: (
@@ -158,7 +159,8 @@ const Dashboard = ({ allPosts: { edges }, allCategories }) => {
             },
           }}
         />
-        <Overview result={result} />
+        <WalletInfoBox setToast={setToast} result={result} />
+        <Overview result={result} setToast={setToast} isNormal />
         <UpcomingPaymentsAndRecentOffers result={result} />
         <RecentTransactionsAndServices result={result} />
       </ContentLoader>
@@ -173,7 +175,12 @@ const Dashboard = ({ allPosts: { edges }, allCategories }) => {
 };
 
 const UpcomingPaymentsAndRecentOffers = ({ result }) => {
-  const { upcomingPayments } = result;
+  const { upcomingPayments, recentOffers } = result;
+
+  if (upcomingPayments?.length === 0 && recentOffers?.length === 0) {
+    return null;
+  }
+
   return (
     <div className="container-fluid py-0">
       <div className="row">
@@ -228,7 +235,7 @@ const RecentTransactionsAndServices = ({ result }) => {
   );
 };
 
-const Overview = ({ result }) => {
+const Overview = ({ result, isNormal = false }) => {
   const { payments, widgets } = result;
   const data = [
     {
@@ -285,7 +292,7 @@ const Overview = ({ result }) => {
   ];
 
   return (
-    <div className="container-fluid py-0 mt-n6">
+    <div className={`container-fluid py-0 ${isNormal ? '' : 'mt-n6'}`}>
       <div className="row">
         <section className="widget col-sm-6 mb-4 mb-md-0 overview-graph">
           <OverviewGraph data={data} />

@@ -82,7 +82,7 @@ const VasRequestsRow = ({ _id, number, status, vasInfo, setToast }) => {
         </Link>
 
         <MakePayment
-          className="btn btn-danger btn-wide btn-xs"
+          buttonClassName="btn btn-danger btn-wide btn-xs"
           setToast={setToast}
           amount={vasInfo.price || 0}
           model={{

@@ -41,7 +41,14 @@ const PAYMENT_TYPE = {
   [KEY.OFFLINE]: 'Bank Deposit/Transfer',
 };
 
-const MakePayment = ({ amount, model, setToast, className }) => {
+const MakePayment = ({
+  amount,
+  model,
+  setToast,
+  className,
+  buttonClassName,
+  text = 'Make Payment',
+}) => {
   const [showPaymentModal, setShowPaymentModal] = React.useState(false);
   const [paymentType, setPaymentType] = React.useState(KEY.ONLINE);
 
@@ -88,12 +95,13 @@ const MakePayment = ({ amount, model, setToast, className }) => {
 
       <button
         className={classNames(
-          className || 'btn btn-danger-light btn-sm btn-wide fw-bold'
+          buttonClassName ||
+            className ||
+            'btn btn-danger-light btn-sm btn-wide fw-bold'
         )}
         onClick={() => setShowPaymentModal(true)}
       >
-        {' '}
-        Make Payment
+        {text}
       </button>
     </>
   );
