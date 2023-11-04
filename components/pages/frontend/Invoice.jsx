@@ -1,14 +1,13 @@
 import React from 'react';
 import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
-import BallersLogo from 'assets/img/logo/ballers-logo.png';
+import BallersLogo from '../../utils/BallersLogo';
 import { getTinyDate } from 'utils/date-helpers';
 import {
   getFormattedAddress,
   moneyFormatInNaira,
   statusIsSuccessful,
 } from 'utils/helpers';
-import * as queryString from 'query-string';
 import Axios from 'axios';
 import { getTokenFromStore } from 'utils/localStorage';
 import { getError } from 'utils/helpers';
@@ -17,104 +16,75 @@ import { BASE_API_URL, MODEL } from 'utils/constants';
 import { Loading } from 'components/utils/LoadingItems';
 import { TransactionIcon } from 'components/utils/Icons';
 import { API_ENDPOINT } from 'utils/URL';
+import { useRouter } from 'next/router';
+import NoContent from '@/components/utils/NoContent';
+import InvoicePDFDocument from './InvoicePDFDocument';
 
 const Invoice = (props) => {
-  const queryParams = queryString.parse(props.location.search);
+  const router = useRouter();
+  const queryParams = router.query;
   const { reference } = queryParams;
   const [toast, setToast] = useToast();
   const [transaction, setTransaction] = React.useState(null);
-  const [userInfo, setUserInfo] = React.useState(null);
-  const [offer, setOffer] = React.useState(null);
-  const [vasRequest, setVasRequest] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
-    Axios.get(`${BASE_API_URL}/payment/process/${reference}`, {
-      headers: {
-        Authorization: getTokenFromStore(),
-      },
-    })
-      .then(function (response) {
-        const { status, data } = response;
-        setTransaction(data.transaction);
-
-        let url;
-
-        switch (data?.transaction.model.type) {
-          case MODEL.OFFER:
-            url = API_ENDPOINT.getOneOffer(data.transaction.model.offerId);
-            break;
-          case MODEL.VAS_REQUEST:
-            url = API_ENDPOINT.getOneVasRequest(
-              data.transaction.model.vasRequestId
-            );
-            break;
-
-          default:
-            break;
-        }
-
-        if (statusIsSuccessful(status) && url) {
-          Axios.get(url, {
-            headers: {
-              Authorization: getTokenFromStore(),
-            },
-          })
-            .then(function (response) {
-              const { status, data } = response;
-              console.log(`data`, data);
-              if (statusIsSuccessful(status)) {
-                MODEL.OFFER && setOffer(data.offer);
-                MODEL.VAS_REQUEST && setVasRequest(data.vasRequest);
-                setUserInfo(
-                  data?.offer?.userInfo || data?.vasRequest?.userInfo
-                );
-              }
-            })
-            .catch(function (error) {
-              setToast({
-                message: getError(error),
-              });
-            });
-        }
+    if (reference) {
+      setLoading(true);
+      Axios.get(`${BASE_API_URL}/payment/process/${reference}`, {
+        headers: {
+          Authorization: getTokenFromStore(),
+        },
       })
-      .catch(function (error) {
-        setToast({
-          message: getError(error),
+        .then(function (response) {
+          const { status, data } = response;
+          setTransaction(data.transaction);
+        })
+        .catch(function (error) {
+          setLoading(false);
+          setToast({
+            message: getError(error),
+          });
         });
-      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setToast, reference]);
 
   return (
     <>
       <Toast {...toast} showToastOnly />
       <Header />
-      {transaction && userInfo && (offer?.propertyInfo || vasRequest) ? (
-        <InvoiceContent
-          transaction={transaction}
-          userInfo={userInfo}
-          paymentInfo={generatePaymentInfo({
-            offer,
-            vasRequest,
-            type: transaction.model.type,
-          })}
-        />
+      {transaction ? (
+        <InvoiceContent transaction={transaction} />
       ) : (
         <div className="ballers-invoice">
           <div className="mt-8">
-            <Loading
-              text="Loading Payment Information"
-              Icon={<TransactionIcon />}
-            />
+            {loading ? (
+              <Loading
+                text="Loading Payment Information"
+                Icon={<TransactionIcon />}
+              />
+            ) : (
+              <NoContent
+                text="No Payment Information Found"
+                Icon={<TransactionIcon />}
+              />
+            )}
           </div>
         </div>
       )}
-
       <Footer />
     </>
   );
 };
 
-export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
+export const InvoiceContent = ({ transaction }) => {
+  const { userInfo, offerInfo, vasRequestInfo } = transaction || {};
+  const paymentInfo = generatePaymentInfo({
+    offer: offerInfo,
+    vasRequest: vasRequestInfo,
+    type: transaction.model.type,
+  });
   const userName = `${userInfo.firstName} ${userInfo.lastName}`;
 
   return (
@@ -125,8 +95,11 @@ export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
             <div className="card-body d-flex flex-column">
               {/* Logo */}
               <div>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img alt="Logo" className="invoice__logo" src={BallersLogo} />
+                <BallersLogo
+                  className="ballers-logo-footer"
+                  width="86"
+                  height="55"
+                />
               </div>
 
               {/* Header Details */}
@@ -155,7 +128,7 @@ export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
                       <tr>
                         <td>
                           <p className="mb-0">
-                            Receipt No: <strong>BA21001</strong>
+                            Receipt No: <strong>{transaction.receiptNo}</strong>
                           </p>
                         </td>
                         <td className="text-end">
@@ -216,7 +189,7 @@ export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
                     <td>
                       <small>Via {transaction.paymentSource}</small>
                       <br />
-                      <small>Payment for {paymentInfo.paymentType}</small>
+                      <small>{paymentInfo.title}</small>
                     </td>
                     <td>
                       <h4 className="my-4">
@@ -258,6 +231,11 @@ export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
             </div>
           </div>
         </div>
+
+        <InvoicePDFDocument
+          transaction={transaction}
+          paymentInfo={paymentInfo}
+        />
       </section>
     </div>
   );
@@ -265,9 +243,9 @@ export const InvoiceContent = ({ paymentInfo, transaction, userInfo }) => {
 
 export const generatePaymentInfo = ({ offer, vasRequest, type }) => {
   const propertyInfo = offer?.propertyInfo || vasRequest?.propertyInfo;
-  let title, paymentType;
+  let title, paymentType, description;
 
-  const description = propertyInfo && (
+  const propertyDescription = propertyInfo && (
     <small>
       <strong>
         {propertyInfo.name} {propertyInfo.houseType}
@@ -280,11 +258,19 @@ export const generatePaymentInfo = ({ offer, vasRequest, type }) => {
     case MODEL.OFFER:
       title = `Payment for ${propertyInfo.name}`;
       paymentType = 'Property';
+      description = propertyDescription;
       break;
 
     case MODEL.VAS_REQUEST:
       title = `Payment for ${vasRequest?.vasInfo?.name}`;
       paymentType = 'Services';
+      description = propertyDescription;
+      break;
+
+    case MODEL.WALLET:
+      title = `Payment into your BALL wallet`;
+      paymentType = 'Wallet';
+      description = '';
       break;
 
     default:
