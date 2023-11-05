@@ -39,6 +39,7 @@ import {
   statusIsSuccessful,
   setAutoComplete,
   getAutoComplete,
+  objectToOptions,
 } from 'utils/helpers';
 import Address from 'components/utils/Address';
 import Select from 'components/forms/Select';
@@ -124,10 +125,6 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
       }}
       onSubmit={(values, actions) => {
         let payload;
-        delete values.pricingModel;
-        delete values.deliveryState;
-
-        console.log('values', values);
 
         const payloadData = {
           ...values,
@@ -349,7 +346,7 @@ const PropertyPriceForm = () => {
               formGroupClassName="col-md-6"
               label="Pricing Delivery State"
               name="deliveryState"
-              options={valuesToOptions(PROPERTY_DELIVERY_STATE)}
+              options={objectToOptions(PROPERTY_DELIVERY_STATE)}
             />
           </div>
         </div>

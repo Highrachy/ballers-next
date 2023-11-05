@@ -759,10 +759,14 @@ export const PropertyDescription = ({
           </>
         )}
       </div>
-      <p className="mt-5 text-gray fw-bold ">
+      <p className="mt-5 text-gray">
         Title Document:{' '}
-        <span className="fw-bold">
+        <span className="fw-bold me-6">
           {property?.titleDocument || 'No Title Document'}
+        </span>
+        &nbsp; Delivery State:
+        <span className="fw-bold">
+          {property?.deliveryState || 'Finished State'}
         </span>
       </p>
 

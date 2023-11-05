@@ -79,12 +79,12 @@ export const PRICING_MODEL = [
   'Milestone (Progress Payment)',
 ];
 
-export const PROPERTY_DELIVERY_STATE = [
-  'Carcass',
-  'Shell',
-  'Completed',
-  'Furnished',
-];
+export const PROPERTY_DELIVERY_STATE = {
+  Carcass: 'Carcass',
+  Shell: 'Shell',
+  Completed: 'Completed',
+  Furnished: 'Furnished',
+};
 
 // CONVERT HOUSE TYPES TO A single object
 

@@ -19,58 +19,12 @@ import InputFormat from '../forms/InputFormat';
 import store from 'store2';
 import Select from '../forms/Select';
 import { dataToOptions } from '@/utils/helpers';
+import { generateDefaultMilestones } from '@/utils/milestone-helper';
 
 const MILESTONE_STONE = `ballers-milestone`;
 export const storeMilestone = (milestone) => store(MILESTONE_STONE, milestone);
 export const getMilestone = () => store(MILESTONE_STONE);
 export const removeMilestone = () => store.remove(MILESTONE_STONE);
-
-const DEFAULT_MILESTONE = [
-  {
-    id: 'initiation',
-    title: 'Initiation',
-    description: 'Documentation and preliminaries, foundation',
-    percentage: '50',
-    editable: false, // First milestone, not editable
-  },
-  {
-    id: 'carcass',
-    title: 'Carcass',
-    description: 'Frames, walls, roof and M&E first fix',
-    percentage: '10',
-    editable: true,
-  },
-  {
-    id: 'shell',
-    title: 'Shell',
-    description: 'Windows, doors, ironmongery, external building finishes',
-    percentage: '10',
-    editable: true,
-  },
-  {
-    id: 'internal',
-    title: 'Internal finishes and decorations ',
-    description:
-      'Floor finishes, wall finishes, ceiling finishes, M&E installations, fixture, fittings, painting and decorations',
-    percentage: '10',
-    editable: true,
-  },
-  {
-    id: 'external',
-    title: 'External works',
-    description:
-      'External walls and gate, driveway and parking, ancillary buildings, external services',
-    percentage: '10',
-    editable: true,
-  },
-  {
-    id: 'final',
-    title: 'Final Finishes',
-    description: 'Testing, commissioning and handing over.',
-    percentage: '10',
-    editable: false,
-  },
-];
 
 export const MilestonePayment = ({
   hideForm,
@@ -81,7 +35,9 @@ export const MilestonePayment = ({
 }) => {
   // Deep copy of milestones to avoid mutating the original data
   const updatedMilestones = JSON.parse(
-    JSON.stringify(getMilestone() || DEFAULT_MILESTONE)
+    JSON.stringify(
+      getMilestone() || generateDefaultMilestones(property?.deliveryState)
+    )
   );
 
   const handleUpdateMilestone = (values) => {
@@ -252,7 +208,8 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
 
   const deleteMilestone = () => {
     if (milestone) {
-      const updatedMilestones = getMilestone() || DEFAULT_MILESTONE;
+      const updatedMilestones =
+        getMilestone() || generateDefaultMilestones(property?.deliveryState);
       const index = updatedMilestones.findIndex(
         (item) => item.id === milestone.id
       );
@@ -279,7 +236,8 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
   };
 
   const userIsVendor = useCurrentRole().isVendor;
-  const milestones = getMilestone() || DEFAULT_MILESTONE;
+  const milestones =
+    getMilestone() || generateDefaultMilestones(property?.deliveryState);
 
   return (
     <>

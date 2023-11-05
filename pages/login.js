@@ -20,6 +20,8 @@ import {
   storeUserRole,
   getUserFirstName,
   clearStorage,
+  getTokenFromStore,
+  getUserRoleFromStore,
 } from 'utils/localStorage';
 import { getError, statusIsSuccessful } from 'utils/helpers';
 import store from 'store2';
@@ -90,6 +92,8 @@ const LoginForm = ({ redirectTo, token }) => {
   const router = useRouter();
   const [toast, setToast] = useToast();
   const { userState, loginUser } = React.useContext(UserContext);
+  const loginToken = getTokenFromStore();
+  const userRole = getUserRoleFromStore();
 
   // CHECK TOKEN ACTIVATION
   React.useEffect(() => {
@@ -117,12 +121,14 @@ const LoginForm = ({ redirectTo, token }) => {
 
   // CHECK IF USER HAS SIGNED IN
   React.useEffect(() => {
-    if (userState && userState?.isLoggedIn) {
-      const dashboardUrl = `/${DASHBOARD_PAGE[userState.role]}/dashboard`;
+    if ((userState && userState?.isLoggedIn) || (loginToken && userRole)) {
+      const dashboardUrl = `/${
+        DASHBOARD_PAGE[userRole || userState?.role]
+      }/dashboard`;
       router.push(dashboardUrl);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userState]);
+  }, [userState, loginToken]);
 
   return (
     <Formik
@@ -137,8 +143,8 @@ const LoginForm = ({ redirectTo, token }) => {
             if (statusIsSuccessful(status)) {
               clearStorage();
               storeToken(data.user.token);
-              loginUser(data.user, data.user.token);
               storeUserRole(data.user.role);
+              loginUser(data.user, data.user.token);
             }
           })
           .catch(function (error) {

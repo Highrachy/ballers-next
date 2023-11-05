@@ -29,12 +29,15 @@ const BackendPage = ({ children }) => {
     };
 
     async function confirmPreviousLogin() {
+      console.log('confirming previous login');
       try {
         const response = await axios.get(`${BASE_API_URL}/user/who-am-i`, {
           headers: {
             Authorization: getTokenFromStore(),
           },
         });
+
+        console.log('response', response);
         if (response.status !== 200) {
           console.log('wrong status');
           cancelLoginRequest('Wrong Status');
@@ -43,7 +46,7 @@ const BackendPage = ({ children }) => {
           console.log('logging user in');
         }
       } catch (error) {
-        cancelLoginRequest(error);
+        cancelLoginRequest(`catch error: ${error}`);
       }
     }
 
