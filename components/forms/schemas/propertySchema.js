@@ -124,3 +124,13 @@ export const replyTestimonialSchema = {
 export const searchPropertySchema = {
   all: stringValidation('Search Term', 3),
 };
+
+export const addPropertyUpdateSchema = {
+  title: required('Title'),
+  description: optionalValidation(required('Progress Report Description')),
+};
+
+export const propertyUpdateImageSchema = {
+  title: required('Title'),
+  url: required('Image URL'),
+};

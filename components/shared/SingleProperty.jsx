@@ -59,9 +59,7 @@ import { useRouter } from 'next/router';
 import { GrDocumentText } from 'react-icons/gr';
 import { BiGitCompare } from 'react-icons/bi';
 import WelcomeHero from '../common/WelcomeHero';
-import { AddMilestones, MilestonesList } from './Milestone';
-import { Accordion } from 'react-bootstrap';
-import { ContextAwareToggle } from '../common/FAQsAccordion';
+import { AddPropertyUpdates, PropertyUpdatesList } from './PropertyUpdate';
 import { MilestonePaymentList } from './MilestonePayment';
 
 const pageOptions = {
@@ -189,7 +187,7 @@ export const OwnedPropertyCard = ({
           setProperty={setProperty}
         />
 
-        <MilestonesList
+        <PropertyUpdatesList
           property={property}
           setToast={setToast}
           setProperty={setProperty}
@@ -687,7 +685,7 @@ const ManagePropertyLink = ({ property, setToast, setProperty }) => (
       setProperty={setProperty}
     />
     <LinkSeparator />
-    <AddMilestones
+    <AddPropertyUpdates
       className="text-link text-muted"
       property={property}
       setToast={setToast}

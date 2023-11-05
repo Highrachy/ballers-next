@@ -14,8 +14,8 @@ import { createSchema } from 'components/forms/schemas/schema-helpers';
 import { BASE_API_URL } from 'utils/constants';
 import { getTokenFromStore } from 'utils/localStorage';
 import {
-  addMilestoneSchema,
-  milestoneImageSchema,
+  addPropertyUpdateSchema,
+  propertyUpdateImageSchema,
 } from 'components/forms/schemas/propertySchema';
 import { getError, statusIsSuccessful } from 'utils/helpers';
 import Upload from 'components/forms/UploadFormik';
@@ -31,19 +31,19 @@ import { setQueryCache } from 'hooks/useQuery';
 import Textarea from '../forms/Textarea';
 import { getShortDate, getTinyDate, getYear } from '@/utils/date-helpers';
 
-export const MilestonesForm = ({
+export const PropertyUpdatesForm = ({
   hideForm,
   setToast,
   setProperty,
   property,
-  milestone,
+  propertyUpdate,
 }) => {
   const [toast] = useToast();
 
   return (
     <Formik
       enableReinitialize={true}
-      initialValues={setInitialValues(addMilestoneSchema, milestone)}
+      initialValues={setInitialValues(addPropertyUpdateSchema, propertyUpdate)}
       onSubmit={({ title, description }, actions) => {
         const payload = {
           title,
@@ -51,10 +51,10 @@ export const MilestonesForm = ({
         };
 
         Axios({
-          method: milestone?._id ? 'put' : 'post',
-          url: `${BASE_API_URL}/property/${property._id}/milestone`,
-          data: milestone?._id
-            ? { ...payload, milestoneId: milestone?._id }
+          method: propertyUpdate?._id ? 'put' : 'post',
+          url: `${BASE_API_URL}/property/${property._id}/propertyUpdate`,
+          data: propertyUpdate?._id
+            ? { ...payload, propertyUpdateId: propertyUpdate?._id }
             : payload,
           headers: { Authorization: getTokenFromStore() },
         })
@@ -63,8 +63,8 @@ export const MilestonesForm = ({
             if (statusIsSuccessful(status)) {
               setToast({
                 type: 'success',
-                message: `Your milestone has been successfully ${
-                  milestone?._id ? 'updated' : 'added'
+                message: `Your progress report has been successfully ${
+                  propertyUpdate?._id ? 'updated' : 'added'
                 }`,
               });
               hideForm();
@@ -83,7 +83,7 @@ export const MilestonesForm = ({
             actions.setSubmitting(false);
           });
       }}
-      validationSchema={createSchema(addMilestoneSchema)}
+      validationSchema={createSchema(addPropertyUpdateSchema)}
     >
       {({ isSubmitting, handleSubmit, ...props }) => (
         <Form>
@@ -118,7 +118,7 @@ export const MilestonesForm = ({
                 loading={isSubmitting}
                 onClick={handleSubmit}
               >
-                {milestone?._id ? 'Update' : 'Add'} Property Update
+                {propertyUpdate?._id ? 'Update' : 'Add'} Property Update
               </Button>
               <DisplayFormikState {...props} showAll />
             </div>
@@ -129,23 +129,23 @@ export const MilestonesForm = ({
   );
 };
 
-export const AddMilestoneImage = ({
+export const AddPropertyUpdateImage = ({
   hideForm,
   setToast,
   setProperty,
   property,
-  milestone,
+  propertyUpdate,
 }) => {
   const [toast] = useToast();
 
   return (
     <Formik
       enableReinitialize={true}
-      initialValues={setInitialValues(milestoneImageSchema)}
+      initialValues={setInitialValues(propertyUpdateImageSchema)}
       onSubmit={(payload, actions) => {
         Axios({
           method: 'post',
-          url: `${BASE_API_URL}/property/${property._id}/milestone/${milestone._id}/media`,
+          url: `${BASE_API_URL}/property/${property._id}/propertyUpdate/${propertyUpdate._id}/media`,
           data: payload,
           headers: { Authorization: getTokenFromStore() },
         })
@@ -154,7 +154,7 @@ export const AddMilestoneImage = ({
             if (statusIsSuccessful(status)) {
               setToast({
                 type: 'success',
-                message: `Your image has been successfully added to milestone`,
+                message: `Your image has been successfully added to propertyUpdate`,
               });
               hideForm();
               setProperty(data.property);
@@ -172,7 +172,7 @@ export const AddMilestoneImage = ({
             actions.setSubmitting(false);
           });
       }}
-      validationSchema={createSchema(milestoneImageSchema)}
+      validationSchema={createSchema(propertyUpdateImageSchema)}
     >
       {({ isSubmitting, handleSubmit, ...props }) => (
         <Form>
@@ -193,7 +193,7 @@ export const AddMilestoneImage = ({
                   }}
                   name="url"
                   uploadText={`Upload Picture`}
-                  folder={'milestone'}
+                  folder={'propertyUpdate'}
                 />
               </div>
               <Button
@@ -212,32 +212,32 @@ export const AddMilestoneImage = ({
   );
 };
 
-export const AddMilestones = ({
+export const AddPropertyUpdates = ({
   className,
   setToast,
   setProperty,
   property,
 }) => {
-  const [showAddMilestonesModal, setShowAddMilestonesModal] =
+  const [showAddPropertyUpdatesModal, setShowAddPropertyUpdatesModal] =
     React.useState(false);
   return (
     <>
       <span
         className={className}
-        onClick={() => setShowAddMilestonesModal(true)}
+        onClick={() => setShowAddPropertyUpdatesModal(true)}
       >
         Add Property Updates
       </span>
 
       <Modal
         title="Property Updates"
-        show={showAddMilestonesModal}
-        onHide={() => setShowAddMilestonesModal(false)}
+        show={showAddPropertyUpdatesModal}
+        onHide={() => setShowAddPropertyUpdatesModal(false)}
         showFooter={false}
         size="lg"
       >
-        <MilestonesForm
-          hideForm={() => setShowAddMilestonesModal(false)}
+        <PropertyUpdatesForm
+          hideForm={() => setShowAddPropertyUpdatesModal(false)}
           setToast={setToast}
           setProperty={setProperty}
           property={property}
@@ -252,22 +252,22 @@ const pageOptions = {
   pageName: 'Property Updates',
 };
 
-export const MilestonesList = ({ property, setProperty, setToast }) => {
+export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
   const [showManageBar, setShowManageBar] = React.useState(null);
   const [showAddImageModal, setShowAddImageModal] = React.useState(false);
-  const [showEditMilestonesModal, setShowEditMilestonesModal] =
+  const [showEditPropertyUpdatesModal, setShowEditPropertyUpdatesModal] =
     React.useState(false);
-  const [showDeleteMilestonesModal, setShowDeleteMilestonesModal] =
+  const [showDeletePropertyUpdatesModal, setShowDeletePropertyUpdatesModal] =
     React.useState(false);
 
-  const [milestone, setMilestone] = React.useState(null);
+  const [propertyUpdate, setPropertyUpdate] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
 
-  const deleteMilestone = () => {
+  const deletePropertyUpdate = () => {
     setLoading(true);
-    Axios.delete(`${BASE_API_URL}/property/${property._id}/milestone`, {
+    Axios.delete(`${BASE_API_URL}/property/${property._id}/propertyUpdate`, {
       headers: { Authorization: getTokenFromStore() },
-      data: { milestoneId: milestone._id },
+      data: { propertyUpdateId: propertyUpdate._id },
     })
       .then(function (response) {
         const { status, data } = response;
@@ -280,7 +280,7 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
           setQueryCache([pageOptions.key, property._id], {
             property: { ...property, ...data.property }, // review
           });
-          setShowDeleteMilestonesModal(false);
+          setShowDeletePropertyUpdatesModal(false);
           setLoading(false);
         }
       })
@@ -292,36 +292,38 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
       });
   };
   const userIsVendor = useCurrentRole().isVendor;
-  const noMilestones = property?.milestones?.length === 0;
+  const noPropertyUpdates = property?.propertyUpdates?.length === 0;
   return (
     <>
       <div className="property__floor-plans">
-        {(!noMilestones || userIsVendor) && (
+        {(!noPropertyUpdates || userIsVendor) && (
           <h5 className="header-smaller mb-3 mt-5">Property Updates</h5>
         )}
-        {!noMilestones &&
-          property?.milestone?.map((milestone, index) => (
-            <Card key={milestone._id} className="mb-3">
-              <div className="container milestone-container">
+        {!noPropertyUpdates &&
+          property?.propertyUpdate?.map((propertyUpdate, index) => (
+            <Card key={propertyUpdate._id} className="mb-3">
+              <div className="container propertyUpdate-container">
                 <div className="row">
-                  <div className="col-md-2 milestone-date">
-                    {getTinyDate(milestone?.date)}
+                  <div className="col-md-2 propertyUpdate-date">
+                    {getTinyDate(propertyUpdate?.date)}
                     <br />
                   </div>
                   <div className="col-md-6">
-                    <h4 className="milestone-title">{milestone?.title}</h4>
-                    <p className="milestone-description">
-                      {milestone?.description}
+                    <h4 className="propertyUpdate-title">
+                      {propertyUpdate?.title}
+                    </h4>
+                    <p className="propertyUpdate-description">
+                      {propertyUpdate?.description}
                     </p>
                   </div>
                   <div className="col-md-4">
-                    {milestone?.media?.map((media, mediaIndex) => (
+                    {propertyUpdate?.media?.map((media, mediaIndex) => (
                       <Image
                         key={media._id}
                         src={media?.url}
                         alt={media?.title}
                         name={media?.title}
-                        className="milestone-image"
+                        className="propertyUpdate-image"
                         responsiveImage={false}
                       />
                     ))}
@@ -336,7 +338,7 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
                       >
                         {showManageBar === index
                           ? 'Close Menu'
-                          : 'Manage MileStone'}
+                          : 'Manage PropertyUpdate'}
                       </div>
                     )}
                   </div>
@@ -348,7 +350,7 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
                       <span
                         className="text-link text-muted"
                         onClick={() => {
-                          setMilestone(milestone);
+                          setPropertyUpdate(propertyUpdate);
                           setShowAddImageModal(true);
                         }}
                       >
@@ -358,8 +360,8 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
                       <span
                         className="text-link text-muted"
                         onClick={() => {
-                          setMilestone(milestone);
-                          setShowEditMilestonesModal(true);
+                          setPropertyUpdate(propertyUpdate);
+                          setShowEditPropertyUpdatesModal(true);
                         }}
                       >
                         Edit Property Update
@@ -368,8 +370,8 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
                       <span
                         className="text-link  text-muted"
                         onClick={() => {
-                          setMilestone(milestone);
-                          setShowDeleteMilestonesModal(true);
+                          setPropertyUpdate(propertyUpdate);
+                          setShowDeletePropertyUpdatesModal(true);
                         }}
                       >
                         Delete Property Update
@@ -384,48 +386,48 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
                 onHide={() => setShowAddImageModal(false)}
                 showFooter={false}
               >
-                <AddMilestoneImage
+                <AddPropertyUpdateImage
                   hideForm={() => setShowAddImageModal(false)}
                   property={property}
                   setProperty={setProperty}
                   setToast={setToast}
-                  milestone={milestone}
+                  propertyUpdate={propertyUpdate}
                 />
               </Modal>
 
               {/* Edit Property Updates Modal */}
               <Modal
                 title="Property Updates"
-                show={showEditMilestonesModal}
-                onHide={() => setShowEditMilestonesModal(false)}
+                show={showEditPropertyUpdatesModal}
+                onHide={() => setShowEditPropertyUpdatesModal(false)}
                 showFooter={false}
               >
-                {JSON.stringify(milestone, null, 2)}
-                <MilestonesForm
-                  hideForm={() => setShowEditMilestonesModal(false)}
+                {JSON.stringify(propertyUpdate, null, 2)}
+                <PropertyUpdatesForm
+                  hideForm={() => setShowEditPropertyUpdatesModal(false)}
                   property={property}
                   setProperty={setProperty}
                   setToast={setToast}
-                  milestone={milestone}
+                  propertyUpdate={propertyUpdate}
                 />
               </Modal>
 
               {/* Delete Property Updates Modal */}
               <Modal
                 title="Verify Vendor"
-                show={showDeleteMilestonesModal}
-                onHide={() => setShowDeleteMilestonesModal(false)}
+                show={showDeletePropertyUpdatesModal}
+                onHide={() => setShowDeletePropertyUpdatesModal(false)}
                 showFooter={false}
               >
                 <section className="row">
                   <div className="col-md-12 my-3 text-center">
                     <p className="my-4 confirmation-text fw-bold">
-                      Are you sure you want to delete this Milestone?
+                      Are you sure you want to delete this PropertyUpdate?
                     </p>
                     <Button
                       loading={loading}
                       className="btn btn-secondary mb-5"
-                      onClick={() => deleteMilestone()}
+                      onClick={() => deletePropertyUpdate()}
                     >
                       Delete Property Update
                     </Button>
@@ -439,7 +441,7 @@ export const MilestonesList = ({ property, setProperty, setToast }) => {
       {userIsVendor && (
         <div className="row">
           <div className="col-12">
-            <AddMilestones
+            <AddPropertyUpdates
               className="btn btn-secondary btn-xs btn-wide"
               property={property}
               setToast={setToast}
