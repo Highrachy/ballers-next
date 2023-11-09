@@ -2,40 +2,40 @@ import { PROPERTY_DELIVERY_STATE } from './constants';
 
 const DEFAULT_MILESTONES = {
   initiation: {
-    id: 'initiation',
+    key: 'initiation',
     title: 'Initiation',
     description: 'Documentation, preliminaries, and foundation',
     percentage: 50, // Fixed at 50
     editable: false,
   },
   carcass: {
-    id: 'carcass',
+    key: 'carcass',
     title: 'Carcass',
     description: 'Frames, walls, roof, and M&E first fix',
     editable: true,
   },
   shell: {
-    id: 'shell',
+    key: 'shell',
     title: 'Shell',
     description: 'Windows, doors, ironmongery, external building finishes',
     editable: true,
   },
   internalWorks: {
-    id: 'internal',
+    key: 'internal',
     title: 'Internal finishes and decorations',
     description:
       'Floor, wall, and ceiling finishes, M&E installations, fixtures, fittings, painting, and decorations',
     editable: true,
   },
   externalWorks: {
-    id: 'external',
+    key: 'external',
     title: 'External works',
     description:
       'External walls, gates, driveway, parking, ancillary buildings, and external services',
     editable: true,
   },
   final: {
-    id: 'final',
+    key: 'final',
     title: 'Final Finishes',
     description: 'Testing, commissioning, and handover',
     percentage: 10,

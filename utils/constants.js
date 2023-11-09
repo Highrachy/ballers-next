@@ -74,10 +74,15 @@ export const HOUSE_TYPES = [
   'Terraced Duplex',
 ];
 
-export const PRICING_MODEL = [
-  'Timeline (Monthly Payment)',
-  'Milestone (Progress Payment)',
-];
+export const PRICING_MODEL = {
+  Timeline: 'Timeline',
+  Milestone: 'Milestone',
+};
+
+export const PRICING_MODEL_DESC = {
+  Timeline: 'Timeline (Monthly Payment)',
+  Milestone: 'Milestone (Progress Payment)',
+};
 
 export const PROPERTY_DELIVERY_STATE = {
   Carcass: 'Carcass',

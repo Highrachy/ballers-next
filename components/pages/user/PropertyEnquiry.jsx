@@ -9,7 +9,10 @@ import {
 } from 'components/forms/form-helper';
 import Button from 'components/forms/Button';
 import { Formik, Form } from 'formik';
-import { addEnquirySchema } from 'components/forms/schemas/enquirySchema';
+import {
+  addEnquirySchema,
+  addMilestoneEnquirySchema,
+} from 'components/forms/schemas/enquirySchema';
 import { Card } from 'react-bootstrap';
 import DatePicker from 'components/forms/DatePicker';
 import { BASE_API_URL, PAYMENT_FREQUENCY, TITLES } from 'utils/constants';
@@ -77,36 +80,57 @@ const PropertyEnquiry = ({ id }) => {
               <PropertyHeader property={property} isPortfolioPage />
             </div>
           </Card>
-          <EnquiryForm id={id} setToast={setToast} />
+          <EnquiryForm id={id} setToast={setToast} property={property} />
         </section>
       </ContentLoader>
     </BackendPage>
   );
 };
 
-const EnquiryForm = ({ id, setToast }) => {
+const EnquiryForm = ({ id, setToast, property }) => {
   const router = useRouter();
   const { userState } = React.useContext(UserContext);
+  const isMilestonePayment = property?.pricingModel === PRICING_MODEL.Milestone;
+  const currentSchema = isMilestonePayment
+    ? addMilestoneEnquirySchema
+    : addEnquirySchema;
 
   return (
     <Formik
       enableReinitialize={true}
       initialValues={{
-        ...setInitialValues(addEnquirySchema, {
+        ...setInitialValues(currentSchema, {
           ...userState,
         }),
         address: setInitialValues(addressSchema, userState.address),
       }}
       onSubmit={(values, actions) => {
+        console.log('values', values);
+        console.log('property', property);
         // delete optional fields
         !values.address.street2 && delete values.address.street2;
         !values.address.otherName && delete values.address.otherName;
 
-        // build payload
+        const firstMilestonePercentage =
+          property?.milestonePayment[0]?.percentage || 100;
+        const initialMilestoneInvestmentAmount =
+          (firstMilestonePercentage / 100) * property?.price;
+        console.log(
+          'initialMilestoneInvestmentAmount',
+          initialMilestoneInvestmentAmount
+        );
+
+        // // build payload
         const payload = {
           ...values,
           investmentStartDate:
-            values.investmentStartDate.date || values.investmentStartDate,
+            values?.investmentStartDate?.date ||
+            values?.investmentStartDate ||
+            new Date(),
+          investmentFrequency: values?.investmentFrequency || -1,
+          periodicInvestmentAmount: values?.periodicInvestmentAmount || 0,
+          initialInvestmentAmount:
+            values?.initialInvestmentAmount || initialMilestoneInvestmentAmount,
           propertyId: id,
           email: userState.email,
           phone: userState.phone,
@@ -137,7 +161,7 @@ const EnquiryForm = ({ id, setToast }) => {
           });
       }}
       validationSchema={createSchema({
-        ...addEnquirySchema,
+        ...currentSchema,
         address: createSchema(addressSchema),
       })}
     >
@@ -146,7 +170,7 @@ const EnquiryForm = ({ id, setToast }) => {
           <ClientDetailsForm />
           <PropertyAddress />
           <PropertyDetailsForm />
-          <InvestmentDetailsForm />
+          {!isMilestonePayment && <InvestmentDetailsForm />}
           <Button
             className="btn-secondary mt-4"
             loading={isSubmitting}
@@ -197,6 +221,7 @@ const ClientDetailsForm = () => (
           />
         </div>
         <Input
+          formGroupClassName="col-md-12 mt-4"
           label="Occupation/Nature of Business"
           name="occupation"
           placeholder="Occupation/Nature of Business"

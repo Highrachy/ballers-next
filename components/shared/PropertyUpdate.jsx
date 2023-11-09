@@ -292,7 +292,7 @@ export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
       });
   };
   const userIsVendor = useCurrentRole().isVendor;
-  const noPropertyUpdates = property?.propertyUpdates?.length === 0;
+  const noPropertyUpdates = property?.propertyUpdate?.length === 0;
   return (
     <>
       <div className="property__floor-plans">

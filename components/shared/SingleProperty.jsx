@@ -2,7 +2,11 @@ import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import { Card } from 'react-bootstrap';
 import Map from 'components/common/Map';
-import { PROPERTY_VIDEO_STATUS, USER_TYPES } from 'utils/constants';
+import {
+  PRICING_MODEL,
+  PROPERTY_VIDEO_STATUS,
+  USER_TYPES,
+} from 'utils/constants';
 import { useToast } from 'components/utils/Toast';
 import { moneyFormatInNaira, getLocationFromAddress } from 'utils/helpers';
 import Image, { OnlineImage } from 'components/utils/Image';
@@ -76,6 +80,8 @@ const SingleProperty = ({ id, Sidebar }) => {
     endpoint: API_ENDPOINT.getOneProperty(id),
     refresh: true,
   });
+
+  console.log('property', property);
 
   return (
     <BackendPage>
@@ -175,11 +181,14 @@ export const OwnedPropertyCard = ({
           setToast={setToast}
           setProperty={setProperty}
         /> */}
-        <MilestonePaymentList
-          property={property}
-          setToast={setToast}
-          setProperty={setProperty}
-        />
+
+        {property?.pricingModel === PRICING_MODEL.Milestone && (
+          <MilestonePaymentList
+            property={property}
+            setToast={setToast}
+            setProperty={setProperty}
+          />
+        )}
 
         <NeighborhoodList
           property={property}

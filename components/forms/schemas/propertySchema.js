@@ -72,11 +72,15 @@ export const addVideoSchema = {
   url: required('Video URL'),
 };
 
-export const addMilestoneSchema = {
+export const updateMilestoneSchema = {
   title: required('Title'),
   description: optionalValidation(required('Milestone Description')),
-  addAfter: optionalValidation(required('Add After')),
   percentage: percentageValidation('Percentage'),
+};
+
+export const addMilestoneSchema = {
+  ...updateMilestoneSchema,
+  addAfter: optionalValidation(required('Add After')),
 };
 
 export const addFloorPlansSchema = {

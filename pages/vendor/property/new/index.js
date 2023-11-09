@@ -20,6 +20,7 @@ import {
   DEFAULT_PROPERTY_FEATURES,
   HOUSE_TYPES,
   PRICING_MODEL,
+  PRICING_MODEL_DESC,
   PROPERTY_DELIVERY_STATE,
   TITLE_DOCUMENTS,
 } from 'utils/constants';
@@ -53,6 +54,7 @@ import { ContentLoader } from 'components/utils/LoadingItems';
 import { PropertyIcon } from 'components/utils/Icons';
 import { setQueryCache } from 'hooks/useQuery';
 import { refreshQuery } from 'hooks/useQuery';
+import { generateDefaultMilestones } from '@/utils/milestone-helper';
 
 const pageOptions = {
   key: 'property',
@@ -144,6 +146,21 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
               },
             }
           : payloadData;
+
+        const isNewProperty = !property?._id;
+        const isMileStonePayment =
+          payload?.pricingModel === PRICING_MODEL.Milestone;
+        const isEmptyMilestonePayment =
+          !payload?.milestonePayment || payload?.milestonePayment?.length === 0;
+
+        if (
+          (isNewProperty && isMileStonePayment) ||
+          (!isNewProperty && isMileStonePayment && isEmptyMilestonePayment)
+        ) {
+          payload.milestonePayment = generateDefaultMilestones(
+            payload?.deliveryState
+          );
+        }
 
         Axios({
           method: property?._id ? 'put' : 'post',
@@ -339,7 +356,7 @@ const PropertyPriceForm = () => {
               formGroupClassName="col-md-6"
               label="Pricing Model"
               name="pricingModel"
-              options={valuesToOptions(PRICING_MODEL)}
+              options={objectToOptions(PRICING_MODEL_DESC, null, true)}
             />
             <Select
               placeholder="Select Delivery State"

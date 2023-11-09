@@ -31,7 +31,7 @@ import {
 } from 'components/forms/schemas/offerSchema';
 import InputFormat from 'components/forms/InputFormat';
 import Input from 'components/forms/Input';
-import { addDays, addMonths } from 'date-fns';
+import { addDays, addMonths, format } from 'date-fns';
 import Modal from 'components/common/Modal';
 import OfferLetterTemplate from 'components/utils/OfferLetterTemplate';
 import DatePicker from 'components/forms/DatePicker';
@@ -120,14 +120,25 @@ const CreateOfferLetterForm = ({
   const [showOtherTermsForm, setShowOtherTermsForm] = React.useState(false);
   const [showAddMoreTermsForm, setShowAddMoreTermsForm] = React.useState(false);
 
-  console.log(`value`, value);
+  console.log(
+    `value`,
+    value,
+    'test',
+    format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+  );
 
   return (
     <div className="container-fluid">
       <Formik
         enableReinitialize={true}
         initialValues={{
-          ...setInitialValues(offerLetterSchema, { ...value }),
+          ...setInitialValues(offerLetterSchema, {
+            ...value,
+            handOverDate: format(
+              new Date(value?.handOverDate),
+              "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+            ),
+          }),
           otherPayments: setInitialValues(
             otherPaymentsSchema,
             value?.otherPayments

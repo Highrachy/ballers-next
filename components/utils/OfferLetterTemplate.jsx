@@ -20,6 +20,7 @@ import {
   OFFER_STATUS,
   PAYMENT_OPTION,
   PAYMENT_OPTIONS_BREAKDOWN,
+  PRICING_MODEL,
 } from 'utils/constants';
 import { useCurrentRole } from 'hooks/useUser';
 
@@ -110,6 +111,8 @@ const OfferLetterTemplate = ({
   const isUser = useCurrentRole().isUser;
   const additionalClauses =
     offerInfo?.additionalClause?.clauses || offerInfo?.additionalClause;
+  const isMilestonePayment =
+    propertyInfo?.pricingModel === PRICING_MODEL.Milestone;
 
   return (
     <Card className="mt-4 p-5 offer-letter-template">
@@ -320,33 +323,51 @@ const OfferLetterTemplate = ({
                         <th>SUM DUE (N)</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>Initial Deposit</td>
-                        {/* <td>Immediate</td> */}
-                        <td>{moneyFormat(initialPayment)}</td>
-                      </tr>
-                      {noOfMonths > 0 &&
-                        [...Array(noOfMonths).keys()].map((value, index) => (
-                          <tr key={index}>
-                            <td>{numToOrdinal(index + 2)} Deposit</td>
-                            <td>
-                              {moneyFormat(
-                                noOfMonths === index + 1 && lastPayment === 0
-                                  ? lastPaymentTotal
-                                  : periodicPayment
-                              )}
-                            </td>
-                          </tr>
-                        ))}
-                      {lastPayment > 0 && (
+                    {isMilestonePayment ? (
+                      <tbody>
+                        {propertyInfo?.milestonePayment.map(
+                          (milestone, index) => (
+                            <tr key={index}>
+                              <td>{milestone.title} Deposit</td>
+                              <td>
+                                {moneyFormat(
+                                  (milestone.percentage / 100) *
+                                    propertyInfo?.price
+                                )}
+                              </td>
+                            </tr>
+                          )
+                        )}
+                      </tbody>
+                    ) : (
+                      <tbody>
                         <tr>
-                          <td>Last Deposit</td>
-                          {/* <td>May 2019</td> */}
-                          <td>{moneyFormat(lastPaymentTotal)}</td>
+                          <td>Initial Deposit</td>
+                          {/* <td>Immediate</td> */}
+                          <td>{moneyFormat(initialPayment)}</td>
                         </tr>
-                      )}
-                    </tbody>
+                        {noOfMonths > 0 &&
+                          [...Array(noOfMonths).keys()].map((value, index) => (
+                            <tr key={index}>
+                              <td>{numToOrdinal(index + 2)} Deposit</td>
+                              <td>
+                                {moneyFormat(
+                                  noOfMonths === index + 1 && lastPayment === 0
+                                    ? lastPaymentTotal
+                                    : periodicPayment
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                        {lastPayment > 0 && (
+                          <tr>
+                            <td>Last Deposit</td>
+                            {/* <td>May 2019</td> */}
+                            <td>{moneyFormat(lastPaymentTotal)}</td>
+                          </tr>
+                        )}
+                      </tbody>
+                    )}
                   </table>
                 </div>
               </td>

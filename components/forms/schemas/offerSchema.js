@@ -5,6 +5,7 @@ import {
   required,
   minDateValidation,
   optionalValidation,
+  numberValidation,
 } from './schema-helpers';
 
 export const sharedOfferSchema = {
@@ -24,8 +25,8 @@ export const offerLetterSchema = {
   initialPayment: positiveNumberValidation('Initial Payment'),
   initialPaymentDate: minDateValidation('Initial Payment Date', new Date()),
   handOverDate: minDateValidation('Completion Date', new Date()),
-  periodicPayment: positiveNumberValidation('Periodic Payment'),
-  paymentFrequency: required('Payment Frequency'),
+  periodicPayment: numberValidation('Periodic Payment'),
+  paymentFrequency: optionalValidation(required('Payment Frequency')),
   ...sharedOfferSchema,
 };
 
