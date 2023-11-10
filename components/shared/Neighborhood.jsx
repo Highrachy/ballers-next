@@ -222,7 +222,7 @@ export const NeighborhoodList = ({ property, setProperty, setToast }) => {
     <>
       <div className="property__neighborhood">
         {(!noNeighborhood || userIsVendor) && (
-          <h5 className="header-smaller mb-3 mt-5">Neighborhood</h5>
+          <h5 className="header-content">Neighborhood</h5>
         )}
         {NEIGHBORHOOD_STEPS.map(
           (step, index) =>

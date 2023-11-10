@@ -9,7 +9,7 @@ import {
   DisplayFormikState,
 } from 'components/forms/form-helper';
 import Button from 'components/forms/Button';
-import { Formik, Form } from 'formik';
+import { Formik, Form, useFormikContext } from 'formik';
 import {
   createSchema,
   addressSchema,
@@ -55,6 +55,10 @@ import { PropertyIcon } from 'components/utils/Icons';
 import { setQueryCache } from 'hooks/useQuery';
 import { refreshQuery } from 'hooks/useQuery';
 import { generateDefaultMilestones } from '@/utils/milestone-helper';
+import MDEditor from '@/components/forms/MDEditor';
+import { generatePropertyDescription } from '@/utils/property-helper';
+import Modal from '@/components/common/Modal';
+import DatePicker from '@/components/forms/DatePicker';
 
 const pageOptions = {
   key: 'property',
@@ -130,6 +134,8 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
 
         const payloadData = {
           ...values,
+          projectStartDate:
+            values?.projectStartDate?.date || values?.projectStartDate,
           mainImage:
             image ||
             property?.mainImage ||
@@ -150,15 +156,15 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
         const isNewProperty = !property?._id;
         const isMileStonePayment =
           payload?.pricingModel === PRICING_MODEL.Milestone;
-        const isEmptyMilestonePayment =
-          !payload?.milestonePayment || payload?.milestonePayment?.length === 0;
+        const isEmptyMilestonePayment = payload?.milestonePayment?.length === 0;
 
         if (
           (isNewProperty && isMileStonePayment) ||
           (!isNewProperty && isMileStonePayment && isEmptyMilestonePayment)
         ) {
           payload.milestonePayment = generateDefaultMilestones(
-            payload?.deliveryState
+            payload?.deliveryState,
+            payload?.projectStartDate
           );
         }
 
@@ -206,6 +212,7 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
           <Toast {...toast} />
           <PropertyInfoForm image={image} setImage={saveImage} {...props} />
           <PropertyAddress />
+          <PropertyDescription />
           <PropertyImage
             image={image}
             setImage={saveImage}
@@ -300,40 +307,26 @@ export const PropertyInfoForm = () => {
               />
             </div>
 
-            <Textarea
-              label="Description"
-              name="description"
-              placeholder="A detailed description of the property"
-            />
-
             <AutoComplete
               name="features"
               label="Features"
               suggestions={setAutoComplete(ALL_PROPERTY_FEATURES)}
             />
-
-            <Select
-              name="titleDocument"
-              optional
-              placeholder="Title Document"
-              label="Title Document"
-              options={valuesToOptions(TITLE_DOCUMENTS)}
-            />
           </div>
         </section>
       </Card>
 
-      <PropertyPriceForm />
+      <PropertyDetailsForm />
     </>
   );
 };
 
-const PropertyPriceForm = () => {
+const PropertyDetailsForm = () => {
   return (
     <Card className="card-container mt-5">
       <section className="row">
         <div className="col-md-10 px-4">
-          <h5 className="mb-4">Property Pricing / Units</h5>
+          <h5 className="mb-4">Property Details</h5>
           <div className="form-row">
             <InputFormat
               formGroupClassName="col-md-6"
@@ -351,6 +344,24 @@ const PropertyPriceForm = () => {
           </div>
 
           <div className="form-row">
+            <DatePicker
+              formGroupClassName="col-md-6"
+              label="Project Start Date"
+              helpText="The commencement date of this project"
+              name="projectStartDate"
+              placeholder="Start Date"
+            />
+
+            <Select
+              name="titleDocument"
+              optional
+              placeholder="Title Document"
+              label="Title Document"
+              formGroupClassName="col-md-6"
+              options={valuesToOptions(TITLE_DOCUMENTS)}
+            />
+          </div>
+          <div className="form-row">
             <Select
               placeholder="Select Pricing Model"
               formGroupClassName="col-md-6"
@@ -367,6 +378,84 @@ const PropertyPriceForm = () => {
             />
           </div>
         </div>
+      </section>
+    </Card>
+  );
+};
+
+const PropertyDescription = () => {
+  const { setFieldValue, values } = useFormikContext();
+  const showGenerateButton =
+    values?.name &&
+    values?.houseType &&
+    values?.address?.city &&
+    values?.bedrooms;
+
+  const [showGenerateDescriptionModal, setShowGenerateDescriptionModal] =
+    React.useState(false);
+
+  return (
+    <Card className="card-container mt-5">
+      <section className="row">
+        <div className="col-md-10 px-4">
+          <h5 className="mb-4">Property Description</h5>
+          <MDEditor
+            label="Description"
+            name="description"
+            placeholder="A detailed description of the property"
+          />
+
+          {showGenerateButton ? (
+            <Button
+              color="info-light"
+              className="btn-sm btn-wide"
+              onClick={() => setShowGenerateDescriptionModal(true)}
+            >
+              Autogenerate
+            </Button>
+          ) : (
+            <div className="text-muted text-sm mt-n2">
+              Please fill in the required fields to enable the auto generate a
+              description button
+            </div>
+          )}
+        </div>
+        <Modal
+          title="Autogenerate Description"
+          show={showGenerateDescriptionModal}
+          onHide={() => setShowGenerateDescriptionModal(false)}
+          size="md"
+          showFooter={false}
+        >
+          <section className="row">
+            <div className="col-md-12 my-3 px-5 text-center">
+              <p className="my-4 confirmation-text">
+                {values?.description ? (
+                  <div className="text-danger">
+                    Please be aware that proceeding will overwrite your existing
+                    property description.
+                  </div>
+                ) : (
+                  <>Are you sure you want to autogenerate the description?</>
+                )}
+              </p>
+              <Button
+                color="info"
+                className="mb-5"
+                onClick={() => {
+                  // Set the field value when the button is clicked
+                  setFieldValue(
+                    'description',
+                    generatePropertyDescription(values)
+                  );
+                  setShowGenerateDescriptionModal(false);
+                }}
+              >
+                Autogenerate Description
+              </Button>
+            </div>
+          </section>
+        </Modal>
       </section>
     </Card>
   );

@@ -12,7 +12,7 @@ import {
   getUserTitle,
   formatInDays,
 } from 'utils/helpers';
-import { getDate, isPastDate } from 'utils/date-helpers';
+import { getDate, getTinyDate, isPastDate } from 'utils/date-helpers';
 import Image, { OnlineImage } from './Image';
 import DirectorSignature from 'assets/img/placeholder/signature.png';
 import {
@@ -312,7 +312,11 @@ const OfferLetterTemplate = ({
             <tr>
               <td colSpan="2">
                 <div className="mb-3 mt-n4">
-                  {noOfMonths > 1 && <>Spread payment, see breakdown below; </>}
+                  {propertyInfo?.pricingModel === PRICING_MODEL.Milestone ? (
+                    <>Milestone Payment, see breakdown below:</>
+                  ) : (
+                    noOfMonths > 1 && <>Spread payment, see breakdown below; </>
+                  )}
                 </div>
                 <div className="table-responsive table-sm">
                   <table className="table table-bordered">
@@ -328,7 +332,17 @@ const OfferLetterTemplate = ({
                         {propertyInfo?.milestonePayment.map(
                           (milestone, index) => (
                             <tr key={index}>
-                              <td>{milestone.title} Deposit</td>
+                              <td>
+                                <span className="fw-bold">
+                                  Milestone {index + 1}: {milestone.title} -
+                                  &nbsp;
+                                  {milestone.percentage}%
+                                </span>
+                                <div className="text-md mt-1">
+                                  Due on &nbsp;
+                                  {getTinyDate(milestone.dueDate)}
+                                </div>
+                              </td>
                               <td>
                                 {moneyFormat(
                                   (milestone.percentage / 100) *

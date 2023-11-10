@@ -15,7 +15,12 @@ import {
 } from 'components/forms/schemas/enquirySchema';
 import { Card } from 'react-bootstrap';
 import DatePicker from 'components/forms/DatePicker';
-import { BASE_API_URL, PAYMENT_FREQUENCY, TITLES } from 'utils/constants';
+import {
+  BASE_API_URL,
+  PAYMENT_FREQUENCY,
+  PRICING_MODEL,
+  TITLES,
+} from 'utils/constants';
 import Address from 'components/utils/Address';
 import {
   createSchema,
@@ -111,22 +116,18 @@ const EnquiryForm = ({ id, setToast, property }) => {
         !values.address.street2 && delete values.address.street2;
         !values.address.otherName && delete values.address.otherName;
 
-        const firstMilestonePercentage =
-          property?.milestonePayment[0]?.percentage || 100;
+        const firstMilestone = property?.milestonePayment[0];
+
+        const firstMilestonePercentage = firstMilestone?.percentage || 100;
         const initialMilestoneInvestmentAmount =
           (firstMilestonePercentage / 100) * property?.price;
-        console.log(
-          'initialMilestoneInvestmentAmount',
-          initialMilestoneInvestmentAmount
-        );
 
-        // // build payload
         const payload = {
           ...values,
           investmentStartDate:
             values?.investmentStartDate?.date ||
             values?.investmentStartDate ||
-            new Date(),
+            firstMilestone?.dueDate,
           investmentFrequency: values?.investmentFrequency || -1,
           periodicInvestmentAmount: values?.periodicInvestmentAmount || 0,
           initialInvestmentAmount:

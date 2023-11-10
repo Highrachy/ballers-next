@@ -357,12 +357,10 @@ function getFirstLettersOrWord(inputString) {
     const firstLetters = words.map((word) => word[0]);
     return firstLetters.join('');
   } else {
-    // If there's only one word or no spaces
     if (inputString.length < 8) {
       return inputString;
     } else {
-      const randomLength = Math.floor(Math.random() * 3) + 3;
-      return inputString.slice(0, randomLength);
+      return inputString.slice(0, 5);
     }
   }
 }

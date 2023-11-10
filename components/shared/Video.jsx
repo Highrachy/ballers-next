@@ -229,7 +229,7 @@ export const VideosList = ({ property, setProperty, setToast }) => {
     <>
       <div className="property__floor-plans">
         {(!noVideos || userIsVendor) && (
-          <h5 className="header-smaller mb-3 mt-5">Videos</h5>
+          <h5 className="header-content">Videos</h5>
         )}
         {!noVideos && (
           <div className="row">

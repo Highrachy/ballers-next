@@ -11,8 +11,6 @@ import {
 export const sharedOfferSchema = {
   allocationInPercentage: validPercentage('Allocation'),
   expires: required('Offer Expires'),
-  title: stringValidation('Title Document'),
-  deliveryState: stringValidation('Delivery State'),
 };
 
 export const offerTemplateSchema = {

@@ -34,7 +34,10 @@ export const COLOR_STYLE = [
   'purple-light',
   'error',
   'warning',
+  'warning-light',
   'info',
+  'info-light',
+  'gray-light',
   'light',
   'dark',
 ];

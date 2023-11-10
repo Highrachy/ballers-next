@@ -154,7 +154,7 @@ export const AddPropertyUpdateImage = ({
             if (statusIsSuccessful(status)) {
               setToast({
                 type: 'success',
-                message: `Your image has been successfully added to propertyUpdate`,
+                message: `Your image has been successfully added to property Update`,
               });
               hideForm();
               setProperty(data.property);
@@ -297,22 +297,22 @@ export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
     <>
       <div className="property__floor-plans">
         {(!noPropertyUpdates || userIsVendor) && (
-          <h5 className="header-smaller mb-3 mt-5">Property Updates</h5>
+          <h5 className="header-content">Property Updates</h5>
         )}
         {!noPropertyUpdates &&
           property?.propertyUpdate?.map((propertyUpdate, index) => (
             <Card key={propertyUpdate._id} className="mb-3">
-              <div className="container propertyUpdate-container">
+              <div className="container property-updates-container">
                 <div className="row">
-                  <div className="col-md-2 propertyUpdate-date">
+                  <div className="col-md-2  property-updates-date">
                     {getTinyDate(propertyUpdate?.date)}
                     <br />
                   </div>
                   <div className="col-md-6">
-                    <h4 className="propertyUpdate-title">
+                    <h4 className=" property-updates-title">
                       {propertyUpdate?.title}
                     </h4>
-                    <p className="propertyUpdate-description">
+                    <p className="property-updates-description">
                       {propertyUpdate?.description}
                     </p>
                   </div>
@@ -323,7 +323,7 @@ export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
                         src={media?.url}
                         alt={media?.title}
                         name={media?.title}
-                        className="propertyUpdate-image"
+                        className=" property-updates-image"
                         responsiveImage={false}
                       />
                     ))}
@@ -338,7 +338,7 @@ export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
                       >
                         {showManageBar === index
                           ? 'Close Menu'
-                          : 'Manage PropertyUpdate'}
+                          : 'Manage Property Update'}
                       </div>
                     )}
                   </div>
@@ -422,7 +422,7 @@ export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
                 <section className="row">
                   <div className="col-md-12 my-3 text-center">
                     <p className="my-4 confirmation-text fw-bold">
-                      Are you sure you want to delete this PropertyUpdate?
+                      Are you sure you want to delete this Property Update?
                     </p>
                     <Button
                       loading={loading}

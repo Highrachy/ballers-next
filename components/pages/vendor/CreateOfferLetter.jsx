@@ -9,7 +9,9 @@ import {
   BASE_API_URL,
   OFFER_TEMPLATE_STATUS,
   PAYMENT_FREQUENCY,
+  PAYMENT_OPTION,
   PAYMENT_OPTIONS_BREAKDOWN,
+  PRICING_MODEL,
 } from 'utils/constants';
 import Toast, { useToast } from 'components/utils/Toast';
 import { getTokenFromStore } from 'utils/localStorage';
@@ -31,7 +33,7 @@ import {
 } from 'components/forms/schemas/offerSchema';
 import InputFormat from 'components/forms/InputFormat';
 import Input from 'components/forms/Input';
-import { addDays, addMonths, format } from 'date-fns';
+import { addDays, addMonths, addYears, format, parseISO } from 'date-fns';
 import Modal from 'components/common/Modal';
 import OfferLetterTemplate from 'components/utils/OfferLetterTemplate';
 import DatePicker from 'components/forms/DatePicker';
@@ -43,6 +45,7 @@ import Label from 'components/forms/Label';
 import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
 import { useCurrentRole } from 'hooks/useUser';
+import { getLastMilestoneDueDate } from '@/utils/milestone-helper';
 
 const CreateOfferLetter = ({ enquiry }) => {
   const defaultValue = {
@@ -53,10 +56,10 @@ const CreateOfferLetter = ({ enquiry }) => {
     periodicPayment: enquiry.periodicInvestmentAmount,
     paymentFrequency: enquiry.investmentFrequency,
     expires: '7',
-    title: enquiry.propertyInfo.titleDocument,
-    deliveryState:
-      'The property will be delivered as a finished unit inclusive of Wall painting, floor tiling, and POP ceilings, joinery, internal doors, electrical and mechanical fittings and fixtures as prescribed by the project drawings and specification documents.',
-    handOverDate: Date.now(),
+    handOverDate:
+      enquiry.propertyInfo?.pricingModel === PRICING_MODEL.Milestone
+        ? getLastMilestoneDueDate(enquiry.propertyInfo.milestonePayment)
+        : addYears(new Date(), 1),
     otherPayments: {
       agencyFee: 5,
       deedOfAssignmentExecution: 0,
@@ -95,6 +98,8 @@ const CreateOfferLetter = ({ enquiry }) => {
             setValue({
               ...value,
               ...filteredValues,
+              title: enquiry.propertyInfo.titleDocument,
+              deliveryState: enquiry.propertyInfo.deliveryState,
               additionalClause:
                 newValue?.additionalClause?.clauses ||
                 newValue?.additionalClause ||
@@ -134,10 +139,7 @@ const CreateOfferLetterForm = ({
         initialValues={{
           ...setInitialValues(offerLetterSchema, {
             ...value,
-            handOverDate: format(
-              new Date(value?.handOverDate),
-              "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-            ),
+            handOverDate: format(new Date(value?.handOverDate), 'yyyy-MM-dd'),
           }),
           otherPayments: setInitialValues(
             otherPaymentsSchema,
@@ -419,15 +421,6 @@ export const OfferLetterSharedForm = () => (
         tooltipText="The number of deposits to be made before prpoerty is allocated"
       />
     </div>
-
-    <Textarea label="Title Document" name="title" rows="2" />
-
-    <Textarea
-      label="Delivery State"
-      name="deliveryState"
-      rows="3"
-      tooltipText="The state the property would be delivered to the user"
-    />
   </>
 );
 
@@ -647,15 +640,18 @@ const SubmitOfferLetter = ({ enquiry, handleHideOfferLetter, value }) => {
   const [showSubmitOfferModal, setShowSubmitOfferModal] = React.useState(false);
 
   const submitOfferLetter = () => {
-    const handOverDate = addMonths(new Date(), noOfMonths);
+    console.log('Submitting Offer Letter');
+    console.log('value', value);
     const expires = addDays(new Date(), value.expires);
     const enquiryId = enquiry._id;
     const payload = {
       ...value,
       enquiryId,
       expires,
-      handOverDate,
-      paymentBreakdown: value.otherPayments.paymentBreakdown,
+      handOverDate: parseISO(value.handOverDate?.date || value.handOverDate),
+      paymentBreakdown:
+        value?.otherPayments?.paymentBreakdown ||
+        PAYMENT_OPTION.INITIAL_DEPOSIT, // todo: remove
     };
 
     console.log(payload);

@@ -29,6 +29,7 @@
 @import 'plugins/range';
 @import 'plugins/react-date-picker';
 @import 'plugins/react-phone-number2';
+@import 'react-markdown-editor-lite/lib/index.css';
 
 html {
   font-size: 0.8rem;
@@ -732,7 +733,7 @@ html {
   border-bottom: 1px dotted $gray-300;
 }
 
-.milestone {
+.property-updates {
   &-container {
     padding: 2rem;
     line-height: 2rem;

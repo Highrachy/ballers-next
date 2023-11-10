@@ -101,7 +101,15 @@
 }
 
 .header-smaller {
-  font-size: 100%;
+  font-size: 1.25rem;
+}
+
+.header-content {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $primary-300;
+  margin-top: 4rem;
+  margin-bottom: 1rem;
 }
 
 .text-muted svg {

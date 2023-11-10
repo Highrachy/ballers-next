@@ -22,6 +22,7 @@ import {
   FiBookOpen,
   FiX,
   FiCheck,
+  FiCheckCircle,
   FiDownload,
   FiClipboard,
   FiSearch,
@@ -117,6 +118,7 @@ export const CompanyInfoIcon = () => <Folder variant="Bulk" />;
 export const CopyToClipBoardIcon = () => <FiClipboard />;
 export const ClockIcon = () => <FiClock />;
 export const DeleteIcon = () => <FiTrash2 />;
+export const DeliveryStateIcon = () => <FiCheckCircle />;
 export const DownloadIcon = () => <FiDownload />;
 export const EntertainmentIcon = () => <BiCameraMovie />;
 export const ErrorIcon = () => <FaTimesCircle />;

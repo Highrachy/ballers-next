@@ -190,7 +190,7 @@ const EnquiryDetail = ({ enquiry, showOfferLetter, toast }) => (
         <td>{moneyFormatInNaira(enquiry.periodicInvestmentAmount)}</td>
       </tr>
     </CardTableSection>
-    <CardTableSection name="Admin Details">
+    <CardTableSection name="Additional Details">
       <tr>
         <td>
           <strong>Created At</strong>

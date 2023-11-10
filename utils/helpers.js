@@ -165,7 +165,7 @@ export const getGenderFromTitle = (title) => {
   return 'Sir/Ma';
 };
 
-export const getLocationFromAddress = (address) => {
+export const getLocationFromAddress = (address, hideFullStop = false) => {
   let output = '';
   if (address.street1) {
     output += address.street1.trim();
@@ -179,7 +179,7 @@ export const getLocationFromAddress = (address) => {
     }
 
     if (address.state) {
-      output += `, ${address.state.trim()}.`;
+      output += `, ${address.state.trim()}${hideFullStop ? '' : '.'}`;
     }
   }
   return output.replaceAll(',,', ',');

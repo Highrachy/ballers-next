@@ -21,5 +21,3 @@ export const addEnquirySchema = {
   investmentFrequency: required('Investment Frequency'),
   periodicInvestmentAmount: stringValidation('Periodic Investment Amount'),
 };
-
-// todays date for mongodb database

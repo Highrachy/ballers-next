@@ -8,6 +8,7 @@ import {
   optionalValidation,
   autocompleteValidation,
   percentageValidation,
+  requiredDate,
 } from './schema-helpers';
 
 export const newPropertySchema = {
@@ -22,6 +23,7 @@ export const newPropertySchema = {
   titleDocument: optionalValidation(required('Title Document')),
   features: optionalValidation(autocompleteValidation('Available for')),
   pricingModel: optionalValidation(required('Pricing Model')),
+  projectStartDate: requiredDate('Project Start Date'),
   deliveryState: optionalValidation(required('Delivery State')),
   // floorPlans: optionalValidation(required('Floor Plans')),
   // mapLocation: optionalValidation(required('Map Location')),
@@ -74,6 +76,7 @@ export const addVideoSchema = {
 
 export const updateMilestoneSchema = {
   title: required('Title'),
+  duration: positiveNumberValidation('Duration'),
   description: optionalValidation(required('Milestone Description')),
   percentage: percentageValidation('Percentage'),
 };

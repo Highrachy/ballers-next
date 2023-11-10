@@ -1,7 +1,8 @@
 .btn-primary,
 .btn-secondary,
 .btn-warning,
-.btn-success {
+.btn-success,
+.btn-info {
   color: white !important;
 }
 
@@ -9,7 +10,7 @@
 @each $name, $colors in $brand-colors {
   .btn-#{$name}-light {
     background-color: map-get($colors, '50') !important;
-    color: map-get($colors, '600') !important;
+    color: map-get($colors, '700') !important;
 
     &:hover {
       background-color: map-get($colors, '500') !important;
@@ -18,9 +19,13 @@
   }
 }
 
-.btn-warning-light {
-  color: $warning-800 !important;
-}
+// .btn-warning-light {
+//   color: $warning-800 !important;
+// }
+
+// .btn-success-light {
+//   color: $success-800 !important;
+// }
 
 .btn-xs {
   padding: 0.3rem 0.75rem;
@@ -81,10 +86,17 @@ a {
 }
 
 .show-more-button {
-  position: absolute;
-  left: 0;
-  bottom: 15;
   display: block;
+  font-weight: 500;
+  text-decoration: underline;
+  color: $secondary;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+
+  &.warning {
+    color: $warning-700;
+  }
 }
 
 .show-more-holder {

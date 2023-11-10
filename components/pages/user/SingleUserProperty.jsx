@@ -343,8 +343,8 @@ export const InvestigatePropertyButton = ({ property, setToast, vasQuery }) => {
       </Modal>
 
       <Button
-        color="none"
-        className="btn-wide btn-wide-sm btn-sm btn-outline-success"
+        color="success-light"
+        className="btn-wide btn-wide-sm btn-sm"
         onClick={setShowModalToTrue}
       >
         Investigate Property

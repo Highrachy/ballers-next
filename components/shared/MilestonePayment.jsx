@@ -22,28 +22,43 @@ import InputFormat from '../forms/InputFormat';
 import store from 'store2';
 import Select from '../forms/Select';
 import { dataToOptions, getError, statusIsSuccessful } from '@/utils/helpers';
-import { generateDefaultMilestones } from '@/utils/milestone-helper';
+import {
+  generateDefaultMilestones,
+  generateMilestoneDueDates,
+  getLastMilestoneDueDate,
+  getTotalMilestoneDuration,
+} from '@/utils/milestone-helper';
 import { BASE_API_URL } from '@/utils/constants';
 import Axios from 'axios';
 import { getTokenFromStore } from '@/utils/localStorage';
 import { refreshQuery, setQueryCache } from '@/hooks/useQuery';
+import Humanize from 'humanize-plus';
+import { getTinyDate } from '@/utils/date-helpers';
 
 export const storeMilestone = (
   updatedMilestonesCopy,
-  propertyId,
+  property,
   setProperty,
   setToast
 ) => {
+  const propertyId = property?._id;
+  const milestonePayment = generateMilestoneDueDates(
+    updatedMilestonesCopy,
+    property?.projectStartDate
+  );
+
   Axios({
     method: 'put',
     url: `${BASE_API_URL}/property/update`,
-    data: { id: propertyId, milestonePayment: updatedMilestonesCopy },
+    data: {
+      id: propertyId,
+      milestonePayment,
+    },
     headers: { Authorization: getTokenFromStore() },
   })
     .then(function (response) {
       const { status, data } = response;
       if (statusIsSuccessful(status)) {
-        console.log('data.property', data.property);
         setQueryCache(['property', propertyId], {
           property: data.property,
         });
@@ -139,12 +154,7 @@ export const MilestonePayment = ({
         100 - sumExcludingFirst
       ).toString();
 
-      storeMilestone(
-        updatedMilestonesCopy,
-        property?._id,
-        setProperty,
-        setToast
-      );
+      storeMilestone(updatedMilestonesCopy, property, setProperty, setToast);
       hideForm();
       setToast({
         type: 'success',
@@ -161,6 +171,7 @@ export const MilestonePayment = ({
     <Formik
       enableReinitialize={true}
       initialValues={setInitialValues(currentSchema, {
+        duration: 3,
         ...milestone,
       })}
       onSubmit={(values, actions) => handleUpdateMilestone(values)}
@@ -180,6 +191,14 @@ export const MilestonePayment = ({
                   name="percentage"
                 />
               )}
+
+              <InputFormat
+                label="Duration (In Months)"
+                formGroupClassName="mb-4"
+                suffix=" months"
+                prefix=""
+                name="duration"
+              />
 
               {!milestone?.key && (
                 <Select
@@ -207,13 +226,12 @@ export const MilestonePayment = ({
   );
 };
 
-export const AddMilestonePayment = ({
+export const ManageMilestonePayment = ({
   className,
   setToast,
   setProperty,
   property,
 }) => {
-  console.log('className', className);
   const [showAddMilestonesModal, setShowAddMilestonesModal] =
     React.useState(false);
   const [showResetMilestonesModal, setShowResetMilestonesModal] =
@@ -224,7 +242,7 @@ export const AddMilestonePayment = ({
         className="btn btn-secondary btn-xs btn-wide"
         onClick={() => setShowAddMilestonesModal(true)}
       >
-        + Add Milestone
+        Add Milestone
       </span>
       &nbsp;&nbsp;
       <span
@@ -256,8 +274,7 @@ export const AddMilestonePayment = ({
       >
         <section className="row">
           <div className="col-md-12 my-3 text-center">
-            <h3>Reset Milestone Payment</h3>
-            <p className="my-4 confirmation-text fw-bold">
+            <p className="my-4 mx-3 confirmation-text fw-bold">
               Are you sure you want to reset this Milestone Payment to the
               default Milestone for {property.deliveryState}?
             </p>
@@ -265,8 +282,11 @@ export const AddMilestonePayment = ({
               className="btn btn-info mb-5"
               onClick={() => {
                 storeMilestone(
-                  generateDefaultMilestones(property?.deliveryState),
-                  property?._id,
+                  generateDefaultMilestones(
+                    property?.deliveryState,
+                    property?.projectStartDate
+                  ),
+                  property,
                   setProperty,
                   setToast
                 );
@@ -283,7 +303,6 @@ export const AddMilestonePayment = ({
 };
 
 export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
-  console.log('property: ', property);
   const [showEditMilestoneModal, setShowEditMilestoneModal] = useState(false);
   const [showDeleteMilestoneModal, setShowDeleteMilestoneModal] =
     useState(false);
@@ -309,7 +328,7 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
         }
 
         updatedMilestones.splice(index, 1);
-        storeMilestone(updatedMilestones, property?._id, setProperty, setToast);
+        storeMilestone(updatedMilestones, property, setProperty, setToast);
       }
     }
     setToast({
@@ -321,12 +340,15 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
 
   const userIsVendor = useCurrentRole().isVendor;
   const milestones = property?.milestonePayment;
+  const totalMilestoneDuration = getTotalMilestoneDuration(milestones);
+  const lastMilestoneDate = getLastMilestoneDueDate(milestones);
+
   console.log('milestones', milestones);
 
   return (
     <>
       <div className="property__milestone-payments">
-        <h4 className="header-smaller mb-3 mt-5">Milestone Payments</h4>
+        <h4 className="header-content">Milestone Payments</h4>
 
         <Accordion>
           {milestones?.map((milestone, index) => (
@@ -341,12 +363,27 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
               </Card.Header>
               <Accordion.Collapse eventKey={index + 1}>
                 <>
-                  <Card.Body>{milestone.description}</Card.Body>
+                  <Card.Body>
+                    <div className="mt-n4">
+                      {milestone.description}
+
+                      <div className="fw-normal mt-2 text-md text-muted">
+                        <span className="me-3">
+                          Duration: {milestone.duration}{' '}
+                          {Humanize.pluralize(milestone.duration, 'month')}
+                        </span>{' '}
+                        |
+                        <span className="mx-3">
+                          Due Date: {getTinyDate(milestone.dueDate)}
+                        </span>
+                      </div>
+                    </div>
+                  </Card.Body>
 
                   {userIsVendor && (
-                    <div className="mt-2 ms-3 mb-3 text-danger">
+                    <div className="mt-2 ms-3 mb-4 text-muted">
                       <span
-                        className="text-link text-muted"
+                        className="btn btn-dark btn-xs me-2"
                         onClick={() => {
                           setMilestone({ ...milestone });
                           setShowEditMilestoneModal(true);
@@ -355,18 +392,15 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
                         Edit Milestone
                       </span>
                       {milestone.editable && (
-                        <>
-                          &nbsp;&nbsp;|&nbsp;&nbsp;
-                          <span
-                            className="text-link text-muted"
-                            onClick={() => {
-                              setMilestone({ ...milestone });
-                              setShowDeleteMilestoneModal(true);
-                            }}
-                          >
-                            Remove Milestone
-                          </span>
-                        </>
+                        <span
+                          className="btn btn-xs btn-danger-light"
+                          onClick={() => {
+                            setMilestone({ ...milestone });
+                            setShowDeleteMilestoneModal(true);
+                          }}
+                        >
+                          Remove Milestone
+                        </span>
                       )}
                     </div>
                   )}
@@ -414,12 +448,27 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
             </section>
           </Modal>
         </Accordion>
+        <div className="fw-bold me-3 text-lg mt-4 mb-3">
+          {userIsVendor ? (
+            <>
+              <span className="text-primary">Total Milestone Duration: </span>
+              <span className="text-muted">
+                {totalMilestoneDuration} months (due on {lastMilestoneDate})
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="text-primary">Delivery Date: </span>
+              <span className="text-secondary">{lastMilestoneDate}</span>
+            </>
+          )}
+        </div>
       </div>
 
       {userIsVendor && (
-        <div className="row mt-5">
+        <div className="row mt-3">
           <div className="col-12">
-            <AddMilestonePayment
+            <ManageMilestonePayment
               className="btn btn-secondary btn-xs btn-wide"
               property={property}
               setToast={setToast}

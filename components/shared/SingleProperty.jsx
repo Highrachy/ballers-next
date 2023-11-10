@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap';
 import Map from 'components/common/Map';
 import {
   PRICING_MODEL,
+  PRICING_MODEL_DESC,
   PROPERTY_VIDEO_STATUS,
   USER_TYPES,
 } from 'utils/constants';
@@ -12,7 +13,15 @@ import { moneyFormatInNaira, getLocationFromAddress } from 'utils/helpers';
 import Image, { OnlineImage } from 'components/utils/Image';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property.png';
 import Link from 'next/link';
-import { BathIcon, MapPinIcon, VendorIcon } from 'components/utils/Icons';
+import {
+  BathIcon,
+  DeliveryStateIcon,
+  FileIcon,
+  MapPinIcon,
+  TransactionIcon,
+  VendorIcon,
+  VisitationIcon,
+} from 'components/utils/Icons';
 import { ToiletIcon } from 'components/utils/Icons';
 import { BedIcon } from 'components/utils/Icons';
 import Humanize from 'humanize-plus';
@@ -65,6 +74,8 @@ import { BiGitCompare } from 'react-icons/bi';
 import WelcomeHero from '../common/WelcomeHero';
 import { AddPropertyUpdates, PropertyUpdatesList } from './PropertyUpdate';
 import { MilestonePaymentList } from './MilestonePayment';
+import { FiCheckCircle, FiFileText, FiHome } from 'react-icons/fi';
+import ReactMarkdown from 'react-markdown';
 
 const pageOptions = {
   key: 'property',
@@ -746,38 +757,111 @@ export const PropertyDescription = ({
 
   const { asPath } = useRouter();
 
+  const propertyDetails = [
+    {
+      title: 'Property Type',
+      value: property?.houseType,
+      Icon: PropertyIcon,
+    },
+    {
+      title: 'Bedroom',
+      value: `${property.bedrooms} ${Humanize.pluralize(
+        property.bedrooms,
+        'bed'
+      )}`,
+      Icon: BedIcon,
+    },
+    {
+      title: 'Bathrooms',
+      value: `${property.bathrooms} ${Humanize.pluralize(
+        property.bathrooms,
+        'bath'
+      )}`,
+      Icon: BathIcon,
+    },
+    {
+      title: 'Toilets',
+      value: `${property.toilets} ${Humanize.pluralize(
+        property.toilets,
+        'toilet'
+      )}`,
+      Icon: ToiletIcon,
+    },
+    {
+      title: 'Title Document',
+      value: property?.titleDocument || 'No Title Document',
+      Icon: FileIcon,
+    },
+    {
+      title: 'Available Units',
+      value: `${property.availableUnits} ${Humanize.pluralize(
+        property.availableUnits,
+        'unit'
+      )}`,
+      Icon: AssignedPropertyIcon,
+    },
+    {
+      title: 'Project Start Date',
+      value: property?.projectStartDate
+        ? getTinyDate(property?.projectStartDate)
+        : null || 'Not Specified',
+      Icon: VisitationIcon,
+    },
+    {
+      title: 'Delivery State',
+      value: property?.deliveryState || 'Finished State',
+      Icon: DeliveryStateIcon,
+    },
+    {
+      title: 'Price',
+      value: moneyFormatInNaira(property?.price),
+      Icon: TransactionIcon,
+    },
+    {
+      title: 'Pricing Model',
+      value: property?.pricingModel
+        ? PRICING_MODEL_DESC[property?.pricingModel]
+        : property?.pricingModel || 'Timeline',
+      Icon: TransactionIcon,
+    },
+  ];
+
   return (
     <>
-      <h5 className="mt-3 header-smaller">About Property</h5>
+      <h5 className="mt-3 header-content">About Property</h5>
 
       <div className="position-relative">
-        {hideSomePropertyDescription
-          ? Humanize.truncate(property.description, DESCRIPTION_LENGTH, '...')
-          : property.description}
+        <ReactMarkdown>
+          {hideSomePropertyDescription
+            ? Humanize.truncate(property.description, DESCRIPTION_LENGTH, '...')
+            : property.description}
+        </ReactMarkdown>
         {hideSomePropertyDescription && (
           <>
             <div className="show-more-holder" />
-            <button
-              className="btn btn-xs btn-dark btn-wide show-more-button"
+            <span
+              className="show-more-button"
               onClick={() => setShowDescription(true)}
             >
               Show All
-            </button>
+            </span>
           </>
         )}
       </div>
-      <p className="mt-5 text-gray">
-        Title Document:{' '}
-        <span className="fw-bold me-6">
-          {property?.titleDocument || 'No Title Document'}
-        </span>
-        &nbsp; Delivery State:
-        <span className="fw-bold">
-          {property?.deliveryState || 'Finished State'}
-        </span>
-      </p>
 
-      <h5 className="mt-5 header-smaller">Features</h5>
+      <h5 className="header-content">Property Details</h5>
+      <ul className="list-unstyled row lh-2">
+        {propertyDetails.map(({ title, value, Icon }, index) => (
+          <PropertyDetailsList
+            key={index}
+            title={title}
+            value={value}
+            Icon={Icon}
+          />
+        ))}
+      </ul>
+
+      <h5 className="header-content">Features</h5>
       <ul className="list-unstyled row lh-2">
         {property.features?.map((feature, index) => (
           <li className="col-sm-6" key={index}>
@@ -801,12 +885,12 @@ export const PropertyDescription = ({
                 the property.
               </li>
 
+              <li>
+                When you find a property of your interest, make sure you ask
+                appropriate questions before accepting your offer.
+              </li>
               {showSafetyTips && (
                 <>
-                  <li>
-                    When you find a property of your interest, make sure you ask
-                    appropriate questions before accepting your offer.
-                  </li>
                   <li>
                     All meetings with agents should be done in open locations.
                   </li>
@@ -819,12 +903,12 @@ export const PropertyDescription = ({
               )}
 
               {!showSafetyTips && (
-                <button
-                  className="btn btn-xs btn-wide btn-warning bg-warning-800 mt-2 mb-0 fw-bold"
+                <span
+                  className="show-more-button warning"
                   onClick={() => setShowSafetyTips(true)}
                 >
                   Show All
-                </button>
+                </span>
               )}
             </ol>
           </div>
@@ -846,6 +930,13 @@ export const PropertyDescription = ({
     </>
   );
 };
+
+export const PropertyDetailsList = ({ title, Icon, value }) => (
+  <li className="col-sm-6 mt-2">
+    <span className="text-primary fw-bold me-2">{title}:</span>
+    <span className="">{value}</span>
+  </li>
+);
 
 export const ComparePropertyButton = ({ property }) => (
   <Link href={`/compare-properties/${property?.slug}`} passHref>
