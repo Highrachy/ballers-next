@@ -135,14 +135,22 @@ export const setInitialValues = (
   keepInitial = false
 ) => {
   const values = {};
-  Object.keys(schema).forEach((key) => {
-    if (initialValues?.[key] || initialValues?.[key] === 0) {
-      values[key] = initialValues[key];
+
+  for (const key in schema) {
+    const hasInitialValue = initialValues?.hasOwnProperty(key);
+    const initialValue = initialValues?.[key];
+
+    if (initialValue || initialValue === 0) {
+      values[key] = initialValue;
     } else {
-      values[key] =
-        initialValues?.[key] !== undefined ? initialValues?.[key] : '';
+      values[key] = keepInitial
+        ? schema[key]
+        : hasInitialValue
+        ? initialValue
+        : '';
     }
-  });
+  }
+
   return values;
 };
 

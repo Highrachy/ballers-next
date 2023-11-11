@@ -1,6 +1,6 @@
 import { addMonths, format, isValid, parseISO } from 'date-fns';
-import { PROPERTY_DELIVERY_STATE } from './constants';
-import { update } from 'lodash';
+import { PRICING_MODEL, PROPERTY_DELIVERY_STATE } from './constants';
+import { property, update } from 'lodash';
 import { getTinyDate } from './date-helpers';
 
 const DEFAULT_MILESTONES = {
@@ -143,3 +143,6 @@ export const getLastMilestoneDueDate = (milestones) => {
 
   return null;
 };
+
+export const isMilestonePayment = (property) =>
+  property?.pricingModel === PRICING_MODEL.Milestone;

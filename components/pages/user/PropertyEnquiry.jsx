@@ -46,6 +46,7 @@ import {
   PropertyImage,
 } from '@/components/shared/SingleProperty';
 import WelcomeHero from '@/components/common/WelcomeHero';
+import { isMilestonePayment } from '@/utils/milestone-helper';
 
 const pageOptions = {
   key: 'property',
@@ -95,7 +96,7 @@ const PropertyEnquiry = ({ id }) => {
 const EnquiryForm = ({ id, setToast, property }) => {
   const router = useRouter();
   const { userState } = React.useContext(UserContext);
-  const isMilestonePayment = property?.pricingModel === PRICING_MODEL.Milestone;
+  const isMilestonePayment = isMilestonePayment(property);
   const currentSchema = isMilestonePayment
     ? addMilestoneEnquirySchema
     : addEnquirySchema;

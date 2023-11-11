@@ -513,7 +513,7 @@ $grid-breakpoints: (
 
 // $border-style: solid !default;
 // $border-color: $gray-300 !default;
-// $border-color-translucent: rgba($black, 0.175) !default;
+$border-color-translucent: $gray-300;
 // // scss-docs-end border-variables
 
 // scss-docs-start border-radius-variables

@@ -76,6 +76,7 @@ import { AddPropertyUpdates, PropertyUpdatesList } from './PropertyUpdate';
 import { MilestonePaymentList } from './MilestonePayment';
 import { FiCheckCircle, FiFileText, FiHome } from 'react-icons/fi';
 import ReactMarkdown from 'react-markdown';
+import { isMilestonePayment } from '@/utils/milestone-helper';
 
 const pageOptions = {
   key: 'property',
@@ -193,7 +194,7 @@ export const OwnedPropertyCard = ({
           setProperty={setProperty}
         /> */}
 
-        {property?.pricingModel === PRICING_MODEL.Milestone && (
+        {isMilestonePayment(property) && (
           <MilestonePaymentList
             property={property}
             setToast={setToast}

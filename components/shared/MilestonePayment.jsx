@@ -343,8 +343,6 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
   const totalMilestoneDuration = getTotalMilestoneDuration(milestones);
   const lastMilestoneDate = getLastMilestoneDueDate(milestones);
 
-  console.log('milestones', milestones);
-
   return (
     <>
       <div className="property__milestone-payments">

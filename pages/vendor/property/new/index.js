@@ -154,13 +154,12 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
           : payloadData;
 
         const isNewProperty = !property?._id;
-        const isMileStonePayment =
-          payload?.pricingModel === PRICING_MODEL.Milestone;
+        const isMilestonePayment = isMilestonePayment(payload);
         const isEmptyMilestonePayment = payload?.milestonePayment?.length === 0;
 
         if (
-          (isNewProperty && isMileStonePayment) ||
-          (!isNewProperty && isMileStonePayment && isEmptyMilestonePayment)
+          (isNewProperty && isMilestonePayment) ||
+          (!isNewProperty && isMilestonePayment && isEmptyMilestonePayment)
         ) {
           payload.milestonePayment = generateDefaultMilestones(
             payload?.deliveryState,

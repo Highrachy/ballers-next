@@ -17,6 +17,11 @@
       color: $white !important;
     }
   }
+
+  .bg-#{$name}-light {
+    background-color: map-get($colors, '50') !important;
+    color: map-get($colors, '600') !important;
+  }
 }
 
 // .btn-warning-light {

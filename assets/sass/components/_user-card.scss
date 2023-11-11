@@ -47,3 +47,34 @@
   margin-right: 5px;
   margin-bottom: 1px;
 }
+
+.data-list {
+  padding: 0;
+  margin: 0;
+
+  .data-item {
+    position: relative;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    &:not(:last-child) {
+      border-bottom: 1px solid $gray-300;
+    }
+  }
+  .data-col {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  .data-label {
+    width: 50%;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+    color: $primary-500;
+  }
+
+  .data-value {
+    color: $primary-300;
+  }
+}

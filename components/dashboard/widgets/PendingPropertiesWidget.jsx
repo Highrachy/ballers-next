@@ -30,6 +30,7 @@ const PendingPropertiesWidget = ({ result, role = 'vendor' }) => {
             value={moneyFormatInNaira(property?.price)}
             statusColor={statusColor}
             statusName={statusName}
+            href={`/${role}/properties/${property?._id}`}
           />
         );
       })}

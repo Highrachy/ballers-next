@@ -321,6 +321,7 @@ const EnquiriesAndVisitations = ({ result }) => {
                 title={fullName}
                 subtitle={property.name}
                 value={moneyFormatInNaira(enquiry?.initialInvestmentAmount)}
+                href={`/vendor/enquiries/${enquiry?._id}`}
                 {...getDateStatus(enquiry?.createdAt)}
               />
             );
@@ -340,6 +341,7 @@ const EnquiriesAndVisitations = ({ result }) => {
                 title={visitation.visitorName}
                 subtitle={property.name}
                 value={getDate(visitation?.visitDate)}
+                href={`/vendor/scheduled-visits`}
                 {...getDateStatus(visitation?.visitDate)}
               />
             );

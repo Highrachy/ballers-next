@@ -19,7 +19,6 @@ import Button from 'components/forms/Button';
 import { Formik, Form } from 'formik';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
 import Select from 'components/forms/Select';
-import Textarea from 'components/forms/Textarea';
 import {
   flattenErrorMessages,
   generateNumOptions,
@@ -37,7 +36,7 @@ import { addDays, addMonths, addYears, format, parseISO } from 'date-fns';
 import Modal from 'components/common/Modal';
 import OfferLetterTemplate from 'components/utils/OfferLetterTemplate';
 import DatePicker from 'components/forms/DatePicker';
-import { ErrorIcon } from 'components/utils/Icons';
+import { ErrorIcon, OfferIcon } from 'components/utils/Icons';
 import { PlusIcon } from 'components/utils/Icons';
 import { CloseIcon } from 'components/utils/Icons';
 import { LinkSeparator } from 'components/common/Helpers';
@@ -45,21 +44,31 @@ import Label from 'components/forms/Label';
 import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
 import { useCurrentRole } from 'hooks/useUser';
-import { getLastMilestoneDueDate } from '@/utils/milestone-helper';
+import {
+  getLastMilestoneDueDate,
+  isMilestonePayment,
+} from '@/utils/milestone-helper';
+import { ContentLoader } from '@/components/utils/LoadingItems';
+import WelcomeHero from '@/components/common/WelcomeHero';
+import BackendPage from '@/components/layout/BackendPage';
+import { EnquiryHeader } from '@/components/shared/SingleEnquiry';
 
-const CreateOfferLetter = ({ enquiry }) => {
+const pageOptions = {
+  key: 'enquiry',
+  pageName: 'Create Offer Letter',
+};
+
+const CreateOfferLetter = ({ id }) => {
+  const [toast, setToast] = useToast();
+  const [enquiryQuery, enquiry = {}] = useGetQuery({
+    key: pageOptions.key,
+    name: [pageOptions.key, id],
+    setToast,
+    endpoint: API_ENDPOINT.getOneEnquiry(id),
+    refresh: true,
+  });
+
   const defaultValue = {
-    propertySellingPrice: enquiry.propertyInfo.price,
-    allocationInPercentage: 100,
-    initialPayment: enquiry.initialInvestmentAmount,
-    initialPaymentDate: enquiry.investmentStartDate,
-    periodicPayment: enquiry.periodicInvestmentAmount,
-    paymentFrequency: enquiry.investmentFrequency,
-    expires: '7',
-    handOverDate:
-      enquiry.propertyInfo?.pricingModel === PRICING_MODEL.Milestone
-        ? getLastMilestoneDueDate(enquiry.propertyInfo.milestonePayment)
-        : addYears(new Date(), 1),
     otherPayments: {
       agencyFee: 5,
       deedOfAssignmentExecution: 0,
@@ -82,40 +91,48 @@ const CreateOfferLetter = ({ enquiry }) => {
   const [showOfferLetter, setShowOfferLetter] = React.useState(false);
 
   return (
-    <>
-      {showOfferLetter ? (
-        <SubmitOfferLetter
-          enquiry={enquiry}
-          handleHideOfferLetter={() => setShowOfferLetter(false)}
-          value={value}
-        />
-      ) : (
-        <CreateOfferLetterForm
-          enquiry={enquiry}
-          handleShowOfferLetter={() => setShowOfferLetter(true)}
-          handleValue={(newValue) => {
-            const filteredValues = setInitialValues(value, newValue, true);
-            setValue({
-              ...value,
-              ...filteredValues,
-              title: enquiry.propertyInfo.titleDocument,
-              deliveryState: enquiry.propertyInfo.deliveryState,
-              additionalClause:
-                newValue?.additionalClause?.clauses ||
-                newValue?.additionalClause ||
-                [],
-            });
-          }}
-          value={value}
-        />
-      )}
-    </>
+    <BackendPage>
+      <WelcomeHero
+        title="Create Offer Letter"
+        subtitle="View enquiries and create offer letters for applicants."
+      />
+      <ContentLoader
+        hasContent={!!enquiry}
+        Icon={<OfferIcon />}
+        query={enquiryQuery}
+        name={pageOptions.pageName}
+        toast={toast}
+      >
+        <>
+          {showOfferLetter ? (
+            <SubmitOfferLetter
+              enquiry={enquiry}
+              handleHideOfferLetter={() => setShowOfferLetter(false)}
+              value={value}
+            />
+          ) : (
+            <>
+              <div className="container-fluid mt-5">
+                <EnquiryHeader enquiry={enquiry} />
+              </div>
+              <CreateOfferLetterForm
+                enquiry={enquiry}
+                handleShowOfferLetter={() => setShowOfferLetter(true)}
+                setValue={setValue}
+                value={value}
+              />
+            </>
+          )}
+        </>
+      </ContentLoader>
+    </BackendPage>
   );
 };
 
 const CreateOfferLetterForm = ({
+  enquiry,
   handleShowOfferLetter,
-  handleValue,
+  setValue,
   value,
 }) => {
   const [toast, setToast] = useToast();
@@ -125,12 +142,22 @@ const CreateOfferLetterForm = ({
   const [showOtherTermsForm, setShowOtherTermsForm] = React.useState(false);
   const [showAddMoreTermsForm, setShowAddMoreTermsForm] = React.useState(false);
 
-  console.log(
-    `value`,
-    value,
-    'test',
-    format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-  );
+  const handOverDate = isMilestonePayment(enquiry.propertyInfo)
+    ? getLastMilestoneDueDate(enquiry.propertyInfo.milestonePayment)
+    : addYears(new Date(), 1);
+
+  const initialOfferValues = {
+    propertySellingPrice: enquiry?.propertyInfo?.price,
+    allocationInPercentage: 100,
+    initialPayment: enquiry.initialInvestmentAmount,
+    initialPaymentDate: enquiry.investmentStartDate,
+    periodicPayment: enquiry.periodicInvestmentAmount,
+    paymentFrequency: enquiry.investmentFrequency,
+    expires: '7',
+    handOverDate: format(new Date(handOverDate), 'yyyy-MM-dd'),
+  };
+
+  const isMilestonePaymentModel = isMilestonePayment(enquiry.propertyInfo);
 
   return (
     <div className="container-fluid">
@@ -138,8 +165,7 @@ const CreateOfferLetterForm = ({
         enableReinitialize={true}
         initialValues={{
           ...setInitialValues(offerLetterSchema, {
-            ...value,
-            handOverDate: format(new Date(value?.handOverDate), 'yyyy-MM-dd'),
+            ...initialOfferValues,
           }),
           otherPayments: setInitialValues(
             otherPaymentsSchema,
@@ -147,18 +173,27 @@ const CreateOfferLetterForm = ({
           ),
           otherTerms: setInitialValues(otherTermsSchema, value?.otherTerms),
         }}
-        onSubmit={(values) => {
+        onSubmit={(submittedValues) => {
           const clauses = additionalClause.filter((clause) => clause !== '');
-          handleValue({
-            ...values,
-            additionalClause:
-              clauses.length > 0 ? clauses : value?.additionalClause,
+          const payload = {
+            ...submittedValues,
+            title: enquiry.propertyInfo.titleDocument,
+            deliveryState: enquiry.propertyInfo.deliveryState,
+            additionalClause: clauses.length > 0 ? clauses : [],
             initialPaymentDate:
-              values.initialPaymentDate?.date ||
-              values?.initialPaymentDate ||
+              submittedValues.initialPaymentDate?.date ||
+              submittedValues?.initialPaymentDate ||
               value?.initialPaymentDate,
-            handOverDate: values.handOverDate?.date || values?.handOverDate,
-          });
+            handOverDate:
+              submittedValues.handOverDate?.date ||
+              submittedValues?.handOverDate,
+          };
+
+          if (isMilestonePaymentModel) {
+            payload.paymentFrequency = enquiry.investmentFrequency;
+            payload.periodicPayment = enquiry.periodicInvestmentAmount;
+          }
+          setValue(payload);
           handleShowOfferLetter();
         }}
         validationSchema={createSchema({
@@ -179,7 +214,7 @@ const CreateOfferLetterForm = ({
               /> */}
 
               <OfferFormContainer title="Create Offer Letter">
-                <OfferLetterForm />
+                <OfferLetterForm enquiry={enquiry} />
               </OfferFormContainer>
 
               {showOtherPaymentsForm && (
@@ -342,14 +377,14 @@ export const OfferFormContainer = ({ title, children }) => (
   <Card className="mt-4">
     <section className="row">
       <div className="col-md-10 p-5">
-        <h5>{title}</h5>
+        <h4 className="mb-3">{title}</h4>
         {children}
       </div>
     </section>
   </Card>
 );
 
-const OfferLetterForm = () => {
+const OfferLetterForm = ({ enquiry }) => {
   return (
     <>
       <div className="form-row">
@@ -380,21 +415,23 @@ const OfferLetterForm = () => {
           minDate={new Date()}
         />
       </div>
-      <div className="form-row">
-        <InputFormat
-          formGroupClassName="col-md-6"
-          label="Periodic Payment"
-          name="periodicPayment"
-          placeholder="Periodic Payment"
-        />
-        <Select
-          formGroupClassName="col-md-6"
-          label="Payment Frequency"
-          name="paymentFrequency"
-          placeholder="Payment Frequency"
-          options={objectToOptions(PAYMENT_FREQUENCY, null, true)}
-        />
-      </div>
+      {!isMilestonePayment(enquiry?.propertyInfo) && (
+        <div className="form-row">
+          <InputFormat
+            formGroupClassName="col-md-6"
+            label="Periodic Payment"
+            name="periodicPayment"
+            placeholder="Periodic Payment"
+          />
+          <Select
+            formGroupClassName="col-md-6"
+            label="Payment Frequency"
+            name="paymentFrequency"
+            placeholder="Payment Frequency"
+            options={objectToOptions(PAYMENT_FREQUENCY, null, true)}
+          />
+        </div>
+      )}
       <OfferLetterSharedForm />
     </>
   );

@@ -20,9 +20,9 @@ import {
   OFFER_STATUS,
   PAYMENT_OPTION,
   PAYMENT_OPTIONS_BREAKDOWN,
-  PRICING_MODEL,
 } from 'utils/constants';
 import { useCurrentRole } from 'hooks/useUser';
+import { isMilestonePayment } from '@/utils/milestone-helper';
 
 const OfferLetterTemplate = ({
   children,
@@ -111,8 +111,7 @@ const OfferLetterTemplate = ({
   const isUser = useCurrentRole().isUser;
   const additionalClauses =
     offerInfo?.additionalClause?.clauses || offerInfo?.additionalClause;
-  const isMilestonePayment =
-    propertyInfo?.pricingModel === PRICING_MODEL.Milestone;
+  const isMilestonePaymentModel = isMilestonePayment(propertyInfo);
 
   return (
     <Card className="mt-4 p-5 offer-letter-template">
@@ -312,7 +311,7 @@ const OfferLetterTemplate = ({
             <tr>
               <td colSpan="2">
                 <div className="mb-3 mt-n4">
-                  {propertyInfo?.pricingModel === PRICING_MODEL.Milestone ? (
+                  {isMilestonePayment(propertyInfo) ? (
                     <>Milestone Payment, see breakdown below:</>
                   ) : (
                     noOfMonths > 1 && <>Spread payment, see breakdown below; </>
@@ -327,7 +326,7 @@ const OfferLetterTemplate = ({
                         <th>SUM DUE (N)</th>
                       </tr>
                     </thead>
-                    {isMilestonePayment ? (
+                    {isMilestonePaymentModel ? (
                       <tbody>
                         {propertyInfo?.milestonePayment.map(
                           (milestone, index) => (

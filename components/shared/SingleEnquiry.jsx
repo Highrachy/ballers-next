@@ -2,16 +2,17 @@ import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import Toast, { useToast } from 'components/utils/Toast';
 import { moneyFormatInNaira, getFormattedAddress } from 'utils/helpers';
-import { getDateTime, getShortDate } from 'utils/date-helpers';
+import { getShortDate, getTinyDate } from 'utils/date-helpers';
 import { MessageIcon } from 'components/utils/Icons';
 import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
 import { ContentLoader } from 'components/utils/LoadingItems';
-import CardTableSection from 'components/common/CardTableSection';
 import { useCurrentRole } from 'hooks/useUser';
 import { PAYMENT_FREQUENCY } from 'utils/constants';
 import Humanize from 'humanize-plus';
-import CreateOfferLetter from '../pages/vendor/CreateOfferLetter';
+import WelcomeHero from '../common/WelcomeHero';
+import DataList, { DataItem } from '../common/Datalist';
+import Button from '../forms/Button';
 
 const pageOptions = {
   key: 'enquiry',
@@ -20,7 +21,6 @@ const pageOptions = {
 
 const SingleEnquiry = ({ id }) => {
   const [toast, setToast] = useToast();
-  const [showEnquiry, setShowEnquiry] = React.useState(true);
   const [enquiryQuery, enquiry] = useGetQuery({
     key: pageOptions.key,
     name: [pageOptions.key, id],
@@ -31,6 +31,10 @@ const SingleEnquiry = ({ id }) => {
 
   return (
     <BackendPage>
+      <WelcomeHero
+        title="Single Enquiry"
+        subtitle="View enquiries and create offer letters for applicants."
+      />
       <ContentLoader
         hasContent={!!enquiry}
         Icon={<MessageIcon />}
@@ -38,182 +42,157 @@ const SingleEnquiry = ({ id }) => {
         name={pageOptions.pageName}
         toast={toast}
       >
-        {showEnquiry ? (
-          <EnquiryDetail
-            enquiry={enquiry}
-            toast={toast}
-            showOfferLetter={() => setShowEnquiry(false)}
-          />
-        ) : (
-          <CreateOfferLetter enquiry={enquiry} />
-        )}
+        <NewEnquiry enquiry={enquiry} toast={toast} />
       </ContentLoader>
     </BackendPage>
   );
 };
 
-const EnquiryDetail = ({ enquiry, showOfferLetter, toast }) => (
+const NewEnquiry = ({ enquiry, showOfferLetter, toast }) => (
   <div className="container-fluid">
-    <Toast {...toast} />
-    <div className="mt-5 mb-3">
-      <h3>
-        {enquiry.title} {enquiry.firstName} Enquiry Form
-      </h3>
+    <div className="row mt-5">
+      <div className="col-lg-8">
+        <EnquiryHeader enquiry={enquiry} />
+      </div>
+      <div className="col-lg-4 text-end">
+        <CreateOfferLetterButton enquiry={enquiry} />
+      </div>
     </div>
-    <CardTableSection name="Client Details">
-      <tr>
-        <td>
-          <strong>Name</strong>
-        </td>
-        <td>
-          {enquiry.title} {enquiry.firstName} {enquiry.lastName}{' '}
-          {enquiry.otherName}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Email</strong>
-        </td>
-        <td>{enquiry.email}</td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Phone</strong>
-        </td>
-        <td>{enquiry.phone}</td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Occupation</strong>
-        </td>
-        <td>{enquiry.occupation}</td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Address</strong>
-        </td>
-        <td>{getFormattedAddress(enquiry.address)}</td>
-      </tr>
-    </CardTableSection>
-    <CardTableSection name="Name on Title Document">
-      <tr>
-        <td>
-          <h5 className="mt-3">{enquiry.nameOnTitleDocument}</h5>
-        </td>
-      </tr>
-    </CardTableSection>
-    <CardTableSection name="Property details">
-      <tr>
-        <td>
-          <strong>Property Name</strong>
-        </td>
-        <td>{enquiry.propertyInfo.name}</td>
-      </tr>
-      <tr>
-        <td>
-          <strong>House Type</strong>
-        </td>
-        <td>{enquiry.propertyInfo.houseType}</td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Price</strong>
-        </td>
-        <td>{moneyFormatInNaira(enquiry.propertyInfo.price)}</td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Units</strong>
-        </td>
-        <td>
-          {enquiry.propertyInfo.units}{' '}
-          {Humanize.pluralize(enquiry.propertyInfo.units, 'unit')}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Bedrooms</strong>
-        </td>
-        <td>
-          {enquiry.propertyInfo.bedrooms}{' '}
-          {Humanize.pluralize(enquiry.propertyInfo.bedrooms, 'bedroom')}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Bathrooms</strong>
-        </td>
-        <td>
-          {enquiry.propertyInfo.bathrooms}{' '}
-          {Humanize.pluralize(enquiry.propertyInfo.bathrooms, 'bathrooms')}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Toilets</strong>
-        </td>
-        <td>
-          {enquiry.propertyInfo.toilets}{' '}
-          {Humanize.pluralize(enquiry.propertyInfo.toilets, 'toilet')}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Address</strong>
-        </td>
-        <td>{getFormattedAddress(enquiry.propertyInfo.address)}</td>
-      </tr>
-    </CardTableSection>
-    <CardTableSection name="Investment details">
-      <tr>
-        <td>
-          <strong>Initial Investment Amount</strong>
-        </td>
-        <td>{moneyFormatInNaira(enquiry.initialInvestmentAmount)}</td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Investment Frequency</strong>
-        </td>
-        <td>{PAYMENT_FREQUENCY[enquiry.investmentFrequency]} </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Investment Start Date</strong>
-        </td>
-        <td>{getShortDate(enquiry.investmentStartDate)}</td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Periodic Investment Amount</strong>
-        </td>
-        <td>{moneyFormatInNaira(enquiry.periodicInvestmentAmount)}</td>
-      </tr>
-    </CardTableSection>
-    <CardTableSection name="Additional Details">
-      <tr>
-        <td>
-          <strong>Created At</strong>
-        </td>
-        <td>{getDateTime(enquiry.createdAt)}</td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Updated At</strong>
-        </td>
-        <td>{getDateTime(enquiry.updatedAt)}</td>
-      </tr>
-    </CardTableSection>
 
-    {useCurrentRole().isVendor && !enquiry.approved && (
-      <button
-        className="btn btn-secondary btn-wide"
-        onClick={() => showOfferLetter()}
-      >
-        Create Offer Letter
-      </button>
-    )}
+    <div className="row gy-5">
+      <div className="col-lg-6">
+        <DataList header="Applicant Information">
+          <DataItem
+            label="Full Name"
+            value={
+              <>
+                {enquiry.title} {enquiry.firstName} {enquiry.lastName}{' '}
+                {enquiry.otherName}
+              </>
+            }
+          />
+          <DataItem label="Email" value={enquiry.email} />
+          <DataItem label="Phone Number" value={enquiry.phone} />
+          <DataItem
+            label="Status"
+            value={<span className="text-success fw-bold">Approved</span>}
+          />
+          <DataItem
+            label="Address"
+            value={getFormattedAddress(enquiry.address)}
+          />
+          <DataItem
+            label="Name on Title Document"
+            value={enquiry.nameOnTitleDocument}
+          />
+        </DataList>
+
+        <DataList header="Investment Information">
+          <DataItem
+            label="Initial Investment Amount"
+            value={moneyFormatInNaira(enquiry.initialInvestmentAmount)}
+          />
+          <DataItem
+            label="Investment Frequency"
+            value={PAYMENT_FREQUENCY[enquiry.investmentFrequency]}
+          />
+          <DataItem
+            label="Investment Start Date"
+            value={getShortDate(enquiry.investmentStartDate)}
+          />
+          <DataItem
+            label="Periodic Investment Amount"
+            value={moneyFormatInNaira(enquiry.periodicInvestmentAmount)}
+          />
+        </DataList>
+        <div className="mt-4">
+          <CreateOfferLetterButton enquiry={enquiry} />
+        </div>
+      </div>
+      <div className="col-lg-6">
+        <DataList header="Property Details">
+          <DataItem label="Property Name" value={enquiry.propertyInfo.name} />
+          <DataItem label="House Type" value={enquiry.propertyInfo.houseType} />
+          <DataItem
+            label="Price"
+            value={moneyFormatInNaira(enquiry.propertyInfo.price)}
+          />
+          <DataItem
+            label="Units"
+            value={
+              <>
+                {enquiry.propertyInfo.units}{' '}
+                {Humanize.pluralize(enquiry.propertyInfo.units, 'unit')}
+              </>
+            }
+          />
+          <DataItem
+            label="Bedrooms"
+            value={
+              <>
+                {enquiry.propertyInfo.bedrooms}{' '}
+                {Humanize.pluralize(enquiry.propertyInfo.bedrooms, 'bedroom')}
+              </>
+            }
+          />
+          <DataItem
+            label="Bathrooms"
+            value={
+              <>
+                {enquiry.propertyInfo.bathrooms}{' '}
+                {Humanize.pluralize(enquiry.propertyInfo.bathrooms, 'bathroom')}
+              </>
+            }
+          />
+          <DataItem
+            label="Toilets"
+            value={
+              <>
+                {enquiry.propertyInfo.toilets}{' '}
+                {Humanize.pluralize(enquiry.propertyInfo.toilets, 'toilet')}
+              </>
+            }
+          />
+          <DataItem
+            label="Address"
+            value={getFormattedAddress(enquiry.propertyInfo.address)}
+          />
+        </DataList>
+      </div>
+    </div>
   </div>
 );
 
+const CreateOfferLetterButton = ({ enquiry }) => {
+  return (
+    useCurrentRole().isVendor &&
+    !enquiry.approved && (
+      <Button
+        className="btn btn-secondary btn-wide"
+        href={`/vendor/enquiries/${enquiry?._id}/create-offer-letter`}
+      >
+        Create Offer Letter
+      </Button>
+    )
+  );
+};
+
+export const EnquiryHeader = ({ enquiry }) => (
+  <>
+    <h3 className="header-title">
+      <strong>
+        {enquiry.title} {enquiry.firstName} {enquiry.lastName}
+      </strong>
+    </h3>
+    <ul className="list-inline text-soft">
+      <li className="list-inline-item pe-2">
+        Status: <span className="text-success fw-bold">Approved</span>
+      </li>
+      <li className="list-inline-item pe-2">
+        Submitted At:{' '}
+        <span className="text-primary">{getTinyDate(enquiry.createdAt)}</span>
+      </li>
+    </ul>
+  </>
+);
 export default SingleEnquiry;

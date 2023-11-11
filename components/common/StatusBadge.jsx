@@ -1,7 +1,7 @@
 import React from 'react';
 
-const StatusBadge = () => {
-  return <span className="badge badge-dot text-danger">Canceled</span>;
+const StatusBadge = ({ color = 'danger', children }) => {
+  return <span className={`badge badge-dot text-${color}`}>{children}</span>;
 };
 
 export default StatusBadge;
