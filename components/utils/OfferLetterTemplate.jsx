@@ -23,6 +23,10 @@ import {
 } from 'utils/constants';
 import { useCurrentRole } from 'hooks/useUser';
 import { isMilestonePayment } from '@/utils/milestone-helper';
+import {
+  generateMilestonePayments,
+  generatePaymentSchedules,
+} from '@/utils/payment-schedule-helper';
 
 const OfferLetterTemplate = ({
   children,
@@ -36,7 +40,7 @@ const OfferLetterTemplate = ({
   const companyName = vendorInfo?.vendor?.companyName;
   const shownSignature = signature || offerInfo.signature;
 
-  let { propertySellingPrice, initialPayment, periodicPayment } = offerInfo;
+  let { periodicPayment } = offerInfo;
 
   // Payment Breakdown
   const paymentBreakdown =
@@ -68,42 +72,30 @@ const OfferLetterTemplate = ({
     infrastructureDevelopment +
     powerConnectionFee +
     surveyPlan;
+  console.log('otherPaymentsTotal: ', otherPaymentsTotal);
+  console.log('offerInfo', offerInfo);
 
   // total selling price
   const totalAmountPayable =
     offerInfo?.totalAmountPayable ||
     offerInfo.propertySellingPrice + otherPaymentsTotal;
 
-  // PAYMENT BREAKDOWN FOR TABLE
-  // TODO: Replace this with payment schedule from database
-  let rangePrice = propertySellingPrice - initialPayment;
+  const updatedOfferInfo = {
+    ...offerInfo,
+    totalAmountPayable,
+    paymentBreakdown,
+  };
 
-  // PAYMENT OPTION 1: INITIAL PAYMENT
-  if (paymentBreakdown === PAYMENT_OPTION.INITIAL_DEPOSIT) {
-    initialPayment += otherPaymentsTotal;
-  }
+  const isMilestonePaymentModel = isMilestonePayment(propertyInfo);
 
-  const noOfMonths =
-    rangePrice / periodicPayment > 1
-      ? Math.floor(rangePrice / periodicPayment)
-      : 1;
+  const generatedPaymentSchedule = isMilestonePaymentModel
+    ? generateMilestonePayments(updatedOfferInfo, propertyInfo)
+    : generatePaymentSchedules(updatedOfferInfo);
 
-  //TODO: fix last payment if last payment is not 0
-  let lastPayment = rangePrice - periodicPayment * noOfMonths;
-  let lastPaymentTotal = lastPayment > 0 ? lastPayment : periodicPayment;
+  const paymentSchedules =
+    offerInfo?.paymentSchedule || generatedPaymentSchedule;
 
-  // PAYMENT OPTION 2: EVENLY DISTRIBUTED
-  if (paymentBreakdown === PAYMENT_OPTION.EVENLY_DISTRIBUTED) {
-    const otherPaymentsEachMonth = otherPaymentsTotal / (noOfMonths + 1);
-    initialPayment += otherPaymentsEachMonth;
-    periodicPayment += otherPaymentsEachMonth;
-    lastPaymentTotal += otherPaymentsEachMonth;
-  }
-
-  // PAYMENT OPTION 3: FINAL DEPOSIT
-  if (paymentBreakdown === PAYMENT_OPTION.FINAL_DEPOSIT) {
-    lastPaymentTotal += otherPaymentsTotal;
-  }
+  const initialPayment = paymentSchedules?.[0]?.amount || 0;
 
   const buyerName = `${enquiryInfo.title} ${enquiryInfo.firstName} ${enquiryInfo.lastName} ${enquiryInfo.otherName}`;
   const houseType = propertyInfo.houseType.toUpperCase();
@@ -111,7 +103,6 @@ const OfferLetterTemplate = ({
   const isUser = useCurrentRole().isUser;
   const additionalClauses =
     offerInfo?.additionalClause?.clauses || offerInfo?.additionalClause;
-  const isMilestonePaymentModel = isMilestonePayment(propertyInfo);
 
   return (
     <Card className="mt-4 p-5 offer-letter-template">
@@ -120,6 +111,9 @@ const OfferLetterTemplate = ({
           src={vendorInfo?.vendor?.companyLogo}
           width="150"
           name={`${companyName} Logo`}
+          style={{
+            maxHeight: '55px',
+          }}
         />
       </div>
 
@@ -143,7 +137,7 @@ const OfferLetterTemplate = ({
         located on {getLocationFromAddress(enquiryInfo.address)} and are pleased
         to offer you a {houseType} on the following terms and conditions:
       </p>
-      <div className="table-responsive">
+      <div className="table-responsive border-0">
         <table className="table table-sm table-borderless">
           <tbody>
             <tr>
@@ -178,13 +172,7 @@ const OfferLetterTemplate = ({
               <td>
                 <strong>5. FACILITIES/SERVICES PROVIDED:</strong>{' '}
               </td>
-              <td>
-                <ul>
-                  {propertyInfo.features.map((feature, index) => (
-                    <li key={index}>{feature}</li>
-                  ))}
-                </ul>
-              </td>
+              <td>{propertyInfo.features.join(', ')}</td>
             </tr>
             <tr>
               <td>
@@ -203,9 +191,9 @@ const OfferLetterTemplate = ({
                 <strong>8. SELLING PRICE:</strong>{' '}
               </td>
               <td>
-                {`${moneyFormatInNaira(totalAmountPayable)} (${numToWords(
-                  totalAmountPayable
-                )} Naira only)`}
+                <strong>{`${moneyFormatInNaira(totalAmountPayable)}`}</strong>
+                &nbsp;
+                {`(${numToWords(totalAmountPayable)} Naira only)`}
               </td>
             </tr>
             {totalAmountPayable !== offerInfo.propertySellingPrice && (
@@ -303,10 +291,9 @@ const OfferLetterTemplate = ({
               </tr>
             )}
             <tr>
-              <td>
+              <td colSpan={2}>
                 <strong>9. PAYMENT PLAN BREAKDOWN</strong>{' '}
               </td>
-              <td>&nbsp;</td>
             </tr>
             <tr>
               <td colSpan="2">
@@ -314,7 +301,9 @@ const OfferLetterTemplate = ({
                   {isMilestonePayment(propertyInfo) ? (
                     <>Milestone Payment, see breakdown below:</>
                   ) : (
-                    noOfMonths > 1 && <>Spread payment, see breakdown below; </>
+                    paymentSchedules?.length > 1 && (
+                      <>Spread payment, see breakdown below; </>
+                    )
                   )}
                 </div>
                 <div className="table-responsive table-sm">
@@ -322,66 +311,65 @@ const OfferLetterTemplate = ({
                     <thead>
                       <tr>
                         <th>DEPOSIT</th>
-                        {/* <td>Payment Date</td> */}
+                        <td>Due Date</td>
+                        {/* add naira symbol */}
+
                         <th>SUM DUE (N)</th>
                       </tr>
                     </thead>
-                    {isMilestonePaymentModel ? (
-                      <tbody>
-                        {propertyInfo?.milestonePayment.map(
-                          (milestone, index) => (
-                            <tr key={index}>
-                              <td>
+                    <tbody>
+                      {paymentSchedules.map(
+                        ({ title, date, amount }, index) => (
+                          <tr key={index}>
+                            <td>
+                              {isMilestonePaymentModel ? (
                                 <span className="fw-bold">
-                                  Milestone {index + 1}: {milestone.title} -
-                                  &nbsp;
-                                  {milestone.percentage}%
+                                  Milestone {index + 1}: {title}
                                 </span>
-                                <div className="text-md mt-1">
-                                  Due on &nbsp;
-                                  {getTinyDate(milestone.dueDate)}
-                                </div>
-                              </td>
-                              <td>
-                                {moneyFormat(
-                                  (milestone.percentage / 100) *
-                                    propertyInfo?.price
-                                )}
-                              </td>
-                            </tr>
-                          )
-                        )}
-                      </tbody>
-                    ) : (
-                      <tbody>
-                        <tr>
-                          <td>Initial Deposit</td>
-                          {/* <td>Immediate</td> */}
-                          <td>{moneyFormat(initialPayment)}</td>
-                        </tr>
-                        {noOfMonths > 0 &&
-                          [...Array(noOfMonths).keys()].map((value, index) => (
-                            <tr key={index}>
-                              <td>{numToOrdinal(index + 2)} Deposit</td>
-                              <td>
-                                {moneyFormat(
-                                  noOfMonths === index + 1 && lastPayment === 0
-                                    ? lastPaymentTotal
-                                    : periodicPayment
-                                )}
-                              </td>
-                            </tr>
-                          ))}
-                        {lastPayment > 0 && (
-                          <tr>
-                            <td>Last Deposit</td>
-                            {/* <td>May 2019</td> */}
-                            <td>{moneyFormat(lastPaymentTotal)}</td>
+                              ) : (
+                                <span className="fw-bold">
+                                  Payment {index + 1}
+                                </span>
+                              )}
+                            </td>
+                            <td className="text-md mt-1">
+                              {getTinyDate(date)}
+                            </td>
+                            <td>{moneyFormat(amount)}</td>
                           </tr>
-                        )}
-                      </tbody>
-                    )}
+                        )
+                      )}
+                    </tbody>
                   </table>
+                  <small className="d-block mt-4">
+                    {otherPaymentsTotal > 0 && (
+                      <>
+                        {paymentBreakdown ===
+                          PAYMENT_OPTION.EVENLY_DISTRIBUTED && (
+                          <>
+                            * Additional payment of{' '}
+                            {moneyFormatInNaira(otherPaymentsTotal)} is evenly
+                            distrubuted on all payments
+                          </>
+                        )}
+                        {paymentBreakdown ===
+                          PAYMENT_OPTION.INITIAL_DEPOSIT && (
+                          <>
+                            * Additional payment of{' '}
+                            {moneyFormatInNaira(otherPaymentsTotal)} is added to
+                            initial payment
+                          </>
+                        )}
+                        {paymentBreakdown === PAYMENT_OPTION.FINAL_DEPOSIT && (
+                          <>
+                            * Additional payment of{' '}
+                            {moneyFormatInNaira(otherPaymentsTotal)} is added to
+                            the final payment
+                          </>
+                        )}
+                      </>
+                    )}
+                  </small>
                 </div>
               </td>
             </tr>
@@ -405,100 +393,114 @@ const OfferLetterTemplate = ({
                 Account Number: 2032997125
               </td>
             </tr>
+            <tr>
+              <td colSpan={2}>
+                <strong>12. OTHER TERMS AND CONDITIONS: </strong>
+                <ol className="mt-2" type="a">
+                  <li>
+                    <p>
+                      If the Buyer fails, refuses or neglects to pay any
+                      instalment within{' '}
+                      {formatInDays(offerInfo?.otherTerms?.dateDue)} of its
+                      falling due,the Buyer shall pay the amount due and
+                      interest on the amount due at the prevailing bank interest
+                      rate. If the Buyer fails to pay the amount due (plus
+                      applicable interest) within{' '}
+                      {formatInDays(offerInfo?.otherTerms?.gracePeriod)} after
+                      the due date, the Vendor shall have the right to rescind
+                      the sale and the deposit already made shall be refunded to
+                      the Buyer, less of an administrative charge of{' '}
+                      {offerInfo?.otherTerms?.administrativeCharge}% which will
+                      be deducted from the amount received from the buyer and
+                      the balance will be refunded in line with the terms and
+                      conditions.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Where the subject unit is not completed within the
+                      stipulated time frame, due to the negligence or fault of
+                      the Vendor, with no outstanding defaults on the part of
+                      the buyer, a grace period of{' '}
+                      {formatInDays(offerInfo?.otherTerms?.terminationPeriod)}{' '}
+                      will be granted to the Developer to complete all works
+                      after which the Buyer shall be entitled to terminate this
+                      sale and receive a refund of the paid sum. The Vendor
+                      shall pay to the Buyer an annual compensation of{' '}
+                      {offerInfo?.otherTerms?.terminationInterest}% of the total
+                      amount paid to be prorated and payable in monthly
+                      tranches.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      The Vendor shall execute or facilitate the execution of
+                      the Deed of Assignment of the property in favour of the
+                      buyer ONLY upon full payment of the consideration.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      The vendor shall support the buyer within her power to
+                      undertake the survey and perfection of title. The Buyer
+                      shall bear all costs and expenses of survey and title
+                      perfection.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      The Buyer shall perform and observe the covenants, terms
+                      and conditions of{' '}
+                      {propertyInfo?.address?.state || 'Lagos'} State imposed on
+                      the property including payment of Land Use Charge,
+                      tenement rates and any other charges imposed on the
+                      property by the Local, State or Federal Government of
+                      Nigeria and any increment thereto. The Buyer shall also be
+                      responsible for paying and discharging any service charge
+                      including electricity bill and any other charges set out
+                      in the Deed of Assignment and/or service management
+                      agreement and any increment thereto.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      The Buyer shall make and rely upon its own inquiries and
+                      shall satisfy itself in all respects in relation to the
+                      title details including all related documentation.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      Purchase price or any other part thereof once received is
+                      not subject to any refund. In exceptional cases where the
+                      Vendor in its sole discretion accepts to refund the
+                      purchase price or any part thereof, the property shall
+                      first be offered to another buyer and the refund shall be
+                      made from the purchase price received from the subsequent
+                      buyer less administrative fees of{' '}
+                      {offerInfo?.otherTerms?.deductibleRefundPercentage}%.
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      The buyer is aware that the unit is a part of an estate
+                      and buyers shall be subject to estate rules, levy and
+                      service charges that are not included in this offer
+                      letter.
+                    </p>
+                  </li>
+
+                  {additionalClauses?.map((clause, index) => (
+                    <li key={index}>
+                      <p>{clause}</p>
+                    </li>
+                  ))}
+                </ol>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
-
-      <strong>12. OTHER TERMS AND CONDITIONS: </strong>
-      <ol type="a">
-        <li>
-          <p>
-            If the Buyer fails, refuses or neglects to pay any instalment within{' '}
-            {formatInDays(offerInfo?.otherTerms?.dateDue)} of its falling
-            due,the Buyer shall pay the amount due and interest on the amount
-            due at the prevailing bank interest rate. If the Buyer fails to pay
-            the amount due (plus applicable interest) within{' '}
-            {formatInDays(offerInfo?.otherTerms?.gracePeriod)} after the due
-            date, the Vendor shall have the right to rescind the sale and the
-            deposit already made shall be refunded to the Buyer, less of an
-            administrative charge of{' '}
-            {offerInfo?.otherTerms?.administrativeCharge}% which will be
-            deducted from the amount received from the buyer and the balance
-            will be refunded in line with the terms and conditions.
-          </p>
-        </li>
-        <li>
-          <p>
-            Where the subject unit is not completed within the stipulated time
-            frame, due to the negligence or fault of the Vendor, with no
-            outstanding defaults on the part of the buyer, a grace period of{' '}
-            {formatInDays(offerInfo?.otherTerms?.terminationPeriod)} will be
-            granted to the Developer to complete all works after which the Buyer
-            shall be entitled to terminate this sale and receive a refund of the
-            paid sum. The Vendor shall pay to the Buyer an annual compensation
-            of {offerInfo?.otherTerms?.terminationInterest}% of the total amount
-            paid to be prorated and payable in monthly tranches.
-          </p>
-        </li>
-        <li>
-          <p>
-            The Vendor shall execute or facilitate the execution of the Deed of
-            Assignment of the property in favour of the buyer ONLY upon full
-            payment of the consideration.
-          </p>
-        </li>
-        <li>
-          <p>
-            The vendor shall support the buyer within her power to undertake the
-            survey and perfection of title. The Buyer shall bear all costs and
-            expenses of survey and title perfection.
-          </p>
-        </li>
-        <li>
-          <p>
-            The Buyer shall perform and observe the covenants, terms and
-            conditions of {propertyInfo?.address?.state || 'Lagos'} State
-            imposed on the property including payment of Land Use Charge,
-            tenement rates and any other charges imposed on the property by the
-            Local, State or Federal Government of Nigeria and any increment
-            thereto. The Buyer shall also be responsible for paying and
-            discharging any service charge including electricity bill and any
-            other charges set out in the Deed of Assignment and/or service
-            management agreement and any increment thereto.
-          </p>
-        </li>
-        <li>
-          <p>
-            The Buyer shall make and rely upon its own inquiries and shall
-            satisfy itself in all respects in relation to the title details
-            including all related documentation.
-          </p>
-        </li>
-        <li>
-          <p>
-            Purchase price or any other part thereof once received is not
-            subject to any refund. In exceptional cases where the Vendor in its
-            sole discretion accepts to refund the purchase price or any part
-            thereof, the property shall first be offered to another buyer and
-            the refund shall be made from the purchase price received from the
-            subsequent buyer less administrative fees of{' '}
-            {offerInfo?.otherTerms?.deductibleRefundPercentage}%.
-          </p>
-        </li>
-        <li>
-          <p>
-            The buyer is aware that the unit is a part of an estate and buyers
-            shall be subject to estate rules, levy and service charges that are
-            not included in this offer letter.
-          </p>
-        </li>
-
-        {additionalClauses?.map((clause, index) => (
-          <li key={index}>
-            <p>{clause}</p>
-          </li>
-        ))}
-      </ol>
 
       <p className="">
         If the above terms and conditions are acceptable to you, kindly send in
@@ -514,7 +516,6 @@ const OfferLetterTemplate = ({
         We are delighted that you have decided to access this opportunity being
         offered.
       </p>
-
       <p className="mb-5">
         Yours faithfully,
         <br /> For: {companyName}

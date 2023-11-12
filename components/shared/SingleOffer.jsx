@@ -81,11 +81,7 @@ const ListConcerns = ({ concerns, offerId, title }) => {
       <Accordion className="offer-letter-accordion">
         {concerns.map(({ _id, question, response, dateAsked }, index) => (
           <Card key={index + 1}>
-            <Accordion.Toggle
-              as={Card.Header}
-              variant="link"
-              eventKey={index + 1}
-            >
+            <Card.Header>
               <ContextAwareToggle
                 iconOpen={<ArrowDownIcon />}
                 iconClose={<ArrowDownIcon />}
@@ -93,7 +89,7 @@ const ListConcerns = ({ concerns, offerId, title }) => {
               >
                 {question}
               </ContextAwareToggle>
-            </Accordion.Toggle>
+            </Card.Header>
             <Accordion.Collapse eventKey={index + 1}>
               <Card.Body>
                 {response ? (
@@ -320,16 +316,15 @@ const DisplayOfferLetterTemplate = ({ offerId, setConcerns }) => {
         {offer && (
           <>
             {/* add current status here for admin / vendor */}
-            {isVendor && (
+            {/* {isVendor && (
               <div className="my-5 text-end">
-                <Link
-                  className="btn btn-dark btn-wide"
-                  href={`/vendor/offer/template/${offer._id}`}
-                >
-                  Create Offer Template
+                <Link href={`/vendor/offer/template/${offer._id}`} passHref>
+                  <a className="btn btn-secondary-light btn-wide">
+                    Create Offer Template
+                  </a>
                 </Link>
               </div>
-            )}
+            )} */}
 
             {!isUser && (
               <h6 className="mt-5 hide-print">

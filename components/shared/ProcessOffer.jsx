@@ -27,7 +27,7 @@ import { isPastDate } from 'utils/date-helpers';
 export const ReactivateOfferForm = ({ setToast, offer }) => {
   const [showReactivateModal, setShowReactivateModal] = React.useState(false);
   const isVendor = useCurrentRole().isVendor;
-  // TODO: Check expired
+
   const offerCanBeReactivated =
     isVendor &&
     isPastDate(offer.expires) &&
@@ -275,7 +275,7 @@ export const CancelOfferLetter = ({ setToast, offer, setOffer }) => {
       >
         <section className="row">
           <div className="col-md-12 my-3 text-center">
-            <p className="my-4 confirmation-text">
+            <p className="confirmation-text">
               Are you sure you want to cancel this offer?
             </p>
             <Button

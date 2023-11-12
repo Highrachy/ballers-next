@@ -677,8 +677,6 @@ const SubmitOfferLetter = ({ enquiry, handleHideOfferLetter, value }) => {
   const [showSubmitOfferModal, setShowSubmitOfferModal] = React.useState(false);
 
   const submitOfferLetter = () => {
-    console.log('Submitting Offer Letter');
-    console.log('value', value);
     const expires = addDays(new Date(), value.expires);
     const enquiryId = enquiry._id;
     const payload = {
@@ -688,10 +686,8 @@ const SubmitOfferLetter = ({ enquiry, handleHideOfferLetter, value }) => {
       handOverDate: parseISO(value.handOverDate?.date || value.handOverDate),
       paymentBreakdown:
         value?.otherPayments?.paymentBreakdown ||
-        PAYMENT_OPTION.INITIAL_DEPOSIT, // todo: remove
+        PAYMENT_OPTION.INITIAL_DEPOSIT,
     };
-
-    console.log(payload);
 
     delete payload.otherPayments.paymentBreakdown;
 
@@ -723,14 +719,15 @@ const SubmitOfferLetter = ({ enquiry, handleHideOfferLetter, value }) => {
       showFooter={false}
     >
       <section className="row">
-        <div className="col-md-12">
-          <p className="confirmation-text">
-            Are you sure you wish to submit the offer letter? Ensure you have
-            confirm all the offer information as this process is irreversible.
+        <div className="col-md-12 text-center">
+          <p className="confirmation-text my-3 px-4">
+            Are you certain you want to submit the offer letter? Please ensure
+            that you have reviewed and confirmed all the offer details, as this
+            action is irreversible.
           </p>
 
           <button
-            className="btn btn-secondary mb-3"
+            className="btn btn-secondary mb-5"
             onClick={submitOfferLetter}
           >
             Submit Offer Letter

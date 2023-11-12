@@ -14,7 +14,7 @@ export const commaNumber = (
   showDecimal = false
 ) => {
   const number = Math.round(value * 100) / 100;
-  const currency = prependCurrency ? '₦' : '';
+  const currency = prependCurrency ? '₦ ' : '';
   const sign = number < 0 ? '— ' : '';
   return `${sign}${currency}${
     showDecimal
@@ -26,6 +26,7 @@ export const commaNumber = (
 export const moneyFormat = (value) => Humanize.formatNumber(value, 2);
 export const moneyFormatInNaira = (value, showDecimal = false) =>
   commaNumber(value, true, showDecimal);
+
 export const moneyFormatElement = (value) => (
   <>
     <span className="money__amount-in-naira">{Humanize.intComma(value)}</span>

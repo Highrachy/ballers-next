@@ -96,8 +96,8 @@ const PropertyEnquiry = ({ id }) => {
 const EnquiryForm = ({ id, setToast, property }) => {
   const router = useRouter();
   const { userState } = React.useContext(UserContext);
-  const isMilestonePayment = isMilestonePayment(property);
-  const currentSchema = isMilestonePayment
+  const isMilestonePaymentModel = isMilestonePayment(property);
+  const currentSchema = isMilestonePaymentModel
     ? addMilestoneEnquirySchema
     : addEnquirySchema;
 
@@ -111,11 +111,9 @@ const EnquiryForm = ({ id, setToast, property }) => {
         address: setInitialValues(addressSchema, userState.address),
       }}
       onSubmit={(values, actions) => {
-        console.log('values', values);
-        console.log('property', property);
         // delete optional fields
-        !values.address.street2 && delete values.address.street2;
-        !values.address.otherName && delete values.address.otherName;
+        // !values.address.street2 && delete values.address.street2;
+        // !values.address.otherName && delete values.address.otherName;
 
         const firstMilestone = property?.milestonePayment[0];
 
@@ -172,7 +170,7 @@ const EnquiryForm = ({ id, setToast, property }) => {
           <ClientDetailsForm />
           <PropertyAddress />
           <PropertyDetailsForm />
-          {!isMilestonePayment && <InvestmentDetailsForm />}
+          {!isMilestonePaymentModel && <InvestmentDetailsForm />}
           <Button
             className="btn-secondary mt-4"
             loading={isSubmitting}
@@ -238,7 +236,6 @@ const PropertyAddress = () => (
     <section className="row">
       <div className="col-md-10">
         <h5>Address</h5>
-
         <Address />
       </div>
     </section>

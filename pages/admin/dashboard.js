@@ -219,7 +219,7 @@ const Others = ({
         </WidgetBox>
       </div>
       <div className="row row-eq-height">
-        <WidgetBox title="Upcoming Payments" href={`/user/portfolio`}>
+        <WidgetBox title="Upcoming Payments" href={`/user/transactions`}>
           <ContentLoader
             hasContent={allPortfolios?.length > 0}
             Icon={<TransactionIcon />}
@@ -246,6 +246,7 @@ const Others = ({
                   statusName={`${
                     isOverdueDate ? 'Overdue' : 'Due'
                   }: ${daysInWords}`}
+                  href="/user/transactions"
                 />
               );
             })}

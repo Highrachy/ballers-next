@@ -34,6 +34,7 @@ const RecentOffersWidget = ({ result, role = 'user' }) => {
             subtitle={`For ${userFullName}`}
             statusColor={offerColor}
             statusName={activeOffer ? 'Active' : dueText}
+            href={`/${role}/offer/${offer?._id}`}
           />
         );
       })}

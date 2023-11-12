@@ -106,7 +106,7 @@ export const PortfolioCard = ({
               {/* <p className="text-gray text-sm mt-4 mb-1">Next Payment</p> */}
               <section className="info-content">
                 <span className="info-content__price">
-                  {moneyFormatInNaira(expectedAmount, true)}
+                  {moneyFormatInNaira(expectedAmount)}
                 </span>
                 {/* todo */}
                 &nbsp; due on &nbsp;

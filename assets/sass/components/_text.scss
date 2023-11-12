@@ -184,9 +184,11 @@
 }
 
 .confirmation-text {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: $gray-600;
-  font-weight: normal;
+  font-weight: normal !important;
+  line-height: 1.8;
+  padding: 1rem 2rem 0.5rem !important;
   margin-bottom: 2rem !important;
 }
 
