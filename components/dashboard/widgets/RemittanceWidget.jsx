@@ -13,7 +13,6 @@ const RemittanceWidget = ({
   return (
     <WidgetBox title={title} href={`/${role}/transactions`} data={result}>
       {result?.map((transaction, index) => {
-        console.log('transaction', transaction);
         const { propertyInfo, vendorInfo, remittance, userInfo } = transaction;
         const remittancePercentage =
           vendorInfo?.vendor?.remittancePercentage || DEFAULT_VENDOR_PERCENTAGE;

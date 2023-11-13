@@ -52,7 +52,6 @@ export default function Search() {
     }
   }, [searchQuery]);
 
-  console.log('result', result);
   const title = `Search result for '${searchTerm}'`;
 
   return (

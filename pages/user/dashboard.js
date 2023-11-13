@@ -165,6 +165,7 @@ const Dashboard = ({ allPosts: { edges }, allCategories }) => {
         <RecentTransactionsAndServices result={result} />
       </ContentLoader>
       <ReferAndEarn />
+      {/* <VisitationCard /> */}
       <div className="container-fluid py-0">
         <h3 className="mt-5 mb-4">From our Blog</h3>
         <CategoriesComponent categories={allCategories} />
@@ -200,6 +201,7 @@ const UpcomingPaymentsAndRecentOffers = ({ result }) => {
                 subtitle={`Due on ${getDate(nextPayment?.dueDate)}`}
                 value={moneyFormatInNaira(nextPayment?.expectedAmount)}
                 {...getDateStatus(nextPayment?.dueDate)}
+                href="/user/transactions"
               />
             );
           })}
@@ -308,6 +310,78 @@ const Overview = ({ result, isNormal = false }) => {
     </div>
   );
 };
+
+// https://prium.github.io/falcon/v3.14.0/dashboard/project-management.html - visitation, milestoen statistic
+// https://themesbrand.com/minia/layouts/pages-timeline.html - milestone
+// https://dashlite.net/demo1/kyc-details-regular.html - enquiry
+// https://angular.spruko.com/slica/preview/advancedui/accordion - accordion
+// https://themesbrand.com/minia/layouts/index.html - beautiful pie graph
+
+// const VisitationCard = () => (
+//   <div className="col-md-6">
+//     <div className="card h-100">
+//       <div className="card-header bg-white pb-0">
+//         <div className="row px-3">
+//           <div className="col">
+//             <p className="mb-1 fs--2 text-500">Upcoming schedule</p>
+//             <h5 className="text-primary fs-0">Falcon discussion</h5>
+//           </div>
+//           <div className="col-auto">
+//             <div
+//               className="bg-secondary-light px-3 py-3 rounded-circle text-center"
+//               style={{ width: '60px', height: '60px' }}
+//             >
+//               <h5 className="text-primary mb-0 d-flex flex-column mt-n1">
+//                 <span>09</span>
+//                 <small className="text-primary fs--2 lh-1">MAR</small>
+//               </h5>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       <div className="card-body d-flex align-items-end">
+//         <div className="row g-3 justify-content-between">
+//           <div className="col-10 mt-0">
+//             <p className="mb-0">
+//               The very first general meeting for planning Falcon’s design and
+//               development roadmap
+//             </p>
+//           </div>
+//           <div className="col-auto ps-0">
+//             <div className="avatar-group avatar-group-dense">
+//               <div className="avatar avatar-xl border border-3 border-light rounded-circle">
+//                 <img
+//                   className="rounded-circle"
+//                   src="../assets/img/team/1-thumb.png"
+//                   alt=""
+//                 />
+//               </div>
+//               <div className="avatar avatar-xl border border-3 border-light rounded-circle">
+//                 <img
+//                   className="rounded-circle"
+//                   src="../assets/img/team/2-thumb.png"
+//                   alt=""
+//                 />
+//               </div>
+//               <div className="avatar avatar-xl border border-3 border-light rounded-circle">
+//                 <img
+//                   className="rounded-circle"
+//                   src="../assets/img/team/3-thumb.png"
+//                   alt=""
+//                 />
+//               </div>
+//               <div className="avatar avatar-xl border border-3 border-light rounded-circle">
+//                 <div className="avatar-name rounded-circle ">
+//                   <span>+50</span>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// );
 
 export const getStaticProps = async ({ preview = false }) => {
   const allPosts = await getAllPostsForHome(preview);

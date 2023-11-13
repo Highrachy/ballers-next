@@ -140,8 +140,6 @@ const AddComments = ({ postId, setToast }) => {
                 actions.setSubmitting(false);
                 console.error('Error adding comment:', error);
               }
-
-              console.log('values', values);
             }}
             validationSchema={createSchema(blogCommentSchema)}
           >
@@ -176,7 +174,6 @@ const AddComments = ({ postId, setToast }) => {
 };
 
 const Comments = ({ post }) => {
-  console.log('post in comment', post);
   const comments = post?.comments?.nodes || [];
   if (comments.length === 0) return null;
   return (

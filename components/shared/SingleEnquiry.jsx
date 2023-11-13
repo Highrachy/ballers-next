@@ -10,9 +10,9 @@ import { ContentLoader } from 'components/utils/LoadingItems';
 import { useCurrentRole } from 'hooks/useUser';
 import { PAYMENT_FREQUENCY } from 'utils/constants';
 import Humanize from 'humanize-plus';
-import WelcomeHero from '../common/WelcomeHero';
-import DataList, { DataItem } from '../common/Datalist';
-import Button from '../forms/Button';
+import WelcomeHero from 'components/common/WelcomeHero';
+import Button from 'components/forms/Button';
+import DataList, { DataItem } from '../common/DataList';
 
 const pageOptions = {
   key: 'enquiry',

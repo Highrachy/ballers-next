@@ -818,3 +818,14 @@ html {
     hsla(0, 0%, 100%, 0) 25%
   );
 }
+
+.avatar-group {
+  display: flex;
+  flex-wrap: nowrap;
+
+  .avatar {
+    vertical-align: top;
+    position: relative;
+    display: inline-block;
+  }
+}

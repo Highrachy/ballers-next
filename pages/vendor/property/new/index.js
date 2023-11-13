@@ -30,7 +30,6 @@ import {
   getPropertyImage,
 } from 'utils/localStorage';
 import { newPropertySchema } from 'components/forms/schemas/propertySchema';
-import Textarea from 'components/forms/Textarea';
 import InputFormat from 'components/forms/InputFormat';
 import {
   getError,
@@ -57,11 +56,11 @@ import { refreshQuery } from 'hooks/useQuery';
 import {
   generateDefaultMilestones,
   isMilestonePayment,
-} from '@/utils/milestone-helper';
-import MDEditor from '@/components/forms/MDEditor';
-import { generatePropertyDescription } from '@/utils/property-helper';
-import Modal from '@/components/common/Modal';
-import DatePicker from '@/components/forms/DatePicker';
+} from 'utils/milestone-helper';
+import { generatePropertyDescription } from 'utils/property-helper';
+import Modal from 'components/common/Modal';
+import DatePicker from 'components/forms/DatePicker';
+import MdEditor from '@/components/forms/MdEditor';
 
 const pageOptions = {
   key: 'property',
@@ -401,7 +400,7 @@ const PropertyDescription = () => {
       <section className="row">
         <div className="col-md-10 px-4">
           <h5 className="mb-4">Property Description</h5>
-          <MDEditor
+          <MdEditor
             label="Description"
             name="description"
             placeholder="A detailed description of the property"
