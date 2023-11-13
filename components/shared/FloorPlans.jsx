@@ -206,7 +206,7 @@ export const FloorPlansList = ({ property, setProperty, setToast }) => {
     <>
       <div className="property__floor-plans">
         {(!noFloorPlans || userIsVendor) && (
-          <h5 className="header-smaller mb-3 mt-5">Floor Plans</h5>
+          <h5 className="header-content">Floor Plans</h5>
         )}
         {!noFloorPlans && (
           <Accordion>

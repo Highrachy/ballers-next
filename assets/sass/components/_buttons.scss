@@ -22,6 +22,10 @@
     background-color: map-get($colors, '50') !important;
     color: map-get($colors, '600') !important;
   }
+
+  .bg-#{$name}-dark {
+    background-color: map-get($colors, '700') !important;
+  }
 }
 
 // .btn-warning-light {

@@ -122,9 +122,18 @@ export const generateMilestoneDueDates = (milestones, projectStartDate) => {
   let currentDate = parseISO(projectStartDate);
   const updatedMilestones = milestones.map((milestone) => {
     const dueDate = addMonths(currentDate, milestone.duration);
-    milestone.dueDate = format(dueDate, 'yyyy-MM-dd');
+    const updatedMilestone = {
+      _id: milestone._id,
+      key: milestone.key,
+      title: milestone.title,
+      description: milestone.description,
+      dueDate: format(dueDate, 'yyyy-MM-dd'),
+      duration: milestone.duration,
+      percentage: milestone.percentage,
+      editable: milestone.editable,
+    };
     currentDate = dueDate;
-    return milestone;
+    return updatedMilestone;
   });
 
   return updatedMilestones;

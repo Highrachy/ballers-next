@@ -25,11 +25,12 @@ import { Accordion } from 'react-bootstrap';
 import { ArrowDownIcon } from 'components/utils/Icons';
 import { ContextAwareToggle } from 'components/common/FAQsAccordion';
 import { ArrowUpIcon } from 'components/utils/Icons';
-import { LinkSeparator } from 'components/common/Helpers';
+import { LinkSeparator, Spacing } from 'components/common/Helpers';
 import { useCurrentRole } from 'hooks/useUser';
 import { setQueryCache } from 'hooks/useQuery';
 import Textarea from '../forms/Textarea';
 import { getShortDate, getTinyDate, getYear } from '@/utils/date-helpers';
+import { isMilestonePayment } from '@/utils/milestone-helper';
 
 export const PropertyUpdatesForm = ({
   hideForm,
@@ -295,7 +296,7 @@ export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
   const noPropertyUpdates = property?.propertyUpdate?.length === 0;
   return (
     <>
-      <div className="property__floor-plans">
+      <div className="property__updates mt-5">
         {(!noPropertyUpdates || userIsVendor) && (
           <h5 className="header-content">Property Updates</h5>
         )}
@@ -441,15 +442,112 @@ export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
       {userIsVendor && (
         <div className="row">
           <div className="col-12">
-            <AddPropertyUpdates
-              className="btn btn-secondary btn-xs btn-wide"
-              property={property}
-              setToast={setToast}
-              setProperty={setProperty}
-            />
+            {isMilestonePayment(property) ? (
+              <GenerateMilestonePropertyUpdates
+                className="btn btn-secondary btn-xs btn-wide"
+                property={property}
+                setToast={setToast}
+                setProperty={setProperty}
+              />
+            ) : (
+              <AddPropertyUpdates
+                className="btn btn-secondary btn-xs btn-wide"
+                property={property}
+                setToast={setToast}
+                setProperty={setProperty}
+              />
+            )}
           </div>
         </div>
       )}
+    </>
+  );
+};
+
+export const GenerateMilestonePropertyUpdates = ({
+  setToast,
+  property,
+  setProperty,
+}) => {
+  const [showModal, setShowModal] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const isVendor = useCurrentRole().isVendor;
+
+  if (property?.milestoneDetails?.hasPropertyUpdate) {
+    return;
+  }
+
+  const generateMilestonePropertyUpdates = () => {
+    setLoading(true);
+
+    Axios.put(
+      `${BASE_API_URL}/property/${property._id}/generateMilestonePropertyUpdate`,
+      {},
+      {
+        headers: { Authorization: getTokenFromStore() },
+      }
+    )
+      .then(function (response) {
+        const { data, status } = response;
+        if (statusIsSuccessful(status)) {
+          setToast({
+            message: 'Property Update generated successfully',
+            type: 'success',
+          });
+          setProperty({ ...property, ...data.property });
+          setShowModal(false);
+        }
+        setLoading(false);
+      })
+      .catch(function (error) {
+        setToast({
+          message: getError(error),
+        });
+        setLoading(false);
+      });
+  };
+
+  return (
+    <>
+      <div className="mt-4">
+        <button
+          className="btn btn-secondary btn-wide"
+          onClick={() => setShowModal(true)}
+        >
+          Generate Property Update
+        </button>
+      </div>
+      <Modal
+        title="Generate Property Update"
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        showFooter={false}
+      >
+        <section className="row">
+          <div className="col-md-12 my-3 text-center">
+            <p className="my-4 confirmation-text">
+              Are you sure you want to generate the Property Update? Your
+              Milestone will no longer be available for edits.
+            </p>
+            <Button
+              color="secondary"
+              loading={loading}
+              className="btn mb-5"
+              onClick={generateMilestonePropertyUpdates}
+            >
+              Generate Property Update
+            </Button>
+            <Spacing />
+            <Button
+              color="dark"
+              className="btn mb-5"
+              onClick={() => setShowModal(false)}
+            >
+              Close
+            </Button>
+          </div>
+        </section>
+      </Modal>
     </>
   );
 };

@@ -63,7 +63,7 @@ export const getTinyDate = (date) =>
 export const getLongDate = (date) =>
   format(
     parseISO(date),
-    `${dayOfWeek}, ${f.dayOrdinal} ${f.monthLongWords} ${f.year}`
+    `${f.dayOfWeek}, ${f.dayOrdinal} ${f.monthLongWords} ${f.year}`
   );
 export const getYear = (date) => format(parseISO(date), `${f.year}`);
 export const getTime = (date) =>

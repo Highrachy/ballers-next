@@ -410,3 +410,9 @@ export const SOCIAL_MEDIA = {
   linkedin:
     'https://www.linkedin.com/company/highrachy-investment-and-technology-limited',
 };
+
+export const MILESTONE_STATUS = {
+  PENDING: 'Pending',
+  IN_PROGRESS: 'In Progress',
+  COMPLETED: 'Completed',
+};

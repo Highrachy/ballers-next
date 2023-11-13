@@ -13,7 +13,7 @@ import {
   PAYMENT_OPTIONS_BREAKDOWN,
   PRICING_MODEL,
 } from 'utils/constants';
-import Toast, { useToast } from 'components/utils/Toast';
+import Toast, { AlertToast, useToast } from 'components/utils/Toast';
 import { getTokenFromStore } from 'utils/localStorage';
 import Button from 'components/forms/Button';
 import { Formik, Form } from 'formik';
@@ -103,27 +103,37 @@ const CreateOfferLetter = ({ id }) => {
         name={pageOptions.pageName}
         toast={toast}
       >
-        <>
-          {showOfferLetter ? (
+        {enquiry.approved ? (
+          <>
             <SubmitOfferLetter
               enquiry={enquiry}
               handleHideOfferLetter={() => setShowOfferLetter(false)}
-              value={value}
+              value={enquiry?.offerInfo}
             />
-          ) : (
-            <>
-              <div className="container-fluid mt-5">
-                <EnquiryHeader enquiry={enquiry} />
-              </div>
-              <CreateOfferLetterForm
+          </>
+        ) : (
+          <>
+            {showOfferLetter ? (
+              <SubmitOfferLetter
                 enquiry={enquiry}
-                handleShowOfferLetter={() => setShowOfferLetter(true)}
-                setValue={setValue}
+                handleHideOfferLetter={() => setShowOfferLetter(false)}
                 value={value}
               />
-            </>
-          )}
-        </>
+            ) : (
+              <>
+                <div className="container-fluid mt-5">
+                  <EnquiryHeader enquiry={enquiry} />
+                </div>
+                <CreateOfferLetterForm
+                  enquiry={enquiry}
+                  handleShowOfferLetter={() => setShowOfferLetter(true)}
+                  setValue={setValue}
+                  value={value}
+                />
+              </>
+            )}
+          </>
+        )}
       </ContentLoader>
     </BackendPage>
   );
@@ -737,32 +747,46 @@ const SubmitOfferLetter = ({ enquiry, handleHideOfferLetter, value }) => {
     </Modal>
   );
 
+  const hasExistingOfferLetter = enquiry?.approved;
+
   return (
     <div className="container-fluid">
       <Toast {...toast} />
-      <h5 className="mb-3 text-center">
-        Offer Letter (Expires in {value.expires} days)
-      </h5>
+      {hasExistingOfferLetter ? (
+        <AlertToast
+          message="An offer letter is currently active on this enquiry"
+          type="warning"
+        />
+      ) : (
+        <h5 className="mb-3 text-center">
+          Offer Letter (Expires in {value.expires} days)
+        </h5>
+      )}
       <OfferLetterTemplate
         enquiryInfo={enquiry}
         offerInfo={value}
         propertyInfo={enquiry.propertyInfo}
         vendorInfo={enquiry.vendorInfo}
       />
-      <button
-        className="btn btn-secondary btn-wide mt-5"
-        onClick={() => setShowSubmitOfferModal(true)}
-      >
-        Submit Offer Letter
-      </button>
-      &nbsp;&nbsp;
-      <button
-        onClick={handleHideOfferLetter}
-        className="btn btn-danger btn-wide mt-5"
-      >
-        Back to Form
-      </button>
-      <SubmitOfferModal />
+
+      {!hasExistingOfferLetter && (
+        <>
+          <button
+            className="btn btn-secondary btn-wide mt-5"
+            onClick={() => setShowSubmitOfferModal(true)}
+          >
+            Submit Offer Letter
+          </button>
+          &nbsp;&nbsp;
+          <button
+            onClick={handleHideOfferLetter}
+            className="btn btn-danger btn-wide mt-5"
+          >
+            Back to Form
+          </button>
+          <SubmitOfferModal />
+        </>
+      )}
     </div>
   );
 };

@@ -45,6 +45,23 @@
   }
 }
 
+@each $name, $colors in $brand-colors {
+  .text-#{$name}-lighter {
+    color: map-get($colors, '200') !important;
+  }
+
+  .text-#{$name}-light {
+    color: map-get($colors, '400') !important;
+  }
+
+  .text-#{$name}-dark {
+    color: map-get($colors, '700') !important;
+  }
+  .text-#{$name}-darker {
+    color: map-get($colors, '900') !important;
+  }
+}
+
 .text-shadow-light {
   text-shadow: 3px 4px 7px rgb(183 183 183 / 60%);
 }
@@ -52,6 +69,7 @@
 .text-normal {
   font-size: 1rem !important;
 }
+
 .text-large,
 .text-lg {
   font-size: 1.25rem !important;

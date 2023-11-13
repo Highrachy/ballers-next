@@ -54,7 +54,10 @@ import { ContentLoader } from 'components/utils/LoadingItems';
 import { PropertyIcon } from 'components/utils/Icons';
 import { setQueryCache } from 'hooks/useQuery';
 import { refreshQuery } from 'hooks/useQuery';
-import { generateDefaultMilestones } from '@/utils/milestone-helper';
+import {
+  generateDefaultMilestones,
+  isMilestonePayment,
+} from '@/utils/milestone-helper';
 import MDEditor from '@/components/forms/MDEditor';
 import { generatePropertyDescription } from '@/utils/property-helper';
 import Modal from '@/components/common/Modal';
@@ -154,12 +157,12 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
           : payloadData;
 
         const isNewProperty = !property?._id;
-        const isMilestonePayment = isMilestonePayment(payload);
+        const isMilestonePaymentModel = isMilestonePayment(payload);
         const isEmptyMilestonePayment = payload?.milestonePayment?.length === 0;
 
         if (
-          (isNewProperty && isMilestonePayment) ||
-          (!isNewProperty && isMilestonePayment && isEmptyMilestonePayment)
+          (isNewProperty && isMilestonePaymentModel) ||
+          (!isNewProperty && isMilestonePaymentModel && isEmptyMilestonePayment)
         ) {
           payload.milestonePayment = generateDefaultMilestones(
             payload?.deliveryState,

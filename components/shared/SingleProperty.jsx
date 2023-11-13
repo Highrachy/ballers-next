@@ -188,12 +188,6 @@ export const OwnedPropertyCard = ({
           {Sidebar && <div className="col-sm-5">{Sidebar}</div>}
         </div>
 
-        {/* <FloorPlansList
-          property={property}
-          setToast={setToast}
-          setProperty={setProperty}
-        /> */}
-
         {isMilestonePayment(property) && (
           <MilestonePaymentList
             property={property}
@@ -202,13 +196,19 @@ export const OwnedPropertyCard = ({
           />
         )}
 
-        <NeighborhoodList
+        <PropertyUpdatesList
           property={property}
           setToast={setToast}
           setProperty={setProperty}
         />
 
-        <PropertyUpdatesList
+        <FloorPlansList
+          property={property}
+          setToast={setToast}
+          setProperty={setProperty}
+        />
+
+        <NeighborhoodList
           property={property}
           setToast={setToast}
           setProperty={setProperty}
