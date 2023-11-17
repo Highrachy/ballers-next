@@ -442,13 +442,12 @@ export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
       {userIsVendor && (
         <div className="row">
           <div className="col-12">
-            {isMilestonePayment(property) ? (
-              <GenerateMilestonePropertyUpdates
-                className="btn btn-secondary btn-xs btn-wide"
-                property={property}
-                setToast={setToast}
-                setProperty={setProperty}
-              />
+            {!isMilestonePayment(property) ? (
+              <div className="alert state-alert" role="alert">
+                <strong>Important Notice:</strong> Finalizing this milestone
+                will trigger automatic property updates. These updates will
+                capture and track the progress made in this milestone
+              </div>
             ) : (
               <AddPropertyUpdates
                 className="btn btn-secondary btn-xs btn-wide"
@@ -468,6 +467,9 @@ export const GenerateMilestonePropertyUpdates = ({
   setToast,
   property,
   setProperty,
+  buttonText = 'Finalize Milestone',
+  modalText = 'Are you sure you want to finalize this milestone? Once finalized, your changes will be saved, and this milestone will no longer be available for edits.',
+  successText = 'Milestone Finalized Successfully!',
 }) => {
   const [showModal, setShowModal] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -509,33 +511,30 @@ export const GenerateMilestonePropertyUpdates = ({
 
   return (
     <>
-      <div className="mt-4">
+      <div className="mt-3">
         <button
-          className="btn btn-secondary btn-wide"
+          className="btn btn-success btn-wide"
           onClick={() => setShowModal(true)}
         >
-          Generate Property Update
+          {buttonText}
         </button>
       </div>
       <Modal
-        title="Generate Property Update"
+        title={buttonText}
         show={showModal}
         onHide={() => setShowModal(false)}
         showFooter={false}
       >
         <section className="row">
           <div className="col-md-12 my-3 text-center">
-            <p className="my-4 confirmation-text">
-              Are you sure you want to generate the Property Update? Your
-              Milestone will no longer be available for edits.
-            </p>
+            <p className="my-4 confirmation-text">{modalText}</p>
             <Button
-              color="secondary"
+              color="success"
               loading={loading}
               className="btn mb-5"
               onClick={generateMilestonePropertyUpdates}
             >
-              Generate Property Update
+              Confirm and Finalize
             </Button>
             <Spacing />
             <Button

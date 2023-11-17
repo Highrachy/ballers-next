@@ -169,7 +169,7 @@ export const OwnedPropertyCard = ({
           />
         )}
 
-        <div className="row mt-5">
+        <div className="mt-4">
           <PropertyHeader
             property={property}
             enquiryInfo={enquiryInfo}
@@ -671,18 +671,14 @@ const ReportProperty = ({ property, setToast, setProperty }) => {
 
 const ManagePropertyLink = ({ property, setToast, setProperty }) => (
   <section className="mt-3">
-    <Link
-      href={`/vendor/property/new/${property._id}`}
-      className="text-link text-muted"
-    >
-      Edit Property
+    <Link href={`/vendor/property/new/${property._id}`}>
+      <a className="text-link text-muted">Edit Property</a>
     </Link>
     <LinkSeparator />
-    <Link
-      href={`/vendor/property/gallery/${property._id}`}
-      className="text-link  text-muted"
-    >
-      {property?.gallery?.length > 0 ? 'Edit Gallery' : 'Add Gallery'}
+    <Link href={`/vendor/property/gallery/${property._id}`}>
+      <a className="text-link text-muted">
+        {property?.gallery?.length > 0 ? 'Edit Gallery' : 'Add Gallery'}
+      </a>
     </Link>
     <LinkSeparator />
     <AddVideos
@@ -718,14 +714,14 @@ const ManagePropertyLink = ({ property, setToast, setProperty }) => (
 export const PropertyImage = ({ property, hideGallery }) => {
   const showGallery = property?.gallery?.length > 0 && !hideGallery;
   return (
-    <>
-      <div className="row">
+    <section className="property-image-wrapper">
+      <div className="row gx-2">
         <div className={!showGallery ? 'col-sm-12' : 'col-sm-10'}>
           <div
             className={
               !useCurrentRole().isUser && property?.flagged?.status
                 ? 'overlay overlay__danger'
-                : undefined
+                : 'hover-image'
             }
           >
             <OnlineImage
@@ -739,7 +735,7 @@ export const PropertyImage = ({ property, hideGallery }) => {
         </div>
         {showGallery && <GalleryList property={property} />}
       </div>
-    </>
+    </section>
   );
 };
 
@@ -829,7 +825,7 @@ export const PropertyDescription = ({
 
   return (
     <>
-      <h5 className="mt-3 header-content">About Property</h5>
+      <h5 className="mt-5 header-content">About Property</h5>
 
       <div className="position-relative">
         <ReactMarkdown>
@@ -869,7 +865,7 @@ export const PropertyDescription = ({
             <span className="text-secondary">
               <CheckCircleIcon /> &nbsp;
             </span>
-            {feature}
+            <span className="text-primary-light">{feature}</span>
           </li>
         ))}
       </ul>
@@ -933,9 +929,11 @@ export const PropertyDescription = ({
 };
 
 export const PropertyDetailsList = ({ title, Icon, value }) => (
-  <li className="col-sm-6 mt-2">
-    <span className="text-primary fw-bold me-2">{title}:</span>
-    <span className="">{value}</span>
+  <li className="col-sm-6 d-flex align-items-center  mt-2">
+    <span className="text-primary-light fw-bold me-2 lh-0 flex-shrink-0 w-150">
+      {title}:
+    </span>
+    <span className="flex-grow-1 text-primary-light">{value}</span>
   </li>
 );
 

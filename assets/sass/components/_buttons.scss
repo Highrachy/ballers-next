@@ -28,6 +28,24 @@
   }
 }
 
+.badge-dim {
+  position: relative;
+  line-height: 1.125rem;
+  padding: 0.75rem 2rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
+  vertical-align: middle;
+  display: inline-flex;
+  border-radius: 3px;
+}
+
+@each $name, $colors in $brand-colors {
+  .badge-dim-#{$name} {
+    color: map-get($colors, '600') !important;
+    background-color: map-get($colors, '100') !important;
+  }
+}
+
 // .btn-warning-light {
 //   color: $warning-800 !important;
 // }

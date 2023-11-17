@@ -14,12 +14,9 @@ import {
   updateMilestoneSchema,
 } from 'components/forms/schemas/propertySchema';
 import Input from 'components/forms/Input';
-import { Accordion } from 'react-bootstrap';
-import { ContextAwareToggle } from 'components/common/FAQsAccordion';
 import { useCurrentRole } from 'hooks/useUser';
 import Textarea from '../forms/Textarea';
 import InputFormat from '../forms/InputFormat';
-import store from 'store2';
 import Select from '../forms/Select';
 import { dataToOptions, getError, statusIsSuccessful } from '@/utils/helpers';
 import {
@@ -35,6 +32,13 @@ import { refreshQuery, setQueryCache } from '@/hooks/useQuery';
 import Humanize from 'humanize-plus';
 import { getLongDate, getTinyDate } from '@/utils/date-helpers';
 import { Spacing } from '../common/Helpers';
+import { Briefcase } from 'iconsax-react';
+import { TiDelete } from 'react-icons/ti';
+import { FaCircle, FaCircleNotch, FaClock } from 'react-icons/fa';
+import { SuccessIcon } from '../utils/Icons';
+import { GenerateMilestonePropertyUpdates } from './PropertyUpdate';
+import { RiLoader2Line } from 'react-icons/ri';
+import { AiOutlineStop } from 'react-icons/ai';
 
 export const storeMilestone = (
   updatedMilestonesCopy,
@@ -78,7 +82,7 @@ export const storeMilestone = (
     });
 };
 
-export const MilestonePayment = ({
+export const MilestonePaymentForm = ({
   hideForm,
   setToast,
   setProperty,
@@ -227,30 +231,16 @@ export const MilestonePayment = ({
   );
 };
 
-export const AddOrResetMilestone = ({
-  className,
-  setToast,
-  setProperty,
-  property,
-}) => {
+export const AddMilestoneButton = ({ setToast, setProperty, property }) => {
   const [showAddMilestonesModal, setShowAddMilestonesModal] =
-    React.useState(false);
-  const [showResetMilestonesModal, setShowResetMilestonesModal] =
     React.useState(false);
   return (
     <>
       <span
-        className="btn btn-secondary btn-xs btn-wide"
+        className="btn btn-secondary btn-sm btn-wide"
         onClick={() => setShowAddMilestonesModal(true)}
       >
         Add Milestone
-      </span>
-      &nbsp;&nbsp;
-      <span
-        className="btn btn-info btn-xs btn-wide"
-        onClick={() => setShowResetMilestonesModal(true)}
-      >
-        Reset Milestone
       </span>
       <Modal
         title="Milestone"
@@ -259,13 +249,28 @@ export const AddOrResetMilestone = ({
         showFooter={false}
         size="lg"
       >
-        <MilestonePayment
+        <MilestonePaymentForm
           hideForm={() => setShowAddMilestonesModal(false)}
           setToast={setToast}
           setProperty={setProperty}
           property={property}
         />
       </Modal>
+    </>
+  );
+};
+
+export const ResetMilestoneButton = ({ setToast, setProperty, property }) => {
+  const [showResetMilestonesModal, setShowResetMilestonesModal] =
+    React.useState(false);
+  return (
+    <>
+      <span
+        className="btn btn-info btn-sm btn-wide"
+        onClick={() => setShowResetMilestonesModal(true)}
+      >
+        Reset
+      </span>
       {/* Reset Milestone Modal */}
       <Modal
         title="Reset Milestone"
@@ -303,7 +308,152 @@ export const AddOrResetMilestone = ({
   );
 };
 
-export const MoveToNextMilestone = ({ setToast, setProperty, property }) => {
+export const EditMilestoneButton = ({
+  setToast,
+  setProperty,
+  property,
+  currentMilestone,
+}) => {
+  const [showEditMilestoneModal, setShowEditMilestoneModal] = useState(false);
+  return (
+    <>
+      <span
+        className="btn btn-info-light btn-xs mt-3"
+        onClick={() => {
+          setShowEditMilestoneModal(true);
+        }}
+      >
+        Edit Milestone
+      </span>
+      <Modal
+        title="Edit Milestone"
+        show={showEditMilestoneModal}
+        onHide={() => setShowEditMilestoneModal(false)}
+        showFooter={false}
+      >
+        <MilestonePaymentForm
+          hideForm={() => setShowEditMilestoneModal(false)}
+          property={property}
+          setProperty={setProperty}
+          setToast={setToast}
+          milestone={currentMilestone}
+        />
+      </Modal>
+    </>
+  );
+};
+
+export const DeleteMilestoneButton = ({
+  setToast,
+  setProperty,
+  property,
+  currentMilestone,
+}) => {
+  const [showDeleteMilestoneModal, setShowDeleteMilestoneModal] =
+    useState(false);
+
+  const deleteMilestone = () => {
+    if (currentMilestone) {
+      const updatedMilestones = property?.milestonePayment;
+      const index = updatedMilestones.findIndex(
+        (item) => item.key === currentMilestone.key
+      );
+
+      if (index !== -1) {
+        const deletedPercentage = Number(updatedMilestones[index].percentage);
+
+        // Only add the percentage to the first milestone if it's not the first milestone itself.
+        if (index !== 0) {
+          updatedMilestones[0].percentage = (
+            Number(updatedMilestones[0].percentage) + deletedPercentage
+          ).toString();
+        }
+
+        updatedMilestones.splice(index, 1);
+        storeMilestone(updatedMilestones, property, setProperty, setToast);
+      }
+    }
+    setToast({
+      type: 'success',
+      message: `Your milestone has been successfully deleted`,
+    });
+    setShowDeleteMilestoneModal(false);
+  };
+
+  if (!currentMilestone?.editable) return null;
+  return (
+    <>
+      <div className="position-relative">
+        <div className="position-absolute end-0">
+          <span
+            className="cursor-pointer"
+            onClick={() => {
+              setShowDeleteMilestoneModal(true);
+            }}
+          >
+            <TiDelete className="ms-3 text-gray-light" size={32} />
+          </span>
+        </div>
+      </div>
+      <Modal
+        title="Delete Milestone"
+        show={showDeleteMilestoneModal}
+        onHide={() => setShowDeleteMilestoneModal(false)}
+        showFooter={false}
+      >
+        <section className="row">
+          <div className="col-md-12 my-3 text-center">
+            <h3>{currentMilestone?.title}</h3>
+            <p className="my-4 confirmation-text fw-bold">
+              Are you sure you want to delete this Milestone Payment?
+            </p>
+            <Button
+              className="btn btn-secondary mb-5"
+              onClick={deleteMilestone}
+            >
+              Delete Milestone Payment
+            </Button>
+          </div>
+        </section>
+      </Modal>
+    </>
+  );
+};
+
+export const AddOrResetMilestoneButtons = ({
+  setToast,
+  setProperty,
+  property,
+}) => {
+  return (
+    <div className="row">
+      <div className="col-12">
+        <>
+          <AddMilestoneButton
+            className="btn btn-secondary btn-xs btn-wide"
+            property={property}
+            setToast={setToast}
+            setProperty={setProperty}
+          />
+          <Spacing />
+          <ResetMilestoneButton
+            className="btn btn-secondary btn-xs btn-wide"
+            property={property}
+            setToast={setToast}
+            setProperty={setProperty}
+          />
+        </>
+      </div>
+    </div>
+  );
+};
+
+export const MoveToNextMilestoneButton = ({
+  setToast,
+  setProperty,
+  property,
+  buttonText,
+}) => {
   const [showModal, setShowModal] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
@@ -346,276 +496,294 @@ export const MoveToNextMilestone = ({ setToast, setProperty, property }) => {
     : 'Move to Next Milestone';
 
   return (
-    <>
-      <Button
-        className="btn btn-secondary btn-sm btn-wide"
-        onClick={() => setShowModal(true)}
-      >
-        {milestoneText}
-      </Button>
-      <Modal
-        title={milestoneText}
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        showFooter={false}
-        size="md"
-      >
-        <section className="row">
-          <div className="col-md-12 my-3 text-center">
-            <p className="mx-3 confirmation-text fw-bold">
-              {isLastMilestone
-                ? 'Are you sure you want to mark this as the final completed milestone?'
-                : 'Are you sure you want to mark the current milestone as completed and move to the next one?'}
-            </p>
-            <Button
-              className="btn btn-secondary mb-5"
-              onClick={moveToNextMilestoneStep}
-              loading={loading}
-            >
-              {milestoneText}
-            </Button>
+    <div className="row">
+      <div className="col-12">
+        <Button
+          className="btn btn-secondary btn-sm btn-wide"
+          onClick={() => setShowModal(true)}
+        >
+          {buttonText || milestoneText}
+        </Button>
+        <Modal
+          title={milestoneText}
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          showFooter={false}
+          size="md"
+        >
+          <section className="row">
+            <div className="col-md-12 my-3 text-center">
+              <p className="mx-3 confirmation-text fw-bold">
+                {isLastMilestone
+                  ? 'Are you sure you want to mark this as the final completed milestone?'
+                  : 'Are you sure you want to mark the current milestone as completed and move to the next one?'}
+              </p>
+              <Button
+                className="btn btn-secondary mb-5"
+                onClick={moveToNextMilestoneStep}
+                loading={loading}
+              >
+                {buttonText || milestoneText}
+              </Button>
+            </div>
+          </section>
+        </Modal>
+      </div>
+    </div>
+  );
+};
+
+export const MilestoneInformation = ({ userIsVendor, property }) => {
+  const { milestoneDetails, milestonePayment: milestones } = property;
+
+  const totalMilestoneDuration = getTotalMilestoneDuration(milestones);
+  const lastMilestoneDate = getLastMilestoneDueDate(milestones);
+
+  return (
+    <div className="fw-bold me-3 mb-3">
+      {userIsVendor ? (
+        <>
+          {milestoneDetails?.status === MILESTONE_STATUS.IN_PROGRESS && (
+            <>
+              <span className="text-primary">
+                <FaClock className="me-1" /> Remaining Timeline:{' '}
+              </span>
+              <span className="text-muted">
+                {getSumOfRemainingMonths(milestones)} months (due on{' '}
+                {lastMilestoneDate})
+              </span>
+            </>
+          )}
+          {milestoneDetails?.status === MILESTONE_STATUS.PENDING && (
+            <>
+              <span className="text-primary">
+                <FaClock className="me-1" /> Total Timeline:{' '}
+              </span>
+              <span className="text-muted">
+                {totalMilestoneDuration} months (due on {lastMilestoneDate})
+              </span>
+            </>
+          )}
+          {milestoneDetails?.status === MILESTONE_STATUS.COMPLETED && (
+            <>
+              <span className="text-primary">Completed on </span>
+              <span className="text-success-darker">
+                {getLongDate(milestoneDetails?.currentMilestoneUpdated)}
+              </span>
+            </>
+          )}
+        </>
+      ) : (
+        <>
+          <span className="text-primary">
+            <FaClock className="me-1" /> Delivery Date:{' '}
+          </span>
+          <span className="text-secondary">{lastMilestoneDate}</span>
+        </>
+      )}
+    </div>
+  );
+};
+
+export const MilestoneNextStep = ({ userIsVendor, property }) => {
+  return (
+    <div className="alert state-alert" role="alert">
+      <strong>Next Steps</strong>
+      <ol>
+        <li>
+          Click on the <strong>Add Milestone</strong> or{' '}
+          <strong>Edit Milestone</strong> to manage Milestone
+        </li>
+        <li>
+          When ready, click on the <strong>Generate Property Update</strong> to
+          start adding updates to your Milestone
+        </li>
+      </ol>
+    </div>
+  );
+};
+
+const MilestoneContent = ({
+  setToast,
+  setProperty,
+  property,
+  currentMilestone: milestone,
+  index,
+}) => {
+  const userIsVendor = useCurrentRole().isVendor;
+  const milestoneDetails = property?.milestoneDetails;
+  const milestoneHasStarted =
+    milestoneDetails?.status !== MILESTONE_STATUS.PENDING;
+
+  const statusClassName =
+    index === milestoneDetails?.currentMilestone
+      ? 'in-progress'
+      : milestone?.completed
+      ? 'completed'
+      : '';
+
+  return (
+    <section className={`milestone-content ${statusClassName}`}>
+      {!milestoneHasStarted && (
+        <DeleteMilestoneButton
+          property={property}
+          setProperty={setProperty}
+          setToast={setToast}
+          currentMilestone={milestone}
+        />
+      )}
+      <div className="container">
+        <div className="row">
+          <div className="col-9 d-flex align-items-center">
+            <div className="text-white">
+              <div className="mb-4 text-muted">Milestone {index + 1}:</div>
+              <h4 className="text-white">
+                {milestone.title} - {milestone.percentage}%
+              </h4>
+              <p>{milestone.description}</p>
+
+              <div className="fw-normal my-2 text-md text-gray-light">
+                <span className="me-3">
+                  Timeline: {milestone.duration}{' '}
+                  {Humanize.pluralize(milestone.duration, 'month')} (due on{' '}
+                  {getTinyDate(milestone.dueDate)})
+                </span>
+              </div>
+
+              {userIsVendor && !milestoneHasStarted && (
+                <EditMilestoneButton
+                  property={property}
+                  setProperty={setProperty}
+                  setToast={setToast}
+                  currentMilestone={milestone}
+                />
+              )}
+            </div>
           </div>
-        </section>
-      </Modal>
-    </>
+          <div className="col-3 d-flex align-items-center justify-content-end">
+            {milestoneHasStarted && (
+              <>
+                {index === milestoneDetails?.currentMilestone ? (
+                  userIsVendor ? (
+                    <MoveToNextMilestoneButton
+                      property={property}
+                      setToast={setToast}
+                      setProperty={setProperty}
+                      buttonText="Mark as Complete"
+                    />
+                  ) : (
+                    <span className="text-success-light icon-lg">
+                      <RiLoader2Line />
+                    </span>
+                  )
+                ) : milestone?.completed ? (
+                  <>
+                    <span className="text-success-light icon-lg">
+                      <SuccessIcon />
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-gray-light icon-lg">
+                    <AiOutlineStop />
+                  </span>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
 export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
-  const [showEditMilestoneModal, setShowEditMilestoneModal] = useState(false);
-  const [showDeleteMilestoneModal, setShowDeleteMilestoneModal] =
-    useState(false);
-
-  const [milestone, setMilestone] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const deleteMilestone = () => {
-    if (milestone) {
-      const updatedMilestones = property?.milestonePayment;
-      const index = updatedMilestones.findIndex(
-        (item) => item.key === milestone.key
-      );
-
-      if (index !== -1) {
-        const deletedPercentage = Number(updatedMilestones[index].percentage);
-
-        // Only add the percentage to the first milestone if it's not the first milestone itself.
-        if (index !== 0) {
-          updatedMilestones[0].percentage = (
-            Number(updatedMilestones[0].percentage) + deletedPercentage
-          ).toString();
-        }
-
-        updatedMilestones.splice(index, 1);
-        storeMilestone(updatedMilestones, property, setProperty, setToast);
-      }
-    }
-    setToast({
-      type: 'success',
-      message: `Your milestone has been successfully deleted`,
-    });
-    setShowDeleteMilestoneModal(false);
-  };
-
+  const [showAllMilestones, setShowAllMilestones] = useState(false);
   const userIsVendor = useCurrentRole().isVendor;
-  const milestones = property?.milestonePayment;
-  const milestoneDetails = property?.milestoneDetails;
-  const totalMilestoneDuration = getTotalMilestoneDuration(milestones);
-  const lastMilestoneDate = getLastMilestoneDueDate(milestones);
+  const milestones = property?.milestonePayment || [];
+  const milestoneDetails = property?.milestoneDetails || {};
   const milestoneHasStarted =
     milestoneDetails?.status !== MILESTONE_STATUS.PENDING;
+  const milestoneIsPending =
+    milestoneDetails?.status === MILESTONE_STATUS.PENDING;
+  const handleToggleMilestonesView = () => {
+    setShowAllMilestones((prevShowAllMilestones) => !prevShowAllMilestones);
+  };
+  const currentMilestone = milestones[milestoneDetails?.currentMilestone || 0];
 
   return (
     <>
-      <div className="property__milestone-payments">
-        <h4 className="header-content">Milestone Payments</h4>
-
-        <Accordion>
-          {milestones?.map((milestone, index) => (
-            <Card key={index + 1}>
-              <Card.Header>
-                <ContextAwareToggle eventKey={index + 1}>
-                  <strong className="fw-semibold">
-                    Milestone {index + 1} :
-                  </strong>{' '}
-                  {milestone.title} - {milestone.percentage}%
-                  <Spacing />
-                  {milestoneHasStarted && (
-                    <small className="fw-normal text-soft">
-                      {index === milestoneDetails?.currentMilestone
-                        ? '(In Progress)'
-                        : milestone?.completed
-                        ? '(Completed)'
-                        : '(Not Started)'}
-                    </small>
-                  )}
-                </ContextAwareToggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey={index + 1}>
-                <>
-                  <Card.Body>
-                    <div className="mt-n4">
-                      {milestone.description}
-
-                      <div className="fw-normal mt-2 text-md text-muted">
-                        <span className="me-3">
-                          Duration: {milestone.duration}{' '}
-                          {Humanize.pluralize(milestone.duration, 'month')}
-                        </span>{' '}
-                        |
-                        <span className="mx-3">
-                          Due Date: {getTinyDate(milestone.dueDate)}
-                        </span>
-                        |
-                        <span className="mx-3">
-                          Completed: {milestone?.completed ? 'Yes' : 'No'}
-                        </span>
-                      </div>
-                    </div>
-                  </Card.Body>
-
-                  {userIsVendor && !milestoneHasStarted && (
-                    <div className="mt-2 ms-3 mb-4 text-muted">
-                      <span
-                        className="btn btn-dark btn-xs me-2"
-                        onClick={() => {
-                          setMilestone({ ...milestone });
-                          setShowEditMilestoneModal(true);
-                        }}
-                      >
-                        Edit Milestone
-                      </span>
-                      {milestone.editable && (
-                        <span
-                          className="btn btn-xs btn-danger-light"
-                          onClick={() => {
-                            setMilestone({ ...milestone });
-                            setShowDeleteMilestoneModal(true);
-                          }}
-                        >
-                          Remove Milestone
-                        </span>
-                      )}
-                    </div>
-                  )}
-                </>
-              </Accordion.Collapse>
-            </Card>
-          ))}
-          {/* Edit Milestone Modal */}
-          <Modal
-            title="Edit Milestone"
-            show={showEditMilestoneModal}
-            onHide={() => setShowEditMilestoneModal(false)}
-            showFooter={false}
-          >
-            <MilestonePayment
-              hideForm={() => setShowEditMilestoneModal(false)}
+      <div className="property__milestone-payments mt-5">
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h4 className="header-content my-2">Milestone Payments</h4>
+            <MilestoneInformation
+              property={property}
+              userIsVendor={userIsVendor}
+            />
+          </div>
+          {milestoneHasStarted && (
+            <Button
+              className="btn-wide btn-sm"
+              color="secondary-light"
+              onClick={handleToggleMilestonesView}
+            >
+              {showAllMilestones
+                ? 'Show Current Milestone'
+                : 'Show Milestone Accordion'}
+            </Button>
+          )}
+          {userIsVendor && !milestoneHasStarted && (
+            <AddOrResetMilestoneButtons
               property={property}
               setProperty={setProperty}
               setToast={setToast}
-              milestone={milestone}
             />
-          </Modal>
-
-          {/* Delete Milestone Modal */}
-          <Modal
-            title="Delete Milestone"
-            show={showDeleteMilestoneModal}
-            onHide={() => setShowDeleteMilestoneModal(false)}
-            showFooter={false}
-          >
-            <section className="row">
-              <div className="col-md-12 my-3 text-center">
-                <h3>{milestone?.title}</h3>
-                <p className="my-4 confirmation-text fw-bold">
-                  Are you sure you want to delete this Milestone Payment?
-                </p>
-                <Button
-                  loading={loading}
-                  className="btn btn-secondary mb-5"
-                  onClick={deleteMilestone}
-                >
-                  Delete Milestone Payment
-                </Button>
-              </div>
-            </section>
-          </Modal>
-        </Accordion>
-        <MilestoneProgress
-          currentStage={
-            milestones?.[milestoneDetails?.currentMilestone]?.title ||
-            'Not Started'
-          }
-          percentage={milestoneDetails?.currentMilestonePercentage || 0}
-        />
-        <div className="fw-bold me-3 mb-3">
-          {userIsVendor ? (
-            <>
-              {milestoneDetails?.status === MILESTONE_STATUS.IN_PROGRESS && (
-                <>
-                  <span className="text-primary">Remaining Duration: </span>
-                  <span className="text-muted">
-                    {getSumOfRemainingMonths(milestones)} months (due on{' '}
-                    {lastMilestoneDate})
-                  </span>
-                </>
-              )}
-              {milestoneDetails?.status === MILESTONE_STATUS.PENDING && (
-                <>
-                  <span className="text-primary">
-                    Total Milestone Duration:{' '}
-                  </span>
-                  <span className="text-muted">
-                    {totalMilestoneDuration} months (due on {lastMilestoneDate})
-                  </span>
-                </>
-              )}
-              {milestoneDetails?.status === MILESTONE_STATUS.COMPLETED && (
-                <>
-                  <span className="text-primary">Milestone Completed on </span>
-                  <span className="text-success-darker">
-                    {getLongDate(milestoneDetails?.currentMilestoneUpdated)}
-                  </span>
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              <span className="text-primary">Delivery Date: </span>
-              <span className="text-secondary">{lastMilestoneDate}</span>
-            </>
           )}
         </div>
+
+        {milestoneIsPending || showAllMilestones ? (
+          milestones?.map((milestone, index) => (
+            <MilestoneContent
+              currentMilestone={milestone}
+              index={index}
+              key={index}
+              property={property}
+              setProperty={setProperty}
+              setToast={setToast}
+            />
+          ))
+        ) : (
+          <>
+            <MilestoneContent
+              currentMilestone={currentMilestone}
+              index={milestoneDetails?.currentMilestone}
+              property={property}
+              setProperty={setProperty}
+              setToast={setToast}
+            />
+          </>
+        )}
+
+        <MilestoneProgress property={property} />
       </div>
 
-      {userIsVendor && (
-        <div className="row mt-3">
-          <div className="col-12">
-            {!milestoneHasStarted && (
-              <AddOrResetMilestone
-                className="btn btn-secondary btn-xs btn-wide"
-                property={property}
-                setToast={setToast}
-                setProperty={setProperty}
-              />
-            )}
-            {property?.milestoneDetails?.status ===
-              MILESTONE_STATUS.IN_PROGRESS && (
-              <MoveToNextMilestone
-                property={property}
-                setToast={setToast}
-                setProperty={setProperty}
-              />
-            )}
-          </div>
-        </div>
-      )}
+      {/* <MilestoneNextStep property={property} userIsVendor={userIsVendor} /> */}
+      <GenerateMilestonePropertyUpdates
+        className="btn btn-success btn-xs btn-wide"
+        property={property}
+        setToast={setToast}
+        setProperty={setProperty}
+      />
     </>
   );
 };
 
-export const MilestoneProgress = ({ currentStage, percentage }) => {
+export const MilestoneProgress = ({ milestonePayment, milestoneDetails }) => {
+  const milestones = milestonePayment;
+
+  const currentStage =
+    milestones?.[milestoneDetails?.currentMilestone]?.title || 'Not Started';
+  const percentage = milestoneDetails?.currentMilestonePercentage || 0;
   const completedAllSteps = percentage === 100;
   const notStarted = percentage === 0;
   if (notStarted) {
