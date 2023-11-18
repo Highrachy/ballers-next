@@ -5,7 +5,6 @@ import {
   FiHeart,
   FiMenu,
   FiCamera,
-  FiFolder,
   FiArchive,
   FiFileText,
   FiServer,
@@ -59,7 +58,6 @@ import {
   BiCheckCircle,
   BiFoodMenu,
   BiCameraMovie,
-  BiFilter,
 } from 'react-icons/bi';
 import {
   AiFillCheckSquare,
@@ -72,9 +70,10 @@ import {
   MdLocalMall,
   MdAccountBalanceWallet,
   MdAddShoppingCart,
+  MdEditNote,
 } from 'react-icons/md';
 import { GoVerified } from 'react-icons/go';
-import { TiMessages } from 'react-icons/ti';
+import { TiDelete, TiMessages } from 'react-icons/ti';
 import { SiFastapi } from 'react-icons/si';
 import {
   Activity,
@@ -118,11 +117,13 @@ export const CompanyInfoIcon = () => <Folder variant="Bulk" />;
 export const CopyToClipBoardIcon = () => <FiClipboard />;
 export const ClockIcon = () => <FiClock />;
 export const DeleteIcon = () => <FiTrash2 />;
+export const DeleteXIcon = () => <TiDelete />;
 export const DeliveryStateIcon = () => <FiCheckCircle />;
 export const DownloadIcon = () => <FiDownload />;
 export const EntertainmentIcon = () => <BiCameraMovie />;
 export const ErrorIcon = () => <FaTimesCircle />;
 export const EditIcon = () => <FiEdit />;
+export const EditNoteIcon = () => <MdEditNote />;
 export const EnquiryIcon = () => <BiMessageDetail />;
 export const FacebookIcon = () => <FiFacebook />;
 export const FileIcon = () => <FiFileText />;

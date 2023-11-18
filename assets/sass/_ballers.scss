@@ -734,34 +734,12 @@ html {
 }
 
 .property-updates {
-  &-container {
-    padding: 2rem;
-    line-height: 2rem;
-  }
-
-  &-description {
-    color: $primary-600;
-    font-size: 0.9rem;
-  }
-
-  &-date {
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: $primary-200;
-    font-weight: 600;
-    padding-bottom: 0.5rem;
-  }
-
-  &-title {
-    font-size: 1.5rem;
-    color: $primary-500;
-  }
   &-image {
     height: 3rem;
     width: 5rem !important;
     border-radius: 3px;
     object-fit: cover;
+    margin: 4px 4px 4px 0;
   }
 }
 

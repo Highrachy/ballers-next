@@ -160,10 +160,10 @@ export const GalleryList = ({ property }) => {
 
   return (
     <>
-      <div className="col-sm-2">
-        <aside className="row gallery-row">
+      <div className="col-lg-2">
+        <aside className="row gx-1 mt-1 mt-lg-0">
           {neededGalleryImages.slice(0, 3).map(({ _id, title, url }) => (
-            <div className="gallery-col col-3 col-md-12" key={_id}>
+            <div className="gallery-col col-3 col-lg-12" key={_id}>
               <OnlineImage
                 src={url}
                 alt={title}
@@ -172,7 +172,7 @@ export const GalleryList = ({ property }) => {
             </div>
           ))}
 
-          <div className="gallery-col col-3 col-md-12">
+          <div className="col-3 col-lg-12">
             <div
               onClick={() => setShowSlideShowModal(true)}
               className="overlay overlay__secondary"

@@ -35,8 +35,11 @@ import { Spacing } from '../common/Helpers';
 import { Briefcase } from 'iconsax-react';
 import { TiDelete } from 'react-icons/ti';
 import { FaCircle, FaCircleNotch, FaClock } from 'react-icons/fa';
-import { SuccessIcon } from '../utils/Icons';
-import { GenerateMilestonePropertyUpdates } from './PropertyUpdate';
+import { SuccessIcon, WarningIcon } from '../utils/Icons';
+import {
+  AddPropertyUpdateMedia,
+  GenerateMilestonePropertyUpdates,
+} from './PropertyUpdate';
 import { RiLoader2Line } from 'react-icons/ri';
 import { AiOutlineStop } from 'react-icons/ai';
 
@@ -391,7 +394,7 @@ export const DeleteMilestoneButton = ({
               setShowDeleteMilestoneModal(true);
             }}
           >
-            <TiDelete className="ms-3 text-gray-light" size={32} />
+            <TiDelete className="text-gray-light" size={32} />
           </span>
         </div>
       </div>
@@ -491,19 +494,39 @@ export const MoveToNextMilestoneButton = ({
   const currentMilestone = property?.milestoneDetails?.currentMilestone;
   const lastMilestone = property?.milestonePayment?.length - 1;
   const isLastMilestone = currentMilestone === lastMilestone;
+  const propertyUpdate = property?.propertyUpdate?.[currentMilestone];
+  const MINIMUM_PROPERTY_UPDATE = 2;
+  const uploadedMedia = propertyUpdate?.media?.length || 0;
+  console.log('uploadedMedia: ', uploadedMedia);
   const milestoneText = isLastMilestone
     ? 'Complete All Milestones'
     : 'Move to Next Milestone';
 
   return (
-    <div className="row">
+    <div className="row text-end">
       <div className="col-12">
-        <Button
-          className="btn btn-secondary btn-sm btn-wide"
-          onClick={() => setShowModal(true)}
-        >
-          {buttonText || milestoneText}
-        </Button>
+        {uploadedMedia < MINIMUM_PROPERTY_UPDATE ? (
+          <>
+            <AddPropertyUpdateMedia
+              property={property}
+              setProperty={setProperty}
+              setToast={setToast}
+              propertyUpdate={propertyUpdate}
+              setPropertyUpdate={() => {}}
+            />
+            <div className="text-sm text-soft mt-2">
+              Need {MINIMUM_PROPERTY_UPDATE - uploadedMedia}+ media files to
+              complete
+            </div>
+          </>
+        ) : (
+          <Button
+            className="btn btn-secondary btn-sm btn-wide"
+            onClick={() => setShowModal(true)}
+          >
+            {buttonText || milestoneText}
+          </Button>
+        )}
         <Modal
           title={milestoneText}
           show={showModal}
@@ -620,7 +643,7 @@ const MilestoneContent = ({
       ? 'in-progress'
       : milestone?.completed
       ? 'completed'
-      : '';
+      : 'pending';
 
   return (
     <section className={`milestone-content ${statusClassName}`}>
@@ -634,21 +657,25 @@ const MilestoneContent = ({
       )}
       <div className="container">
         <div className="row">
-          <div className="col-9 d-flex align-items-center">
-            <div className="text-white">
-              <div className="mb-4 text-muted">Milestone {index + 1}:</div>
+          <div className="col-xl-2 d-flex align-items-center">
+            <div className="mb-4 fw-bold text-primary-lighter text-uppercase">
+              Milestone {index + 1}:
+            </div>
+          </div>
+          <div className="col-xl-6 d-flex align-items-center">
+            <div className="mb-4 mb-xl-0">
               <h4 className="text-white">
                 {milestone.title} - {milestone.percentage}%
               </h4>
-              <p>{milestone.description}</p>
-
-              <div className="fw-normal my-2 text-md text-gray-light">
-                <span className="me-3">
-                  Timeline: {milestone.duration}{' '}
-                  {Humanize.pluralize(milestone.duration, 'month')} (due on{' '}
-                  {getTinyDate(milestone.dueDate)})
-                </span>
+              <div className="fw-normal mb-2 text-md text-gray-light">
+                Timeline: {milestone.duration}{' '}
+                {Humanize.pluralize(milestone.duration, 'month')} (due on{' '}
+                {getTinyDate(milestone.dueDate)})
               </div>
+              <TruncatedDescription
+                description={milestone.description}
+                maxLength={60}
+              />
 
               {userIsVendor && !milestoneHasStarted && (
                 <EditMilestoneButton
@@ -660,7 +687,7 @@ const MilestoneContent = ({
               )}
             </div>
           </div>
-          <div className="col-3 d-flex align-items-center justify-content-end">
+          <div className="col-xl-4 d-flex align-items-center justify-content-end">
             {milestoneHasStarted && (
               <>
                 {index === milestoneDetails?.currentMilestone ? (
@@ -669,7 +696,7 @@ const MilestoneContent = ({
                       property={property}
                       setToast={setToast}
                       setProperty={setProperty}
-                      buttonText="Mark as Complete"
+                      buttonText="Mark as Completed"
                     />
                   ) : (
                     <span className="text-success-light icon-lg">
@@ -713,7 +740,7 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
   return (
     <>
       <div className="property__milestone-payments mt-5">
-        <div className="d-flex justify-content-between align-items-center mb-3">
+        <div className="mb-3 d-flex flex-column flex-xl-row align-items-start  justify-content-between">
           <div>
             <h4 className="header-content my-2">Milestone Payments</h4>
             <MilestoneInformation
@@ -729,7 +756,7 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
             >
               {showAllMilestones
                 ? 'Show Current Milestone'
-                : 'Show Milestone Accordion'}
+                : 'Show All Milestones'}
             </Button>
           )}
           {userIsVendor && !milestoneHasStarted && (
@@ -820,4 +847,40 @@ const getSumOfRemainingMonths = (milestones) => {
     }
     return sum;
   }, 0);
+};
+
+export const TruncatedDescription = ({
+  description,
+  maxLength = 600,
+  className = 'text-white',
+}) => {
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const shouldTruncate = description.length > maxLength;
+  const truncatedText = shouldTruncate
+    ? description.slice(0, maxLength) + '...'
+    : description;
+
+  return (
+    <>
+      <div className="position-relative">
+        {showFullDescription ? (
+          <>{description}</>
+        ) : (
+          <>
+            {truncatedText}
+            {shouldTruncate && (
+              <>
+                <span
+                  className={`show-more-button ${className}`}
+                  onClick={() => setShowFullDescription(true)}
+                >
+                  Show All
+                </span>
+              </>
+            )}
+          </>
+        )}
+      </div>
+    </>
+  );
 };

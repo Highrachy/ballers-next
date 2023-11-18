@@ -1,13 +1,13 @@
 import { addMonths, format, isValid, parseISO } from 'date-fns';
 import { PRICING_MODEL, PROPERTY_DELIVERY_STATE } from './constants';
-import { property, update } from 'lodash';
 import { getTinyDate } from './date-helpers';
 
-const DEFAULT_MILESTONES = {
+export const DEFAULT_MILESTONES = {
   initiation: {
     key: 'initiation',
-    title: 'Initiation',
-    description: 'Documentation, preliminaries, and foundation',
+    title: 'Initiation2',
+    description:
+      'This phase involves the foundational steps and preliminary documentation essential to kickstart the project. It covers initial paperwork, site evaluations, and establishing the project groundwork.',
     percentage: 50, // Fixed at 50
     duration: 3,
     editable: false,
@@ -15,14 +15,16 @@ const DEFAULT_MILESTONES = {
   carcass: {
     key: 'carcass',
     title: 'Carcass',
-    description: 'Frames, walls, roof, and M&E first fix',
+    description:
+      'The Carcass stage focuses on constructing the basic structure of the property, including the framing, walls, roof, and initial mechanical and electrical fittings. It sets the structural framework for subsequent phases.',
     duration: 3,
     editable: true,
   },
   shell: {
     key: 'shell',
     title: 'Shell',
-    description: 'Windows, doors, ironmongery, external building finishes',
+    description:
+      'During the Shell phase, the emphasis is on installing windows, doors, ironmongery, and external building finishes. This stage ensures the property becomes weatherproof and secure.',
     duration: 3,
     editable: true,
   },
@@ -30,7 +32,7 @@ const DEFAULT_MILESTONES = {
     key: 'internal',
     title: 'Internal finishes and decorations',
     description:
-      'Floor, wall, and ceiling finishes, M&E installations, fixtures, fittings, painting, and decorations',
+      'The Internal Works phase covers interior elements such as floor, wall, and ceiling finishes, along with comprehensive mechanical and electrical installations, fixtures, fittings, painting, and aesthetic enhancements.',
     duration: 3,
     editable: true,
   },
@@ -38,16 +40,17 @@ const DEFAULT_MILESTONES = {
     key: 'external',
     title: 'External works',
     description:
-      'External walls, gates, driveway, parking, ancillary buildings, and external services',
+      'External Works include finalizing external walls, gates, driveway construction, parking, and integrating auxiliary structures and services to complete the property’s exterior elements.',
     duration: 3,
     editable: true,
   },
   final: {
     key: 'final',
     title: 'Final Finishes',
-    description: 'Testing, commissioning, and handover',
-    duration: 3,
+    description:
+      "This concluding phase involves meticulous testing, commissioning, and the ultimate handover. It's the stage where the property undergoes comprehensive checks and gets prepared for the final handover to the client.",
     percentage: 10,
+    duration: 3,
     editable: false,
   },
 };

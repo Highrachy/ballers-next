@@ -139,24 +139,23 @@
 .gallery-main-image {
   height: 15rem;
   @include media-breakpoint-up(md) {
+    height: 20rem;
+  }
+  @include media-breakpoint-up(lg) {
+    height: 21.6rem;
+  }
+  @include media-breakpoint-up(xl) {
     height: 37rem;
   }
 }
-
-@include media-breakpoint-down(sm) {
-  .gallery-row {
-    margin: 0 -5px !important;
-  }
-
-  .gallery-col {
-    padding: 10px 5px !important;
-  }
-}
-
 .gallery-thumbnails {
   height: 4rem;
-  @include media-breakpoint-up(md) {
+
+  @include media-breakpoint-up(lg) {
     margin-bottom: 0.5rem;
+    height: 5rem;
+  }
+  @include media-breakpoint-up(xl) {
     height: 8.87rem;
   }
 }
@@ -388,18 +387,47 @@
   height: 3rem;
 }
 
-.milestone-content {
-  border-radius: 4px;
-  margin-bottom: 2rem;
-  padding: 2rem;
+.milestone-content,
+.card-updates {
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  padding: 2.5rem;
   color: $white;
-  background: $gray-800;
 
-  &.in-progress {
-    background: $primary-800;
+  .top-icon {
+    position: relative;
+
+    span {
+      position: absolute;
+      right: -1.5rem;
+      top: -1.5rem;
+    }
   }
 
-  &.completed {
-    background: darken($success-900, 15);
+  &.default,
+  &.bg-light {
+    border: 1px solid $gray-300;
+    background: #fffffc !important;
+  }
+
+  &.pending,
+  &.bg-gray,
+  &.bg-dark {
+    background: $gray-800 !important;
+  }
+
+  &.in-progress,
+  &.bg-primary {
+    background: $primary-800 !important;
+  }
+
+  &.completed,
+  &.bg-success {
+    background: darken($success-900, 12) !important;
+  }
+
+  &.uncompleted,
+  &.bg-danger {
+    background: darken($danger-900, 5) !important;
   }
 }

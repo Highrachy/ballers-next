@@ -316,6 +316,7 @@ const Overview = ({ result, isNormal = false }) => {
 // https://dashlite.net/demo1/kyc-details-regular.html - enquiry
 // https://angular.spruko.com/slica/preview/advancedui/accordion - accordion
 // https://themesbrand.com/minia/layouts/index.html - beautiful pie graph
+// https://preview.themeforest.net/item/laste-real-estate-property-elementor-template-kit/full_screen_preview/46573623?_ga=2.33620961.1985453818.1691213507-1657852806.1688910022  - milestone
 
 // const VisitationCard = () => (
 //   <div className="col-md-6">

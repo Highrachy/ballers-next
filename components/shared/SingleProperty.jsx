@@ -72,7 +72,10 @@ import { useRouter } from 'next/router';
 import { GrDocumentText } from 'react-icons/gr';
 import { BiGitCompare } from 'react-icons/bi';
 import WelcomeHero from '../common/WelcomeHero';
-import { AddPropertyUpdates, PropertyUpdatesList } from './PropertyUpdate';
+import {
+  AddPropertyUpdatesCategory,
+  PropertyUpdatesList,
+} from './PropertyUpdate';
 import { MilestonePaymentList } from './MilestonePayment';
 import { FiCheckCircle, FiFileText, FiHome } from 'react-icons/fi';
 import ReactMarkdown from 'react-markdown';
@@ -702,7 +705,7 @@ const ManagePropertyLink = ({ property, setToast, setProperty }) => (
       setProperty={setProperty}
     />
     <LinkSeparator />
-    <AddPropertyUpdates
+    <AddPropertyUpdatesCategory
       className="text-link text-muted"
       property={property}
       setToast={setToast}
@@ -716,7 +719,7 @@ export const PropertyImage = ({ property, hideGallery }) => {
   return (
     <section className="property-image-wrapper">
       <div className="row gx-2">
-        <div className={!showGallery ? 'col-sm-12' : 'col-sm-10'}>
+        <div className={!showGallery ? 'col-lg-12' : 'col-lg-10'}>
           <div
             className={
               !useCurrentRole().isUser && property?.flagged?.status
@@ -929,11 +932,11 @@ export const PropertyDescription = ({
 };
 
 export const PropertyDetailsList = ({ title, Icon, value }) => (
-  <li className="col-sm-6 d-flex align-items-center  mt-2">
+  <li className="col-lg-6 d-flex align-items-center  mt-4">
     <span className="text-primary-light fw-bold me-2 lh-0 flex-shrink-0 w-150">
       {title}:
     </span>
-    <span className="flex-grow-1 text-primary-light">{value}</span>
+    <span className="flex-grow-1 lh-0 text-primary-light">{value}</span>
   </li>
 );
 

@@ -11,7 +11,7 @@ import {
 import Button from 'components/forms/Button';
 import { Formik, Form } from 'formik';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
-import { BASE_API_URL } from 'utils/constants';
+import { BASE_API_URL, PRICING_MODEL } from 'utils/constants';
 import { getTokenFromStore } from 'utils/localStorage';
 import {
   addPropertyUpdateSchema,
@@ -21,18 +21,17 @@ import { getError, statusIsSuccessful } from 'utils/helpers';
 import Upload from 'components/forms/UploadFormik';
 import Input from 'components/forms/Input';
 import Image, { OnlineImage } from 'components/utils/Image';
-import { Accordion } from 'react-bootstrap';
-import { ArrowDownIcon } from 'components/utils/Icons';
+import { DeleteXIcon, EditNoteIcon } from 'components/utils/Icons';
 import { ContextAwareToggle } from 'components/common/FAQsAccordion';
 import { ArrowUpIcon } from 'components/utils/Icons';
 import { LinkSeparator, Spacing } from 'components/common/Helpers';
 import { useCurrentRole } from 'hooks/useUser';
 import { setQueryCache } from 'hooks/useQuery';
 import Textarea from '../forms/Textarea';
-import { getShortDate, getTinyDate, getYear } from '@/utils/date-helpers';
-import { isMilestonePayment } from '@/utils/milestone-helper';
+import { getTinyDate } from '@/utils/date-helpers';
+import { TruncatedDescription } from './MilestonePayment';
 
-export const PropertyUpdatesForm = ({
+const PropertyUpdatesForm = ({
   hideForm,
   setToast,
   setProperty,
@@ -99,21 +98,6 @@ export const PropertyUpdatesForm = ({
                 placeholder="Description"
                 optional
               />
-              {/* <div className="my-4">
-                <Upload
-                  label="Upload your image"
-                  changeText="Update Picture"
-                  // defaultImage="/assets/img/placeholder/image.png"
-                  imgOptions={{
-                    className: 'mb-3 img-xxl',
-                    width: 200,
-                    height: 300,
-                  }}
-                  name="companyLogo"
-                  uploadText={`Upload Picture`}
-                  folder={'company-logo'}
-                />
-              </div> */}
               <Button
                 className="btn-secondary mt-4"
                 loading={isSubmitting}
@@ -130,7 +114,7 @@ export const PropertyUpdatesForm = ({
   );
 };
 
-export const AddPropertyUpdateImage = ({
+const AddPropertyUpdateMediaForm = ({
   hideForm,
   setToast,
   setProperty,
@@ -138,7 +122,7 @@ export const AddPropertyUpdateImage = ({
   propertyUpdate,
 }) => {
   const [toast] = useToast();
-
+  console.log('propertyUpdate in form', propertyUpdate);
   return (
     <Formik
       enableReinitialize={true}
@@ -213,7 +197,7 @@ export const AddPropertyUpdateImage = ({
   );
 };
 
-export const AddPropertyUpdates = ({
+export const AddPropertyUpdatesCategory = ({
   className,
   setToast,
   setProperty,
@@ -253,16 +237,93 @@ const pageOptions = {
   pageName: 'Property Updates',
 };
 
-export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
-  const [showManageBar, setShowManageBar] = React.useState(null);
+export const AddPropertyUpdateMedia = ({
+  property,
+  setProperty,
+  setToast,
+  setPropertyUpdate,
+  propertyUpdate,
+}) => {
   const [showAddImageModal, setShowAddImageModal] = React.useState(false);
+
+  return (
+    <>
+      <Button
+        color="secondary-light"
+        className="btn-wide"
+        onClick={() => {
+          setPropertyUpdate(propertyUpdate);
+          setShowAddImageModal(true);
+        }}
+      >
+        Add Media
+      </Button>
+      <Modal
+        title="Add Media"
+        show={showAddImageModal}
+        onHide={() => setShowAddImageModal(false)}
+        showFooter={false}
+      >
+        <AddPropertyUpdateMediaForm
+          hideForm={() => setShowAddImageModal(false)}
+          property={property}
+          setProperty={setProperty}
+          setToast={setToast}
+          propertyUpdate={propertyUpdate}
+        />
+      </Modal>
+    </>
+  );
+};
+
+export const EditPropertyUpdateCategory = ({
+  property,
+  setProperty,
+  setToast,
+  setPropertyUpdate,
+  propertyUpdate,
+}) => {
   const [showEditPropertyUpdatesModal, setShowEditPropertyUpdatesModal] =
     React.useState(false);
+
+  return (
+    <>
+      <span
+        className="text-link text-secondary icon-lg text-gray-light"
+        onClick={() => {
+          setPropertyUpdate(propertyUpdate);
+          setShowEditPropertyUpdatesModal(true);
+        }}
+      >
+        <EditNoteIcon />
+      </span>
+      <Modal
+        title="Property Updates"
+        show={showEditPropertyUpdatesModal}
+        onHide={() => setShowEditPropertyUpdatesModal(false)}
+        showFooter={false}
+      >
+        <PropertyUpdatesForm
+          hideForm={() => setShowEditPropertyUpdatesModal(false)}
+          property={property}
+          setProperty={setProperty}
+          setToast={setToast}
+          propertyUpdate={propertyUpdate}
+        />
+      </Modal>
+    </>
+  );
+};
+
+const DeletePropertyUpdateCategory = ({
+  property,
+  setProperty,
+  setToast,
+  setPropertyUpdate,
+  propertyUpdate,
+}) => {
   const [showDeletePropertyUpdatesModal, setShowDeletePropertyUpdatesModal] =
     React.useState(false);
-
-  const [propertyUpdate, setPropertyUpdate] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
 
   const deletePropertyUpdate = () => {
     setLoading(true);
@@ -292,8 +353,51 @@ export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
         setLoading(false);
       });
   };
+
+  return (
+    <>
+      <div className="top-icon">
+        <span
+          className="text-link text-danger text-gray-light icon-lg"
+          onClick={() => {
+            setPropertyUpdate(propertyUpdate);
+            setShowDeletePropertyUpdatesModal(true);
+          }}
+        >
+          <DeleteXIcon />
+        </span>
+        <Modal
+          title="Delete Property Update"
+          show={showDeletePropertyUpdatesModal}
+          onHide={() => setShowDeletePropertyUpdatesModal(false)}
+          showFooter={false}
+        >
+          <section className="row">
+            <div className="col-md-12 my-3 text-center">
+              <p className="my-4 confirmation-text fw-bold">
+                Are you sure you want to delete this Property Update?
+              </p>
+              <Button
+                className="btn btn-secondary mb-5"
+                onClick={() => deletePropertyUpdate()}
+              >
+                Delete Property Update
+              </Button>
+            </div>
+          </section>
+        </Modal>
+      </div>
+    </>
+  );
+};
+
+export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
+  const [propertyUpdate, setPropertyUpdate] = React.useState(null);
   const userIsVendor = useCurrentRole().isVendor;
+  const propertyIsTimeline = property?.pricingModel === PRICING_MODEL.Timeline;
+  const vendorCanEdit = userIsVendor && propertyIsTimeline;
   const noPropertyUpdates = property?.propertyUpdate?.length === 0;
+
   return (
     <>
       <div className="property__updates mt-5">
@@ -301,161 +405,97 @@ export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
           <h5 className="header-content">Property Updates</h5>
         )}
         {!noPropertyUpdates &&
-          property?.propertyUpdate?.map((propertyUpdate, index) => (
-            <Card key={propertyUpdate._id} className="mb-3">
-              <div className="container property-updates-container">
+          property?.propertyUpdate?.map((propertyUpdate) => (
+            <section
+              key={propertyUpdate._id}
+              className={`card-updates bg-light`}
+            >
+              {vendorCanEdit && (
+                <DeletePropertyUpdateCategory
+                  property={property}
+                  setProperty={setProperty}
+                  setToast={setToast}
+                  propertyUpdate={propertyUpdate}
+                  setPropertyUpdate={setPropertyUpdate}
+                />
+              )}
+
+              <div className="container">
                 <div className="row">
-                  <div className="col-md-2  property-updates-date">
-                    {getTinyDate(propertyUpdate?.date)}
-                    <br />
+                  <div className="col-xl-2 d-flex align-items-center">
+                    <div className="mb-4 fw-bold text-muted text-uppercase">
+                      {getTinyDate(propertyUpdate?.date)}
+                    </div>
                   </div>
-                  <div className="col-md-6">
-                    <h4 className=" property-updates-title">
-                      {propertyUpdate?.title}
-                    </h4>
-                    <p className="property-updates-description">
-                      {propertyUpdate?.description}
-                    </p>
-                  </div>
-                  <div className="col-md-4">
-                    {propertyUpdate?.media?.map((media, mediaIndex) => (
-                      <Image
-                        key={media._id}
-                        src={media?.url}
-                        alt={media?.title}
-                        name={media?.title}
-                        className=" property-updates-image"
-                        responsiveImage={false}
-                      />
-                    ))}
-                    {userIsVendor && (
-                      <div
-                        className="text-danger text-sm text-end"
-                        onClick={() =>
-                          setShowManageBar(
-                            showManageBar === index ? null : index
-                          )
-                        }
-                      >
-                        {showManageBar === index
-                          ? 'Close Menu'
-                          : 'Manage Property Update'}
+                  <div className="col-xl-6 d-flex align-items-center">
+                    <div className="mb-4 mb-xl-0 text-primary">
+                      <h4>
+                        {propertyUpdate?.title}{' '}
+                        {vendorCanEdit && (
+                          <EditPropertyUpdateCategory
+                            property={property}
+                            setProperty={setProperty}
+                            setToast={setToast}
+                            propertyUpdate={propertyUpdate}
+                            setPropertyUpdate={setPropertyUpdate}
+                          />
+                        )}
+                      </h4>
+                      <div className="fw-normal mb-2 text-md text-primary-light">
+                        {propertyUpdate?.media?.length > 0
+                          ? `Last Updated: ${getTinyDate(
+                              propertyUpdate?.media?.[0].addedOn
+                            )}`
+                          : 'No Image has been added'}
                       </div>
+                      <TruncatedDescription
+                        description={propertyUpdate?.description}
+                        maxLength={60}
+                        className="text-primary-light"
+                      />
+
+                      {propertyUpdate?.media?.map((media, mediaIndex) => (
+                        <Image
+                          key={media._id}
+                          src={media?.url}
+                          alt={media?.title}
+                          name={media?.title}
+                          className="property-updates-image"
+                          responsiveImage={false}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <div className="col-xl-4 d-flex align-items-center justify-content-end">
+                    {userIsVendor ? (
+                      <AddPropertyUpdateMedia
+                        property={property}
+                        setProperty={setProperty}
+                        setToast={setToast}
+                        propertyUpdate={propertyUpdate}
+                        setPropertyUpdate={setPropertyUpdate}
+                      />
+                    ) : (
+                      <h5 className="text-muted text-md text-uppercase text-end">
+                        {propertyUpdate?.media?.length} media
+                      </h5>
                     )}
                   </div>
                 </div>
-                {userIsVendor && showManageBar === index && (
-                  <>
-                    <div className="dotted-border my-3"></div>
-                    <p className="px-4">
-                      <span
-                        className="text-link text-muted"
-                        onClick={() => {
-                          setPropertyUpdate(propertyUpdate);
-                          setShowAddImageModal(true);
-                        }}
-                      >
-                        Add Image
-                      </span>
-                      <LinkSeparator />
-                      <span
-                        className="text-link text-muted"
-                        onClick={() => {
-                          setPropertyUpdate(propertyUpdate);
-                          setShowEditPropertyUpdatesModal(true);
-                        }}
-                      >
-                        Edit Property Update
-                      </span>
-                      <LinkSeparator />
-                      <span
-                        className="text-link  text-muted"
-                        onClick={() => {
-                          setPropertyUpdate(propertyUpdate);
-                          setShowDeletePropertyUpdatesModal(true);
-                        }}
-                      >
-                        Delete Property Update
-                      </span>
-                    </p>
-                  </>
-                )}
               </div>
-              <Modal
-                title="Add Image"
-                show={showAddImageModal}
-                onHide={() => setShowAddImageModal(false)}
-                showFooter={false}
-              >
-                <AddPropertyUpdateImage
-                  hideForm={() => setShowAddImageModal(false)}
-                  property={property}
-                  setProperty={setProperty}
-                  setToast={setToast}
-                  propertyUpdate={propertyUpdate}
-                />
-              </Modal>
-
-              {/* Edit Property Updates Modal */}
-              <Modal
-                title="Property Updates"
-                show={showEditPropertyUpdatesModal}
-                onHide={() => setShowEditPropertyUpdatesModal(false)}
-                showFooter={false}
-              >
-                {JSON.stringify(propertyUpdate, null, 2)}
-                <PropertyUpdatesForm
-                  hideForm={() => setShowEditPropertyUpdatesModal(false)}
-                  property={property}
-                  setProperty={setProperty}
-                  setToast={setToast}
-                  propertyUpdate={propertyUpdate}
-                />
-              </Modal>
-
-              {/* Delete Property Updates Modal */}
-              <Modal
-                title="Verify Vendor"
-                show={showDeletePropertyUpdatesModal}
-                onHide={() => setShowDeletePropertyUpdatesModal(false)}
-                showFooter={false}
-              >
-                <section className="row">
-                  <div className="col-md-12 my-3 text-center">
-                    <p className="my-4 confirmation-text fw-bold">
-                      Are you sure you want to delete this Property Update?
-                    </p>
-                    <Button
-                      loading={loading}
-                      className="btn btn-secondary mb-5"
-                      onClick={() => deletePropertyUpdate()}
-                    >
-                      Delete Property Update
-                    </Button>
-                  </div>
-                </section>
-              </Modal>
-            </Card>
+            </section>
           ))}
       </div>
 
-      {userIsVendor && (
+      {vendorCanEdit && (
         <div className="row">
           <div className="col-12">
-            {!isMilestonePayment(property) ? (
-              <div className="alert state-alert" role="alert">
-                <strong>Important Notice:</strong> Finalizing this milestone
-                will trigger automatic property updates. These updates will
-                capture and track the progress made in this milestone
-              </div>
-            ) : (
-              <AddPropertyUpdates
-                className="btn btn-secondary btn-xs btn-wide"
-                property={property}
-                setToast={setToast}
-                setProperty={setProperty}
-              />
-            )}
+            <AddPropertyUpdatesCategory
+              className="btn btn-secondary btn-xs btn-wide"
+              property={property}
+              setToast={setToast}
+              setProperty={setProperty}
+            />
           </div>
         </div>
       )}
