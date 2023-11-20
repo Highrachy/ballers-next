@@ -373,7 +373,7 @@ const DefineYourEligibility = ({ result }) => {
                     title="Initial investment amount"
                     info="The amount you will pay upfront for the property"
                     step={1_000_000}
-                    placeholder="10,000,000"
+                    placeholder="E.g 10,000,000"
                     handleChange={handleChange}
                     inputs={inputs}
                   />
@@ -388,7 +388,7 @@ const DefineYourEligibility = ({ result }) => {
                     title="Monthly Income"
                     info="Your entire monthly income or salary + any extra income"
                     step={100_000}
-                    placeholder="1,000,000"
+                    placeholder="E.g 1,000,000"
                     handleChange={handleChange}
                     inputs={inputs}
                   />

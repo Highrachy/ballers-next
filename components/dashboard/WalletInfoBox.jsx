@@ -25,7 +25,7 @@ export const WalletInfoBox = ({ setToast, result }) => {
                 </p>
                 <MakePayment
                   buttonClassName="btn btn-secondary-light btn-sm btn-wide fw-bold"
-                  text="Add Funds to Wallet"
+                  text="Add Funds"
                   setToast={setToast}
                   amount={0}
                   model={{

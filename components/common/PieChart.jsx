@@ -38,11 +38,11 @@ const MyResponsivePie = ({ data, isAllZero, colors /* see data tab */ }) => {
         return Humanize.truncate(word, isMobileDevice ? 10 : 20);
       }}
       arcLinkLabelsSkipAngle={0}
-      arcLinkLabelsTextColor="#333333"
-      arcLinkLabelsThickness={2}
+      arcLinkLabelsTextColor={Colors.primary[200]}
+      arcLinkLabelsThickness={1}
       arcLinkLabelsColor={{ from: 'color' }}
-      arcLinkLabelsDiagonalLength={18}
-      arcLinkLabelsStraightLength={7}
+      arcLinkLabelsDiagonalLength={5}
+      arcLinkLabelsStraightLength={40}
       arcLabelsSkipAngle={10}
       arcLabelsTextColor={{
         from: 'color',

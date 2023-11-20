@@ -30,6 +30,7 @@ import { setQueryCache } from 'hooks/useQuery';
 import Textarea from '../forms/Textarea';
 import { getTinyDate } from '@/utils/date-helpers';
 import { TruncatedDescription } from './MilestonePayment';
+import { isMilestonePayment } from '@/utils/milestone-helper';
 
 const PropertyUpdatesForm = ({
   hideForm,
@@ -205,6 +206,9 @@ export const AddPropertyUpdatesCategory = ({
 }) => {
   const [showAddPropertyUpdatesModal, setShowAddPropertyUpdatesModal] =
     React.useState(false);
+
+  if (isMilestonePayment(property)) return null;
+
   return (
     <>
       <span
@@ -468,7 +472,7 @@ export const PropertyUpdatesList = ({
                               propertyUpdate?.media?.[0].addedOn
                             )}`
                           ) : (
-                            <span className="text-danger-light">
+                            <span className="text-soft">
                               No Image has been added
                             </span>
                           )}

@@ -7,7 +7,7 @@ import PropertyPlaceholderImage from 'assets/img/placeholder/property-holder.jpg
 import { moneyFormatInNaira } from 'utils/helpers';
 import { LoveIcon } from 'components/utils/Icons';
 import { UserContext } from 'context/UserContext';
-import { BASE_API_URL } from 'utils/constants';
+import { BASE_API_URL, PRICING_MODEL_DESC } from 'utils/constants';
 import Axios from 'axios';
 import { getTokenFromStore } from 'utils/localStorage';
 import BallersSpinner from 'components/utils/BallersSpinner';
@@ -22,8 +22,17 @@ import ProfileAvatar from 'assets/img/placeholder/property-holder.jpg';
 import { useCurrentRole } from 'hooks/useUser';
 
 const PropertyCard = ({ isPublic, ...property }) => {
-  const { name, address, favorites, houseType, mainImage, price, _id, slug } =
-    property;
+  const {
+    name,
+    address,
+    favorites,
+    houseType,
+    mainImage,
+    price,
+    _id,
+    slug,
+    pricingModel,
+  } = property;
   const [loading, setLoading] = React.useState(false);
   const isFavorite = (favorites || []).includes(_id);
   let { userDispatch } = React.useContext(UserContext);
@@ -105,9 +114,13 @@ const PropertyCard = ({ isPublic, ...property }) => {
               </div>
 
               {/* Price */}
-              <h5 className="property-price property-spacing">
+              <h5 className="property-price property-spacing mb-1">
                 {moneyFormatInNaira(price)}
               </h5>
+              <div className="text-xs fw-normal text-soft">
+                {PRICING_MODEL_DESC?.[pricingModel] ||
+                  'Timeline - Spread Payment'}
+              </div>
               {/* Info with Icons */}
               <div className="property-holder__separator my-3"></div>
               <div className="property-info property-spacing">

@@ -24,7 +24,7 @@ import { PropertyIcon } from 'components/utils/Icons';
 import { moneyFormatInNaira } from 'utils/helpers';
 import Image from 'components/utils/Image';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property.png';
-import { HOUSE_TYPES, STATES } from 'utils/constants';
+import { HOUSE_TYPES, PRICING_MODEL_DESC, STATES } from 'utils/constants';
 import { useCurrentRole } from 'hooks/useUser';
 import { API_ENDPOINT } from 'utils/URL';
 import { Spacing } from 'components/common/Helpers';
@@ -112,6 +112,7 @@ const PropertiesRow = ({
   bathrooms,
   toilets,
   houseType,
+  pricingModel,
 }) => {
   const userType = useCurrentRole().name;
   const propertyIsFlagged = !useCurrentRole().isUser && flagged?.status;
@@ -130,7 +131,7 @@ const PropertiesRow = ({
               <Image
                 src={mainImage}
                 name={`property ${_id}`}
-                width="80"
+                className="img-compact"
                 alt="property"
                 defaultImage={PropertyPlaceholderImage}
               />
@@ -177,18 +178,21 @@ const PropertiesRow = ({
         </div>
       </td>
       <td>
-        <h5 className="text-dark">{moneyFormatInNaira(price)}</h5>
+        <h5 className="text-secondary">{moneyFormatInNaira(price)}</h5>
+        <span className="block-text-small text-soft">
+          {PRICING_MODEL_DESC?.[pricingModel] || 'Timeline - Spread Payment'}
+        </span>
       </td>
       <td>
         <Link href={`/${userType}/property/${_id}`} passHref>
-          <a className="btn btn-xs btn-wide btn-secondary">View</a>
+          <a className="btn btn-wide btn-sm btn-secondary-light">View</a>
         </Link>
         {useCurrentRole().isVendor && (
           <>
             <Spacing />
             <Spacing />
             <Link href={`/${userType}/property/new/${_id}`} passHref>
-              <a className="btn btn-xs btn-wide btn-primary-light">Edit</a>
+              <a className="btn btn-sm btn-wide btn-primary-light">Edit</a>
             </Link>
           </>
         )}

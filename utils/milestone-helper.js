@@ -5,7 +5,7 @@ import { getTinyDate } from './date-helpers';
 export const DEFAULT_MILESTONES = {
   initiation: {
     key: 'initiation',
-    title: 'Initiation2',
+    title: 'Initiation',
     description:
       'This phase involves the foundational steps and preliminary documentation essential to kickstart the project. It covers initial paperwork, site evaluations, and establishing the project groundwork.',
     percentage: 50, // Fixed at 50

@@ -99,8 +99,6 @@ export const Actionbar = ({ property, visitationInfo, setToast, vasQuery }) => {
 
   return (
     <section className="mt-3">
-      {/* <ViewTitleDocumentButton property={property} />
-      <DoubleSpacing /> */}
       <ScheduleTourButton
         property={property}
         visitationInfo={visitationInfo}

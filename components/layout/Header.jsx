@@ -32,6 +32,11 @@ const Header = () => {
 
     if (token && !userState?.isLoggedIn) {
       checkIfUserIsLoggedIn();
+    } else {
+      axios
+        .get(`${BASE_API_URL}/`)
+        .then(function () {})
+        .catch(function () {});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -44,13 +49,6 @@ const Header = () => {
     { name: 'FAQs', href: '/faqs' },
     { name: 'Contact Us', href: '/contact-us' },
   ];
-
-  // React.useEffect(() => {
-  //   axios
-  //     .get(`${BASE_API_URL}/`)
-  //     .then(function () {})
-  //     .catch(function () {});
-  // }, []);
 
   return (
     <>
@@ -77,7 +75,7 @@ const Header = () => {
                 </Link>
               ))}
             </Nav>
-            {userState.isLoggedIn ? (
+            {userState?.isLoggedIn ? (
               <NavForLoginUser />
             ) : (
               <Nav>

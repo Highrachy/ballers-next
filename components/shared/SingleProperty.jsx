@@ -690,6 +690,16 @@ const ReportProperty = ({ property, setToast, setProperty }) => {
 
 const ManagePropertyLink = ({ property, setToast, setProperty }) => (
   <section className="mt-3">
+    <Link href={`/properties/${property.slug}`} passHref>
+      <a
+        className="text-link text-muted"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View as User
+      </a>
+    </Link>
+    <LinkSeparator />
     <Link href={`/vendor/property/new/${property._id}`}>
       <a className="text-link text-muted">Edit Property</a>
     </Link>
@@ -764,7 +774,7 @@ const ContactOption = ({ icon, header, text, link }) => {
       <Link href={link}>
         <a className="contact-link">
           <p className="mb-2 text-uppercase fw-bold">{text}</p>
-          <h5 className="mt-0 mb-2 fw-semibold">
+          <h5 className="mt-0 mb-2 fw-bold">
             {icon} {header}
           </h5>
         </a>

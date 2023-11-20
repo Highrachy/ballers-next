@@ -491,16 +491,16 @@ export const MoveToNextMilestoneButton = ({
   };
 
   // check if milestoneDetails.currentMilestone is the last milestone
-  const currentMilestone = property?.milestoneDetails?.currentMilestone;
+  const currentMilestone = property?.milestoneDetails?.currentMilestone || 0;
   const lastMilestone = property?.milestonePayment?.length - 1;
   const isLastMilestone = currentMilestone === lastMilestone;
   const propertyUpdate = property?.propertyUpdate?.[currentMilestone];
   const MINIMUM_PROPERTY_UPDATE = 2;
   const uploadedMedia = propertyUpdate?.media?.length || 0;
+  const hasUploadedProjectUpdates = uploadedMedia >= MINIMUM_PROPERTY_UPDATE;
   const milestoneText = isLastMilestone
     ? 'Complete All Milestones'
     : 'Move to Next Milestone';
-  const hasUploadedProjectUpdates = uploadedMedia >= MINIMUM_PROPERTY_UPDATE;
 
   return (
     <div className="row text-end">
@@ -638,6 +638,12 @@ const MilestoneContent = ({
   const milestoneHasStarted =
     milestoneDetails?.status !== MILESTONE_STATUS.PENDING;
 
+  const currentMilestone = property?.milestoneDetails?.currentMilestone || 0;
+  const propertyUpdate = property?.propertyUpdate?.[currentMilestone];
+  const MINIMUM_PROPERTY_UPDATE = 2;
+  const uploadedMedia = propertyUpdate?.media?.length || 0;
+  const hasUploadedProjectUpdates = uploadedMedia >= MINIMUM_PROPERTY_UPDATE;
+
   const statusClassName =
     index === milestoneDetails?.currentMilestone
       ? 'in-progress'
@@ -687,7 +693,23 @@ const MilestoneContent = ({
               )}
 
               <div className="help-text text-md text-muted pt-3">
-                Milestone was completed on 23rd June, 2023
+                {milestoneDetails?.status !== MILESTONE_STATUS.PENDING ? (
+                  <>
+                    {milestone?.completed
+                      ? `Milestone was completed on ${getTinyDate(
+                          milestone?.completedDate
+                        )}`
+                      : userIsVendor
+                      ? !hasUploadedProjectUpdates
+                        ? `You need to upload ${
+                            MINIMUM_PROPERTY_UPDATE - uploadedMedia
+                          }+ media files to mark this milestone as completed`
+                        : `Milestone is still in progress. Please mark it as completed when ready`
+                      : `Incomplete milestone. Work is still in progress.`}
+                  </>
+                ) : (
+                  'Proofread your milestone information to ensure it aligns with your project'
+                )}
               </div>
             </div>
           </div>

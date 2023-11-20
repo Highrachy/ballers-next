@@ -271,28 +271,21 @@
 }
 
 .property-contact {
-  padding: 2.5rem;
+  padding: 3rem 2.5rem;
   border: 1px solid $gray-300;
   border-radius: 4px;
   background: $gray-50;
-  transition: all 0.5s ease-in;
 
   p {
-    color: $primary-300;
+    color: $primary-200;
     font-size: 1rem;
   }
 
   h5 {
-    font-size: 2rem;
+    transition: all 0.5s ease-in;
+    font-size: 1.75rem;
     color: $secondary-700;
-  }
-
-  &:hover {
-    p {
-      color: $primary-500;
-    }
-
-    h5 {
+    &:hover {
       color: $secondary-800;
     }
   }
