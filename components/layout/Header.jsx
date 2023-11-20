@@ -2,10 +2,40 @@ import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import Link from 'next/link';
 import BallersLogo from '../utils/BallersLogo';
-import Axios from 'axios';
+import axios from 'axios';
 import { BASE_API_URL } from '@/utils/constants';
+import { UserContext } from '@/context/UserContext';
+import { getTokenFromStore } from '@/utils/localStorage';
+import { statusIsSuccessful } from '@/utils/helpers';
+import { NavForLoginUser } from './TopBar';
 
 const Header = () => {
+  let { userState, loginUser } = React.useContext(UserContext);
+  const token = getTokenFromStore();
+
+  React.useEffect(() => {
+    async function checkIfUserIsLoggedIn() {
+      try {
+        const response = await axios.get(`${BASE_API_URL}/user/who-am-i`, {
+          headers: {
+            Authorization: getTokenFromStore(),
+          },
+        });
+
+        if (statusIsSuccessful(response?.status)) {
+          loginUser(response.data.user);
+        }
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
+
+    if (token && !userState?.isLoggedIn) {
+      checkIfUserIsLoggedIn();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const MENUS = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about-us' },
@@ -15,11 +45,12 @@ const Header = () => {
     { name: 'Contact Us', href: '/contact-us' },
   ];
 
-  React.useEffect(() => {
-    Axios.get(`${BASE_API_URL}/`)
-      .then(function () {})
-      .catch(function () {});
-  }, []);
+  // React.useEffect(() => {
+  //   axios
+  //     .get(`${BASE_API_URL}/`)
+  //     .then(function () {})
+  //     .catch(function () {});
+  // }, []);
 
   return (
     <>
@@ -46,16 +77,20 @@ const Header = () => {
                 </Link>
               ))}
             </Nav>
-            <Nav>
-              <Link href="/login" passHref>
-                <Nav.Link>Sign In</Nav.Link>
-              </Link>
-              <Link href="/register" passHref>
-                <Nav.Link className="btn btn-secondary-light">
-                  Register for Free
-                </Nav.Link>
-              </Link>
-            </Nav>
+            {userState.isLoggedIn ? (
+              <NavForLoginUser />
+            ) : (
+              <Nav>
+                <Link href="/login" passHref>
+                  <Nav.Link>Sign In</Nav.Link>
+                </Link>
+                <Link href="/register" passHref>
+                  <Nav.Link className="btn btn-secondary-light">
+                    Register for Free
+                  </Nav.Link>
+                </Link>
+              </Nav>
+            )}
           </Navbar.Collapse>
         </div>
       </Navbar>

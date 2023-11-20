@@ -18,6 +18,7 @@ const Image = ({
   circle,
   options,
   serveImageFromCloud,
+  watermark,
   ...otherProps
 }) => {
   const IMAGE_SERVE_URL = '//images.weserv.nl';

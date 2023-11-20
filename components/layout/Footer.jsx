@@ -50,14 +50,14 @@ const Footer = () => (
                   className="list-inline-item me-2 social-media-links"
                   key={index}
                 >
-                  <Link href={url || '/'}>
+                  <a href={url || '/'}>
                     <Image
                       width="32"
                       height="32"
                       src={`/img/icons/${media}.png`}
                       alt={media}
                     />
-                  </Link>{' '}
+                  </a>{' '}
                 </li>
               ))}
               <li>&nbsp;</li>

@@ -184,7 +184,12 @@ export const AddVideos = ({ className, setToast, setProperty, property }) => {
   );
 };
 
-export const VideosList = ({ property, setProperty, setToast }) => {
+export const VideosList = ({
+  property,
+  setProperty,
+  setToast,
+  isPublicPage,
+}) => {
   const [showEditVideosModal, setShowEditVideosModal] = React.useState(false);
   const [showDeleteVideosModal, setShowDeleteVideosModal] =
     React.useState(false);
@@ -221,7 +226,9 @@ export const VideosList = ({ property, setProperty, setToast }) => {
         setLoading(false);
       });
   };
-  const userIsVendor = useCurrentRole().isVendor;
+  const isVendor = useCurrentRole().isVendor;
+  const userIsVendor = !isPublicPage && isVendor;
+
   const noVideos =
     property?.videos === undefined || property?.videos?.length === 0;
 

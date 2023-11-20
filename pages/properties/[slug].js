@@ -3,24 +3,18 @@ import Header from 'components/layout/Header';
 import CommunityGallery from 'components/common/CommunityGallery';
 import Footer from 'components/layout/Footer';
 import TitleSection from 'components/common/TitleSection';
-import { useToast } from 'components/utils/Toast';
+import Toast, { useToast } from 'components/utils/Toast';
 import { API_ENDPOINT } from 'utils/URL';
-import { useRouter } from 'next/router';
 import {
   ComparePropertyButton,
   PropertyDescription,
   PropertyHeader,
   PropertyImage,
+  PropertyLists,
   ViewVendorButton,
 } from '@/components/shared/SingleProperty';
 import { ScheduleTourButton } from '@/components/pages/user/SingleUserProperty';
-import Link from 'next/link';
 import Axios from 'axios';
-import { Card } from 'react-bootstrap';
-import { FloorPlansList } from '@/components/shared/FloorPlans';
-import { NeighborhoodList } from '@/components/shared/Neighborhood';
-import { TestimonialsList } from '@/components/shared/Testimonials';
-import { VideosList } from '@/components/shared/Video';
 import SharerModal from '@/components/utils/SharerModal';
 import Button from '@/components/forms/Button';
 import { Spacing } from '@/components/common/Helpers';
@@ -75,10 +69,12 @@ const LoadProperty = ({ property }) => {
   const enquiryInfo = property?.enquiryInfo;
   const vendorInfo = property?.vendorInfo;
   const setProperty = () => {};
+  if (!property) return null;
 
   return (
     <>
       <section className="card-container mt-4 h-100 property-holder__big">
+        <Toast {...toast} />
         <PropertyHeader
           property={property}
           enquiryInfo={enquiryInfo}
@@ -94,12 +90,13 @@ const LoadProperty = ({ property }) => {
           }
         />
         <PropertyImage property={property} />
-        <div className="row mt-5">
+        <div className="row">
           <div className="col-sm-12">
             <PropertyDescription
               property={property}
               enquiryInfo={enquiryInfo}
               vendorInfo={vendorInfo}
+              isPublicPage
               Actionbar={
                 <div className="mt-3 d-flex">
                   <ComparePropertyButton property={property} />
@@ -119,91 +116,11 @@ const LoadProperty = ({ property }) => {
           </div>
         </div>
 
-        {/* <div className="property-contact">
-          <div className="row">
-            <div className="col-md-12 interested-contact">
-              <h5>Interested in this property?</h5>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-4">
-              <div className="media">
-                <div className="media-body">
-                  <h5 className="mt-0">
-                    <span data-bs-toggle="modal" data-bs-target="#userContact">
-                      080344543234 <br />
-                    </span>{' '}
-                    <a
-                      href="#"
-                      data-bs-toggle="modal"
-                      data-bs-target="#userContact"
-                    >
-                      CALL US NOW
-                    </a>{' '}
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="media">
-                <div className="media-body">
-                  <h5 className="mt-0">
-                    <span data-bs-toggle="modal" data-bs-target="#userContact">
-                      23480987678 <br />
-                    </span>{' '}
-                    <a
-                      href="#"
-                      data-bs-toggle="modal"
-                      data-bs-target="#userContact"
-                    >
-                      CHAT VIA WHATSAPP
-                    </a>{' '}
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="media">
-                <img
-                  src="/assets/static/main/images/b04784820fe20e9cfd4475b5303a0cc3-phone.png"
-                  alt="..."
-                />
-                <div className="media-body">
-                  <h5 className="mt-0">
-                    {' '}
-                    <a
-                      href="#"
-                      data-bs-toggle="modal"
-                      data-bs-target="#messageAgent"
-                    >
-                      CONTACT US
-                    </a>{' '}
-                  </h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
-        <FloorPlansList
+        <PropertyLists
           property={property}
           setToast={setToast}
           setProperty={setProperty}
-        />
-        <NeighborhoodList
-          property={property}
-          setToast={setToast}
-          setProperty={setProperty}
-        />
-        <TestimonialsList
-          property={property}
-          setToast={setToast}
-          setProperty={setProperty}
-        />
-        <VideosList
-          property={property}
-          setToast={setToast}
-          setProperty={setProperty}
+          isPublicPage
         />
       </section>
     </>

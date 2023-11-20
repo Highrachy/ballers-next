@@ -735,11 +735,12 @@ html {
 
 .property-updates {
   &-image {
-    height: 3rem;
-    width: 5rem !important;
+    height: 4rem;
+    width: 6rem !important;
     border-radius: 3px;
     object-fit: cover;
-    margin: 4px 4px 4px 0;
+    margin: 5px;
+    margin-left: 0;
   }
 }
 

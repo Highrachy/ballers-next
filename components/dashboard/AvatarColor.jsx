@@ -37,7 +37,7 @@ export function getColor(title) {
 function getInitials(title) {
   if (!title) return 'ZZ';
   const words = title.split(' ');
-  return words?.[0]?.charAt(0) + words?.[1]?.charAt(0) || '';
+  return (words?.[0]?.charAt(0) || '') + (words?.[1]?.charAt(0) || '');
 }
 
 const AvatarColor = ({ title, avatarColor }) => {

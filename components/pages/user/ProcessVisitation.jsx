@@ -36,6 +36,7 @@ export const ScheduleVisitForm = ({ propertyId, hideForm, setToast }) => {
               headers: { Authorization: getTokenFromStore() },
             })
               .then(function (response) {
+                console.log('response', response);
                 const { status } = response;
                 if (status === 201) {
                   setToast({

@@ -133,7 +133,7 @@ export const GallerySlideShow = ({ images }) => {
     <Carousel activeIndex={index} onSelect={handleSelect}>
       {images.map(({ title, url }) => (
         <Carousel.Item key={url}>
-          <OnlineImage className="d-block w-100" src={url} alt={title} />
+          <OnlineImage className="d-block w-100" src={url} name={title} />
           <Carousel.Caption>
             <p>{title}</p>
           </Carousel.Caption>
@@ -166,7 +166,7 @@ export const GalleryList = ({ property }) => {
             <div className="gallery-col col-3 col-lg-12" key={_id}>
               <OnlineImage
                 src={url}
-                alt={title}
+                name={title}
                 className="img-fluid gallery-thumbnails property-img"
               />
             </div>
@@ -363,7 +363,7 @@ const SingleGalleryImage = ({
     <article className="col-6 col-md-4">
       <section className="property-card border">
         <div className="content-image">
-          <Image src={url} alt={`${title}`} name={title} className="small" />
+          <OnlineImage src={url} name={title} className="small" />
         </div>
         <div className="property-item">
           <h6 className="mb-0">{title}</h6>
@@ -403,7 +403,7 @@ const SingleGalleryImage = ({
 
       {/* Delete Gallery Modal */}
       <Modal
-        title="Verify Vendor"
+        title="Delete Gallery"
         show={showDeleteGalleryModal}
         onHide={() => setShowDeleteGalleryModal(false)}
         showFooter={false}

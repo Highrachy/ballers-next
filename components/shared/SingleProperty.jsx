@@ -67,9 +67,7 @@ import { ErrorIcon } from 'components/utils/Icons';
 import { QuestionMarkIcon } from 'components/utils/Icons';
 import { TestimonialsList } from './Testimonials';
 import { AssignedPropertyIcon } from 'components/utils/Icons';
-import Sharer from '../utils/Sharer';
 import { useRouter } from 'next/router';
-import { GrDocumentText } from 'react-icons/gr';
 import { BiGitCompare } from 'react-icons/bi';
 import WelcomeHero from '../common/WelcomeHero';
 import {
@@ -77,9 +75,10 @@ import {
   PropertyUpdatesList,
 } from './PropertyUpdate';
 import { MilestonePaymentList } from './MilestonePayment';
-import { FiCheckCircle, FiFileText, FiHome } from 'react-icons/fi';
 import ReactMarkdown from 'react-markdown';
 import { isMilestonePayment } from '@/utils/milestone-helper';
+import { CallCalling, MessageText1, Whatsapp } from 'iconsax-react';
+import colorTokens from 'style-dictionary/build/color.tokens';
 
 const pageOptions = {
   key: 'property',
@@ -95,8 +94,6 @@ const SingleProperty = ({ id, Sidebar }) => {
     endpoint: API_ENDPOINT.getOneProperty(id),
     refresh: true,
   });
-
-  console.log('property', property);
 
   return (
     <BackendPage>
@@ -190,40 +187,7 @@ export const OwnedPropertyCard = ({
           </div>
           {Sidebar && <div className="col-sm-5">{Sidebar}</div>}
         </div>
-
-        {isMilestonePayment(property) && (
-          <MilestonePaymentList
-            property={property}
-            setToast={setToast}
-            setProperty={setProperty}
-          />
-        )}
-
-        <PropertyUpdatesList
-          property={property}
-          setToast={setToast}
-          setProperty={setProperty}
-        />
-
-        <FloorPlansList
-          property={property}
-          setToast={setToast}
-          setProperty={setProperty}
-        />
-
-        <NeighborhoodList
-          property={property}
-          setToast={setToast}
-          setProperty={setProperty}
-        />
-
-        <TestimonialsList
-          property={property}
-          setToast={setToast}
-          setProperty={setProperty}
-        />
-
-        <VideosList
+        <PropertyLists
           property={property}
           setToast={setToast}
           setProperty={setProperty}
@@ -258,6 +222,58 @@ export const OwnedPropertyCard = ({
     </div>
   );
 };
+
+export const PropertyLists = ({
+  property,
+  setToast,
+  setProperty,
+  isPublicPage,
+}) => (
+  <>
+    {isMilestonePayment(property) && (
+      <MilestonePaymentList
+        property={property}
+        setToast={setToast}
+        setProperty={setProperty}
+        isPublicPage={isPublicPage}
+      />
+    )}
+
+    <PropertyUpdatesList
+      property={property}
+      setToast={setToast}
+      setProperty={setProperty}
+      isPublicPage={isPublicPage}
+    />
+
+    <FloorPlansList
+      property={property}
+      setToast={setToast}
+      setProperty={setProperty}
+      isPublicPage={isPublicPage}
+    />
+
+    <NeighborhoodList
+      property={property}
+      setToast={setToast}
+      setProperty={setProperty}
+      isPublicPage={isPublicPage}
+    />
+
+    <TestimonialsList
+      property={property}
+      setToast={setToast}
+      setProperty={setProperty}
+    />
+
+    <VideosList
+      property={property}
+      setToast={setToast}
+      setProperty={setProperty}
+      isPublicPage={isPublicPage}
+    />
+  </>
+);
 
 const CaseComment = ({
   flaggedCase,
@@ -742,11 +758,77 @@ export const PropertyImage = ({ property, hideGallery }) => {
   );
 };
 
+const ContactOption = ({ icon, header, text, link }) => {
+  return (
+    <div className="col-md-4">
+      <Link href={link}>
+        <a className="contact-link">
+          <p className="mb-2 text-uppercase fw-bold">{text}</p>
+          <h5 className="mt-0 mb-2 fw-semibold">
+            {icon} {header}
+          </h5>
+        </a>
+      </Link>
+    </div>
+  );
+};
+
+const PropertyContact = () => {
+  return (
+    <div className="property-contact mt-5">
+      <div className="row">
+        <div className="col-md-12 interested-contact">
+          <h4 className="text-primary-light mt-0 mb-5">
+            Interested in this property?
+          </h4>
+        </div>
+      </div>
+      <div className="row">
+        <ContactOption
+          icon={
+            <CallCalling
+              size="32"
+              color={colorTokens.primary[200]}
+              variant="Bold"
+            />
+          }
+          text="CALL US NOW"
+          header="+2348076545543"
+          link="#"
+        />
+        <ContactOption
+          icon={
+            <Whatsapp
+              size="32"
+              color={colorTokens.primary[200]}
+              variant="Bold"
+            />
+          }
+          header="+2348076545543"
+          text="CHAT VIA WHATSAPP"
+          link="#"
+        />
+        <ContactOption
+          icon={
+            <MessageText1
+              size="32"
+              color={colorTokens.primary[200]}
+              variant="Bold"
+            />
+          }
+          text="Contact Us"
+          header="info@ballers.ng"
+          link="#"
+        />
+      </div>
+    </div>
+  );
+};
+
 export const PropertyDescription = ({
   property,
   isPortfolioPage,
-  enquiryInfo,
-  vendorInfo,
+  isPublicPage,
   Actionbar,
 }) => {
   const [showDescription, setShowDescription] = React.useState(false);
@@ -826,6 +908,8 @@ export const PropertyDescription = ({
     },
   ];
 
+  const currentRole = useCurrentRole();
+
   return (
     <>
       <h5 className="mt-5 header-content">About Property</h5>
@@ -864,7 +948,10 @@ export const PropertyDescription = ({
       <h5 className="header-content">Features</h5>
       <ul className="list-unstyled row lh-2">
         {property.features?.map((feature, index) => (
-          <li className="col-sm-6" key={index}>
+          <li
+            className={isPublicPage ? 'col-sm-6 col-lg-4' : 'col-sm-6'}
+            key={index}
+          >
             <span className="text-secondary">
               <CheckCircleIcon /> &nbsp;
             </span>
@@ -872,61 +959,47 @@ export const PropertyDescription = ({
           </li>
         ))}
       </ul>
-
       <section className="actionbar">{Actionbar}</section>
+      {isPublicPage && <PropertyContact />}
 
-      {useCurrentRole().role !== USER_TYPES.vendor && !isPortfolioPage && (
-        <div className="my-5">
-          <div className="warning-alert">
-            <h5 className="header-smaller">Safety Tips</h5>
-            <ol className="ms-n3 mb-0">
-              <li>
-                Do not make any upfront payment as inspection fee when visiting
-                the property.
-              </li>
+      {(isPublicPage ||
+        (currentRole?.role !== USER_TYPES.vendor && !isPortfolioPage)) && (
+        <div className="warning-alert my-5">
+          <h5 className="header-smaller">Safety Tips</h5>
+          <ol className="ms-n3 mb-0">
+            <li>
+              Do not make any upfront payment as inspection fee when visiting
+              the property.
+            </li>
 
-              <li>
-                When you find a property of your interest, make sure you ask
-                appropriate questions before accepting your offer.
-              </li>
-              {showSafetyTips && (
-                <>
-                  <li>
-                    All meetings with agents should be done in open locations.
-                  </li>
-                  <li>
-                    The agent is not a representative from Baller.ng neither
-                    does Baller.ng control the affairs of the agent as both
-                    parties are different entities.
-                  </li>
-                </>
-              )}
+            <li>
+              When you find a property of your interest, make sure you ask
+              appropriate questions before accepting your offer.
+            </li>
+            {showSafetyTips && (
+              <>
+                <li>
+                  All meetings with agents should be done in open locations.
+                </li>
+                <li>
+                  The agent is not a representative from Baller.ng neither does
+                  Baller.ng control the affairs of the agent as both parties are
+                  different entities.
+                </li>
+              </>
+            )}
 
-              {!showSafetyTips && (
-                <span
-                  className="show-more-button warning"
-                  onClick={() => setShowSafetyTips(true)}
-                >
-                  Show All
-                </span>
-              )}
-            </ol>
-          </div>
+            {!showSafetyTips && (
+              <span
+                className="show-more-button warning"
+                onClick={() => setShowSafetyTips(true)}
+              >
+                Show All
+              </span>
+            )}
+          </ol>
         </div>
       )}
-
-      {/* <div className="row my-5 text-gray">
-        <div className="col-sm-6">
-          <GrDocumentText /> &nbsp; Title:{' '}
-          <strong>{property?.titleDocument || 'Deed of Assignment'}</strong>
-        </div>
-        <div className="col-sm-6">
-          <VendorIcon /> Vendor:&nbsp;
-          <Link href={`/vendors/${vendorInfo?.vendor?.slug}`}>
-            <a className="text-muted">{vendorInfo?.vendor?.companyName}</a>
-          </Link>
-        </div>
-      </div> */}
     </>
   );
 };

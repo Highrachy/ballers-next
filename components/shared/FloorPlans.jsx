@@ -163,7 +163,12 @@ const pageOptions = {
   pageName: 'Floor Plans',
 };
 
-export const FloorPlansList = ({ property, setProperty, setToast }) => {
+export const FloorPlansList = ({
+  property,
+  setProperty,
+  setToast,
+  isPublicPage,
+}) => {
   const [showEditFloorPlansModal, setShowEditFloorPlansModal] =
     React.useState(false);
   const [showDeleteFloorPlansModal, setShowDeleteFloorPlansModal] =
@@ -200,7 +205,8 @@ export const FloorPlansList = ({ property, setProperty, setToast }) => {
         setLoading(false);
       });
   };
-  const userIsVendor = useCurrentRole().isVendor;
+  const isVendor = useCurrentRole().isVendor;
+  const userIsVendor = !isPublicPage && isVendor;
   const noFloorPlans = property?.floorPlans?.length === 0;
   return (
     <>

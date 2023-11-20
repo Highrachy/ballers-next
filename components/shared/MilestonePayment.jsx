@@ -35,7 +35,7 @@ import { Spacing } from '../common/Helpers';
 import { Briefcase } from 'iconsax-react';
 import { TiDelete } from 'react-icons/ti';
 import { FaCircle, FaCircleNotch, FaClock } from 'react-icons/fa';
-import { SuccessIcon, WarningIcon } from '../utils/Icons';
+import { SuccessIcon, UploadIcon, WarningIcon } from '../utils/Icons';
 import {
   AddPropertyUpdateMedia,
   GenerateMilestonePropertyUpdates,
@@ -497,35 +497,35 @@ export const MoveToNextMilestoneButton = ({
   const propertyUpdate = property?.propertyUpdate?.[currentMilestone];
   const MINIMUM_PROPERTY_UPDATE = 2;
   const uploadedMedia = propertyUpdate?.media?.length || 0;
-  console.log('uploadedMedia: ', uploadedMedia);
   const milestoneText = isLastMilestone
     ? 'Complete All Milestones'
     : 'Move to Next Milestone';
+  const hasUploadedProjectUpdates = uploadedMedia >= MINIMUM_PROPERTY_UPDATE;
 
   return (
     <div className="row text-end">
       <div className="col-12">
-        {uploadedMedia < MINIMUM_PROPERTY_UPDATE ? (
-          <>
-            <AddPropertyUpdateMedia
-              property={property}
-              setProperty={setProperty}
-              setToast={setToast}
-              propertyUpdate={propertyUpdate}
-              setPropertyUpdate={() => {}}
-            />
-            <div className="text-sm text-soft mt-2">
-              Need {MINIMUM_PROPERTY_UPDATE - uploadedMedia}+ media files to
-              complete
-            </div>
-          </>
-        ) : (
+        {hasUploadedProjectUpdates ? (
           <Button
-            className="btn btn-secondary btn-sm btn-wide"
+            color="secondary"
+            className="btn-sm btn-wide"
             onClick={() => setShowModal(true)}
           >
             {buttonText || milestoneText}
           </Button>
+        ) : (
+          <AddPropertyUpdateMedia
+            property={property}
+            setProperty={setProperty}
+            setToast={setToast}
+            propertyUpdate={propertyUpdate}
+            setPropertyUpdate={() => {}}
+            content={
+              <div className="icon-lg text-gray-light text-link text-center">
+                <UploadIcon />
+              </div>
+            }
+          />
         )}
         <Modal
           title={milestoneText}
@@ -631,9 +631,9 @@ const MilestoneContent = ({
   setProperty,
   property,
   currentMilestone: milestone,
+  userIsVendor,
   index,
 }) => {
-  const userIsVendor = useCurrentRole().isVendor;
   const milestoneDetails = property?.milestoneDetails;
   const milestoneHasStarted =
     milestoneDetails?.status !== MILESTONE_STATUS.PENDING;
@@ -685,6 +685,10 @@ const MilestoneContent = ({
                   currentMilestone={milestone}
                 />
               )}
+
+              <div className="help-text text-md text-muted pt-3">
+                Milestone was completed on 23rd June, 2023
+              </div>
             </div>
           </div>
           <div className="col-xl-4 d-flex align-items-center justify-content-end">
@@ -699,7 +703,7 @@ const MilestoneContent = ({
                       buttonText="Mark as Completed"
                     />
                   ) : (
-                    <span className="text-success-light icon-lg">
+                    <span className="text-primary-lighter icon-lg">
                       <RiLoader2Line />
                     </span>
                   )
@@ -723,9 +727,15 @@ const MilestoneContent = ({
   );
 };
 
-export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
+export const MilestonePaymentList = ({
+  property,
+  setProperty,
+  setToast,
+  isPublicPage,
+}) => {
   const [showAllMilestones, setShowAllMilestones] = useState(false);
-  const userIsVendor = useCurrentRole().isVendor;
+  const isVendor = useCurrentRole().isVendor;
+  const userIsVendor = !isPublicPage && isVendor;
   const milestones = property?.milestonePayment || [];
   const milestoneDetails = property?.milestoneDetails || {};
   const milestoneHasStarted =
@@ -751,7 +761,7 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
           {milestoneHasStarted && (
             <Button
               className="btn-wide btn-sm"
-              color="secondary-light"
+              color="purple-light"
               onClick={handleToggleMilestonesView}
             >
               {showAllMilestones
@@ -777,6 +787,7 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
               property={property}
               setProperty={setProperty}
               setToast={setToast}
+              userIsVendor={userIsVendor}
             />
           ))
         ) : (
@@ -786,6 +797,7 @@ export const MilestonePaymentList = ({ property, setProperty, setToast }) => {
               index={milestoneDetails?.currentMilestone}
               property={property}
               setProperty={setProperty}
+              userIsVendor={userIsVendor}
               setToast={setToast}
             />
           </>

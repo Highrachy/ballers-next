@@ -30,12 +30,6 @@ const Empty = React.forwardRef(({ children, onClick }, ref) => (
 ));
 
 const Header = () => {
-  let { userState } = React.useContext(UserContext);
-  const userName = `${userState.firstName} ${userState.lastName}`;
-  const isCompanyLogo =
-    !userState.profileImage && userState.vendor && userState.vendor.companyLogo;
-  const currentRole = useCurrentRole().name;
-  const router = useRouter();
   return (
     <>
       <Navbar
@@ -57,105 +51,113 @@ const Header = () => {
               </div>
             </Navbar.Brand>
           </Link>
-          <Nav className="ms-auto d-flex flex-row align-items-center">
-            {userState?.isDemoAccount && (
-              <>
-                <Link href="/vendor/demo-account">
-                  <Nav.Link className="demo-account text-muted">
-                    Demo Account
-                  </Nav.Link>
-                </Link>
-
-                <span
-                  onClick={() => {
-                    removeTourValue();
-                    window.location.href = '/vendor/dashboard?tour=true';
-                  }}
-                >
-                  <Nav.Link className="demo-account text-muted">
-                    <OverlayTrigger
-                      trigger={['hover', 'focus']}
-                      placement={'bottom'}
-                      overlay={
-                        <Popover>
-                          <Popover.Header as="h6">Start Tour</Popover.Header>
-                          <Popover.Body>
-                            Explore BALL features with our guided tour. Click to
-                            start your experience.
-                          </Popover.Body>
-                        </Popover>
-                      }
-                    >
-                      <span className="form-help-icon">
-                        &nbsp;
-                        <TourIcon />
-                      </span>
-                    </OverlayTrigger>
-                  </Nav.Link>
-                </span>
-              </>
-            )}
-            {userState?.notifications?.length === 0 ? (
-              <Link href={`/${currentRole}/notifications`}>
-                <Nav.Link className="notifications">
-                  <NotificationIcon />
-                </Nav.Link>
-              </Link>
-            ) : (
-              <NotificationsDropdown
-                notifications={userState?.notifications?.slice(0, 3)}
-                currentRole={currentRole}
-              />
-            )}
-
-            <Dropdown>
-              <Dropdown.Toggle as={Empty} id="user-dropdown">
-                <LocalImage
-                  name={userName}
-                  className={
-                    isCompanyLogo
-                      ? 'dashboard-top-nav__company-logo'
-                      : 'dashboard-top-nav__avatar'
-                  }
-                  defaultImage={`/img/avatar/profile.png`}
-                  rounded
-                  src={
-                    isCompanyLogo
-                      ? userState.vendor?.companyLogo
-                      : userState?.profileImage
-                  }
-                  options={{ h: 200 }}
-                />{' '}
-                <ThreeDotsIcon />
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu className="dropdown-menu-children">
-                <Link href={`/${currentRole}/mybadges`}>
-                  <Dropdown.Item>Badges</Dropdown.Item>
-                </Link>
-                <Link href={`/${currentRole}/testimonials`}>
-                  <Dropdown.Item>Testimonials</Dropdown.Item>
-                </Link>
-                <Link href="/user/settings">
-                  <Dropdown.Item>Settings</Dropdown.Item>
-                </Link>
-                <Link href="/logout">
-                  <a
-                    data-rr-ui-dropdown-item
-                    className="dropdown-item"
-                    role="button"
-                  >
-                    Logout
-                  </a>
-                </Link>
-              </Dropdown.Menu>
-            </Dropdown>
-
-            {/* <Nav.Link as={Link} href="/register"></Nav.Link> */}
-          </Nav>
+          <NavForLoginUser />
         </div>
       </Navbar>
     </>
+  );
+};
+
+export const NavForLoginUser = () => {
+  let { userState } = React.useContext(UserContext);
+  const userName = `${userState.firstName} ${userState.lastName}`;
+  const isCompanyLogo =
+    !userState.profileImage && userState.vendor && userState.vendor.companyLogo;
+  const currentRole = useCurrentRole().name;
+  const router = useRouter();
+  return (
+    <Nav className="ms-auto d-flex flex-row align-items-center">
+      {userState?.isDemoAccount && (
+        <>
+          <Link href="/vendor/demo-account">
+            <Nav.Link className="demo-account text-muted">
+              Demo Account
+            </Nav.Link>
+          </Link>
+
+          <span
+            onClick={() => {
+              removeTourValue();
+              window.location.href = '/vendor/dashboard?tour=true';
+            }}
+          >
+            <Nav.Link className="demo-account text-muted">
+              <OverlayTrigger
+                trigger={['hover', 'focus']}
+                placement={'bottom'}
+                overlay={
+                  <Popover>
+                    <Popover.Header as="h6">Start Tour</Popover.Header>
+                    <Popover.Body>
+                      Explore BALL features with our guided tour. Click to start
+                      your experience.
+                    </Popover.Body>
+                  </Popover>
+                }
+              >
+                <span className="form-help-icon">
+                  &nbsp;
+                  <TourIcon />
+                </span>
+              </OverlayTrigger>
+            </Nav.Link>
+          </span>
+        </>
+      )}
+      {userState?.notifications?.length === 0 ? (
+        <Link href={`/${currentRole}/notifications`}>
+          <Nav.Link className="notifications">
+            <NotificationIcon />
+          </Nav.Link>
+        </Link>
+      ) : (
+        <NotificationsDropdown
+          notifications={userState?.notifications?.slice(0, 3)}
+          currentRole={currentRole}
+        />
+      )}
+
+      <Dropdown>
+        <Dropdown.Toggle as={Empty} id="user-dropdown">
+          <LocalImage
+            name={userName}
+            className={
+              isCompanyLogo
+                ? 'dashboard-top-nav__company-logo'
+                : 'dashboard-top-nav__avatar'
+            }
+            defaultImage={`/img/avatar/profile.png`}
+            rounded
+            src={
+              isCompanyLogo
+                ? userState.vendor?.companyLogo
+                : userState?.profileImage
+            }
+            options={{ h: 200 }}
+          />{' '}
+          <ThreeDotsIcon />
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu className="dropdown-menu-children">
+          <Link href={`/${currentRole}/mybadges`}>
+            <Dropdown.Item>Badges</Dropdown.Item>
+          </Link>
+          <Link href={`/${currentRole}/testimonials`}>
+            <Dropdown.Item>Testimonials</Dropdown.Item>
+          </Link>
+          <Link href="/user/settings">
+            <Dropdown.Item>Settings</Dropdown.Item>
+          </Link>
+          <Link href="/logout">
+            <a data-rr-ui-dropdown-item className="dropdown-item" role="button">
+              Logout
+            </a>
+          </Link>
+        </Dropdown.Menu>
+      </Dropdown>
+
+      {/* <Nav.Link as={Link} href="/register"></Nav.Link> */}
+    </Nav>
   );
 };
 

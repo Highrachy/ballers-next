@@ -177,7 +177,12 @@ export const AddNeighborhood = ({
   );
 };
 
-export const NeighborhoodList = ({ property, setProperty, setToast }) => {
+export const NeighborhoodList = ({
+  property,
+  setProperty,
+  setToast,
+  isPublicPage,
+}) => {
   const [showEditNeighborhoodModal, setShowEditNeighborhoodModal] =
     React.useState(false);
   const [showDeleteNeighborhoodModal, setShowDeleteNeighborhoodModal] =
@@ -214,7 +219,9 @@ export const NeighborhoodList = ({ property, setProperty, setToast }) => {
         setLoading(false);
       });
   };
-  const userIsVendor = useCurrentRole().isVendor;
+
+  const isVendor = useCurrentRole().isVendor;
+  const userIsVendor = !isPublicPage && isVendor;
   const noNeighborhood = NEIGHBORHOOD_STEPS.every(
     (step) => property?.neighborhood?.[step]?.length === 0
   );

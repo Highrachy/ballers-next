@@ -238,6 +238,7 @@ const pageOptions = {
 };
 
 export const AddPropertyUpdateMedia = ({
+  content,
   property,
   setProperty,
   setToast,
@@ -248,16 +249,27 @@ export const AddPropertyUpdateMedia = ({
 
   return (
     <>
-      <Button
-        color="secondary-light"
-        className="btn-wide"
-        onClick={() => {
-          setPropertyUpdate(propertyUpdate);
-          setShowAddImageModal(true);
-        }}
-      >
-        Add Media
-      </Button>
+      {content ? (
+        <div
+          onClick={() => {
+            setPropertyUpdate(propertyUpdate);
+            setShowAddImageModal(true);
+          }}
+        >
+          {content}
+        </div>
+      ) : (
+        <Button
+          color="secondary-light"
+          className="btn-wide"
+          onClick={() => {
+            setPropertyUpdate(propertyUpdate);
+            setShowAddImageModal(true);
+          }}
+        >
+          Add Media
+        </Button>
+      )}
       <Modal
         title="Add Media"
         show={showAddImageModal}
@@ -391,9 +403,15 @@ const DeletePropertyUpdateCategory = ({
   );
 };
 
-export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
+export const PropertyUpdatesList = ({
+  property,
+  setProperty,
+  setToast,
+  isPublicPage,
+}) => {
   const [propertyUpdate, setPropertyUpdate] = React.useState(null);
-  const userIsVendor = useCurrentRole().isVendor;
+  const isVendor = useCurrentRole().isVendor;
+  const userIsVendor = !isPublicPage && isVendor;
   const propertyIsTimeline = property?.pricingModel === PRICING_MODEL.Timeline;
   const vendorCanEdit = userIsVendor && propertyIsTimeline;
   const noPropertyUpdates = property?.propertyUpdate?.length === 0;
@@ -405,86 +423,96 @@ export const PropertyUpdatesList = ({ property, setProperty, setToast }) => {
           <h5 className="header-content">Property Updates</h5>
         )}
         {!noPropertyUpdates &&
-          property?.propertyUpdate?.map((propertyUpdate) => (
-            <section
-              key={propertyUpdate._id}
-              className={`card-updates bg-light`}
-            >
-              {vendorCanEdit && (
-                <DeletePropertyUpdateCategory
-                  property={property}
-                  setProperty={setProperty}
-                  setToast={setToast}
-                  propertyUpdate={propertyUpdate}
-                  setPropertyUpdate={setPropertyUpdate}
-                />
-              )}
+          property?.propertyUpdate?.map((propertyUpdate) => {
+            if (propertyUpdate?.media?.length === 0 && !userIsVendor)
+              return null;
+            return (
+              <section
+                key={propertyUpdate._id}
+                className={`card-updates bg-light`}
+              >
+                {vendorCanEdit && (
+                  <DeletePropertyUpdateCategory
+                    property={property}
+                    setProperty={setProperty}
+                    setToast={setToast}
+                    propertyUpdate={propertyUpdate}
+                    setPropertyUpdate={setPropertyUpdate}
+                  />
+                )}
 
-              <div className="container">
-                <div className="row">
-                  <div className="col-xl-2 d-flex align-items-center">
-                    <div className="mb-4 fw-bold text-muted text-uppercase">
-                      {getTinyDate(propertyUpdate?.date)}
+                <div className="container">
+                  <div className="row">
+                    <div className="col-xl-2 d-flex align-items-center">
+                      <div className="mb-4 fw-bold text-muted text-uppercase">
+                        {getTinyDate(propertyUpdate?.date)}
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-xl-6 d-flex align-items-center">
-                    <div className="mb-4 mb-xl-0 text-primary">
-                      <h4>
-                        {propertyUpdate?.title}{' '}
-                        {vendorCanEdit && (
-                          <EditPropertyUpdateCategory
-                            property={property}
-                            setProperty={setProperty}
-                            setToast={setToast}
-                            propertyUpdate={propertyUpdate}
-                            setPropertyUpdate={setPropertyUpdate}
-                          />
-                        )}
-                      </h4>
-                      <div className="fw-normal mb-2 text-md text-primary-light">
-                        {propertyUpdate?.media?.length > 0
-                          ? `Last Updated: ${getTinyDate(
+                    <div className="col-xl-6 d-flex align-items-center">
+                      <div className="mb-4 mb-xl-0 text-primary">
+                        <h4>
+                          {propertyUpdate?.title}{' '}
+                          {vendorCanEdit && (
+                            <EditPropertyUpdateCategory
+                              property={property}
+                              setProperty={setProperty}
+                              setToast={setToast}
+                              propertyUpdate={propertyUpdate}
+                              setPropertyUpdate={setPropertyUpdate}
+                            />
+                          )}
+                        </h4>
+                        <div className="fw-normal mb-2 text-md text-primary-light">
+                          {propertyUpdate?.media?.length > 0 ? (
+                            `Last Updated: ${getTinyDate(
                               propertyUpdate?.media?.[0].addedOn
                             )}`
-                          : 'No Image has been added'}
-                      </div>
-                      <TruncatedDescription
-                        description={propertyUpdate?.description}
-                        maxLength={60}
-                        className="text-primary-light"
-                      />
-
-                      {propertyUpdate?.media?.map((media, mediaIndex) => (
-                        <Image
-                          key={media._id}
-                          src={media?.url}
-                          alt={media?.title}
-                          name={media?.title}
-                          className="property-updates-image"
-                          responsiveImage={false}
+                          ) : (
+                            <span className="text-danger-light">
+                              No Image has been added
+                            </span>
+                          )}
+                        </div>
+                        <TruncatedDescription
+                          description={propertyUpdate?.description}
+                          maxLength={60}
+                          className="text-primary-light"
                         />
-                      ))}
+
+                        <div className="mt-4">
+                          {propertyUpdate?.media?.map((media, mediaIndex) => (
+                            <Image
+                              key={media._id}
+                              src={media?.url}
+                              alt={media?.title}
+                              name={media?.title}
+                              className="property-updates-image"
+                              responsiveImage={false}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-xl-4 d-flex align-items-center justify-content-end">
+                      {userIsVendor ? (
+                        <AddPropertyUpdateMedia
+                          property={property}
+                          setProperty={setProperty}
+                          setToast={setToast}
+                          propertyUpdate={propertyUpdate}
+                          setPropertyUpdate={setPropertyUpdate}
+                        />
+                      ) : (
+                        <h5 className="text-muted text-md text-uppercase text-end">
+                          {propertyUpdate?.media?.length} media
+                        </h5>
+                      )}
                     </div>
                   </div>
-                  <div className="col-xl-4 d-flex align-items-center justify-content-end">
-                    {userIsVendor ? (
-                      <AddPropertyUpdateMedia
-                        property={property}
-                        setProperty={setProperty}
-                        setToast={setToast}
-                        propertyUpdate={propertyUpdate}
-                        setPropertyUpdate={setPropertyUpdate}
-                      />
-                    ) : (
-                      <h5 className="text-muted text-md text-uppercase text-end">
-                        {propertyUpdate?.media?.length} media
-                      </h5>
-                    )}
-                  </div>
                 </div>
-              </div>
-            </section>
-          ))}
+              </section>
+            );
+          })}
       </div>
 
       {vendorCanEdit && (
