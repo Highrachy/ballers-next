@@ -167,6 +167,7 @@ export const getGenderFromTitle = (title) => {
 };
 
 export const getLocationFromAddress = (address, hideFullStop = false) => {
+  if (!address) return null;
   let output = '';
   if (address.street1) {
     output += address.street1.trim();

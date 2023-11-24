@@ -420,6 +420,8 @@ export const PropertyUpdatesList = ({
   const vendorCanEdit = userIsVendor && propertyIsTimeline;
   const noPropertyUpdates = property?.propertyUpdate?.length === 0;
 
+  if (!propertyIsTimeline) return null;
+
   return (
     <>
       <div className="property__updates mt-5">

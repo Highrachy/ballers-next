@@ -77,7 +77,7 @@ const BenefitsSection = () => {
   };
 
   return (
-    <section className="benefits bg-light-blue pb-5">
+    <section className="benefits bg-light-blue my-5 py-5">
       <div className="text-center">
         <h6 className="header-secondary">BENEFITS</h6>
         <h3>Why Ballers is Special</h3>

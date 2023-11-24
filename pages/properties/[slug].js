@@ -69,6 +69,7 @@ const LoadProperty = ({ property }) => {
   const enquiryInfo = property?.enquiryInfo;
   const vendorInfo = property?.vendorInfo;
   const setProperty = () => {};
+
   if (!property) return null;
 
   return (

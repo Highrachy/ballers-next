@@ -58,8 +58,9 @@ export const getShortDate = (date) =>
     `${f.dayOfWeekShort}, ${f.monthShortWords} ${f.day}, ${f.year}`
   );
 export const getTinyDate = (date) =>
-  isValidDate(date) &&
-  format(parseISO(date), `${f.monthShortWords} ${f.day}, ${f.year}`);
+  isValidDate(date)
+    ? format(parseDate(date), `${f.monthShortWords} ${f.day}, ${f.year}`)
+    : date;
 export const getLongDate = (date) =>
   format(
     parseISO(date),
@@ -90,7 +91,7 @@ export const formatFilterDate = (date) =>
   format(parseISO(date), `${f.year}-${f.monthDigits}-${f.dayDigits}`);
 export const convertToUTC = (date) =>
   new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString();
-export const isValidDate = (date) => isValid(parseISO(date));
+export const isValidDate = (date) => isValid(parseISO(date)) || isValid(date);
 
 export const getDateStatus = (
   date,
@@ -104,3 +105,5 @@ export const getDateStatus = (
   const statusName = `${isOverdueDate ? 'Overdue' : 'Due'}: ${daysInWords}`;
   return { statusColor, statusName };
 };
+
+export const parseDate = (date) => (isValid(date) ? date : parseISO(date));

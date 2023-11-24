@@ -23,6 +23,7 @@ import ReferralModal from '@/components/common/ReferralModal';
 import { Tab, Tabs } from 'react-bootstrap';
 import AdvancedSearchPropertyForm from '@/components/common/AdvancedSearchPropertyForm';
 import Typewriter from 'typewriter-effect';
+import BenefitsSection from '@/components/common/BenefitsSection';
 
 export default function Home({
   properties,
@@ -34,7 +35,11 @@ export default function Home({
       <Header />
       <HoldingSection />
       <AboutSection />
-      <PropertiesRowList result={properties} title="Available Properties" />
+      <PropertiesRowList
+        result={properties?.slice(0, 3)}
+        title="Available Properties"
+      />
+      <BenefitsSection />
       <HowItWorksSection />
       <FAQsSection />
       <CommunityGallery />
