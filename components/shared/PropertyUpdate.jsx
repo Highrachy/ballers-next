@@ -11,7 +11,11 @@ import {
 import Button from 'components/forms/Button';
 import { Formik, Form } from 'formik';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
-import { BASE_API_URL, PRICING_MODEL } from 'utils/constants';
+import {
+  BASE_API_URL,
+  PRICING_MODEL,
+  PROPERTY_UPDATE_MEDIA_STATUS,
+} from 'utils/constants';
 import { getTokenFromStore } from 'utils/localStorage';
 import {
   addPropertyUpdateSchema,
@@ -53,7 +57,7 @@ const PropertyUpdatesForm = ({
 
         Axios({
           method: propertyUpdate?._id ? 'put' : 'post',
-          url: `${BASE_API_URL}/property/${property._id}/propertyUpdate`,
+          url: `${BASE_API_URL}/property/${property._id}/property-update`,
           data: propertyUpdate?._id
             ? { ...payload, propertyUpdateId: propertyUpdate?._id }
             : payload,
@@ -123,7 +127,6 @@ const AddPropertyUpdateMediaForm = ({
   propertyUpdate,
 }) => {
   const [toast] = useToast();
-  console.log('propertyUpdate in form', propertyUpdate);
   return (
     <Formik
       enableReinitialize={true}
@@ -131,7 +134,7 @@ const AddPropertyUpdateMediaForm = ({
       onSubmit={(payload, actions) => {
         Axios({
           method: 'post',
-          url: `${BASE_API_URL}/property/${property._id}/propertyUpdate/${propertyUpdate._id}/media`,
+          url: `${BASE_API_URL}/property/${property._id}/property-update/${propertyUpdate._id}/media`,
           data: payload,
           headers: { Authorization: getTokenFromStore() },
         })
@@ -165,13 +168,11 @@ const AddPropertyUpdateMediaForm = ({
           <Toast {...toast} showToastOnly />
           <section className="row">
             <div className="col-md-10 px-4">
-              <h5>Add Image to Property Update</h5>
               <Input label="Title" name="title" placeholder="Title" />
               <div className="my-4">
                 <Upload
                   label="Upload your image"
                   changeText="Update Picture"
-                  // defaultImage="/assets/img/placeholder/image.png"
                   imgOptions={{
                     className: 'mb-3 img-xxl',
                     width: 200,
@@ -183,11 +184,11 @@ const AddPropertyUpdateMediaForm = ({
                 />
               </div>
               <Button
-                className="btn-secondary mt-4"
+                className="btn-wide mt-2"
                 loading={isSubmitting}
                 onClick={handleSubmit}
               >
-                Add Image
+                Add Media
               </Button>
               <DisplayFormikState {...props} showAll />
             </div>
@@ -292,6 +293,221 @@ export const AddPropertyUpdateMedia = ({
   );
 };
 
+export const PropertyUpdateImageViewModal = ({
+  show,
+  userIsVendor,
+  media,
+  onHide,
+  property,
+  propertyUpdate,
+  setProperty,
+  setToast,
+}) => {
+  const [deleteMode, setDeleteMode] = React.useState(false);
+
+  React.useEffect(() => {
+    setDeleteMode(false);
+  }, [media]);
+
+  if (!media) return null;
+
+  const propertyId = property?._id;
+  const mediaId = media?._id;
+
+  const handleDelete = () => {
+    Axios({
+      method: 'delete',
+      url: `${BASE_API_URL}/property/${propertyId}/property-update/${propertyUpdate?._id}/media`,
+      headers: { Authorization: getTokenFromStore() },
+      data: { imageId: mediaId },
+    })
+      .then(function (response) {
+        const { status, data } = response;
+        if (statusIsSuccessful(status)) {
+          setToast({
+            type: 'success',
+            message: `Image deleted from property update successfully`,
+          });
+          setProperty(data.property);
+          onHide();
+        }
+      })
+      .catch(function (error) {
+        setToast({
+          message: getError(error),
+        });
+      });
+  };
+
+  const imageCanBeDeleted =
+    media.status === PROPERTY_UPDATE_MEDIA_STATUS.UPLOADED;
+
+  return (
+    <Modal
+      title={`${propertyUpdate?.title} : ${media?.title}`}
+      show={show}
+      onHide={onHide}
+      showFooter={false}
+      size={deleteMode ? 'md' : 'lg'}
+    >
+      <section className="row">
+        <div className="col-md-12 my-3 text-center">
+          <Image
+            src={media?.url}
+            alt={media?.title}
+            style={{
+              maxWidth: '100%',
+              maxHeight: deleteMode ? '200px' : '80vh',
+            }}
+          />
+          {userIsVendor && (
+            <>
+              {deleteMode ? (
+                <section className="delete-mode">
+                  <p className="my-4 mx-3 confirmation-text fw-bold">
+                    Are you sure you want to delete this media?
+                  </p>
+                  <Button
+                    color="danger"
+                    className="mb-5 me-3"
+                    onClick={handleDelete}
+                  >
+                    Yes, Delete Media
+                  </Button>
+                  <Button
+                    color="primary-light"
+                    className="mb-5"
+                    onClick={() => {
+                      setDeleteMode(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </section>
+              ) : (
+                <section className="view-mode mt-3">
+                  {imageCanBeDeleted ? (
+                    <Button
+                      color="danger"
+                      className="btn-wide"
+                      onClick={() => setDeleteMode(true)}
+                    >
+                      Delete Media
+                    </Button>
+                  ) : (
+                    <p className="text-md alert alert-warning">
+                      Image is currently linked to the milestone
+                    </p>
+                  )}
+                </section>
+              )}
+            </>
+          )}
+        </div>
+      </section>
+    </Modal>
+  );
+};
+
+export const PropertyUpdateSingleImage = ({
+  media,
+  handleImageClick = () => {},
+}) => (
+  <span className="hover-image me-2" onClick={() => handleImageClick(media)}>
+    <Image
+      key={media._id}
+      src={media?.url}
+      alt={media?.title}
+      name={media?.title}
+      className="property-updates-image"
+      responsiveImage={false}
+    />
+  </span>
+);
+
+export const DeletePropertyUpdateMedia = ({
+  media,
+  property,
+  setProperty,
+  setToast,
+  setShowImageModal,
+}) => {
+  const [showDeleteMediaModal, setShowDeleteMediaModal] = React.useState(false);
+  const propertyId = property?._id;
+  const mediaId = media?._id;
+
+  const handleDelete = () => {
+    Axios({
+      method: 'delete',
+      url: `${BASE_API_URL}/property/${propertyId}/property-update/${mediaId}/media`,
+      headers: { Authorization: getTokenFromStore() },
+      data: { imageId: mediaId },
+    })
+      .then(function (response) {
+        const { status, data } = response;
+        if (statusIsSuccessful(status)) {
+          setToast({
+            type: 'success',
+            message: `Image deleted from property update successfully`,
+          });
+          setProperty(data.property);
+          setShowImageModal(false);
+          setShowDeleteMediaModal(false);
+          hideForm();
+        }
+      })
+      .catch(function (error) {
+        setToast({
+          message: getError(error),
+        });
+      });
+  };
+  return (
+    <>
+      <Button
+        color="danger"
+        className="btn-wide"
+        onClick={() => {
+          console.log('yes');
+          setShowImageModal(false);
+          // setShowDeleteMediaModal(true);
+        }}
+      >
+        Delete Media
+      </Button>
+      <Modal
+        title="Add Media"
+        show={showDeleteMediaModal}
+        onHide={() => {
+          setShowImageModal(true);
+          setShowDeleteMediaModal(false);
+        }}
+        showFooter={false}
+      >
+        <section className="row">
+          <div className="col-md-12 my-3 text-center">
+            <p className="my-4 mx-3 confirmation-text fw-bold">
+              Are you sure you want to delete this media?
+            </p>
+            <Button className="btn btn-danger mb-5" onClick={handleDelete}>
+              Delete Media
+            </Button>
+            <Button
+              className="btn btn-primary-light mb-5"
+              onClick={() => {
+                setShowImageModal(true);
+                setShowDeleteMediaModal(false);
+              }}
+            >
+              Cancel
+            </Button>
+          </div>
+        </section>
+      </Modal>
+    </>
+  );
+};
+
 export const EditPropertyUpdateCategory = ({
   property,
   setProperty,
@@ -343,7 +559,7 @@ const DeletePropertyUpdateCategory = ({
 
   const deletePropertyUpdate = () => {
     setLoading(true);
-    Axios.delete(`${BASE_API_URL}/property/${property._id}/propertyUpdate`, {
+    Axios.delete(`${BASE_API_URL}/property/${property._id}/property-update`, {
       headers: { Authorization: getTokenFromStore() },
       data: { propertyUpdateId: propertyUpdate._id },
     })

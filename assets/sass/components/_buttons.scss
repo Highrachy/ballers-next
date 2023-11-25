@@ -6,6 +6,12 @@
   color: white !important;
 }
 
+.btn-outline-success {
+  &:hover {
+    color: $white !important;
+  }
+}
+
 //   .btn-primary-light
 @each $name, $colors in $brand-colors {
   .btn-#{$name}-light {

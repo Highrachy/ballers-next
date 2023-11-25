@@ -91,7 +91,6 @@ export const formatFilterDate = (date) =>
   format(parseISO(date), `${f.year}-${f.monthDigits}-${f.dayDigits}`);
 export const convertToUTC = (date) =>
   new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString();
-export const isValidDate = (date) => isValid(parseISO(date)) || isValid(date);
 
 export const getDateStatus = (
   date,
@@ -107,3 +106,4 @@ export const getDateStatus = (
 };
 
 export const parseDate = (date) => (isValid(date) ? date : parseISO(date));
+export const isValidDate = (date) => isValid(parseISO(date)) || isValid(date);

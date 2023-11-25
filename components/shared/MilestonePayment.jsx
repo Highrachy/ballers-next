@@ -32,13 +32,14 @@ import { refreshQuery, setQueryCache } from '@/hooks/useQuery';
 import Humanize from 'humanize-plus';
 import { getLongDate, getTinyDate } from '@/utils/date-helpers';
 import { Spacing } from '../common/Helpers';
-import { Briefcase } from 'iconsax-react';
 import { TiDelete } from 'react-icons/ti';
-import { FaCircle, FaCircleNotch, FaClock } from 'react-icons/fa';
-import { SuccessIcon, UploadIcon, WarningIcon } from '../utils/Icons';
+import { FaClock } from 'react-icons/fa';
+import { SuccessIcon, UploadIcon } from '../utils/Icons';
 import {
   AddPropertyUpdateMedia,
   GenerateMilestonePropertyUpdates,
+  PropertyUpdateImageViewModal,
+  PropertyUpdateSingleImage,
 } from './PropertyUpdate';
 import { RiLoader2Line } from 'react-icons/ri';
 import { AiOutlineStop } from 'react-icons/ai';
@@ -389,18 +390,14 @@ export const DeleteMilestoneButton = ({
   if (!currentMilestone?.editable) return null;
   return (
     <>
-      <div className="position-relative">
-        <div className="position-absolute end-0">
-          <span
-            className="cursor-pointer"
-            onClick={() => {
-              setShowDeleteMilestoneModal(true);
-            }}
-          >
-            <TiDelete className="text-gray-light" size={32} />
-          </span>
-        </div>
-      </div>
+      <span
+        className="cursor-pointer"
+        onClick={() => {
+          setShowDeleteMilestoneModal(true);
+        }}
+      >
+        <TiDelete className="text-gray-light" size={32} />
+      </span>
       <Modal
         title="Delete Milestone"
         show={showDeleteMilestoneModal}
@@ -478,7 +475,7 @@ export const MoveToNextMilestoneButton = ({
         const { data, status } = response;
         if (statusIsSuccessful(status)) {
           setToast({
-            message: 'Property Update generated successfully',
+            message: 'Milestone has been successfully marked as completed',
             type: 'success',
           });
           setProperty({ ...property, ...data.property });
@@ -511,7 +508,7 @@ export const MoveToNextMilestoneButton = ({
         {hasUploadedProjectUpdates && isCurrentMilestone && (
           <Button
             color="success"
-            className="btn-sm btn-wide mt-5"
+            className="btn-sm btn-wide mt-3"
             onClick={() => setShowModal(true)}
           >
             {buttonText || milestoneText}
@@ -625,29 +622,65 @@ const MilestoneHelperText = ({
   hasUploadedProjectUpdates,
   isCurrentMilestone,
 }) => {
+  const getStatusText = () => {
+    const isPendingStatus =
+      milestoneDetails?.status === MILESTONE_STATUS.PENDING;
+
+    if (isPendingStatus) {
+      if (userIsVendor) {
+        return 'Please review your milestone details to ensure they align with your project requirements.';
+      } else {
+        return 'This milestone is awaiting confirmation from the vendor.';
+      }
+    }
+
+    if (milestone?.completed) {
+      return `This milestone was completed on ${getTinyDate(
+        milestone?.completedDate
+      )}`;
+    }
+
+    if (userIsVendor) {
+      if (!hasUploadedProjectUpdates) {
+        if (isCurrentMilestone) {
+          const remainingMedia = MINIMUM_PROPERTY_UPDATE - uploadedMedia;
+          return `To complete this milestone, please upload ${remainingMedia} or more media files.`;
+        } else {
+          return 'This milestone has not yet started.';
+        }
+      } else {
+        return 'This milestone is still in progress. Once finished, please mark it as completed.';
+      }
+    }
+
+    return 'This milestone is incomplete and work is still in progress.';
+  };
+
+  const statusText = getStatusText();
+
+  return <div className="help-text text-md text-soft">{statusText}</div>;
+};
+
+const MilestoneStatus = ({ index, milestoneDetails, milestone }) => {
+  let statusText, statusIcon, className;
+
+  if (index === milestoneDetails?.currentMilestone) {
+    statusText = 'In Progress';
+    statusIcon = <RiLoader2Line />;
+    className = 'dark';
+  } else if (milestone?.completed) {
+    statusText = 'Completed';
+    statusIcon = <SuccessIcon />;
+    className = 'success';
+  } else {
+    statusText = 'Not Started';
+    statusIcon = <AiOutlineStop />;
+    className = 'danger';
+  }
+
   return (
-    <div className="help-text text-md text-soft pt-4">
-      {milestoneDetails?.status !== MILESTONE_STATUS.PENDING ? (
-        <>
-          {milestone?.completed
-            ? `Milestone was completed on ${getTinyDate(
-                milestone?.completedDate
-              )}`
-            : userIsVendor
-            ? !hasUploadedProjectUpdates
-              ? isCurrentMilestone
-                ? `You need to upload ${
-                    MINIMUM_PROPERTY_UPDATE - uploadedMedia
-                  }+ media files to mark this milestone as completed`
-                : ''
-              : `Milestone is still in progress. Please mark it as completed when ready`
-            : `Incomplete milestone. Work is still in progress.`}
-        </>
-      ) : userIsVendor ? (
-        'Proofread your milestone information to ensure it aligns with your project'
-      ) : (
-        ''
-      )}
+    <div className={`btn btn-${className}-light disabled`}>
+      {statusIcon} {statusText}
     </div>
   );
 };
@@ -660,6 +693,19 @@ const MilestoneContent = ({
   userIsVendor,
   index,
 }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageClick = (media) => {
+    setSelectedImage(media);
+    setShowModal(true);
+  };
+
+  const hideModal = () => {
+    setShowModal(false);
+    setSelectedImage(null);
+  };
+
   const milestoneDetails = property?.milestoneDetails;
   const milestoneHasStarted =
     milestoneDetails?.status !== MILESTONE_STATUS.PENDING;
@@ -669,7 +715,8 @@ const MilestoneContent = ({
   const uploadedMedia = propertyUpdate?.media?.length || 0;
   const hasUploadedProjectUpdates = uploadedMedia >= MINIMUM_PROPERTY_UPDATE;
 
-  const isCurrentMilestone = index === milestoneDetails?.currentMilestone;
+  const currentMilestoneIndex = milestoneDetails?.currentMilestone;
+  const isCurrentMilestone = index === currentMilestoneIndex;
 
   const statusClassName = isCurrentMilestone
     ? 'in-progress'
@@ -685,14 +732,18 @@ const MilestoneContent = ({
 
   return (
     <section className={`milestone-content ${statusClassName}`}>
-      {!milestoneHasStarted && (
-        <DeleteMilestoneButton
-          property={property}
-          setProperty={setProperty}
-          setToast={setToast}
-          currentMilestone={milestone}
-        />
-      )}
+      <div className="position-relative">
+        <div className="position-absolute end-0">
+          {!milestoneHasStarted && (
+            <DeleteMilestoneButton
+              property={property}
+              setProperty={setProperty}
+              setToast={setToast}
+              currentMilestone={milestone}
+            />
+          )}
+        </div>
+      </div>
       <div className="container">
         <div className="row">
           <div className="col-xl-2 d-flex align-items-center">
@@ -713,6 +764,7 @@ const MilestoneContent = ({
                   {previousTimelineDate} to {getTinyDate(milestone.dueDate)}
                 </span>{' '}
               </div>
+
               <TruncatedDescription
                 description={milestone.description}
                 maxLength={60}
@@ -727,18 +779,26 @@ const MilestoneContent = ({
                 />
               )}
 
-              <div className="mt-4">
-                {propertyUpdate?.media?.map((media, mediaIndex) => (
-                  <Image
-                    key={media._id}
-                    src={media?.url}
-                    alt={media?.title}
-                    name={media?.title}
-                    className="property-updates-image"
-                    responsiveImage={false}
+              <div className="my-4">
+                {propertyUpdate?.media?.map((media) => (
+                  <PropertyUpdateSingleImage
+                    key={media?._id}
+                    media={media}
+                    handleImageClick={handleImageClick}
                   />
                 ))}
               </div>
+
+              <PropertyUpdateImageViewModal
+                show={showModal}
+                media={selectedImage}
+                onHide={hideModal}
+                property={property}
+                propertyUpdate={propertyUpdate}
+                setProperty={setProperty}
+                setToast={setToast}
+                userIsVendor={userIsVendor}
+              />
 
               <MilestoneHelperText
                 userIsVendor={userIsVendor}
@@ -758,41 +818,36 @@ const MilestoneContent = ({
               />
             </div>
           </div>
-          <div className="col-xl-4 d-flex align-items-center justify-content-end">
-            {milestoneHasStarted && (
-              <>
-                {index === milestoneDetails?.currentMilestone ? (
-                  userIsVendor ? (
-                    <AddPropertyUpdateMedia
-                      property={property}
-                      setProperty={setProperty}
-                      setToast={setToast}
-                      propertyUpdate={propertyUpdate}
-                      setPropertyUpdate={() => {}}
-                      content={
-                        <span className="btn btn-secondary text-center">
-                          <UploadIcon /> Upload Media
-                        </span>
-                      }
-                    />
-                  ) : (
-                    <span className="btn btn-secondary-light disabled">
-                      <RiLoader2Line /> In Progress
+          <div className="col-xl-4 d-flex align-items-center justify-content-start justify-content-xl-end">
+            <div>
+              {!userIsVendor && (
+                <MilestoneStatus
+                  index={index}
+                  milestoneDetails={milestoneDetails}
+                  milestone={milestone}
+                />
+              )}
+              {userIsVendor && index <= currentMilestoneIndex && (
+                <AddPropertyUpdateMedia
+                  property={property}
+                  setProperty={setProperty}
+                  setToast={setToast}
+                  propertyUpdate={propertyUpdate}
+                  setPropertyUpdate={() => {}}
+                  content={
+                    <span
+                      className={`btn ${
+                        index === currentMilestoneIndex
+                          ? 'btn-secondary'
+                          : 'btn-success-light -success text-success'
+                      }`}
+                    >
+                      <UploadIcon /> Upload Media
                     </span>
-                  )
-                ) : milestone?.completed ? (
-                  <>
-                    <span className="btn btn-success-light disabled">
-                      <SuccessIcon /> Completed
-                    </span>
-                  </>
-                ) : (
-                  <span className="btn btn-danger-light disabled">
-                    <AiOutlineStop /> Not Started
-                  </span>
-                )}
-              </>
-            )}
+                  }
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -819,13 +874,21 @@ export const MilestonePaymentList = ({
     setShowAllMilestones((prevShowAllMilestones) => !prevShowAllMilestones);
   };
   const currentMilestone = milestones[milestoneDetails?.currentMilestone || 0];
+  const percentage = milestoneDetails?.currentMilestonePercentage || 0;
 
   return (
     <>
       <div className="property__milestone-payments mt-5">
         <div className="mb-3 d-flex flex-column flex-xl-row align-items-start  justify-content-between">
           <div>
-            <h4 className="header-content my-2">Milestone Payments</h4>
+            <h4 className="header-content my-2">
+              Milestone{' '}
+              {percentage === 0
+                ? ''
+                : percentage === 100
+                ? `Completed`
+                : `(${milestoneDetails.currentMilestone}/${milestones.length})`}
+            </h4>
             <MilestoneInformation
               property={property}
               userIsVendor={userIsVendor}
@@ -853,15 +916,23 @@ export const MilestonePaymentList = ({
 
         {milestoneIsPending || showAllMilestones ? (
           milestones?.map((milestone, index) => (
-            <MilestoneContent
-              currentMilestone={milestone}
-              index={index}
-              key={index}
-              property={property}
-              setProperty={setProperty}
-              setToast={setToast}
-              userIsVendor={userIsVendor}
-            />
+            <>
+              <MilestoneContent
+                currentMilestone={milestone}
+                index={index}
+                key={index}
+                property={property}
+                setProperty={setProperty}
+                setToast={setToast}
+                userIsVendor={userIsVendor}
+              />
+              {index === milestoneDetails.currentMilestone && (
+                <MilestoneProgress
+                  milestonePayment={milestones}
+                  milestoneDetails={milestoneDetails}
+                />
+              )}
+            </>
           ))
         ) : (
           <>
@@ -873,13 +944,12 @@ export const MilestonePaymentList = ({
               userIsVendor={userIsVendor}
               setToast={setToast}
             />
+            <MilestoneProgress
+              milestonePayment={milestones}
+              milestoneDetails={milestoneDetails}
+            />
           </>
         )}
-
-        <MilestoneProgress
-          milestonePayment={milestones}
-          milestoneDetails={milestoneDetails}
-        />
       </div>
 
       {/* <MilestoneNextStep property={property} userIsVendor={userIsVendor} /> */}
@@ -896,34 +966,39 @@ export const MilestonePaymentList = ({
 export const MilestoneProgress = ({ milestonePayment, milestoneDetails }) => {
   const milestones = milestonePayment;
 
-  const currentStage =
-    milestones?.[milestoneDetails?.currentMilestone]?.title || 'Not Started';
+  const currentIndex = milestoneDetails?.currentMilestone || 0;
+  const currentStage = milestones?.[currentIndex]?.title || 'Not Started';
   const percentage = milestoneDetails?.currentMilestonePercentage || 0;
   const completedAllSteps = percentage === 100;
   const notStarted = percentage === 0;
-  console.log('percentage', milestoneDetails);
+
   if (notStarted) {
     return null;
   }
+
   return (
     <div className="row">
-      <div className="col-sm-12 my-4">
-        <div className="text-md mb-2">
+      <div className="col-sm-12 mt-n4 mb-1">
+        {/* <div className="text-md mb-2">
           <span className={'text-primary'}>
             {completedAllSteps
               ? 'Completed All Milestones'
-              : `Current Stage: ${currentStage}`}
+              : `Milestone (${currentIndex}/${milestones.length}): ${currentStage}`}
           </span>
           <span className="float-end">{`${percentage}%`}</span>
-        </div>
+        </div> */}
         <ProgressBar
           variant={completedAllSteps ? 'success' : 'secondary'}
           now={percentage}
+          // label={`${percentage}%`}
+          // striped
           style={{
-            height: '10px',
+            height: '5px',
           }}
           srOnly
         />
+
+        <div className="text-end text-sm">{`${percentage}%`}</div>
       </div>
     </div>
   );

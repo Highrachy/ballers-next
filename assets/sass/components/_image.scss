@@ -74,9 +74,10 @@
 }
 
 .hover-image {
-  display: block;
+  display: inline-block;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .hover-image img {
@@ -91,7 +92,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba(24, 26, 32, 0.2);
+  background-color: rgba($secondary, 0.2);
   display: block;
   transition: all 0.3s ease-in-out 0s;
   opacity: 0;

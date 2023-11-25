@@ -750,7 +750,7 @@ export const PropertyImage = ({ property, hideGallery }) => {
             className={
               !useCurrentRole().isUser && property?.flagged?.status
                 ? 'overlay overlay__danger'
-                : 'hover-image'
+                : 'hover-image d-block'
             }
           >
             <OnlineImage
