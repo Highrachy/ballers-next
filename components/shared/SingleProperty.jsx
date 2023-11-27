@@ -730,7 +730,7 @@ const ManagePropertyLink = ({ property, setToast, setProperty }) => (
       setToast={setToast}
       setProperty={setProperty}
     />
-    <LinkSeparator />
+    {!isMilestonePayment(property) && <LinkSeparator />}
     <AddPropertyUpdatesCategory
       className="text-link text-muted"
       property={property}

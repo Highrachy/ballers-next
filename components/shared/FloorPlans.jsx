@@ -232,10 +232,9 @@ export const FloorPlansList = ({
                     <Image src={plan} alt={name} name={name} />
                     {userIsVendor && (
                       <>
-                        <hr />
                         <p className="px-4 my-4">
                           <span
-                            className="text-link text-muted"
+                            className="btn btn-wide btn-sm btn-info-light me-3"
                             onClick={() => {
                               setFloorPlan({ _id, name, plan });
                               setShowEditFloorPlansModal(true);
@@ -243,9 +242,8 @@ export const FloorPlansList = ({
                           >
                             Edit Floor Plan
                           </span>
-                          <LinkSeparator />
                           <span
-                            className="text-link  text-muted"
+                            className="btn btn-wide btn-sm btn-danger-light"
                             onClick={() => {
                               setFloorPlan({ _id, name, plan });
                               setShowDeleteFloorPlansModal(true);
@@ -268,7 +266,7 @@ export const FloorPlansList = ({
         <div className="row">
           <div className="col-12">
             <AddFloorPlans
-              className="btn btn-secondary btn-xs btn-wide"
+              className="btn btn-secondary-light btn-sm btn-wide"
               property={property}
               setToast={setToast}
               setProperty={setProperty}

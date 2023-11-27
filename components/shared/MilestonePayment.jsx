@@ -43,7 +43,6 @@ import {
 } from './PropertyUpdate';
 import { RiLoader2Line } from 'react-icons/ri';
 import { AiOutlineStop } from 'react-icons/ai';
-import Image from '../utils/Image';
 
 const MINIMUM_PROPERTY_UPDATE = 2;
 
@@ -628,37 +627,61 @@ const MilestoneHelperText = ({
 
     if (isPendingStatus) {
       if (userIsVendor) {
-        return 'Please review your milestone details to ensure they align with your project requirements.';
+        return {
+          color: 'soft',
+          statusText:
+            'Please review your milestone details to ensure they align with your project requirements.',
+        };
       } else {
-        return 'This milestone is awaiting confirmation from the vendor.';
+        return {
+          color: 'soft',
+          statusText:
+            'This milestone is awaiting confirmation from the vendor.',
+        };
       }
     }
 
     if (milestone?.completed) {
-      return `This milestone was completed on ${getTinyDate(
-        milestone?.completedDate
-      )}`;
+      return {
+        color: 'success-darker',
+        statusText: `This milestone was completed on ${getTinyDate(
+          milestone?.completedDate
+        )}`,
+      };
     }
 
     if (userIsVendor) {
       if (!hasUploadedProjectUpdates) {
         if (isCurrentMilestone) {
           const remainingMedia = MINIMUM_PROPERTY_UPDATE - uploadedMedia;
-          return `To complete this milestone, please upload ${remainingMedia} or more media files.`;
+          return {
+            color: 'danger-light',
+            statusText: `To complete this milestone, please upload ${remainingMedia} or more media files.`,
+          };
         } else {
-          return 'This milestone has not yet started.';
+          return {
+            color: 'soft',
+            statusText: 'This milestone has not yet started.',
+          };
         }
       } else {
-        return 'This milestone is still in progress. Once finished, please mark it as completed.';
+        return {
+          color: 'info-dark',
+          statusText:
+            'This milestone is still in progress. Once finished, please mark it as completed.',
+        };
       }
     }
 
-    return 'This milestone is incomplete and work is still in progress.';
+    return {
+      color: 'soft',
+      statusText: 'This milestone is incomplete and work is still in progress.',
+    };
   };
 
-  const statusText = getStatusText();
+  const { color, statusText } = getStatusText();
 
-  return <div className="help-text text-md text-soft">{statusText}</div>;
+  return <div className={`help-text text-md text-${color}`}>{statusText}</div>;
 };
 
 const MilestoneStatus = ({ index, milestoneDetails, milestone }) => {
@@ -731,127 +754,132 @@ const MilestoneContent = ({
   );
 
   return (
-    <section className={`milestone-content ${statusClassName}`}>
-      <div className="position-relative">
-        <div className="position-absolute end-0">
-          {!milestoneHasStarted && (
-            <DeleteMilestoneButton
-              property={property}
-              setProperty={setProperty}
-              setToast={setToast}
-              currentMilestone={milestone}
-            />
-          )}
-        </div>
-      </div>
-      <div className="container">
-        <div className="row">
-          <div className="col-xl-2 d-flex align-items-center">
-            <div className="mb-4 fw-bold text-primary text-center text-uppercase">
-              Milestone {index + 1}:
-            </div>
-          </div>
-          <div className="col-xl-6 d-flex align-items-center">
-            <div className="mb-4 mb-xl-0">
-              <h4 className="text-primary">
-                {milestone.title} - {milestone.percentage}%
-              </h4>
-              <div className="fw-normal mb-2 text-md text-gray">
-                {milestone.duration}{' '}
-                {Humanize.pluralize(milestone.duration, 'month')} <Spacing /> |{' '}
-                <Spacing />
-                <span>
-                  {previousTimelineDate} to {getTinyDate(milestone.dueDate)}
-                </span>{' '}
-              </div>
-
-              <TruncatedDescription
-                description={milestone.description}
-                maxLength={60}
+    <>
+      <section className={`milestone-content ${statusClassName}`}>
+        <div className="position-relative">
+          <div className="position-absolute end-0">
+            {!milestoneHasStarted && (
+              <DeleteMilestoneButton
+                property={property}
+                setProperty={setProperty}
+                setToast={setToast}
+                currentMilestone={milestone}
               />
+            )}
+          </div>
+        </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-xl-2 d-flex align-items-center">
+              <div className="mb-4 fw-bold text-primary text-center text-uppercase">
+                Milestone {index + 1}:
+              </div>
+            </div>
+            <div className="col-xl-6 d-flex align-items-center">
+              <div className="mb-4 mb-xl-0">
+                <h4 className="text-primary mb-1">
+                  {milestone.title} - {milestone.percentage}%
+                </h4>
+                <div className="fw-normal mb-1 text-md text-gray">
+                  {milestone.duration}{' '}
+                  {Humanize.pluralize(milestone.duration, 'month')} <Spacing />{' '}
+                  | <Spacing />
+                  <span>
+                    {previousTimelineDate} to {getTinyDate(milestone.dueDate)}
+                  </span>{' '}
+                </div>
 
-              {userIsVendor && !milestoneHasStarted && (
-                <EditMilestoneButton
-                  property={property}
-                  setProperty={setProperty}
-                  setToast={setToast}
-                  currentMilestone={milestone}
+                <TruncatedDescription
+                  description={milestone.description}
+                  maxLength={60}
                 />
-              )}
 
-              <div className="my-4">
-                {propertyUpdate?.media?.map((media) => (
-                  <PropertyUpdateSingleImage
-                    key={media?._id}
-                    media={media}
-                    handleImageClick={handleImageClick}
+                {userIsVendor && !milestoneHasStarted && (
+                  <EditMilestoneButton
+                    property={property}
+                    setProperty={setProperty}
+                    setToast={setToast}
+                    currentMilestone={milestone}
                   />
-                ))}
-              </div>
+                )}
 
-              <PropertyUpdateImageViewModal
-                show={showModal}
-                media={selectedImage}
-                onHide={hideModal}
-                property={property}
-                propertyUpdate={propertyUpdate}
-                setProperty={setProperty}
-                setToast={setToast}
-                userIsVendor={userIsVendor}
-              />
+                <div className="my-4">
+                  {propertyUpdate?.media?.map((media) => (
+                    <PropertyUpdateSingleImage
+                      key={media?._id}
+                      media={media}
+                      handleImageClick={handleImageClick}
+                    />
+                  ))}
+                </div>
 
-              <MilestoneHelperText
-                userIsVendor={userIsVendor}
-                milestone={milestone}
-                milestoneDetails={milestoneDetails}
-                uploadedMedia={uploadedMedia}
-                hasUploadedProjectUpdates={hasUploadedProjectUpdates}
-                isCurrentMilestone={isCurrentMilestone}
-              />
-
-              <MoveToNextMilestoneButton
-                property={property}
-                setToast={setToast}
-                setProperty={setProperty}
-                buttonText="Mark as Completed"
-                isCurrentMilestone={isCurrentMilestone}
-              />
-            </div>
-          </div>
-          <div className="col-xl-4 d-flex align-items-center justify-content-start justify-content-xl-end">
-            <div>
-              {!userIsVendor && (
-                <MilestoneStatus
-                  index={index}
-                  milestoneDetails={milestoneDetails}
-                  milestone={milestone}
-                />
-              )}
-              {userIsVendor && index <= currentMilestoneIndex && (
-                <AddPropertyUpdateMedia
+                <PropertyUpdateImageViewModal
+                  show={showModal}
+                  media={selectedImage}
+                  onHide={hideModal}
                   property={property}
+                  propertyUpdate={propertyUpdate}
                   setProperty={setProperty}
                   setToast={setToast}
-                  propertyUpdate={propertyUpdate}
-                  setPropertyUpdate={() => {}}
-                  content={
-                    <span
-                      className={`btn ${
-                        index === currentMilestoneIndex
-                          ? 'btn-secondary'
-                          : 'btn-success-light -success text-success'
-                      }`}
-                    >
-                      <UploadIcon /> Upload Media
-                    </span>
-                  }
+                  userIsVendor={userIsVendor}
                 />
-              )}
+
+                <MilestoneHelperText
+                  userIsVendor={userIsVendor}
+                  milestone={milestone}
+                  milestoneDetails={milestoneDetails}
+                  uploadedMedia={uploadedMedia}
+                  hasUploadedProjectUpdates={hasUploadedProjectUpdates}
+                  isCurrentMilestone={isCurrentMilestone}
+                />
+
+                <MoveToNextMilestoneButton
+                  property={property}
+                  setToast={setToast}
+                  setProperty={setProperty}
+                  buttonText="Mark as Completed"
+                  isCurrentMilestone={isCurrentMilestone}
+                />
+              </div>
+            </div>
+            <div className="col-xl-4 d-flex align-items-center justify-content-start justify-content-xl-end">
+              <div>
+                {!userIsVendor && (
+                  <MilestoneStatus
+                    index={index}
+                    milestoneDetails={milestoneDetails}
+                    milestone={milestone}
+                  />
+                )}
+                {userIsVendor && index <= currentMilestoneIndex && (
+                  <AddPropertyUpdateMedia
+                    property={property}
+                    setProperty={setProperty}
+                    setToast={setToast}
+                    propertyUpdate={propertyUpdate}
+                    setPropertyUpdate={() => {}}
+                    content={
+                      <span
+                        className={`btn ${
+                          index === currentMilestoneIndex
+                            ? 'btn-secondary'
+                            : 'btn-success-light -success text-success'
+                        }`}
+                      >
+                        <UploadIcon /> Upload Media
+                      </span>
+                    }
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      {index === milestoneDetails.currentMilestone && (
+        <MilestoneProgress property={property} />
+      )}
+    </>
   );
 };
 
@@ -887,7 +915,9 @@ export const MilestonePaymentList = ({
                 ? ''
                 : percentage === 100
                 ? `Completed`
-                : `(${milestoneDetails.currentMilestone}/${milestones.length})`}
+                : `(${milestoneDetails.currentMilestone + 1}/${
+                    milestones.length
+                  })`}
             </h4>
             <MilestoneInformation
               property={property}
@@ -926,12 +956,6 @@ export const MilestonePaymentList = ({
                 setToast={setToast}
                 userIsVendor={userIsVendor}
               />
-              {index === milestoneDetails.currentMilestone && (
-                <MilestoneProgress
-                  milestonePayment={milestones}
-                  milestoneDetails={milestoneDetails}
-                />
-              )}
             </>
           ))
         ) : (
@@ -943,10 +967,6 @@ export const MilestonePaymentList = ({
               setProperty={setProperty}
               userIsVendor={userIsVendor}
               setToast={setToast}
-            />
-            <MilestoneProgress
-              milestonePayment={milestones}
-              milestoneDetails={milestoneDetails}
             />
           </>
         )}
@@ -963,7 +983,9 @@ export const MilestonePaymentList = ({
   );
 };
 
-export const MilestoneProgress = ({ milestonePayment, milestoneDetails }) => {
+export const MilestoneProgress = ({
+  property: { milestonePayment, milestoneDetails },
+}) => {
   const milestones = milestonePayment;
 
   const currentIndex = milestoneDetails?.currentMilestone || 0;
@@ -979,19 +1001,9 @@ export const MilestoneProgress = ({ milestonePayment, milestoneDetails }) => {
   return (
     <div className="row">
       <div className="col-sm-12 mt-n4 mb-1">
-        {/* <div className="text-md mb-2">
-          <span className={'text-primary'}>
-            {completedAllSteps
-              ? 'Completed All Milestones'
-              : `Milestone (${currentIndex}/${milestones.length}): ${currentStage}`}
-          </span>
-          <span className="float-end">{`${percentage}%`}</span>
-        </div> */}
         <ProgressBar
           variant={completedAllSteps ? 'success' : 'secondary'}
           now={percentage}
-          // label={`${percentage}%`}
-          // striped
           style={{
             height: '5px',
           }}
@@ -1016,7 +1028,7 @@ const getSumOfRemainingMonths = (milestones) => {
 export const TruncatedDescription = ({
   description,
   maxLength = 600,
-  className = 'text-primary',
+  className = 'text-primary fw-bold text-md mt-2',
 }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const shouldTruncate = description.length > maxLength;

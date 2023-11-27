@@ -365,13 +365,17 @@
     .card {
       margin-bottom: 0.5rem;
       border: 1px solid $gray-300 !important;
-      border-radius: 0;
+      border-radius: 3px;
     }
-    .card-header h5 {
-      font-size: 1rem;
-      font-weight: 500;
-      padding-top: 0.5rem;
-      color: $gray-600;
+    .card-header {
+      padding: 1.2rem;
+      background-color: #fafafb;
+
+      h5 {
+        font-size: 1rem;
+        font-weight: 500;
+        color: $primary;
+      }
     }
   }
 }

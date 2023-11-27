@@ -741,7 +741,7 @@ export const PropertyUpdatesList = ({
         <div className="row">
           <div className="col-12">
             <AddPropertyUpdatesCategory
-              className="btn btn-secondary btn-xs btn-wide"
+              className="btn btn-secondary-light btn-sm btn-wide"
               property={property}
               setToast={setToast}
               setProperty={setProperty}

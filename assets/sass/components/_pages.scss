@@ -10,6 +10,20 @@
   }
 }
 
+.home-hero-vendor-bg {
+  background: url('../../img/backgrounds/vendor-dashboard.png') center center
+    no-repeat;
+  background-size: contain;
+  z-index: -100;
+  min-height: 36rem;
+  margin-top: 4rem;
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
+  @include media-breakpoint-down(lg) {
+    margin-top: -10rem;
+  }
+}
+
 .bg-light-blue {
   background-color: $light-bg;
 }
@@ -30,8 +44,13 @@
   height: 39rem;
 }
 
+.vendor-hero {
+  background: rgba(87, 117, 250, 0.04);
+}
+
 .home-hero {
-  h1 {
+  h1,
+  h2 {
     margin-top: 1rem;
     font-weight: 800;
     color: #3a4451;
@@ -70,6 +89,16 @@
         width: 120px;
         height: 150px;
       }
+    }
+  }
+  h2 {
+    font-size: 1.5rem;
+    @include media-breakpoint-up(md) {
+      font-size: 2rem;
+    }
+    @include media-breakpoint-up(lg) {
+      margin-top: 10rem;
+      font-size: 3rem;
     }
   }
   &-container {

@@ -72,6 +72,11 @@ export const isDevEnvironment = () =>
 export const getProxy = () =>
   isDevEnvironment() ? 'http://localhost:8080' : '';
 
+export const getDemoLink = () =>
+  isDevEnvironment()
+    ? '/create-demo-account'
+    : 'https://preview.ballers.ng/create-demo-account';
+
 export const getError = (error) =>
   error?.response?.data
     ? JSON.stringify(error?.response?.data?.error) ||

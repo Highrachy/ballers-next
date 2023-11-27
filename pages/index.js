@@ -236,7 +236,7 @@ const SearchTabComponent = () => {
   );
 };
 
-const TypewriterWrapper = ({ texts }) => {
+export const TypewriterWrapper = ({ texts, disableArrow }) => {
   const [showArrow, setShowArrow] = React.useState(false);
   const WINDOW_SIZE = useWindowSize();
   const isDesktop = WINDOW_SIZE.width > MOBILE_WIDTH;
@@ -275,7 +275,7 @@ const TypewriterWrapper = ({ texts }) => {
         }}
       />
 
-      {showArrow && (
+      {showArrow && !disableArrow && (
         <JackInTheBox duration={1500}>
           <HeroArrow />
         </JackInTheBox>

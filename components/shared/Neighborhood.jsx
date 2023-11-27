@@ -344,7 +344,7 @@ export const NeighborhoodList = ({
         <div className="row">
           <div className="col-12">
             <AddNeighborhood
-              className="btn btn-secondary btn-xs btn-wide"
+              className="btn btn-secondary-light btn-sm btn-wide"
               property={property}
               setToast={setToast}
               setProperty={setProperty}

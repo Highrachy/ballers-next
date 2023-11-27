@@ -19,12 +19,14 @@ const Button = ({
   color,
   type,
   href,
+  wide,
   ...props
 }) => {
   const isLink = !!href;
   const btnClassName = classNames(
     'btn',
     `btn-${color}`,
+    { 'btn-wide': wide },
     { 'btn-xs btn-wide': type === BUTTON_TYPES.SMALL },
     className
   );
