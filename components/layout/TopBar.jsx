@@ -70,7 +70,7 @@ export const NavForLoginUser = () => {
       {userState?.isDemoAccount && (
         <>
           <Link href="/vendor/demo-account">
-            <Nav.Link className="demo-account text-muted">
+            <Nav.Link className="demo-account d-none d-xl-inline text-muted">
               Demo Account
             </Nav.Link>
           </Link>
