@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
-
-import Link from 'next/link';
 import { Formik, Form } from 'formik';
 import Axios from 'axios';
 import Input from 'components/forms/Input';
-import {
-  setInitialValues,
-  DisplayFormikState,
-} from 'components/forms/form-helper';
+import { setInitialValues } from 'components/forms/form-helper';
 import Button from 'components/forms/Button';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
 import { demoAccountSchema } from 'components/forms/schemas/userSchema';
@@ -20,13 +14,18 @@ import TitleSection, {
 } from 'components/common/TitleSection';
 import Toast, { useToast } from 'components/utils/Toast';
 import { BASE_API_URL } from 'utils/constants';
-import { getError } from 'utils/helpers';
+import { getDemoLoginLink, getError } from 'utils/helpers';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import Link from 'next/link';
+import { WarningIcon } from '@/components/utils/Icons';
 
 const CreateDemoAccount = () => (
   <>
     <Header />
-    <TitleSection name="Demo Account" content="Create a demo account" />
+    <TitleSection
+      name="Create a Demo Account"
+      content="Elevate Your Presence: Customize Your BALL Demo Space"
+    />
     <EmptyTitleSection>
       <Content />
     </EmptyTitleSection>
@@ -35,41 +34,54 @@ const CreateDemoAccount = () => (
 );
 
 const Content = () => {
+  const [showLogin, setShowLogin] = useState(false);
   return (
-    <section>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-lg-5 auth__text">
-            <>
-              <h1>Create a Demo Account</h1>
-              <p className="lead">
-                Showcase your properties to multiple buyers
-              </p>
-            </>
-          </div>
-          <div className="col-lg-6 offset-lg-1">
-            <div className="card p-5 my-6">
-              <DemoAccountForm />
-              <section className="auth__footer">
-                <div className="register mt-6 text-center">
-                  Registered?{' '}
-                  <Link href="/login">
-                    <a className="auth__link">Sign In</a>
-                  </Link>
-                </div>
-              </section>
-            </div>
-          </div>
+    <div className="page-sign">
+      <div className="card card-sign">
+        <div className="card-header">
+          <h4 className="card-title my-3">Welcome to BALL DEMO! </h4>
+          <p className="text-primary pb-4 border-bottom">
+            Begin your journey by providing your details below!
+          </p>
         </div>
-        <p />
+        <div className="card-body pt-2">
+          <DemoAccountForm showLogin={showLogin} setShowLogin={setShowLogin} />
+        </div>
+        <div className="card-footer py-4 mb-5">
+          {showLogin ? (
+            <div
+              className="d-flex align-items-center justify-content-center text-warning-dark text-md my-4"
+              role="alert"
+            >
+              <span className="me-2">
+                <WarningIcon />
+              </span>
+              Attention: Your Demo Account will expire in 30 Days time!
+            </div>
+          ) : (
+            <>
+              Already have a demo account?{' '}
+              <Link href={getDemoLoginLink()}>
+                <a className="text-link text-secondary">Sign In</a>
+              </Link>
+            </>
+          )}
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 
-const DemoAccountForm = () => {
+const DemoAccountForm = ({ showLogin, setShowLogin }) => {
+  // State to store the company logo URL and logo history
+  const [logoURL, setLogoURL] = useState(generateRandomLogoUrl());
+  const [logoHistory, setLogoHistory] = useState([]);
+  const [currentLogoIndex, setCurrentLogoIndex] = useState(-1);
+
+  const [toast, setToast] = useToast();
+
   const agreementText = (
-    <small className="ps-2">
+    <small>
       I agree to{' '}
       <a href="/terms-of-use" className="text-secondary" target="_blank">
         Ballers Terms of Use
@@ -81,13 +93,6 @@ const DemoAccountForm = () => {
       .
     </small>
   );
-
-  // State to store the company logo URL and logo history
-  const [logoURL, setLogoURL] = useState(generateRandomLogoUrl());
-  const [logoHistory, setLogoHistory] = useState([]);
-  const [currentLogoIndex, setCurrentLogoIndex] = useState(-1);
-
-  const [toast, setToast] = useToast();
 
   function handleNextButtonClick() {
     if (currentLogoIndex < logoHistory.length - 1) {
@@ -142,6 +147,7 @@ const DemoAccountForm = () => {
                 type: 'success',
                 message: `Your demo account has been successfully created. Kindly activate your account via the confirmation link sent to your inbox (${values.email}).`,
               });
+              setShowLogin(true);
               actions.resetForm();
             }
             actions.setSubmitting(false);
@@ -160,88 +166,100 @@ const DemoAccountForm = () => {
         const companyLogo =
           logoURL + `&text=${getFirstLettersOrWord(companyName)}`;
         return (
-          <Form>
+          <div className="section">
             <Toast {...toast} />
-            <Input
-              isValidMessage="Company Name looks good"
-              label="Company Name"
-              name="companyName"
-              placeholder="Company Name"
-            />
-            <Input
-              isValidMessage="Email address seems valid"
-              label={'Email'}
-              name="email"
-              placeholder="Email Address"
-            />
-            <div className="form-row">
-              <Input
-                formGroupClassName="col-md-6 mb-5"
-                isValidMessage="Password seems good"
-                label="Password"
-                name="password"
-                placeholder="Password"
-                type="password"
-              />
-              <Input
-                formGroupClassName="col-md-6 mb-5"
-                isValidMessage="Awesome. Password matches"
-                label="Confirm Password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                type="password"
-              />
-            </div>
-
-            {companyName && (
-              <section className="mb-6">
-                <p className="mb-1 text-md">Generate Company Logo</p>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={companyLogo}
-                  alt="company logo"
-                  className="img-fluid img-sm"
+            {showLogin ? (
+              <>
+                <Button
+                  className="btn-secondary mt-5 btn-submit"
+                  href={getDemoLoginLink()}
+                >
+                  Login to your Demo Account
+                </Button>
+              </>
+            ) : (
+              <Form>
+                <Input
+                  isValidMessage="Company Name looks good"
+                  label="Company Name"
+                  name="companyName"
+                  placeholder="Company Name"
                 />
-                <div className="my-3">
-                  <Button
-                    color="light"
-                    className="btn-sm me-3 px-3"
-                    onClick={handleBackButtonClick}
-                    disabled={currentLogoIndex === 0}
-                  >
-                    <GrFormPrevious />
-                    Prev
-                  </Button>
-                  <Button
-                    color="light"
-                    className="btn-sm px-3"
-                    loading={isSubmitting}
-                    onClick={handleNextButtonClick}
-                  >
-                    Next <GrFormNext />
-                  </Button>
+                <Input
+                  isValidMessage="Email address seems valid"
+                  label={'Email'}
+                  name="email"
+                  placeholder="Email Address"
+                />
+                <div className="form-row">
+                  <Input
+                    formGroupClassName="mb-4"
+                    isValidMessage="Password seems good"
+                    label="Password"
+                    name="password"
+                    placeholder="Password"
+                    type="password"
+                  />
+                  <Input
+                    formGroupClassName="mb-4"
+                    isValidMessage="Awesome. Password matches"
+                    label="Confirm Password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    type="password"
+                  />
                 </div>
-              </section>
-            )}
-            <div className="form-row ms-0">
-              <CheckboxGroup
-                custom
-                inline
-                name="agreement"
-                options={[{ label: agreementText, value: true }]}
-              />
-              <label className="form-check-label" htmlFor="agreement"></label>
-            </div>
-            <Button
-              className="btn-secondary mt-4"
-              loading={isSubmitting}
-              onClick={handleSubmit}
-            >
-              Create Demo Account
-            </Button>
 
-            {/* <DisplayFormikState {...props} showAll /> */}
-          </Form>
+                {companyName && (
+                  <section className="mb-4">
+                    <p className="mb-1 text-md">Generate Company Logo</p>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={companyLogo}
+                      alt="company logo"
+                      className="img-fluid img-sm"
+                    />
+                    <div className="my-3">
+                      <Button
+                        color="light"
+                        className="btn-sm me-3 px-3"
+                        onClick={handleBackButtonClick}
+                        disabled={currentLogoIndex === 0}
+                      >
+                        <GrFormPrevious />
+                        Prev
+                      </Button>
+                      <Button
+                        color="light"
+                        className="btn-sm px-3"
+                        loading={isSubmitting}
+                        onClick={handleNextButtonClick}
+                      >
+                        Next <GrFormNext />
+                      </Button>
+                    </div>
+                  </section>
+                )}
+                <div className="ms-0">
+                  <CheckboxGroup
+                    custom
+                    inline
+                    name="agreement"
+                    options={[{ label: agreementText, value: true }]}
+                  />
+                </div>
+                <Button
+                  className="btn-secondary mt-4 btn-submit"
+                  loading={isSubmitting}
+                  onClick={handleSubmit}
+                >
+                  Create Demo Account
+                </Button>
+
+                {/* <DisplayFormikState {...props} showAll /> */}
+              </Form>
+            )}
+          </div>
         );
       }}
     </Formik>

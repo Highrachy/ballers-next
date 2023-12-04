@@ -12,7 +12,7 @@ import { API_ENDPOINT } from '@/utils/URL';
 import BenefitsSection from '@/components/common/BenefitsSection';
 import Button from '@/components/forms/Button';
 import { OnlineImage } from '@/components/utils/Image';
-import { getDemoLink } from '@/utils/helpers';
+import { getDemoRegisterLink } from '@/utils/helpers';
 import { TypewriterWrapper } from 'pages';
 
 export default function Home({ result }) {
@@ -62,7 +62,7 @@ const HoldingSection = () => {
               <Button
                 color="primary-light"
                 className="mx-3"
-                href={getDemoLink()}
+                href={getDemoRegisterLink()}
               >
                 Try our Demo
               </Button>
@@ -140,7 +140,12 @@ const TheBALLPlatform = () => (
             business. We&apos;re here to address any questions you may have.
             Unlock the potential of seamless property management today!
           </p>
-          <Button color="secondary" wide className="mb-5" href={getDemoLink()}>
+          <Button
+            color="secondary"
+            wide
+            className="mb-5"
+            href={getDemoRegisterLink()}
+          >
             Try our Demo
           </Button>
         </Slide>

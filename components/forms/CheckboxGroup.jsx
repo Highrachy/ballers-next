@@ -10,7 +10,6 @@ import Label from './Label';
 const genId = (name, value) => `${name}-${value}`.replace(/\./g, '-');
 
 const Checkbox = ({
-  custom,
   formGroupLabelClassName,
   inline,
   inputClassName,
@@ -20,29 +19,14 @@ const Checkbox = ({
 }) => {
   const checkBoxId = genId(name, value);
   return (
-    <div
-      className={classNames(
-        { 'form-check': !inline && !custom },
-        { 'form-check-inline': inline && !custom },
-        { 'custom-control form-checkbox': custom },
-        { ' custom-control-inline': inline && custom }
-      )}
-    >
+    <div className={classNames('form-check', { 'form-check-inline': inline })}>
       <Field name={name}>
         {({ field, form }) => {
           const fieldValue = field.value || [];
           return (
             <input
               checked={fieldValue.includes(value)}
-              className={classNames(
-                inputClassName,
-                {
-                  'form-check-input': !custom,
-                },
-                {
-                  'custom-control-input': custom,
-                }
-              )}
+              className={classNames(inputClassName, 'form-check-input')}
               id={checkBoxId}
               name={name}
               onChange={() => {
@@ -61,15 +45,7 @@ const Checkbox = ({
         }}
       </Field>
       <label
-        className={classNames(
-          formGroupLabelClassName,
-          {
-            'custom-control-label': custom,
-          },
-          {
-            'form-check-label': !custom,
-          }
-        )}
+        className={classNames(formGroupLabelClassName, 'form-check-label')}
         htmlFor={checkBoxId}
         id={`${checkBoxId}-label `}
       >

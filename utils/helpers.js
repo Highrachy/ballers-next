@@ -72,10 +72,13 @@ export const isDevEnvironment = () =>
 export const getProxy = () =>
   isDevEnvironment() ? 'http://localhost:8080' : '';
 
-export const getDemoLink = () =>
+export const getDemoRegisterLink = () =>
   isDevEnvironment()
     ? '/create-demo-account'
     : 'https://preview.ballers.ng/create-demo-account';
+
+export const getDemoLoginLink = () =>
+  isDevEnvironment() ? '/login' : 'https://preview.ballers.ng/login';
 
 export const getError = (error) =>
   error?.response?.data

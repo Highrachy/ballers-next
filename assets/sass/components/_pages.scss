@@ -669,3 +669,56 @@ ul.timeline li.timeline__border:after {
     }
   }
 }
+
+.page-sign {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.card-sign {
+  width: 100%;
+  border-width: 0;
+  border-radius: 0;
+
+  .card-header {
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom-width: 0;
+    padding: 2rem 2rem 0;
+  }
+
+  .card-body {
+    padding: 2rem;
+    position: relative;
+  }
+
+  .card-footer {
+    background-color: rgba(0, 0, 0, 0);
+    text-align: center;
+    padding: 0 2rem 2rem;
+    color: #6e7985;
+    border-top-width: 0;
+  }
+
+  .btn-submit {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  @include media-breakpoint-up(md) {
+    width: 30rem;
+    margin: 4rem 0;
+    border: 1px solid $gray-300;
+    border-radius: 10px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    width: 35rem;
+  }
+}
