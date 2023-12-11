@@ -23,6 +23,8 @@ import { BASE_API_URL } from 'utils/constants';
 import { getError } from 'utils/helpers';
 import { getReferralInfo } from 'utils/localStorage';
 import PhoneNumber from 'components/forms/PhoneNumber';
+import { Tab, Tabs } from 'react-bootstrap';
+import { useRouter } from 'next/router';
 
 const Register = () => (
   <>
@@ -38,6 +40,14 @@ const Register = () => (
 const Content = ({ redirectTo, sid, token }) => {
   const referralInfo = getReferralInfo();
   const [showUserForm, setShowUserForm] = React.useState(true);
+  const [key, setKey] = React.useState('user');
+  const router = useRouter();
+
+  const { tab } = router.query;
+
+  React.useEffect(() => {
+    setKey(tab);
+  }, [tab]);
 
   return (
     <section>
@@ -84,27 +94,34 @@ const Content = ({ redirectTo, sid, token }) => {
               </>
             )}
           </div>
-          <div className="col-lg-6 offset-lg-1">
-            <div className="card p-5 my-6">
-              <RegisterForm
-                redirectTo={redirectTo}
-                sid={sid}
-                setShowUserForm={setShowUserForm}
-                showUserForm={showUserForm}
-                token={token}
-              />
-              <section className="auth__footer">
-                <div className="register mt-6 text-center">
-                  Registered?{' '}
-                  <Link href="/login">
-                    <a className="auth__link">Sign In</a>
-                  </Link>
-                </div>
-              </section>
-            </div>
+          <div className="col-lg-6 offset-lg-1 mb-6">
+            <Tabs
+              id={`tab-register`}
+              activeKey={key}
+              onSelect={(k) => {
+                setKey(k);
+                setShowUserForm(!showUserForm);
+              }}
+            >
+              <Tab eventKey="user" title="Register as a User">
+                <RegisterForm
+                  redirectTo={redirectTo}
+                  sid={sid}
+                  showUserForm={true}
+                  token={token}
+                />
+              </Tab>
+              <Tab eventKey="vendor" title="Register as a Vendor">
+                <RegisterForm
+                  redirectTo={redirectTo}
+                  sid={sid}
+                  showUserForm={false}
+                  token={token}
+                />
+              </Tab>
+            </Tabs>
           </div>
         </div>
-        <p />
       </div>
     </section>
   );
@@ -122,7 +139,7 @@ Content.defaultProps = {
   token: null,
 };
 
-const RegisterForm = ({ setShowUserForm, showUserForm }) => {
+const RegisterForm = ({ showUserForm }) => {
   const agreementText = (
     <small className="ps-2">
       I agree to{' '}
@@ -140,6 +157,7 @@ const RegisterForm = ({ setShowUserForm, showUserForm }) => {
   const [toast, setToast] = useToast();
 
   const referrer = (getReferralInfo() && getReferralInfo().referrer) || null;
+  const currentUser = showUserForm ? 'User' : 'Vendor';
 
   return (
     <Formik
@@ -189,6 +207,7 @@ const RegisterForm = ({ setShowUserForm, showUserForm }) => {
     >
       {({ isSubmitting, handleSubmit, ...props }) => (
         <Form>
+          <h4 className="mt-3 mb-4 text-soft">Register as a {currentUser}</h4>
           <Toast {...toast} />
           {showUserForm ? (
             <div className="form-row">
@@ -266,36 +285,21 @@ const RegisterForm = ({ setShowUserForm, showUserForm }) => {
             </div>
           )}
           <Button
-            className="btn-secondary mt-4"
+            className="btn-secondary btn-wide mt-5"
             loading={isSubmitting}
             onClick={handleSubmit}
           >
-            Register
+            Register as a {currentUser}
           </Button>
 
           <DisplayFormikState {...props} hide showAll />
 
-          {showUserForm ? (
-            <p className="pt-5 text-center">
-              Have properties for sale? Register{' '}
-              <span
-                className="text-link text-secondary"
-                onClick={() => setShowUserForm(false)}
-              >
-                as a Vendor
-              </span>
-            </p>
-          ) : (
-            <p className="pt-5 text-center">
-              Want to become a Baller? Register{' '}
-              <span
-                className="text-link text-secondary"
-                onClick={() => setShowUserForm(true)}
-              >
-                as a User
-              </span>
-            </p>
-          )}
+          <section className="auth__footer">
+            Already registered on BALL?{' '}
+            <Link href="/login">
+              <a className="auth__link">Sign In</a>
+            </Link>
+          </section>
         </Form>
       )}
     </Formik>

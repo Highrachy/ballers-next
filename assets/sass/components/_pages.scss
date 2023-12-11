@@ -457,6 +457,13 @@ ul.timeline li.timeline__border:after {
   }
 }
 
+.auth__footer {
+  border-top: 1px solid $gray-200;
+  padding: 3rem 0;
+  margin-top: 5rem;
+  text-align: center;
+}
+
 .sharer__icons {
   li {
     margin-bottom: 1rem;

@@ -58,15 +58,21 @@ const Content = ({ redirectTo, token }) => {
               Sign in to access your profile, rewards and contributions.
             </p>
           </div>
+
           <div className="offset-lg-2 col-lg-5">
             <div className="card p-5 my-6">
               <LoginForm redirectTo={redirectTo} token={token} />
               <section className="auth__footer">
-                <div className="register mt-6 text-center">
+                <div className="register mb-5 text-center">
                   Not Registered?{' '}
                   <Link href="/register">
                     <a className="auth__link"> Create Account</a>
                   </Link>
+                </div>
+                <div className="text-center">
+                  <Button color="secondary-light" className="btn-wide">
+                    Have a Demo Account? Login Here
+                  </Button>
                 </div>
               </section>
             </div>
