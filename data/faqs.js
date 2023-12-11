@@ -34,13 +34,13 @@ const faqs = {
       {
         question: <>What is the minimum amount to pay?</>,
         answer:
-          'You can begin your payments with as low as N200,000.00 with additional monthly payments of N100,000.00 depending on the price of the property',
+          "The minimum amount required for payment is determined by the percentage of the property's value you're purchasing, typically not less than 10%. The specific minimum payment is calculated based on the total value of the property to facilitate a fair and accessible entry point for prospective homeowners.",
         showOnHomePage: true,
       },
       {
         question: <>How long does it take for me to own a home?</>,
         answer:
-          'The length of your home ownership process depends on your chosen payment plan and the type of home you want to own. You can choose between timeline payment and milestone payment. Timeline payment is a payment plan where you pay an initial amount and then spread the rest of the payment over a period of time. Milestone payment is a payment plan where you pay only when a milestone is reached and completed. A milestone is a key step or progress in making or getting your home. You can pay as the milestones are done and checked.',
+          "The timeline for owning a home varies based on the terms outlined in the agreement of the specific property you're interested in. At BALL, some arrangements can facilitate immediate ownership, while others may involve longer-term plans. The duration is flexible and can be tailored to suit your preferences and the terms of the chosen property.",
         showOnHomePage: true,
       },
       {

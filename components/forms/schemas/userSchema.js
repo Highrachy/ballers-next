@@ -115,3 +115,7 @@ export const emailSchema = { email };
 export const updateRemittanceSchema = {
   percentage: validPercentage('Remittance'),
 };
+
+export const addFeatureFlagSchema = {
+  name: stringValidation('Feature Flag Name'),
+};

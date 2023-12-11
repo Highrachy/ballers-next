@@ -207,7 +207,9 @@ const RegisterForm = ({ showUserForm }) => {
     >
       {({ isSubmitting, handleSubmit, ...props }) => (
         <Form>
-          <h4 className="mt-3 mb-4 text-soft">Register as a {currentUser}</h4>
+          <h4 className="mt-4 mb-4 text-primary">
+            Register as a {currentUser}
+          </h4>
           <Toast {...toast} />
           {showUserForm ? (
             <div className="form-row">

@@ -69,12 +69,30 @@ const eventData = [
     label: 'Third Long Event Name for Example',
     user: { name: 'Daniel Moore', avatar: 'DM' },
   },
-  // Add more events as needed
 ];
 
-const Calendar = () => {
+const Calendar = ({ scheduledVisits }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [showCurrentMonthLink, setShowCurrentMonthLink] = useState(false);
+  const visitations = scheduledVisits?.map((event) => {
+    const { visitDate, propertyInfo, visitorName } = event;
+
+    const { name } = propertyInfo[0]; // Assuming there's only one property info object
+
+    const username = visitorName
+      .split(' ')
+      .map((name) => name.charAt(0))
+      .join('');
+
+    return {
+      date: visitDate.split('T')[0],
+      label: name,
+      user: {
+        name: visitorName,
+        avatar: username.toUpperCase(),
+      },
+    };
+  });
 
   const prevMonth = () => {
     setShowCurrentMonthLink(true);
@@ -102,7 +120,9 @@ const Calendar = () => {
   const dateFormat = 'd';
 
   const getEventsForDay = (date) => {
-    return eventData.filter((item) => item.date === format(date, 'yyyy-MM-dd'));
+    return visitations.filter(
+      (item) => item.date === format(date, 'yyyy-MM-dd')
+    );
   };
 
   return (
@@ -111,13 +131,13 @@ const Calendar = () => {
         <div className="col-4 text-start">
           {showCurrentMonthLink && (
             <button
-              className="btn btn-secondary me-2"
+              className="btn btn-secondary-light me-2"
               onClick={() => setCurrentMonth(new Date())}
             >
               Back to Current Month
             </button>
           )}
-          <button className="btn btn-secondary" onClick={prevMonth}>
+          <button className="btn btn-secondary-light" onClick={prevMonth}>
             <BsChevronLeft />
           </button>
         </div>
@@ -125,20 +145,20 @@ const Calendar = () => {
           <h3>{format(currentMonth, 'MMMM yyyy')}</h3>
         </div>
         <div className="col-4 text-end">
-          <button className="btn btn-secondary" onClick={nextMonth}>
+          <button className="btn btn-secondary-light" onClick={nextMonth}>
             <BsChevronRight />
           </button>
         </div>
       </div>
       <div className="row mt-3">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
-          <div key={index} className="col text-center bg-light p-2">
+          <div key={index} className="col text-center bg-light p-4">
             <strong>{day}</strong>
           </div>
         ))}
       </div>
       {Array.from({ length: Math.ceil(monthDays.length / 7) }, (_, i) => (
-        <div key={i} className="row mt-2">
+        <div key={i} className="row">
           {monthDays.slice(i * 7, i * 7 + 7).map((day, idx) => {
             const isDayInCurrentMonth = isSameMonth(day, currentMonth);
             const isDayBeforeCurrentMonth = isBefore(
@@ -151,29 +171,36 @@ const Calendar = () => {
             return (
               <div
                 key={idx}
-                className={`col text-center ${
+                className={`col calendar-single-day text-center ${
                   !isDayInCurrentMonth ? 'text-muted' : ''
-                } p-3 border ${isToday ? 'border-primary' : ''}`}
+                } p-3 border ${isToday ? 'border-secondary' : ''}`}
               >
                 <div className="d-flex flex-column">
-                  <span className={`${isToday ? 'fw-bold' : ''}`}>
+                  <span
+                    className={`${
+                      isToday ? 'fw-bold text-md text-secondary' : ''
+                    } text-sm`}
+                  >
                     {format(day, dateFormat)}
                   </span>
                   {isDayBeforeCurrentMonth && (
-                    <span className="text-gray"> {format(day, 'MMM')}</span>
+                    <span className="text-gray text-sm">
+                      {' '}
+                      {format(day, 'MMM')}
+                    </span>
                   )}
                   {eventsForDay.map((event, index) => (
                     <span
                       key={index}
-                      className={`badge ${
-                        index > 0 ? 'bg-danger' : 'bg-warning'
+                      className={`badge-dim ${
+                        index > 0 ? 'badge-dim-primary' : 'badge-dim-danger'
                       } mt-2`}
                       title={event.label}
                     >
-                      {event.user.avatar}
+                      {event.user.name}
                     </span>
                   ))}
-                  {eventsForDay.length > 1 && (
+                  {eventsForDay.length > 2 && (
                     <span className="badge bg-info mt-2">
                       +{eventsForDay.length - 1}
                     </span>

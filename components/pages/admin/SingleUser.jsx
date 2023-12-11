@@ -5,6 +5,7 @@ import {
   BASE_API_URL,
   DASHBOARD_PAGE,
   FAST_TRACK_VENDOR,
+  FEATURE_FLAGS,
   STATUS,
   USER_TYPES,
 } from 'utils/constants';
@@ -16,6 +17,7 @@ import {
   getError,
   getFormattedAddress,
   statusIsSuccessful,
+  valuesToOptions,
 } from 'utils/helpers';
 import { Card, Tabs, Tab } from 'react-bootstrap';
 import { FastTrackVendorIcon, UserIcon } from 'components/utils/Icons';
@@ -44,6 +46,7 @@ import { useGetQuery } from 'hooks/useQuery';
 import { API_ENDPOINT } from 'utils/URL';
 import { ContentLoader } from 'components/utils/LoadingItems';
 import {
+  addFeatureFlagSchema,
   emailSchema,
   updateRemittanceSchema,
 } from 'components/forms/schemas/userSchema';
@@ -55,6 +58,8 @@ import BadgePlaceholderImage from 'assets/img/placeholder/property.png';
 import { BadgesIcon } from 'components/utils/Icons';
 import Input from 'components/forms/Input';
 import WelcomeHero from '@/components/common/WelcomeHero';
+import DataList, { DataItem } from '@/components/common/DataList';
+import { FaTimes } from 'react-icons/fa';
 
 const pageOptions = {
   key: 'user',
@@ -313,20 +318,21 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
               )}
               {hideForm ? (
                 <>
-                  <button
+                  <Button
                     onClick={() => {
                       setHideForm(false);
                     }}
                     color="info"
-                    className="btn btn-sm btn-info"
+                    className="btn-sm btn-wide"
                   >
                     Add Comment
-                  </button>
+                  </Button>
                   &nbsp; &nbsp; &nbsp;
                   <Button
+                    color="secondary"
                     loading={loading}
                     onClick={approveVerificationStep}
-                    className="btn btn-sm btn-secondary"
+                    className="btn-sm btn-wide"
                   >
                     Approve {VENDOR_STEPS[step]}
                   </Button>{' '}
@@ -570,6 +576,36 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
 
               <tr>
                 <td>
+                  <strong>Feature Flag</strong>
+                </td>
+                <td colSpan="4">
+                  <ul className="list-group mt-3">
+                    {user?.featureFlag?.map(({ name }, index) => (
+                      <li
+                        key={index}
+                        className="list-group-item d-flex justify-content-between align-items-center p-3"
+                      >
+                        <span>{name}</span>
+                        <DeleteFeatureFlagModal
+                          flagName={name}
+                          user={user}
+                          setUser={setUser}
+                          setToast={setToast}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+
+                  <AddFeatureFlagForm
+                    user={user}
+                    setUser={setUser}
+                    setToast={setToast}
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
                   <strong>Badges</strong>
                 </td>
                 <td colSpan="4">
@@ -613,7 +649,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
                 </tr>
               )}
 
-              {(user.role === USER_TYPES.user ||
+              {/* {(user.role === USER_TYPES.user ||
                 user.role === USER_TYPES.editor) && (
                 <tr>
                   <td colSpan="5">
@@ -632,7 +668,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
                     </Button>
                   </td>
                 </tr>
-              )}
+              )} */}
 
               {isVendor && (
                 <tr>
@@ -916,6 +952,184 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
   );
 };
 
+const AddFeatureFlagForm = ({ setUser, setToast, user }) => {
+  const [showAddFlagForm, setShowAddFlagForm] = React.useState(false);
+
+  const availableFeatureFlags = FEATURE_FLAGS.reduce((acc, flag) => {
+    const flagAssigned = user?.featureFlag?.some(
+      (userFlag) => userFlag.name === flag
+    );
+    if (!flagAssigned) {
+      acc.push(flag);
+    }
+    return acc;
+  }, []);
+
+  if (availableFeatureFlags.length === 0) {
+    return null;
+  }
+
+  return (
+    <Formik
+      initialValues={setInitialValues(addFeatureFlagSchema)}
+      validationSchema={createSchema(addFeatureFlagSchema)}
+      onSubmit={({ name }, actions) => {
+        const payload = {
+          name,
+          userId: user._id,
+        };
+        Axios.post(`${BASE_API_URL}/user/feature-flag/add`, payload, {
+          headers: { Authorization: getTokenFromStore() },
+        })
+          .then(function (response) {
+            const { status, data } = response;
+            if (statusIsSuccessful(status)) {
+              setToast({
+                type: 'success',
+                message: 'Feature flag added successfully',
+              });
+              setUser(data.user);
+              setQueryCache([pageOptions.key, user._id], {
+                user: data.user,
+              });
+            }
+          })
+          .catch(function (error) {
+            setToast({
+              type: 'error',
+              message: getError(error) || 'Failed to add feature flag',
+            });
+          })
+          .finally(() => {
+            actions.setSubmitting(false);
+            setShowAddFlagForm(false);
+          });
+      }}
+    >
+      {({ isSubmitting, handleSubmit, ...props }) => {
+        return (
+          <Form>
+            <div className="row mt-3">
+              <div className="col-md-6">
+                <Select
+                  name="name"
+                  options={valuesToOptions(availableFeatureFlags)}
+                  placeholder="Select Feature Flag"
+                />
+              </div>
+              <div className="col-md-6">
+                <Button
+                  color="secondary-light"
+                  onClick={() => setShowAddFlagForm(true)}
+                  disabled={isSubmitting}
+                >
+                  Add Feature Flag
+                </Button>
+              </div>
+            </div>
+
+            <Modal
+              title="Add Feature Flag"
+              show={showAddFlagForm}
+              onHide={() => setShowAddFlagForm(false)}
+              showFooter={false}
+            >
+              <section>
+                {/* Confirmation text */}
+                <div className="text-center col-md-12 mt-5">
+                  <h4>{props?.values?.name}</h4>
+                  <p className="mt-2 mb-4 confirmation-text">
+                    Are you sure you want to add this feature flag?
+                  </p>
+                </div>
+
+                <div className="text-center col-md-12 mb-5">
+                  <Button
+                    color="secondary"
+                    disabled={isSubmitting}
+                    onClick={handleSubmit}
+                  >
+                    Yes, Add Feature Flag
+                  </Button>
+                </div>
+              </section>
+            </Modal>
+          </Form>
+        );
+      }}
+    </Formik>
+  );
+};
+
+const DeleteFeatureFlagModal = ({ flagName, user, setUser, setToast }) => {
+  const [showConfirmModal, setShowConfirmModal] = React.useState(false);
+  const [loadingFeatureFlag, setLoadingFeatureFlag] = React.useState(false);
+
+  const handleDelete = async () => {
+    setLoadingFeatureFlag(true);
+
+    Axios.delete(`${BASE_API_URL}/user/feature-flag/delete`, {
+      data: { name: flagName, userId: user?._id },
+      headers: { Authorization: getTokenFromStore() },
+    })
+      .then(function (response) {
+        const { status, data } = response;
+        if (status === 200) {
+          setToast({
+            message: 'Feature flag deleted successfully',
+            type: 'success',
+          });
+          setUser(data.user);
+          setQueryCache([pageOptions.key, user._id], {
+            user: data.user,
+          });
+          setLoadingFeatureFlag(false);
+        }
+      })
+      .catch(function (error) {
+        setToast({
+          message: getError(error),
+        });
+        setLoadingFeatureFlag(false);
+      });
+  };
+
+  return (
+    <div>
+      <span
+        className="text-link text-muted text-danger"
+        onClick={() => setShowConfirmModal(true)}
+      >
+        <FaTimes />
+      </span>
+
+      {/* Confirmation modal */}
+      <Modal
+        title="Delete Feature Flag"
+        show={showConfirmModal}
+        onHide={() => setShowConfirmModal(false)}
+        showFooter={false}
+      >
+        <section>
+          <h5 className="mb-4 confirmation-text">
+            Are you sure you want to delete the <strong>{flagName}</strong> from
+            this user?
+          </h5>
+          <div className="text-center col-md-12">
+            <Button
+              className="mt-4 btn-secondary"
+              loading={loadingFeatureFlag}
+              onClick={handleDelete}
+            >
+              Yes, Delete Feature Flag
+            </Button>
+          </div>
+        </section>
+      </Modal>
+    </div>
+  );
+};
+
 const TransferToVendorForm = ({ user, setUser, setToast }) => {
   const [showTransferForm, setShowTransferForm] = React.useState(false);
 
@@ -998,6 +1212,7 @@ const TransferToVendorForm = ({ user, setUser, setToast }) => {
     </Formik>
   );
 };
+
 const RemittanceForm = ({ user, setUser, setToast }) => {
   const [showRemitModal, setShowRemitModal] = React.useState(false);
   const defaultPercentage = user?.vendor?.remittancePercentage || 5;
@@ -1333,4 +1548,5 @@ export const SingleUserBadge = ({ image, user, _id, name }) => {
     </div>
   );
 };
+
 export default SingleUser;

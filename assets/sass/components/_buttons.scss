@@ -36,9 +36,8 @@
 
 .badge-dim {
   position: relative;
-  line-height: 1.125rem;
-  padding: 0.75rem 2rem;
-  font-size: 0.85rem;
+  padding: 0.25rem 2rem;
+  font-size: 0.75rem;
   letter-spacing: 0.01em;
   vertical-align: middle;
   display: inline-flex;
@@ -47,8 +46,8 @@
 
 @each $name, $colors in $brand-colors {
   .badge-dim-#{$name} {
-    color: map-get($colors, '600') !important;
-    background-color: map-get($colors, '100') !important;
+    color: map-get($colors, '50') !important;
+    background-color: map-get($colors, '700') !important;
   }
 }
 

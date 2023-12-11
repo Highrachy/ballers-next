@@ -30,6 +30,8 @@ import { CategoriesComponent } from 'pages/blog';
 import ReactJoyride, { STATUS } from 'react-joyride';
 import colorTokens from 'style-dictionary/build/color.tokens.js';
 import { WalletInfoBox } from '@/components/dashboard/WalletInfoBox';
+import { UserContext } from '@/context/UserContext';
+import { FEATURE_FLAG_LIST, isFeatureFlagEnabled } from '@/utils/constants';
 
 const Dashboard = ({ allPosts: { edges }, allCategories }) => {
   const [toast, setToast] = useToast();
@@ -43,6 +45,7 @@ const Dashboard = ({ allPosts: { edges }, allCategories }) => {
   });
 
   const result = dashboardQuery?.data || {};
+  const { userState } = React.useContext(UserContext);
 
   const [{ run, steps }, setState] = React.useState({
     run: false,
@@ -124,6 +127,11 @@ const Dashboard = ({ allPosts: { edges }, allCategories }) => {
     // Handle other events as needed
   };
 
+  const walletIsEnabled = isFeatureFlagEnabled(
+    userState?.featureFlag || [],
+    FEATURE_FLAG_LIST['wallet']
+  );
+
   return (
     <BackendPage>
       <Toast {...toast} showToastOnly />
@@ -159,8 +167,20 @@ const Dashboard = ({ allPosts: { edges }, allCategories }) => {
             },
           }}
         />
-        <WalletInfoBox setToast={setToast} result={result} />
-        <Overview result={result} setToast={setToast} isNormal />
+
+        {walletIsEnabled ? (
+          <>
+            <WalletInfoBox setToast={setToast} result={result} />
+            <Overview result={result} setToast={setToast} isNormal />
+          </>
+        ) : (
+          <>
+            <div className="mt-n6">
+              <Overview result={result} setToast={setToast} />
+            </div>
+          </>
+        )}
+
         <UpcomingPaymentsAndRecentOffers result={result} />
         <RecentTransactionsAndServices result={result} />
       </ContentLoader>

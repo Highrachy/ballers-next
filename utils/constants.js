@@ -422,3 +422,16 @@ export const PROPERTY_UPDATE_MEDIA_STATUS = {
   MILESTONE_APPROVED: 'MILESTONE_APPROVED',
   ADMIN_APPROVED: 'ADMIN_APPROVED',
 };
+
+export const FEATURE_FLAG_LIST = {
+  wallet: 'Wallet Implementation',
+  tour: 'Tour Calendar',
+};
+
+export const FEATURE_FLAGS = Object.values(FEATURE_FLAG_LIST);
+
+export const isFeatureFlagEnabled = (featureFlagsArray, flagName) => {
+  const flag = featureFlagsArray.find((flag) => flag.name === flagName);
+
+  return flag && flag.status === true;
+};
