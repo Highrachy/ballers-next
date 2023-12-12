@@ -61,19 +61,6 @@ const faqs = {
         ),
         showOnHomePage: false,
       },
-      {
-        question: <> Do I have to be a millionaire to BALL?</>,
-        answer: (
-          <>
-            No, you do not have to be a millionaire to BALL. You can start with
-            as low as N200,000 and increase your contribution as you wish. You
-            can also choose a payment plan that works for you and your budget.
-            You can pay in easy installments or pay as you go. BALL is designed
-            to make owning a home simpler and achievable for everyone.
-          </>
-        ),
-        showOnHomePage: false,
-      },
     ],
   },
   payment: {
@@ -199,7 +186,7 @@ const faqs = {
               </p>
               <ol>
                 <li>
-                  <h3>Register</h3>
+                  <h6>Register</h6>
                   <p>
                     Fill out the vendor registration form{' '}
                     <a href="link-to-registration">here</a> and provide the
@@ -208,21 +195,21 @@ const faqs = {
                   </p>
                 </li>
                 <li>
-                  <h3>List</h3>
+                  <h6>List</h6>
                   <p>
                     Upload your properties on the BALL platform and provide the
                     relevant details and photos to attract buyers.
                   </p>
                 </li>
                 <li>
-                  <h3>Sell</h3>
+                  <h6>Sell</h6>
                   <p>
                     Receive inquiries and offers from interested buyers and
                     negotiate the best deal for both parties.
                   </p>
                 </li>
                 <li>
-                  <h3>Earn</h3>
+                  <h6>Earn</h6>
                   <p>
                     Get paid your commissions and incentives promptly and
                     securely after the completion of the sale.
