@@ -33,9 +33,9 @@ import { WalletInfoBox } from '@/components/dashboard/WalletInfoBox';
 import { UserContext } from '@/context/UserContext';
 import { FEATURE_FLAG_LIST, isFeatureFlagEnabled } from '@/utils/constants';
 
-const Dashboard = () => {
+const Dashboard = ({ allPosts: { edges }, allCategories }) => {
   const [toast, setToast] = useToast();
-  // const morePosts = edges.slice(0, 2);
+  const morePosts = edges.slice(0, 2);
 
   const [dashboardQuery] = useGetQuery({
     axiosOptions: {},
@@ -190,11 +190,11 @@ const Dashboard = () => {
       </ContentLoader>
       {showOtherWidgets && <ReferAndEarn />}
       {/* <VisitationCard /> */}
-      {/* <div className="container-fluid py-0">
+      <div className="container-fluid py-0">
         <h3 className="mt-5 mb-4">From our Blog</h3>
         <CategoriesComponent categories={allCategories} />
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-      </div> */}
+      </div>
     </BackendPage>
   );
 };
@@ -510,14 +510,14 @@ const getNextSteps = (userState, result) => {
 //   </div>
 // );
 
-// export const getStaticProps = async ({ preview = false }) => {
-//   // const allPosts = await getAllPostsForHome(preview);
-//   // const allCategories = await getAllCategories(preview);
-//   // return {
-//   //   props: { allPosts, allCategories },
-//   //   revalidate: 10,
-//   // };
-// };
+export const getStaticProps = async ({ preview = false }) => {
+  const allPosts = await getAllPostsForHome(preview);
+  const allCategories = await getAllCategories(preview);
+  return {
+    props: { allPosts, allCategories },
+    revalidate: 10,
+  };
+};
 
 export default Dashboard;
 
