@@ -33,9 +33,9 @@ import { WalletInfoBox } from '@/components/dashboard/WalletInfoBox';
 import { UserContext } from '@/context/UserContext';
 import { FEATURE_FLAG_LIST, isFeatureFlagEnabled } from '@/utils/constants';
 
-const Dashboard = ({ allPosts: { edges }, allCategories }) => {
+const Dashboard = () => {
   const [toast, setToast] = useToast();
-  const morePosts = edges.slice(0, 2);
+  // const morePosts = edges.slice(0, 2);
 
   const [dashboardQuery] = useGetQuery({
     axiosOptions: {},
@@ -131,6 +131,8 @@ const Dashboard = ({ allPosts: { edges }, allCategories }) => {
     userState?.featureFlag || [],
     FEATURE_FLAG_LIST['wallet']
   );
+  const stackboxes = getNextSteps(userState, result);
+  const showOtherWidgets = stackboxes.length <= 3;
 
   return (
     <BackendPage>
@@ -181,16 +183,18 @@ const Dashboard = ({ allPosts: { edges }, allCategories }) => {
           </>
         )}
 
+        <NextSteps stackboxes={stackboxes} />
+
         <UpcomingPaymentsAndRecentOffers result={result} />
-        <RecentTransactionsAndServices result={result} />
+        {showOtherWidgets && <RecentTransactionsAndServices result={result} />}
       </ContentLoader>
-      <ReferAndEarn />
+      {showOtherWidgets && <ReferAndEarn />}
       {/* <VisitationCard /> */}
-      <div className="container-fluid py-0">
+      {/* <div className="container-fluid py-0">
         <h3 className="mt-5 mb-4">From our Blog</h3>
         <CategoriesComponent categories={allCategories} />
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-      </div>
+      </div> */}
     </BackendPage>
   );
 };
@@ -251,6 +255,39 @@ const RecentTransactionsAndServices = ({ result }) => {
             price="50,000"
             content="Title validity refers to the legal status of the ownership of a property. It is essential to ensure that the title of a property is valid and clear before buying or selling it."
           />
+        </WidgetBox>
+      </div>
+    </div>
+  );
+};
+
+const NextSteps = ({ stackboxes }) => {
+  if (stackboxes.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="container-fluid py-0">
+      <div className="row">
+        <WidgetBox
+          textEnd={`${5 - stackboxes.length}/5 completed`}
+          title="Next Steps"
+          className="col-12 mt-4"
+          data={['preferences']}
+        >
+          {stackboxes.map((stackbox, index) => (
+            <StackBox
+              key={index}
+              avatarInitials={`${index + 1}`}
+              avatarCircle
+              avatarColor="purple"
+              title={stackbox.title}
+              subtitle={stackbox.subtitle}
+              value={stackbox.value}
+              href={stackbox.href}
+              isButton
+            />
+          ))}
         </WidgetBox>
       </div>
     </div>
@@ -331,6 +368,75 @@ const Overview = ({ result, isNormal = false }) => {
   );
 };
 
+const getNextSteps = (userState, result) => {
+  if (result?.widgets === undefined) {
+    return [];
+  }
+  const allStackBoxes = [
+    {
+      title: 'Customize Your Preferences',
+      subtitle:
+        'Personalize your preferences to receive properties tailored Just For You',
+      value: 'Customize Preferences',
+      href: '/user/settings?tab=preferences',
+    },
+    {
+      title: 'Refer a Friend',
+      subtitle: 'Invite friends to BALL and Become A Landlord together',
+      value: 'Refer and Earn',
+      href: '/user/referrals',
+    },
+    {
+      title: 'Fund Your Wallet',
+      subtitle:
+        'Begin your property journey by adding funds to your wallet on BALL.',
+      value: 'View Wallet',
+      href: '/user/dashboard#wallet',
+    },
+    {
+      title: 'Request a Service',
+      subtitle:
+        'Need a service? Simply request it on BALL for a seamless experience.',
+      value: 'View Services',
+      href: '/user/services',
+    },
+    {
+      title: 'Buy your First Property',
+      subtitle:
+        'Ready to Become a LandLord? Explore and purchase your first property on BALL',
+      value: 'View Properties',
+      href: '/user/just-for-you',
+    },
+  ];
+
+  const stackboxes = [];
+
+  if (!userState?.preferences?.location) {
+    stackboxes.push(allStackBoxes[0]);
+  }
+
+  if (result.widgets.referralCount === 0) {
+    stackboxes.push(allStackBoxes[1]);
+  }
+
+  if (
+    result.payments.totalAmountInWallet === 0 ||
+    result.payments.totalAmountPaid === 0
+  ) {
+    stackboxes.push(allStackBoxes[2]);
+  }
+
+  if (result.widgets.serviceCount === 0) {
+    stackboxes.push(allStackBoxes[3]);
+  }
+
+  if (result.widgets.offerCount === 0) {
+    stackboxes.push(allStackBoxes[4]);
+  }
+
+  return stackboxes;
+};
+
 // https://prium.github.io/falcon/v3.14.0/dashboard/project-management.html - visitation, milestoen statistic
 // https://themesbrand.com/minia/layouts/pages-timeline.html - milestone
 // https://dashlite.net/demo1/kyc-details-regular.html - enquiry
@@ -404,14 +510,16 @@ const Overview = ({ result, isNormal = false }) => {
 //   </div>
 // );
 
-export const getStaticProps = async ({ preview = false }) => {
-  const allPosts = await getAllPostsForHome(preview);
-  const allCategories = await getAllCategories(preview);
-
-  return {
-    props: { allPosts, allCategories },
-    revalidate: 10,
-  };
-};
+// export const getStaticProps = async ({ preview = false }) => {
+//   // const allPosts = await getAllPostsForHome(preview);
+//   // const allCategories = await getAllCategories(preview);
+//   // return {
+//   //   props: { allPosts, allCategories },
+//   //   revalidate: 10,
+//   // };
+// };
 
 export default Dashboard;
+
+// calendar visitation
+// christmas

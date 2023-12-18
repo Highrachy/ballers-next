@@ -19,16 +19,17 @@ export const useAvailableOptions = () => {
       })
         .then(function (response) {
           const { status, data } = response;
+          console.log('available options response', response);
           if (status === 200) {
             userDispatch({
               type: 'available-options',
               availableOptions: {
                 states: valuesToOptions(
-                  data.availableFields.states,
+                  data?.availableFields.states || [],
                   'Any State'
                 ),
                 houseTypes: valuesToOptions(
-                  data.availableFields.houseTypes,
+                  data.availableFields?.houseTypes || [],
                   'Any House Type'
                 ),
               },

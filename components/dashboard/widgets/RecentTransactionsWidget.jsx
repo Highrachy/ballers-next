@@ -7,7 +7,7 @@ import { moneyFormatInNaira } from '@/utils/helpers';
 const RecentTransactionsWidget = ({ result, role = 'user' }) => {
   return (
     <WidgetBox
-      title="Recent Payments"
+      title="Recent Transactions"
       href={`/${role}/transactions`}
       data={result}
     >

@@ -10,6 +10,7 @@ import CardTableSection from 'components/common/CardTableSection';
 import Humanize from 'humanize-plus';
 import MakePayment from './MakePayment';
 import { MODEL } from 'utils/constants';
+import WelcomeHero from '../common/WelcomeHero';
 
 const pageOptions = {
   key: 'vasRequest',
@@ -26,10 +27,12 @@ const SingleVasRequest = ({ id }) => {
     refresh: true,
   });
 
-  console.log(`vasRequest`, vasRequest);
-
   return (
     <BackendPage>
+      <WelcomeHero
+        title={vasRequest?.vasInfo?.name || 'Service Request'}
+        subtitle="Request for Service"
+      />
       <ContentLoader
         hasContent={!!vasRequest}
         Icon={<MessageIcon />}

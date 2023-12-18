@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import BallersLogo from '../utils/BallersLogo';
 import { SOCIAL_MEDIA } from '@/utils/constants';
 
 const Footer = () => (

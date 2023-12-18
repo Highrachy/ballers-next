@@ -40,11 +40,21 @@ function getInitials(title) {
   return (words?.[0]?.charAt(0) || '') + (words?.[1]?.charAt(0) || '');
 }
 
-const AvatarColor = ({ title, avatarColor }) => {
+const AvatarColor = ({
+  title,
+  avatarColor,
+  avatarInitials = null,
+  avatarCircle = false,
+}) => {
   const color = avatarColor || getColor(title);
-  const initials = getInitials(title);
+  const initials = getInitials(title)?.toUpperCase();
+  const avatarClass = avatarCircle ? 'avatar-circle' : 'avatar-rounded';
 
-  return <div className={`avatar-rounded avatar-${color}`}>{initials}</div>;
+  return (
+    <div className={`${avatarClass} avatar-${color}`}>
+      {avatarInitials || initials}
+    </div>
+  );
 };
 
 export default AvatarColor;

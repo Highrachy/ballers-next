@@ -24,49 +24,77 @@ import { getTokenFromStore } from 'utils/localStorage';
 import { UserContext } from 'context/UserContext';
 import Address from 'components/utils/Address';
 import { feedback } from 'components/forms/form-helper';
-import { getError, generateBudgetOptions, ONE_MILLION } from 'utils/helpers';
+import {
+  getError,
+  generateBudgetOptions,
+  ONE_MILLION,
+  valuesToOptions,
+} from 'utils/helpers';
 import Select from 'components/forms/Select';
-import { useAvailableOptions } from 'hooks/useAvailableOptions';
 import ProfileAvatar from 'assets/img/avatar/profile.png';
 import Upload from 'components/utils/Upload';
 import { bankSchema } from 'components/forms/schemas/vendorSchema';
 import WelcomeHero from '@/components/common/WelcomeHero';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
-const Settings = () => (
-  <BackendPage>
-    <WelcomeHero
-      title="Settings"
-      subtitle="Personalize your experience and manage your account settings with ease"
-    />
-    <div className="container-fluid mt-5">
-      <h4 className="mb-3">Your Profile</h4>
-      <Card className="card-container">
-        <Tabs defaultActiveKey="0">
-          <Tab eventKey="0" title="Profile" fill>
-            <div className="card-tab-content py-5">
-              <ProfileForm />
-            </div>
-          </Tab>
-          {/* <Tab eventKey="1" title="Property Preference">
-            <div className="card-tab-content py-5">
-              <PropertyPreferenceForm />
-            </div>
-          </Tab> */}
-          <Tab eventKey="2" title="Change Password" fill>
-            <div className="card-tab-content py-5">
-              <ChangePasswordForm />
-            </div>
-          </Tab>
-          <Tab eventKey="4" title="Bank Information" fill>
-            <div className="card-tab-content py-5">
-              <BankInformationForm />
-            </div>
-          </Tab>
+const Settings = ({ availableOptions }) => {
+  const [key, setKey] = React.useState('profile');
+  const router = useRouter();
+
+  const { tab } = router.query;
+
+  React.useEffect(() => {
+    setKey(tab);
+  }, [tab]);
+
+  const allTabs = [
+    {
+      key: 'profile',
+      title: 'Your Profile',
+      component: <ProfileForm />,
+    },
+    {
+      key: 'preferences',
+      title: 'Property Preference',
+      component: <PropertyPreferenceForm availableOptions={availableOptions} />,
+    },
+    {
+      key: 'password',
+      title: 'Change Password',
+      component: <ChangePasswordForm />,
+    },
+    {
+      key: 'bank',
+      title: 'Bank Information',
+      component: <BankInformationForm />,
+    },
+  ];
+  return (
+    <BackendPage>
+      <WelcomeHero
+        title="Settings"
+        subtitle="Personalize your experience and manage your account settings with ease"
+      />
+      <section className="container-fluid mt-5">
+        <Tabs
+          id={`tab-settings`}
+          activeKey={key}
+          onSelect={(k) => {
+            setKey(k);
+            setShowUserForm(!showUserForm);
+          }}
+        >
+          {allTabs.map((tab, index) => (
+            <Tab key={index} eventKey={tab.key} title={tab.title}>
+              {tab.component}
+            </Tab>
+          ))}
         </Tabs>
-      </Card>
-    </div>
-  </BackendPage>
-);
+      </section>
+    </BackendPage>
+  );
+};
 
 const ProfileForm = () => {
   const [toast, setToast] = useToast();
@@ -186,119 +214,119 @@ const ProfileForm = () => {
   );
 };
 
-// const PropertyPreferenceForm = () => {
-//   const [toast, setToast] = useToast();
-//   const { userState, userDispatch } = React.useContext(UserContext);
-//   const availableOptions = useAvailableOptions();
+const PropertyPreferenceForm = ({ availableOptions }) => {
+  console.log('availableOptions', availableOptions);
+  const [toast, setToast] = useToast();
+  const { userState, userDispatch } = React.useContext(UserContext);
 
-//   return (
-//     <section className="row">
-//       <div className="col-md-10">
-//         <Formik
-//           enableReinitialize={true}
-//           initialValues={setInitialValues(
-//             preferenceSchema,
-//             userState.preferences
-//           )}
-//           onSubmit={(values, actions) => {
-//             // remove values less than 1 million
-//             Number(values.minPrice) < ONE_MILLION && delete values.minPrice;
-//             Number(values.maxPrice) < ONE_MILLION && delete values.maxPrice;
-//             !values.houseType && delete values.houseType;
-//             !values.location && delete values.location;
+  return (
+    <section className="row">
+      <div className="col-md-10">
+        <Formik
+          enableReinitialize={true}
+          initialValues={setInitialValues(
+            preferenceSchema,
+            userState.preferences
+          )}
+          onSubmit={(values, actions) => {
+            // remove values less than 1 million
+            Number(values.minPrice) < ONE_MILLION && delete values.minPrice;
+            Number(values.maxPrice) < ONE_MILLION && delete values.maxPrice;
+            !values.houseType && delete values.houseType;
+            !values.location && delete values.location;
 
-//             const payload = {
-//               firstName: userState.firstName,
-//               lastName: userState.lastName,
-//               phone: userState.phone,
-//               preferences: values,
-//             };
+            const payload = {
+              firstName: userState.firstName,
+              lastName: userState.lastName,
+              phone: userState.phone,
+              preferences: values,
+            };
 
-//             Axios.put(`${BASE_API_URL}/user/update`, payload, {
-//               headers: { Authorization: getTokenFromStore() },
-//             })
-//               .then(function (response) {
-//                 const { status, data } = response;
-//                 if (status === 200) {
-//                   userDispatch({
-//                     type: 'user-profile-update',
-//                     user: data.updatedUser,
-//                   });
-//                   setToast({
-//                     type: 'success',
-//                     message: `Your preferences has been successfully updated`,
-//                   });
-//                   actions.setSubmitting(false);
-//                 }
-//               })
-//               .catch(function (error) {
-//                 setToast({
-//                   message: getError(error),
-//                 });
-//                 actions.setSubmitting(false);
-//               });
-//           }}
-//           validationSchema={createSchema(preferenceSchema)}
-//         >
-//           {({ isSubmitting, handleSubmit, ...props }) => (
-//             <Form>
-//               <Toast {...toast} />
-//               <div className="form-row">
-//                 <Select
-//                   formGroupClassName="col-md-6"
-//                   label="Minimum Budget"
-//                   name="minPrice"
-//                   placeholder="Not Applicable"
-//                   options={generateBudgetOptions({
-//                     showBlankOption: true,
-//                   })}
-//                   showFeedback={feedback.ERROR}
-//                 />
-//                 <Select
-//                   formGroupClassName="col-md-6"
-//                   label="Maximum Budget"
-//                   name="maxPrice"
-//                   placeholder="Not Applicable"
-//                   options={generateBudgetOptions({
-//                     showBlankOption: true,
-//                   })}
-//                   showFeedback={feedback.ERROR}
-//                 />
-//               </div>
-//               <div className="form-row">
-//                 <Select
-//                   formGroupClassName="col-md-6"
-//                   label="Preferred State"
-//                   name="location"
-//                   placeholder="Any State"
-//                   options={availableOptions.states}
-//                   showFeedback={feedback.ERROR}
-//                 />
-//                 <Select
-//                   formGroupClassName="col-md-6"
-//                   label="Preferred HouseType"
-//                   name="houseType"
-//                   placeholder="Any House Type"
-//                   options={availableOptions.houseTypes}
-//                   showFeedback={feedback.ERROR}
-//                 />
-//               </div>
+            Axios.put(`${BASE_API_URL}/user/update`, payload, {
+              headers: { Authorization: getTokenFromStore() },
+            })
+              .then(function (response) {
+                const { status, data } = response;
+                if (status === 200) {
+                  userDispatch({
+                    type: 'user-profile-update',
+                    user: data.updatedUser,
+                  });
+                  setToast({
+                    type: 'success',
+                    message: `Your preferences has been successfully updated`,
+                  });
+                  actions.setSubmitting(false);
+                }
+              })
+              .catch(function (error) {
+                setToast({
+                  message: getError(error),
+                });
+                actions.setSubmitting(false);
+              });
+          }}
+          validationSchema={createSchema(preferenceSchema)}
+        >
+          {({ isSubmitting, handleSubmit, ...props }) => (
+            <Form>
+              <Toast {...toast} />
+              <div className="form-row">
+                <Select
+                  formGroupClassName="col-md-6"
+                  label="Minimum Budget"
+                  name="minPrice"
+                  placeholder="Not Applicable"
+                  options={generateBudgetOptions({
+                    showBlankOption: true,
+                  })}
+                  showFeedback={feedback.ERROR}
+                />
+                <Select
+                  formGroupClassName="col-md-6"
+                  label="Maximum Budget"
+                  name="maxPrice"
+                  placeholder="Not Applicable"
+                  options={generateBudgetOptions({
+                    showBlankOption: true,
+                  })}
+                  showFeedback={feedback.ERROR}
+                />
+              </div>
+              <div className="form-row">
+                <Select
+                  formGroupClassName="col-md-6"
+                  label="Preferred State"
+                  name="location"
+                  placeholder="Any State"
+                  options={valuesToOptions(availableOptions?.states || [])}
+                  showFeedback={feedback.ERROR}
+                />
+                <Select
+                  formGroupClassName="col-md-6"
+                  label="Preferred HouseType"
+                  name="houseType"
+                  placeholder="Any House Type"
+                  options={valuesToOptions(availableOptions?.houseTypes || [])}
+                  showFeedback={feedback.ERROR}
+                />
+              </div>
 
-//               <Button
-//                 className="btn-secondary mt-4"
-//                 loading={isSubmitting}
-//                 onClick={handleSubmit}
-//               >
-//                 Save Changes
-//               </Button>
-//               <DisplayFormikState {...props} showAll />
-//             </Form>
-//           )}
-//         </Formik>
-//       </div>
-//     </section>
-//   );
-// };
+              <Button
+                className="btn-secondary mt-4"
+                loading={isSubmitting}
+                onClick={handleSubmit}
+              >
+                Save Changes
+              </Button>
+              <DisplayFormikState {...props} showAll />
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </section>
+  );
+};
 
 const ChangePasswordForm = () => {
   const [toast, setToast] = useToast();
@@ -453,5 +481,17 @@ const BankInformationForm = () => {
     </section>
   );
 };
+
+export async function getStaticProps() {
+  const options = await axios.get(`${BASE_API_URL}/property/available-options`);
+  console.log('options', options);
+
+  return {
+    props: {
+      availableOptions: options?.data?.availableFields || {},
+    },
+    revalidate: 10,
+  };
+}
 
 export default Settings;

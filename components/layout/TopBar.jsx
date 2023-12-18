@@ -138,14 +138,17 @@ export const NavForLoginUser = () => {
           <ThreeDotsIcon />
         </Dropdown.Toggle>
 
-        <Dropdown.Menu className="dropdown-menu-children">
-          <Link href={`/${currentRole}/mybadges`}>
+        <Dropdown.Menu className="top-nav-dropdown-menu">
+          <Link href={`/${currentRole}/dashboard`} passHref>
+            <Dropdown.Item>Dashboard</Dropdown.Item>
+          </Link>
+          <Link href={`/${currentRole}/mybadges`} passHref>
             <Dropdown.Item>Badges</Dropdown.Item>
           </Link>
-          <Link href={`/${currentRole}/testimonials`}>
+          <Link href={`/${currentRole}/testimonials`} passHref>
             <Dropdown.Item>Testimonials</Dropdown.Item>
           </Link>
-          <Link href="/user/settings">
+          <Link href="/user/settings" passHref>
             <Dropdown.Item>Settings</Dropdown.Item>
           </Link>
           <Link href="/logout">

@@ -70,7 +70,7 @@ const ServiceRowList = ({ results, setToast }) => (
               <ServiceBox
                 link={`/user/service/${_id}`}
                 title={name}
-                price={moneyFormatInNaira(price)}
+                price={price}
                 content={description}
               />
             </div>

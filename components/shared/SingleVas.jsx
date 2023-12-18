@@ -24,6 +24,7 @@ import { vasRequestSchema } from '../forms/schemas/vasSchema';
 import { getTokenFromStore } from '@/utils/localStorage';
 import { createSchema } from '../forms/schemas/schema-helpers';
 import axios from 'axios';
+import WelcomeHero from '../common/WelcomeHero';
 
 const pageOptions = {
   key: 'vas',
@@ -42,6 +43,10 @@ const SingleVas = ({ id }) => {
 
   return (
     <BackendPage>
+      <WelcomeHero
+        title={vas?.name || 'Service Request'}
+        subtitle="Request for Service"
+      />
       <ContentLoader
         hasContent={!!vas}
         Icon={<MessageIcon />}
@@ -88,11 +93,11 @@ const VasDetail = ({ vas, toast, setToast }) => {
         onClick={() => setShowVasForm(true)}
         className="btn btn-secondary my-3"
       >
-        Order for Service
+        Request for Service
       </Button>
 
       <Modal
-        title="Services"
+        title="Request for Service"
         show={showVasForm}
         onHide={() => setShowVasForm(false)}
         showFooter={false}
@@ -146,20 +151,25 @@ export const OrderSingleVasForm = ({ hideForm, setToast, vas, propertyId }) => {
           {({ isSubmitting, handleSubmit, ...props }) => {
             return (
               <Form>
-                <>
-                  <h3 className="header-smaller">{vas?.name}</h3>
-                  <h5 className="text-secondary">
-                    {moneyFormatInNaira(vas?.price)}
-                  </h5>
-                  <p>{vas?.description}</p>
-                </>
-                <Button
-                  className="btn-secondary mt-4"
-                  loading={isSubmitting}
-                  onClick={handleSubmit}
-                >
-                  Proceed
-                </Button>
+                <section className="row">
+                  <div className="col-md-12 my-3 mx-3">
+                    <h3>{vas?.name}</h3>
+                    <h3 className="text-secondary mb-3">
+                      {moneyFormatInNaira(vas?.price)}
+                    </h3>
+                    <p className="my-4 text-muted text-lg">
+                      {vas?.description}
+                    </p>
+
+                    <Button
+                      className="mb-5"
+                      loading={isSubmitting}
+                      onClick={handleSubmit}
+                    >
+                      Request for Service
+                    </Button>
+                  </div>
+                </section>
                 <DisplayFormikState {...props} showAll />
               </Form>
             );

@@ -665,6 +665,14 @@ html {
   }
 }
 
+.top-nav-dropdown-menu {
+  .dropdown-item {
+    border-bottom: 1px solid $gray-200;
+    font-size: 0.9rem;
+    padding: 0.5rem 2rem;
+  }
+}
+
 .vendor-company-tagline {
   margin-top: 1rem;
   font-size: 1rem;

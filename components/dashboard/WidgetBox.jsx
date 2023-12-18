@@ -7,15 +7,17 @@ export const WidgetBox = ({
   href = null,
   data = [],
   Icon = null,
+  className = '',
+  textEnd = '',
 }) => {
-  const classes = 'col-sm-6 mt-4';
+  const defaultClasses = 'col-sm-6 mt-4';
 
   return (
-    <div className={classes}>
+    <div className={className || defaultClasses}>
       <div className="widget h-100 card widget-box">
         <div className="d-flex align-items-center justify-content-between">
           <h6 className="fw-bold mb-4">{title}</h6>
-          {!!href && (
+          {!!href ? (
             <Button
               color="secondary-light"
               href={href}
@@ -23,6 +25,8 @@ export const WidgetBox = ({
             >
               {buttonName}
             </Button>
+          ) : (
+            <p className="text-soft text-md mb-3">{textEnd}</p>
           )}
         </div>
         {data?.length > 0 ? (

@@ -6,6 +6,9 @@ import AvatarColor from './AvatarColor';
 
 const StackBox = ({
   avatarColor = null,
+  avatarInitials = null,
+  avatarCircle = false,
+  btnColor = 'secondary',
   src,
   title,
   subtitle,
@@ -29,7 +32,12 @@ const StackBox = ({
                 alt="property"
               />
             ) : (
-              <AvatarColor title={title} avatarColor={avatarColor} />
+              <AvatarColor
+                title={title}
+                avatarInitials={avatarInitials}
+                avatarColor={avatarColor}
+                avatarCircle={avatarCircle}
+              />
             )}
             <div className="d-flex flex-column">
               <h4 className={`text-primary text-md fw-semibold my-0`}>
@@ -45,9 +53,11 @@ const StackBox = ({
               {isButton ? (
                 <>
                   {value && (
-                    <p className="fw-bold text-end mb-0 btn btn-secondary-light btn">
+                    <span
+                      className={`fw-bold text-end mb-0 btn btn-${btnColor}-light btn`}
+                    >
                       <span className="fw-semibold">{value}</span>
-                    </p>
+                    </span>
                   )}
                 </>
               ) : (
