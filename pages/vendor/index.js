@@ -83,7 +83,7 @@ const AboutSection = () => {
       <div className="row my-xl-7 my-5 mb-6">
         <div className="col-md-6 col-xl-7 col-12 text-center mb-n4">
           <h6 className="header-secondary d-xl-none d-block">
-            ABOUT BALL FOR VENDORS
+            ABOUT BALL FOR BALL VIPs
           </h6>
           <Slide triggerOnce direction="left">
             <Image
@@ -98,7 +98,7 @@ const AboutSection = () => {
         <div className="col-md-6 col-xl-5 ps-md-4 col-12 pb-md-5">
           <Fade triggerOnce cascade damping={0.2}>
             <h6 className="header-secondary d-none d-xl-block">
-              ABOUT BALL FOR VENDORS
+              ABOUT BALL FOR BALL VIPS
             </h6>
             <h3 className="mt-md-0 mt-5">
               The Game-Changing Platform{' '}
@@ -133,7 +133,7 @@ const TheBALLPlatform = () => (
           </h6>
           <h2 className="mt-4 my-md-0">
             Dive into the
-            <br /> BALL Experience:
+            <br /> VIP Experience:
           </h2>
           <p className="lead text-primary mt-4 mb-5">
             Explore a demo to witness firsthand the power of BALL for your
@@ -170,7 +170,7 @@ const VendorContainer = ({ results }) => (
       <div className="row">
         <div className="col-sm-10 col-12 mx-auto">
           <div className="text-center">
-            <h6 className="header-secondary d-block">MEET OUR VENDORS</h6>
+            <h6 className="header-secondary d-block">MEET OUR VIPS</h6>
             <h3 className="mb-5 px-3">
               Your Trusted Pathfinders in Real Estate
             </h3>
@@ -183,7 +183,7 @@ const VendorContainer = ({ results }) => (
 
           <div className="text-center mt-5">
             <Button wide color="secondary-light" href="/vendors">
-              View All Vendors
+              View All BALL VIPs
             </Button>
           </div>
         </div>

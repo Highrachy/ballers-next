@@ -269,7 +269,7 @@ const ModalForTransactionDetails = ({
               {isAdmin && !payment?.remittance ? (
                 <>
                   <th>
-                    <strong>Vendor</strong>
+                    <strong>BALL VIP</strong>
                   </th>
                   <th>
                     <h5 className="text-secondary">
@@ -379,7 +379,7 @@ const ModalForTransactionDetails = ({
               <tbody>
                 <tr>
                   <td>
-                    <strong>Vendor</strong>
+                    <strong>BALL VIP</strong>
                   </td>
                   <td>{payment?.vendorInfo?.vendor.companyName}</td>
                 </tr>

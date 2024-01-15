@@ -187,7 +187,7 @@ const ComparePropertiesSection = ({
                   value2={property2.houseType}
                 />
                 <CompareTableRow
-                  title="Vendor"
+                  title="BALL VIP"
                   value1={property.vendorInfo.vendor.companyName}
                   value2={property2.vendorInfo.vendor.companyName}
                 />

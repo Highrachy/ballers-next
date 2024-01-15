@@ -87,7 +87,7 @@ const Content = ({ redirectTo, sid, token }) => {
               </>
             ) : (
               <>
-                <h1>Create a free Vendor account</h1>
+                <h1>Create a free BALL VIP account</h1>
                 <p className="lead">
                   Showcase your properties to multiple buyers
                 </p>
@@ -111,7 +111,7 @@ const Content = ({ redirectTo, sid, token }) => {
                   token={token}
                 />
               </Tab>
-              <Tab eventKey="vendor" title="Register as a Vendor">
+              <Tab eventKey="vendor" title="Register as a BALL VIP">
                 <RegisterForm
                   redirectTo={redirectTo}
                   sid={sid}
@@ -157,7 +157,7 @@ const RegisterForm = ({ showUserForm }) => {
   const [toast, setToast] = useToast();
 
   const referrer = (getReferralInfo() && getReferralInfo().referrer) || null;
-  const currentUser = showUserForm ? 'User' : 'Vendor';
+  const currentUser = showUserForm ? 'User' : 'BALL VIP';
 
   return (
     <Formik

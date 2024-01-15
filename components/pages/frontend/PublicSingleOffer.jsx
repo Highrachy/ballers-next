@@ -85,7 +85,7 @@ const ListConcerns = ({ concerns, title }) => {
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={index + 1}>
               <Card.Body>
-                {answer || 'Awaiting Response from the Vendor'}
+                {answer || 'Awaiting Response from the BALL VIP'}
               </Card.Body>
             </Accordion.Collapse>
           </Card>

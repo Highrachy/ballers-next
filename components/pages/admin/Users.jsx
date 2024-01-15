@@ -102,7 +102,7 @@ const UsersRowList = ({ results, offset }) => {
       </Card>
       <div className="mt-5 float-end">
         <Button onClick={() => setShowFastTrackVendor(true)}>
-          Add fast tracked Vendor
+          Add fast tracked BALL VIP
         </Button>
         <FastTrackVendorModal
           showFastTrackVendor={showFastTrackVendor}
@@ -176,17 +176,17 @@ export const getUserStatus = (user) => {
     },
     fastTrack: {
       Icon: <FastTrackVendorIcon />,
-      tooltip: 'Fast Track Vendor',
+      tooltip: 'Fast Track BALL VIP',
     },
     certified: {
       className: 'text-warning',
       Icon: <CertifyIcon />,
-      tooltip: 'Certified Vendor',
+      tooltip: 'Certified BALL VIP',
     },
     verified: {
       className: 'text-info icon-md2',
       Icon: <ApprovedIcon />,
-      tooltip: 'Verified Vendor',
+      tooltip: 'Verified BALL VIP',
     },
   };
 
@@ -303,7 +303,7 @@ const FilterForm = ({ setFilterTerms }) => {
                   options={booleanOptions()}
                 />
 
-                <h6 className="mt-5">Vendor Filters</h6>
+                <h6 className="mt-5">BALL VIP Filters</h6>
 
                 <Input label="Company Name" name="companyName" />
                 <Input label="Redan Number" name="redanNumber" />
@@ -317,13 +317,13 @@ const FilterForm = ({ setFilterTerms }) => {
                 />
 
                 <Select
-                  label="Verified Vendor"
+                  label="Verified BALL VIP"
                   name="verified"
                   options={booleanOptions()}
                 />
 
                 <Select
-                  label="Certified Vendor"
+                  label="Certified BALL VIP"
                   name="certified"
                   options={booleanOptions()}
                 />
@@ -378,7 +378,7 @@ const FastTrackVendorModal = ({
 }) => {
   return (
     <Modal
-      title="Fast Track Vendor"
+      title="Fast Track BALL VIP"
       show={showFastTrackVendor}
       onHide={() => setShowFastTrackVendor(false)}
       showFooter={false}
@@ -405,7 +405,7 @@ const FastTrackVendorModal = ({
                   if (statusIsSuccessful(status)) {
                     setToast({
                       type: 'success',
-                      message: `The vendor has been successfully created`,
+                      message: `The BALL VIP has been successfully created`,
                     });
                     actions.setSubmitting(false);
                     actions.resetForm();
@@ -454,7 +454,7 @@ const FastTrackVendorModal = ({
                   loading={isSubmitting}
                   onClick={handleSubmit}
                 >
-                  Add Fast Tracked Vendor
+                  Add Fast Tracked BALL VIP
                 </Button>
                 <DisplayFormikState {...props} hide showAll />
               </Form>

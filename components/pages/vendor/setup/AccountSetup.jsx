@@ -221,7 +221,7 @@ const AccountSetup = ({ id }) => {
         doneStatus={getCompletedSteps(userState)}
         initialStep={parseInt(initialStep, 10) || 1}
         pageSteps={ADD_ENTERTAINER_STEPS}
-        title="Vendor Verification"
+        title="BALL VIP Verification"
       />
     </>
   );

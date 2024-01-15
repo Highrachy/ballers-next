@@ -115,7 +115,7 @@ const VendorInfo = ({ user }) => {
       <div className="row">
         <div className="col-12">
           <OnlineImage
-            name="vendor logo"
+            name="BALL VIP logo"
             src={user.vendor.companyLogo}
             className="img-fluid"
             style={{ maxWidth: '250px' }}

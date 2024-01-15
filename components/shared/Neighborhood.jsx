@@ -314,7 +314,7 @@ export const NeighborhoodList = ({
 
         {/* Delete Neighborhood Modal */}
         <Modal
-          title="Verify Vendor"
+          title="Delete Neighborhood"
           show={showDeleteNeighborhoodModal}
           onHide={() => setShowDeleteNeighborhoodModal(false)}
           showFooter={false}

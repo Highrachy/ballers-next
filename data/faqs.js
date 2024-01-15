@@ -151,68 +151,79 @@ const faqs = {
     ],
   },
   vendor: {
-    name: 'Vendor',
+    name: 'BALL VIP',
     icon: '/img/icons/profile-icon.png',
     description: (
       <>
-        These are vendor related questions about BALL. Please go{' '}
-        <br className="d-none d-lg-block" /> through this section if you need
-        your questions answered.
+        Explore these BALL VIP FAQs for insights into becoming a Vendor,
+        Individual, or Partner on BALL.
       </>
     ),
     faqs: [
       {
-        question: <>Why should I become a BALL vendor? </>,
+        question: <>What is the meaning of BALL VIP?</>,
         answer: (
           <>
-            You should become a BALL vendor if you are a real estate developer,
+            BALL VIP stands for BALL <strong>V</strong>endors,{' '}
+            <strong>I</strong>ndividuals, or <strong>P</strong>artners. It
+            encompasses real estate developers, builders, agents, landlords, and
+            individuals with properties for sale who leverage the BALL platform
+            to showcase their properties and connect with potential buyers.
+          </>
+        ),
+        showOnHomePage: true,
+      },
+      {
+        question: <>Why should I become a BALL VIP?</>,
+        answer: (
+          <>
+            You should become a BALL VIP if you are a real estate developer,
             builder or agent who wants to showcase your properties and reach
             more customers. You will also enjoy the benefits of being a BALL
-            vendor, such as exposure, trust, support, profit, real-time
-            analytics, seamless tour scheduling, simplified contract management,
-            convenient payments and withdrawal, and enhanced visibility.
+            VIP, such as exposure, trust, support, profit, real-time analytics,
+            seamless tour scheduling, simplified contract management, convenient
+            payments and withdrawal, and enhanced visibility on the BALL
+            platform.
           </>
         ),
         showOnHomePage: false,
       },
       {
-        question: <>How can I become a BALL vendor?</>,
+        question: <>How can I become a BALL VIP?</>,
         answer: (
           <>
             <div>
               <p>
-                Becoming a BALL vendor is easy and fast. Just follow these
-                simple steps:
+                Becoming a BALL VIP is easy and fast. Follow these simple steps:
               </p>
               <ol>
                 <li>
-                  <h6>Register</h6>
+                  <strong>Register</strong>
                   <p>
-                    Fill out the vendor registration form{' '}
-                    <a href="link-to-registration">here</a> and provide the
-                    necessary information and documents to verify your identity
-                    and business.
+                    Create a new <Link href="/register">BALL VIP account</Link>.
+                    Provide the necessary information and documents to verify
+                    your identity and business.
                   </p>
                 </li>
                 <li>
-                  <h6>List</h6>
+                  <strong>List</strong>
                   <p>
-                    Upload your properties on the BALL platform and provide the
+                    Upload your properties on the BALL platform, including
                     relevant details and photos to attract buyers.
                   </p>
                 </li>
                 <li>
-                  <h6>Sell</h6>
+                  <strong>Sell</strong>
                   <p>
-                    Receive inquiries and offers from interested buyers and
-                    negotiate the best deal for both parties.
+                    Receive inquiries and offers from interested buyers.
+                    Negotiate the best deal for both parties.
                   </p>
                 </li>
                 <li>
-                  <h6>Earn</h6>
+                  <strong>Earn</strong>
                   <p>
-                    Get paid your commissions and incentives promptly and
-                    securely after the completion of the sale.
+                    Receive prompt and secure payments for your property after
+                    completing the sale.
                   </p>
                 </li>
               </ol>
@@ -229,9 +240,10 @@ const faqs = {
         ),
         answer: (
           <>
-            You can track your progress and transactions on the BALL platform by
-            logging into your dashboard. You will be able to see your property
-            listings, buyer activity, milestones, payments, and more.
+            You can easily monitor your progress and transactions on the BALL
+            platform by logging into your personalized dashboard. You will be
+            able to see your property listings, buyer activity, milestones,
+            payments, and more.
           </>
         ),
         showOnHomePage: false,
@@ -266,7 +278,7 @@ const faqs = {
       },
       {
         question: (
-          <>How can I boost my property listings on the BALL platform? </>
+          <>How can I boost my property listings on the BALL platform?</>
         ),
         answer: (
           <>

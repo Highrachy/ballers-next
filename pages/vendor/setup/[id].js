@@ -59,7 +59,7 @@ const Single = () => {
     <BackendPage>
       <Toast {...toast} showToastOnly />
       <WelcomeHero
-        title="Vendor Verification"
+        title="BALL VIP Verification"
         isApproved={userState?.vendor?.verified}
       />
       <StepperPage
@@ -67,7 +67,7 @@ const Single = () => {
         doneStatus={getCompletedSteps(userState)}
         initialStep={parseInt(initialStep, 10) || 1}
         pageSteps={ADD_ENTERTAINER_STEPS}
-        title="Vendor Setup"
+        title="BALL VIP Setup"
       />
     </BackendPage>
   );

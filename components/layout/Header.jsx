@@ -79,6 +79,14 @@ const Header = () => {
               <NavForLoginUser />
             ) : (
               <Nav>
+                <Link href="/vendor" passHref>
+                  <Nav.Link>
+                    <span className="d-inline d-lg-none d-xl-inline">
+                      BALL{' '}
+                    </span>
+                    VIP
+                  </Nav.Link>
+                </Link>
                 <Link href="/login" passHref>
                   <Nav.Link>Sign In</Nav.Link>
                 </Link>

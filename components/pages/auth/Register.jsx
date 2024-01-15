@@ -74,7 +74,7 @@ const Content = ({ redirectTo, sid, token }) => {
               </>
             ) : (
               <>
-                <h1>Create a free Vendor account</h1>
+                <h1>Create a free BALL VIP account</h1>
                 <p className="lead">
                   Showcase your properties to multiple buyers
                 </p>
@@ -279,7 +279,7 @@ const RegisterForm = ({ setShowUserForm, showUserForm }) => {
                 className="text-link text-secondary"
                 onClick={() => setShowUserForm(false)}
               >
-                as a Vendor
+                as a BALL VIP
               </span>
             </p>
           ) : (

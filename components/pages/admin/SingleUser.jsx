@@ -133,7 +133,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
         if (statusIsSuccessful(status)) {
           setToast({
             type: 'success',
-            message: `Vendor has been successfully verified`,
+            message: `BALL VIP has been successfully verified`,
           });
           user.vendor.verified = true;
           setUser(user);
@@ -160,7 +160,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
         if (statusIsSuccessful(status)) {
           setToast({
             type: 'success',
-            message: `Vendor has been successfully certified`,
+            message: `BALL VIP has been successfully certified`,
           });
           user.vendor.verified = true;
           setUser(user);
@@ -897,7 +897,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
                 onClick={() => setVerifyVendorModal(true)}
                 className="btn btn-secondary"
               >
-                Verify Vendor
+                Verify BALL VIP
               </Button>
             )}
           {user.vendor?.verified &&
@@ -908,7 +908,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
                 onClick={() => setVerifyVendorModal(true)}
                 className="btn btn-secondary"
               >
-                Certify Vendor
+                Certify BALL VIP
               </Button>
             )}
           {user?.isDemoAccount && (
@@ -926,7 +926,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
 
           {/*  Modals */}
           <Modal
-            title="Verify Vendor"
+            title="Verify BALL VIP"
             show={showVerifyVendorModal}
             onHide={() => setVerifyVendorModal(false)}
             showFooter={false}
@@ -935,13 +935,15 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
               <div className="col-md-12 my-3 text-center">
                 <h5 className="my-2 confirmation-text">
                   Are you sure you want to{' '}
-                  {user.vendor?.verified ? 'certify' : 'verify'} this vendor?
+                  {user.vendor?.verified ? 'certify' : 'verify'} this BALL VIP?
                 </h5>
                 <button
                   className="btn btn-secondary mb-5"
                   onClick={user.vendor?.verified ? certifyVendor : verifyVendor}
                 >
-                  {user.vendor?.verified ? 'Certify Vendor' : 'Verify Vendor'}
+                  {user.vendor?.verified
+                    ? 'Certify BALL VIP'
+                    : 'Verify BALL VIP'}
                 </button>
               </div>
             </section>
@@ -1184,7 +1186,7 @@ const TransferToVendorForm = ({ user, setUser, setToast }) => {
             <DisplayFormikState {...props} hide />
 
             <Modal
-              title="Hand Over Account To Vendor"
+              title="Hand Over Account To BALL VIP"
               show={showTransferForm}
               onHide={() => setShowTransferForm(false)}
               showFooter={false}

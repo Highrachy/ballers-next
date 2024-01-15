@@ -290,7 +290,7 @@ export const VideosList = ({
 
             {/* Delete Videos Modal */}
             <Modal
-              title="Verify Vendor"
+              title="Delete Video"
               show={showDeleteVideosModal}
               onHide={() => setShowDeleteVideosModal(false)}
               showFooter={false}

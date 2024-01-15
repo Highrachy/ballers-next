@@ -74,12 +74,12 @@ const ContentHeader = ({ user }) => {
           <div className="d-flex">
             <div className="company-avatar-container">
               <OnlineImage
-                name="vendor logo"
+                name="BALL VIP logo"
                 src={user.vendor.companyLogo}
                 className="avatar-company"
               />
               <div className="certified-icon">
-                <Tooltip text="Certified Vendor">
+                <Tooltip text="Certified BALL VIP">
                   <CertifiedIcon />
                 </Tooltip>
               </div>

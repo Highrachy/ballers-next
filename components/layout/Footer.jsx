@@ -16,10 +16,10 @@ const Footer = () => (
                   <Link href="/blog">Blog</Link>
                 </li>
                 <li>
-                  <Link href="/vendor">Vendor Page</Link>
+                  <Link href="/vendor">About BALL VIP</Link>
                 </li>
                 <li>
-                  <Link href="/vendors">All Vendors</Link>
+                  <Link href="/vendors">Meet our VIPs</Link>
                 </li>
               </ul>
             </div>

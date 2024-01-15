@@ -31,7 +31,7 @@ const VendorProfile = ({ result }) => {
       <Header />
       <Toast {...toast} showToastOnly />
       <TitleSection
-        name="All Vendors"
+        name="All BALL VIPs"
         content="Connect with the best developers in the real estate space."
       />
 
