@@ -9,7 +9,11 @@ import {
   USER_TYPES,
 } from 'utils/constants';
 import { useToast } from 'components/utils/Toast';
-import { moneyFormatInNaira, getLocationFromAddress } from 'utils/helpers';
+import {
+  moneyFormatInNaira,
+  getLocationFromAddress,
+  getPropertyHouseType,
+} from 'utils/helpers';
 import Image, { OnlineImage } from 'components/utils/Image';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property.png';
 import Link from 'next/link';
@@ -852,7 +856,7 @@ export const PropertyDescription = ({
   const propertyDetails = [
     {
       title: 'Property Type',
-      value: property?.houseType,
+      value: getPropertyHouseType(property),
       Icon: PropertyIcon,
     },
     {

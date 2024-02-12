@@ -24,12 +24,16 @@ import { Tab, Tabs } from 'react-bootstrap';
 import AdvancedSearchPropertyForm from '@/components/common/AdvancedSearchPropertyForm';
 import Typewriter from 'typewriter-effect';
 import BenefitsSection from '@/components/common/BenefitsSection';
+import ServiceBox from '@/components/dashboard/ServiceBox';
 
 export default function Home({
   properties,
+  allServices,
   referralCode = null,
   inviteCode = null,
 }) {
+  console.log('allServices', allServices);
+
   return (
     <>
       <Header />
@@ -41,6 +45,7 @@ export default function Home({
       />
       <BenefitsSection />
       <HowItWorksSection />
+      {/* <OurServices /> */}
       <FAQsSection />
       <CommunityGallery />
       <ReferralModal referralCode={referralCode} inviteCode={inviteCode} />
@@ -183,6 +188,31 @@ const HowItWorksSection = () => (
   </section>
 );
 
+const OurServices = () => (
+  <section className="container-fluid my-4">
+    <div className="row">
+      <ServiceBox
+        link="/services"
+        title="Title Validity"
+        price="50,000"
+        content="Title validity refers to the legal status of the ownership of a property. It is essential to ensure that the title of a property is valid and clear before buying or selling it."
+      />
+      <ServiceBox
+        link="/services"
+        title="Title Validity"
+        price="50,000"
+        content="Title validity refers to the legal status of the ownership of a property. It is essential to ensure that the title of a property is valid and clear before buying or selling it."
+      />
+      <ServiceBox
+        link="/services"
+        title="Title Validity"
+        price="50,000"
+        content="Title validity refers to the legal status of the ownership of a property. It is essential to ensure that the title of a property is valid and clear before buying or selling it."
+      />
+    </div>
+  </section>
+);
+
 const FAQsSection = () => {
   const FAQs = Object.values(FAQsContent).reduce((result, { faqs }, index) => {
     const homeFAQs = faqs.filter(({ showOnHomePage }) => showOnHomePage);
@@ -205,9 +235,14 @@ const FAQsSection = () => {
 
 export async function getStaticProps() {
   const propertiesRes = await axios.get(API_ENDPOINT.getAllProperties());
+  const servicesRes = await axios.get(API_ENDPOINT.getAllVas());
+  const allProperties = propertiesRes.data?.result;
+  const lastThreeProperties = allProperties.slice(-3);
+
   return {
     props: {
-      properties: propertiesRes.data?.result,
+      properties: lastThreeProperties,
+      allServices: servicesRes.data?.result,
     },
     revalidate: 10,
   };

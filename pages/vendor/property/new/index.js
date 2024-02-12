@@ -40,6 +40,7 @@ import {
   setAutoComplete,
   getAutoComplete,
   objectToOptions,
+  booleanOptions,
 } from 'utils/helpers';
 import Address from 'components/utils/Address';
 import Select from 'components/forms/Select';
@@ -61,6 +62,7 @@ import { generatePropertyDescription } from 'utils/property-helper';
 import Modal from 'components/common/Modal';
 import DatePicker from 'components/forms/DatePicker';
 import MdEditor from '@/components/forms/MdEditor';
+import { boolean } from 'yup';
 
 const pageOptions = {
   key: 'property',
@@ -110,6 +112,9 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
   const [image, setImage] = React.useState(
     property?.mainImage || getPropertyImage()
   );
+
+  console.log('testing');
+  console.log('property with BQ', property);
 
   const saveImage = (image) => {
     setImage(image);
@@ -237,8 +242,9 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
   );
 };
 
-export const PropertyInfoForm = () => {
-  const [displayForm, setDisplayForm] = React.useState({ eventType: false });
+export const PropertyInfoForm = (props) => {
+  console.log('props', props);
+  const [displayForm, setDisplayForm] = React.useState({ houseType: false });
   const toggleForm = (value) => {
     setDisplayForm({ [value]: !displayForm[value] });
   };
@@ -256,9 +262,9 @@ export const PropertyInfoForm = () => {
             />
 
             <div className="form-row">
-              {displayForm.houseType ? (
+              {displayForm.houseType || props?.values?.houseType ? (
                 <Input
-                  formGroupClassName="col-md-6"
+                  // formGroupClassName="col-md-6"
                   label="House Type"
                   name="houseType"
                   placeholder="House Type"
@@ -271,7 +277,7 @@ export const PropertyInfoForm = () => {
               ) : (
                 <Select
                   placeholder="Select House Type"
-                  formGroupClassName="col-md-6"
+                  // formGroupClassName="col-md-6"
                   label="House Type"
                   labelLink={{
                     onClick: () => toggleForm('houseType'),
@@ -282,6 +288,9 @@ export const PropertyInfoForm = () => {
                   options={valuesToOptions(HOUSE_TYPES)}
                 />
               )}
+            </div>
+
+            <div className="form-row">
               <Select
                 formGroupClassName="col-md-6"
                 label="Bedrooms"
@@ -289,9 +298,6 @@ export const PropertyInfoForm = () => {
                 options={generateNumOptions(9, 'Bedroom')}
                 placeholder="Select Bedrooms"
               />
-            </div>
-
-            <div className="form-row">
               <Select
                 formGroupClassName="col-md-6"
                 label="Bathrooms"
@@ -299,12 +305,22 @@ export const PropertyInfoForm = () => {
                 options={generateNumOptions(9, 'Bathroom')}
                 placeholder="Select Bathrooms"
               />
+            </div>
+
+            <div className="form-row">
               <Select
                 formGroupClassName="col-md-6"
                 label="Toilets"
                 name="toilets"
                 options={generateNumOptions(9, 'Toilet')}
                 placeholder="Select Toilets"
+              />
+              <Select
+                formGroupClassName="col-md-6"
+                label="Has BQ"
+                name="hasBQ"
+                options={booleanOptions()}
+                placeholder="Has BQ"
               />
             </div>
 

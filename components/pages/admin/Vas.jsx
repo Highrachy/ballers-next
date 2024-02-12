@@ -149,7 +149,7 @@ const VasRowList = ({ results, offset, setToast }) => {
 
       {/* Delete Vas Modal */}
       <Modal
-        title="Verify BALL VIP"
+        title="Delete VAS"
         show={showDeleteVasModal}
         onHide={() => setShowDeleteVasModal(false)}
         showFooter={false}

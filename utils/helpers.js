@@ -349,6 +349,18 @@ export const getUserName = (user) => {
   return user?.vendor?.companyName || userInitialName;
 };
 
+export const getPropertyHouseType = (property) => {
+  if (!property?.houseType) return '';
+  const propertyHouseType = property?.houseType?.toLowerCase();
+  const currentPropertyType =
+    propertyHouseType.includes('bedroom') || propertyHouseType.includes('bd')
+      ? property?.houseType
+      : `${property?.bedrooms} Bedroom ${property?.houseType}`;
+  return property?.hasBQ && !propertyHouseType.includes('bq')
+    ? `${currentPropertyType} + BQ`
+    : currentPropertyType;
+};
+
 export const isFestivePeriod = () => {
   const currentDate = new Date();
   const december = 11; // December is represented as 11 in JavaScript Date object

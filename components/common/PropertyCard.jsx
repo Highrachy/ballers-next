@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 import Link from 'next/link';
 import { RightArrowIcon } from 'components/utils/Icons';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property-holder.jpg';
-import { moneyFormatInNaira } from 'utils/helpers';
+import { getPropertyHouseType, moneyFormatInNaira } from 'utils/helpers';
 import { LoveIcon } from 'components/utils/Icons';
 import { UserContext } from 'context/UserContext';
 import { BASE_API_URL, PRICING_MODEL_DESC } from 'utils/constants';
@@ -102,24 +102,21 @@ const PropertyCard = ({ isPublic, ...property }) => {
               <div className="property-details property-spacing">
                 <span className="property-holder__house-type">
                   <strong>
-                    <PropertyIcon /> {houseType}
+                    <PropertyIcon /> {getPropertyHouseType(property)}
                   </strong>
                 </span>{' '}
-                &nbsp; | &nbsp;
-                <span className="property-holder__location">
-                  <strong>
-                    <MapPinIcon /> {address?.city}, {address?.state}
-                  </strong>
-                </span>
               </div>
 
               {/* Price */}
               <h5 className="property-price property-spacing mb-1">
                 {moneyFormatInNaira(price)}
               </h5>
-              <div className="text-xs fw-normal text-soft">
-                {PRICING_MODEL_DESC?.[pricingModel] ||
-                  'Timeline - Spread Payment'}
+              <div className="text-sm fw-normal mt-2 text-soft">
+                <span className="property-holder__locationss">
+                  {address?.city}, {address?.state}
+                </span>
+                {/* &nbsp; | &nbsp; */}
+                {/* {PRICING_MODEL_DESC?.[pricingModel] || 'Timeline Payment'} */}
               </div>
               {/* Info with Icons */}
               <div className="property-holder__separator my-3"></div>

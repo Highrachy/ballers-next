@@ -18,6 +18,8 @@ import Axios from 'axios';
 import SharerModal from '@/components/utils/SharerModal';
 import Button from '@/components/forms/Button';
 import { Spacing } from '@/components/common/Helpers';
+import NoContent from '@/components/utils/NoContent';
+import { PropertyIcon } from '@/components/utils/Icons';
 
 const PublicPropertySingle = ({ property }) => {
   const taglines = [
@@ -70,7 +72,14 @@ const LoadProperty = ({ property }) => {
   const vendorInfo = property?.vendorInfo;
   const setProperty = () => {};
 
-  if (!property) return null;
+  if (!property?.name)
+    return (
+      <NoContent
+        text={'Property not found or approved yet.'}
+        Icon={<PropertyIcon />}
+        className="mt-6"
+      />
+    );
 
   return (
     <>

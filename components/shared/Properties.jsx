@@ -13,6 +13,7 @@ import {
   formatFilterBoolean,
   formatFilterString,
   generateNumOptions,
+  getPropertyHouseType,
   getRange,
   getTitleCase,
   valuesToOptions,
@@ -99,21 +100,21 @@ const PropertiesRowLists = ({ results, offset }) => (
   </div>
 );
 
-const PropertiesRow = ({
-  _id,
-  name,
-  address,
-  price,
-  number,
-  mainImage,
-  approved,
-  flagged,
-  bedrooms,
-  bathrooms,
-  toilets,
-  houseType,
-  pricingModel,
-}) => {
+const PropertiesRow = (property) => {
+  const {
+    _id,
+    name,
+    address,
+    price,
+    number,
+    mainImage,
+    approved,
+    flagged,
+    bedrooms,
+    bathrooms,
+    toilets,
+    pricingModel,
+  } = property;
   const userType = useCurrentRole().name;
   const propertyIsFlagged = !useCurrentRole().isUser && flagged?.status;
 
@@ -162,7 +163,7 @@ const PropertiesRow = ({
         </span>
       </td>
       <td>
-        {houseType}
+        {getPropertyHouseType(property)}
         <div className="text-smaller text-muted">
           <span className="pe-2">
             {bedrooms} <BedIcon />

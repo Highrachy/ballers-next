@@ -19,6 +19,7 @@ export const newPropertySchema = {
   bedrooms: positiveNumberValidation('Bedrooms'),
   bathrooms: positiveNumberValidation('Bathrooms'),
   toilets: positiveNumberValidation('Toilets'),
+  hasBQ: optionalValidation(required('Has BQ')),
   description: stringValidation('Description'),
   titleDocument: optionalValidation(required('Title Document')),
   features: optionalValidation(autocompleteValidation('Available for')),
