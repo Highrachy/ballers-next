@@ -140,6 +140,9 @@ export const valuesToOptions = (values, defaultLabel = null) => {
     : output;
 };
 
+export const arrayToOptions = (values, defaultLabel = null) =>
+  valuesToOptions(values, defaultLabel);
+
 export const objectToOptions = (obj, defaultLabel = null, inverse = false) => {
   const output = Object.entries(obj).map(([label, value]) => ({
     value: inverse ? label.toString() : value.toString(),

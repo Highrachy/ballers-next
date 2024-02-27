@@ -119,6 +119,7 @@ export const ClockIcon = () => <FiClock />;
 export const DeleteIcon = () => <FiTrash2 />;
 export const DeleteXIcon = () => <TiDelete />;
 export const DeliveryStateIcon = () => <FiCheckCircle />;
+export const DocsIcon = () => <FiFileText />;
 export const DownloadIcon = () => <FiDownload />;
 export const EntertainmentIcon = () => <BiCameraMovie />;
 export const ErrorIcon = () => <FaTimesCircle />;

@@ -126,7 +126,7 @@ const AboutSection = () => {
 };
 
 const HowItWorksSection = () => (
-  <section className="container-fluid my-4">
+  <section className="container-fluid my-4" id="how-it-works">
     <div className="row">
       <div className="col-lg-4 mt-6">
         <Slide direction="left" triggerOnce>

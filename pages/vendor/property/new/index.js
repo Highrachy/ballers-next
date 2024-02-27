@@ -243,7 +243,6 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
 };
 
 export const PropertyInfoForm = (props) => {
-  console.log('props', props);
   const [displayForm, setDisplayForm] = React.useState({ houseType: false });
   const toggleForm = (value) => {
     setDisplayForm({ [value]: !displayForm[value] });
@@ -317,7 +316,7 @@ export const PropertyInfoForm = (props) => {
               />
               <Select
                 formGroupClassName="col-md-6"
-                label="Has BQ"
+                label="Has BQ or Maids Room"
                 name="hasBQ"
                 options={booleanOptions()}
                 placeholder="Has BQ"
