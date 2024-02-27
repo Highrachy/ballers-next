@@ -24,18 +24,14 @@ import ServiceBox from '@/components/dashboard/ServiceBox';
 import ReferAndEarn from '@/components/dashboard/ReferAndEarn';
 import RecentOffersWidget from '@/components/dashboard/widgets/RecentOffersWidget';
 import RecentTransactionsWidget from '@/components/dashboard/widgets/RecentTransactionsWidget';
-import MoreStories from '@/components/blog/MoreStories';
-import { getAllCategories, getAllPostsForHome } from 'lib/api';
-import { CategoriesComponent } from 'pages/blog';
 import ReactJoyride, { STATUS } from 'react-joyride';
 import colorTokens from 'style-dictionary/build/color.tokens.js';
 import { WalletInfoBox } from '@/components/dashboard/WalletInfoBox';
 import { UserContext } from '@/context/UserContext';
 import { FEATURE_FLAG_LIST, isFeatureFlagEnabled } from '@/utils/constants';
 
-const Dashboard = ({ allPosts: { edges }, allCategories }) => {
+const Dashboard = () => {
   const [toast, setToast] = useToast();
-  const morePosts = edges.slice(0, 2);
 
   const [dashboardQuery] = useGetQuery({
     axiosOptions: {},
@@ -190,11 +186,11 @@ const Dashboard = ({ allPosts: { edges }, allCategories }) => {
       </ContentLoader>
       {showOtherWidgets && <ReferAndEarn />}
       {/* <VisitationCard /> */}
-      <div className="container-fluid py-0">
+      {/* <div className="container-fluid py-0">
         <h3 className="mt-5 mb-4">From our Blog</h3>
         <CategoriesComponent categories={allCategories} />
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-      </div>
+      </div> */}
     </BackendPage>
   );
 };
@@ -510,14 +506,14 @@ const getNextSteps = (userState, result) => {
 //   </div>
 // );
 
-export const getStaticProps = async ({ preview = false }) => {
-  const allPosts = await getAllPostsForHome(preview);
-  const allCategories = await getAllCategories(preview);
-  return {
-    props: { allPosts, allCategories },
-    revalidate: 10,
-  };
-};
+// export const getStaticProps = async ({ preview = false }) => {
+//   const allPosts = await getAllPostsForHome(preview);
+//   const allCategories = await getAllCategories(preview);
+//   return {
+//     props: { allPosts, allCategories },
+//     revalidate: 10,
+//   };
+// };
 
 export default Dashboard;
 

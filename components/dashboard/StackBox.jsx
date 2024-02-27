@@ -1,7 +1,6 @@
 import React from 'react';
 import { OnlineImage } from '../utils/Image';
 import Link from 'next/link';
-import Avatar from '../blog/Avatar';
 import AvatarColor from './AvatarColor';
 
 const StackBox = ({

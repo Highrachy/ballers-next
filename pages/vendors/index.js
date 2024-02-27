@@ -15,7 +15,6 @@ import { CertifiedIcon } from 'components/utils/Icons';
 import { PropertiesRowList } from 'pages/user/just-for-you';
 import Link from 'next/link';
 import TitleSection from '@/components/common/TitleSection';
-import { BlogContainer } from 'pages/blog';
 import axios from 'axios';
 
 const pageOptions = {
@@ -46,13 +45,13 @@ const VendorProfile = ({ result }) => {
 
 const VendorRowList = ({ results, offset }) => {
   return (
-    <BlogContainer>
+    <div className="container-fluid">
       <div className="row">
         {results.map((user, index) => (
           <VendorComponent key={index} number={offset + index + 1} {...user} />
         ))}
       </div>
-    </BlogContainer>
+    </div>
   );
 };
 
