@@ -811,3 +811,36 @@ html {
 .calendar-single-day {
   min-height: 8rem;
 }
+
+.community {
+  &__header {
+    border: 1px solid $gray-300;
+    background: $gray-100;
+    padding: 2rem;
+    border-radius: 8px 8px 0 0;
+  }
+
+  &__content {
+    padding-top: 0 !important;
+  }
+  &__category-badge {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    font-weight: 500;
+    padding: 5px 10px;
+  }
+}
+
+.no-border-top {
+  border-top: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+.m-150 {
+  min-height: 150px;
+}
+
+.img-contain {
+  object-fit: scale-down;
+}

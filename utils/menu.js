@@ -10,6 +10,7 @@ import {
   BsGearWideConnected,
   BsNewspaper,
 } from 'react-icons/bs';
+
 const howItWorksDropdown = [
   {
     title: 'A - Z of BALL',
@@ -49,11 +50,11 @@ const learnDropdown = [
     link: '/guides',
   },
   {
-    title: 'Video Tutorials',
+    title: 'Community',
     description:
-      'Watch video tutorials to learn more about using BALL for your home ownership needs',
+      'Join the BALL community to learn from others and share your experiences',
     icon: <BsPeople />,
-    link: '/video-tutorials',
+    link: '/community',
   },
 ];
 

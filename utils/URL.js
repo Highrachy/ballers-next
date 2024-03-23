@@ -60,6 +60,10 @@ export const API_ENDPOINT = {
   getAllVasRequests: () => `${BASE_API_URL}/vas/request/all`,
   getOneVasRequest: (id) => `${BASE_API_URL}/vas/request/${id}`,
 
+  getAllCommunityTopics: () => `${BASE_API_URL}/community/all`,
+  getOneCommunityTopic: (id) => `${BASE_API_URL}/community/${id}`,
+  getCommunityBySlug: (slug) => `${BASE_API_URL}/community/all?slug=${slug}`,
+
   getVendor: (slug) => `${BASE_API_URL}/user/vendor/${slug}`,
   getAllVendors: () => `${BASE_API_URL}/user/vendors`,
 

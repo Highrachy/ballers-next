@@ -435,3 +435,13 @@ export const isFeatureFlagEnabled = (featureFlagsArray, flagName) => {
 
   return flag && flag.status === true;
 };
+
+export const BALL_COMMUNITY_CATEGORY = [
+  'Real Estate',
+  'Technology',
+  'Education',
+  'Lifestyle',
+  'Business',
+  'BALL Platform',
+  'Others',
+].sort();

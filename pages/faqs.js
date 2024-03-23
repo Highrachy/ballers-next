@@ -66,7 +66,7 @@ const FAQs = () => {
   );
 };
 
-const FAQSearch = ({ processFoundFAQs }) => {
+export const FAQSearch = ({ processFoundFAQs }) => {
   const [value, setValue] = React.useState('');
 
   const searchFAQs = () => {
