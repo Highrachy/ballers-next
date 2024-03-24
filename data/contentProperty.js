@@ -125,4 +125,34 @@ const contentProperty = {
   },
 };
 
+// Color palette for different house types
+const colorPalette = {
+  [ALL_HOUSE_TYPES['Detached Duplex']]: 'hsl(286, 70%, 50%)',
+  [ALL_HOUSE_TYPES['Flat']]: 'hsl(168, 70%, 50%)',
+  [ALL_HOUSE_TYPES['Bungalow']]: 'hsl(184, 70%, 50%)',
+  [ALL_HOUSE_TYPES['Semi-detached Duplex']]: 'hsl(350, 70%, 50%)',
+  [ALL_HOUSE_TYPES['Penthouse']]: 'hsl(99, 70%, 50%)',
+};
+
+// Function to generate data for a particular state
+export const generateChartDataForState = (state) => {
+  const stateData = contentProperty[state];
+  if (!stateData) return [];
+
+  const chartData = Object.entries(stateData.houseType).map(
+    ([houseType, prices]) => ({
+      id: houseType,
+      color: colorPalette[houseType],
+      data: [
+        {
+          x: houseType,
+          y: prices.averagePrice, // You can use minimumPrice, averagePrice, or maximumPrice here
+        },
+      ],
+    })
+  );
+
+  return chartData;
+};
+
 export default contentProperty;

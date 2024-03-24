@@ -7,43 +7,43 @@ export const FREQUENCY_IN_WORDS = {
 export const PACKAGES = {
   OUTRIGHT_PAYMENT: {
     title: `Outright Payment`,
-    advice: `With no extra credit option, you're one step away from owning your home`,
+    advice: `With no extra credit option, you're just one step away from owning your dream home outright. Take the leap towards homeownership today! Enjoy the freedom and security of owning your home without the burden of monthly installments.`,
   },
   SPREAD_PAYMENT: {
     title: `Spread Payment`,
-    advice: `Pay as low as 20%, and spreading the remaining balance within`,
+    advice: `Pay as low as 20% upfront and spread the remaining balance within manageable installments. It's a flexible way to ease into homeownership without the financial strain. Enjoy the benefits of owning your home while managing your finances more comfortably.`,
   },
   OUTRIGHT_PMI_MORTGAGE: {
     title: `PMI Mortgage`,
-    advice: `You're eligible for a PMI mortgage`,
+    advice: `Congratulations! You're eligible for a PMI mortgage, making homeownership more accessible. Take advantage of this opportunity to secure your home with ease. Enjoy the benefits of mortgage financing with favorable terms and conditions.`,
   },
   ASSISTED_PMI_MORTGAGE: {
     title: `PMI Mortgage`,
-    advice: `You start BALLing and contribute to meet the required equity to secure a PMI mortgage and own your home`,
+    advice: `Start your journey to homeownership with BALL and contribute to meet the required equity for a PMI mortgage. Together, we'll make your dream of owning a home a reality. Benefit from our expert guidance and support throughout the mortgage application process.`,
   },
   OUTRIGHT_NHF_MORTGAGE: {
     title: `NHF Mortgage`,
-    advice: `You're eligible for a NHF mortgage`,
+    advice: `Exciting news! You qualify for an NHF mortgage, designed to make homeownership more affordable. Seize this opportunity to secure your home with favorable terms. Enjoy the benefits of a subsidized mortgage and fulfill your dream of owning a home.`,
   },
   ASSISTED_NHF_MORTGAGE: {
     title: `NHF Mortgage`,
-    advice: `Build your equity to acquire NHF mortgage`,
+    advice: `Build your equity with BALL and unlock the benefits of an NHF mortgage. We'll guide you every step of the way towards achieving your homeownership goals. Take advantage of subsidized interest rates and flexible repayment options.`,
   },
   RENT_TO_OWN: {
-    title: `Rent-to-own`,
-    advice: `Just like rent, you can own your home. Rent to own.`,
+    title: `Rent-to-Own`,
+    advice: `Experience the best of both worlds with our rent-to-own option. Enjoy the perks of renting while working towards owning your home. Start your journey to homeownership today! Benefit from the flexibility and security of a rent-to-own agreement.`,
   },
   ASSISTED_RENT_TO_OWN: {
-    title: `Rent-to-own`,
-    advice: `Build equity to start rent to own`,
+    title: `Rent-to-Own`,
+    advice: `Take control of your future with our assisted rent-to-own program. Build equity over time and transition seamlessly from renting to owning. Your dream home awaits! Enjoy the convenience and stability of a rent-to-own arrangement with our expert assistance.`,
   },
   HYBRID: {
     title: `Hybrid`,
-    advice: `A whole new solution that combines solutions to make owning your home a whole lot easier`,
+    advice: `Introducing our innovative hybrid solution, combining the best features to simplify homeownership. With BALL, owning your dream home is now more achievable than ever before. Benefit from a tailored approach that meets your unique needs and preferences.`,
   },
   INELIGIBLE: {
     title: `Ineligible`,
-    advice: `You're almost there, keep contributing`,
+    advice: `You're almost there! Keep contributing and exploring your options with BALL. Together, we'll work towards making your dream of homeownership a reality. Take proactive steps to improve your eligibility and unlock exciting opportunities in the future.`,
   },
 };
 
