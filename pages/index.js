@@ -25,6 +25,7 @@ import AdvancedSearchPropertyForm from '@/components/common/AdvancedSearchProper
 import Typewriter from 'typewriter-effect';
 import BenefitsSection from '@/components/common/BenefitsSection';
 import ServiceBox from '@/components/dashboard/ServiceBox';
+import SearchEligibilityForm from '@/components/common/SearchEligibilityForm';
 
 export default function Home({
   properties,
@@ -251,6 +252,10 @@ export async function getStaticProps() {
 const SearchTabComponent = () => {
   const allTabs = [
     {
+      title: 'Check Eligibility',
+      component: <SearchEligibilityForm />,
+    },
+    {
       title: 'Confirm Eligibility',
       component: <SearchContentPropertyForm />,
     },
@@ -261,7 +266,7 @@ const SearchTabComponent = () => {
   ];
 
   return (
-    <Tabs defaultActiveKey={allTabs[0].title} id="tranasction-tabs">
+    <Tabs defaultActiveKey={allTabs[0].title} id="transaction-tabs">
       {allTabs.map((tab, index) => (
         <Tab key={index} eventKey={tab.title} title={tab.title}>
           {tab.component}
