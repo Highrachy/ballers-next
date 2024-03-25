@@ -586,6 +586,12 @@ ul.timeline li.timeline__border:after {
   padding: 2rem;
   background: white;
 
+  &.modal-tab-content {
+    border-radius: 0;
+    box-shadow: none;
+    border-color: transparent;
+  }
+
   .input-group {
     flex-direction: column;
     @include media-breakpoint-up(lg) {

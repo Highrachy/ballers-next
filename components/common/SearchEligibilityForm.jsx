@@ -6,15 +6,16 @@ import contentProperty from '@/data/contentProperty';
 import NumberFormat from 'react-number-format';
 import Button from '../forms/Button';
 import { useRouter } from 'next/router';
+import { BiError } from 'react-icons/bi';
 
-const SearchEligibilityForm = () => {
+const SearchEligibilityForm = ({ initialValues, afterSave = () => {} }) => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    location: '',
-    houseType: '',
-    initialPayment: '',
-    monthlyPayment: '',
-    budget: '',
+    location: initialValues?.location || '',
+    houseType: initialValues?.houseType || '',
+    initialPayment: initialValues?.initialPayment || '',
+    monthlyPayment: initialValues?.monthlyPayment || '',
+    budget: initialValues?.budget || 'Any',
   });
   const [errors, setErrors] = useState({
     initialPayment: '',
@@ -43,13 +44,13 @@ const SearchEligibilityForm = () => {
       field: 'monthlyPayment',
       error: errors.monthlyPayment,
       helpText:
-        'Enter the maximum amount you can afford for monthly instalments',
+        'Enter your total monthly income, including salary and other sources.',
     },
-    5: {
-      field: 'budget',
-      error: '',
-      helpText: 'Select your maximum budget for purchasing a home.',
-    },
+    // 5: {
+    //   field: 'budget',
+    //   error: '',
+    //   helpText: 'Select your maximum budget for purchasing a home.',
+    // },
   };
 
   const handleNextStep = () => {
@@ -67,7 +68,7 @@ const SearchEligibilityForm = () => {
   const handleBlur = (field) => {
     // Define minimum amounts
     const minInitialPayment = 1_000_000; // 1 million
-    const minMonthlyPayment = 0;
+    const minMonthlyPayment = 100_000;
 
     // Validate and set errors on blur
     switch (field) {
@@ -85,7 +86,8 @@ const SearchEligibilityForm = () => {
         if (formData.monthlyPayment < minMonthlyPayment) {
           setErrors({
             ...errors,
-            monthlyPayment: 'Monthly payment must be greater than 0',
+            monthlyPayment:
+              'Monthly payment must be greater than 100,000 Naira',
           });
         } else {
           setErrors({ ...errors, monthlyPayment: '' });
@@ -107,8 +109,10 @@ const SearchEligibilityForm = () => {
       houseType: formData.houseType,
       initialPayment: formData.initialPayment,
       monthlyPayment: formData.monthlyPayment,
-      budget: formData.budget,
+      // budget: formData.budget,
     };
+
+    afterSave();
 
     // Redirect to the eligibility result page with query parameters
     router.push({
@@ -180,7 +184,7 @@ const SearchEligibilityForm = () => {
         return (
           <NumberFormat
             className="form-control"
-            placeholder="Monthly Payment (Minimum 0 Naira)"
+            placeholder="Monthly Income"
             value={formData.monthlyPayment}
             thousandSeparator={true}
             prefix={'₦ '}
@@ -190,29 +194,29 @@ const SearchEligibilityForm = () => {
             }}
           />
         );
-      case 5:
-        return (
-          <Select
-            options={valuesToOptions([
-              'Any',
-              '1 Million - 50 Million Naira',
-              '51 Million - 100 Million Naira',
-              '100 Million - 200 Million Naira',
-              'Above 200 Million Naira',
-            ])}
-            styles={customStyles()}
-            placeholder="Select Budget"
-            instanceId="budget"
-            value={
-              formData.budget
-                ? { value: formData.budget, label: formData.budget }
-                : null
-            }
-            onChange={(selectedOption) =>
-              handleChange('budget', selectedOption.value)
-            }
-          />
-        );
+      // case 5:
+      //   return (
+      //     <Select
+      //       options={valuesToOptions([
+      //         'Any',
+      //         '1 Million - 50 Million Naira',
+      //         '51 Million - 100 Million Naira',
+      //         '100 Million - 200 Million Naira',
+      //         'Above 200 Million Naira',
+      //       ])}
+      //       styles={customStyles()}
+      //       placeholder="Select Budget"
+      //       instanceId="budget"
+      //       value={
+      //         formData.budget
+      //           ? { value: formData.budget, label: formData.budget }
+      //           : null
+      //       }
+      //       onChange={(selectedOption) =>
+      //         handleChange('budget', selectedOption.value)
+      //       }
+      //     />
+      //   );
       default:
         return null;
     }
@@ -230,7 +234,7 @@ const SearchEligibilityForm = () => {
             Previous
           </Button>
         )}
-        {step < 5 && (
+        {step < 4 && (
           <Button
             color="secondary"
             onClick={handleNextStep}
@@ -240,7 +244,7 @@ const SearchEligibilityForm = () => {
             Next
           </Button>
         )}
-        {step === 5 && (
+        {step === 4 && (
           <button
             type="button"
             className="btn btn-secondary"
@@ -258,7 +262,7 @@ const SearchEligibilityForm = () => {
     <>
       <div className="mb-3">
         <p className="text-md text-soft mb-2">
-          {step > 1 && <span className="fw-semibold">Step {step} of 5: </span>}
+          {step > 1 && <span className="fw-semibold">Step {step} of 4: </span>}
           {formSteps[step].helpText}
         </p>
       </div>
@@ -267,7 +271,9 @@ const SearchEligibilityForm = () => {
         <div className="select-holder">
           {renderStepContent()}
           {formSteps[step].error && (
-            <div className="error-message">{formSteps[step].error}</div>
+            <div className="error-message text-md mt-2 text-danger">
+              <BiError /> {formSteps[step].error}
+            </div>
           )}
         </div>
         {renderNavigationButtons()}

@@ -15,14 +15,15 @@ const formatYAxis = (value) => {
 }; // Custom formatting function
 
 const CustomSliceTooltip = ({ slice }) => {
-  console.log('slice', slice);
   return (
-    <div className="bg-white border rounded p-3">
+    <div className="bg-white border px-5 rounded py-3">
       <div className="mb-3">
-        <strong>{slice.points[0]?.data.x}</strong>
+        <strong className="text-primary">
+          {slice.points[0]?.data.x} Property Price
+        </strong>
       </div>
       {slice.points.map((point) => (
-        <div key={point.id} className="d-flex align-items-center mb-2">
+        <div key={point.id} className="d-flex align-items-center text-md mb-3">
           <span
             className="d-inline-block rounded-circle me-2"
             style={{
@@ -46,6 +47,7 @@ const CustomSliceTooltip = ({ slice }) => {
 // you'll often use just a few of them.
 const MyResponsiveLine = ({
   data,
+  yearlySavings,
   /* see data tab */
 }) => (
   <ResponsiveLine
@@ -70,11 +72,11 @@ const MyResponsiveLine = ({
     height={400}
     legends={[
       {
-        anchor: 'top',
+        anchor: 'bottom',
         direction: 'row',
         justify: false,
         translateX: 0,
-        translateY: -20,
+        translateY: 60,
         itemWidth: 78,
         itemHeight: 20,
         itemsSpacing: 4,
@@ -103,14 +105,14 @@ const MyResponsiveLine = ({
     markers={[
       {
         axis: 'y',
-        legend: 'y marker at 0',
+        legend: 'Your proposed savings',
         legendPosition: 'top-left',
         lineStyle: {
           stroke: colorTokens.primary[100], // Change marker line color
           strokeWidth: 1,
           strokeDasharray: '5, 5', // Dotted line style
         },
-        value: 230_000_000,
+        value: yearlySavings || 250_000_000,
       },
     ]}
     pointBorderColor={{
@@ -158,9 +160,9 @@ export const generateLineChartData = (stateName) => {
     return {
       id: houseType,
       data: [
-        { x: 'Min', y: minimumPrice },
+        { x: 'Minimum', y: minimumPrice },
         { x: 'Average', y: averagePrice },
-        { x: 'Max', y: maximumPrice },
+        { x: 'Maximum', y: maximumPrice },
       ],
     };
   });

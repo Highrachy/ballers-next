@@ -55,11 +55,11 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   const response = await Axios.get(API_ENDPOINT.getAllCommunityTopics());
-  const communities = response.data.result || [];
+  const communities = response?.data?.result || [];
 
   return {
     paths: communities.map((community) => ({
-      params: { slug: community.slug },
+      params: { slug: community?.slug },
     })),
     fallback: true,
   };

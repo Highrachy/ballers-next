@@ -58,21 +58,6 @@
   }
 }
 
-.eligibility-section {
-  margin: 5rem 0;
-  padding-top: 5rem;
-
-  .lead-header {
-    @include media-breakpoint-up(sm) {
-      padding: 0 8rem;
-    }
-
-    font-size: 1.2rem;
-    font-weight: 300;
-    color: $primary;
-  }
-}
-
 .search-result-average-price {
   svg {
     height: 1.25rem;
@@ -318,7 +303,13 @@
   border-radius: 4px;
 
   &.secondary {
-    background: $gray-100;
+    background: lighten($secondary-50, 2%);
+    border: 1px solid $secondary-100;
+    color: darken($secondary-900, 5%);
+  }
+
+  &.light {
+    background: lighten($gray-200, 3%);
     border: 1px solid $gray-300;
     color: darken($gray-900, 5%);
   }
@@ -553,9 +544,10 @@
 }
 
 .recommendation-box {
-  background: lighten($secondary-50, 2%);
-  border: 1px solid $secondary-50;
-  padding: 2rem;
+  background: lighten($secondary-50, 1%);
+  border: 1px solid $secondary-100;
+  padding: 2rem 2rem 3rem;
   border-radius: 0.25rem;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }

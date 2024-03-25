@@ -54,7 +54,6 @@ const Search = () => {
   const defaultInputValue = { area, houseType };
   const allData = contentProperty[area || 'lekki'];
   const propertyContent = allData?.houseType?.[houseType];
-  console.log('propertyContent: ', propertyContent);
 
   const result = propertyContent
     ? { ...propertyContent, area, type: houseType, ...allData }

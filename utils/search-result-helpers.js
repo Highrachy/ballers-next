@@ -54,22 +54,16 @@ export const recommendBallersPlan = ({
   comfortLevel,
   result,
 }) => {
-  let propertyCost = result.averagePrice;
+  let propertyCost = result.minimumPrice;
   const periodic = (monthly * comfortLevel) / 100;
-  const recommendedPropertyPrice = Math.min(
-    periodic * 12 + initial,
-    result.maximumPrice
-  );
+  const yearlySavings = periodic * 12 * 5 + initial * 1;
 
-  if (frequency === 1) {
-    propertyCost = result.maximumPrice;
-  }
+  const recommendedPropertyPrice = Math.min(yearlySavings, result.maximumPrice);
 
   const balance = propertyCost - initial;
 
   let output = [];
 
-  // Recommendations breakdown can be found here - https://docs.google.com/document/d/1gsomOY9qclUz9RzadN3ztJH4Y0ryGT-fukNBFLhJAIU/edit?pli=1#heading=h.yy9lcow7gkem
   const outrightPaymentPesonal =
     initial >= propertyCost * 0.5 && balance / periodic < 6;
 
@@ -155,9 +149,10 @@ export const recommendBallersPlan = ({
   return {
     recommendations: output,
     initial,
-    monthlyPayment: periodic,
+    monthlyContribution: periodic,
     frequency,
     propertyCost: Math.max(propertyCost, recommendedPropertyPrice),
+    yearlySavings,
     ...result,
   };
 };

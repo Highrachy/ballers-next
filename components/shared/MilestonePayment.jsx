@@ -753,6 +753,10 @@ const MilestoneContent = ({
       : property.milestonePayment[index - 1].dueDate || new Date()
   );
 
+  if (!milestone) {
+    return null;
+  }
+
   return (
     <>
       <section className={`milestone-content ${statusClassName}`}>

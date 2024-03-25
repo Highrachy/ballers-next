@@ -256,10 +256,6 @@ const SearchTabComponent = () => {
       component: <SearchEligibilityForm />,
     },
     {
-      title: 'Confirm Eligibility',
-      component: <SearchContentPropertyForm />,
-    },
-    {
       title: 'Search Property',
       component: <AdvancedSearchPropertyForm />,
     },
