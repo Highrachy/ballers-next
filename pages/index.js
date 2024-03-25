@@ -92,34 +92,36 @@ const AboutSection = () => {
   const WINDOW_SIZE = useWindowSize();
   const isDesktop = WINDOW_SIZE.width > MOBILE_WIDTH;
   return (
-    <section className="container-fluid bg-light-blue mb-n4">
-      <div className="row my-4">
-        <div className="col-sm-6 col-12 text-center mb-n4">
-          <h6 className="header-secondary d-lg-none d-block">ABOUT BALL</h6>
-          <Slide triggerOnce direction="left">
-            <Image
-              src={`/img/pages/home.png`}
-              className="img-cover"
-              alt="home"
-              width="808"
-              height="939"
-            />
-          </Slide>
-        </div>
-        <div className="col-sm-6 col-12 pb-5">
-          <Fade triggerOnce cascade damping={0.2}>
-            <h6 className="header-secondary d-none d-lg-block">ABOUT BALL</h6>
-            <h2 className="my-4 my-md-0">
-              Game-changing service <br /> that makes owning <br /> your home
-              easier
-            </h2>
-            <p className="my-md-5 my-3 text-normal">
-              We make owning a home simpler and achievable. <br /> With BALL
-              unique saving plan tailored to you and your <br /> financial
-              position,owning a home has never been easier.
-            </p>
-            <button className="btn btn-secondary">LEARN MORE</button>
-          </Fade>
+    <section className="bg-light-blue mb-n4">
+      <div className="container-fluid">
+        <div className="row my-4">
+          <div className="col-sm-6 col-12 text-center mb-n4">
+            <h6 className="header-secondary d-lg-none d-block">ABOUT BALL</h6>
+            <Slide triggerOnce direction="left">
+              <Image
+                src={`/img/pages/home.png`}
+                className="img-cover"
+                alt="home"
+                width="808"
+                height="939"
+              />
+            </Slide>
+          </div>
+          <div className="col-sm-6 col-12 pb-5">
+            <Fade triggerOnce cascade damping={0.2}>
+              <h6 className="header-secondary d-none d-lg-block">ABOUT BALL</h6>
+              <h2 className="my-4 my-md-0">
+                Game-changing service <br /> that makes owning <br /> your home
+                easier
+              </h2>
+              <p className="my-md-5 my-3 text-normal">
+                We make owning a home simpler and achievable. <br /> With BALL
+                unique saving plan tailored to you and your <br /> financial
+                position,owning a home has never been easier.
+              </p>
+              <button className="btn btn-secondary">LEARN MORE</button>
+            </Fade>
+          </div>
         </div>
       </div>
     </section>
@@ -152,7 +154,7 @@ const HowItWorksSection = () => (
                 <span className="fw-bold text-secondary h3">A</span>
                 pply now
               </h5>
-              <p className="pe-8 pb-4">
+              <p className="pe-md-8 pe-4 pb-4">
                 Take control of your destiny and create a worthy legacy by
                 filling our short registration form.
               </p>
@@ -162,7 +164,7 @@ const HowItWorksSection = () => (
                 <span className="fw-bold text-secondary h3">B</span>
                 egin periodic contribution
               </h5>
-              <p className="pe-8 pb-4">
+              <p className="pe-md-8 pe-4 pb-4">
                 Cultivate the habit of contribution today and reap the rewards
                 forever with BALLers.
               </p>
@@ -172,7 +174,7 @@ const HowItWorksSection = () => (
                 <span className="fw-bold text-secondary h3">C</span>
                 onvert to home ownership
               </h5>
-              <p className="pe-8 pb-4">
+              <p className="pe-md-8 pe-4 pb-4">
                 Convert structure to extended mortgage plan at affordable rates
                 from 6% per annum.
               </p>

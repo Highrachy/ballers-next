@@ -158,7 +158,7 @@ const Section = ({ children, className }) => {
   return (
     <section className={`container-fluid ${className}`}>
       <div className="row">
-        <div className="col-lg-10 mx-auto">{children}</div>
+        <div className="col-xl-10 col-lg-11 mx-auto">{children}</div>
       </div>
     </section>
   );
@@ -196,8 +196,11 @@ const CheckEligibility = ({ result, userIsEligible }) => {
         <br />
       </p>
 
-      <div className="my-4">
-        <RedefineEligibilityButton result={result} className="me-3" />
+      <div className="my-4 d-flex flex-md-row flex-column justify-content-md-center">
+        <RedefineEligibilityButton
+          result={result}
+          className="me-md-3 mb-md-0 mb-3"
+        />
         <Button color="secondary" wide href="#eligibility-result-section">
           View Result
         </Button>
@@ -289,16 +292,16 @@ const EligibilityReport = ({
 
   return (
     <section id="eligibility-result-section">
-      <section className="eligibility-section my-6">
+      <section className="eligibility-section my-5 my-lg-6">
         <section className="card">
           <header className="p-4 text-center">
-            <h3 className="mt-5 mb-3 fw-semibold text-primary">
+            <h3 className="mt-3 mt-md-5 mb-3 fw-semibold text-primary">
               Eligiblity Result for {result.type} in {result.area}
             </h3>
 
-            <div className="bottom-range-border pb-4 mb-5"></div>
+            <div className="bottom-range-border pb-3 pb-lg-4 mb-4 mb-lg-5"></div>
           </header>
-          <div className="px-6 text-center">
+          <div className="px-3 px-md-5 px-lg-6  text-center">
             <div className={`pb-4 text-${eligibilityClassName}-dark`}>
               {userIsEligible ? (
                 <TickCircle size="96" variant="Bulk" />
@@ -358,7 +361,7 @@ const EligibilityReport = ({
                 />
               </div>
 
-              <div className="text-sm text-muted mt-3">
+              <div className="text-sm text-lighter mt-3">
                 Move the slider above to adjust the percentage of your total
                 monthly income saved.
               </div>
@@ -436,10 +439,11 @@ const EligibilityReport = ({
                   the way. Alternatively, you can redefine your eligibility to
                   adjust your criteria and explore more options.
                 </p>
-                <div className="py-4">
+
+                <div className="my-4 d-flex flex-md-row flex-column">
                   <RedefineEligibilityButton
                     result={result}
-                    className={'me-3'}
+                    className="me-md-3 mb-md-0 mb-3"
                   />
                   <Button wide color="secondary" href="/contact-us">
                     Create a free account
@@ -549,11 +553,14 @@ const PriceAnalysisAtLocation = ({ result }) => (
     <h4 className="text-start mt-6 fw-semibold">
       Property Price Range in {result?.area}
     </h4>
-    <div className="text-start mt-5" style={{ height: '400px', width: '100%' }}>
-      <MyResponsiveLine
-        data={generateLineChartData(result?.area)}
-        yearlySavings={result?.yearlySavings}
-      />
+
+    <div className="overflow-auto">
+      <div className="text-start mt-5" style={{ height: '70vh' }}>
+        <MyResponsiveLine
+          data={generateLineChartData(result?.area)}
+          yearlySavings={result?.yearlySavings}
+        />
+      </div>
     </div>
   </section>
 );

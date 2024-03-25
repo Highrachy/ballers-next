@@ -36,7 +36,7 @@ const HoldingSection = () => {
     <section className="vendor-hero">
       <div className="container-fluid">
         <div className="row">
-          <section className="col-xl-6 pt-4">
+          <section className="col-xl-6 pt-4 z-1000">
             <div className="home-hero">
               <h2 className="pt-3 pt-md-5 pt-lg-0 text-center text-xl-start">
                 Welcome to BALL: <br />

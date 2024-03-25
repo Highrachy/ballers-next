@@ -228,9 +228,14 @@ const SearchEligibilityForm = ({ initialValues, afterSave = () => {} }) => {
     };
 
     return (
-      <>
+      <div className="d-flex">
         {step > 1 && (
-          <Button color="light" className="me-2" onClick={handlePreviousStep}>
+          <Button
+            color="light"
+            className="me-2 mb-2"
+            onClick={handlePreviousStep}
+            full={step >= 4}
+          >
             Previous
           </Button>
         )}
@@ -238,23 +243,24 @@ const SearchEligibilityForm = ({ initialValues, afterSave = () => {} }) => {
           <Button
             color="secondary"
             onClick={handleNextStep}
-            wide
+            wide={step < 4}
             disabled={!isCurrentFieldSet()}
+            className="mb-2"
           >
             Next
           </Button>
         )}
         {step === 4 && (
-          <button
+          <Button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-secondary mb-2"
             onClick={handleSubmit}
             disabled={!isCurrentFieldSet()}
           >
             Confirm
-          </button>
+          </Button>
         )}
-      </>
+      </div>
     );
   };
 
