@@ -74,8 +74,8 @@ export const getProxy = () =>
 
 export const getDemoRegisterLink = () =>
   isDevEnvironment()
-    ? '/create-demo-account'
-    : 'https://preview.ballers.ng/create-demo-account';
+    ? '/ball-vips/create-demo-account'
+    : 'https://preview.ballers.ng/ball-vips/create-demo-account';
 
 export const getDemoLoginLink = () =>
   isDevEnvironment() ? '/login' : 'https://preview.ballers.ng/login';

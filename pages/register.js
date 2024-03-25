@@ -37,10 +37,12 @@ const Register = () => (
   </>
 );
 
-const Content = ({ redirectTo, sid, token }) => {
+export const Content = ({ currentUser = 'user', showVendorOnly = false }) => {
   const referralInfo = getReferralInfo();
-  const [showUserForm, setShowUserForm] = React.useState(true);
-  const [key, setKey] = React.useState('user');
+  const [showUserForm, setShowUserForm] = React.useState(
+    currentUser === 'user'
+  );
+  const [key, setKey] = React.useState(currentUser);
   const router = useRouter();
 
   const { tab } = router.query;
@@ -103,21 +105,13 @@ const Content = ({ redirectTo, sid, token }) => {
                 setShowUserForm(!showUserForm);
               }}
             >
-              <Tab eventKey="user" title="Register as a User">
-                <RegisterForm
-                  redirectTo={redirectTo}
-                  sid={sid}
-                  showUserForm={true}
-                  token={token}
-                />
-              </Tab>
+              {!showVendorOnly && (
+                <Tab eventKey="user" title="Register as a User">
+                  <RegisterForm showUserForm={true} />
+                </Tab>
+              )}
               <Tab eventKey="vendor" title="Register as a BALL VIP">
-                <RegisterForm
-                  redirectTo={redirectTo}
-                  sid={sid}
-                  showUserForm={false}
-                  token={token}
-                />
+                <RegisterForm showUserForm={false} />
               </Tab>
             </Tabs>
           </div>
@@ -157,7 +151,7 @@ const RegisterForm = ({ showUserForm }) => {
   const [toast, setToast] = useToast();
 
   const referrer = (getReferralInfo() && getReferralInfo().referrer) || null;
-  const currentUser = showUserForm ? 'User' : 'BALL VIP';
+  const currentUser = showUserForm ? 'User' : 'Seller';
 
   return (
     <Formik
@@ -207,7 +201,7 @@ const RegisterForm = ({ showUserForm }) => {
     >
       {({ isSubmitting, handleSubmit, ...props }) => (
         <Form>
-          <h4 className="mt-4 mb-4 text-primary">
+          <h4 className="mt-4 mb-4 fw-semibold text-dark">
             Register as a {currentUser}
           </h4>
           <Toast {...toast} />

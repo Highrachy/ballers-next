@@ -1036,7 +1036,7 @@ export const ComparePropertyButton = ({ property }) => (
 );
 
 export const ViewVendorButton = ({ property }) => (
-  <Link href={`/vendors/${property?.vendorInfo?.vendor?.slug}`}>
+  <Link href={`/ball-vips/${property?.vendorInfo?.vendor?.slug}`}>
     <a className="btn btn-primary-light btn-wide btn-wide-sm btn-sm">
       View BALL VIP Information <VendorIcon />
       {/* {vendorInfo?.vendor?.companyName} */}

@@ -1,18 +1,10 @@
 import React from 'react';
 import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
-import { CertifyIcon, MapPinIcon, PropertyIcon } from 'components/utils/Icons';
+import { CertifyIcon, MapPinIcon } from 'components/utils/Icons';
 import { API_ENDPOINT } from 'utils/URL';
-import PaginatedContent from 'components/common/PaginatedContent';
 import Toast, { useToast } from 'components/utils/Toast';
-import { useGetQuery } from 'hooks/useQuery';
-import { ContentLoader } from 'components/utils/LoadingItems';
-import { UserIcon } from 'components/utils/Icons';
-import { getFormattedAddress } from 'utils/helpers';
-import Tooltip from 'components/common/Tooltip';
 import { OnlineImage } from 'components/utils/Image';
-import { CertifiedIcon } from 'components/utils/Icons';
-import { PropertiesRowList } from 'pages/user/just-for-you';
 import Link from 'next/link';
 import TitleSection from '@/components/common/TitleSection';
 import axios from 'axios';
@@ -59,7 +51,7 @@ const VendorComponent = ({ number, ...user }) => {
   const address = user.vendor.companyAddress;
   return (
     <div className="col-md-6 col-lg-4 mb-4 vendor-container">
-      <Link href={`/vendors/${user?.vendor?.slug}`}>
+      <Link href={`/ball-vips/${user?.vendor?.slug}`}>
         <a className="card vendor-card">
           <div className="card-header bg-white">
             <OnlineImage

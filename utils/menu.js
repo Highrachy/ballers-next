@@ -80,12 +80,12 @@ const moreDropdown = [
     icon: <BsPeople />,
     link: '/about-us',
   },
-  {
-    title: 'Services',
-    description: 'Explore value-added services offered by BALL',
-    icon: <BsGearWideConnected />,
-    link: '/services',
-  },
+  // {
+  //   title: 'Services',
+  //   description: 'Explore value-added services offered by BALL',
+  //   icon: <BsGearWideConnected />,
+  //   link: '/services',
+  // },
   {
     title: 'Contact Us',
     description: 'Reach out to us for any questions or assistance',
@@ -101,21 +101,22 @@ export const Menus = [
     children: howItWorksDropdown,
   },
   { name: 'Properties', href: '/properties' },
-  {
-    name: 'Learn',
-    href: '/learn',
-    children: learnDropdown,
-    additionalResources: [
-      {
-        title: 'For Buyers',
-        links: forBuyers,
-      },
-      {
-        title: 'For Sellers',
-        links: forSellers,
-      },
-    ],
-  },
+  { name: 'Learn', href: '/docs' },
+  // {
+  //   name: 'Learn',
+  //   href: '/learn',
+  //   children: learnDropdown,
+  //   additionalResources: [
+  //     {
+  //       title: 'For Buyers',
+  //       links: forBuyers,
+  //     },
+  //     {
+  //       title: 'For Sellers',
+  //       links: forSellers,
+  //     },
+  //   ],
+  // },
   { name: 'More', href: '/more', children: moreDropdown },
 ];
 
@@ -125,20 +126,20 @@ export const sellerDropdown = [
     description:
       'Discover the benefits and features of becoming a BALL VIP member',
     icon: <BsBuilding />,
-    link: '/about-ball-vip',
+    link: '/ball-vips',
   },
   {
     title: 'Become a BALL VIP',
     description:
       'Find out how you can become a BALL VIP and unlock exclusive benefits',
     icon: <BsCreditCard />,
-    link: '/become-a-ball-vip',
+    link: '/ball-vips/register',
   },
   {
     title: 'Create a Demo Account',
     description:
       "Explore BALL's features and functionalities by creating a demo account",
     icon: <BsTools />,
-    link: '/create-demo-account',
+    link: '/ball-vips/create-demo-account',
   },
 ];
