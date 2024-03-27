@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { customStyles } from '../forms/Select';
 import { valuesToOptions } from '@/utils/helpers';
@@ -21,6 +21,14 @@ const SearchEligibilityForm = ({ initialValues, afterSave = () => {} }) => {
     initialPayment: '',
     monthlyPayment: '',
   });
+
+  useEffect(() => {
+    // Reset houseType to empty whenever location changes
+    setFormData((prevData) => ({
+      ...prevData,
+      houseType: '',
+    }));
+  }, [formData.location]);
 
   // Define steps, fields, and their corresponding error messages
   const formSteps = {

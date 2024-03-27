@@ -30,13 +30,7 @@ import { MdClose } from 'react-icons/md';
 
 const EligibilityResultPage = () => {
   const { query } = useRouter();
-  const {
-    location: area,
-    houseType,
-    initialPayment,
-    monthlyPayment,
-    budget,
-  } = query;
+  const { location: area, houseType, initialPayment, monthlyPayment } = query;
 
   const [error, setError] = React.useState(false);
   const [currentValues, setCurrentValues] = React.useState({
@@ -44,7 +38,6 @@ const EligibilityResultPage = () => {
     houseType,
     initialPayment,
     monthlyPayment,
-    budget,
   });
 
   useEffect(() => {
@@ -53,15 +46,14 @@ const EligibilityResultPage = () => {
       houseType,
       initialPayment,
       monthlyPayment,
-      budget,
     });
     // Check if any of the required parameters is missing
-    if (!area || !houseType || !initialPayment) {
+    if (!area || !houseType || !initialPayment || !monthlyPayment) {
       setError(true); // Set error state to true if any parameter is missing
     } else {
       setError(false); // Reset error state if all parameters are present
     }
-  }, [area, houseType, initialPayment, monthlyPayment, budget]);
+  }, [area, houseType, initialPayment, monthlyPayment]);
 
   // Continue rendering the page if all required parameters are present
   const allData = contentProperty[currentValues?.area || 'lekki'];
@@ -69,12 +61,11 @@ const EligibilityResultPage = () => {
   const result = propertyContent
     ? {
         ...propertyContent,
+        ...allData,
         area: currentValues?.area,
         type: currentValues?.houseType,
         initialPayment: currentValues?.initialPayment || 0,
         monthlyPayment: currentValues?.monthlyPayment || 0,
-        budget: currentValues?.budget || 0,
-        ...allData,
       }
     : null;
 
@@ -97,35 +88,20 @@ const EligibilityResultPage = () => {
 };
 
 const EligibilityContainer = ({ result }) => {
-  const initialValues = {
-    initial: result?.initialPayment,
-    monthly: result?.monthlyPayment,
-    frequency: 30,
-    comfortLevel: 30,
-  };
-
-  const [inputs, setInputs] = React.useState(initialValues);
+  const [comfortLevel, setComfortLevel] = React.useState(30);
   const [output, setOutput] = React.useState({});
   const userIsEligible = output?.recommendations?.[0]?.title !== 'Ineligible';
 
   useEffect(() => {
-    const findEligibilityResult = ({
-      initial,
-      frequency,
-      monthly,
-      comfortLevel,
-    }) => {
+    const findEligibilityResult = (comfortLevel) => {
       const recommendations = recommendBallersPlan({
-        initial,
-        frequency,
-        monthly,
         comfortLevel,
         result,
       });
       setOutput(recommendations);
     };
-    findEligibilityResult(inputs);
-  }, [inputs, result]);
+    findEligibilityResult(comfortLevel);
+  }, [comfortLevel, result]);
 
   const allOutput = { ...result, ...output };
 
@@ -139,8 +115,8 @@ const EligibilityContainer = ({ result }) => {
       </Section>
       <Section className="bg-white">
         <EligibilityReport
-          inputs={inputs}
-          setInputs={setInputs}
+          comfortLevel={comfortLevel}
+          setComfortLevel={setComfortLevel}
           output={output}
           result={result}
           userIsEligible={userIsEligible}
@@ -247,7 +223,7 @@ const SearchResult = ({ result }) => {
 
   const propertiesResult = properties?.slice(0, 3) || [];
 
-  return result ? (
+  return result && propertiesResult.length > 0 ? (
     <section className="my-6">
       <h3 className="mb-4">Recommended for You</h3>
       <div className="row">
@@ -261,16 +237,14 @@ const SearchResult = ({ result }) => {
 
 const EligibilityReport = ({
   result,
-  inputs,
-  setInputs,
+  comfortLevel,
+  setComfortLevel,
   output,
   userIsEligible,
 }) => {
   // 0 - 33 = comfortable
   // 34 - 50 = stretching
   // 51 - 100 = risky
-  // get comformLevel from input.comfortLevel
-  const comfortLevel = inputs.comfortLevel;
   const comfortLevelText =
     comfortLevel == 0
       ? 'No Savings'
@@ -288,14 +262,14 @@ const EligibilityReport = ({
       ? 'warning'
       : 'danger';
 
-  const eligibilityClassName = userIsEligible ? 'secondary' : 'light';
+  const eligibilityClassName = userIsEligible ? 'secondary' : 'danger';
 
   return (
     <section id="eligibility-result-section">
       <section className="eligibility-section my-5 my-lg-6">
         <section className="card">
           <header className="p-4 text-center">
-            <h3 className="mt-3 mt-md-5 mb-3 fw-semibold text-primary">
+            <h3 className="mt-3 mt-md-5 mb-3 fw-semibold text-dark">
               Eligiblity Result for {result.type} in {result.area}
             </h3>
 
@@ -337,12 +311,11 @@ const EligibilityReport = ({
             <section className="text-start">
               <div>
                 <strong className="mt-4 mb-2">
-                  Savings to Payment ratio: <br />
+                  Recommended Savings from your total Monthly Income: <br />
                 </strong>
                 <strong className={`text-${comfortLevelColor}-darker`}>
-                  {inputs.comfortLevel}%{' '}
+                  {comfortLevel}% ({comfortLevelText})
                 </strong>
-                of your total monthly income
               </div>
 
               <div className={`mt-3 comfort-level ${comfortLevelColor}`}>
@@ -351,12 +324,9 @@ const EligibilityReport = ({
                   max={90}
                   step={1}
                   tooltip={false}
-                  value={inputs.comfortLevel}
+                  value={comfortLevel}
                   onChange={(value) => {
-                    setInputs({
-                      ...inputs,
-                      comfortLevel: value,
-                    });
+                    setComfortLevel(value);
                   }}
                 />
               </div>
@@ -404,7 +374,7 @@ const EligibilityReport = ({
                           Eligible <TickCircle size="32" variant="Bulk" />
                         </span>
                       ) : (
-                        <span className="text-light">
+                        <span className="text-danger">
                           Not Eligilble <InfoCircle size="32" variant="Bulk" />
                         </span>
                       )}
@@ -414,30 +384,34 @@ const EligibilityReport = ({
               </div>
             </div>
             <section className="mt-5 text-start">
-              <h4 className="text-secondary-800">
-                Recommended Plans
-                {output?.recommendations?.length > 2 && 's'}{' '}
-              </h4>
-              <div className="row row-eq-height">
-                {output?.recommendations?.map(({ title, advice }, index) => {
-                  return (
-                    <SingleRecommendationCard
-                      title={title}
-                      advice={advice}
-                      key={index}
-                      number={index + 1}
-                    />
-                  );
-                })}
-              </div>
-              <div className="bottom-range-border pb-5"></div>
-              <div className="button-container mb-5 pt-5">
+              {userIsEligible && (
+                <>
+                  <h4 className="text-secondary-800">
+                    Recommended Plans for You
+                  </h4>
+                  <div className="row row-eq-height">
+                    {output?.recommendations?.map(
+                      ({ title, advice }, index) => {
+                        return (
+                          <SingleRecommendationCard
+                            title={title}
+                            advice={advice}
+                            key={index}
+                            number={index + 1}
+                          />
+                        );
+                      }
+                    )}
+                  </div>
+                  <div className="bottom-range-border mb-5 pb-5"></div>
+                </>
+              )}
+              <div className="button-container mb-7">
                 <h4 className="">Next Step </h4>
-                <p>
-                  Create an account now to begin your journey towards
-                  homeownership. Our team is here to assist you every step of
-                  the way. Alternatively, you can redefine your eligibility to
-                  adjust your criteria and explore more options.
+                <p className="">
+                  {userIsEligible
+                    ? `Create an account now to begin your journey towards homeownership. Our team is here to assist you every step of the way.`
+                    : `You're almost there! You can redefine your eligibility to adjust your criteria or create an account to explore more options.`}
                 </p>
 
                 <div className="my-4 d-flex flex-md-row flex-column">
@@ -466,7 +440,7 @@ const RecommendationCard = ({ result, userIsEligible }) => {
     >
       <p className="mb-0">You can buy a property valued up to: </p>
 
-      <h2 className={`my-4 text-xl text-${eligibilityClassName}-darker`}>
+      <h2 className={`my-4 text-xl text-primary fw-bold`}>
         {moneyFormatInNaira(result?.yearlySavings)}{' '}
         <sup className="text-lg text-soft">*</sup>
       </h2>

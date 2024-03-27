@@ -254,11 +254,11 @@ export async function getStaticProps() {
 const SearchTabComponent = () => {
   const allTabs = [
     {
-      title: 'Check Eligibility',
+      title: 'Check Your Eligibility',
       component: <SearchEligibilityForm />,
     },
     {
-      title: 'Search Property',
+      title: 'Search for Properties',
       component: <AdvancedSearchPropertyForm />,
     },
   ];

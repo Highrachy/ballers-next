@@ -47,13 +47,10 @@ export const PACKAGES = {
   },
 };
 
-export const recommendBallersPlan = ({
-  initial,
-  monthly,
-  frequency,
-  comfortLevel,
-  result,
-}) => {
+export const recommendBallersPlan = ({ comfortLevel, result }) => {
+  const initial = result?.initialPayment;
+  const monthly = result?.monthlyPayment;
+  const frequency = 30;
   let propertyCost = result.minimumPrice;
   const periodic = (monthly * comfortLevel) / 100;
   const yearlySavings = periodic * 12 * 5 + initial * 1;
