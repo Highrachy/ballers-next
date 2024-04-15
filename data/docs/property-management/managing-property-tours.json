@@ -1,0 +1,22 @@
+{
+  "title": "Managing Property Tours on BALL",
+  "subtitle": "Schedule and coordinate property tours seamlessly.",
+  "steps": [
+    {
+      "title": "Access Your Seller Dashboard",
+      "description": "Log in to your BALL account and access your seller dashboard. Here, you'll find all the tools and features you need to manage your property tours."
+    },
+    {
+      "title": "View Tour Requests",
+      "description": "Monitor incoming tour requests from potential buyers. You'll receive notifications when buyers request to schedule a tour of your property. You can view and manage these requests from your dashboard."
+    },
+    {
+      "title": "Schedule Tours",
+      "description": "Coordinate property tours by scheduling convenient dates and times for potential buyers to visit your property. Use the scheduling tool within your dashboard to set up tour appointments and confirm details with interested buyers."
+    },
+    {
+      "title": "Prepare for Tours",
+      "description": "Ensure that your property is ready for tours by cleaning, decluttering, and staging as needed. Create a welcoming atmosphere for potential buyers to envision themselves living in the space."
+    }
+  ]
+}

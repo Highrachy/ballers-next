@@ -1,0 +1,39 @@
+{
+  "title": "VIP Registration Process",
+  "subtitle": "Join BALL VIPs and list your properties for free.",
+  "steps": [
+    {
+      "title": "Visit the VIP Registration Page",
+      "description": "Go to the BALL VIPs registration page at ballers.ng/ball-vips/register to begin the registration process directly for sellers."
+    },
+    {
+      "title": "Provide Your Information",
+      "description": "Enter the required information for VIP registration, including:",
+      "substeps": [
+        "Company Name",
+        "Email Address",
+        "Password",
+        "Phone Number (Optional)",
+        "Property Details (For Sellers)"
+      ],
+      "image": "/img/docs/register.png",
+      "imageAlt": "VIP Registration Page"
+    },
+    {
+      "title": "Verify Your Email Address",
+      "description": "Upon registration, a verification email will be sent to the provided email address. Click on the verification link in the email to confirm your email address and activate your BALL VIP account."
+    },
+    {
+      "title": "Complete Your Profile",
+      "description": "After email verification, you'll be prompted to complete your VIP profile. This may include providing additional details such as property details, location, size, amenities, and pricing."
+    },
+    {
+      "title": "Agree to Terms and Conditions",
+      "description": "Review and agree to BALL's Terms of Service and Privacy Policy to proceed with your VIP registration. These documents outline your rights and responsibilities as a BALL VIP member."
+    },
+    {
+      "title": "Start Listing Your Properties!",
+      "description": "Congratulations! Your BALL VIP account is now set up and ready to use. Log in to your account to start listing your properties for free, manage your listings, and connect with potential buyers."
+    }
+  ]
+}

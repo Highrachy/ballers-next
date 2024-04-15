@@ -1,0 +1,30 @@
+{
+  "title": "VIP Account Setup on BALL",
+  "subtitle": "Become a VIP seller on BALL and start showcasing your properties to a wide audience of potential buyers.",
+  "steps": [
+    {
+      "title": "Visit VIP Registration Page",
+      "description": "To register as a VIP seller on BALL, visit the dedicated VIP registration page at ballers.ng/ball-vips/register."
+    },
+    {
+      "title": "Provide Your Information",
+      "description": "Complete the registration form by providing your personal and contact information. This may include your full name, email address, phone number, and other relevant details."
+    },
+    {
+      "title": "Verify Your Email Address",
+      "description": "After submitting your registration information, you'll receive a verification email at the address you provided. Click on the verification link in the email to confirm your email address and activate your VIP seller account."
+    },
+    {
+      "title": "Complete Your Profile",
+      "description": "Once your email address is verified, you'll be directed to complete your VIP seller profile. This may include providing additional details such as your company information, property listings, and preferences related to property sales."
+    },
+    {
+      "title": "Agree to Terms and Conditions",
+      "description": "Review BALL's Terms of Service and Seller Agreement, then check the box to indicate that you agree to abide by them. These documents outline your rights and responsibilities as a VIP seller on BALL."
+    },
+    {
+      "title": "Start Listing Your Properties",
+      "description": "Congratulations! Your VIP seller account is now set up and ready to use. Log in to your account to start listing your properties, managing your listings, and connecting with potential buyers on the BALL platform."
+    }
+  ]
+}

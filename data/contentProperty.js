@@ -6,7 +6,6 @@ const contentProperty = {
     state: 'Lagos',
     longitude: 3.5852,
     latitude: 6.4698,
-
     content: (
       <>
         <p>
@@ -28,14 +27,12 @@ const contentProperty = {
         </p>
       </>
     ),
-
     houseType: {
       [ALL_HOUSE_TYPES['Detached Duplex']]: {
         minimumPrice: 120_000_000,
         averagePrice: 180_000_000,
         maximumPrice: 900_000_000,
       },
-
       [ALL_HOUSE_TYPES['Flat']]: {
         minimumPrice: 30_000_000,
         averagePrice: 80_000_000,
@@ -47,7 +44,6 @@ const contentProperty = {
     state: 'Abuja',
     longitude: 7.4934,
     latitude: 9.0882,
-
     content: (
       <>
         <p>
@@ -70,14 +66,12 @@ const contentProperty = {
         </p>
       </>
     ),
-
     houseType: {
       [ALL_HOUSE_TYPES['Bungalow']]: {
         minimumPrice: 30_000_000,
         averagePrice: 70_000_000,
         maximumPrice: 150_000_000,
       },
-
       [ALL_HOUSE_TYPES['Semi-detached Duplex']]: {
         minimumPrice: 100_000_000,
         averagePrice: 250_000_000,
@@ -85,41 +79,181 @@ const contentProperty = {
       },
     },
   },
-  Ikoyi: {
+  Ikeja: {
     state: 'Lagos',
-    longitude: 3.4333,
-    latitude: 6.45,
-
+    longitude: 3.3792,
+    latitude: 6.5244,
     content: (
       <>
-        Ikoyi is a luxurious and exclusive neighborhood in Lagos, considered the
-        most expensive in the city, with high-class residents such as business
-        moguls, politicians, and celebrities. The area boasts well-channels
-        roads, good electricity supply, and top-notch security, contributing to
-        its peaceful atmosphere. Amenities include markets, companies, schools,
-        worship centers, and fun spots such as Casa Lydia, Golden Gate
-        Restaurant, and Avalon Lounge, and prominent hospitals such as GCH
-        Bourdillon and Atlantic Medical Centre.
+        <p>
+          Ikeja is a vibrant and bustling area in Lagos, known for its
+          commercial activities, diverse culture, and lively atmosphere. As the
+          capital of Lagos State, Ikeja is a major economic hub and home to
+          several corporate headquarters, government offices, and commercial
+          centers. The area offers a wide range of amenities, including shopping
+          malls, markets, restaurants, and entertainment venues. Ikeja is also
+          known for its well-developed infrastructure, transportation network,
+          and modern facilities, making it an attractive destination for both
+          residents and businesses.
+        </p>
       </>
     ),
-
     houseType: {
       [ALL_HOUSE_TYPES['Detached Duplex']]: {
-        minimumPrice: 120_000_000,
-        averagePrice: 180_000_000,
-        maximumPrice: 900_000_000,
+        minimumPrice: 278_780_000,
+        averagePrice: 288_000_000,
+        maximumPrice: 350_000_000,
       },
-
-      [ALL_HOUSE_TYPES['Penthouse']]: {
+      [ALL_HOUSE_TYPES['Flat']]: {
         minimumPrice: 150_000_000,
-        averagePrice: 300_000_000,
-        maximumPrice: 800_000_000,
+        averagePrice: 200_000_000,
+        maximumPrice: 400_000_000,
       },
-
-      [ALL_HOUSE_TYPES['Semi-detached Duplex']]: {
-        minimumPrice: 150_000_000,
+      [ALL_HOUSE_TYPES['Terraced Duplex']]: {
+        minimumPrice: 200_000_000,
         averagePrice: 300_000_000,
         maximumPrice: 500_000_000,
+      },
+    },
+  },
+  'Lagos Island': {
+    state: 'Lagos',
+    longitude: 3.3909,
+    latitude: 6.4543,
+    content: (
+      <>
+        <p>
+          Lagos Island is the heart of Lagos, Nigeria's largest city and
+          economic capital. It is a bustling metropolis with a rich history,
+          vibrant culture, and diverse population. Lagos Island is known for its
+          iconic landmarks, such as the National Museum, Tafawa Balewa Square,
+          and Freedom Park. The area is also home to major commercial districts,
+          including Marina and Broad Street, where you'll find banks, corporate
+          offices, and trading activities. Lagos Island offers a wide range of
+          amenities, including shopping malls, markets, restaurants, and
+          entertainment venues, making it a dynamic and exciting place to live
+          and work.
+        </p>
+      </>
+    ),
+    houseType: {
+      [ALL_HOUSE_TYPES['Detached Duplex']]: {
+        minimumPrice: 304_000_000,
+        averagePrice: 1_000_000_000,
+        maximumPrice: 85_000_000,
+      },
+      [ALL_HOUSE_TYPES['Terraced Duplex']]: {
+        minimumPrice: 200_000_000,
+        averagePrice: 400_000_000,
+        maximumPrice: 600_000_000,
+      },
+    },
+  },
+  Maryland: {
+    state: 'Lagos',
+    longitude: 3.3667,
+    latitude: 6.5833,
+    content: (
+      <>
+        <p>
+          Maryland is a bustling neighborhood in Lagos, known for its commercial
+          activities, vibrant culture, and diverse community. The area is home
+          to several corporate offices, shopping malls, markets, and
+          entertainment venues, making it a popular destination for both
+          residents and visitors. Maryland offers a wide range of amenities,
+          including restaurants, cafes, cinemas, and recreational facilities,
+          catering to various interests and lifestyles. With its strategic
+          location and modern infrastructure, Maryland provides easy access to
+          other parts of Lagos and is a vibrant hub of activity day and night.
+        </p>
+      </>
+    ),
+    houseType: {
+      [ALL_HOUSE_TYPES['Detached Duplex']]: {
+        minimumPrice: 185_750_000,
+        averagePrice: 4_000_000_000,
+        maximumPrice: 40_000_000,
+      },
+      [ALL_HOUSE_TYPES['Flat']]: {
+        minimumPrice: 100_000_000,
+        averagePrice: 200_000_000,
+        maximumPrice: 300_000_000,
+      },
+      [ALL_HOUSE_TYPES['Terraced Duplex']]: {
+        minimumPrice: 120_000_000,
+        averagePrice: 250_000_000,
+        maximumPrice: 500_000_000,
+      },
+    },
+  },
+  Ajah: {
+    state: 'Lagos',
+    longitude: 3.5736,
+    latitude: 6.4712,
+    content: (
+      <>
+        <p>
+          Ajah is a rapidly developing area in Lagos, known for its affordable
+          housing options, vibrant markets, and growing commercial activities.
+          Situated along the Lekki-Epe Expressway, Ajah offers easy access to
+          other parts of Lagos and is a popular choice for young professionals
+          and families looking for affordable accommodation. The area boasts
+          several markets, shopping malls, and entertainment venues, providing
+          residents with a wide range of amenities and recreational
+          opportunities. With its strategic location and ongoing development,
+          Ajah is expected to continue growing and evolving, making it an
+          attractive destination for both investors and residents alike.
+        </p>
+      </>
+    ),
+    houseType: {
+      [ALL_HOUSE_TYPES['Detached Duplex']]: {
+        minimumPrice: 88_060_000,
+        averagePrice: 115_000_000,
+        maximumPrice: 1_700_000,
+      },
+      [ALL_HOUSE_TYPES['Flat']]: {
+        minimumPrice: 50_000_000,
+        averagePrice: 70_000_000,
+        maximumPrice: 120_000_000,
+      },
+      [ALL_HOUSE_TYPES['Terraced Duplex']]: {
+        minimumPrice: 70_000_000,
+        averagePrice: 150_000_000,
+        maximumPrice: 300_000_000,
+      },
+    },
+  },
+  Badagry: {
+    state: 'Lagos',
+    longitude: 2.8938,
+    latitude: 6.4191,
+    content: (
+      <>
+        <p>
+          Badagry is a historic town located in Lagos State, Nigeria. It is
+          known for its rich cultural heritage, historic sites, and scenic
+          beauty. Badagry was a major center for the transatlantic slave trade
+          during the 18th and 19th centuries and is home to several historic
+          landmarks, including the Badagry Heritage Museum, Vlekete Slave
+          Market, and the Point of No Return. The town also boasts beautiful
+          beaches, lagoons, and mangrove forests, making it a popular tourist
+          destination. In addition to its cultural significance, Badagry offers
+          residents a peaceful and serene environment away from the hustle and
+          bustle of urban life, making it an ideal place to live and relax.
+        </p>
+      </>
+    ),
+    houseType: {
+      [ALL_HOUSE_TYPES['Detached Duplex']]: {
+        minimumPrice: 24_770_000,
+        averagePrice: 90_000_000,
+        maximumPrice: 13_000_000,
+      },
+      [ALL_HOUSE_TYPES['Flat']]: {
+        minimumPrice: 15_000_000,
+        averagePrice: 30_000_000,
+        maximumPrice: 50_000_000,
       },
     },
   },

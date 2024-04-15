@@ -24,13 +24,13 @@ const howItWorksDropdown = [
     description:
       'Explore the advantages of using BALL for your home ownership journey',
     icon: <BsHouseDoor />,
-    link: '/why-choose-ball',
+    link: '/#why-choose-ball',
   },
   {
     title: 'FAQs',
     description: 'Find answers to frequently asked questions about BALL',
     icon: <BsQuestionSquare />,
-    link: '/faqs',
+    link: '/#faqs',
   },
 ];
 

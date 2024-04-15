@@ -1,0 +1,42 @@
+{
+  "title": "Registration Process",
+  "subtitle": "Get started on your journey to owning your ideal home with BALL.",
+  "steps": [
+    {
+      "title": "Visit the Registration Page",
+      "description": "Navigate to the BALL website at https://ballers.ng/ and locate the 'Register for Free' button. Click on it to proceed to the registration page."
+    },
+    {
+      "title": "Provide Your Information",
+      "description": "On the registration page, you'll be prompted to provide the following information:",
+      "substeps": [
+        "Full Name",
+        "Email Address",
+        "Password",
+        "Phone Number (Optional)"
+      ],
+      "image": "/img/docs/register.png",
+      "imageAlt": "Registration Page"
+    },
+    {
+      "title": "Verify Your Email Address",
+      "description": "After submitting your registration information, you'll receive a verification email at the address you provided. Click on the verification link in the email to confirm your email address and activate your BALL account."
+    },
+    {
+      "title": "Complete Your Profile",
+      "description": "Once your email address is verified, you'll be directed to complete your profile. This may include providing additional details such as your address, occupation, and preferences related to homeownership."
+    },
+    {
+      "title": "Agree to Terms and Conditions",
+      "description": "Review BALL's Terms of Service and Privacy Policy, then check the box to indicate that you agree to abide by them. These documents outline your rights and responsibilities as a BALL user."
+    },
+    {
+      "title": "Verify Your Identity (if required)",
+      "description": "In some cases, BALL may require additional verification steps to confirm your identity and ensure the security of your account. This may involve providing additional documents or completing a verification process."
+    },
+    {
+      "title": "Start Exploring!",
+      "description": "Congratulations! Your BALL account is now set up and ready to use. Log in to your account to start exploring properties, managing your payments, and connecting with other members of the BALL community."
+    }
+  ]
+}

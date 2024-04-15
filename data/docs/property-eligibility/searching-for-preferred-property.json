@@ -1,0 +1,22 @@
+{
+  "title": "Searching for Your Preferred Property",
+  "subtitle": "Find the perfect home to suit your needs.",
+  "steps": [
+    {
+      "title": "Visit the Properties Page",
+      "description": "Start your property search by visiting the properties page on the BALL website. Here, you'll find a comprehensive listing of available properties, including houses, apartments, and more."
+    },
+    {
+      "title": "Use Search Filters",
+      "description": "To narrow down your search and find properties that meet your specific criteria, utilize the search filters provided on the properties page. Filter by location, price range, property type, amenities, and more to refine your search results."
+    },
+    {
+      "title": "Explore Property Listings",
+      "description": "Once you've applied your desired filters, explore the property listings to find options that match your preferences. View property details, including photos, descriptions, floor plans, and pricing information, to help you make an informed decision."
+    },
+    {
+      "title": "Contact BALL Support for Assistance",
+      "description": "If you need further assistance or have specific requirements for your preferred property, don't hesitate to contact BALL's support team. Our dedicated agents are available to help answer any questions you may have and assist you in finding the perfect home."
+    }
+  ]
+}

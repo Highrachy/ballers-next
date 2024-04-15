@@ -1,0 +1,38 @@
+{
+  "title": "Managing Property Listings on BALL",
+  "subtitle": "Effortlessly manage and showcase your properties to potential buyers with BALL's intuitive listing management tools.",
+  "steps": [
+    {
+      "title": "Access Your Dashboard",
+      "description": "Log in to your BALL account and navigate to your dashboard. Here, you'll find all the tools and features you need to manage your property listings."
+    },
+    {
+      "title": "Add New Listings",
+      "description": "Click on the 'Add New Listing' button to create a new property listing. Fill in the required details, such as property type, location, price, and description, and upload high-quality images to showcase your property effectively."
+    },
+    {
+      "title": "Edit Existing Listings",
+      "description": "Review and edit your existing property listings as needed. Update property details, photos, pricing information, and descriptions to keep your listings accurate and up to date."
+    },
+    {
+      "title": "Remove Sold Properties",
+      "description": "Mark properties as sold or remove them from your listings once they have been sold or are no longer available. This helps maintain the relevance and accuracy of your listings for potential buyers."
+    },
+    {
+      "title": "Promote Featured Listings",
+      "description": "Highlight your top properties by promoting them as featured listings. Featured listings receive increased visibility and exposure, helping them stand out to potential buyers browsing the BALL platform."
+    },
+    {
+      "title": "Track Listing Performance",
+      "description": "Monitor the performance of your property listings using BALL's analytics tools. Track metrics such as views, inquiries, and conversions to assess the effectiveness of your listings and make data-driven decisions to optimize performance."
+    },
+    {
+      "title": "Engage with Potential Buyers",
+      "description": "Respond promptly to inquiries and messages from potential buyers interested in your properties. Engage with buyers, answer questions, and provide additional information to facilitate the sales process and build rapport with prospective clients."
+    },
+    {
+      "title": "Stay Informed with Notifications",
+      "description": "Enable notifications to receive alerts and updates on listing activity, inquiries, and buyer interactions. Stay informed in real-time and take timely actions to manage and respond to buyer interest effectively."
+    }
+  ]
+}

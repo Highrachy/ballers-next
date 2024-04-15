@@ -1,0 +1,22 @@
+{
+  "title": "Making Your First Payment with BALL",
+  "subtitle": "Take the first step towards owning your dream home.",
+  "steps": [
+    {
+      "title": "Sign In to Your Account",
+      "description": "Once you've selected your desired property and confirmed your eligibility, sign in to your BALL account to initiate the payment process. If you don't have an account yet, you can create one for free on the BALL website."
+    },
+    {
+      "title": "Online Payment",
+      "description": "After signing in, you can make your first payment online through the BALL platform. Simply follow the instructions to securely enter your payment details and complete the transaction. BALL utilizes industry-standard encryption to ensure the safety of your payment information."
+    },
+    {
+      "title": "Direct Bank Transfer",
+      "description": "Alternatively, you can choose to make your payment by directly transferring funds to BALL's bank account. Contact our support team for the necessary bank details, and ensure to include your unique payment reference number to ensure prompt processing of your payment."
+    },
+    {
+      "title": "Deposit into Wallet",
+      "description": "For added convenience, you can deposit funds into your BALL wallet and use them to make payments seamlessly. Simply deposit the desired amount into your wallet, and then proceed to initiate the payment from your wallet balance."
+    }
+  ]
+}

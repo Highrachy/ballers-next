@@ -1,0 +1,26 @@
+{
+  "title": "Scheduling Property Tours on BALL",
+  "subtitle": "Book appointments to visit properties that interest you.",
+  "steps": [
+    {
+      "title": "Find a Property of Interest",
+      "description": "Explore properties listed on the BALL platform and find one that interests you. You can search for properties based on location, type, size, amenities, and price."
+    },
+    {
+      "title": "Request a Tour",
+      "description": "Once you've found a property you'd like to visit, click on the 'Schedule a Tour' or 'Request a Viewing' button on the property listing page. Fill out the tour request form with your preferred date and time for the tour."
+    },
+    {
+      "title": "Confirmation",
+      "description": "After submitting your tour request, the property owner or agent will review your request and confirm the tour details. You'll receive a notification once your tour request has been confirmed."
+    },
+    {
+      "title": "Attend the Tour",
+      "description": "On the scheduled date and time, arrive at the property for your tour appointment. The property owner or agent will be present to show you around the property, answer any questions you may have, and provide additional information."
+    },
+    {
+      "title": "Provide Feedback",
+      "description": "After the tour, provide feedback to the property owner or agent about your experience and any further questions or concerns you may have. Your feedback helps improve the tour experience for future visitors."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "title": "Uploading Property Details on BALL",
+  "subtitle": "Provide comprehensive information about your properties to attract potential buyers.",
+  "steps": [
+    {
+      "title": "Access Your Seller Dashboard",
+      "description": "Log in to your BALL VIP account and access your seller dashboard. From here, you can manage all aspects of your property listings."
+    },
+    {
+      "title": "Add New Property Listing",
+      "description": "Click on the 'Add New Listing' or 'Upload Property' button within your dashboard to begin uploading a new property listing. You'll be directed to a form where you can enter the details of your property."
+    },
+    {
+      "title": "Enter Property Details",
+      "description": "Provide comprehensive information about your property, including its location, type, size, amenities, pricing, and any additional features. The more details you provide, the better informed potential buyers will be."
+    },
+    {
+      "title": "Upload High-Quality Photos",
+      "description": "Upload high-quality photos of your property to accompany the listing. Ensure that the photos showcase the property's best features and accurately represent its condition. Buyers are more likely to engage with listings that include quality photos."
+    },
+    {
+      "title": "Review and Submit",
+      "description": "Review the information you've entered to ensure accuracy and completeness. Once you're satisfied with the listing details and photos, submit the listing for review. Our team will verify the listing before making it live on the platform."
+    },
+    {
+      "title": "Manage Your Listings",
+      "description": "Keep track of your property listings and make updates as needed. You can edit property details, update photos, adjust pricing, and more from your seller dashboard. Regularly updating your listings can help attract more buyers and increase your chances of a successful sale."
+    }
+  ]
+}

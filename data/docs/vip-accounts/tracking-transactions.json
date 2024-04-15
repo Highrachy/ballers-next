@@ -1,0 +1,38 @@
+{
+  "title": "Tracking Transactions on BALL",
+  "subtitle": "Monitor the progress of your transactions and manage your payments with ease using BALL's transaction tracking tools.",
+  "steps": [
+    {
+      "title": "Access Your Transaction History",
+      "description": "Log in to your BALL account and navigate to the transaction history section. Here, you'll find a comprehensive record of all your past and ongoing transactions."
+    },
+    {
+      "title": "View Transaction Details",
+      "description": "Click on individual transactions to view detailed information such as transaction amount, date, payment method, and status. Gain insights into the progress and status of each transaction at a glance."
+    },
+    {
+      "title": "Track Payment Milestones",
+      "description": "Monitor payment milestones and progress for milestone-based payment plans. Track payments made, upcoming milestones, and remaining balances to stay informed and on track with your payment schedule."
+    },
+    {
+      "title": "Manage Payment Methods",
+      "description": "Update and manage your preferred payment methods for making transactions on BALL. Add new payment methods, remove outdated ones, and set default preferences to streamline the payment process."
+    },
+    {
+      "title": "Receive Payment Notifications",
+      "description": "Enable payment notifications to receive alerts and updates on transaction activity. Stay informed about payment confirmations, pending payments, and other important milestones to ensure timely action and follow-up."
+    },
+    {
+      "title": "Resolve Transaction Issues",
+      "description": "In case of any transaction-related issues or discrepancies, reach out to BALL's support team for assistance. Report any payment issues, disputes, or concerns promptly to ensure swift resolution and a seamless transaction experience."
+    },
+    {
+      "title": "Review Transaction Analytics",
+      "description": "Analyze transaction data and trends using BALL's analytics tools. Track transaction volumes, payment methods, and completion rates to gain insights into your financial activity and optimize your payment strategies."
+    },
+    {
+      "title": "Stay Secure and Protected",
+      "description": "Rest assured that your transactions are secure and protected on the BALL platform. Benefit from robust security measures and encryption protocols to safeguard your financial information and ensure a safe and reliable payment experience."
+    }
+  ]
+}

@@ -222,7 +222,7 @@ const FAQsSection = () => {
     return [...result, ...homeFAQs];
   }, []);
   return (
-    <section className="container-fluid">
+    <section id="faqs" className="container-fluid">
       <h6 className="header-secondary">FAQs</h6>
       <h2>
         Your questions <br /> Answered

@@ -1,0 +1,30 @@
+{
+  "title": "Security Measures on BALL",
+  "subtitle": "Rest assured that your personal information and transactions are protected by robust security measures.",
+  "steps": [
+    {
+      "title": "Encryption",
+      "description": "All data transmitted between your device and the BALL servers is encrypted using industry-standard encryption protocols. This ensures that your personal information and financial transactions remain secure and protected from unauthorized access."
+    },
+    {
+      "title": "Two-Factor Authentication",
+      "description": "Enhance the security of your BALL account with two-factor authentication. This additional layer of protection requires you to verify your identity using a second factor, such as a unique code sent to your mobile device, when logging in or performing sensitive actions."
+    },
+    {
+      "title": "Secure Payment Gateway",
+      "description": "BALL utilizes a secure payment gateway for all financial transactions. This gateway is PCI-DSS compliant and employs advanced encryption and fraud prevention technologies to safeguard your payment information and prevent unauthorized transactions."
+    },
+    {
+      "title": "Regular Security Audits",
+      "description": "BALL conducts regular security audits and assessments to identify and address potential vulnerabilities in the platform. This proactive approach ensures that security measures are continuously updated and improved to protect against emerging threats and risks."
+    },
+    {
+      "title": "Data Protection Policies",
+      "description": "BALL adheres to strict data protection policies and regulations to safeguard your personal information. These policies govern the collection, storage, and processing of data, ensuring compliance with relevant privacy laws and regulations."
+    },
+    {
+      "title": "User Education",
+      "description": "BALL provides resources and educational materials to help users understand best practices for online security. These resources cover topics such as password management, phishing awareness, and safe browsing habits, empowering users to take proactive steps to protect their accounts and information."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Contacting Support on BALL",
+  "subtitle": "Get assistance and answers to your questions from our support team.",
+  "steps": [
+    {
+      "title": "Use the Contact Form",
+      "description": "Navigate to the BALL website and locate the 'Contact Us' page. Fill out the contact form with your name, email address, subject, and message detailing your inquiry or issue. Our support team will respond to your query via email."
+    },
+    {
+      "title": "Send an Email",
+      "description": "If you prefer to communicate via email, you can send a message directly to our support team at support@ballers.ng. Be sure to include relevant details about your inquiry or issue to expedite the response process."
+    },
+    {
+      "title": "Call Our Support Hotline",
+      "description": "For urgent inquiries or immediate assistance, you can reach out to our support hotline at +234 XXX XXX XXX. Our support representatives are available during business hours to provide prompt assistance and address your concerns."
+    },
+    {
+      "title": "Visit Our Office",
+      "description": "If you prefer face-to-face interaction, you can visit our office located at [Insert Office Address Here]. Our support team will be happy to assist you in person and provide personalized assistance for your inquiries or issues."
+    },
+    {
+      "title": "Check the FAQ Section",
+      "description": "Before contacting support, you may find answers to common questions in our FAQ (Frequently Asked Questions) section. Visit the FAQ page on the BALL website to browse through a list of commonly asked questions and their corresponding answers."
+    }
+  ]
+}

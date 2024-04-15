@@ -1,0 +1,30 @@
+{
+  "title": "Tour Analytics on BALL",
+  "subtitle": "Gain valuable insights into property tours and buyer interest with BALL's tour analytics features.",
+  "steps": [
+    {
+      "title": "Real-Time Tour Tracking",
+      "description": "Track property tours in real-time to monitor buyer activity and engagement. Stay informed about the number of tours scheduled, attended, and completed, providing valuable insights into buyer interest and behavior."
+    },
+    {
+      "title": "Tour Feedback Collection",
+      "description": "Collect feedback from prospective buyers following property tours to gather insights and identify areas for improvement. Use feedback forms or surveys to capture buyer impressions, preferences, and concerns, helping to refine your property listings and marketing strategies."
+    },
+    {
+      "title": "Tour Performance Analysis",
+      "description": "Analyze the performance of property tours to evaluate their effectiveness in generating interest and driving conversions. Measure metrics such as tour attendance rates, duration, and follow-up actions to identify trends and optimize tour strategies for better results."
+    },
+    {
+      "title": "Buyer Engagement Metrics",
+      "description": "Track buyer engagement metrics during property tours to assess buyer interest and intent. Monitor factors such as time spent on tour, interactions with property features, and follow-up inquiries to gauge buyer readiness and likelihood of conversion."
+    },
+    {
+      "title": "Custom Reporting",
+      "description": "Generate custom reports and analytics dashboards to visualize tour data and insights. Customize reports to focus on specific metrics, time periods, or properties, enabling detailed analysis and informed decision-making to enhance tour performance and buyer engagement."
+    },
+    {
+      "title": "Integration with CRM Systems",
+      "description": "Integrate tour analytics data with customer relationship management (CRM) systems for comprehensive buyer tracking and management. Sync tour activity, feedback, and engagement data with CRM platforms to streamline follow-up processes and nurture leads towards conversion."
+    }
+  ]
+}

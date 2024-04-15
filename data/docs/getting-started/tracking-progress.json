@@ -1,0 +1,22 @@
+{
+  "title": "Tracking Progress with BALL",
+  "subtitle": "Stay informed about your journey to homeownership.",
+  "steps": [
+    {
+      "title": "Create an Account",
+      "description": "To track your progress, start by creating a free account on the BALL platform. Visit https://ballers.ng/ and click on the 'Register for Free' button to get started. Follow the prompts to provide your information and set up your account."
+    },
+    {
+      "title": "Log In",
+      "description": "Once you've created your account, log in to the BALL platform using your credentials. You'll have access to your personalized dashboard, where you can view your progress, manage your payments, and explore available properties."
+    },
+    {
+      "title": "View Your Dashboard",
+      "description": "Upon logging in, navigate to your dashboard to track your progress. Here, you'll find information about your payment history, upcoming milestones, and any tasks or actions you need to complete to move forward in your homeownership journey."
+    },
+    {
+      "title": "Stay Updated",
+      "description": "Regularly check your dashboard for updates and notifications. BALL provides real-time information about your progress, ensuring that you're always informed and in control of your path to homeownership."
+    }
+  ]
+}

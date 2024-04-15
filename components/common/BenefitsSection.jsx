@@ -117,7 +117,10 @@ const BenefitsSection = ({ isVendor }) => {
   };
 
   return (
-    <section className="benefits bg-light-blue my-5 py-5 pb-7">
+    <section
+      id="why-choose-ball"
+      className="benefits bg-light-blue my-5 py-5 pb-7"
+    >
       <div className="text-center">
         <h6 className="header-secondary">BENEFITS</h6>
         <h3>Why BALL is Special</h3>

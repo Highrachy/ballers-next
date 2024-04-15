@@ -202,29 +202,6 @@ const SearchEligibilityForm = ({ initialValues, afterSave = () => {} }) => {
             }}
           />
         );
-      // case 5:
-      //   return (
-      //     <Select
-      //       options={valuesToOptions([
-      //         'Any',
-      //         '1 Million - 50 Million Naira',
-      //         '51 Million - 100 Million Naira',
-      //         '100 Million - 200 Million Naira',
-      //         'Above 200 Million Naira',
-      //       ])}
-      //       styles={customStyles()}
-      //       placeholder="Select Budget"
-      //       instanceId="budget"
-      //       value={
-      //         formData.budget
-      //           ? { value: formData.budget, label: formData.budget }
-      //           : null
-      //       }
-      //       onChange={(selectedOption) =>
-      //         handleChange('budget', selectedOption.value)
-      //       }
-      //     />
-      //   );
       default:
         return null;
     }

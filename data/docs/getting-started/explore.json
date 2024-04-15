@@ -1,0 +1,18 @@
+{
+  "title": "Exploring Properties with BALL",
+  "subtitle": "Discover your dream home with ease.",
+  "steps": [
+    {
+      "title": "Search for Properties",
+      "description": "Once logged in to your BALL account, navigate to the 'Search' or 'Explore' section of the website. Here, you can use various filters such as location, price range, property type, and amenities to refine your search and find properties that meet your preferences."
+    },
+    {
+      "title": "Check Your Eligibility",
+      "description": "Before making a purchase, it's important to check your eligibility for home ownership. BALL provides tools and resources to help you assess your financial readiness and determine the best payment plan for your budget. You can access these features in your account dashboard."
+    },
+    {
+      "title": "Explore BALL Features",
+      "description": "Aside from property listings, BALL offers a range of features to enhance your home buying experience. Explore resources such as real estate knowledge articles, financial calculators, and community forums to gain insights and connect with other members."
+    }
+  ]
+}

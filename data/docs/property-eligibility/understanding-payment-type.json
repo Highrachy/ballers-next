@@ -1,0 +1,14 @@
+{
+  "title": "Understanding Payment Types on BALL",
+  "subtitle": "Choose the payment plan that works best for you.",
+  "steps": [
+    {
+      "title": "Timeline Payment Plan",
+      "description": "With the timeline payment plan, you have the flexibility to pay a small amount upfront and then pay the rest over time. You can choose the duration and frequency of your payments, making it easier to manage your budget. For example, you could pay 10% of the total price initially and then 5% every month for the next 18 months."
+    },
+    {
+      "title": "Milestone Payment Plan",
+      "description": "The milestone payment plan allows you to pay at key stages of your home ownership journey. You'll pay a percentage of the total price when important milestones, such as the completion of the foundation, walls, roof, interior, and finally receiving the keys, are reached. This plan ensures that you only pay as progress is made on your home."
+    }
+  ]
+}

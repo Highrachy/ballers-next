@@ -1,0 +1,38 @@
+{
+  "title": "Checking Eligibility on BALL",
+  "subtitle": "Determine if you're ready to become a landlord.",
+  "steps": [
+    {
+      "title": "Visit the Eligibility Page",
+      "description": "To check your eligibility for homeownership, visit the BALL website and navigate to the eligibility page. Here, you'll find tools and resources to help you assess your financial readiness and determine if you're ready to become a landlord."
+    },
+    {
+      "title": "Select Your Dream Location",
+      "description": "Begin your journey to homeownership by selecting your dream location. Choose from a list of available locations to explore properties in your desired area."
+    },
+    {
+      "title": "Choose the Type of Home",
+      "description": "Next, choose the type of home that suits your lifestyle. Select from various options such as apartments, houses, or townhouses to find the perfect fit for you and your family."
+    },
+    {
+      "title": "Determine Down Payment Amount",
+      "description": "Determine the amount you can contribute as a down payment. This initial payment is a key factor in determining your eligibility for homeownership and will help shape your payment plan."
+    },
+    {
+      "title": "Enter Monthly Income",
+      "description": "Finally, enter your total monthly income, including salary and other sources. This information will be used to assess your ability to make monthly payments towards your home."
+    },
+    {
+      "title": "Review and Confirm",
+      "description": "After filling out the eligibility form, review your information to ensure accuracy. Once confirmed, submit the form to receive your eligibility assessment. BALL will provide feedback on whether you're ready to embark on your journey to homeownership."
+    },
+    {
+      "title": "Receive Feedback",
+      "description": "Once you've submitted your details, BALL will assess your eligibility based on the information provided. You'll receive feedback on whether you meet the criteria for becoming a landlord."
+    },
+    {
+      "title": "Take Necessary Steps",
+      "description": "Based on the feedback received, take necessary steps to improve your eligibility if needed. This may include adjusting your budget, exploring different house types, or increasing your initial payment."
+    }
+  ]
+}

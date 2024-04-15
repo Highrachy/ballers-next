@@ -1,0 +1,38 @@
+{
+  "title": "Getting Started with BALL",
+  "subtitle": "Your journey to homeownership begins here.",
+  "steps": [
+    {
+      "title": "Welcome to BALL",
+      "description": "BALL (Become A Landlord) is an online platform dedicated to helping you achieve your dream of owning a home. Whether you're looking for quality homes, flexible payment plans, or real estate knowledge, BALL has you covered."
+    },
+    {
+      "title": "Visit the BALL Website",
+      "description": "To get started, visit the BALL website at https://ballers.ng/. Here, you'll find everything you need to begin your journey to homeownership."
+    },
+    {
+      "title": "Register for Free",
+      "description": "Once you're on the BALL website, locate the 'Register for Free' button and click on it. You'll be guided through a simple registration process to create your BALL account."
+    },
+    {
+      "title": "Provide Your Information",
+      "description": "During the registration process, you'll need to provide basic information such as your full name, email address, and password. You may also have the option to provide your phone number."
+    },
+    {
+      "title": "Verify Your Email Address",
+      "description": "After completing the registration form, check your email inbox for a verification email from BALL. Click on the verification link in the email to confirm your email address and activate your BALL account."
+    },
+    {
+      "title": "Complete Your Profile",
+      "description": "Once your email address is verified, you'll be prompted to complete your profile. This may include providing additional details such as your address, occupation, and preferences related to homeownership."
+    },
+    {
+      "title": "Agree to Terms and Conditions",
+      "description": "Before proceeding, make sure to review BALL's Terms of Service and Privacy Policy. Once you've read and understood these documents, check the box to indicate that you agree to abide by them."
+    },
+    {
+      "title": "Start Your Journey",
+      "description": "Congratulations! Your BALL account is now set up and ready to use. Log in to your account to start exploring properties, managing your payments, and connecting with other members of the BALL community."
+    }
+  ]
+}
