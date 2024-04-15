@@ -138,7 +138,11 @@ const SearchEligibilityForm = ({ initialValues, afterSave = () => {} }) => {
           <Select
             options={Object.keys(contentProperty)
               .map((location) => ({
-                label: `${location}, ${contentProperty[location].state}`,
+                label: `${location}, ${
+                  contentProperty[location]?.district
+                    ? `${contentProperty[location].district}, `
+                    : ''
+                } ${contentProperty[location].state}`,
                 value: location,
               }))
               .sort((a, b) => a.label.localeCompare(b.label))}

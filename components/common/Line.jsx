@@ -77,7 +77,7 @@ const MyResponsiveLine = ({
         justify: false,
         translateX: 0,
         translateY: 60,
-        itemWidth: 78,
+        itemWidth: 120,
         itemHeight: 20,
         itemsSpacing: 4,
         symbolSize: 10,
@@ -106,7 +106,7 @@ const MyResponsiveLine = ({
       {
         axis: 'y',
         legend: 'Your proposed savings',
-        legendPosition: 'top-left',
+        legendPosition: 'top-right',
         lineStyle: {
           stroke: colorTokens.primary[100], // Change marker line color
           strokeWidth: 1,

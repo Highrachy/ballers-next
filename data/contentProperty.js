@@ -4,6 +4,48 @@ import React from 'react';
 const contentProperty = {
   Lekki: {
     state: 'Lagos',
+    lga: 'Ibeju Lekki',
+    district: 'Lekki',
+    longitude: 3.5852,
+    latitude: 6.4698,
+    content: (
+      <>
+        <p>
+          Lekki is a prestigious neighborhood in Lagos, known for its high-end
+          residences, luxurious amenities, and beautiful waterfront location.
+          Formerly a slum called Maroko, Lekki has since been refurbished and
+          renamed, and now serves as a residential and business hub. Lekki is
+          surrounded by water, making it a natural peninsula situated to the
+          east of Lagos City, with Ikoyi and Victoria Island to the west. While
+          Lekki is still under development, the completed Lekki Phase 1 is a
+          major part of the project.
+        </p>
+        <p>
+          Lekki is a highly sought-after place to live and offers a work-play
+          lifestyle with attractive leisure spots and fine dining
+          establishments. It is also a popular shopping destination and a hub of
+          entertainment activity on weekends. Lekki boasts some of the top
+          schools in Nigeria, as well as numerous worship centers.
+        </p>
+      </>
+    ),
+    houseType: {
+      [ALL_HOUSE_TYPES['Detached Duplex']]: {
+        minimumPrice: 120_000_000,
+        averagePrice: 180_000_000,
+        maximumPrice: 900_000_000,
+      },
+      [ALL_HOUSE_TYPES['Flat']]: {
+        minimumPrice: 30_000_000,
+        averagePrice: 80_000_000,
+        maximumPrice: 350_000_000,
+      },
+    },
+  },
+  'Lekki Phase 1': {
+    state: 'Lagos',
+    lga: 'Ibeju Lekki',
+    district: 'Lekki',
     longitude: 3.5852,
     latitude: 6.4698,
     content: (
@@ -42,6 +84,7 @@ const contentProperty = {
   },
   Maitama: {
     state: 'Abuja',
+    lga: 'Abuja',
     longitude: 7.4934,
     latitude: 9.0882,
     content: (
@@ -81,6 +124,7 @@ const contentProperty = {
   },
   Ikeja: {
     state: 'Lagos',
+    lga: 'Ikeja',
     longitude: 3.3792,
     latitude: 6.5244,
     content: (
@@ -116,23 +160,24 @@ const contentProperty = {
       },
     },
   },
-  'Lagos Island': {
+  Ikoyi: {
     state: 'Lagos',
+    lga: 'Eti Osa',
     longitude: 3.3909,
     latitude: 6.4543,
     content: (
       <>
         <p>
-          Lagos Island is the heart of Lagos, Nigeria's largest city and
+          Lagos Island is the heart of Lagos, Nigeria&apos;s largest city and
           economic capital. It is a bustling metropolis with a rich history,
           vibrant culture, and diverse population. Lagos Island is known for its
           iconic landmarks, such as the National Museum, Tafawa Balewa Square,
           and Freedom Park. The area is also home to major commercial districts,
-          including Marina and Broad Street, where you'll find banks, corporate
-          offices, and trading activities. Lagos Island offers a wide range of
-          amenities, including shopping malls, markets, restaurants, and
-          entertainment venues, making it a dynamic and exciting place to live
-          and work.
+          including Marina and Broad Street, where you&apos;ll find banks,
+          corporate offices, and trading activities. Lagos Island offers a wide
+          range of amenities, including shopping malls, markets, restaurants,
+          and entertainment venues, making it a dynamic and exciting place to
+          live and work.
         </p>
       </>
     ),
@@ -151,6 +196,7 @@ const contentProperty = {
   },
   Maryland: {
     state: 'Lagos',
+    lga: 'Ikeja',
     longitude: 3.3667,
     latitude: 6.5833,
     content: (
@@ -177,7 +223,7 @@ const contentProperty = {
       [ALL_HOUSE_TYPES['Flat']]: {
         minimumPrice: 100_000_000,
         averagePrice: 200_000_000,
-        maximumPrice: 300_000_000,
+        maximumPrice: 500_000_000,
       },
       [ALL_HOUSE_TYPES['Terraced Duplex']]: {
         minimumPrice: 120_000_000,
@@ -186,8 +232,10 @@ const contentProperty = {
       },
     },
   },
-  Ajah: {
+  Ogombo: {
     state: 'Lagos',
+    lga: 'Eti Osa',
+    district: 'Ajah',
     longitude: 3.5736,
     latitude: 6.4712,
     content: (
@@ -208,9 +256,49 @@ const contentProperty = {
     ),
     houseType: {
       [ALL_HOUSE_TYPES['Detached Duplex']]: {
-        minimumPrice: 88_060_000,
-        averagePrice: 115_000_000,
-        maximumPrice: 1_700_000,
+        minimumPrice: 80_000_000,
+        averagePrice: 400_000_000,
+        maximumPrice: 1_700_000_000,
+      },
+      [ALL_HOUSE_TYPES['Flat']]: {
+        minimumPrice: 70_000_000,
+        averagePrice: 90_000_000,
+        maximumPrice: 120_000_000,
+      },
+      [ALL_HOUSE_TYPES['Terraced Duplex']]: {
+        minimumPrice: 70_000_000,
+        averagePrice: 150_000_000,
+        maximumPrice: 500_000_000,
+      },
+    },
+  },
+  Badore: {
+    state: 'Lagos',
+    lga: 'Eti Osa',
+    district: 'Ajah',
+    longitude: 3.5736,
+    latitude: 6.4712,
+    content: (
+      <>
+        <p>
+          Ajah is a rapidly developing area in Lagos, known for its affordable
+          housing options, vibrant markets, and growing commercial activities.
+          Situated along the Lekki-Epe Expressway, Ajah offers easy access to
+          other parts of Lagos and is a popular choice for young professionals
+          and families looking for affordable accommodation. The area boasts
+          several markets, shopping malls, and entertainment venues, providing
+          residents with a wide range of amenities and recreational
+          opportunities. With its strategic location and ongoing development,
+          Ajah is expected to continue growing and evolving, making it an
+          attractive destination for both investors and residents alike.
+        </p>
+      </>
+    ),
+    houseType: {
+      [ALL_HOUSE_TYPES['Detached Duplex']]: {
+        minimumPrice: 80_000_000,
+        averagePrice: 400_000_000,
+        maximumPrice: 1_700_000_000,
       },
       [ALL_HOUSE_TYPES['Flat']]: {
         minimumPrice: 50_000_000,
@@ -220,40 +308,87 @@ const contentProperty = {
       [ALL_HOUSE_TYPES['Terraced Duplex']]: {
         minimumPrice: 70_000_000,
         averagePrice: 150_000_000,
-        maximumPrice: 300_000_000,
+        maximumPrice: 500_000_000,
       },
     },
   },
-  Badagry: {
+  Sangotedo: {
     state: 'Lagos',
-    longitude: 2.8938,
-    latitude: 6.4191,
+    lga: 'Eti Osa',
+    district: 'Ajah',
+    longitude: 3.5736,
+    latitude: 6.4712,
     content: (
       <>
         <p>
-          Badagry is a historic town located in Lagos State, Nigeria. It is
-          known for its rich cultural heritage, historic sites, and scenic
-          beauty. Badagry was a major center for the transatlantic slave trade
-          during the 18th and 19th centuries and is home to several historic
-          landmarks, including the Badagry Heritage Museum, Vlekete Slave
-          Market, and the Point of No Return. The town also boasts beautiful
-          beaches, lagoons, and mangrove forests, making it a popular tourist
-          destination. In addition to its cultural significance, Badagry offers
-          residents a peaceful and serene environment away from the hustle and
-          bustle of urban life, making it an ideal place to live and relax.
+          Ajah is a rapidly developing area in Lagos, known for its affordable
+          housing options, vibrant markets, and growing commercial activities.
+          Situated along the Lekki-Epe Expressway, Ajah offers easy access to
+          other parts of Lagos and is a popular choice for young professionals
+          and families looking for affordable accommodation. The area boasts
+          several markets, shopping malls, and entertainment venues, providing
+          residents with a wide range of amenities and recreational
+          opportunities. With its strategic location and ongoing development,
+          Ajah is expected to continue growing and evolving, making it an
+          attractive destination for both investors and residents alike.
         </p>
       </>
     ),
     houseType: {
       [ALL_HOUSE_TYPES['Detached Duplex']]: {
-        minimumPrice: 24_770_000,
-        averagePrice: 90_000_000,
-        maximumPrice: 13_000_000,
+        minimumPrice: 80_000_000,
+        averagePrice: 400_000_000,
+        maximumPrice: 1_700_000_000,
       },
       [ALL_HOUSE_TYPES['Flat']]: {
-        minimumPrice: 15_000_000,
-        averagePrice: 30_000_000,
-        maximumPrice: 50_000_000,
+        minimumPrice: 50_000_000,
+        averagePrice: 70_000_000,
+        maximumPrice: 120_000_000,
+      },
+      [ALL_HOUSE_TYPES['Terraced Duplex']]: {
+        minimumPrice: 70_000_000,
+        averagePrice: 150_000_000,
+        maximumPrice: 500_000_000,
+      },
+    },
+  },
+  'Abraham Adesanya': {
+    state: 'Lagos',
+    lga: 'Eti Osa',
+    district: 'Ajah',
+    longitude: 3.5736,
+    latitude: 6.4712,
+    content: (
+      <>
+        <p>
+          Ajah is a rapidly developing area in Lagos, known for its affordable
+          housing options, vibrant markets, and growing commercial activities.
+          Situated along the Lekki-Epe Expressway, Ajah offers easy access to
+          other parts of Lagos and is a popular choice for young professionals
+          and families looking for affordable accommodation. The area boasts
+          several markets, shopping malls, and entertainment venues, providing
+          residents with a wide range of amenities and recreational
+          opportunities. With its strategic location and ongoing development,
+          Ajah is expected to continue growing and evolving, making it an
+          attractive destination for both investors and residents alike.
+        </p>
+      </>
+    ),
+    houseType: {
+      [ALL_HOUSE_TYPES['Detached Duplex']]: {
+        minimumPrice: 80_000_000,
+        averagePrice: 400_000_000,
+        maximumPrice: 1_700_000_000,
+      },
+      [ALL_HOUSE_TYPES['Flat']]: {
+        minimumPrice: 50_000_000,
+        averagePrice: 70_000_000,
+        maximumPrice: 120_000_000,
+      },
+      [ALL_HOUSE_TYPES['Terraced Duplex']]: {
+        minimumPrice: 70_000_000,
+        averagePrice: 150_000_000,
+        maximumPrice: 500_000_000,
       },
     },
   },
