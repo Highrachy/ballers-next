@@ -80,12 +80,12 @@ const moreDropdown = [
     icon: <BsPeople />,
     link: '/about-us',
   },
-  // {
-  //   title: 'Services',
-  //   description: 'Explore value-added services offered by BALL',
-  //   icon: <BsGearWideConnected />,
-  //   link: '/services',
-  // },
+  {
+    title: 'Services',
+    description: 'Explore value-added services offered by BALL',
+    icon: <BsGearWideConnected />,
+    link: '/services',
+  },
   {
     title: 'Contact Us',
     description: 'Reach out to us for any questions or assistance',

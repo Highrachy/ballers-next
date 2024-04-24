@@ -35,7 +35,7 @@ const PropertyCard = ({ isPublic, ...property }) => {
   } = property;
   const [loading, setLoading] = React.useState(false);
   const isFavorite = (favorites || []).includes(_id);
-  let { userDispatch } = React.useContext(UserContext);
+  let { userState, userDispatch } = React.useContext(UserContext);
 
   const handleFavorites = (propertyId) => {
     setLoading(true);
@@ -66,87 +66,89 @@ const PropertyCard = ({ isPublic, ...property }) => {
     : `/${currentRole}/property/${_id}`;
 
   return (
-    <section>
-      <Card className="card-container property-card">
-        {loading ? (
-          <div className="favorites-icon">
-            <BallersSpinner small />
-          </div>
-        ) : (
-          <div
-            className={`favorites-icon ${
-              isFavorite
-                ? 'favorites-icon__is-favorite'
-                : 'favorites-icon__not-favorite'
-            }`}
-            onClick={() => handleFavorites(_id)}
-          >
-            <span>
-              <LoveIcon />
-            </span>
-          </div>
-        )}
-        <Link href={propertyLink}>
-          <article>
-            <div className="content-image">
-              <OnlineImage
-                name={name}
-                src={mainImage || PropertyPlaceholderImage}
-                alt="Property"
-                className="img-fluid property-holder__img"
-              />
+    <Card className="card-container property-card">
+      {userState?.isloggedIn && (
+        <>
+          {loading ? (
+            <div className="favorites-icon">
+              <BallersSpinner small />
             </div>
-            <div className="property-item">
-              <h5 className="property-name mb-0">{name}</h5>
-              {/* Details */}
-              <div className="property-details property-spacing">
-                <span className="property-holder__house-type">
-                  <strong>
-                    <PropertyIcon /> {getPropertyHouseType(property)}
-                  </strong>
-                </span>{' '}
-              </div>
+          ) : (
+            <div
+              className={`favorites-icon ${
+                isFavorite
+                  ? 'favorites-icon__is-favorite'
+                  : 'favorites-icon__not-favorite'
+              }`}
+              onClick={() => handleFavorites(_id)}
+            >
+              <span>
+                <LoveIcon />
+              </span>
+            </div>
+          )}
+        </>
+      )}
+      <Link href={propertyLink}>
+        <article>
+          <div className="content-image">
+            <OnlineImage
+              name={name}
+              src={mainImage || PropertyPlaceholderImage}
+              alt="Property"
+              className="img-fluid property-holder__img"
+            />
+          </div>
+          <div className="property-item">
+            <h5 className="property-name mb-0">{name}</h5>
+            {/* Details */}
+            <div className="property-details property-spacing">
+              <span className="property-holder__house-type">
+                <strong>
+                  <PropertyIcon /> {getPropertyHouseType(property)}
+                </strong>
+              </span>{' '}
+            </div>
 
-              {/* Price */}
-              <h5 className="property-price property-spacing mb-1">
-                {moneyFormatInNaira(price)}
-              </h5>
-              <div className="text-sm fw-normal mt-2 text-soft">
-                <span className="property-holder__locationss">
-                  {address?.city}, {address?.state}
-                </span>
-                {/* &nbsp; | &nbsp; */}
-                {/* {PRICING_MODEL_DESC?.[pricingModel] || 'Timeline Payment'} */}
-              </div>
-              {/* Info with Icons */}
-              <div className="property-holder__separator my-3"></div>
-              <div className="property-info property-spacing">
-                <span className="pe-3">
-                  <BedIcon /> {property.bedrooms}{' '}
-                  {Humanize.pluralize(property.bedrooms, 'bed')}
-                </span>
-                |{' '}
-                <span className="px-3">
-                  <BathIcon /> {property.bathrooms}{' '}
-                  {Humanize.pluralize(property.bathrooms, 'bath')}
-                </span>
-                |
-                <span className="ps-3">
-                  <ToiletIcon /> {property.toilets}{' '}
-                  {Humanize.pluralize(property.toilets, 'toilet')}
-                </span>
-              </div>
-              {/* View Button */}
-              <div className="mt-4">
-                <button className="btn btn-sm btn-wide btn-secondary-light">
-                  View Details
-                </button>
-              </div>
+            {/* Price */}
+            <h5 className="property-price property-spacing mb-1">
+              {moneyFormatInNaira(price)}
+            </h5>
+            <div className="text-sm fw-normal mt-2 text-soft">
+              <span className="property-holder__locationss">
+                {address?.city}, {address?.state}
+              </span>
+              {/* &nbsp; | &nbsp; */}
+              {/* {PRICING_MODEL_DESC?.[pricingModel] || 'Timeline Payment'} */}
             </div>
-          </article>
-        </Link>
-      </Card>
-    </section>
+            {/* Info with Icons */}
+            <div className="property-holder__separator my-3"></div>
+            <div className="property-info property-spacing">
+              <span className="pe-3">
+                <BedIcon /> {property.bedrooms}{' '}
+                {Humanize.pluralize(property.bedrooms, 'bed')}
+              </span>
+              |{' '}
+              <span className="px-3">
+                <BathIcon /> {property.bathrooms}{' '}
+                {Humanize.pluralize(property.bathrooms, 'bath')}
+              </span>
+              |
+              <span className="ps-3">
+                <ToiletIcon /> {property.toilets}{' '}
+                {Humanize.pluralize(property.toilets, 'toilet')}
+              </span>
+            </div>
+            {/* View Button */}
+            <div className="mt-4">
+              <button className="btn btn-sm btn-wide btn-secondary-light">
+                View Details
+              </button>
+            </div>
+          </div>
+        </article>
+      </Link>
+    </Card>
   );
 };
 

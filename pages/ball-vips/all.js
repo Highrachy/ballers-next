@@ -26,9 +26,7 @@ const VendorProfile = ({ result }) => {
         content="Connect with the best developers in the real estate space."
       />
 
-      <section className="container-fluid">
-        <VendorRowList results={result} />
-      </section>
+      <VendorRowList results={result} />
 
       <Footer />
     </>
@@ -37,7 +35,7 @@ const VendorProfile = ({ result }) => {
 
 const VendorRowList = ({ results, offset }) => {
   return (
-    <div className="container-fluid">
+    <div className="container-fluid mt-6">
       <div className="row">
         {results.map((user, index) => (
           <VendorComponent key={index} number={offset + index + 1} {...user} />

@@ -182,7 +182,7 @@ const VendorContainer = ({ results }) => (
           </div>
 
           <div className="text-center mt-5">
-            <Button wide color="secondary-light" href="/vendors">
+            <Button wide color="secondary-light" href="/ball-vips/all">
               View All BALL VIPs
             </Button>
           </div>

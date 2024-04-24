@@ -787,14 +787,12 @@ const ContactOption = ({ icon, header, text, link }) => {
   );
 };
 
-const PropertyContact = () => {
+export const PropertyContact = () => {
   return (
     <div className="property-contact mt-5">
       <div className="row">
         <div className="col-md-12 interested-contact">
-          <h4 className="text-primary-light mt-0 mb-5">
-            Interested in this property?
-          </h4>
+          <h4 className="text-primary-light mt-0 mb-5">Interested in this?</h4>
         </div>
       </div>
       <div className="row">

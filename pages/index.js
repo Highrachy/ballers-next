@@ -24,8 +24,10 @@ import { Tab, Tabs } from 'react-bootstrap';
 import AdvancedSearchPropertyForm from '@/components/common/AdvancedSearchPropertyForm';
 import Typewriter from 'typewriter-effect';
 import BenefitsSection from '@/components/common/BenefitsSection';
-import ServiceBox from '@/components/dashboard/ServiceBox';
 import SearchEligibilityForm from '@/components/common/SearchEligibilityForm';
+import { ServiceCard } from './services';
+import Slider from 'react-slick';
+import { sliderSettings } from '@/components/common/BenefitsSection';
 
 export default function Home({
   properties,
@@ -33,8 +35,6 @@ export default function Home({
   referralCode = null,
   inviteCode = null,
 }) {
-  console.log('allServices', allServices);
-
   return (
     <>
       <Header />
@@ -46,7 +46,7 @@ export default function Home({
       />
       <BenefitsSection />
       <HowItWorksSection />
-      {/* <OurServices /> */}
+      <OurServices services={allServices} />
       <FAQsSection />
       <CommunityGallery />
       <ReferralModal referralCode={referralCode} inviteCode={inviteCode} />
@@ -191,30 +191,30 @@ const HowItWorksSection = () => (
   </section>
 );
 
-const OurServices = () => (
-  <section className="container-fluid my-4">
-    <div className="row">
-      <ServiceBox
-        link="/services"
-        title="Title Validity"
-        price="50,000"
-        content="Title validity refers to the legal status of the ownership of a property. It is essential to ensure that the title of a property is valid and clear before buying or selling it."
-      />
-      <ServiceBox
-        link="/services"
-        title="Title Validity"
-        price="50,000"
-        content="Title validity refers to the legal status of the ownership of a property. It is essential to ensure that the title of a property is valid and clear before buying or selling it."
-      />
-      <ServiceBox
-        link="/services"
-        title="Title Validity"
-        price="50,000"
-        content="Title validity refers to the legal status of the ownership of a property. It is essential to ensure that the title of a property is valid and clear before buying or selling it."
-      />
-    </div>
-  </section>
-);
+const OurServices = ({ services }) => {
+  if (!services) {
+    return null;
+  }
+  return (
+    <section id="our-services" className="bg-light-blue my-5 py-5 pb-7">
+      <div className="text-center">
+        <h6 className="header-secondary text-uppercase">
+          Value Added Services
+        </h6>
+        <h3>Enriching Your Investment</h3>
+      </div>
+      <div className="container-fluid carousel my-4">
+        <Slider {...sliderSettings}>
+          {services.map((service, index) => (
+            <div key={index} className="me-3 h-100">
+              <ServiceCard {...service} />
+            </div>
+          ))}
+        </Slider>
+      </div>
+    </section>
+  );
+};
 
 const FAQsSection = () => {
   const FAQs = Object.values(FAQsContent).reduce((result, { faqs }, index) => {

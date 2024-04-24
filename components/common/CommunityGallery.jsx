@@ -10,7 +10,7 @@ const CommunityGallery = () => (
       Become a <span className="">BALL VIP</span> today <br /> and enjoy
       exclusive benefits.
     </h2>
-    <Link href="/vendor">
+    <Link href="/ball-vips">
       <a className="btn btn-secondary btn-wide mb-6">Become a BALL VIP</a>
     </Link>
   </section>

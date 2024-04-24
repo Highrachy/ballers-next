@@ -57,6 +57,7 @@ export const API_ENDPOINT = {
 
   getAllVas: () => `${BASE_API_URL}/vas/all`,
   getOneVas: (id) => `${BASE_API_URL}/vas/${id}`,
+  getVasBySlug: (slug) => `${BASE_API_URL}/vas/all?slug=${slug}`,
   getAllVasRequests: () => `${BASE_API_URL}/vas/request/all`,
   getOneVasRequest: (id) => `${BASE_API_URL}/vas/request/${id}`,
 

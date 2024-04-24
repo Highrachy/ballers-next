@@ -13,6 +13,8 @@ export const USER_TYPES = {
   editor: 3,
 };
 
+export const USER_ROLE = USER_TYPES;
+
 export const DASHBOARD_PAGE = {
   [USER_TYPES.user]: 'user',
   [USER_TYPES.admin]: 'admin',
@@ -391,10 +393,20 @@ export const PROPERTY_VIDEO_STATUS = {
 };
 
 export const VAS_TYPE = {
-  OFFER: 'Offer',
-  PROPERTY: 'Property',
-  USER: 'User',
-  VENDOR: 'Vendor',
+  PROPERTY: 'Property', // PROPERTY ON BALL
+  GENERAL: 'General', // DEALING WITH USER DIRECTLY
+};
+
+export const VAS_ROLE_TYPE = {
+  ALL: -1,
+  USER: USER_ROLE.user,
+  VENDOR: USER_ROLE.vendor,
+};
+
+export const VAS_ROLE = {
+  [VAS_ROLE_TYPE.ALL]: 'Everyone',
+  [VAS_ROLE_TYPE.USER]: 'Homebuyer',
+  [VAS_ROLE_TYPE.VENDOR]: 'BALL VIP',
 };
 
 export const MODEL = {

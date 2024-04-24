@@ -1,7 +1,7 @@
 //  Slick Carousel
 .benefits .slick-slide {
   border-radius: 0.3rem;
-  padding: 4rem 2.5rem 1rem;
+  padding: 4rem 1.5rem 1rem;
 
   .card {
     border: none;
@@ -21,6 +21,16 @@
   }
 }
 
+.carousel .slick-slide {
+  padding: 1rem;
+
+  .benefits-icon {
+    height: 12rem;
+    width: 12rem;
+    margin: 0 auto;
+  }
+}
+
 .slick-arrow {
   width: 2rem;
   height: 2rem;
@@ -29,14 +39,14 @@
   &.slick-next {
     right: 0;
     @include media-breakpoint-up(lg) {
-      right: -1rem;
+      right: -1.5rem;
     }
   }
 
   &.slick-prev {
     left: 0;
     @include media-breakpoint-up(lg) {
-      left: -1rem;
+      left: -1.5rem;
     }
   }
 }

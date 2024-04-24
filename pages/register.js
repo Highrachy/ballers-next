@@ -110,7 +110,7 @@ export const Content = ({ currentUser = 'user', showVendorOnly = false }) => {
                   <RegisterForm showUserForm={true} />
                 </Tab>
               )}
-              <Tab eventKey="vendor" title="Register as a BALL VIP">
+              <Tab eventKey="vendor" title="Register as a Seller">
                 <RegisterForm showUserForm={false} />
               </Tab>
             </Tabs>
@@ -202,7 +202,7 @@ const RegisterForm = ({ showUserForm }) => {
       {({ isSubmitting, handleSubmit, ...props }) => (
         <Form>
           <h4 className="mt-4 mb-4 fw-semibold text-dark">
-            Register as a {currentUser}
+            {showUserForm ? 'Register as a User' : 'Become a BALL VIP'}
           </h4>
           <Toast {...toast} />
           {showUserForm ? (

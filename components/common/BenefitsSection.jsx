@@ -3,6 +3,51 @@ import { Card } from 'react-bootstrap';
 import Slider from 'react-slick';
 import { LocalImage } from '../utils/Image';
 
+const CarouselArrow = ({ className, style, onClick, image }) => (
+  <LocalImage
+    src={image}
+    className={className}
+    onClick={onClick}
+    style={{ ...style, display: 'block' }}
+    alt="carousel arrow"
+    width="50"
+    height="50"
+    serveImageFromCloud={false}
+  />
+);
+
+export const sliderSettings = {
+  speed: 1500,
+  infinite: true,
+  centerMode: true,
+  dots: true,
+  autoplay: true,
+  autoplaySpeed: 5000,
+  slidesToScroll: 1,
+  centerPadding: '0',
+  slidesToShow: 3,
+  responsive: [
+    {
+      breakpoint: 992,
+      settings: {
+        centerMode: true,
+        centerPadding: '1.5rem',
+        slidesToShow: 2,
+      },
+    },
+    {
+      breakpoint: 576,
+      settings: {
+        centerMode: true,
+        centerPadding: '0',
+        slidesToShow: 1,
+      },
+    },
+  ],
+  prevArrow: <CarouselArrow image="/img/icons/btn-prev.png" />,
+  nextArrow: <CarouselArrow image="/img/icons/btn-next.png" />,
+};
+
 const BenefitsSection = ({ isVendor }) => {
   const USER_BALLERS_BENEFITS = [
     {
@@ -70,51 +115,8 @@ const BenefitsSection = ({ isVendor }) => {
     },
   ];
 
+  const settings = sliderSettings;
   const benefits = isVendor ? VENDOR_BALLERS_BENEFITS : USER_BALLERS_BENEFITS;
-  const CarouselArrow = ({ className, style, onClick, image }) => (
-    <LocalImage
-      src={image}
-      className={className}
-      onClick={onClick}
-      style={{ ...style, display: 'block' }}
-      alt="previous arrow"
-      width="50"
-      height="50"
-      serveImageFromCloud={false}
-    />
-  );
-
-  const settings = {
-    speed: 1500,
-    infinite: true,
-    centerMode: true,
-    dots: true,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    slidesToScroll: 1,
-    centerPadding: '0',
-    slidesToShow: 3,
-    responsive: [
-      {
-        breakpoint: 992,
-        settings: {
-          centerMode: true,
-          centerPadding: '1.5rem',
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 576,
-        settings: {
-          centerMode: true,
-          centerPadding: '0',
-          slidesToShow: 1,
-        },
-      },
-    ],
-    prevArrow: <CarouselArrow image="/img/icons/btn-prev.png" />,
-    nextArrow: <CarouselArrow image="/img/icons/btn-next.png" />,
-  };
 
   return (
     <section
