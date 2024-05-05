@@ -140,12 +140,7 @@ const AssignedPropertySidebar = ({ portfolio, setToast }) => {
               <small style={{ paddingLeft: `${Math.min(90, NOW - 5)}%` }}>
                 {NOW}%
               </small>
-              <ProgressBar
-                variant="success"
-                now={NOW}
-                label={`${NOW}%`}
-                srOnly
-              />
+              <ProgressBar variant="success" now={NOW} label={`${NOW}%`} />
             </div>
           </div>
         </section>

@@ -54,11 +54,6 @@ const SearchEligibilityForm = ({ initialValues, afterSave = () => {} }) => {
       helpText:
         'Enter your total monthly income, including salary and other sources.',
     },
-    // 5: {
-    //   field: 'budget',
-    //   error: '',
-    //   helpText: 'Select your maximum budget for purchasing a home.',
-    // },
   };
 
   const handleNextStep = () => {

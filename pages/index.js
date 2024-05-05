@@ -43,6 +43,7 @@ export default function Home({
       <PropertiesRowList
         result={properties?.slice(0, 3)}
         title="Available Properties"
+        viewAllLink={'/properties'}
       />
       <BenefitsSection />
       <HowItWorksSection />
@@ -56,8 +57,6 @@ export default function Home({
 }
 
 const HoldingSection = () => {
-  const [showArrow, setShowArrow] = React.useState(false);
-
   return (
     <section>
       <div className="row me-0 ms-0">
@@ -175,8 +174,7 @@ const HowItWorksSection = () => (
                 onvert to home ownership
               </h5>
               <p className="pe-md-8 pe-4 pb-4">
-                Convert structure to extended mortgage plan at affordable rates
-                from 6% per annum.
+                Convert structure to extended mortgage plan at affordable rates.
               </p>
             </li>
             <li className="timeline-no-border">
@@ -259,7 +257,9 @@ const SearchTabComponent = () => {
     },
     {
       title: 'Search for Properties',
-      component: <AdvancedSearchPropertyForm />,
+      component: (
+        <AdvancedSearchPropertyForm helpText="Find Your Dream Home: Start your search with your preferences" />
+      ),
     },
   ];
 

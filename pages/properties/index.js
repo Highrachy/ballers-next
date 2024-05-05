@@ -6,6 +6,7 @@ import TitleSection from 'components/common/TitleSection';
 import { API_ENDPOINT } from 'utils/URL';
 import { RecommendedPropertyLists } from 'components/common/PropertyCard';
 import Axios from 'axios';
+import Button from '@/components/forms/Button';
 
 const PublicProperties = ({ result }) => {
   return (
@@ -22,10 +23,21 @@ const PublicProperties = ({ result }) => {
   );
 };
 
-export const PropertiesRowList = ({ result, title }) => {
+export const PropertiesRowList = ({ result, title, viewAllLink }) => {
   return result && result.length > 0 ? (
     <div className="container-fluid">
-      {title && <h3 className="mt-7 mb-4">{title}</h3>}
+      <div className="row">
+        <div className="col">
+          <h3 className="mt-7 mb-4 d-flex justify-content-between align-items-center">
+            {title}
+            {viewAllLink && (
+              <Button href={viewAllLink} color="secondary-light" wide>
+                View All
+              </Button>
+            )}
+          </h3>
+        </div>
+      </div>
       <div className="row">
         <RecommendedPropertyLists
           propertyClassName="col-sm-6 col-lg-6 col-xl-4"

@@ -30,7 +30,6 @@ export const PortfolioPaymentProgress = ({ amountPaid, percentage }) => (
         style={{
           height: '6px',
         }}
-        srOnly
       />
     </div>
   </div>
@@ -52,6 +51,7 @@ export const PortfolioCard = ({
   );
   const expectedAmount =
     Math.round((nextPayment?.expectedAmount || 0) * 100) / 100;
+  console.log('portfolio', portfolio);
 
   return (
     <Card className="card-container portfolio-holder property-card">
@@ -127,7 +127,7 @@ export const PortfolioCard = ({
                   setToast={setToast}
                   amount={expectedAmount}
                   model={{
-                    offerId: portfolio?._id,
+                    offerId: _id,
                     type: MODEL.OFFER,
                   }}
                 />

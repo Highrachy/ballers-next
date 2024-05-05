@@ -20,21 +20,22 @@ import { MapPinIcon } from 'components/utils/Icons';
 import Image, { OnlineImage } from 'components/utils/Image';
 import ProfileAvatar from 'assets/img/placeholder/property-holder.jpg';
 import { useCurrentRole } from 'hooks/useUser';
+import Button from '../forms/Button';
 
-const PropertyCard = ({ isPublic, ...property }) => {
+const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
   const {
     name,
     address,
-    favorites,
     houseType,
     mainImage,
     price,
     _id,
     slug,
+    favourites,
     pricingModel,
   } = property;
+
   const [loading, setLoading] = React.useState(false);
-  const isFavorite = (favorites || []).includes(_id);
   let { userState, userDispatch } = React.useContext(UserContext);
 
   const handleFavorites = (propertyId) => {
@@ -53,13 +54,23 @@ const PropertyCard = ({ isPublic, ...property }) => {
         const { status } = response;
         if (status === 200) {
           setLoading(false);
-          userDispatch({ type: FAVORITE_URL, property });
+          console.log('userState', userState);
+          userDispatch({
+            user: {
+              favorites: isFavorite
+                ? userState.favorites.filter(
+                    (property) => property._id !== propertyId
+                  )
+                : [...userState.favorites, property],
+            },
+          });
         }
       })
       .catch(function () {
         setLoading(false);
       });
   };
+
   const currentRole = useCurrentRole().name;
   const propertyLink = isPublic
     ? `/properties/${slug}`
@@ -67,87 +78,98 @@ const PropertyCard = ({ isPublic, ...property }) => {
 
   return (
     <Card className="card-container property-card">
-      {userState?.isloggedIn && (
-        <>
-          {loading ? (
-            <div className="favorites-icon">
-              <BallersSpinner small />
-            </div>
-          ) : (
-            <div
-              className={`favorites-icon ${
-                isFavorite
-                  ? 'favorites-icon__is-favorite'
-                  : 'favorites-icon__not-favorite'
-              }`}
-              onClick={() => handleFavorites(_id)}
-            >
-              <span>
-                <LoveIcon />
-              </span>
+      <article>
+        <div className="content-image">
+          {false && (
+            <div className="featured-ribbon">
+              <span>Featured</span>
             </div>
           )}
-        </>
-      )}
-      <Link href={propertyLink}>
-        <article>
-          <div className="content-image">
-            <OnlineImage
-              name={name}
-              src={mainImage || PropertyPlaceholderImage}
-              alt="Property"
-              className="img-fluid property-holder__img"
-            />
+          <div className="image-top">
+            {false && (
+              <span className="type">
+                {PRICING_MODEL_DESC?.[pricingModel] || 'Timeline Payment'}
+              </span>
+            )}
+            {false && <span className="status">For Sale</span>}
           </div>
-          <div className="property-item">
-            <h5 className="property-name mb-0">{name}</h5>
-            {/* Details */}
-            <div className="property-details property-spacing">
-              <span className="property-holder__house-type">
-                <strong>
-                  <PropertyIcon /> {getPropertyHouseType(property)}
-                </strong>
-              </span>{' '}
-            </div>
+          <OnlineImage
+            name={name}
+            src={mainImage || PropertyPlaceholderImage}
+            alt="Property"
+            className="img-fluid property-holder__img"
+          />
+        </div>
+        <div className="property-item">
+          <h5 className="property-name mb-0 position-relative">
+            {name}{' '}
+            {userState?.isLoggedIn && (
+              <>
+                {loading ? (
+                  <div className="favorites-icon">
+                    <BallersSpinner small />
+                  </div>
+                ) : (
+                  <div
+                    className={`favorites-icon ${
+                      isFavorite
+                        ? 'favorites-icon__is-favorite'
+                        : 'favorites-icon__not-favorite'
+                    }`}
+                    onClick={() => handleFavorites(_id)}
+                  >
+                    <span>
+                      <LoveIcon />
+                    </span>
+                  </div>
+                )}
+              </>
+            )}
+          </h5>
+          {/* Details */}
+          <div className="property-details property-spacing">
+            <strong className="property-holder__house-type">
+              <PropertyIcon /> {getPropertyHouseType(property)}
+            </strong>{' '}
+          </div>
 
-            {/* Price */}
-            <h5 className="property-price property-spacing mb-1">
-              {moneyFormatInNaira(price)}
-            </h5>
-            <div className="text-sm fw-normal mt-2 text-soft">
-              <span className="property-holder__locationss">
-                {address?.city}, {address?.state}
-              </span>
-              {/* &nbsp; | &nbsp; */}
-              {/* {PRICING_MODEL_DESC?.[pricingModel] || 'Timeline Payment'} */}
-            </div>
-            {/* Info with Icons */}
-            <div className="property-holder__separator my-3"></div>
-            <div className="property-info property-spacing">
-              <span className="pe-3">
-                <BedIcon /> {property.bedrooms}{' '}
-                {Humanize.pluralize(property.bedrooms, 'bed')}
-              </span>
-              |{' '}
-              <span className="px-3">
-                <BathIcon /> {property.bathrooms}{' '}
-                {Humanize.pluralize(property.bathrooms, 'bath')}
-              </span>
-              |
-              <span className="ps-3">
-                <ToiletIcon /> {property.toilets}{' '}
-                {Humanize.pluralize(property.toilets, 'toilet')}
-              </span>
-            </div>
-            {/* View Button */}
-            <div className="mt-4">
-              <button className="btn btn-sm btn-wide btn-secondary-light">
-                View Details
-              </button>
-            </div>
+          {/* Price */}
+          <h5 className="property-price property-spacing mb-1">
+            {moneyFormatInNaira(price)}
+          </h5>
+          <div className="text-sm fw-normal mt-2 text-soft">
+            <span className="property-holder__locationss">
+              {address?.city}, {address?.state}
+            </span>
+            {/* &nbsp; | &nbsp; */}
+            {/* {PRICING_MODEL_DESC?.[pricingModel] || 'Timeline Payment'} */}
           </div>
-        </article>
-      </Link>
+          {/* Info with Icons */}
+          <div className="property-holder__separator my-3"></div>
+          <div className="property-info property-spacing">
+            <span className="pe-3">
+              <BedIcon /> {property.bedrooms}{' '}
+              {Humanize.pluralize(property.bedrooms, 'bed')}
+            </span>
+            |{' '}
+            <span className="px-3">
+              <BathIcon /> {property.bathrooms}{' '}
+              {Humanize.pluralize(property.bathrooms, 'bath')}
+            </span>
+            |
+            <span className="ps-3">
+              <ToiletIcon /> {property.toilets}{' '}
+              {Humanize.pluralize(property.toilets, 'toilet')}
+            </span>
+          </div>
+          {/* View Button */}
+          <div className="mt-4">
+            <Button href={propertyLink} color="secondary-light" wide>
+              View Details
+            </Button>
+          </div>
+        </div>
+      </article>
     </Card>
   );
 };
@@ -164,8 +186,9 @@ export const RecommendedPropertyLists = ({
     <div className={propertyClassName} key={property._id}>
       <PropertyCard
         {...property}
-        favorites={favoritePropertyIds}
+        favorites={[]}
         isPublic={isPublic}
+        isFavorite={favoritePropertyIds?.includes(property._id)}
       />
     </div>
   ));

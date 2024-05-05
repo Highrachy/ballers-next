@@ -51,7 +51,7 @@ const MakePayment = ({
 }) => {
   const [showPaymentModal, setShowPaymentModal] = React.useState(false);
   const [paymentType, setPaymentType] = React.useState(KEY.ONLINE);
-
+  console.log('model', model);
   return (
     <>
       <Modal

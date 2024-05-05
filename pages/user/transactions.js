@@ -15,6 +15,12 @@ const UserTransactions = () => {
       title: 'Pending Transactions',
       component: <AllOfflinePayments />,
     },
+
+    {
+      // TODO: Implement this
+      title: 'Upcoming Payements',
+      component: <AllOfflinePayments />,
+    },
   ];
   return (
     <BackendPage>

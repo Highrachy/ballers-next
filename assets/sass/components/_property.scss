@@ -197,14 +197,17 @@
   }
 }
 
-.favorites-icon,
-.delete-icon {
+.favorites-icon {
   cursor: pointer !important;
   position: absolute;
   right: 0;
   top: 0;
-  padding: 1rem;
   z-index: 1;
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 1;
+  }
 
   svg {
     height: 1.5rem;
@@ -213,35 +216,25 @@
     transition: all 0.3s ease-out;
 
     &:hover {
-      height: 2rem;
-      width: 2rem;
-      stroke: red;
+      stroke: $danger;
       fill: rgba(white, 0.3);
     }
   }
 
   &__is-favorite {
+    opacity: 0.7;
     svg {
-      fill: red;
-      stroke: red;
+      fill: $danger;
+      stroke: $danger;
     }
     &:hover {
       svg {
-        fill: red;
-        stroke: red;
+        fill: $danger;
+        stroke: $danger;
         height: 1.5rem;
         width: 1.5rem;
       }
     }
-  }
-}
-
-.delete-icon {
-  svg {
-    fill: rgba(220, 53, 69, 0.3);
-  }
-  &:hover svg {
-    fill: rgba(220, 53, 69, 1);
   }
 }
 
@@ -437,5 +430,59 @@
   &.bg-danger {
     background: lighten($danger-50, 3) !important;
     border: 1px solid $danger-100;
+  }
+}
+
+.featured-ribbon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  overflow: hidden;
+  width: 5rem;
+  height: 5rem;
+
+  span {
+    position: absolute;
+    top: 20px;
+    left: -21px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    line-height: 16px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    width: 100px;
+    display: block;
+    background: $secondary;
+    letter-spacing: 0.8px;
+  }
+}
+
+.image-top {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  opacity: 0.8;
+
+  .type,
+  .status {
+    padding: 4px 6px;
+    margin-left: 5px;
+    font-size: 12px;
+    display: inline-block;
+    border-radius: 3px;
+    color: #fff;
+    transition: 0.3s;
+    line-height: 15px;
+  }
+
+  .type {
+    background: #f07c00;
+  }
+
+  .status {
+    background: #2ecc71;
   }
 }

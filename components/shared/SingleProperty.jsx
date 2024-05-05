@@ -173,24 +173,26 @@ export const OwnedPropertyCard = ({
           />
         )}
 
-        <div className="mt-4">
-          <PropertyHeader
-            property={property}
-            enquiryInfo={enquiryInfo}
-            vendorInfo={vendorInfo}
-            isPortfolioPage={isPortfolioPage}
-          />
+        <section className="row mt-4">
           <div className={Sidebar ? 'col-sm-7' : 'col-sm-12'}>
+            <PropertyHeader
+              property={property}
+              enquiryInfo={enquiryInfo}
+              vendorInfo={vendorInfo}
+              isPortfolioPage={isPortfolioPage}
+            />
             <PropertyDescription
               property={property}
               enquiryInfo={enquiryInfo}
               vendorInfo={vendorInfo}
               Actionbar={Actionbar}
+              showFull={!!Sidebar}
               isPortfolioPage={isPortfolioPage}
             />
           </div>
           {Sidebar && <div className="col-sm-5">{Sidebar}</div>}
-        </div>
+        </section>
+
         <PropertyLists
           property={property}
           setToast={setToast}
@@ -842,6 +844,7 @@ export const PropertyDescription = ({
   isPortfolioPage,
   isPublicPage,
   Actionbar,
+  showFull,
 }) => {
   const [showDescription, setShowDescription] = React.useState(false);
   const [showSafetyTips, setShowSafetyTips] = React.useState(false);
@@ -953,6 +956,7 @@ export const PropertyDescription = ({
             title={title}
             value={value}
             Icon={Icon}
+            showFull={showFull}
           />
         ))}
       </ul>
@@ -1016,8 +1020,12 @@ export const PropertyDescription = ({
   );
 };
 
-export const PropertyDetailsList = ({ title, Icon, value }) => (
-  <li className="col-lg-6 d-flex align-items-center  mt-4">
+export const PropertyDetailsList = ({ title, Icon, value, showFull }) => (
+  <li
+    className={`${
+      showFull ? 'col-lg-12' : 'col-lg-6'
+    } d-flex align-items-center  mt-4`}
+  >
     <span className="text-primary-light fw-bold me-2 lh-0 flex-shrink-0 w-150">
       {title}:
     </span>

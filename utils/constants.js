@@ -93,6 +93,7 @@ export const PROPERTY_DELIVERY_STATE = {
   Carcass: 'Carcass',
   Shell: 'Shell',
   Completed: 'Completed',
+  Fitted: 'Fitted',
   Furnished: 'Furnished',
 };
 

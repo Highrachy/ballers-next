@@ -18,7 +18,6 @@ const AtoZ = () => (
     <BallingIsEasy />
     <HowBallersWork />
     <BenefitsSection />
-    <FullControl />
     <BallersCreed />
     <CommunityGallery />
     <Footer />
@@ -32,7 +31,7 @@ const BallExplained = () => (
         <h2>What is BALL?</h2>
       </div>
       <div className="col-lg-7 col-12">
-        <h6 className="text-green">BALL EXPLAINED</h6>
+        <h6 className="text-secondary">BALL EXPLAINED</h6>
         <p className="lead text-primary pt-4 mb-4">
           BALL is a platform that enables her members to seamlessly own quality
           homes in well planned communities with a sustainable plan tailored to
@@ -62,9 +61,9 @@ const BallingIsEasy = () => (
           width="111"
           height="120"
         />
-        <h5 className="pb-3">
-          <span>Apply Now</span>
-        </h5>
+        <Link href="/register" passHref>
+          <a className="btn btn-secondary my-4">APPLY NOW</a>
+        </Link>
         <p className="text-primary">
           Click here to access and complete the BALLers applicant information
           form. Please ensure that you fill in accurate and clear information to
@@ -264,8 +263,8 @@ const HowBallersWork = () => (
       </section>
       <div className="row mt-md-5 pt-md-5 mt-lg-0 pt-lg-0">
         <div className="col-sm-12 pt-md-3 pt-lg-0">
-          <Link href="/register" className="btn btn-link">
-            APPLY NOW
+          <Link href="/register" passHref>
+            <a className="btn btn-secondary my-5 btn-wide">APPLY NOW</a>
           </Link>
         </div>
       </div>
@@ -359,62 +358,6 @@ const HowBallersWork = () => (
         </div>
       </aside>
     </section>
-  </section>
-);
-
-const FullControl = () => (
-  <section className="az-control">
-    <h2 className="az-control-heading">You have full control</h2>
-    <div className="row">
-      <div className="col-lg-1 col-12" />
-      <div className="col-lg-5 col-sm-6 col-12">
-        <Image
-          className="az-control-panel-img img-fluid"
-          src="/img/pages/a-to-z/see-available.png"
-          alt="Available Properties"
-          width="540"
-          height="330"
-        />
-        <h5 className="az-control-panel-heading">See available properties</h5>
-        <p className="az-control-panel-text" />
-      </div>
-      <div className="col-lg-5 col-sm-6 col-12">
-        <Image
-          className="az-control-panel-img img-fluid"
-          src="/img/pages/a-to-z/monitor.png"
-          width="540"
-          height="330"
-          alt="Monitor your contribution"
-        />
-        <h5 className="az-control-panel-heading">Monitor your contribution</h5>
-        <p className="az-control-panel-text" />
-      </div>
-      <div className="col-lg-1 col-12" />
-      <div className="col-lg-1 col-12" />
-      <div className="col-lg-5 col-sm-6 col-12">
-        <Image
-          className="az-control-panel-img img-fluid"
-          src="/img/pages/a-to-z/view-map.png"
-          width="540"
-          height="330"
-          alt="View Map"
-        />
-        <h5 className="az-control-panel-heading">View map</h5>
-        <p className="az-control-panel-text" />
-      </div>
-      <div className="col-lg-5 col-sm-6 col-12">
-        <Image
-          className="az-control-panel-img img-fluid"
-          src="/img/pages/a-to-z/conversation.png"
-          width="540"
-          height="330"
-          alt="Start a conversation"
-        />
-        <h5 className="az-control-panel-heading">Start a conversation</h5>
-        <p className="az-control-panel-text" />
-      </div>
-      <div className="col-lg-1 col-12" />
-    </div>
   </section>
 );
 

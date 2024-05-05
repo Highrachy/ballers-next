@@ -17,7 +17,11 @@ import { PiHouseFill } from 'react-icons/pi';
 import { FaParking, FaRoad } from 'react-icons/fa';
 import classNames from 'classnames';
 
-const AdvancedSearchPropertyForm = ({ advanced = false, term = '' }) => {
+const AdvancedSearchPropertyForm = ({
+  advanced = false,
+  helpText = '',
+  term = '',
+}) => {
   const router = useRouter();
   return (
     <Formik
@@ -39,6 +43,11 @@ const AdvancedSearchPropertyForm = ({ advanced = false, term = '' }) => {
         };
         return (
           <Form>
+            {helpText && (
+              <div className="mb-3">
+                <p className="text-md text-soft mb-2">{helpText}</p>
+              </div>
+            )}
             {!advanced ? (
               <div className="input-group search-property-form">
                 <div className="select-holder">

@@ -1011,7 +1011,6 @@ export const MilestoneProgress = ({
           style={{
             height: '5px',
           }}
-          srOnly
         />
 
         <div className="text-end text-sm">{`${percentage}%`}</div>

@@ -24,14 +24,12 @@ const Sidebar = ({ showSidebar, closeSidebar, ...props }) => {
         })}
       >
         <div className="sidebar__logo">
-          <Link href="/" passHref>
-            <a>
-              <BallersLogo
-                className="ballers-logo-footer"
-                width="86"
-                height="55"
-              />
-            </a>
+          <Link href="/">
+            <BallersLogo
+              className="ballers-logo-footer"
+              width="86"
+              height="55"
+            />
           </Link>
           <div className="sidebar__close" onClick={closeSidebar}>
             <button
