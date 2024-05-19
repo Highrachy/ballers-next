@@ -328,7 +328,7 @@ const PropertyPreferenceForm = ({ availableOptions }) => {
   );
 };
 
-const ChangePasswordForm = () => {
+export const ChangePasswordForm = () => {
   const [toast, setToast] = useToast();
   return (
     <section className="row">

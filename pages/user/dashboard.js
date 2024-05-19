@@ -29,6 +29,7 @@ import colorTokens from 'style-dictionary/build/color.tokens.js';
 import { WalletInfoBox } from '@/components/dashboard/WalletInfoBox';
 import { UserContext } from '@/context/UserContext';
 import { FEATURE_FLAG_LIST, isFeatureFlagEnabled } from '@/utils/constants';
+import { ChangePasswordForm } from './settings';
 
 const Dashboard = () => {
   const [toast, setToast] = useToast();
@@ -185,6 +186,13 @@ const Dashboard = () => {
         {showOtherWidgets && <RecentTransactionsAndServices result={result} />}
       </ContentLoader>
       {showOtherWidgets && <ReferAndEarn />}
+      {userState?.needToCompleteProfile && (
+        <div className="container-fluid card">
+          <div className="row">
+            <ChangePasswordForm />
+          </div>
+        </div>
+      )}
       {/* <VisitationCard /> */}
       {/* <div className="container-fluid py-0">
         <h3 className="mt-5 mb-4">From our Blog</h3>
