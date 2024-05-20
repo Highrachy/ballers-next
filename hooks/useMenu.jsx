@@ -23,7 +23,7 @@ export const useMenu = () => {
   }
 
   //unloaded userState
-  if (!userState?.isLoggedIn) {
+  if (!userState?.isLoggedIn || userState?.needToCompleteProfile) {
     return userLoadingMenu;
   }
 

@@ -48,6 +48,23 @@ export const registerSchema = (isUser = true) => {
     agreement,
   };
 };
+
+export const completeProfileSchema = (isUser = true) => {
+  let altSchema = {};
+
+  if (!isUser) {
+    altSchema = { companyName: stringValidation('Company Name') };
+  }
+
+  return {
+    ...altSchema,
+    phone: phoneNumber,
+    phone2: OptionalPhoneNumber,
+    password: strongPassword,
+    confirmPassword: confirmPassword,
+    agreement,
+  };
+};
 export const demoAccountSchema = {
   companyName: stringValidation('Company Name'),
   email,

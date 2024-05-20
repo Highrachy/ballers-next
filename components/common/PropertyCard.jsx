@@ -33,6 +33,7 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
     slug,
     favourites,
     pricingModel,
+    deliveryState,
   } = property;
 
   const [loading, setLoading] = React.useState(false);
@@ -54,7 +55,6 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
         const { status } = response;
         if (status === 200) {
           setLoading(false);
-          console.log('userState', userState);
           userDispatch({
             user: {
               favorites: isFavorite
@@ -86,11 +86,7 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
             </div>
           )}
           <div className="image-top">
-            {false && (
-              <span className="type">
-                {PRICING_MODEL_DESC?.[pricingModel] || 'Timeline Payment'}
-              </span>
-            )}
+            <span className="type">{deliveryState}</span>
             {false && <span className="status">For Sale</span>}
           </div>
           <OnlineImage

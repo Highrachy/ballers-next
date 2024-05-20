@@ -29,7 +29,7 @@ import colorTokens from 'style-dictionary/build/color.tokens.js';
 import { WalletInfoBox } from '@/components/dashboard/WalletInfoBox';
 import { UserContext } from '@/context/UserContext';
 import { FEATURE_FLAG_LIST, isFeatureFlagEnabled } from '@/utils/constants';
-import { ChangePasswordForm } from './settings';
+import CompleteYourProfile from '@/components/dashboard/CompleteYourProfile';
 
 const Dashboard = () => {
   const [toast, setToast] = useToast();
@@ -131,10 +131,15 @@ const Dashboard = () => {
   const stackboxes = getNextSteps(userState, result);
   const showOtherWidgets = stackboxes.length <= 3;
 
+  if (userState?.needToCompleteProfile) {
+    return <CompleteYourProfile />;
+  }
+
   return (
     <BackendPage>
       <Toast {...toast} showToastOnly />
       <WelcomeHero isIndex />
+
       <ContentLoader
         hasContent={!!result}
         Icon={<HomeIcon />}
@@ -186,13 +191,6 @@ const Dashboard = () => {
         {showOtherWidgets && <RecentTransactionsAndServices result={result} />}
       </ContentLoader>
       {showOtherWidgets && <ReferAndEarn />}
-      {userState?.needToCompleteProfile && (
-        <div className="container-fluid card">
-          <div className="row">
-            <ChangePasswordForm />
-          </div>
-        </div>
-      )}
       {/* <VisitationCard /> */}
       {/* <div className="container-fluid py-0">
         <h3 className="mt-5 mb-4">From our Blog</h3>
@@ -270,11 +268,15 @@ const NextSteps = ({ stackboxes }) => {
     return null;
   }
 
+  const TOTAL_STACKBOXES = 4;
+
   return (
     <div className="container-fluid py-0">
       <div className="row">
         <WidgetBox
-          textEnd={`${5 - stackboxes.length}/5 completed`}
+          textEnd={`${
+            TOTAL_STACKBOXES - stackboxes.length
+          }/${TOTAL_STACKBOXES} completed`}
           title="Next Steps"
           className="col-12 mt-4"
           data={['preferences']}
@@ -385,19 +387,6 @@ const getNextSteps = (userState, result) => {
       href: '/user/settings?tab=preferences',
     },
     {
-      title: 'Refer a Friend',
-      subtitle: 'Invite friends to BALL and Become A Landlord together',
-      value: 'Refer and Earn',
-      href: '/user/referrals',
-    },
-    {
-      title: 'Fund Your Wallet',
-      subtitle:
-        'Begin your property journey by adding funds to your wallet on BALL.',
-      value: 'View Wallet',
-      href: '/user/dashboard#wallet',
-    },
-    {
       title: 'Request a Service',
       subtitle:
         'Need a service? Simply request it on BALL for a seamless experience.',
@@ -411,6 +400,12 @@ const getNextSteps = (userState, result) => {
       value: 'View Properties',
       href: '/user/just-for-you',
     },
+    {
+      title: 'Refer a Friend',
+      subtitle: 'Invite friends to BALL and Become A Landlord together',
+      value: 'Refer and Earn',
+      href: '/user/referrals',
+    },
   ];
 
   const stackboxes = [];
@@ -419,23 +414,23 @@ const getNextSteps = (userState, result) => {
     stackboxes.push(allStackBoxes[0]);
   }
 
-  if (result.widgets.referralCount === 0) {
+  // if (
+  //   result.payments.totalAmountInWallet === 0 ||
+  //   result.payments.totalAmountPaid === 0
+  // ) {
+  //   stackboxes.push(allStackBoxes[2]);
+  // }
+
+  if (result.widgets.serviceCount === 0) {
     stackboxes.push(allStackBoxes[1]);
   }
 
-  if (
-    result.payments.totalAmountInWallet === 0 ||
-    result.payments.totalAmountPaid === 0
-  ) {
+  if (result.widgets.offerCount === 0) {
     stackboxes.push(allStackBoxes[2]);
   }
 
-  if (result.widgets.serviceCount === 0) {
+  if (result.widgets.referralCount === 0) {
     stackboxes.push(allStackBoxes[3]);
-  }
-
-  if (result.widgets.offerCount === 0) {
-    stackboxes.push(allStackBoxes[4]);
   }
 
   return stackboxes;

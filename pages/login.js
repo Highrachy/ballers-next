@@ -24,9 +24,9 @@ import {
   getUserRoleFromStore,
 } from 'utils/localStorage';
 import { getError, statusIsSuccessful } from 'utils/helpers';
-import store from 'store2';
 import { useRouter } from 'next/router';
 import { UserContext } from '@/context/UserContext';
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const { query } = useRouter();
@@ -98,6 +98,10 @@ const LoginForm = ({ redirectTo, token }) => {
   const router = useRouter();
   const [toast, setToast] = useToast();
   const { userState, loginUser } = React.useContext(UserContext);
+
+  const errorMessage = (error) => {
+    console.log(error);
+  };
   const loginToken = getTokenFromStore();
   const userRole = getUserRoleFromStore();
 
@@ -135,6 +139,33 @@ const LoginForm = ({ redirectTo, token }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userState, loginToken]);
+
+  const responseMessage = (result) => {
+    console.log(result);
+    Axios.post(`${BASE_API_URL}/user/google`, {
+      credential: result?.credential,
+    })
+      .then(({ status, data }) => {
+        // Check if response status is 200
+        if (statusIsSuccessful(status)) {
+          clearStorage();
+          storeToken(data.user.token);
+          storeUserRole(data.user.role);
+          loginUser(data.user, data.user.token);
+        } else {
+          // Handle other response statuses
+          setToast({
+            message: getError(error),
+          });
+        }
+      })
+      .catch((error) => {
+        // Handle error
+        setToast({
+          message: getError(error),
+        });
+      });
+  };
 
   return (
     <Formik
@@ -193,9 +224,15 @@ const LoginForm = ({ redirectTo, token }) => {
               tabIndex={2}
               type="password"
             />
-            <Button loading={isSubmitting} onClick={handleSubmit}>
+            <Button
+              className="mb-4"
+              loading={isSubmitting}
+              onClick={handleSubmit}
+            >
               Sign in
             </Button>
+
+            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
           </Form>
         );
       }}

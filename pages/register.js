@@ -19,12 +19,15 @@ import TitleSection, {
   EmptyTitleSection,
 } from 'components/common/TitleSection';
 import Toast, { useToast } from 'components/utils/Toast';
-import { BASE_API_URL } from 'utils/constants';
-import { getError } from 'utils/helpers';
+import { BASE_API_URL, DASHBOARD_PAGE } from 'utils/constants';
+import { getError, statusIsSuccessful } from 'utils/helpers';
 import { getReferralInfo } from 'utils/localStorage';
 import PhoneNumber from 'components/forms/PhoneNumber';
 import { Tab, Tabs } from 'react-bootstrap';
 import { useRouter } from 'next/router';
+import { storeToken, storeUserRole, clearStorage } from 'utils/localStorage';
+import { GoogleLogin } from '@react-oauth/google';
+import { UserContext } from '@/context/UserContext';
 
 const Register = () => (
   <>
@@ -133,25 +136,69 @@ Content.defaultProps = {
   token: null,
 };
 
-const RegisterForm = ({ showUserForm }) => {
-  const agreementText = (
-    <small className="ps-2">
-      I agree to{' '}
-      <a href="/terms-of-use" className="text-secondary" target="_blank">
-        Ballers Terms of Use
-      </a>{' '}
-      and acknowledge the{' '}
-      <a href="/privacy-policy" className="text-secondary" target="_blank">
-        Privacy Policy
-      </a>
-      .
-    </small>
-  );
+export const agreementText = (
+  <small className="ps-2">
+    I agree to{' '}
+    <a href="/terms-of-use" className="text-secondary" target="_blank">
+      Ballers Terms of Use
+    </a>{' '}
+    and acknowledge the{' '}
+    <a href="/privacy-policy" className="text-secondary" target="_blank">
+      Privacy Policy
+    </a>
+    .
+  </small>
+);
 
+const RegisterForm = ({ showUserForm }) => {
+  const router = useRouter();
   const [toast, setToast] = useToast();
+  const { userState, loginUser } = React.useContext(UserContext);
 
   const referrer = (getReferralInfo() && getReferralInfo().referrer) || null;
   const currentUser = showUserForm ? 'User' : 'Seller';
+
+  const errorMessage = (error) => {
+    console.log(error);
+  };
+
+  // CHECK IF USER HAS SIGNED IN
+  React.useEffect(() => {
+    if (userState && userState?.isLoggedIn) {
+      const dashboardUrl = `/${DASHBOARD_PAGE[userState?.role]}/dashboard`;
+      router.push(dashboardUrl);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userState]);
+
+  const responseMessage = (result) => {
+    console.log(result);
+    Axios.post(`${BASE_API_URL}/user/google`, {
+      credential: result?.credential,
+      isVendor: !showUserForm,
+    })
+      .then(({ status, data }) => {
+        // Check if response status is 200
+        console.log('data', data);
+        if (statusIsSuccessful(status)) {
+          clearStorage();
+          storeToken(data.user.token);
+          storeUserRole(data.user.role);
+          loginUser(data.user, data.user.token);
+        } else {
+          // Handle other response statuses
+          setToast({
+            message: getError(error),
+          });
+        }
+      })
+      .catch((error) => {
+        // Handle error
+        setToast({
+          message: getError(error),
+        });
+      });
+  };
 
   return (
     <Formik
@@ -281,12 +328,14 @@ const RegisterForm = ({ showUserForm }) => {
             </div>
           )}
           <Button
-            className="btn-secondary btn-wide mt-5"
+            className="btn-secondary btn-wide my-5"
             loading={isSubmitting}
             onClick={handleSubmit}
           >
             Register as a {currentUser}
           </Button>
+
+          <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
 
           <DisplayFormikState {...props} hide showAll />
 

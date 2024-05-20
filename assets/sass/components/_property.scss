@@ -464,7 +464,7 @@
   position: absolute;
   top: 1rem;
   left: 1rem;
-  opacity: 0.8;
+  opacity: 0.9;
 
   .type,
   .status {
@@ -479,7 +479,7 @@
   }
 
   .type {
-    background: #f07c00;
+    background: $black;
   }
 
   .status {
