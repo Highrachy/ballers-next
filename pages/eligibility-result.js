@@ -151,26 +151,37 @@ const CheckEligibility = ({ result, userIsEligible }) => {
         </div>
       )}
       <h3 className="mt-n1 text-xxl fw-semibold">
-        {userIsEligible ? 'Congratulations' : 'Sorry'}!
+        {userIsEligible ? 'Congratulations' : 'Oops'}!
       </h3>
       <h4 className="mb-3 text-lg fw-semibold">
-        {userIsEligible
-          ? 'You are eligible to own a'
-          : 'You are not eligible for a '}{' '}
-        <span className="text-secondary-800">{result.type}</span> in{' '}
-        <span className="text-secondary-800">{result.area}</span>
+        {userIsEligible ? (
+          <>
+            You are eligible to own a
+            <span className="text-secondary-800">{result.type}</span> in{' '}
+            <span className="text-secondary-800">{result.area}</span>
+            <p className="text-muted text-lg mb-3">
+              with an initial payment of{' '}
+              <span className="text-primary">
+                {moneyFormatInNaira(result.initialPayment)}
+              </span>{' '}
+              and a monthly income of{' '}
+              <span className="text-primary">
+                {moneyFormatInNaira(result.monthlyPayment)}
+              </span>{' '}
+              <br />
+            </p>
+          </>
+        ) : (
+          <>
+            Prices for <span className="text-secondary-800">{result.type}</span>{' '}
+            in <span className="text-secondary-800">{result.area}</span> might
+            be above your budget.
+            <h5 className="mt-3">
+              Let&apos;s find something perfect together!
+            </h5>
+          </>
+        )}{' '}
       </h4>
-      <p className="text-muted text-lg mb-3">
-        with an initial payment of{' '}
-        <span className="text-primary">
-          {moneyFormatInNaira(result.initialPayment)}
-        </span>{' '}
-        and a monthly income of{' '}
-        <span className="text-primary">
-          {moneyFormatInNaira(result.monthlyPayment)}
-        </span>{' '}
-        <br />
-      </p>
 
       <div className="my-4 d-flex flex-md-row flex-column justify-content-md-center">
         <RedefineEligibilityButton
@@ -286,7 +297,7 @@ const EligibilityReport = ({
             <h2
               className={`mb-3 text-xl fw-semibold text-${eligibilityClassName}-dark`}
             >
-              {userIsEligible ? 'Congratulations, You are eligible' : 'Sorry!'}
+              {userIsEligible ? 'Congratulations, You are eligible' : 'Oops!'}
             </h2>
             <h4
               className={`mb-5 pb-2 text-${eligibilityClassName}-dark fw-semibold lead-header`}

@@ -218,7 +218,6 @@ const SearchEligibilityForm = ({ initialValues, afterSave = () => {} }) => {
             color="light"
             className="me-2 mb-2"
             onClick={handlePreviousStep}
-            full={step >= 4}
           >
             Previous
           </Button>

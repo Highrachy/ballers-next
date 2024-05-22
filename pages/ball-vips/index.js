@@ -105,7 +105,7 @@ const AboutSection = () => {
               <br className="d-none d-sm-block d-md-none d-lg-block" />
               for Real Estate Sales
             </h3>
-            <p className="text-normal text-soft mt-3 mb-md-4 pe-0 pe-xl-6">
+            <p className="text-lg text-soft mt-3 mb-md-4 pe-0 pe-xl-6">
               BALL provides an easier, faster, and more efficient way to sell
               your property, redefining the real estate experience for everyone.
               We understand the unique challenges faced in the ever-evolving

@@ -79,6 +79,28 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
   return (
     <Card className="card-container property-card">
       <article>
+        {userState?.isLoggedIn && (
+          <>
+            {loading ? (
+              <div className="favorites-icon">
+                <BallersSpinner small />
+              </div>
+            ) : (
+              <div
+                className={`favorites-icon ${
+                  isFavorite
+                    ? 'favorites-icon__is-favorite'
+                    : 'favorites-icon__not-favorite'
+                }`}
+                onClick={() => handleFavorites(_id)}
+              >
+                <span>
+                  <LoveIcon />
+                </span>
+              </div>
+            )}
+          </>
+        )}
         <div className="content-image">
           {false && (
             <div className="featured-ribbon">
@@ -86,7 +108,7 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
             </div>
           )}
           <div className="image-top">
-            <span className="type">{deliveryState}</span>
+            <span className="type">Delivery State: {deliveryState}</span>
             {false && <span className="status">For Sale</span>}
           </div>
           <OnlineImage
@@ -97,31 +119,7 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
           />
         </div>
         <div className="property-item">
-          <h5 className="property-name mb-0 position-relative">
-            {name}{' '}
-            {userState?.isLoggedIn && (
-              <>
-                {loading ? (
-                  <div className="favorites-icon">
-                    <BallersSpinner small />
-                  </div>
-                ) : (
-                  <div
-                    className={`favorites-icon ${
-                      isFavorite
-                        ? 'favorites-icon__is-favorite'
-                        : 'favorites-icon__not-favorite'
-                    }`}
-                    onClick={() => handleFavorites(_id)}
-                  >
-                    <span>
-                      <LoveIcon />
-                    </span>
-                  </div>
-                )}
-              </>
-            )}
-          </h5>
+          <h5 className="property-name mb-0 position-relative">{name} </h5>
           {/* Details */}
           <div className="property-details property-spacing">
             <strong className="property-holder__house-type">

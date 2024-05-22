@@ -12,13 +12,13 @@ import {
 } from 'react-icons/bs';
 
 const howItWorksDropdown = [
-  // {
-  //   title: 'A - Z of BALL',
-  //   description:
-  //     'Comprehensive guide covering how to become a Landlord in 3 simple steps',
-  //   icon: <BsBook />,
-  //   link: '/a-z-of-ball',
-  // },
+  {
+    title: 'A - Z of BALL',
+    description:
+      'Comprehensive guide covering how to become a Landlord in 3 simple steps',
+    icon: <BsBook />,
+    link: '/a-z-of-ball',
+  },
   {
     title: 'Benefits of BALL',
     description:

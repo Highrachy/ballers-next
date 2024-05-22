@@ -133,7 +133,7 @@ const SignatoriesInfoForm = ({
         <div className="form-row">
           <Switch
             label="Director is a Signatory?"
-            labelClassName="text-normal"
+            labelClassName="text-lg"
             name="isSignatory"
           />
         </div>

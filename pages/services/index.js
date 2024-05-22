@@ -102,14 +102,19 @@ export const ServiceCard = ({
           />
         </div>
         <div className="property-item">
-          <h5 className="property-name mb-2">{name}</h5>
+          <h5 className="property-name mb-2 text-secondary">{name}</h5>
           {/* Price */}
-          <h5 className="property-price mb-1 d-flex">
-            <span>{moneyFormatInNaira(price)}</span>
-            <span className="text-soft ms-2 text-price-strike">
-              {moneyFormatInNaira(old_price)}
-            </span>
-          </h5>
+          {false && (
+            <>
+              <h5 className="property-name mb-2">{name}</h5>
+              <h5 className="property-price mb-1 d-flex">
+                <span>{moneyFormatInNaira(price)}</span>
+                <span className="text-soft ms-2 text-price-strike">
+                  {moneyFormatInNaira(old_price)}
+                </span>
+              </h5>
+            </>
+          )}
 
           <p className="text-primary text-md mt-2">
             Recommended for {VAS_ROLE[assignedRole]}

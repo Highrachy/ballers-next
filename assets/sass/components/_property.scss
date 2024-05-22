@@ -200,10 +200,10 @@
 .favorites-icon {
   cursor: pointer !important;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 1rem;
+  top: 1rem;
   z-index: 1;
-  opacity: 0.3;
+  opacity: 0.8;
 
   &:hover {
     opacity: 1;
@@ -281,6 +281,12 @@
 
   &:hover .content-image:before {
     transform: scaleX(1);
+  }
+
+  &:hover {
+    .type {
+      background-color: rgba($black, 0.8);
+    }
   }
 
   .property-spacing {
@@ -462,15 +468,14 @@
 
 .image-top {
   position: absolute;
-  top: 1rem;
+  bottom: 1rem;
   left: 1rem;
-  opacity: 0.9;
 
   .type,
   .status {
-    padding: 4px 6px;
+    padding: 4px 8px;
     margin-left: 5px;
-    font-size: 12px;
+    font-size: 11px;
     display: inline-block;
     border-radius: 3px;
     color: #fff;
@@ -479,7 +484,8 @@
   }
 
   .type {
-    background: $black;
+    background-color: rgba($white, 0.15);
+    backdrop-filter: blur(5px);
   }
 
   .status {

@@ -283,7 +283,7 @@ const MoreQuestions = () => (
           width="70"
           height="70"
         />
-        <h5 className="text-normal mt-4">+234 807 654 5543</h5>
+        <h5 className="text-lg mt-4">+234 807 654 5543</h5>
         <p className="text-muted">We are always happy to help.</p>
       </aside>
       <aside className="col-lg-4 col-md-5 col-12 faq-contact-card">
@@ -293,7 +293,7 @@ const MoreQuestions = () => (
           width="70"
           height="70"
         />
-        <h5 className="text-normal mt-4">
+        <h5 className="text-lg mt-4">
           <a
             className="text-primary"
             href="mailto:info@ballers.ng"

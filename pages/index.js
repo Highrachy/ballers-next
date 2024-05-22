@@ -113,11 +113,13 @@ const AboutSection = () => {
                 Game-changing service <br /> that makes owning <br /> your home
                 easier
               </h2>
-              <p className="my-md-5 my-3 text-normal">
-                We make owning a home simpler and achievable. <br /> With BALL
-                unique saving plan tailored to you and your <br /> financial
-                position,owning a home has never been easier.
+              <p className="my-md-5 my-3 pe-md-5 pe-lg-8 text-lg">
+                We&apos;ve streamlined the journey to homeownership by aligning
+                your income flow with the developer&apos;s payment plan. With
+                BALL, achieving your dream home is now simpler and more
+                attainable than ever before!
               </p>
+
               <button className="btn btn-secondary">LEARN MORE</button>
             </Fade>
           </div>
@@ -151,30 +153,31 @@ const HowItWorksSection = () => (
             <li className="timeline__border">
               <h5 className="text-secondary fw-normal">
                 <span className="fw-bold text-secondary h3">A</span>
-                pply now
+                ccess the Pool of Properties
               </h5>
               <p className="pe-md-8 pe-4 pb-4">
-                Take control of your destiny and create a worthy legacy by
-                filling our short registration form.
+                Explore a wide range of quality homes and find the perfect match
+                for your needs.
               </p>
             </li>
             <li className="timeline__border">
               <h5 className="text-secondary fw-normal">
                 <span className="fw-bold text-secondary h3">B</span>
-                egin periodic contribution
+                egin Your Payment Plan
               </h5>
               <p className="pe-md-8 pe-4 pb-4">
-                Cultivate the habit of contribution today and reap the rewards
-                forever with BALLers.
+                Start your personalized payment journey, making your path to
+                homeownership smooth and stress-free.
               </p>
             </li>
             <li>
               <h5 className="text-secondary fw-normal">
                 <span className="fw-bold text-secondary h3">C</span>
-                onvert to home ownership
+                onvert to Home Ownership
               </h5>
               <p className="pe-md-8 pe-4 pb-4">
-                Convert structure to extended mortgage plan at affordable rates.
+                Secure your dream home, collect your keys, and officially become
+                a homeowner.
               </p>
             </li>
             <li className="timeline-no-border">
