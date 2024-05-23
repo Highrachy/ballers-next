@@ -232,7 +232,9 @@ const LoginForm = ({ redirectTo, token }) => {
               Sign in
             </Button>
 
-            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+            {false && (
+              <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+            )}
           </Form>
         );
       }}

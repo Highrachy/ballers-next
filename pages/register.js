@@ -140,7 +140,7 @@ export const agreementText = (
   <small className="ps-2">
     I agree to{' '}
     <a href="/terms-of-use" className="text-secondary" target="_blank">
-      Ballers Terms of Use
+      the Term of Use
     </a>{' '}
     and acknowledge the{' '}
     <a href="/privacy-policy" className="text-secondary" target="_blank">

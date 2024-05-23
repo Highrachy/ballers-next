@@ -12,7 +12,7 @@ const AtoZ = () => (
     <Header />
     <TitleSection
       name="A-Z of BALL"
-      content="In the world of BALL, great minds meet. BALLers are driven individuals who know their desires and relentlessly pursue the life they deserve. Being a BALLer means joining a community of exclusive homeowners, all striving for a secure future for themselves and their loved ones."
+      content="Experience the essence of being a BALLer – a community where aspirations meet achievement. Join us to own quality homes and embark on a journey towards a brighter future."
     />
     <BallExplained />
     <BallingIsEasy />
@@ -64,8 +64,8 @@ const BallingIsEasy = () => (
           Access the <br /> Pool of Properties
         </h5>
         <p className="text-primary">
-          Explore a wide range of quality homes and find the perfect match for
-          your needs.
+          Explore our vast selection of quality homes and find the perfect fit
+          for your lifestyle.
         </p>
       </aside>
       <aside className="az-easy-abc col-lg-3 col-sm-5 col-11">
@@ -80,8 +80,8 @@ const BallingIsEasy = () => (
           Begin Your <br /> Payment Plan
         </h5>
         <p className="text-primary">
-          Start your personalized payment journey today, making your path to
-          homeownership smooth and stress-free.
+          Make inquiries, accept the offer, and start your tailored payment plan
+          smoothly and hassle-free.
         </p>
       </aside>
       <aside className="az-easy-abc col-lg-3 col-sm-5 col-11">
@@ -96,8 +96,8 @@ const BallingIsEasy = () => (
           Convert to home <br /> ownership
         </h5>
         <p className="text-primary">
-          Secure your dream home, collect your keys, and officially become a
-          homeowner.
+          Complete your purchase, collect your keys, and officially become a
+          landlord with BALL.
         </p>
       </aside>
     </div>

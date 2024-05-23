@@ -113,11 +113,11 @@ const AboutSection = () => {
                 Game-changing service <br /> that makes owning <br /> your home
                 easier
               </h2>
-              <p className="my-md-5 my-3 pe-md-5 pe-lg-8 text-lg">
-                We&apos;ve streamlined the journey to homeownership by aligning
-                your income flow with the developer&apos;s payment plan. With
-                BALL, achieving your dream home is now simpler and more
-                attainable than ever before!
+              <p className="my-md-5 my-3 pe-md-5 pe-lg-8 text-lg text-muted">
+                We&apos;ve revolutionized the journey to becoming a landlord by
+                aligning your income flow with our flexible property payment
+                plans. With BALL, turning your dream of owning a home into
+                reality is simpler and more attainable than ever before!
               </p>
 
               <button className="btn btn-secondary">LEARN MORE</button>
@@ -156,8 +156,8 @@ const HowItWorksSection = () => (
                 ccess the Pool of Properties
               </h5>
               <p className="pe-md-8 pe-4 pb-4">
-                Explore a wide range of quality homes and find the perfect match
-                for your needs.
+                Explore our vast selection of quality homes and find the perfect
+                fit for your lifestyle.
               </p>
             </li>
             <li className="timeline__border">
@@ -166,8 +166,8 @@ const HowItWorksSection = () => (
                 egin Your Payment Plan
               </h5>
               <p className="pe-md-8 pe-4 pb-4">
-                Start your personalized payment journey, making your path to
-                homeownership smooth and stress-free.
+                Make inquiries, accept the offer, and start your tailored
+                payment plan smoothly and hassle-free.
               </p>
             </li>
             <li>
@@ -176,8 +176,8 @@ const HowItWorksSection = () => (
                 onvert to Home Ownership
               </h5>
               <p className="pe-md-8 pe-4 pb-4">
-                Secure your dream home, collect your keys, and officially become
-                a homeowner.
+                Complete your purchase, collect your keys, and officially become
+                a landlord with BALL.
               </p>
             </li>
             <li className="timeline-no-border">
