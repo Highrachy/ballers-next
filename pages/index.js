@@ -114,13 +114,15 @@ const AboutSection = () => {
                 easier
               </h2>
               <p className="my-md-5 my-3 pe-md-5 pe-lg-8 text-lg text-muted">
-                We&apos;ve revolutionized the journey to becoming a landlord by
+                We have revolutionized the journey to becoming a landlord by
                 aligning your income flow with our flexible property payment
                 plans. With BALL, turning your dream of owning a home into
                 reality is simpler and more attainable than ever before!
               </p>
 
-              <button className="btn btn-secondary">LEARN MORE</button>
+              <Link href="/register" passHref>
+                <a className="btn btn-secondary">Register Now</a>
+              </Link>
             </Fade>
           </div>
         </div>
@@ -153,11 +155,11 @@ const HowItWorksSection = () => (
             <li className="timeline__border">
               <h5 className="text-secondary fw-normal">
                 <span className="fw-bold text-secondary h3">A</span>
-                ccess the Pool of Properties
+                pply Now
               </h5>
               <p className="pe-md-8 pe-4 pb-4">
-                Explore our vast selection of quality homes and find the perfect
-                fit for your lifestyle.
+                Explore our quality properties and fill out the inquiry form to
+                start your home ownership journey.
               </p>
             </li>
             <li className="timeline__border">
@@ -166,8 +168,9 @@ const HowItWorksSection = () => (
                 egin Your Payment Plan
               </h5>
               <p className="pe-md-8 pe-4 pb-4">
-                Make inquiries, accept the offer, and start your tailored
-                payment plan smoothly and hassle-free.
+                Start your personalized payment plan, tailored to your chosen
+                property with BALL. You can pay in full, spread payments over
+                time or pay at key milestones.
               </p>
             </li>
             <li>
@@ -176,7 +179,7 @@ const HowItWorksSection = () => (
                 onvert to Home Ownership
               </h5>
               <p className="pe-md-8 pe-4 pb-4">
-                Complete your purchase, collect your keys, and officially become
+                Complete your payments, collect your keys, and officially become
                 a landlord with BALL.
               </p>
             </li>

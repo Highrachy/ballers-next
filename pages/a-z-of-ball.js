@@ -60,12 +60,10 @@ const BallingIsEasy = () => (
           width="111"
           height="120"
         />
-        <h5 className="py-3">
-          Access the <br /> Pool of Properties
-        </h5>
+        <h5 className="py-4">Apply Now &nbsp;</h5>
         <p className="text-primary">
-          Explore our vast selection of quality homes and find the perfect fit
-          for your lifestyle.
+          Explore our quality properties and fill out the inquiry form to start
+          your home ownership journey.
         </p>
       </aside>
       <aside className="az-easy-abc col-lg-3 col-sm-5 col-11">
@@ -80,8 +78,8 @@ const BallingIsEasy = () => (
           Begin Your <br /> Payment Plan
         </h5>
         <p className="text-primary">
-          Make inquiries, accept the offer, and start your tailored payment plan
-          smoothly and hassle-free.
+          Start your personalized payment plan, tailored to your chosen property
+          with BALL.
         </p>
       </aside>
       <aside className="az-easy-abc col-lg-3 col-sm-5 col-11">
@@ -96,7 +94,7 @@ const BallingIsEasy = () => (
           Convert to home <br /> ownership
         </h5>
         <p className="text-primary">
-          Complete your purchase, collect your keys, and officially become a
+          Complete your payments, collect your keys, and officially become a
           landlord with BALL.
         </p>
       </aside>
@@ -110,9 +108,7 @@ const HowBallersWork = () => (
     <h4>In three easy steps</h4>
 
     <h6 className="mt-7 text-secondary">STEP A</h6>
-    <h3 className="az-how-heading">
-      ACCESS THE <br /> POOL OF PROPERTIES
-    </h3>
+    <h3 className="az-how-heading">APPLY NOW</h3>
     <section className="mt-sm-5 py-4">
       <div className="row">
         <div className="az-how-step col-lg-5 col-sm-5 col-12">
@@ -134,7 +130,7 @@ const HowBallersWork = () => (
             your ideal home. Choose from a wide variety of locations and
             property types to match your preferences and budget.{' '}
             <Link href="/properties/search" passHref>
-              <a className="text-link">Click here to</a>
+              <a className="text-secondary">Click here to</a>
             </Link>{' '}
             browse our property listings and get started on your journey to home
             ownership.
@@ -290,10 +286,12 @@ const HowBallersWork = () => (
       <div className="az-how-step col-md-5 col-sm-5 col-12 mt-md-n4 mt-lg-0">
         <h5 className="az-how-step-title">Start Your Payment Plan</h5>
         <p className="az-how-step-text pe-5">
-          We can&apos;t wait for you to get started! With your customized plan,
-          clear figures, and convenient payment schedule, you&apos;re all set to
-          embark on your exciting journey to homeownership. Dive in and make
-          your first investment—your dream home is just a step away!
+          Begin your personalized payment plan with BALL tailored to your chosen
+          property with BALL. Whether you opt to pay in full, spread payments
+          over time, or contribute at key milestones, rest assured we have you
+          covered with transparent figures and a convenient payment schedule.
+          Dive in and make your first investment—your dream home is just a step
+          away!
         </p>
       </div>
     </div>
@@ -314,12 +312,14 @@ const HowBallersWork = () => (
         <div className="az-how-step-line col-lg-2 col-sm-2 col-12" />
         <div className="az-how-step col-lg-5 col-md-5 col-sm-5 col-12">
           <h5 className="az-how-step-title">
-            Collect Your Keys and Convert Title
+            Collect Your Keys and Process Your Title
           </h5>
           <p className="az-how-step-text me-5">
             Once your payments have reached the minimum required amount, we
-            guide you through the process of converting the title and officially
-            becoming a homeowner. Collect your keys and step into your new home.
+            guide you through the process of officially becoming a homeowner.
+            While collecting your keys, we will assist you in processing the
+            conversion of title, ensuring a smooth transition into your new home
+            adventure.
           </p>
         </div>
       </div>

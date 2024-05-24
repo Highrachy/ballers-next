@@ -108,7 +108,9 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
             </div>
           )}
           <div className="image-top">
-            <span className="type">Delivery State: {deliveryState}</span>
+            <span className="type">
+              Delivery State: {!!deliveryState ? deliveryState : 'Completed'}
+            </span>
             {false && <span className="status">For Sale</span>}
           </div>
           <OnlineImage
