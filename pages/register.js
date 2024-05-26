@@ -25,9 +25,8 @@ import { getReferralInfo } from 'utils/localStorage';
 import PhoneNumber from 'components/forms/PhoneNumber';
 import { Tab, Tabs } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { storeToken, storeUserRole, clearStorage } from 'utils/localStorage';
-import { GoogleLogin } from '@react-oauth/google';
 import { UserContext } from '@/context/UserContext';
+import GoogleLoginButton from '@/components/common/GoogleLoginButton';
 
 const Register = () => (
   <>
@@ -158,10 +157,6 @@ const RegisterForm = ({ showUserForm }) => {
   const referrer = (getReferralInfo() && getReferralInfo().referrer) || null;
   const currentUser = showUserForm ? 'User' : 'Seller';
 
-  const errorMessage = (error) => {
-    console.log(error);
-  };
-
   // CHECK IF USER HAS SIGNED IN
   React.useEffect(() => {
     if (userState && userState?.isLoggedIn) {
@@ -170,35 +165,6 @@ const RegisterForm = ({ showUserForm }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userState]);
-
-  const responseMessage = (result) => {
-    console.log(result);
-    Axios.post(`${BASE_API_URL}/user/google`, {
-      credential: result?.credential,
-      isVendor: !showUserForm,
-    })
-      .then(({ status, data }) => {
-        // Check if response status is 200
-        console.log('data', data);
-        if (statusIsSuccessful(status)) {
-          clearStorage();
-          storeToken(data.user.token);
-          storeUserRole(data.user.role);
-          loginUser(data.user, data.user.token);
-        } else {
-          // Handle other response statuses
-          setToast({
-            message: getError(error),
-          });
-        }
-      })
-      .catch((error) => {
-        // Handle error
-        setToast({
-          message: getError(error),
-        });
-      });
-  };
 
   return (
     <Formik
@@ -228,7 +194,7 @@ const RegisterForm = ({ showUserForm }) => {
         Axios.post(`${BASE_API_URL}/user/register`, payload)
           .then(function (response) {
             const { status } = response;
-            if (status === 201) {
+            if (statusIsSuccessful(status)) {
               setToast({
                 type: 'success',
                 message: `Your registration is successful. Kindly activate your account via the confirmation link sent to your inbox (${values.email}).`,
@@ -335,15 +301,16 @@ const RegisterForm = ({ showUserForm }) => {
             Register as a {currentUser}
           </Button>
 
-          <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
-
           <DisplayFormikState {...props} hide showAll />
 
           <section className="auth__footer">
-            Already registered on BALL?{' '}
-            <Link href="/login">
-              <a className="auth__link">Sign In</a>
-            </Link>
+            <GoogleLoginButton isLoginPage={false} isVendor={!showUserForm} />
+            <div className="register mb-5 text-center">
+              Already registered on BALL?{' '}
+              <Link href="/login">
+                <a className="auth__link">Sign In</a>
+              </Link>
+            </div>
           </section>
         </Form>
       )}

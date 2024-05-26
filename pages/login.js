@@ -26,7 +26,7 @@ import {
 import { getError, statusIsSuccessful } from 'utils/helpers';
 import { useRouter } from 'next/router';
 import { UserContext } from '@/context/UserContext';
-import { GoogleLogin } from '@react-oauth/google';
+import GoogleLoginButton from '@/components/common/GoogleLoginButton';
 
 const Login = () => {
   const { query } = useRouter();
@@ -63,6 +63,7 @@ const Content = ({ redirectTo, token }) => {
             <div className="card p-5 my-6">
               <LoginForm redirectTo={redirectTo} token={token} />
               <section className="auth__footer">
+                <GoogleLoginButton />
                 <div className="register mb-5 text-center">
                   Not Registered?{' '}
                   <Link href="/register">
@@ -99,9 +100,6 @@ const LoginForm = ({ redirectTo, token }) => {
   const [toast, setToast] = useToast();
   const { userState, loginUser } = React.useContext(UserContext);
 
-  const errorMessage = (error) => {
-    console.log(error);
-  };
   const loginToken = getTokenFromStore();
   const userRole = getUserRoleFromStore();
 
@@ -140,32 +138,10 @@ const LoginForm = ({ redirectTo, token }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userState, loginToken]);
 
-  const responseMessage = (result) => {
-    console.log(result);
-    Axios.post(`${BASE_API_URL}/user/google`, {
-      credential: result?.credential,
-    })
-      .then(({ status, data }) => {
-        // Check if response status is 200
-        if (statusIsSuccessful(status)) {
-          clearStorage();
-          storeToken(data.user.token);
-          storeUserRole(data.user.role);
-          loginUser(data.user, data.user.token);
-        } else {
-          // Handle other response statuses
-          setToast({
-            message: getError(error),
-          });
-        }
-      })
-      .catch((error) => {
-        // Handle error
-        setToast({
-          message: getError(error),
-        });
-      });
-  };
+  // const login = useGoogleOneTapLogin({
+  //   onSuccess: (codeResponse) => console.log('first', codeResponse),
+  //   onError: (error) => console.log('Login Failed:', error),
+  // });
 
   return (
     <Formik
@@ -224,17 +200,9 @@ const LoginForm = ({ redirectTo, token }) => {
               tabIndex={2}
               type="password"
             />
-            <Button
-              className="mb-4"
-              loading={isSubmitting}
-              onClick={handleSubmit}
-            >
+            <Button wide loading={isSubmitting} onClick={handleSubmit}>
               Sign in
             </Button>
-
-            {false && (
-              <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
-            )}
           </Form>
         );
       }}

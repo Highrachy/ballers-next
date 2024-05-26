@@ -28,6 +28,7 @@ import SearchEligibilityForm from '@/components/common/SearchEligibilityForm';
 import { ServiceCard } from './services';
 import Slider from 'react-slick';
 import { sliderSettings } from '@/components/common/BenefitsSection';
+import { shuffleArray } from '@/utils/helpers';
 
 export default function Home({
   properties,
@@ -244,11 +245,12 @@ export async function getStaticProps() {
   const propertiesRes = await axios.get(API_ENDPOINT.getAllProperties());
   const servicesRes = await axios.get(API_ENDPOINT.getAllVas());
   const allProperties = propertiesRes.data?.result;
-  const lastThreeProperties = allProperties.slice(-3);
+
+  const randomThreeProperties = shuffleArray(allProperties).slice(0, 3);
 
   return {
     props: {
-      properties: lastThreeProperties,
+      properties: randomThreeProperties,
       allServices: servicesRes.data?.result,
     },
     revalidate: 10,

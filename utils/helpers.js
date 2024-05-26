@@ -82,7 +82,9 @@ export const getDemoLoginLink = () =>
 
 export const getError = (error) =>
   error?.response?.data
-    ? JSON.stringify(error?.response?.data?.error) ||
+    ? JSON.stringify(error?.response?.data?.error?.message) ||
+      JSON.stringify(error?.response?.data?.error?.error) ||
+      JSON.stringify(error?.response?.data?.error) ||
       JSON.stringify(error?.response?.data?.message) ||
       JSON.stringify(error)
     : 'An error has occured. Please try again later.';
@@ -381,4 +383,12 @@ export const isFestivePeriod = () => {
   } else {
     return false;
   }
+};
+
+export const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 };
