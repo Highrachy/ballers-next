@@ -7,28 +7,59 @@
       "description": "Navigate to the BALL website at https://ballers.ng/ and locate the 'Register for Free' button. Click on it to proceed to the registration page."
     },
     {
-      "title": "Provide Your Information",
-      "description": "On the registration page, you'll be prompted to provide the following information:",
+      "title": "Select Your Account Type",
+      "description": "On the registration page, choose whether you want to register as a User or a Seller.",
       "substeps": [
-        "Full Name",
+        "User",
+        "Seller"
+      ],
+      "image": "/img/docs/user-accounts/register-account-type.png",
+      "imageAlt": "Select Account Type Page"
+    },
+    {
+      "title": "Speed Up Your Registration",
+      "description": "Please note that you can speed up your registration by signing up with your Google account. Click on the 'Sign in with Google' button to use your Google credentials.",
+      "image": "/img/docs/user-accounts/register-google.png",
+      "imageAlt": "Register with Google Button"
+    },
+    {
+      "title": "Provide Your Information",
+      "description": "Depending on the account type selected, you will be prompted to provide the necessary information. If you are registering as a Buyer, you will provide",
+      "substeps": [
+        "First Name",
+        "Last Name",
         "Email Address",
         "Password",
-        "Phone Number (Optional)"
+        "Confirm Password",
+        "Phone Number"
       ],
-      "image": "/img/docs/register.png",
-      "imageAlt": "Registration Page"
+      "image": "/img/docs/user-accounts/register-email-buyer.png",
+      "imageAlt": "Buyer Registration"
     },
     {
-      "title": "Verify Your Email Address",
-      "description": "After submitting your registration information, you'll receive a verification email at the address you provided. Click on the verification link in the email to confirm your email address and activate your BALL account."
-    },
-    {
-      "title": "Complete Your Profile",
-      "description": "Once your email address is verified, you'll be directed to complete your profile. This may include providing additional details such as your address, occupation, and preferences related to homeownership."
+      "title": "Registering as a BALL VIP",
+      "description": "If you are registering as a Seller, you will be prompted to provide the following:",
+      "substeps": [
+        "Company Name",
+        "Company Email Address",
+        "Password",
+        "Confirm Password",
+        "Company Phone Number"
+      ],
+      "image": "/img/docs/user-accounts/register-email-seller.png",
+      "imageAlt": "Seller Registration"
     },
     {
       "title": "Agree to Terms and Conditions",
       "description": "Review BALL's Terms of Service and Privacy Policy, then check the box to indicate that you agree to abide by them. These documents outline your rights and responsibilities as a BALL user."
+    },
+    {
+      "title": "Submit Your Registration",
+      "description": "Click the 'Register' button to submit your registration information and create your VIP seller account on BALL."
+    },
+    {
+      "title": "Verify Your Email Address",
+      "description": "After providing your information, you will receive an email from BALL with a verification link. Click on the link to verify your email address and activate your account."
     },
     {
       "title": "Verify Your Identity (if required)",

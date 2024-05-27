@@ -777,7 +777,7 @@ ol.doc-counter {
     &:before {
       width: calc(1.5rem - 2px);
       height: calc(1.5rem - 2px);
-      font-size: calc(1rem - 2px);
+      font-size: calc(1rem - 3px);
       margin: 1px 0 0 0.5rem;
       content: counter(li);
       counter-increment: li;

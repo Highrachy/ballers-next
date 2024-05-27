@@ -203,9 +203,7 @@ const OurServices = ({ services }) => {
   return (
     <section id="our-services" className="bg-light-blue my-5 py-5 pb-7">
       <div className="text-center">
-        <h6 className="header-secondary text-uppercase">
-          Value Added Services
-        </h6>
+        <h6 className="header-secondary text-uppercase">Additional Services</h6>
         <h3>Enriching Your Investment</h3>
       </div>
       <div className="container-fluid carousel my-4">

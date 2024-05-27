@@ -57,7 +57,7 @@ const GoogleLoginButton = ({ isLoginPage = true, isVendor = false }) => {
           onSuccess={responseMessage}
           onError={errorMessage}
           text={isLoginPage ? 'signin_with' : 'signup_with'}
-          useOneTap
+          useOneTap={isLoginPage}
           cancel_on_tap_outside
           context={isLoginPage ? 'signin' : 'signup'}
         />

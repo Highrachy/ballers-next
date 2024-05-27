@@ -4,11 +4,30 @@
   "steps": [
     {
       "title": "Visit VIP Registration Page",
-      "description": "To register as a VIP seller on BALL, visit the dedicated VIP registration page at ballers.ng/ball-vips/register."
+      "description": "To register as a VIP seller on BALL, visit the dedicated VIP registration page.",
+      "image": "/img/docs/user-accounts/register-vip-link.png",
+      "imageAlt": "VIP Registration Page"
     },
     {
       "title": "Provide Your Information",
-      "description": "Complete the registration form by providing your personal and contact information. This may include your full name, email address, phone number, and other relevant details."
+      "description": "Complete the registration form by providing your personal and contact information",
+      "substeps": [
+        "Company Name",
+        "Company Email Address",
+        "Password",
+        "Confirm Password",
+        "Company Phone Number"
+      ],
+      "image": "/img/docs/user-accounts/register-email-seller.png",
+      "imageAlt": "Seller Registration"
+    },
+    {
+      "title": "Agree to Terms and Conditions",
+      "description": "Review BALL's Terms of Service and Seller Agreement, then check the box to indicate that you agree to abide by them. These documents outline your rights and responsibilities as a VIP seller on BALL."
+    },
+    {
+      "title": "Submit Your Registration",
+      "description": "Click the 'Register' button to submit your registration information and create your VIP seller account on BALL."
     },
     {
       "title": "Verify Your Email Address",
@@ -17,10 +36,6 @@
     {
       "title": "Complete Your Profile",
       "description": "Once your email address is verified, you'll be directed to complete your VIP seller profile. This may include providing additional details such as your company information, property listings, and preferences related to property sales."
-    },
-    {
-      "title": "Agree to Terms and Conditions",
-      "description": "Review BALL's Terms of Service and Seller Agreement, then check the box to indicate that you agree to abide by them. These documents outline your rights and responsibilities as a VIP seller on BALL."
     },
     {
       "title": "Start Listing Your Properties",

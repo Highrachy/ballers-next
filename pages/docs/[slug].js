@@ -7,6 +7,8 @@ import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
 import TitleSection from 'components/common/TitleSection';
 import Image from 'next/image';
+import { LocalImage } from '@/components/utils/Image';
+import ImageWithBackground from '@/components/common/ImageWithBackground';
 
 const DocsPage = ({ slug, content }) => {
   if (!content) return <div>Page not found</div>;
@@ -23,7 +25,7 @@ const DocsPage = ({ slug, content }) => {
 
 const Content = ({ title, subtitle, steps }) => (
   <section className="row mt-5">
-    <div className="container my-md-5 my-3 py-5 px-8 terms-of-use">
+    <div className="col-md-10 col-lg-9 mx-auto my-md-5 my-3 py-5 px-8 terms-of-use">
       <h3>{title}</h3>
       <p className="mt-3 lead">{subtitle}</p>
       <ol className="doc-counter">
@@ -43,13 +45,7 @@ const Content = ({ title, subtitle, steps }) => (
               </ul>
             )}
             {step.image && (
-              <Image
-                src={step.image}
-                alt={step.imageAlt}
-                width={1487}
-                height={847}
-                className="img-fluid bordered my-5"
-              />
+              <ImageWithBackground src={step.image} alt={step.imageAlt} />
             )}
           </li>
         ))}

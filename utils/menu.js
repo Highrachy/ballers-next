@@ -81,8 +81,8 @@ const moreDropdown = [
     link: '/about-us',
   },
   {
-    title: 'Services',
-    description: 'Explore value-added services offered by BALL',
+    title: 'Additional Services',
+    description: 'Explore additional value-added services offered by BALL',
     icon: <BsGearWideConnected />,
     link: '/services',
   },

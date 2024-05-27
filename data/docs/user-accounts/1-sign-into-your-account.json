@@ -1,0 +1,34 @@
+{
+  "title": "Sign In to Your BALL Account",
+  "subtitle": "Access your account, profile, properties and rewards by signing in to your BALL account.",
+  "steps": [
+    {
+      "title": "Visit the Login Page",
+      "description": "Navigate to the Login Page by clicking the Sign In Link at the top of the Page.",
+      "image": "/img/docs/user-accounts/sign-in-link.png",
+      "imageAlt": "Sign In Link"
+    },
+    {
+      "title": "Enter Your Email and Password",
+      "description": "On the sign-in page, provide your registered email address and password in the respective fields. If you have forgotten your password, click on the 'Forgot Password' link to reset it.",
+      "image": "/img/docs/user-accounts/sign-in-email.png",
+      "imageAlt": "Email and Password Fields"
+    },
+    {
+      "title": "Sign In with Google",
+      "description": "Alternatively, you can sign in using your Google account by clicking the 'Sign in with Google' button. This will redirect you to Google for authentication and then back to BALL.",
+      "image": "/img/docs/user-accounts/sign-in-google.png",
+      "imageAlt": "Sign in with Google Button"
+    },
+    {
+      "title": "Sign In to Demo Account",
+      "description": "If you have a demo account, click on the 'Have a Demo Account? Login Here' link to sign in with your demo credentials.",
+      "image": "/img/docs/user-accounts/sign-in-demo.png",
+      "imageAlt": "Demo Account Login Link"
+    },
+    {
+      "title": "Create a New Account",
+      "description": "If you don't have an account yet, click on the 'Not Registered? Create Account' link to sign up and start your journey to homeownership."
+    }
+  ]
+}

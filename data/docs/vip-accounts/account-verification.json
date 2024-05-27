@@ -1,0 +1,46 @@
+{
+  "title": "VIP Account Verification on BALL",
+  "subtitle": "Ready to sell your property? Verify your account now! Follow the steps below to complete your VIP account setup on BALL.",
+  "steps": [
+    {
+      "title": "Account Setup",
+      "description": "Once you have created an account, you will need to enter your company information",
+      "image": "/img/docs/user-accounts/vip-verify-dashboard.png",
+      "imageAlt": "VIP Registration Page"
+    },
+    {
+      "title": "Navigating the Steps",
+      "description": "Click on steps directly or use the sidebar menu to navigate to the preferred step"
+    },
+    {
+      "title": "Company Information",
+      "description": "Enter your company's details including the name, address, and other relevant information.",
+      "image": "/img/docs/user-accounts/vip-verify-step-1.png",
+      "imageAlt": "VIP Registration Page"
+    },
+    {
+      "title": "Bank Information",
+      "description": "Provide your bank details for transactions, including the bank name, account number, and account name",
+      "image": "/img/docs/user-accounts/vip-verify-step-2.png",
+      "imageAlt": "VIP Registration Page"
+    },
+    {
+      "title": "Signatories",
+      "description": "List the authorized signatories for your company, including their names and contact details.",
+      "image": "/img/docs/user-accounts/vip-verify-step-3.png",
+      "imageAlt": "VIP Registration Page"
+    },
+    {
+      "title": "Certificates",
+      "description": "Upload any necessary certificates or documents required for account verification."
+    },
+    {
+      "title": "Account Verification",
+      "description": "Please note that the verification will take up to 24 - 48 hours. You will receive an email notification once your account has been verified."
+    },
+    {
+      "title": "Start Exploring!",
+      "description": "Congratulations! Your BALL account is now set up and ready to use."
+    }
+  ]
+}

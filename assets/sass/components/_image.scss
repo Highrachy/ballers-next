@@ -117,3 +117,23 @@
   -o-transform: scale(1.05);
   transform: scale(1.05);
 }
+
+.bg-image__container {
+  margin-bottom: 2.5rem;
+  margin-top: 1rem;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // border-radius: 3px;
+  // margin-bottom: 1rem;
+  // background: linear-gradient(135deg, #4a00e0, #8e2de2);
+}
+// .bg-image__wrapper {
+//   padding: 1.5rem;
+// }
+
+.bg-image__img {
+  border-radius: 3px;
+  border: 1px solid $gray-100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
