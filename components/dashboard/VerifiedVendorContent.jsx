@@ -425,7 +425,7 @@ const OfferAndServices = ({ result }) => {
           <ServiceBox
             link="/services/title-validity"
             title="Structural integrity tests"
-            price="400,000"
+            // price="400,000"
             content="Conducting structural integrity tests help in assessing the structural soundness of the property, identifying potential defects or damages, and ensuring the safety of the occupants."
           />
         </WidgetBox>

@@ -757,11 +757,17 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
           <strong>Identification</strong>
         </td>
         <td>
-          <LocalImage
-            src={user.vendor?.identification && user.vendor?.identification.url}
-            name="identification"
-            bordered
-          />
+          {user.vendor?.identification.url ? (
+            <OnlineImage
+              src={
+                user.vendor?.identification && user.vendor?.identification.url
+              }
+              name="identification"
+              bordered
+            />
+          ) : (
+            'No Identification has been uploaded'
+          )}
           <br />
           <strong>
             {user.vendor?.identification && user.vendor?.identification.type}
@@ -773,7 +779,15 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
           <strong>Tax Certificate</strong>
         </td>
         <td>
-          <LocalImage name="tax" src={user.vendor?.taxCertificate} bordered />
+          {user.vendor?.taxCertificate ? (
+            <OnlineImage
+              name="tax"
+              src={user.vendor?.taxCertificate}
+              bordered
+            />
+          ) : (
+            'No Tax Certificate'
+          )}
         </td>
       </tr>
       {((user.vendor?.identification && user.vendor?.identification?.url) ||
