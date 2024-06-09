@@ -6,13 +6,21 @@
       "title": "Visit the Login Page",
       "description": "Navigate to the Login Page by clicking the Sign In Link at the top of the Page.",
       "image": "/img/docs/user-accounts/sign-in-link.png",
-      "imageAlt": "Sign In Link"
+      "imageAlt": "Sign In Link",
+      "note": {
+        "type": "info",
+        "text": "If you are already signed in, you will see your name instead of the Sign In link."
+      }
     },
     {
       "title": "Enter Your Email and Password",
       "description": "On the sign-in page, provide your registered email address and password in the respective fields. If you have forgotten your password, click on the 'Forgot Password' link to reset it.",
       "image": "/img/docs/user-accounts/sign-in-email.png",
-      "imageAlt": "Email and Password Fields"
+      "imageAlt": "Email and Password Fields",
+      "note": {
+        "type": "success",
+        "text": "Click on the icon in the password field to show the password you are typing. This will help you confirm that you are typing the correct password."
+      }
     },
     {
       "title": "Sign In with Google",

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 
 const NoContent = ({
+  buttonClassName = 'btn-danger',
   text,
   linkText,
   linkTo,
@@ -22,17 +23,18 @@ const NoContent = ({
     {Icon && Icon}
     <h4 className={classNames('text-muted pt-3', size)}>{text}</h4>
     {linkText && linkTo && (
-      <Link
-        className={classNames(
-          { 'text-muted d-block': !isButton },
-          {
-            'btn btn-danger d-inline-block mt-3 btn-wide btn-transparent':
-              isButton,
-          }
-        )}
-        href={linkTo}
-      >
-        {linkText}
+      <Link passHref href={linkTo}>
+        <a
+          className={classNames(
+            { 'text-muted d-block': !isButton },
+            buttonClassName,
+            {
+              'btn d-inline-block mt-3 btn-wide btn-transparent': isButton,
+            }
+          )}
+        >
+          {linkText}
+        </a>
       </Link>
     )}
   </section>

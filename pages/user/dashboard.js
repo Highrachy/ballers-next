@@ -30,6 +30,8 @@ import { WalletInfoBox } from '@/components/dashboard/WalletInfoBox';
 import { UserContext } from '@/context/UserContext';
 import { FEATURE_FLAG_LIST, isFeatureFlagEnabled } from '@/utils/constants';
 import CompleteYourProfile from '@/components/dashboard/CompleteYourProfile';
+import { userSteps } from '@/data/tourSteps';
+import TourGuide from '@/components/common/Tourguide';
 
 const Dashboard = () => {
   const [toast, setToast] = useToast();
@@ -44,90 +46,11 @@ const Dashboard = () => {
   const result = dashboardQuery?.data || {};
   const { userState } = React.useContext(UserContext);
 
-  const [{ run, steps }, setState] = React.useState({
-    run: false,
-    steps: [
-      {
-        content: (
-          <div className="tour__content">
-            <h3 className="pb-3">Welcome to BALL!</h3>
-            <p>
-              Let&apos;s embark on a guided tour and explore our powerful
-              features together.
-            </p>
-          </div>
-        ),
-        placement: 'center',
-        target: 'body',
-        disableBeacon: true,
-      },
-      {
-        content: (
-          <div className="tour__content">
-            <h4>Transaction Overview</h4>
-            <p>
-              Delve into the details of your financial transactions with our
-              overview graph.
-            </p>
-          </div>
-        ),
-        target: '.overview-graph',
-        disableBeacon: true,
-      },
-      {
-        content: (
-          <div className="tour__content">
-            <h4>Quick Access Cards</h4>
-            <p>
-              Easily confirm important figures using our accessible quick access
-              cards.
-            </p>
-          </div>
-        ),
-        target: '.quick-access',
-        disableBeacon: true,
-      },
-      {
-        content: (
-          <div className="tour__content">
-            <h4>Your Properties</h4>
-            <p>
-              Keep track of the properties you&apos;ve added to the platform
-              with this widget.
-            </p>
-          </div>
-        ),
-        target: '.properties-widget',
-        disableBeacon: true,
-      },
-      {
-        title: 'Final Step',
-        content: (
-          <div className="tour__content">
-            <h3 className="pb-3">Congratulations!</h3>
-            <p>You&apos;ve reached the end of the tour.</p>
-          </div>
-        ),
-        placement: 'center',
-        target: 'body',
-        disableBeacon: true,
-      },
-    ],
-  });
-
-  const handleJoyrideCallback = (data) => {
-    const { status, type } = data;
-    if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
-      // Tour is finished or skipped, you can update state accordingly
-      console.log('finished', type);
-    }
-    // Handle other events as needed
-  };
-
   const walletIsEnabled = isFeatureFlagEnabled(
     userState?.featureFlag || [],
     FEATURE_FLAG_LIST['wallet']
   );
+
   const stackboxes = getNextSteps(userState, result);
   const showOtherWidgets = stackboxes.length <= 3;
 
@@ -140,6 +63,7 @@ const Dashboard = () => {
       <Toast {...toast} showToastOnly />
       <WelcomeHero isIndex />
 
+      <TourGuide steps={userSteps} />
       <ContentLoader
         hasContent={!!result}
         Icon={<HomeIcon />}
@@ -147,31 +71,6 @@ const Dashboard = () => {
         name="Dashboard"
         toast={toast}
       >
-        <ReactJoyride
-          run={run}
-          steps={steps}
-          showProgress
-          showSkipButton
-          spotlightClicks={false}
-          continuous
-          callback={handleJoyrideCallback}
-          styles={{
-            buttonSkip: {
-              color: colorTokens.danger[600],
-            },
-            buttonBack: {
-              color: colorTokens.gray[600],
-            },
-            buttonNext: {
-              background: colorTokens.secondary[400],
-              padding: '1rem 1.5rem',
-            },
-            tooltipContainer: {
-              padding: '1rem 2rem 0',
-            },
-          }}
-        />
-
         {walletIsEnabled ? (
           <>
             <WalletInfoBox setToast={setToast} result={result} />

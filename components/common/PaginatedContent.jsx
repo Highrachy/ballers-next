@@ -21,6 +21,7 @@ const PaginatedContent = ({
   PageIcon,
   pageName,
   pluralPageName,
+  noContentLink = { linkText: null, linkTo: null, isButton: false },
   endpoint,
   queryName,
   hidePagination,
@@ -63,7 +64,7 @@ const PaginatedContent = ({
         </TopTitle>
       )}
 
-      {FilterComponent && (
+      {FilterComponent && results?.length > 0 && (
         <TopFilter
           FilterComponent={FilterComponent}
           filters={filters}
@@ -77,6 +78,7 @@ const PaginatedContent = ({
         query={query}
         name={pageName}
         toast={toast}
+        noContentLink={noContentLink}
         noContentText={`No ${pluralizePageName} found`}
         hideNoContent={hideNoContent}
         showFetching={showFetching || Object.keys(filters)?.length > 0}

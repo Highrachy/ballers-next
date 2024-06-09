@@ -46,6 +46,7 @@ export const ContentLoader = ({
   query,
   Icon,
   loadingText,
+  noContentLink,
   noContentText,
   hideNoContent,
   name,
@@ -65,7 +66,14 @@ export const ContentLoader = ({
       children
     ) : (
       !hideNoContent && (
-        <NoContent text={noContentText || `${name} not found`} Icon={Icon} />
+        <NoContent
+          buttonClassName={noContentLink?.buttonClassName || 'btn-secondary'}
+          text={noContentText || `${name} not found`}
+          Icon={Icon}
+          linkText={noContentLink?.linkText}
+          linkTo={noContentLink?.linkTo}
+          isButton={noContentLink?.isButton}
+        />
       )
     )}
   </>

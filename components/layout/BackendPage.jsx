@@ -8,6 +8,7 @@ import FixedFooterMenu from './FixedFooterMenu';
 import axios from 'axios';
 import { BASE_API_URL } from '@/utils/constants';
 import Placeholder from './Placeholder';
+import { HelpBox } from '../dashboard/HelpBox';
 
 const BackendPage = ({ children }) => {
   const router = useRouter();
@@ -69,6 +70,7 @@ const BackendPage = ({ children }) => {
           <div className="content-page">
             <TopBar />
             {children}
+            <Footer />
             <FixedFooterMenu />
           </div>
         </>
@@ -76,6 +78,22 @@ const BackendPage = ({ children }) => {
         <LoadingState />
       )}
     </div>
+  );
+};
+
+const Footer = () => {
+  return (
+    <footer className="footer border-top mt-6 py-3">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col">
+            <p className="text-muted">
+              &copy; {new Date().getFullYear()} BALL. All Rights Reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 };
 

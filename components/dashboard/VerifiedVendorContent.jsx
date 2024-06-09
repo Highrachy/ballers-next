@@ -1,8 +1,10 @@
 import {
+  HelpIcon,
   HomeIcon,
   OfferIcon,
   PortfolioIcon,
   PropertyIcon,
+  ReferIcon,
   VasIcon,
 } from '@/components/utils/Icons';
 import { ContentLoader } from '../utils/LoadingItems';
@@ -24,6 +26,8 @@ import { UserContext } from '@/context/UserContext';
 import React, { useContext } from 'react';
 import { vendorSteps } from '@/data/tourSteps';
 import TourGuide from '../common/Tourguide';
+import { HelpBox } from './HelpBox';
+import helpGuide from '@/data/docs/vip-accounts/vip-dashboard.json';
 
 const VerifiedVendorContent = ({ toast }) => {
   const [dashboardQuery] = useGetQuery({
@@ -37,6 +41,7 @@ const VerifiedVendorContent = ({ toast }) => {
 
   return (
     <>
+      <TourGuide steps={vendorSteps} />
       <ContentLoader
         hasContent={!!result}
         Icon={<HomeIcon />}
@@ -44,13 +49,13 @@ const VerifiedVendorContent = ({ toast }) => {
         name="Dashboard"
         toast={toast}
       >
-        <TourGuide steps={vendorSteps} />
         <Overview result={result} />
         <EnquiriesAndVisitations result={result} />
         <ReceivedPaymentsAndRemittance result={result} />
         <PendingPropertiesAndVideos result={result} />
         <OfferAndServices result={result} />
       </ContentLoader>
+      <HelpBox helpGuide={helpGuide} />
     </>
   );
 };

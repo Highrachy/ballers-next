@@ -87,6 +87,7 @@ import {
   SafeHome,
   Setting2,
   EmptyWalletAdd,
+  MessageQuestion,
 } from 'iconsax-react';
 import { LuSettings2 } from 'react-icons/lu';
 import { RiPlanetFill } from 'react-icons/ri';
@@ -138,6 +139,7 @@ export const LoveIcon = () => <FiHeart />;
 export const MallIcon = () => <MdLocalMall />;
 export const MapPinIcon = () => <FaMapMarkerAlt />;
 export const MessageIcon = () => <EnquiryIcon />;
+export const HelpIcon = () => <MessageQuestion variant="Bulk" />;
 export const MenuIcon = () => <FiMenu />;
 export const PortfolioIcon = () => <Home3 variant="Bulk" />;
 export const NotificationIcon = () => <FiBell />;

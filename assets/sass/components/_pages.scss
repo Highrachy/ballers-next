@@ -768,6 +768,11 @@ ol.doc-counter {
   padding-bottom: 0.5rem;
   padding-left: 0;
 
+  strong {
+    color: $primary-400;
+    font-weight: 700;
+  }
+
   > li {
     padding: 0.5rem 0 0.5rem 2.5rem;
     border: 0;
@@ -775,10 +780,10 @@ ol.doc-counter {
     margin-bottom: 0.25rem;
 
     &:before {
-      width: calc(1.5rem - 2px);
-      height: calc(1.5rem - 2px);
-      font-size: calc(1rem - 3px);
-      margin: 1px 0 0 0.5rem;
+      width: calc(1.5rem - 3px);
+      height: calc(1.5rem - 3px);
+      font-size: calc(1rem - 4px);
+      margin: 4px 0 0 0.5rem;
       content: counter(li);
       counter-increment: li;
       position: absolute;
@@ -787,7 +792,7 @@ ol.doc-counter {
       font-weight: 500;
       text-align: center;
       border-radius: 50%;
-      background-color: $primary;
+      background-color: $primary-400;
     }
 
     &:after {

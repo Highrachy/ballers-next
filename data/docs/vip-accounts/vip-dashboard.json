@@ -1,0 +1,52 @@
+{
+  "title": "Understanding the VIP Dashboard",
+  "subtitle": "Get started on your journey to homeownership by creating your BALL account.",
+  "steps": [
+    {
+      "title": "The Navigation Bar",
+      "description": "Familiarize yourself with the navigation bar. It includes essential features like the application tour, notification icon, company logo, and additional menu options.",
+      "image": "/img/docs/vip-accounts/vip-dashboard-navigation.png",
+      "imageAlt": "Navigation Bar Features",
+      "numberedSteps": [
+        "Tour the Application",
+        "Notification Icon",
+        "Company Logo",
+        "Additional Menu"
+      ]
+    },
+    {
+      "title": "Tour the Application",
+      "description": "Take a quick tour of the application to understand its features and layout.",
+      "image": "/img/docs/vip-accounts/vip-dashboard-tour.png",
+      "imageAlt": "Application Tour"
+    },
+    {
+      "title": "The SideBar",
+      "description": "The sidebar contains links to manage your account, including accessing various sections and features.",
+      "image": "/img/docs/vip-accounts/vip-dashboard-sidebar.png",
+      "imageAlt": "Sidebar Links"
+    },
+    {
+      "title": "The Quick Access Cards",
+      "description": "The quick access cards provide a snapshot of your account, displaying key information like transactions, properties, services, and more.",
+      "image": "/img/docs/vip-accounts/vip-dashboard-quick-access.png",
+      "imageAlt": "Quick Access Cards"
+    },
+    {
+      "title": "The Notification Cards",
+      "description": "Notification cards provide important information and alerts to help you take timely action on your account.",
+      "image": "/img/docs/vip-accounts/vip-dashboard-notification-cards.png",
+      "imageAlt": "Notification Cards",
+      "note": {
+        "type": "info",
+        "text": "Some of the notification cards might be hidden if they don't have any notifications to display."
+      }
+    },
+    {
+      "title": "Learn About the Page",
+      "description": "This section provides detailed information about the current page and its functionalities.",
+      "image": "/img/docs/vip-accounts/vip-dashboard-learn.png",
+      "imageAlt": "Page Information"
+    }
+  ]
+}

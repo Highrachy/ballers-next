@@ -52,6 +52,12 @@ const Properties = () => {
         initialFilter={{ sortBy: 'createdAt', sortDirection: 'desc' }}
         pageName="Property"
         pluralPageName="Properties"
+        noContentLink={{
+          linkText: 'Add New Property',
+          linkTo: '/vendor/property/new',
+          isButton: true,
+          buttonClassName: 'btn-secondary',
+        }}
         DataComponent={PropertiesRowLists}
         FilterComponent={FilterForm}
         PageIcon={<PropertyIcon />}

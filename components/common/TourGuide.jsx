@@ -44,9 +44,6 @@ const TourGuide = ({ steps }) => {
     }
   };
 
-  console.log('runTour', runTour);
-  console.log('{tour, showTour}', { tour, showTour });
-
   if (!runTour) return null;
 
   return (
