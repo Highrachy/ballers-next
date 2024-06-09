@@ -59,7 +59,7 @@ const Header = () => {
 };
 
 export const NavForLoginUser = () => {
-  let { userState } = React.useContext(UserContext);
+  let { userState, userDispatch } = React.useContext(UserContext);
   const userName = `${userState.firstName} ${userState.lastName}`;
   const isCompanyLogo =
     !userState.profileImage && userState.vendor && userState.vendor.companyLogo;
@@ -68,42 +68,40 @@ export const NavForLoginUser = () => {
   return (
     <Nav className="ms-auto d-flex flex-row align-items-center">
       {userState?.isDemoAccount && (
-        <>
-          <Link href="/vendor/demo-account">
-            <Nav.Link className="demo-account d-none d-xl-inline text-muted">
-              Demo Account
-            </Nav.Link>
-          </Link>
-
-          <span
-            onClick={() => {
-              removeTourValue();
-              window.location.href = '/vendor/dashboard?tour=true';
-            }}
-          >
-            <Nav.Link className="demo-account text-muted">
-              <OverlayTrigger
-                trigger={['hover', 'focus']}
-                placement={'bottom'}
-                overlay={
-                  <Popover>
-                    <Popover.Header as="h6">Start Tour</Popover.Header>
-                    <Popover.Body>
-                      Explore BALL features with our guided tour. Click to start
-                      your experience.
-                    </Popover.Body>
-                  </Popover>
-                }
-              >
-                <span className="form-help-icon">
-                  &nbsp;
-                  <TourIcon />
-                </span>
-              </OverlayTrigger>
-            </Nav.Link>
-          </span>
-        </>
+        <Link href="/vendor/demo-account">
+          <Nav.Link className="demo-account d-none d-xl-inline text-muted">
+            Demo Account
+          </Nav.Link>
+        </Link>
       )}
+
+      <span
+        onClick={() => {
+          window.location.href = `/${currentRole}/dashboard?tour=true`;
+        }}
+      >
+        <Nav.Link className="demo-account text-muted">
+          <OverlayTrigger
+            trigger={['hover', 'focus']}
+            placement={'bottom'}
+            overlay={
+              <Popover>
+                <Popover.Header as="h6">Start Tour</Popover.Header>
+                <Popover.Body>
+                  Explore BALL features with our guided tour. Click to start
+                  your experience.
+                </Popover.Body>
+              </Popover>
+            }
+          >
+            <span className="form-help-icon">
+              &nbsp;
+              <TourIcon />
+            </span>
+          </OverlayTrigger>
+        </Nav.Link>
+      </span>
+
       {userState?.notifications?.length === 0 ? (
         <Link href={`/${currentRole}/notifications`}>
           <Nav.Link className="notifications">

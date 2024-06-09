@@ -13,24 +13,17 @@ import Widget from './Widget';
 import { useGetQuery } from '@/hooks/useQuery';
 import { API_ENDPOINT } from '@/utils/URL';
 import colorTokens from 'style-dictionary/build/color.tokens';
-import {
-  differenceInDays,
-  getDate,
-  getDateStatus,
-  isPastDate,
-} from '@/utils/date-helpers';
-import Humanize from 'humanize-plus';
-import { getUserName, moneyFormatInNaira } from '@/utils/helpers';
-import { ACTIVE_OFFER_STATUS, FAST_TRACK_VENDOR } from '@/utils/constants';
+import { getDate, getDateStatus } from '@/utils/date-helpers';
+import { moneyFormatInNaira } from '@/utils/helpers';
+import { FAST_TRACK_VENDOR } from '@/utils/constants';
 import ServiceBox from './ServiceBox';
 import RemittanceWidget from './widgets/RemittanceWidget';
 import PendingPropertiesWidget from './widgets/PendingPropertiesWidget';
 import PendingPropertyVideosWidget from './widgets/PendingPropertyVideosWidget';
 import { UserContext } from '@/context/UserContext';
-import React, { useContext, useState } from 'react';
-import ReactJoyride, { STATUS } from 'react-joyride';
-import { getTourValue, storeTourValue } from '@/utils/localStorage';
-import { useRouter } from 'next/router';
+import React, { useContext } from 'react';
+import { vendorSteps } from '@/data/tourSteps';
+import TourGuide from '../common/Tourguide';
 
 const VerifiedVendorContent = ({ toast }) => {
   const [dashboardQuery] = useGetQuery({
@@ -42,151 +35,6 @@ const VerifiedVendorContent = ({ toast }) => {
 
   const result = dashboardQuery?.data || {};
 
-  const router = useRouter();
-  const { tour } = router.query;
-  const tourValue = getTourValue();
-  const runTour = tour === 'true' ? true : !tourValue;
-  console.log('runTour: ', runTour);
-
-  const [{ run, steps }, setState] = React.useState({
-    run: runTour,
-    steps: [
-      {
-        content: (
-          <div className="tour__content">
-            <h3 className="pb-3">Welcome to BALL!</h3>
-            <p>
-              Let&apos;s embark on a guided tour and explore our powerful
-              features together.
-            </p>
-          </div>
-        ),
-        placement: 'center',
-        target: 'body',
-        disableBeacon: true,
-      },
-      {
-        content: (
-          <div className="tour__content">
-            <h4>Transaction Overview</h4>
-            <p>
-              Delve into the details of your financial transactions with our
-              overview graph.
-            </p>
-          </div>
-        ),
-        target: '.overview-graph',
-        disableBeacon: true,
-      },
-      {
-        content: (
-          <div className="tour__content">
-            <h4>Quick Access Cards</h4>
-            <p>
-              Easily confirm important figures using our accessible quick access
-              cards.
-            </p>
-          </div>
-        ),
-        target: '.quick-access',
-        disableBeacon: true,
-      },
-      {
-        content: (
-          <div className="tour__content">
-            <h4>Your Properties</h4>
-            <p>
-              Keep track of the properties you&apos;ve added to the platform
-              with this widget.
-            </p>
-          </div>
-        ),
-        target: '.properties-widget',
-        disableBeacon: true,
-      },
-      {
-        content: (
-          <div className="tour__content">
-            <h4>Portfolios</h4>
-            <p>
-              Monitor the properties that users have signed up offers for with
-              our portfolios widget.
-            </p>
-          </div>
-        ),
-        target: '.portfolios-widget',
-        disableBeacon: true,
-      },
-      {
-        content: (
-          <div className="tour__content">
-            <h4>Manage Client Engagements</h4>
-            <p>
-              Effortlessly handle pending inquiries and upcoming visits here.
-            </p>
-          </div>
-        ),
-        target: '.enquiries',
-        disableBeacon: true,
-      },
-      {
-        content: (
-          <div className="tour__content">
-            <h4>Financial Insights</h4>
-            <p>
-              Seamlessly track your payments and remittances in one convenient
-              place.
-            </p>
-          </div>
-        ),
-        target: '.payments',
-        disableBeacon: true,
-      },
-      {
-        content: (
-          <div className="tour__content">
-            <h4>Your Account Snapshot</h4>
-            <p>
-              Get a quick summary of your account details, services, and badges
-              earned.
-            </p>
-          </div>
-        ),
-        target: '.quick-look',
-        disableBeacon: true,
-      },
-      {
-        title: 'Final Step',
-        content: (
-          <div className="tour__content">
-            <h3 className="pb-3">Congratulations!</h3>
-            <p>
-              You&apos;ve reached the final step of our tour. Your demo account
-              will be active for 30 days.
-            </p>
-          </div>
-        ),
-        placement: 'center',
-        target: 'body',
-        disableBeacon: true,
-      },
-    ],
-  });
-
-  console.log('run', run);
-  console.log('tour', tour);
-  console.log('tourValue', tourValue);
-
-  const handleJoyrideCallback = (data) => {
-    const { status, type } = data;
-    if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
-      storeTourValue();
-      // Tour is finished or skipped, you can update state accordingly
-      console.log('finished', type);
-    }
-    // Handle other events as needed
-  };
-
   return (
     <>
       <ContentLoader
@@ -196,30 +44,7 @@ const VerifiedVendorContent = ({ toast }) => {
         name="Dashboard"
         toast={toast}
       >
-        <ReactJoyride
-          run={run}
-          steps={steps}
-          showProgress
-          showSkipButton
-          spotlightClicks={false}
-          continuous
-          callback={handleJoyrideCallback}
-          styles={{
-            buttonSkip: {
-              color: colorTokens.danger[600],
-            },
-            buttonBack: {
-              color: colorTokens.gray[600],
-            },
-            buttonNext: {
-              background: colorTokens.secondary[400],
-              padding: '1rem 1.5rem',
-            },
-            tooltipContainer: {
-              padding: '1rem 2rem 0',
-            },
-          }}
-        />
+        <TourGuide steps={vendorSteps} />
         <Overview result={result} />
         <EnquiriesAndVisitations result={result} />
         <ReceivedPaymentsAndRemittance result={result} />

@@ -63,6 +63,7 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
                   )
                 : [...userState.favorites, property],
             },
+            type: 'add-favorite',
           });
         }
       })

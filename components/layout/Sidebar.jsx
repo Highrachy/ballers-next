@@ -24,7 +24,7 @@ const Sidebar = ({ showSidebar, closeSidebar, ...props }) => {
         })}
       >
         <div className="sidebar__logo">
-          <Link href="/">
+          <Link href="/" passHref>
             <BallersLogo
               className="ballers-logo-footer"
               width="86"
