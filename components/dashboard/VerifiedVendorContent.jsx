@@ -25,7 +25,7 @@ import PendingPropertyVideosWidget from './widgets/PendingPropertyVideosWidget';
 import { UserContext } from '@/context/UserContext';
 import React, { useContext } from 'react';
 import { vendorSteps } from '@/data/tourSteps';
-import TourGuide from '../common/Tourguide';
+import TourGuide from '../common/TourGuide';
 import { HelpBox } from './HelpBox';
 import helpGuide from '@/data/docs/vip-accounts/vip-dashboard.json';
 

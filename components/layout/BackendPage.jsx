@@ -8,7 +8,6 @@ import FixedFooterMenu from './FixedFooterMenu';
 import axios from 'axios';
 import { BASE_API_URL } from '@/utils/constants';
 import Placeholder from './Placeholder';
-import { HelpBox } from '../dashboard/HelpBox';
 
 const BackendPage = ({ children }) => {
   const router = useRouter();

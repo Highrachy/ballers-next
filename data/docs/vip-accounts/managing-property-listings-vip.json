@@ -4,35 +4,57 @@
   "steps": [
     {
       "title": "Access Your Dashboard",
-      "description": "Log in to your BALL account and navigate to your dashboard. Here, you'll find all the tools and features you need to manage your property listings."
+      "description": "Log in to your BALL account and navigate to your dashboard. Click on the property card or 'Properties' in the sidebar.",
+      "image": "/img/docs/vip-accounts/vip-properties-view.png",
+      "imageAlt": "View Properties"
     },
     {
-      "title": "Add New Listings",
-      "description": "Click on the 'Add New Listing' button to create a new property listing. Fill in the required details, such as property type, location, price, and description, and upload high-quality images to showcase your property effectively."
+      "title": "Add New Property",
+      "description": "Click on the 'Add New Property' button to create a new property listing. Fill in the required details, such as property type, location, price, and description, and upload high-quality images to showcase your property effectively.",
+      "image": "/img/docs/vip-accounts/vip-properties-add-new.png",
+      "imageAlt": "Add New Property",
+      "note": [
+        {
+          "type": "success",
+          "text": "High-quality images attract more potential buyers. Make sure your images are clear and well-lit."
+        },
+        {
+          "type": "info",
+          "text": "We offer professional Photography services to help you capture your property in the best light. Contact us for more information."
+        }
+      ]
     },
     {
-      "title": "Edit Existing Listings",
-      "description": "Review and edit your existing property listings as needed. Update property details, photos, pricing information, and descriptions to keep your listings accurate and up to date."
+      "title": "Edit Existing Property",
+      "description": "Review and edit your existing property listings as needed. Update property details, photos, pricing information, and descriptions to keep your listings accurate and up to date.",
+      "image": "/img/docs/vip-accounts/vip-properties-manage.png",
+      "imageAlt": "Manage Properties",
+      "note": {
+        "type": "warning",
+        "text": "Regularly updating your listings helps maintain their relevance and can lead to higher engagement."
+      }
+    },
+    {
+      "title": "View Existing Property",
+      "description": "Examine the details of your listed properties. Make sure that all the information is correct and update any details if necessary.",
+      "image": "/img/docs/vip-accounts/vip-properties-manage.png",
+      "imageAlt": "View Properties",
+      "note": {
+        "type": "info",
+        "text": "Double-check the property details before making them live to ensure all information is accurate."
+      }
     },
     {
       "title": "Remove Sold Properties",
-      "description": "Mark properties as sold or remove them from your listings once they have been sold or are no longer available. This helps maintain the relevance and accuracy of your listings for potential buyers."
-    },
-    {
-      "title": "Promote Featured Listings",
-      "description": "Highlight your top properties by promoting them as featured listings. Featured listings receive increased visibility and exposure, helping them stand out to potential buyers browsing the BALL platform."
-    },
-    {
-      "title": "Track Listing Performance",
-      "description": "Monitor the performance of your property listings using BALL's analytics tools. Track metrics such as views, inquiries, and conversions to assess the effectiveness of your listings and make data-driven decisions to optimize performance."
-    },
-    {
-      "title": "Engage with Potential Buyers",
-      "description": "Respond promptly to inquiries and messages from potential buyers interested in your properties. Engage with buyers, answer questions, and provide additional information to facilitate the sales process and build rapport with prospective clients."
+      "description": "Mark properties as sold or remove them from your listings once they have been sold or are no longer available. This helps maintain the relevance and accuracy of your listings for potential buyers.",
+      "note": {
+        "type": "success",
+        "text": "Keeping your listings up-to-date with sold status improves the credibility of your account."
+      }
     },
     {
       "title": "Stay Informed with Notifications",
-      "description": "Enable notifications to receive alerts and updates on listing activity, inquiries, and buyer interactions. Stay informed in real-time and take timely actions to manage and respond to buyer interest effectively."
+      "description": "Monitor your notifications to receive alerts and updates on listing activity, inquiries, and buyer interactions. Stay informed in real-time and take timely actions to manage and respond to buyer interest effectively."
     }
   ]
 }

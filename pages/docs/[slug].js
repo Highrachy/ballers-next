@@ -7,10 +7,7 @@ import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
 import TitleSection from 'components/common/TitleSection';
 import Image from 'next/image';
-import { LocalImage } from '@/components/utils/Image';
 import ImageWithBackground from '@/components/common/ImageWithBackground';
-import Docs from '.';
-import { Alert } from 'react-bootstrap';
 
 const DocsPage = ({ slug, content }) => {
   if (!content) return <div>Page not found</div>;
@@ -34,20 +31,6 @@ const DocsContent = ({ title, subtitle, steps }) => (
     </div>
   </section>
 );
-
-const alertTitle = {
-  info: 'Info',
-  warning: 'Warning',
-  danger: 'Danger',
-  success: 'Tip',
-};
-
-const alertColor = {
-  info: 'info',
-  warning: 'warning',
-  danger: 'danger',
-  success: 'success',
-};
 
 export const DocsSteps = ({ steps }) => (
   <ol className="doc-counter">
@@ -73,18 +56,44 @@ export const DocsSteps = ({ steps }) => (
             ))}
           </ol>
         )}
-        {step.note && (
-          <section className={`alert-attention ${alertColor[step.note.type]}`}>
-            <strong>{alertTitle[step.note.type]}:</strong> {step.note.text}
-          </section>
-        )}
         {step.image && (
           <ImageWithBackground src={step.image} alt={step.imageAlt} />
         )}
+        {step.note &&
+          (Array.isArray(step.note) ? (
+            step.note.map((note, index) => (
+              <AlertAttention key={index} {...note} />
+            ))
+          ) : (
+            <AlertAttention {...step.note} />
+          ))}
       </li>
     ))}
   </ol>
 );
+
+const AlertAttention = ({ type, text, image, imageAlt }) => {
+  const alertTitle = {
+    info: 'Info',
+    warning: 'Warning',
+    danger: 'Danger',
+    success: 'Tip',
+  };
+
+  const alertColor = {
+    info: 'info',
+    warning: 'warning',
+    danger: 'danger',
+    success: 'success',
+  };
+
+  return (
+    <section className={`alert-attention ${alertColor[type]}`}>
+      <strong>{alertTitle[type]}:</strong> {text}
+      {image && <ImageWithBackground src={image} alt={imageAlt} />}
+    </section>
+  );
+};
 
 // Function to convert links in the description into anchor links
 const convertLinks = (description) => {

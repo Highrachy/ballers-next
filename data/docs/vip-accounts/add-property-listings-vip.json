@@ -1,0 +1,108 @@
+{
+  "title": "Managing Property Listings on BALL",
+  "subtitle": "Effortlessly manage and showcase your properties to potential buyers with BALL's intuitive listing management tools.",
+  "steps": [
+    {
+      "title": "Access Your Dashboard",
+      "description": "Log in to your BALL account and navigate to your dashboard. Click on the property card or 'Properties' in the sidebar.",
+      "image": "/img/docs/vip-accounts/vip-properties-view.png",
+      "imageAlt": "Access Your Dashboard"
+    },
+    {
+      "title": "Add New Property",
+      "description": "Click on the 'Add New Property' button to create a new property listing. Fill in the required details, such as property type, location, price, and description, and upload high-quality images to showcase your property effectively.",
+      "image": "/img/docs/vip-accounts/vip-properties-add-new.png",
+      "imageAlt": "Add New Property",
+      "note": [
+        {
+          "type": "success",
+          "text": "High-quality images attract more potential buyers. Ensure your images are clear and well-lit."
+        },
+        {
+          "type": "info",
+          "text": "We offer professional photography services to help you capture your property in the best light. Contact us for more information."
+        }
+      ]
+    },
+    {
+      "title": "Add Property Information",
+      "description": "Provide detailed information about your property, such as the name, number of bedrooms, bathrooms, and other amenities.",
+      "image": "/img/docs/vip-accounts/vip-properties-property-info.png",
+      "imageAlt": "Add Property Information",
+      "note": [
+        {
+          "type": "success",
+          "text": "You can manually type your house type by clicking 'Type Manually'. Switch back to the dropdown by clicking 'Select House Type'.",
+          "image": "/img/docs/vip-accounts/vip-properties-type-manually.png",
+          "imageAlt": "Type Manually Option"
+        },
+        {
+          "type": "info",
+          "text": "Add additional features by typing the new feature and pressing a comma to include it.",
+          "image": "/img/docs/vip-accounts/vip-properties-features.png",
+          "imageAlt": "Add Features"
+        }
+      ]
+    },
+    {
+      "title": "Add Property Details",
+      "description": "Provide detailed information about your property, including price, units, title document, pricing model, and delivery state.",
+      "image": "/img/docs/vip-accounts/vip-properties-property-details.png",
+      "imageAlt": "Add Property Details",
+      "note": [
+        {
+          "type": "warning",
+          "text": "Update the property units to reflect the number of units available for sale."
+        },
+        {
+          "type": "info",
+          "text": "We support the following pricing models: Outright, Timeline, and Milestone payments. Learn more about them here."
+        }
+      ]
+    },
+    {
+      "title": "Add Property Address",
+      "description": "Provide the address of the property, including the street address, city, and state. Currently, only properties in Nigeria are supported.",
+      "image": "/img/docs/vip-accounts/vip-properties-property-address.png",
+      "imageAlt": "Add Property Address",
+      "note": [
+        {
+          "type": "info",
+          "text": "Include the property's area of interest to help potential buyers locate it easily."
+        }
+      ]
+    },
+    {
+      "title": "Add Property Description",
+      "description": "Provide a description of the property, including features, amenities, and other selling points.",
+      "image": "/img/docs/vip-accounts/vip-properties-description.png",
+      "imageAlt": "Add Property Description",
+      "note": [
+        {
+          "type": "info",
+          "text": "Click 'Autogenerate' to create a description based on the property's features and amenities."
+        },
+        {
+          "type": "danger",
+          "text": "Autogenerating the description will overwrite any existing description. Proceed with caution."
+        }
+      ]
+    },
+    {
+      "title": "Add Property Images",
+      "description": "Upload property images to showcase it effectively. These will be displayed on the property card.",
+      "image": "/img/docs/vip-accounts/vip-properties-image.png",
+      "imageAlt": "Add Property Images",
+      "note": [
+        {
+          "type": "info",
+          "text": "Supported image formats: JPG, JPEG, PNG, and GIF. Ensure your images are clear and well-lit."
+        },
+        {
+          "type": "danger",
+          "text": "Images are capped at 1MB to improve website speed. Use an online compressor like https://tinypng.com to reduce the size of larger images."
+        }
+      ]
+    }
+  ]
+}

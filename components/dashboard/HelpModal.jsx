@@ -19,7 +19,7 @@ const HelpModal = ({ show, handleClose, helpGuide }) => {
         </section>
       </Modal.Body>
       <Modal.Footer>
-        <Button color="secondary" wide onClick={handleClose}>
+        <Button color="dark" className="btn-sm" wide onClick={handleClose}>
           Close
         </Button>
       </Modal.Footer>

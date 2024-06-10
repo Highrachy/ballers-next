@@ -62,7 +62,8 @@ import { generatePropertyDescription } from 'utils/property-helper';
 import Modal from 'components/common/Modal';
 import DatePicker from 'components/forms/DatePicker';
 import MdEditor from '@/components/forms/MdEditor';
-import { boolean } from 'yup';
+import helpGuide from '@/data/docs/vip-accounts/add-property-listings-vip.json';
+import { HelpBox } from '@/components/dashboard/HelpBox';
 
 const pageOptions = {
   key: 'property',
@@ -79,6 +80,9 @@ const PropertyForm = ({ id }) => {
         ) : (
           <NewPropertyForm toast={toast} setToast={setToast} />
         )}
+        <div className="mt-7">
+          <HelpBox helpGuide={helpGuide} />
+        </div>
       </div>
     </BackendPage>
   );

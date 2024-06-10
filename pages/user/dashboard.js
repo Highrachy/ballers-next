@@ -24,14 +24,12 @@ import ServiceBox from '@/components/dashboard/ServiceBox';
 import ReferAndEarn from '@/components/dashboard/ReferAndEarn';
 import RecentOffersWidget from '@/components/dashboard/widgets/RecentOffersWidget';
 import RecentTransactionsWidget from '@/components/dashboard/widgets/RecentTransactionsWidget';
-import ReactJoyride, { STATUS } from 'react-joyride';
-import colorTokens from 'style-dictionary/build/color.tokens.js';
 import { WalletInfoBox } from '@/components/dashboard/WalletInfoBox';
 import { UserContext } from '@/context/UserContext';
 import { FEATURE_FLAG_LIST, isFeatureFlagEnabled } from '@/utils/constants';
 import CompleteYourProfile from '@/components/dashboard/CompleteYourProfile';
 import { userSteps } from '@/data/tourSteps';
-import TourGuide from '@/components/common/Tourguide';
+import TourGuide from '@/components/common/TourGuide';
 
 const Dashboard = () => {
   const [toast, setToast] = useToast();

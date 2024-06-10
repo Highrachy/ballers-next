@@ -37,6 +37,8 @@ import InputFormat from 'components/forms/InputFormat';
 import { ToiletIcon } from 'components/utils/Icons';
 import FilterRange from 'components/forms/FilterRange';
 import WelcomeHero from '../common/WelcomeHero';
+import { HelpBox } from '../dashboard/HelpBox';
+import helpGuide from '@/data/docs/vip-accounts/managing-property-listings-vip.json';
 
 const Properties = () => {
   const addNewUrl = useCurrentRole().isVendor ? '/vendor/property/new' : '';
@@ -63,6 +65,9 @@ const Properties = () => {
         PageIcon={<PropertyIcon />}
         queryName="property"
       />
+      <div className="mt-7">
+        <HelpBox helpGuide={helpGuide} />
+      </div>
     </BackendPage>
   );
 };
