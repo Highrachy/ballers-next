@@ -13,6 +13,7 @@ import Humanize from 'humanize-plus';
 import WelcomeHero from 'components/common/WelcomeHero';
 import Button from 'components/forms/Button';
 import DataList, { DataItem } from '../common/DataList';
+import { PropertiesList } from './Properties';
 
 const pageOptions = {
   key: 'enquiry',
@@ -60,7 +61,7 @@ const NewEnquiry = ({ enquiry, showOfferLetter, toast }) => (
     </div>
 
     <div className="row gy-5">
-      <div className="col-lg-6">
+      <div className="col-lg-12">
         <DataList header="Applicant Information">
           <DataItem
             label="Full Name"
@@ -71,23 +72,6 @@ const NewEnquiry = ({ enquiry, showOfferLetter, toast }) => (
               </>
             }
           />
-          <DataItem label="Email" value={enquiry.email} />
-          <DataItem label="Phone Number" value={enquiry.phone} />
-          <DataItem
-            label="Status"
-            value={<span className="text-success fw-bold">Approved</span>}
-          />
-          <DataItem
-            label="Address"
-            value={getFormattedAddress(enquiry.address)}
-          />
-          <DataItem
-            label="Name on Title Document"
-            value={enquiry.nameOnTitleDocument}
-          />
-        </DataList>
-
-        <DataList header="Investment Information">
           <DataItem
             label="Initial Investment Amount"
             value={moneyFormatInNaira(enquiry.initialInvestmentAmount)}
@@ -106,58 +90,13 @@ const NewEnquiry = ({ enquiry, showOfferLetter, toast }) => (
           />
         </DataList>
         <div className="mt-4">
+          <h5 className="header-title-small">Property Information</h5>
+          <PropertiesList property={enquiry.propertyInfo} />
+        </div>
+
+        <div className="mt-4">
           <CreateOfferLetterButton enquiry={enquiry} />
         </div>
-      </div>
-      <div className="col-lg-6">
-        <DataList header="Property Details">
-          <DataItem label="Property Name" value={enquiry.propertyInfo.name} />
-          <DataItem label="House Type" value={enquiry.propertyInfo.houseType} />
-          <DataItem
-            label="Price"
-            value={moneyFormatInNaira(enquiry.propertyInfo.price)}
-          />
-          <DataItem
-            label="Units"
-            value={
-              <>
-                {enquiry.propertyInfo.units}{' '}
-                {Humanize.pluralize(enquiry.propertyInfo.units, 'unit')}
-              </>
-            }
-          />
-          <DataItem
-            label="Bedrooms"
-            value={
-              <>
-                {enquiry.propertyInfo.bedrooms}{' '}
-                {Humanize.pluralize(enquiry.propertyInfo.bedrooms, 'bedroom')}
-              </>
-            }
-          />
-          <DataItem
-            label="Bathrooms"
-            value={
-              <>
-                {enquiry.propertyInfo.bathrooms}{' '}
-                {Humanize.pluralize(enquiry.propertyInfo.bathrooms, 'bathroom')}
-              </>
-            }
-          />
-          <DataItem
-            label="Toilets"
-            value={
-              <>
-                {enquiry.propertyInfo.toilets}{' '}
-                {Humanize.pluralize(enquiry.propertyInfo.toilets, 'toilet')}
-              </>
-            }
-          />
-          <DataItem
-            label="Address"
-            value={getFormattedAddress(enquiry.propertyInfo.address)}
-          />
-        </DataList>
       </div>
     </div>
   </div>

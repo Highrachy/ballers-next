@@ -85,8 +85,8 @@ export const PRICING_MODEL = {
 };
 
 export const PRICING_MODEL_DESC = {
-  Timeline: 'Timeline (Spread Payment)',
-  Milestone: 'Milestone (Progress Payment)',
+  Timeline: 'Timeline',
+  Milestone: 'Milestone',
 };
 
 export const PROPERTY_DELIVERY_STATE = {

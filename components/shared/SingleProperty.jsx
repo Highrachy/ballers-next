@@ -211,7 +211,7 @@ export const OwnedPropertyCard = ({
       )}
 
       {isAdmin && !property?.approved?.status && (
-        <ApproveProperty
+        <ApprovePropertyButton
           property={property}
           setToast={setToast}
           setProperty={setProperty}
@@ -378,7 +378,13 @@ const CaseHistory = ({ property, setToast, setProperty }) => {
   );
 };
 
-const ApproveProperty = ({ property, setToast, setProperty }) => {
+export const ApprovePropertyButton = ({
+  property,
+  setToast,
+  setProperty = () => {},
+  afterSave = () => {},
+  className = 'btn btn-danger btn-wide',
+}) => {
   const [loading, setLoading] = React.useState(false);
   const [showApprovalModal, setShowApprovalModal] = React.useState(false);
 
@@ -401,6 +407,7 @@ const ApproveProperty = ({ property, setToast, setProperty }) => {
           setProperty(data.property);
           setLoading(false);
           setShowApprovalModal(false);
+          afterSave();
         }
       })
       .catch(function (error) {
@@ -411,9 +418,10 @@ const ApproveProperty = ({ property, setToast, setProperty }) => {
       });
   };
   return (
-    <div className="mt-5">
+    <div>
       <Button
-        className="btn btn-success btn-wide"
+        color="none"
+        className={className}
         onClick={() => setShowApprovalModal(true)}
       >
         Approve Property
@@ -421,18 +429,19 @@ const ApproveProperty = ({ property, setToast, setProperty }) => {
 
       {/* Approve Property Modals */}
       <Modal
-        title="Verify Vendor"
+        title="Approve Property"
         show={showApprovalModal}
         onHide={() => setShowApprovalModal(false)}
         showFooter={false}
       >
         <section className="row">
           <div className="col-md-12 my-3 text-center">
-            <h5 className="my-2 confirmation-text">
-              Are you sure you want to approve this property?
-            </h5>
+            <div className="my-2 confirmation-text">
+              <div className="fw-bold text-lg mb-2">{property?.name}</div>
+              Are you sure you want to approve this property? <br />
+            </div>
             <Button
-              className="btn btn-secondary mb-5"
+              className="btn btn-danger mb-5"
               onClick={approveProperty}
               loading={loading}
             >

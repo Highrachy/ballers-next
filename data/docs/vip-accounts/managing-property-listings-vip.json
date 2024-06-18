@@ -25,6 +25,12 @@
       ]
     },
     {
+      "title": "View Existing Property",
+      "description": "Examine the details of your listed properties. Make sure that all the information is correct and update any details if necessary.",
+      "image": "/img/docs/vip-accounts/vip-properties-manage.png",
+      "imageAlt": "View Properties"
+    },
+    {
       "title": "Edit Existing Property",
       "description": "Review and edit your existing property listings as needed. Update property details, photos, pricing information, and descriptions to keep your listings accurate and up to date.",
       "image": "/img/docs/vip-accounts/vip-properties-manage.png",
@@ -35,21 +41,13 @@
       }
     },
     {
-      "title": "View Existing Property",
-      "description": "Examine the details of your listed properties. Make sure that all the information is correct and update any details if necessary.",
-      "image": "/img/docs/vip-accounts/vip-properties-manage.png",
-      "imageAlt": "View Properties",
-      "note": {
-        "type": "info",
-        "text": "Double-check the property details before making them live to ensure all information is accurate."
-      }
-    },
-    {
       "title": "Remove Sold Properties",
       "description": "Mark properties as sold or remove them from your listings once they have been sold or are no longer available. This helps maintain the relevance and accuracy of your listings for potential buyers.",
       "note": {
         "type": "success",
-        "text": "Keeping your listings up-to-date with sold status improves the credibility of your account."
+        "text": "Keeping your listings up-to-date with sold status improves the credibility of your account.",
+        "image": "/img/docs/vip-accounts/vip-properties-manage.png",
+        "imageAlt": "Manage Properties"
       }
     },
     {

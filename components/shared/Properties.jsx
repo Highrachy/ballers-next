@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import Link from 'next/link';
 import PaginatedContent from 'components/common/PaginatedContent';
@@ -13,9 +13,11 @@ import {
   formatFilterBoolean,
   formatFilterString,
   generateNumOptions,
+  getError,
   getPropertyHouseType,
   getRange,
   getTitleCase,
+  statusIsSuccessful,
   valuesToOptions,
 } from 'utils/helpers';
 import Input from 'components/forms/Input';
@@ -25,20 +27,33 @@ import { PropertyIcon } from 'components/utils/Icons';
 import { moneyFormatInNaira } from 'utils/helpers';
 import Image from 'components/utils/Image';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property.png';
-import { HOUSE_TYPES, PRICING_MODEL_DESC, STATES } from 'utils/constants';
+import {
+  BASE_API_URL,
+  HOUSE_TYPES,
+  PRICING_MODEL_DESC,
+  STATES,
+} from 'utils/constants';
 import { useCurrentRole } from 'hooks/useUser';
 import { API_ENDPOINT } from 'utils/URL';
 import { Spacing } from 'components/common/Helpers';
 import { SuccessIcon } from 'components/utils/Icons';
 import { WarningIcon } from 'components/utils/Icons';
-import { BedIcon } from 'components/utils/Icons';
-import { BathIcon } from 'components/utils/Icons';
 import InputFormat from 'components/forms/InputFormat';
-import { ToiletIcon } from 'components/utils/Icons';
 import FilterRange from 'components/forms/FilterRange';
 import WelcomeHero from '../common/WelcomeHero';
 import { HelpBox } from '../dashboard/HelpBox';
+import Humanize from 'humanize-plus';
 import helpGuide from '@/data/docs/vip-accounts/managing-property-listings-vip.json';
+import Modal from '../common/Modal';
+import Axios from 'axios';
+import { getTokenFromStore } from '@/utils/localStorage';
+import { setQueryCache } from '@/hooks/useQuery';
+import { ApprovePropertyButton } from './SingleProperty';
+
+const pageOptions = {
+  key: 'property',
+  pageName: 'Property',
+};
 
 const Properties = () => {
   const addNewUrl = useCurrentRole().isVendor ? '/vendor/property/new' : '';
@@ -65,151 +80,206 @@ const Properties = () => {
         PageIcon={<PropertyIcon />}
         queryName="property"
       />
-      <div className="mt-7">
-        <HelpBox helpGuide={helpGuide} />
-      </div>
+
+      <HelpBox helpGuide={helpGuide} />
     </BackendPage>
   );
 };
 
-const PropertiesRowLists = ({ results, offset }) => (
-  <div className="container-fluid">
-    <Card>
-      <div className="table-responsive">
-        <table className="table table-border table-hover">
-          <thead>
-            <tr>
-              <th>S/N</th>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Price</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {results.map((property, index) => (
-              <PropertiesRow
-                key={index}
-                number={offset + index + 1}
-                {...property}
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </Card>
-    {useCurrentRole().isAdmin && (
-      <div className="my-5 text-end">
-        <Link href="/admin/reported-properties">
-          <a className="btn btn-wide btn-danger-light">
-            View Reported Properties
-          </a>
-        </Link>
-      </div>
-    )}
-  </div>
-);
+const PropertiesRowLists = ({ results, offset, setToast, ...props }) => {
+  const [properties, setProperties] = useState(results);
 
-const PropertiesRow = (property) => {
+  return (
+    <div className="container-fluid">
+      {properties.map((property, index) => (
+        <PropertiesList
+          setToast={setToast}
+          key={index}
+          number={offset + index + 1}
+          property={property}
+          properties={properties}
+          setProperties={setProperties}
+          {...props}
+        />
+      ))}
+      {useCurrentRole().isAdmin && (
+        <div className="my-5 text-end">
+          <Link href="/admin/reported-properties">
+            <a className="btn btn-wide btn-danger-light">
+              View Reported Properties
+            </a>
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const PropertiesList = ({ setToast = () => {}, property, ...props }) => {
   const {
     _id,
     name,
     address,
     price,
-    number,
+    availableUnits,
+    units,
     mainImage,
     approved,
     flagged,
-    bedrooms,
-    bathrooms,
-    toilets,
+    deliveryState,
     pricingModel,
+    vendorInfo,
   } = property;
   const userType = useCurrentRole().name;
-  const propertyIsFlagged = !useCurrentRole().isUser && flagged?.status;
+  const propertyIsFlagged = !!useCurrentRole().isUser && flagged?.status;
+  const isSoldOut = availableUnits === 0;
+  const { properties, setProperties } = props;
 
   return (
-    <tr>
-      <td>{number}</td>
-      <td>
-        <div
-          className={`${
-            propertyIsFlagged ? 'overlay overlay__danger' : ''
-          } d-inline-block`}
-        >
+    <div className="card property-card mb-5">
+      <div className="row g-0 p-3">
+        <div className="col-lg-4">
           <Link href={`/${userType}/property/${_id}`} passHref>
-            <a>
+            <a className="content-image">
               <Image
+                name={property?.name}
                 src={mainImage}
-                name={`property ${_id}`}
-                className="img-compact"
-                alt="property"
-                defaultImage={PropertyPlaceholderImage}
+                alt={`property ${_id}`}
+                className="property-card__img small rounded-1"
               />
-
+              <div className="image-top">
+                <span className="type">
+                  Delivery State:{' '}
+                  {!!deliveryState ? deliveryState : 'Completed'}
+                </span>
+                {false && <span className="status">For Sale</span>}
+              </div>
               {propertyIsFlagged && (
-                <span className="overlay__content">Reported</span>
+                <span className="badge bg-danger position-absolute top-0 start-0">
+                  Reported
+                </span>
               )}
             </a>
           </Link>
         </div>
-      </td>
-      <td>
-        {name}{' '}
-        {!useCurrentRole().isUser &&
-          (approved?.status ? (
-            <small className="text-success">
-              <Spacing />
-              <SuccessIcon />
-            </small>
-          ) : (
-            <small className="text-warning">
-              <Spacing />
-              <WarningIcon />
-            </small>
-          ))}
-        <span className="block-text-small text-muted">
-          {address?.city}, {address?.state}
-        </span>
-      </td>
-      <td>
-        {getPropertyHouseType(property)}
-        <div className="text-smaller text-muted">
-          <span className="pe-2">
-            {bedrooms} <BedIcon />
-          </span>
-          |{' '}
-          <span className="px-2">
-            {bathrooms} <BathIcon />
-          </span>
-          |
-          <span className="ps-2">
-            {toilets} <ToiletIcon />
-          </span>
+        <div className="col-lg-8">
+          <div className="card-body ps-4">
+            <div className="d-lg-flex justify-content-between">
+              <div>
+                <Link href={`/${userType}/property/${_id}`} passHref>
+                  <a>
+                    <h5 className="property-name d-flex mb-0">
+                      <span className="me-2">{name} </span>
+
+                      {!useCurrentRole().isUser ? (
+                        isSoldOut ? (
+                          <small className="badge text-bg-primary opacity-50">
+                            Sold Out
+                          </small>
+                        ) : approved?.status ? (
+                          <small className="text-success">
+                            <SuccessIcon />
+                          </small>
+                        ) : (
+                          <small className="text-warning">
+                            <WarningIcon />
+                          </small>
+                        )
+                      ) : null}
+                    </h5>
+                  </a>
+                </Link>
+                <div className="property-details">
+                  <strong className="property-holder__house-type">
+                    {getPropertyHouseType(property)}
+                  </strong>{' '}
+                </div>
+              </div>
+              <h5 className="property-price property-spacing mb-1">
+                {moneyFormatInNaira(price)}
+              </h5>
+            </div>
+            <div className="property__meta pt-3">
+              <figure>
+                <figcaption>Location</figcaption>
+                <p>
+                  {address?.city}, {address?.state}
+                </p>
+              </figure>
+              <figure>
+                <figcaption>Available</figcaption>
+                <p>
+                  {availableUnits} {Humanize.pluralize(availableUnits, 'unit')}
+                </p>
+              </figure>
+              <figure>
+                <figcaption>Payment Type</figcaption>
+                <p>{PRICING_MODEL_DESC?.[pricingModel] || 'Timeline'}</p>
+              </figure>
+              {useCurrentRole().isAdmin && (
+                <figure>
+                  <figcaption>Vendor</figcaption>
+                  <p>{vendorInfo?.vendor?.companyName}</p>
+                </figure>
+              )}
+            </div>
+            <div className="pt-4 d-md-flex">
+              <Button
+                href={`/${userType}/property/${_id}`}
+                color="secondary-light"
+                wide
+                className="btn-sm me-3 mb-3"
+              >
+                View
+              </Button>
+              {useCurrentRole().isVendor && (
+                <>
+                  <Button
+                    href={`/${userType}/property/new/${_id}`}
+                    color="info-light"
+                    wide
+                    className="btn-sm me-3 mb-3"
+                  >
+                    Edit
+                  </Button>
+                  <SoldOutButton
+                    setToast={setToast}
+                    property={property}
+                    {...props}
+                  />
+                </>
+              )}
+
+              {useCurrentRole().isAdmin &&
+                property?.availableUnits > 0 &&
+                !property?.approved?.status && (
+                  <ApprovePropertyButton
+                    property={property}
+                    setToast={setToast}
+                    className="btn-sm btn-danger-light btn-wide me-3 mb-3"
+                    afterSave={() => {
+                      setProperties(
+                        properties.map((currentProperty) =>
+                          currentProperty._id === property._id
+                            ? {
+                                ...currentProperty,
+                                approved: {
+                                  by: currentProperty._id, // pseudo id
+                                  date: Date.now(),
+                                  status: true,
+                                },
+                              }
+                            : currentProperty
+                        )
+                      );
+                    }}
+                  />
+                )}
+            </div>
+          </div>
         </div>
-      </td>
-      <td>
-        <h5 className="text-secondary">{moneyFormatInNaira(price)}</h5>
-        <span className="block-text-small text-soft">
-          {PRICING_MODEL_DESC?.[pricingModel] || 'Timeline - Spread Payment'}
-        </span>
-      </td>
-      <td>
-        <Link href={`/${userType}/property/${_id}`} passHref>
-          <a className="btn btn-wide btn-sm btn-secondary-light">View</a>
-        </Link>
-        {useCurrentRole().isVendor && (
-          <>
-            <Spacing />
-            <Spacing />
-            <Link href={`/${userType}/property/new/${_id}`} passHref>
-              <a className="btn btn-sm btn-wide btn-primary-light">Edit</a>
-            </Link>
-          </>
-        )}
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 };
 
@@ -321,6 +391,97 @@ const FilterForm = ({ setFilterTerms }) => {
         </Form>
       )}
     </Formik>
+  );
+};
+
+const SoldOutButton = ({ setToast, property, ...props }) => {
+  const { properties, setProperties } = props;
+  const [showModal, setShowModal] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+
+  if (!properties) return null;
+
+  const markAsSoldOut = () => {
+    setLoading(true);
+
+    const payload = {
+      id: property?._id,
+      availableUnits: 0,
+    };
+
+    Axios.put(`${BASE_API_URL}/property/update`, payload, {
+      headers: { Authorization: getTokenFromStore() },
+    })
+      .then(function (response) {
+        const { status, data } = response;
+        if (statusIsSuccessful(status)) {
+          setQueryCache([pageOptions.key, data.property._id], {
+            property: data.property,
+          });
+          setToast({
+            type: 'success',
+            message: 'Your property has been successfully marked as sold out',
+          });
+          // update setProperties state to  properties by setting  the availableUnits of data.property._id i properties to 0
+          setProperties(
+            properties.map((property) =>
+              property._id === data.property._id
+                ? { ...property, availableUnits: 0 }
+                : property
+            )
+          );
+
+          setLoading(false);
+          setShowModal(false);
+        }
+      })
+      .catch(function (error) {
+        setToast({
+          message: getError(error),
+        });
+        setLoading(false);
+      });
+  };
+
+  return (
+    <div className="row">
+      <div className="col-12">
+        {property?.availableUnits > 0 && (
+          <Button
+            color="primary-light"
+            wide
+            className="btn-sm me-3 mb-3"
+            onClick={() => setShowModal(true)}
+          >
+            <span className="d-none d-md-inline">Mark as </span> Sold Out
+          </Button>
+        )}
+        <Modal
+          title="Mark Property as Sold Out"
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          showFooter={false}
+          size="md"
+        >
+          <section className="row">
+            <div className="col-md-12 my-3 text-center">
+              <p className="mx-3 confirmation-text fw-bold">
+                Are you sure you want to mark this property as sold out? It
+                would no longer be available for sale.
+              </p>
+              <Button
+                color="primary"
+                className="mb-5"
+                onClick={markAsSoldOut}
+                loading={loading}
+              >
+                Mark as Sold Out
+              </Button>
+            </div>
+          </section>
+        </Modal>
+      </div>
+    </div>
   );
 };
 

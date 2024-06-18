@@ -11,14 +11,14 @@ export const HelpBox = ({ helpGuide }) => {
   const handleClose = () => setShowModal(false);
 
   return (
-    <div className="container-fluid py-4 mt-2">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-12">
-          <Card className="info-box widget card d-block position-relative h-100">
+          <Card className="info-box widget card widget-box d-block position-relative h-100">
             <section className="widget-dark p-3">
               <div className="card-body">
                 <div className="row">
-                  <div className="col-8">
+                  <div className="col-sm-8">
                     <h5 className="fw-bold text-dark d-flex align-items-center">
                       Need Help?
                     </h5>
@@ -32,7 +32,7 @@ export const HelpBox = ({ helpGuide }) => {
                       .
                     </p>
                   </div>
-                  <div className="col-4 text-end">
+                  <div className="col-sm-4 text-sm-end">
                     <Button color="dark" className="mt-3" onClick={handleShow}>
                       Learn About This Page
                     </Button>

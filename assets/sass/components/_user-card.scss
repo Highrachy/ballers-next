@@ -63,15 +63,20 @@
   }
   .data-col {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     flex-grow: 1;
+    @include media-breakpoint-up(md) {
+      flex-direction: row;
+    }
   }
 
   .data-label {
-    width: 50%;
+    width: 20rem;
     flex-shrink: 0;
     font-size: 0.9rem;
-    color: $primary-500;
+    color: $primary-400;
+    font-weight: 600;
   }
 
   .data-value {

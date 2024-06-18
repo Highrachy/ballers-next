@@ -38,10 +38,12 @@ const PaginatedContent = ({
   const pluralizePageName = pluralPageName || Humanize.pluralize(2, pageName);
   const Icon = PageIcon || <UserIcon />;
 
+  const axiosOptions = {
+    params: { limit, page: currentPage, ...filters, ...initialFilter },
+  };
+
   const [query, results] = usePaginationQuery({
-    axiosOptions: {
-      params: { limit, page: currentPage, ...filters, ...initialFilter },
-    },
+    axiosOptions,
     key: 'result',
     name: queryName || pageName.toLowerCase(),
     setToast,
@@ -87,6 +89,8 @@ const PaginatedContent = ({
           results={results || []}
           offset={pagination?.offset || 0}
           setToast={setToast}
+          filters={filters}
+          axiosOptions={axiosOptions}
           {...props}
         />
 

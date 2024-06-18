@@ -8,6 +8,7 @@ import {
   isPast,
   differenceInCalendarDays,
   isValid,
+  fromUnixTime,
 } from 'date-fns';
 
 /**
@@ -37,11 +38,26 @@ const f = {
   secondsOrdinal: 'so',
   secondsTwoDigits: 'ss',
 };
+export const getDate = (date) => {
+  let parsedDate;
 
-export const getDate = (date) =>
-  isValidDate(date)
-    ? format(parseISO(date), `${f.monthLongWords} ${f.day}, ${f.year}`)
-    : date;
+  // Check if the input is a number (timestamp)
+  if (typeof date === 'number') {
+    // Convert the timestamp to a Date object
+    parsedDate = fromUnixTime(date / 1000); // Convert milliseconds to seconds
+  } else if (typeof date === 'string') {
+    // Parse the ISO date string
+    parsedDate = parseISO(date);
+  }
+
+  // Check if the parsed date is valid
+  if (isValid(parsedDate)) {
+    return format(parsedDate, `${f.monthLongWords} ${f.day}, ${f.year}`);
+  } else {
+    return date;
+  }
+};
+
 export const getDateTime = (date) =>
   format(
     parseISO(date),
