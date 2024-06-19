@@ -52,6 +52,7 @@ import { ContentLoader } from '@/components/utils/LoadingItems';
 import WelcomeHero from '@/components/common/WelcomeHero';
 import BackendPage from '@/components/layout/BackendPage';
 import { EnquiryHeader } from '@/components/shared/SingleEnquiry';
+import { add } from 'lodash';
 
 const pageOptions = {
   key: 'enquiry',
@@ -145,6 +146,8 @@ const CreateOfferLetterForm = ({
   setValue,
   value,
 }) => {
+  const paymentDate = add(parseISO('2024-06-21T01:00:00.000Z'), { days: 30 });
+  console.log('paymentDate', paymentDate);
   const [toast, setToast] = useToast();
   const [additionalClause, setAdditionalClause] = React.useState(['']);
   const [showOtherPaymentsForm, setShowOtherPaymentsForm] =
@@ -318,68 +321,6 @@ const CreateOfferLetterForm = ({
         }}
       </Formik>
     </div>
-  );
-};
-
-const ShowTemplateButton = ({ setToast, handleValue }) => {
-  const [showTemplateModal, setShowTemplateModal] = React.useState(false);
-
-  // load all offer templates
-  const axiosOptionForOffers = {
-    params: { limit: 0, status: OFFER_TEMPLATE_STATUS.APPROVED },
-  };
-
-  const [offersQuery] = useGetQuery({
-    axiosOptions: axiosOptionForOffers,
-    childrenKey: 'offerTemplate',
-    key: 'offerTemplates',
-    name: ['offerTemplates', axiosOptionForOffers],
-    endpoint: API_ENDPOINT.getAllOfferTemplates(),
-    refresh: true,
-    setToast,
-  });
-
-  const offerTemplate = offersQuery?.data?.result || [];
-
-  const isVendor = useCurrentRole().isVendor;
-
-  const selectedTemplate = (offerId) => {
-    const selectedTemplate = offerTemplate.find(({ _id }) => offerId === _id);
-    handleValue(selectedTemplate);
-    setShowTemplateModal(false);
-  };
-
-  return (
-    <>
-      {isVendor && offerTemplate?.length > 0 && (
-        <div className="mt-5 text-end">
-          <button
-            type="button"
-            className="btn btn-dark btn-wide"
-            onClick={() => setShowTemplateModal(true)}
-          >
-            Use Offer Template
-          </button>
-        </div>
-      )}
-      <Modal
-        title="Select Offer Template"
-        show={showTemplateModal}
-        onHide={() => setShowTemplateModal(false)}
-        showFooter={false}
-      >
-        {offerTemplate?.map((template, index) => (
-          <button
-            key={index}
-            type="button"
-            className="btn btn-block btn-outline-dark"
-            onClick={() => selectedTemplate(template._id)}
-          >
-            {template.name}
-          </button>
-        ))}
-      </Modal>
-    </>
   );
 };
 
@@ -698,6 +639,8 @@ const SubmitOfferLetter = ({ enquiry, handleHideOfferLetter, value }) => {
         value?.otherPayments?.paymentBreakdown ||
         PAYMENT_OPTION.INITIAL_DEPOSIT,
     };
+
+    console.log('payload', payload);
 
     delete payload.otherPayments.paymentBreakdown;
 

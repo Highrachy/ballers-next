@@ -13,6 +13,8 @@ import {
   getVerificationStatus,
 } from '@/components/pages/vendor/setup/AccountSetup';
 import Humanize from 'humanize-plus';
+import { HelpBox } from './HelpBox';
+import helpGuide from '@/data/docs/vip-accounts/account-verification.json';
 
 const UnVerifiedVendorContent = () => {
   const { userState } = React.useContext(UserContext);
@@ -25,54 +27,52 @@ const UnVerifiedVendorContent = () => {
 
   return (
     <section className="container-fluid">
-      <section>
-        <div className="card card-bordered my-4">
-          <div className="card-inner p-4">
-            <div className="row">
-              <div className="col-md-8">
-                <h5>Ready to sell your property? Verify your account now!</h5>
-                <p className="text-dark">
-                  <strong>Status: </strong>
+      <div className="card card-bordered my-4">
+        <div className="card-inner p-4">
+          <div className="row">
+            <div className="col-md-8">
+              <h5>Ready to sell your property? Verify your account now!</h5>
+              <p className="text-dark">
+                <strong>Status: </strong>
 
-                  {verificationState.noOfComments ? (
-                    <>
-                      {verificationState.noOfComments} Pending{' '}
-                      {Humanize.pluralize(
-                        verificationState.noOfComments,
-                        'Comment'
-                      )}
-                    </>
-                  ) : (
-                    verificationState.status
-                  )}
-                </p>
-              </div>
-              <div className="col-md-4 text-end">
-                <Link href={`/vendor/setup/${verificationState.page}`} passHref>
-                  <a className="btn btn-sm btn-wide btn-secondary mt-3">
-                    {noOfCompletedSteps > 0 ? 'Continue Setup' : 'Start Setup'}
-                  </a>
-                </Link>
-              </div>
+                {verificationState.noOfComments ? (
+                  <>
+                    {verificationState.noOfComments} Pending{' '}
+                    {Humanize.pluralize(
+                      verificationState.noOfComments,
+                      'Comment'
+                    )}
+                  </>
+                ) : (
+                  verificationState.status
+                )}
+              </p>
             </div>
-          </div>
-          <div className="card-progress-bar">
-            <div
-              className="ps-4 text-end text-smaller text-secondary px-2"
-              style={{ width: `${currentProgress}%` }}
-            >
-              {noOfCompletedSteps > 0 && currentProgress !== 100 && (
-                <>{currentProgress}% information has been submitted</>
-              )}
+            <div className="col-md-4 text-end">
+              <Link href={`/vendor/setup/${verificationState.page}`} passHref>
+                <a className="btn btn-sm btn-wide btn-secondary mt-3">
+                  {noOfCompletedSteps > 0 ? 'Continue Setup' : 'Start Setup'}
+                </a>
+              </Link>
             </div>
-            <div
-              className="progress-bar"
-              data-progress={currentProgress}
-              style={{ width: `${currentProgress}%` }}
-            />
           </div>
         </div>
-      </section>
+        <div className="card-progress-bar">
+          <div
+            className="ps-4 text-end text-smaller text-secondary px-2"
+            style={{ width: `${currentProgress}%` }}
+          >
+            {noOfCompletedSteps > 0 && currentProgress !== 100 && (
+              <>{currentProgress}% information has been submitted</>
+            )}
+          </div>
+          <div
+            className="progress-bar"
+            data-progress={currentProgress}
+            style={{ width: `${currentProgress}%` }}
+          />
+        </div>
+      </div>
       <div className="row">
         <VerificationCard
           icon={<CompanyInfoIcon />}
@@ -105,6 +105,9 @@ const UnVerifiedVendorContent = () => {
           index={3}
           key={3}
         />
+      </div>
+      <div className="row">
+        <HelpBox helpGuide={helpGuide} />
       </div>
     </section>
   );

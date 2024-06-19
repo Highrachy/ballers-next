@@ -55,7 +55,9 @@ const VerifiedVendorContent = ({ toast }) => {
         <PendingPropertiesAndVideos result={result} />
         <OfferAndServices result={result} />
       </ContentLoader>
-      <HelpBox helpGuide={helpGuide} />
+      <div className="mt-4">
+        <HelpBox helpGuide={helpGuide} />
+      </div>
     </>
   );
 };
@@ -152,7 +154,6 @@ const EnquiriesAndVisitations = ({ result }) => {
                 subtitle={property.name}
                 value={moneyFormatInNaira(enquiry?.initialInvestmentAmount)}
                 href={`/vendor/enquiries/${enquiry?._id}`}
-                {...getDateStatus(enquiry?.createdAt)}
               />
             );
           })}

@@ -1,5 +1,7 @@
 #### Important Resources
 console.cloud.google.com
+https://console.cloud.google.com/apis/credentials?project=ballers-276205
+
 https://github.com/JustFly1984/react-google-maps-api/blob/0bd9291dfefb5fe57cd98fdeb7331532fe88410f/packages/react-google-maps-api/src/components/places/Autocomplete.md
 https://www.99darshan.com/posts/interactive-maps-using-nextjs-and-google-maps
 

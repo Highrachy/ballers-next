@@ -757,7 +757,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
           <strong>Identification</strong>
         </td>
         <td>
-          {user.vendor?.identification.url ? (
+          {user.vendor?.identification?.url ? (
             <OnlineImage
               src={
                 user.vendor?.identification && user.vendor?.identification.url
@@ -770,7 +770,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
           )}
           <br />
           <strong>
-            {user.vendor?.identification && user.vendor?.identification.type}
+            {user.vendor?.identification && user.vendor?.identification?.type}
           </strong>
         </td>
       </tr>
@@ -790,14 +790,11 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
           )}
         </td>
       </tr>
-      {((user.vendor?.identification && user.vendor?.identification?.url) ||
-        user.vendor?.taxCertificate) && (
-        <tr>
-          <td colSpan="5">
-            <StepAction step={VENDOR_STEPS_KEY[3]} />
-          </td>
-        </tr>
-      )}
+      <tr>
+        <td colSpan="5">
+          <StepAction step={VENDOR_STEPS_KEY[3]} />
+        </td>
+      </tr>
     </CardTableSection>
   );
 

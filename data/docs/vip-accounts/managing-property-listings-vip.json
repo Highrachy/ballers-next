@@ -31,6 +31,12 @@
       "imageAlt": "View Properties"
     },
     {
+      "title": "Property Approval",
+      "description": "The exclamation mark icon indicates that your property listing is pending approval. Once approved, your property will be visible to potential buyers. If your property is not approved, review the guidelines and make the necessary changes to meet the requirements.",
+      "image": "/img/docs/vip-accounts/vip-properties-unapproved.png",
+      "imageAlt": "View Properties"
+    },
+    {
       "title": "Edit Existing Property",
       "description": "Review and edit your existing property listings as needed. Update property details, photos, pricing information, and descriptions to keep your listings accurate and up to date.",
       "image": "/img/docs/vip-accounts/vip-properties-manage.png",

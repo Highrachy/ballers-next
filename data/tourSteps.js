@@ -102,6 +102,19 @@ export const vendorSteps = [
     disableBeacon: true,
   },
   {
+    content: (
+      <div className="tour__content">
+        <h4>Need Help?</h4>
+        <p>
+          If you need assistance with the features on this page, please refer to
+          our in-page help guide.
+        </p>
+      </div>
+    ),
+    target: '.learn-about-page-card',
+    disableBeacon: true,
+  },
+  {
     title: 'Final Step',
     content: (
       <div className="tour__content">

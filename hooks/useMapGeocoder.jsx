@@ -1,7 +1,7 @@
 import Geocode from 'react-geocode';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-// import { OFFICE_LOCATION } from 'utils/constants';
+import { OFFICE_LOCATION } from '@/utils/constants';
 
 const useMapGeocoder = ({ mapAddress }) => {
   // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
@@ -18,16 +18,16 @@ const useMapGeocoder = ({ mapAddress }) => {
   Geocode.enableDebug();
 
   // Get address from latidude & longitude.
-  // Geocode.fromLatLng(OFFICE_LOCATION.lat, OFFICE_LOCATION.lng).then(
-  //   (response) => {
-  //     console.log('response.results[0]', response.results[0]);
-  //     const address = response.results[0].formatted_address;
-  //     console.log('ADDRESS ', address);
-  //   },
-  //   (error) => {
-  //     console.error(error);
-  //   }
-  // );
+  Geocode.fromLatLng(mapAddress.lat, mapAddress.lng).then(
+    (response) => {
+      console.log('response.results[0]', response.results[0]);
+      const address = response.results[0].formatted_address;
+      console.log('ADDRESS ', address);
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
 
   const [latLngFromAddress, setLatLngFromAddress] = useState(null);
 
@@ -55,11 +55,11 @@ const useMapGeocoder = ({ mapAddress }) => {
   return { latLngFromAddress };
 };
 
-// useMapGeocoder.propTypes = {
-//   mapAddress: PropTypes.string,
-// };
+useMapGeocoder.propTypes = {
+  mapAddress: PropTypes.string,
+};
 
-// useMapGeocoder.defaultProps = {
-//   mapAddress: ,
-// };
+useMapGeocoder.defaultProps = {
+  mapAddress: OFFICE_LOCATION,
+};
 export default useMapGeocoder;

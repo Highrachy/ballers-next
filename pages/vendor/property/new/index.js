@@ -117,9 +117,6 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
     property?.mainImage || getPropertyImage()
   );
 
-  console.log('testing');
-  console.log('property with BQ', property);
-
   const saveImage = (image) => {
     setImage(image);
     storePropertyImage(image);
@@ -230,7 +227,7 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
           />
           {/* <MapLocation
             setLocation={setLocation}
-            mapAddress={getLocationFromAddress(props.values.address)}
+            // mapAddress={getLocationFromAddress(props.values.address)}
           /> */}
           <Button
             className="btn-secondary mt-4"

@@ -14,7 +14,7 @@ export const HelpBox = ({ helpGuide }) => {
     <div className="container-fluid">
       <div className="row">
         <div className="col-12">
-          <Card className="info-box widget card widget-box d-block position-relative h-100">
+          <Card className="info-box learn-about-page-card widget card widget-box d-block position-relative h-100">
             <section className="widget-dark p-3">
               <div className="card-body">
                 <div className="row">

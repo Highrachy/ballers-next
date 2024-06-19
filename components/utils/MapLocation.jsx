@@ -8,6 +8,8 @@ const MapLocation = ({ mapAddress, setLocation, title }) => {
   const { latLngFromAddress } = useMapGeocoder({
     mapAddress,
   });
+  console.log('mapAddress', mapAddress);
+  console.log('latLngFromAddress', latLngFromAddress);
   return (
     <Card className="card-container mt-5">
       <section className="row">

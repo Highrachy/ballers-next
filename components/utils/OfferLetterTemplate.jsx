@@ -521,20 +521,19 @@ const OfferLetterTemplate = ({
         <br /> For: {companyName}
       </p>
 
-      {ACTIVE_OFFER_STATUS.includes(offerInfo.status) &&
-        (vendorInfo?.vendor?.directors?.length > 0 ? (
-          <CompanySignatories vendorInfo={vendorInfo} />
-        ) : (
-          <>
-            <OnlineImage
-              className="director-signature"
-              name="Signature"
-              src={DirectorSignature}
-            />
+      {vendorInfo?.vendor?.directors?.length > 0 ? (
+        <CompanySignatories vendorInfo={vendorInfo} />
+      ) : (
+        <>
+          <OnlineImage
+            className="director-signature"
+            name="Signature"
+            src={DirectorSignature}
+          />
 
-            <h6>Director</h6>
-          </>
-        ))}
+          <h6>Signatory</h6>
+        </>
+      )}
 
       {((showSignaturePad &&
         isUser &&
@@ -605,6 +604,7 @@ OfferLetterTemplate.defaultProps = {
 
 const CompanySignatories = ({ vendorInfo }) => {
   const directors = vendorInfo?.vendor?.directors || [];
+
   const signatories = directors.filter(({ isSignatory }) => isSignatory);
   return (
     <section className="row">

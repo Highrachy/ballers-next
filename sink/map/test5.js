@@ -130,7 +130,7 @@ function MapPicker({ processLocation, mapLocation, defaultAddress }) {
         </div>
 
         {/* Address */}
-        <div className="form-row">
+        {/* <div className="form-row">
           <div className="form-group col-sm-12">
             <label className="label-form">Address:</label>
             <Autocomplete
@@ -148,7 +148,7 @@ function MapPicker({ processLocation, mapLocation, defaultAddress }) {
               />
             </Autocomplete>
           </div>
-        </div>
+        </div> */}
 
         {/* Google Map */}
         <div className="google-map-container">

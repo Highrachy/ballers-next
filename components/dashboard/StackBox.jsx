@@ -67,11 +67,13 @@ const StackBox = ({
                         <span className="fw-semibold">{value}</span>
                       </p>
                     )}
-                    <div className="text-sm status-badge">
-                      <div className={`badge bg-${statusColor} rounded-pill`}>
-                        {statusName}
+                    {statusName && (
+                      <div className="text-sm status-badge">
+                        <div className={`badge bg-${statusColor} rounded-pill`}>
+                          {statusName}
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </>
               )}

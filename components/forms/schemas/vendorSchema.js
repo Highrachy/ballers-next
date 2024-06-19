@@ -38,3 +38,7 @@ export const certificateSchema = {
 export const commentSchema = {
   comment: required('Comment'),
 };
+
+export const offerTemplateSignatory = {
+  name: stringValidation('Director Name'),
+};

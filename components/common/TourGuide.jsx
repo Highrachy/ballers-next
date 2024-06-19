@@ -63,7 +63,8 @@ const TourGuide = ({ steps }) => {
         },
         buttonNext: {
           background: colorTokens.secondary[400],
-          padding: '1rem 1.5rem',
+          padding: '1rem 2rem',
+          outline: 0,
         },
         tooltipContainer: {
           padding: '1rem 2rem 0',

@@ -1,98 +1,206 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import ReactMapPicker from 'react-google-map-picker';
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  Autocomplete,
+} from '@react-google-maps/api';
+import Geocode from 'react-geocode';
 import { OFFICE_LOCATION } from 'utils/constants';
 
 const DEFAULT_ZOOM = 15;
-const DEFAULT_LOCATION = OFFICE_LOCATION;
+const LIBRARIES = ['places'];
+const MAP_OPTIONS = {
+  mapId: '7a8a72380bd8a9e',
+  zoomControl: true,
+  disableDefaultUI: true,
+  clickableIcons: false,
+  componentRestrictions: { country: 'ng' },
+};
 
-const MapPicker = ({ processLocation, mapLocation }) => {
-  const [location, setLocation] = useState(DEFAULT_LOCATION);
+function MapPicker({ processLocation, mapLocation, defaultAddress }) {
+  console.log('mapLocation', mapLocation);
+
+  const [location, setLocation] = useState(mapLocation || OFFICE_LOCATION);
   const [zoom, setZoom] = useState(DEFAULT_ZOOM);
+  const [inputValue, setInputValue] = useState(defaultAddress || '');
+  const [isEditable, setIsEditable] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     processLocation({ latLng: location, zoom });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location, zoom]);
+    convertLatLngToAddress(location);
+  }, [location]);
 
-  React.useEffect(() => {
-    mapLocation &&
-      mapLocation.lat &&
-      mapLocation.lng &&
+  useEffect(() => {
+    if (!mapLocation && defaultAddress) {
+      setInputValue(defaultAddress);
+      convertAddressToLatLng(defaultAddress);
+    } else if (mapLocation && mapLocation.lat && mapLocation.lng) {
       setLocation(mapLocation);
-  }, [mapLocation]);
+      setZoom(DEFAULT_ZOOM);
+      convertLatLngToAddress(mapLocation);
+    }
+  }, [mapLocation, defaultAddress]);
 
-  const handleChange = (name, { target }) => {
-    setLocation({
-      ...location,
-      [name]: parseFloat(target.value) || 0,
-    });
+  const convertLatLngToAddress = async (locationToConvert) => {
+    try {
+      Geocode.setApiKey(process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY);
+      const response = await Geocode.fromLatLng(
+        locationToConvert.lat,
+        locationToConvert.lng
+      );
+      const address = response.results[0].formatted_address;
+      setInputValue(address);
+    } catch (error) {
+      console.error('Error converting location to address:', error);
+    }
   };
 
-  function handleChangeLocation(lat, lng) {
-    setLocation({ lat: lat, lng: lng });
-  }
+  const convertAddressToLatLng = async (addressToConvert) => {
+    try {
+      Geocode.setApiKey(process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY);
+      const response = await Geocode.fromAddress(addressToConvert);
+      const { location } = response.results[0].geometry;
+      setLocation(location);
+      setZoom(DEFAULT_ZOOM);
+    } catch (error) {
+      console.error('Error converting address:', error);
+    }
+  };
 
-  function handleChangeZoom(newZoom) {
-    setZoom(newZoom);
-  }
+  const handlePlaceChanged = () => {
+    const input = document.getElementById('autocomplete-input');
+    if (input) {
+      const selectedPlace = input.value;
+      setInputValue(selectedPlace);
+      convertAddressToLatLng(selectedPlace);
+    }
+  };
 
-  function handleResetLocation() {
-    setLocation(DEFAULT_LOCATION);
-    setZoom(DEFAULT_ZOOM);
-  }
+  const toggleEditMode = () => {
+    setIsEditable(!isEditable);
+  };
+
+  const handleResetLocation = () => {
+    if (defaultAddress) {
+      convertAddressToLatLng(defaultAddress);
+    } else {
+      setLocation(OFFICE_LOCATION);
+      setZoom(DEFAULT_ZOOM);
+    }
+  };
 
   return (
-    <>
-      <div className="form-row">
-        <div className="form-group col-sm-6">
-          <label className="label-form">Latitute:</label>
-          <input
-            type="text"
-            className="form-control"
-            value={location && location.lat === 0 ? '' : location.lat}
-            onChange={(value) => handleChange('lat', value)}
-          />
+    <LoadScript
+      libraries={LIBRARIES}
+      googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}
+    >
+      <div className="map-picker">
+        {/* Latitude and Longitude */}
+        <div className="form-row">
+          <div className="form-group col-sm-6">
+            <label className="label-form">Latitude:</label>
+            {isEditable ? (
+              <input
+                type="text"
+                className="form-control"
+                value={location.lat}
+                onChange={(event) =>
+                  setLocation({ ...location, lat: event.target.value })
+                }
+              />
+            ) : (
+              <label>{location.lat}</label>
+            )}
+          </div>
+          <div className="form-group col-sm-6">
+            <label className="label-form">Longitude:</label>
+            {isEditable ? (
+              <input
+                type="text"
+                className="form-control"
+                value={location.lng}
+                onChange={(event) =>
+                  setLocation({ ...location, lng: event.target.value })
+                }
+              />
+            ) : (
+              <label>{location.lng}</label>
+            )}
+          </div>
         </div>
-        <div className="form-group col-sm-6">
-          <label>Longitute:</label>
-          <input
-            type="text"
-            className="form-control"
-            value={location && location.lng === 0 ? '' : location.lng}
-            onChange={(value) => handleChange('lng', value)}
-          />
+
+        {/* Google Map */}
+        <div className="google-map-container">
+          <GoogleMap
+            zoom={zoom}
+            center={location}
+            mapContainerStyle={{ height: '33rem', width: '100%' }}
+            onZoomChanged={(newZoom) =>
+              setZoom((prevZoom) => ({
+                ...location,
+                zoom: newZoom,
+              }))
+            }
+            options={MAP_OPTIONS}
+          >
+            {location.lat !== 0 && (
+              <Marker
+                position={location}
+                draggable={true}
+                onDragEnd={(event) =>
+                  setLocation({
+                    lat: event.latLng.lat(),
+                    lng: event.latLng.lng(),
+                  })
+                }
+              />
+            )}
+          </GoogleMap>
+        </div>
+
+        {/* Reset Location and Edit Toggle */}
+        <div className="controls">
+          <button
+            className="btn btn-light btn-sm mt-4"
+            onClick={() => {
+              handleResetLocation();
+            }}
+          >
+            Reset Location
+          </button>
+          <div className="form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="editSwitch"
+              checked={isEditable}
+              onChange={toggleEditMode}
+            />
+            <label className="form-check-label" htmlFor="editSwitch">
+              Edit
+            </label>
+          </div>
         </div>
       </div>
-
-      {/* {location && location.lat && location.lng && (
-        // <ReactMapPicker
-        //   defaultLocation={location}
-        //   zoom={zoom}
-        //   style={{ height: '33rem' }}
-        //   onChangeLocation={handleChangeLocation}
-        //   onChangeZoom={handleChangeZoom}
-        //   apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API}
-        // />
-      )} */}
-
-      <div>
-        <button
-          className="btn btn-light btn-sm mt-4"
-          onClick={handleResetLocation}
-        >
-          Reset Location
-        </button>
-      </div>
-    </>
+    </LoadScript>
   );
-};
+}
 
 MapPicker.propTypes = {
   processLocation: PropTypes.func,
+  mapLocation: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number,
+  }),
+  defaultAddress: PropTypes.string,
 };
 
 MapPicker.defaultProps = {
-  processLocation: () => {},
+  processLocation: (location) => {
+    console.log('result', JSON.stringify(location, null, 2));
+  },
 };
+
 export default MapPicker;

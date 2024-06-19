@@ -22,7 +22,6 @@ import Toast, { useToast } from 'components/utils/Toast';
 import { BASE_API_URL, DASHBOARD_PAGE } from 'utils/constants';
 import { getError, statusIsSuccessful } from 'utils/helpers';
 import { getReferralInfo } from 'utils/localStorage';
-import PhoneNumber from 'components/forms/PhoneNumber';
 import { Tab, Tabs } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { UserContext } from '@/context/UserContext';
@@ -214,7 +213,7 @@ const RegisterForm = ({ showUserForm }) => {
     >
       {({ isSubmitting, handleSubmit, ...props }) => (
         <Form>
-          <h4 className="mt-4 mb-4 fw-semibold text-dark">
+          <h4 className="mt-4 mb-4 fw-semibold text-primary">
             {showUserForm ? 'Register as a User' : 'Become a BALL VIP'}
           </h4>
           <Toast {...toast} />
@@ -252,7 +251,7 @@ const RegisterForm = ({ showUserForm }) => {
               name="email"
               placeholder="Email Address"
             />
-            <PhoneNumber
+            <Input
               formGroupClassName="col-md-6"
               isValidMessage="Phone number looks good"
               label={showUserForm ? 'Phone' : 'Company Phone'}
