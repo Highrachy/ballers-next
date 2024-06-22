@@ -1,6 +1,5 @@
 import Humanize from 'humanize-plus';
 import {
-  format,
   parseISO,
   getTime as getElapsedTime,
   subDays,
@@ -9,6 +8,7 @@ import {
   differenceInCalendarDays,
   isValid,
   fromUnixTime,
+  format,
 } from 'date-fns';
 
 /**
@@ -38,55 +38,69 @@ const f = {
   secondsOrdinal: 'so',
   secondsTwoDigits: 'ss',
 };
-export const getDate = (date) => {
+
+export const parseDate = (dateInput) => {
   let parsedDate;
 
   // Check if the input is a number (timestamp)
-  if (typeof date === 'number') {
+  if (typeof dateInput === 'number') {
     // Convert the timestamp to a Date object
-    parsedDate = fromUnixTime(date / 1000); // Convert milliseconds to seconds
-  } else if (typeof date === 'string') {
+    parsedDate = fromUnixTime(dateInput / 1000); // Convert milliseconds to seconds
+  } else if (typeof dateInput === 'string') {
     // Parse the ISO date string
-    parsedDate = parseISO(date);
+    parsedDate = parseISO(dateInput);
+  } else {
+    parsedDate = dateInput;
   }
+  return parsedDate;
+};
 
-  // Check if the parsed date is valid
+export const formatDate = (date, dateFormat) => {
+  const parsedDate = parseDate(date);
+
   if (isValid(parsedDate)) {
-    return format(parsedDate, `${f.monthLongWords} ${f.day}, ${f.year}`);
+    return format(parsedDate, dateFormat);
   } else {
     return date;
   }
 };
 
+export const getDate = (date) =>
+  formatDate(date, `${f.monthLongWords} ${f.day}, ${f.year}`);
+
 export const getDateTime = (date) =>
-  format(
-    parseISO(date),
+  formatDate(
+    date,
     `${f.dayOfWeek}, ${f.monthShortWords} ${f.day}, ${f.year} ${f.hours}:${f.minutesTwoDigits} ${f.am}`
   );
 export const getShortDateTime = (date) =>
-  format(
-    parseISO(date),
+  formatDate(
+    date,
     `${f.dayOfWeek} ${f.monthShortWords} ${f.year} ${f.hours}:${f.minutesTwoDigits} ${f.am}`
   );
 export const getShortDate = (date) =>
-  format(
-    parseISO(date),
+  formatDate(
+    date,
     `${f.dayOfWeekShort}, ${f.monthShortWords} ${f.day}, ${f.year}`
   );
+
 export const getTinyDate = (date) =>
-  isValidDate(date)
-    ? format(parseDate(date), `${f.monthShortWords} ${f.day}, ${f.year}`)
-    : date;
+  formatDate(date, `${f.monthShortWords} ${f.day}, ${f.year}`);
+
 export const getLongDate = (date) =>
-  format(
-    parseISO(date),
+  formatDate(
+    date,
     `${f.dayOfWeek}, ${f.dayOrdinal} ${f.monthLongWords} ${f.year}`
   );
-export const getYear = (date) => format(parseISO(date), `${f.year}`);
+
+export const getYear = (date) => formatDate(date, `${f.year}`);
+
 export const getTime = (date) =>
-  format(parseISO(date), `${f.hours}:${f.minutesTwoDigits} ${f.am}`);
+  formatDate(date, `${f.hours}:${f.minutesTwoDigits} ${f.am}`);
+
 export const subtractDays = (date, numOfDays) =>
   getElapsedTime(subDays(parseISO(date), numOfDays));
+
 export const getTimeOfDay = (date) => {
   const hour = getHours(parseISO(date));
   return (
@@ -98,13 +112,16 @@ export const getTimeOfDay = (date) => {
 };
 
 export const getMonthYear = (date) =>
-  format(parseISO(date), `${f.monthLongWords}, ${f.year}`);
+  formatDate(date, `${f.monthLongWords}, ${f.year}`);
+
 export const isPastDate = (date) => isPast(parseISO(date));
+
 export const differenceInDays = (date) =>
   differenceInCalendarDays(Date.now(), parseISO(date));
 
 export const formatFilterDate = (date) =>
-  format(parseISO(date), `${f.year}-${f.monthDigits}-${f.dayDigits}`);
+  formatDate(date, `${f.year}-${f.monthDigits}-${f.dayDigits}`);
+
 export const convertToUTC = (date) =>
   new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString();
 
@@ -121,5 +138,12 @@ export const getDateStatus = (
   return { statusColor, statusName };
 };
 
-export const parseDate = (date) => (isValid(date) ? date : parseISO(date));
-export const isValidDate = (date) => isValid(parseISO(date)) || isValid(date);
+export const getYearMonthDayObject = (dateInput = new Date()) => {
+  const date = parseDate(dateInput);
+
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+  };
+};

@@ -2,6 +2,11 @@ label {
   color: $primary;
 }
 
+.DatePicker,
+.form-control {
+  width: 100% !important;
+}
+
 .form-group {
   margin-bottom: 2rem;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from 'components/layout/Header';
 import CommunityGallery from 'components/common/CommunityGallery';
 import Footer from 'components/layout/Footer';
@@ -19,7 +19,7 @@ import {
   multiSelectValidation,
 } from './schemas/schema-helpers';
 import InputFormat from './InputFormat';
-import DatePicker from './DatePicker';
+import DatePicker from './DatePickerNew';
 import Select from './Select';
 import RadioSelect from './RadioSelect';
 import CheckboxGroup from './CheckboxGroup';
@@ -39,6 +39,8 @@ import Pagination from 'components/common/Pagination';
 import Upload from 'components/utils/Upload';
 import AutoComplete from './AutoComplete';
 import Switch from './Switch';
+import { Calendar } from '@hassanmojab/react-modern-calendar-datepicker';
+import { getYearMonthDayObject } from '@/utils/date-helpers';
 
 const FormComponents = () => (
   <>
@@ -57,10 +59,36 @@ const Content = () => (
       <div className="offset-lg-2 col-lg-8 mt-7">
         <h4>Form Components</h4>
         <Forms />
+        <DatePickerNew />
       </div>
     </div>
   </div>
 );
+
+const DatePickerNew = () => {
+  const [selectedDay, setSelectedDay] = useState(null);
+  console.log('selectedDay', selectedDay);
+
+  // render regular HTML input element
+  const renderCustomInput = ({ ref }) => (
+    <input
+      readOnly
+      ref={ref} // necessary
+      placeholder="I'm a custom input"
+      value={selectedDay ? `✅: ${selectedDay.day}` : ''}
+      className="form-control" // a styling class
+    />
+  );
+
+  return (
+    <Calendar
+      value={selectedDay}
+      onChange={setSelectedDay}
+      renderInput={renderCustomInput} // render a custom input
+      shouldHighlightWeekends
+    />
+  );
+};
 
 const options = [
   { value: '', label: 'Not Applicable' },
@@ -236,6 +264,7 @@ const Forms = () => {
               label="Event Date"
               name="eventDate"
               placeholder="Event Date"
+              minimumDate={getYearMonthDayObject()}
             />
             <DatePicker
               label="Event Time"
@@ -246,6 +275,7 @@ const Forms = () => {
               showTimeSelectOnly
               timeCaption="Start Time"
               timeIntervals={30}
+              isCalendar
             />
           </div>
 

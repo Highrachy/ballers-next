@@ -12,59 +12,16 @@ import Button from 'components/forms/Button';
 import { Formik, Form } from 'formik';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
 import Humanize from 'humanize-plus';
-
-import {
-  flattenErrorMessages,
-  getError,
-  statusIsSuccessful,
-} from 'utils/helpers';
-import {
-  otherPaymentsSchema,
-  otherTermsSchema,
-} from 'components/forms/schemas/offerSchema';
+import { getError, statusIsSuccessful } from 'utils/helpers';
 import Input from 'components/forms/Input';
 import WelcomeHero from '@/components/common/WelcomeHero';
 import BackendPage from '@/components/layout/BackendPage';
-import {
-  AddMoreTermsAndConditionsForm,
-  OfferFormContainer,
-  OtherPaymentsForm,
-  OtherTermsForm,
-} from './CreateOfferLetter';
 import Upload from '@/components/forms/UploadFormik';
 import { OnlineImage } from '@/components/utils/Image';
 import { UserContext } from '@/context/UserContext';
 import { offerTemplateSignatory } from '@/components/forms/schemas/vendorSchema';
 
-const pageOptions = {
-  key: 'setupOffer',
-  pageName: 'Setup Offer Letter',
-};
-
 const OfferSetup = () => {
-  const [toast, setToast] = useToast();
-
-  const defaultValue = {
-    otherPayments: {
-      agencyFee: 5,
-      deedOfAssignmentExecution: 0,
-      infrastructureDevelopment: 0,
-      legalFee: 5,
-      powerConnectionFee: 0,
-      surveyPlan: 0,
-    },
-    otherTerms: {
-      administrativeCharge: 10,
-      bankDraftDue: 5,
-      dateDue: 21,
-      deductibleRefundPercentage: 5,
-      gracePeriod: 6 * 30,
-      terminationInterest: 4,
-      terminationPeriod: 6 * 30,
-    },
-  };
-  const [value, setValue] = React.useState(defaultValue);
-
   return (
     <BackendPage>
       <WelcomeHero
@@ -78,12 +35,9 @@ const OfferSetup = () => {
 
 const SignatoriesInfoForm = ({
   image,
-  setImage,
-  signature,
   setSignature,
   isSubmitting,
   handleSubmit,
-  ...props
 }) => {
   return (
     <section className="row">
@@ -200,7 +154,7 @@ export const SignatoriesForm = () => {
             </Card>
 
             <Card className="card-container mt-5">
-              <ShowDirectorsTable
+              <ShowSignatoriesTable
                 directors={userState.vendor?.directors || []}
                 setToast={setToast}
               />
@@ -213,7 +167,11 @@ export const SignatoriesForm = () => {
   );
 };
 
-export const ShowDirectorsTable = ({ directors, moveToNextStep, setToast }) => {
+export const ShowSignatoriesTable = ({
+  directors,
+  moveToNextStep,
+  setToast,
+}) => {
   const { userDispatch } = React.useContext(UserContext);
   const [loading, setLoading] = React.useState(0);
   const deleteSignatory = (id) => {
