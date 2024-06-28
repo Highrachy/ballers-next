@@ -9,6 +9,7 @@ import { OFFICE_LOCATION } from 'utils/constants';
 import Link from 'next/link';
 import { LocalImage } from '@/components/utils/Image';
 import Image from 'next/image';
+import { SupportTicketForm } from '@/components/shared/SupportTicket';
 
 const ContactUs = () => (
   <>
@@ -30,108 +31,76 @@ const ContactUs = () => (
   </>
 );
 
-const Content = () => (
-  <section className="container-fluid bg-light-blue py-6">
-    <div className="row">
-      <div className="col-lg-6 col-12">
-        <div className="col-10 contact-hello-form">
-          <h4 className="contact-hello-heading">Send a message</h4>
-          <form method="post" data-toggle="validator">
-            <div className="form-group">
-              <label htmlFor="name">Your Name *</label>
-              <input
-                type="text"
-                className="form-control"
-                id="contact-name"
-                name="name"
-                required
-              />
-              <small className="help-block with-errors text-danger" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Your Email *</label>
-              <input
-                type="email"
-                className="form-control"
-                id="contact-email"
-                name="email"
-                required
-              />
-              <small className="help-block with-errors text-danger" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="message">Your Message *</label>
-              <textarea
-                className="form-control"
-                id="contact-message"
-                name="message"
-                required
-              />
-              <small className="help-block with-errors text-danger" />
-            </div>
-            <button type="submit" className="btn btn-secondary">
-              Send Message
-            </button>
-          </form>
+const Content = () => {
+  return (
+    <section className="container-fluid bg-light-blue py-6">
+      <div className="row">
+        <div className="col-lg-6 col-12">
+          <div className="col-10 contact-hello-form">
+            <h4 className="contact-hello-heading">Send a message</h4>
+            <SupportTicketForm buttonText="Send Message" page="Contact Us" />
+          </div>
         </div>
-      </div>
-      <div className="row col-lg-6 col-12 contact-hello-info">
-        <div className="col-lg-12 col-sm-6 col-12">
-          <h4 className="header-secondary">SAY HELLO</h4>
-          <h3>
-            <Link
-              href="mailto:info@ballers.ng"
-              className="text-primary font-weight-normal"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              info@ballers.ng
-            </Link>
-          </h3>
-        </div>
-        <div className="col-lg-12 col-sm-6 col-12">
-          <h5 className="my-5">Follow us in our everyday lives</h5>
-          <ul className="list-unstyled">
-            <li className="d-none d-lg-block">
-              <Link className="text-link" href="/">
-                Instagram
+        <div className="row col-lg-6 col-12 contact-hello-info">
+          <div className="col-lg-12 col-sm-6 col-12">
+            <h4 className="header-secondary">SAY HELLO</h4>
+            <h3>
+              <Link
+                href="mailto:info@ballers.ng"
+                className="text-primary font-weight-normal"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                info@ballers.ng
               </Link>
-            </li>
-            <li className="d-none d-lg-block">
-              <Link className="text-link" href="/">
-                Facebook
-              </Link>
-            </li>
-            <li className="d-none d-lg-block">
-              <Link className="text-link" href="/">
-                Twitter
-              </Link>
-            </li>
-            <li className="d-none d-lg-block">
-              <Link className="text-link" href="/">
-                LinkedIn
-              </Link>
-            </li>
-
-            <li className="d-block d-lg-none">
-              {['facebook', 'twitter', 'instagram', 'linkedin'].map((media) => (
-                <Link href="/" key={media}>
-                  <Image
-                    width="32"
-                    height="32"
-                    src={`/img/icons/${media}.png`}
-                    alt={media}
-                  />
+            </h3>
+          </div>
+          <div className="col-lg-12 col-sm-6 col-12">
+            <h5 className="my-5">Follow us in our everyday lives</h5>
+            <ul className="list-unstyled">
+              <li className="d-none d-lg-block">
+                <Link className="text-link" href="/">
+                  Instagram
                 </Link>
-              ))}
-              &nbsp;
-            </li>
-          </ul>
+              </li>
+              <li className="d-none d-lg-block">
+                <Link className="text-link" href="/">
+                  Facebook
+                </Link>
+              </li>
+              <li className="d-none d-lg-block">
+                <Link className="text-link" href="/">
+                  Twitter
+                </Link>
+              </li>
+              <li className="d-none d-lg-block">
+                <Link className="text-link" href="/">
+                  LinkedIn
+                </Link>
+              </li>
+
+              <li className="d-block d-lg-none">
+                {['facebook', 'twitter', 'instagram', 'linkedin'].map(
+                  (media) => (
+                    <Link href="/" key={media}>
+                      <Image
+                        width="32"
+                        height="32"
+                        src={`/img/icons/${media}.png`}
+                        alt={media}
+                      />
+                    </Link>
+                  )
+                )}
+                &nbsp;
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const MapAndAddress = () => (
   <section className="container-fluid">

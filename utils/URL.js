@@ -68,5 +68,8 @@ export const API_ENDPOINT = {
   getVendor: (slug) => `${BASE_API_URL}/user/vendor/${slug}`,
   getAllVendors: () => `${BASE_API_URL}/user/vendors`,
 
+  getAllSupportTickets: () => `${BASE_API_URL}/support`,
+  getOneSupportTicket: (id) => `${BASE_API_URL}/support/${id}`,
+
   getDashboardInfo: () => `${BASE_API_URL}/user/dashboard`,
 };

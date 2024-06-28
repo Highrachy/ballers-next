@@ -10,6 +10,7 @@ import {
   NotificationIcon,
   OfferIcon,
   VasIcon,
+  SupportIcon,
 } from 'components/utils/Icons';
 // import { VisitationIcon } from 'components/utils/Icons';
 // import { MessageIcon } from 'components/utils/Icons';
@@ -59,6 +60,12 @@ const adminMenu = [
     to: '/admin/service',
     icon: <VasIcon />,
     footer: true,
+  },
+  {
+    title: 'Support',
+    to: '/admin/support-ticket',
+    icon: <SupportIcon />,
+    footer: false,
   },
   {
     title: 'Referrals',

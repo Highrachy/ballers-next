@@ -5,6 +5,7 @@ import {
   ReferIcon,
   PortfolioIcon,
   TransactionIcon,
+  SupportIcon,
 } from 'components/utils/Icons';
 import { MessageIcon } from 'components/utils/Icons';
 import { FileIcon } from 'components/utils/Icons';
@@ -54,6 +55,12 @@ const vendorMenu = [
     title: 'Settings',
     to: '/user/settings',
     icon: <ProfileIcon />,
+    footer: false,
+  },
+  {
+    title: 'Support',
+    to: '/admin/support-ticket',
+    icon: <SupportIcon />,
     footer: false,
   },
 ];

@@ -57,7 +57,7 @@ const TextArea = ({
           component="textarea"
           id={name}
           name={name}
-          placeholder={placeholder}
+          placeholder={placeholder || label}
           {...others}
         />
       </div>

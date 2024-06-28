@@ -20,8 +20,8 @@ const StackBox = ({
   return (
     <Link href={href}>
       <a className="widget-stack">
-        <section className="d-flex justify-content-between">
-          <div className="d-flex flex-row">
+        <section className="d-flex flex-column flex-md-row justify-content-between">
+          <div className="d-flex flex-row mb-3">
             {src ? (
               <OnlineImage
                 src={src}

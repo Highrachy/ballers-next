@@ -52,7 +52,7 @@ import {
   FaQuoteLeft,
   FaReply,
 } from 'react-icons/fa';
-import { BsThreeDotsVertical } from 'react-icons/bs';
+import { BsFillQuestionCircleFill, BsThreeDotsVertical } from 'react-icons/bs';
 import {
   BiMessageDetail,
   BiCheckCircle,
@@ -163,6 +163,7 @@ export const RightChevronIcon = () => <FiChevronRight />;
 export const SchoolIcon = () => <FaBuilding />;
 export const SearchIcon = () => <FiSearch />;
 export const SuccessIcon = () => <FaCheckCircle />;
+export const SupportIcon = () => <BsFillQuestionCircleFill />;
 export const TestimonialsIcon = () => <TiMessages />;
 export const ThreeDotsIcon = () => <BsThreeDotsVertical />;
 export const ThumbsUpIcon = () => <FaThumbsUp />;

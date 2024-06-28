@@ -449,6 +449,15 @@ export const isFeatureFlagEnabled = (featureFlagsArray, flagName) => {
   return flag && flag.status === true;
 };
 
+export const SUPPORT_TICKET_STATUS = {
+  NEW: 'new',
+  OPEN: 'open',
+  PENDING: 'pending',
+  ON_HOLD: 'on-hold',
+  SOLVED: 'solved',
+  CLOSED: 'closed',
+};
+
 export const BALL_COMMUNITY_CATEGORY = [
   'Real Estate',
   'Technology',

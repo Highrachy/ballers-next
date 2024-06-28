@@ -7,6 +7,7 @@ import {
   ReferIcon,
   PropertyIcon,
   VasIcon,
+  SupportIcon,
 } from 'components/utils/Icons';
 
 const userMenu = [
@@ -44,6 +45,12 @@ const userMenu = [
     title: 'Settings',
     to: '/user/settings',
     icon: <ProfileIcon />,
+    footer: false,
+  },
+  {
+    title: 'Support',
+    to: '/user/support-ticket',
+    icon: <SupportIcon />,
     footer: false,
   },
   {
