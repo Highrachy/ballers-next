@@ -72,4 +72,8 @@ export const API_ENDPOINT = {
   getOneSupportTicket: (id) => `${BASE_API_URL}/support/${id}`,
 
   getDashboardInfo: () => `${BASE_API_URL}/user/dashboard`,
+
+  getOneBlog: (id) => `${BASE_API_URL}/blog/${id}`,
+  getAllBlogs: () => `${BASE_API_URL}/blog`,
+  getAllCategories: () => `${BASE_API_URL}/blog/categories`,
 };

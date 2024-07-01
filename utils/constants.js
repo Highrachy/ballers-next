@@ -22,6 +22,11 @@ export const DASHBOARD_PAGE = {
   [USER_TYPES.editor]: 'editor',
 };
 
+export const BLOG_STATUS = {
+  DRAFT: 'draft',
+  PUBLISHED: 'published',
+};
+
 export const COLOR_STYLE = [
   'none',
   'primary',

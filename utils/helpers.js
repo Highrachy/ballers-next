@@ -392,3 +392,14 @@ export const shuffleArray = (array) => {
   }
   return array;
 };
+
+export const convertCommaStringToArray = (commaString) => {
+  if (!commaString) {
+    return [];
+  }
+
+  return commaString
+    .split(',')
+    .map((string) => string.trim())
+    .filter((string) => string.length > 0);
+};

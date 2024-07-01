@@ -1,0 +1,33 @@
+.control-group {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.bubble-menu {
+  display: flex;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 4px;
+}
+
+.floating-menu {
+  display: flex;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 4px;
+}
