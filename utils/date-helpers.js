@@ -23,7 +23,7 @@ const f = {
   monthShortWords: 'MMM',
   monthLongWords: 'MMMM',
   day: 'd',
-  dayDigitss: 'dd',
+  dayDigits: 'dd',
   dayOrdinal: 'do',
   dayOfWeek: 'EEEE',
   dayOfWeekShort: 'E',
@@ -38,6 +38,8 @@ const f = {
   secondsOrdinal: 'so',
   secondsTwoDigits: 'ss',
 };
+
+export const dateFormatString = f;
 
 export const parseDate = (dateInput) => {
   let parsedDate;

@@ -1207,8 +1207,8 @@ $dropdown-padding-y: 0;
 
 // $dropdown-link-disabled-color: $gray-500 !default;
 
-// $dropdown-item-padding-y: $spacer * 0.25 !default;
-// $dropdown-item-padding-x: $spacer !default;
+$dropdown-item-padding-y: 0.75rem;
+$dropdown-item-padding-x: 1rem;
 
 // $dropdown-header-color: $gray-600 !default;
 // $dropdown-header-padding-x: $dropdown-item-padding-x !default;

@@ -1,10 +1,9 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
-import { getDate } from 'utils/date-helpers';
 import { API_ENDPOINT } from '@/utils/URL';
 import PaginatedContent from '@/components/common/PaginatedContent';
 import { EditNoteIcon } from '@/components/utils/Icons';
 import BackendPage from '@/components/layout/BackendPage';
+import BlogPostCard, { BLOG_LAYOUT } from '@/components/blog/BlogPostCard';
 
 const BlogPosts = () => {
   return (
@@ -21,68 +20,19 @@ const BlogPosts = () => {
   );
 };
 
-const BlogPostsRowList = ({ results, offset, setToast }) => {
+const BlogPostsRowList = ({ results }) => {
   return (
     <div className="container-fluid">
-      <Card className="mt-2">
-        <div className="table-responsive">
-          <table className="table table-border table-hover">
-            <thead>
-              <tr>
-                <th>S/N</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Status</th>
-                <th>Published At</th>
-                <th>&nbsp;</th>
-              </tr>
-            </thead>
-            <tbody>
-              {results.map((post, index) => (
-                <BlogPostsRow
-                  key={index}
-                  number={offset + index + 1}
-                  blogPost={post}
-                />
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Card>
+      <div className="row">
+        {results.map((post, index) => (
+          <BlogPostCard
+            key={index}
+            post={post}
+            layout={BLOG_LAYOUT.POST_LIST}
+          />
+        ))}
+      </div>
     </div>
-  );
-};
-
-const BlogPostsRow = ({ blogPost, number }) => {
-  const authorName = `${blogPost.userInfo[0].firstName} ${blogPost.userInfo[0].lastName}`;
-
-  return (
-    <tr>
-      <td>{number}</td>
-      <td>{blogPost.title}</td>
-      <td>{authorName}</td>
-      <td>{blogPost.status}</td>
-      <td>{getDate(blogPost.createdAt)}</td>
-      <td>
-        <p className="my-3">
-          <Button
-            variant="info"
-            className="btn-xs btn-wide me-3"
-            href={`/admin/blog/edit/${blogPost._id}`}
-          >
-            {' '}
-            Edit
-          </Button>
-          <Button
-            variant="secondary"
-            className="btn-xs btn-wide"
-            href={`/dashboard/blog/${blogPost._id}`}
-          >
-            View
-          </Button>
-        </p>
-      </td>
-    </tr>
   );
 };
 
