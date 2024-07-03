@@ -1,33 +1,39 @@
-.control-group {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
+/* Custom styles for the TipTap editor */
+.editor-container {
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  min-height: 200px;
+  background-color: #ffffff;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
 }
 
-.button-group {
-  display: flex;
-  flex-wrap: wrap;
+.menu-bar {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ced4da;
+  padding: 0.5rem;
 }
 
-button.active {
-  background-color: #007bff;
-  color: white;
+.menu-bar button {
+  margin-right: 0.5rem;
 }
 
-.bubble-menu {
-  display: flex;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 4px;
-}
-
+.bubble-menu,
 .floating-menu {
-  display: flex;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 4px;
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.bubble-menu button,
+.floating-menu button {
+  margin: 0 0.25rem;
+}
+
+.editor-placeholder {
+  color: #6c757d;
+  pointer-events: none;
+  user-select: none;
 }

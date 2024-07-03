@@ -1,7 +1,7 @@
 import React from 'react';
 import { API_ENDPOINT } from '@/utils/URL';
 import PaginatedContent from '@/components/common/PaginatedContent';
-import { EditNoteIcon } from '@/components/utils/Icons';
+import { BlogIcon } from '@/components/utils/Icons';
 import BackendPage from '@/components/layout/BackendPage';
 import BlogPostCard, { BLOG_LAYOUT } from '@/components/blog/BlogPostCard';
 
@@ -13,7 +13,7 @@ const BlogPosts = () => {
         endpoint={API_ENDPOINT.getAllBlogs()}
         pageName="Blog Post"
         DataComponent={BlogPostsRowList}
-        PageIcon={<EditNoteIcon />}
+        PageIcon={<BlogIcon />}
         queryName="blogPost"
       />
     </BackendPage>

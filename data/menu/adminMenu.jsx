@@ -11,6 +11,7 @@ import {
   OfferIcon,
   VasIcon,
   SupportIcon,
+  BlogIcon,
 } from 'components/utils/Icons';
 // import { VisitationIcon } from 'components/utils/Icons';
 // import { MessageIcon } from 'components/utils/Icons';
@@ -59,6 +60,12 @@ const adminMenu = [
     title: 'Services',
     to: '/admin/service',
     icon: <VasIcon />,
+    footer: true,
+  },
+  {
+    title: 'Blog',
+    to: '/admin/blog',
+    icon: <BlogIcon />,
     footer: true,
   },
   {

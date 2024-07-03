@@ -101,22 +101,21 @@ export const Menus = [
     children: howItWorksDropdown,
   },
   { name: 'Properties', href: '/properties' },
-  { name: 'Learn', href: '/docs' },
-  // {
-  //   name: 'Learn',
-  //   href: '/learn',
-  //   children: learnDropdown,
-  //   additionalResources: [
-  //     {
-  //       title: 'For Buyers',
-  //       links: forBuyers,
-  //     },
-  //     {
-  //       title: 'For Sellers',
-  //       links: forSellers,
-  //     },
-  //   ],
-  // },
+  {
+    name: 'Learn',
+    href: '/learn',
+    children: learnDropdown,
+    additionalResources: [
+      {
+        title: 'For Buyers',
+        links: forBuyers,
+      },
+      {
+        title: 'For Sellers',
+        links: forSellers,
+      },
+    ],
+  },
   { name: 'More', href: '/more', children: moreDropdown },
 ];
 

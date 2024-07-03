@@ -10,7 +10,7 @@ export const WidgetBox = ({
   className = '',
   textEnd = '',
 }) => {
-  const defaultClasses = 'col-sm-6 mt-4';
+  const defaultClasses = 'col-xl-6 mt-4';
 
   return (
     <div className={className || defaultClasses}>

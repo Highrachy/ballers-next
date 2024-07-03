@@ -21,13 +21,15 @@ import Image from 'next/image';
 import BallersLogo from '../utils/BallersLogo';
 import { useRouter } from 'next/router';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
+import classNames from 'classnames';
 
-// eslint-disable-next-line react/display-name
 const Empty = React.forwardRef(({ children, onClick }, ref) => (
   <div className="top-nav-dropdown" ref={ref} onClick={onClick}>
     {children}
   </div>
 ));
+
+Empty.displayName = 'Empty';
 
 const Header = () => {
   return (
@@ -59,109 +61,113 @@ const Header = () => {
 };
 
 export const NavForLoginUser = () => {
-  let { userState, userDispatch } = React.useContext(UserContext);
+  let { userState } = React.useContext(UserContext);
   const userName = `${userState.firstName} ${userState.lastName}`;
   const isCompanyLogo =
     !userState.profileImage && userState.vendor && userState.vendor.companyLogo;
   const currentRole = useCurrentRole().name;
   const router = useRouter();
   return (
-    <Nav className="ms-auto d-flex flex-row align-items-center">
-      {userState?.isDemoAccount && (
-        <Link href="/vendor/demo-account">
-          <Nav.Link className="demo-account d-none d-xl-inline text-muted">
-            Demo Account
-          </Nav.Link>
-        </Link>
-      )}
+    <>
+      <Nav className="ms-auto flex-row align-items-center justify-content-center">
+        <div className="d-none d-md-flex align-items-center">
+          {userState?.isDemoAccount && (
+            <Link href="/vendor/demo-account">
+              <Nav.Link className="demo-account d-none d-xl-inline text-muted">
+                Demo Account
+              </Nav.Link>
+            </Link>
+          )}
 
-      <span
-        onClick={() => {
-          window.location.href = `/${currentRole}/dashboard?tour=true`;
-        }}
-      >
-        <Nav.Link className="demo-account text-muted">
-          <OverlayTrigger
-            trigger={['hover', 'focus']}
-            placement={'bottom'}
-            overlay={
-              <Popover>
-                <Popover.Header as="h6">Start Tour</Popover.Header>
-                <Popover.Body>
-                  Explore BALL features with our guided tour. Click to start
-                  your experience.
-                </Popover.Body>
-              </Popover>
-            }
+          <span
+            onClick={() => {
+              window.location.href = `/${currentRole}/dashboard?tour=true`;
+            }}
           >
-            <span className="form-help-icon">
-              &nbsp;
-              <TourIcon />
-            </span>
-          </OverlayTrigger>
-        </Nav.Link>
-      </span>
+            <Nav.Link className="demo-account text-muted">
+              <OverlayTrigger
+                trigger={['hover', 'focus']}
+                placement={'bottom'}
+                overlay={
+                  <Popover>
+                    <Popover.Header as="h6">Start Tour</Popover.Header>
+                    <Popover.Body>
+                      Explore BALL features with our guided tour. Click to start
+                      your experience.
+                    </Popover.Body>
+                  </Popover>
+                }
+              >
+                <span className="form-help-icon">
+                  &nbsp;
+                  <TourIcon />
+                </span>
+              </OverlayTrigger>
+            </Nav.Link>
+          </span>
 
-      {userState?.notifications?.length === 0 ? (
-        <Link href={`/${currentRole}/notifications`}>
-          <Nav.Link className="notifications">
-            <NotificationIcon />
-          </Nav.Link>
-        </Link>
-      ) : (
-        <NotificationsDropdown
-          notifications={userState?.notifications?.slice(0, 3)}
-          currentRole={currentRole}
-        />
-      )}
+          {userState?.notifications?.length === 0 ? (
+            <Link href={`/${currentRole}/notifications`}>
+              <Nav.Link className="notifications">
+                <NotificationIcon />
+              </Nav.Link>
+            </Link>
+          ) : (
+            <NotificationsDropdown
+              notifications={userState?.notifications?.slice(0, 3)}
+              currentRole={currentRole}
+            />
+          )}
+        </div>
 
-      <Dropdown>
-        <Dropdown.Toggle as={Empty} id="user-dropdown">
-          <LocalImage
-            name={userName}
-            className={
-              isCompanyLogo
-                ? 'dashboard-top-nav__company-logo'
-                : 'dashboard-top-nav__avatar'
-            }
-            defaultImage={`/img/avatar/profile.png`}
-            rounded
-            src={
-              isCompanyLogo
-                ? userState.vendor?.companyLogo
-                : userState?.profileImage
-            }
-            options={{ h: 200 }}
-          />{' '}
-          <ThreeDotsIcon />
-        </Dropdown.Toggle>
+        <Dropdown>
+          <Dropdown.Toggle as={Empty} id="user-dropdown">
+            <LocalImage
+              name={userName}
+              className={classNames('mt-3 mt-md-0', {
+                'dashboard-top-nav__avatar': !isCompanyLogo,
+                'dashboard-top-nav__company-logo': isCompanyLogo,
+              })}
+              defaultImage={`/img/avatar/profile.png`}
+              rounded
+              src={
+                isCompanyLogo
+                  ? userState.vendor?.companyLogo
+                  : userState?.profileImage
+              }
+              options={{ h: 200 }}
+            />{' '}
+            <ThreeDotsIcon />
+          </Dropdown.Toggle>
 
-        <Dropdown.Menu className="top-nav-dropdown-menu">
-          <Link href={`/${currentRole}/dashboard`} passHref>
-            <Dropdown.Item>Dashboard</Dropdown.Item>
-          </Link>
-          <Link href={`/${currentRole}/mybadges`} passHref>
-            <Dropdown.Item>Badges</Dropdown.Item>
-          </Link>
-          <Link href={`/${currentRole}/testimonials`} passHref>
-            <Dropdown.Item>Testimonials</Dropdown.Item>
-          </Link>
-          <Link href="/user/settings" passHref>
-            <Dropdown.Item>Settings</Dropdown.Item>
-          </Link>
-          <Link href="/logout">
-            <a data-rr-ui-dropdown-item className="dropdown-item" role="button">
-              Logout
-            </a>
-          </Link>
-        </Dropdown.Menu>
-      </Dropdown>
-
-      {/* <Nav.Link as={Link} href="/register"></Nav.Link> */}
-    </Nav>
+          <Dropdown.Menu className="top-nav-dropdown-menu">
+            <Link href={`/${currentRole}/dashboard`} passHref>
+              <Dropdown.Item>Dashboard</Dropdown.Item>
+            </Link>
+            <Link href={`/${currentRole}/mybadges`} passHref>
+              <Dropdown.Item>Badges</Dropdown.Item>
+            </Link>
+            <Link href={`/${currentRole}/testimonials`} passHref>
+              <Dropdown.Item>Testimonials</Dropdown.Item>
+            </Link>
+            <Link href="/user/settings" passHref>
+              <Dropdown.Item>Settings</Dropdown.Item>
+            </Link>
+            <Link href="/logout">
+              <a
+                data-rr-ui-dropdown-item
+                className="dropdown-item"
+                role="button"
+              >
+                Logout
+              </a>
+            </Link>
+          </Dropdown.Menu>
+        </Dropdown>
+      </Nav>
+    </>
   );
 };
-
 export const isActive = ({ isCurrent }) => {
   return isCurrent ? { className: 'active fw-bold nav-link' } : null;
 };

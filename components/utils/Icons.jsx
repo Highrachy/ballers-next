@@ -88,6 +88,7 @@ import {
   Setting2,
   EmptyWalletAdd,
   MessageQuestion,
+  MessageEdit,
 } from 'iconsax-react';
 import { LuSettings2 } from 'react-icons/lu';
 import { RiPlanetFill } from 'react-icons/ri';
@@ -106,7 +107,7 @@ export const BankInfoIcon = () => <FiArchive />;
 export const BankAccountIcon = () => <MdAccountBalanceWallet />;
 export const BathIcon = () => <FaBath />;
 export const BedIcon = () => <FaBed />;
-export const BlogIcon = () => <FiEdit />;
+export const BlogIcon = () => <MessageEdit variant="Bulk" />;
 export const CameraIcon = () => <FiCamera />;
 export const CarIcon = () => <AiFillCar />;
 export const CertifyIcon = () => <GoVerified />;

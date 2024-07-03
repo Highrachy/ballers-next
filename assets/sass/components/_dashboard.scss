@@ -6,7 +6,7 @@
   &.navbar {
     z-index: 9;
     box-shadow: none;
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       padding-bottom: 3rem;
     }
     background: #f8faff !important;
@@ -17,7 +17,7 @@
     height: 4rem;
     padding: 2rem 0 !important;
   }
-  // remove style
+
   &__avatar {
     height: 3.5rem;
     width: 3.5rem;

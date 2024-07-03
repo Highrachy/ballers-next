@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useMenu } from 'hooks/useMenu';
-import Image from 'next/image';
 import ActiveLink from '../common/ActiveLink';
 import BallersLogo from '../utils/BallersLogo';
 

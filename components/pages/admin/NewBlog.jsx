@@ -27,6 +27,7 @@ import {
   statusIsSuccessful,
 } from 'utils/helpers';
 import { blogPostSchema } from '@/components/forms/schemas/blogSchema';
+import TipTap from '@/components/forms/TipTap';
 
 const BlogForm = ({ id = null }) => {
   const [toast, setToast] = useToast();
@@ -43,7 +44,7 @@ const BlogForm = ({ id = null }) => {
   );
 };
 
-export const NewBlogForm = ({ blog, toast, setToast }) => {
+export const NewBlogForm = ({ blog = null, toast, setToast }) => {
   const [categoriesQuery, categories] = useGetQuery({
     key: 'categories',
     name: ['categories'],
@@ -55,12 +56,7 @@ export const NewBlogForm = ({ blog, toast, setToast }) => {
     <Formik
       enableReinitialize={true}
       initialValues={{
-        ...setInitialValues(blogPostSchema, {
-          title: 'My Second Blog Post',
-          content: 'This is the content of my first blog post.',
-          mainImage: 'http://example.com/image.jpg',
-          category: 'real estate',
-        }),
+        ...setInitialValues(blogPostSchema, blog),
       }}
       onSubmit={(values, actions) => {
         const payload = {
@@ -158,12 +154,7 @@ const BlogInfoForm = ({ categories }) => {
         <div className="col-md-10 px-4">
           <h5 className="mb-4">Blog Information</h5>
           <Input label="Title" name="title" placeholder="Blog Title" />
-          <Input
-            type="textarea"
-            label="Content"
-            name="content"
-            placeholder="Blog Content"
-          />
+          <TipTap name="content" placeholder="Blog Content" label="Content" />
           <Input
             label="Main Image"
             name="mainImage"
