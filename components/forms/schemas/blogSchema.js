@@ -1,11 +1,15 @@
-import { optionalValidation, stringValidation } from './schema-helpers';
+import {
+  arrayValidation,
+  optionalValidation,
+  stringValidation,
+} from './schema-helpers';
 
 export const blogPostSchema = {
   title: stringValidation('Title'),
   content: stringValidation('Content'),
   mainImage: optionalValidation(stringValidation('Main Image')),
   category: stringValidation('Category'),
-  tags: optionalValidation(stringValidation('Tags')),
+  tags: optionalValidation(arrayValidation('Tags')),
 };
 
 export const searchSchema = {

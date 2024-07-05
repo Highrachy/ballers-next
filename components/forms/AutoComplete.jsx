@@ -4,7 +4,7 @@ import { connect, Field } from 'formik';
 import classNames from 'classnames';
 import { FeedbackMessage, feedback } from 'components/forms/form-helper';
 import Label from './Label';
-import ReactTags from 'react-tag-autocomplete';
+import { ReactTags } from 'react-tag-autocomplete';
 
 // https://github.com/i-like-robots/react-tags/tree/6.0#allownew-optional
 
@@ -55,9 +55,8 @@ const AutoComplete = ({
                   allowBackspace={false}
                   allowNew
                   className={className}
-                  delimiters={['Enter', 'Tab', ',']}
-                  maxSuggestionsLength={18}
-                  onAddition={(tag) => {
+                  delimiterKeys={['Enter', 'Tab', ',']}
+                  onAdd={(tag) => {
                     const tags = [...fieldValue, tag];
                     form.setFieldValue(name, tags);
                   }}
@@ -66,10 +65,12 @@ const AutoComplete = ({
                     tags.splice(index, 1);
                     form.setFieldValue(name, tags);
                   }}
-                  placeholderText={placeholder}
-                  removeButtonText={removeButtonText}
+                  placeholderText={
+                    placeholder || label ? `Add ${label}` : 'Add New'
+                  }
+                  deleteButtonText={removeButtonText}
                   suggestions={suggestions}
-                  tags={fieldValue}
+                  selected={fieldValue}
                 />
               );
             }}

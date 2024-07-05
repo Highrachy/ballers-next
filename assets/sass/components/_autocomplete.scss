@@ -2,147 +2,191 @@ $react-tags__border: $input-border-color;
 $react-tags__border_focused: $input-focus-border-color;
 $react-tags__background: $input-bg;
 $react-tags__color: $input-color;
-$react-tags__selected_tags_color: $text-color;
-$react-tags__selected_background: rgba($secondary, 0.2);
-$react-tags__selected_border: rgba($secondary, 0.3);
-$react-tags__suggestion_background: $white;
+$react-tags__invalid_color: $danger;
+$react-tags__invalid_shadow: rgba($danger, 0.25);
+$react-tags__tag_background: darken($gray-200, 4%);
 
 .react-tags {
   position: relative;
-  padding: 6px 0 0 6px;
+  padding: 0.3rem 0.5rem;
   border: 1px solid $react-tags__border;
-  border-radius: 1px;
-  background-color: $input-bg;
-
-  /* shared font styles */
-  font-size: 1em;
-  line-height: 1.2;
-
-  /* clicking anywhere will focus the input */
-  cursor: text;
-}
-
-.react-tags.is-focused {
-  border-color: $react-tags__border_focused;
-}
-
-.react-tags__selected {
-  display: inline;
-}
-
-.react-tags__selected-tag {
-  display: inline-block;
-  box-sizing: border-box;
-  margin: 0 6px 6px 0;
-  padding: 6px 8px;
-  border: 1px solid $react-tags__selected_border;
-  border-radius: 2px;
-  background: $react-tags__selected_background;
-  color: $react-tags__selected_tags_color;
-
-  /* match the font styles */
-  font-size: 0.8rem;
-  line-height: inherit;
-}
-
-.react-tags__selected-tag:after {
-  content: '\2715';
-  color: $react-tags__color;
-  margin-left: 8px;
-}
-
-.react-tags__selected-tag:hover,
-.react-tags__selected-tag:focus {
-  border-color: $react-tags__border_focused;
-}
-
-.react-tags__search {
-  display: inline-block;
-
-  /* match tag layout */
-  padding: 7px 2px;
-  margin-bottom: 6px;
-
-  /* prevent autoresize overflowing the container */
-  max-width: 100%;
-}
-
-@media screen and (min-width: 30em) {
-  .react-tags__search {
-    /* this will become the offsetParent for suggestions */
-    position: relative;
-  }
-}
-
-.react-tags__search-input {
-  /* prevent autoresize overflowing the container */
-  max-width: 100%;
-
-  /* remove styles and layout from this element */
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: none;
-  color: $react-tags__color;
+  border-radius: $border-radius;
   background: $react-tags__background;
+  font-size: 0.9rem;
+  cursor: text;
 
-  /* match the font styles */
-  font-size: inherit;
-  line-height: inherit;
-}
+  &.is-active {
+    border-color: $react-tags__border_focused;
+  }
 
-.react-tags__search-input::-ms-clear {
-  display: none;
-}
+  &.is-disabled {
+    opacity: 0.75;
+    background-color: darken($react-tags__tag_background, 10%);
+    pointer-events: none;
+    cursor: not-allowed;
+  }
 
-.react-tags__suggestions {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-}
+  &.is-invalid {
+    border-color: $react-tags__invalid_color;
+    box-shadow: 0 0 0 2px $react-tags__invalid_shadow;
+  }
 
-@media screen and (min-width: 30em) {
-  .react-tags__suggestions {
-    width: 240px;
-    z-index: 10000000;
+  &__label {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  &__list {
+    display: inline;
+    padding: 0;
+  }
+
+  &__list-item {
+    display: inline;
+    list-style: none;
+  }
+
+  &__tag {
+    margin: 0.25rem 0.25rem 0.25rem 0;
+    padding: 0.375rem 0.75rem;
+    border: 0;
+    border-radius: 3px;
+    background: $react-tags__tag_background;
+    font-size: inherit;
+    line-height: inherit;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 0.65rem;
+      height: 0.65rem;
+      clip-path: polygon(
+        10% 0,
+        0 10%,
+        40% 50%,
+        0 90%,
+        10% 100%,
+        50% 60%,
+        90% 100%,
+        100% 90%,
+        60% 50%,
+        100% 10%,
+        90% 0,
+        50% 40%
+      );
+      margin-left: 0.5rem;
+      font-size: 0.875rem;
+      background-color: $react-tags__color;
+    }
+
+    &:hover {
+      color: $white;
+      background-color: $react-tags__border_focused;
+
+      &::after {
+        background-color: $white;
+      }
+    }
+  }
+
+  &__combobox {
+    display: inline-block;
+    padding: 0.375rem 0.25rem;
+    margin-bottom: 0.25rem;
+    max-width: 100%;
+  }
+
+  &__combobox-input {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: none;
+    font-size: inherit;
+    line-height: inherit;
+
+    &::placeholder {
+      color: $input-placeholder-color;
+      opacity: 1;
+    }
+  }
+
+  &__listbox {
+    position: absolute;
+    z-index: 1;
+    top: calc(100% + 5px);
+    left: -2px;
+    right: -2px;
+    max-height: 12.5rem;
+    overflow-y: auto;
+    background: $white;
+    border: 1px solid $react-tags__border;
+    border-radius: $border-radius;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -4px,
+      rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+    &-option {
+      padding: 0.75rem 0.5rem;
+
+      &:hover {
+        cursor: pointer;
+        background: lighten($react-tags__tag_background, 5%);
+      }
+
+      &:not([aria-disabled='true']).is-active {
+        background: $secondary-50;
+        color: $secondary-600;
+      }
+
+      &[aria-disabled='true'] {
+        color: $react-tags__color;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      &[aria-selected='true']::after {
+        content: '✓';
+        margin-left: 0.5rem;
+      }
+
+      &[aria-selected='true']:not(.is-active)::after {
+        color: $react-tags__border_focused;
+      }
+
+      &-highlight {
+        background-color: $warning;
+      }
+    }
   }
 }
 
-.react-tags__suggestions ul {
-  margin: 4px -1px;
-  padding: 0;
-  list-style: none;
-  color: $text-color;
-  background: $react-tags__suggestion_background;
-  border: 1px solid $react-tags__border;
-  border-radius: 2px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
+.tag-group {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 8px;
+  gap: 8px;
+  background-color: rgba(0, 0, 0, 0.03);
+  margin: 0.25rem 0.5rem 0.5rem 0.25rem;
+  justify-content: flex-start;
+  border: 1px solid $gray-300;
+  align-items: flex-start;
+  border-radius: $border-radius;
 
-.react-tags__suggestions li {
-  border-bottom: 1px solid darken($react-tags__border_focused, 5%);
-  padding: 6px 8px;
-}
+  ul {
+    margin: 0;
+  }
 
-.react-tags__suggestions li mark {
-  text-decoration: underline;
-  background: none;
-  color: $red;
-  font-weight: 600;
-}
-
-.react-tags__suggestions li:hover {
-  cursor: pointer;
-  background: lighten($react-tags__suggestion_background, 10%);
-  // background: #eee;
-}
-
-.react-tags__suggestions li.is-active {
-  background: $blue;
-}
-
-.react-tags__suggestions li.is-disabled {
-  opacity: 0.5;
-  cursor: auto;
+  > p {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5rem;
+    color: $react-tags__color;
+  }
 }

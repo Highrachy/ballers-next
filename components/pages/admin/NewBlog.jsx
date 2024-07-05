@@ -11,7 +11,11 @@ import {
 import Button from 'components/forms/Button';
 import { Formik, Form, useFormikContext } from 'formik';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
-import { BASE_API_URL, BLOG_STATUS } from 'utils/constants';
+import {
+  ALL_PROPERTY_FEATURES,
+  BASE_API_URL,
+  BLOG_STATUS,
+} from 'utils/constants';
 import { getTokenFromStore } from 'utils/localStorage';
 import Select from 'components/forms/Select';
 import { useGetQuery } from 'hooks/useQuery';
@@ -23,12 +27,15 @@ import { refreshQuery } from 'hooks/useQuery';
 import {
   arrayToOptions,
   convertCommaStringToArray,
+  getAutoComplete,
   getError,
+  setAutoComplete,
   statusIsSuccessful,
 } from 'utils/helpers';
 import { blogPostSchema } from '@/components/forms/schemas/blogSchema';
 import Editor from '@/components/forms/Editor';
 import Upload from 'components/forms/UploadFormik';
+import AutoComplete from '@/components/forms/AutoComplete';
 
 const BlogForm = ({ id = null }) => {
   const [toast, setToast] = useToast();
@@ -62,7 +69,7 @@ export const NewBlogForm = ({ blog = null, toast, setToast }) => {
       onSubmit={(values, actions) => {
         const payload = {
           ...values,
-          tags: convertCommaStringToArray(values.tags),
+          tags: getAutoComplete(values.tags),
         };
         Axios({
           method: blog?._id ? 'put' : 'post',
@@ -187,10 +194,10 @@ const BlogInfoForm = ({ categories }) => {
               labelLink={{ onClick: handleToggle, text: 'Switch to input' }}
             />
           )}
-          <Input
-            label="Tags"
+          <AutoComplete
             name="tags"
-            placeholder="Tags (comma separated)"
+            label="Tags"
+            suggestions={setAutoComplete(ALL_PROPERTY_FEATURES)}
           />
         </div>
       </section>
