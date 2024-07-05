@@ -3,7 +3,7 @@ import { optionalValidation, stringValidation } from './schema-helpers';
 export const blogPostSchema = {
   title: stringValidation('Title'),
   content: stringValidation('Content'),
-  mainImage: stringValidation('Main Image'),
+  mainImage: optionalValidation(stringValidation('Main Image')),
   category: stringValidation('Category'),
   tags: optionalValidation(stringValidation('Tags')),
 };

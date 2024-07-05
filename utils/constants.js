@@ -472,3 +472,10 @@ export const BALL_COMMUNITY_CATEGORY = [
   'BALL Platform',
   'Others',
 ].sort();
+
+export const EDITOR_MENU = {
+  LITE: 'lite',
+  COMPACT: 'compact',
+  NORMAL: 'normal',
+  FULL: 'full',
+};

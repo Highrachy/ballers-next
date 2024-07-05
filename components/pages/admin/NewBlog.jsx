@@ -27,7 +27,8 @@ import {
   statusIsSuccessful,
 } from 'utils/helpers';
 import { blogPostSchema } from '@/components/forms/schemas/blogSchema';
-import TipTap from '@/components/forms/TipTap';
+import Editor from '@/components/forms/Editor';
+import Upload from 'components/forms/UploadFormik';
 
 const BlogForm = ({ id = null }) => {
   const [toast, setToast] = useToast();
@@ -154,11 +155,17 @@ const BlogInfoForm = ({ categories }) => {
         <div className="col-md-10 px-4">
           <h5 className="mb-4">Blog Information</h5>
           <Input label="Title" name="title" placeholder="Blog Title" />
-          <TipTap name="content" placeholder="Blog Content" label="Content" />
-          <Input
-            label="Main Image"
+          <Editor name="content" placeholder="Blog Content" label="Content" />
+          <Upload
+            label="Upload blog image"
+            changeText="Update Picture"
+            defaultImage={userState?.vendor?.companyLogo}
+            imgOptions={{
+              className: 'mb-3 img-xxl',
+            }}
             name="mainImage"
-            placeholder="Main Image URL"
+            uploadText={`Upload Blog Image`}
+            folder={'blog'}
           />
           <Select
             label="Status"

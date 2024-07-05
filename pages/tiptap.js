@@ -70,7 +70,7 @@ const MenuBar = () => {
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
-        className={`btn btn-outline-primary m-1 ${
+        className={`btn btn-outline-secondary m-1 ${
           editor.isActive('bold') ? 'active' : ''
         }`}
       >
@@ -79,7 +79,7 @@ const MenuBar = () => {
       <button
         onClick={() => editor.chain().focus().toggleItalic().run()}
         disabled={!editor.can().chain().focus().toggleItalic().run()}
-        className={`btn btn-outline-primary m-1 ${
+        className={`btn btn-outline-secondary m-1 ${
           editor.isActive('italic') ? 'active' : ''
         }`}
       >
@@ -88,7 +88,7 @@ const MenuBar = () => {
       <button
         onClick={() => editor.chain().focus().toggleStrike().run()}
         disabled={!editor.can().chain().focus().toggleStrike().run()}
-        className={`btn btn-outline-primary m-1 ${
+        className={`btn btn-outline-secondary m-1 ${
           editor.isActive('strike') ? 'active' : ''
         }`}
       >
@@ -97,7 +97,7 @@ const MenuBar = () => {
       <button
         onClick={() => editor.chain().focus().toggleCode().run()}
         disabled={!editor.can().chain().focus().toggleCode().run()}
-        className={`btn btn-outline-primary m-1 ${
+        className={`btn btn-outline-secondary m-1 ${
           editor.isActive('code') ? 'active' : ''
         }`}
       >
@@ -117,17 +117,17 @@ const MenuBar = () => {
       </button>
       <button
         onClick={() => editor.chain().focus().setParagraph().run()}
-        className={`btn btn-outline-primary m-1 ${
+        className={`btn btn-outline-secondary m-1 ${
           editor.isActive('paragraph') ? 'active' : ''
         }`}
       >
         <FaParagraph />
       </button>
-      {[1, 2, 3, 4, 5, 6].map((level) => (
+      {[1, 2, 3].map((level) => (
         <button
           key={level}
           onClick={() => editor.chain().focus().toggleHeading({ level }).run()}
-          className={`btn btn-outline-primary m-1 ${
+          className={`btn btn-outline-secondary m-1 ${
             editor.isActive('heading', { level }) ? 'active' : ''
           }`}
         >
@@ -136,7 +136,7 @@ const MenuBar = () => {
       ))}
       <button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={`btn btn-outline-primary m-1 ${
+        className={`btn btn-outline-secondary m-1 ${
           editor.isActive('bulletList') ? 'active' : ''
         }`}
       >
@@ -144,7 +144,7 @@ const MenuBar = () => {
       </button>
       <button
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className={`btn btn-outline-primary m-1 ${
+        className={`btn btn-outline-secondary m-1 ${
           editor.isActive('orderedList') ? 'active' : ''
         }`}
       >
@@ -152,7 +152,7 @@ const MenuBar = () => {
       </button>
       <button
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        className={`btn btn-outline-primary m-1 ${
+        className={`btn btn-outline-secondary m-1 ${
           editor.isActive('blockquote') ? 'active' : ''
         }`}
       >
@@ -160,13 +160,13 @@ const MenuBar = () => {
       </button>
       <button
         onClick={() => editor.chain().focus().setHorizontalRule().run()}
-        className="btn btn-outline-primary m-1"
+        className="btn btn-outline-secondary m-1"
       >
         Horizontal rule
       </button>
       <button
         onClick={() => editor.chain().focus().setHardBreak().run()}
-        className="btn btn-outline-primary m-1"
+        className="btn btn-outline-secondary m-1"
       >
         Hard break
       </button>
@@ -186,7 +186,7 @@ const MenuBar = () => {
       </button>
       <button
         onClick={() => editor.chain().focus().setColor('#958DF1').run()}
-        className={`btn btn-outline-primary m-1 ${
+        className={`btn btn-outline-secondary m-1 ${
           editor.isActive('textStyle', { color: '#958DF1' }) ? 'active' : ''
         }`}
       >
@@ -238,7 +238,7 @@ const InnerMenus = () => {
         >
           <button
             onClick={() => editor.chain().focus().toggleBold().run()}
-            className={`btn btn-outline-primary m-1 ${
+            className={`btn btn-outline-secondary m-1 ${
               editor.isActive('bold') ? 'active' : ''
             }`}
           >
@@ -246,7 +246,7 @@ const InnerMenus = () => {
           </button>
           <button
             onClick={() => editor.chain().focus().toggleItalic().run()}
-            className={`btn btn-outline-primary m-1 ${
+            className={`btn btn-outline-secondary m-1 ${
               editor.isActive('italic') ? 'active' : ''
             }`}
           >
@@ -254,7 +254,7 @@ const InnerMenus = () => {
           </button>
           <button
             onClick={() => editor.chain().focus().toggleStrike().run()}
-            className={`btn btn-outline-primary m-1 ${
+            className={`btn btn-outline-secondary m-1 ${
               editor.isActive('strike') ? 'active' : ''
             }`}
           >
@@ -273,7 +273,7 @@ const InnerMenus = () => {
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 1 }).run()
             }
-            className={`btn btn-outline-primary m-1 ${
+            className={`btn btn-outline-secondary m-1 ${
               editor.isActive('heading', { level: 1 }) ? 'active' : ''
             }`}
           >
@@ -283,7 +283,7 @@ const InnerMenus = () => {
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 2 }).run()
             }
-            className={`btn btn-outline-primary m-1 ${
+            className={`btn btn-outline-secondary m-1 ${
               editor.isActive('heading', { level: 2 }) ? 'active' : ''
             }`}
           >
@@ -291,7 +291,7 @@ const InnerMenus = () => {
           </button>
           <button
             onClick={() => editor.chain().focus().toggleBulletList().run()}
-            className={`btn btn-outline-primary m-1 ${
+            className={`btn btn-outline-secondary m-1 ${
               editor.isActive('bulletList') ? 'active' : ''
             }`}
           >

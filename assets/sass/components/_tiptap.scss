@@ -1,39 +1,76 @@
-/* Custom styles for the TipTap editor */
 .editor-container {
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  padding: 1rem;
-  min-height: 200px;
-  background-color: #ffffff;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
-}
+  overflow: hidden;
 
-.menu-bar {
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #ced4da;
-  padding: 0.5rem;
-}
+  .btn-tiptap {
+    background: transparent;
+    color: $primary-200;
+    outline: none;
+    border: 0;
+    line-height: 1;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+    transition: all 0.5s;
+    border-radius: 4px;
+    height: 40px;
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
+    margin: 0.25rem 0.15rem;
 
-.menu-bar button {
-  margin-right: 0.5rem;
-}
+    &:hover,
+    &.active {
+      background: $gray-200;
+      svg {
+        fill: $primary;
+      }
+    }
 
-.bubble-menu,
-.floating-menu {
-  background-color: #ffffff;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  padding: 0.5rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
+    svg {
+      display: block;
+      text-align: center;
+      width: 24px;
+    }
+  }
 
-.bubble-menu button,
-.floating-menu button {
-  margin: 0 0.25rem;
-}
+  .menu-bar {
+    background-color: white;
+    border-bottom: 1px solid $gray-200;
+  }
 
-.editor-placeholder {
-  color: #6c757d;
-  pointer-events: none;
-  user-select: none;
+  .tiptap {
+    padding: 1.5rem;
+    min-height: 8rem;
+  }
+
+  .bubble-menu,
+  .floating-menu {
+    background-color: #ffffff;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    display: flex;
+  }
+
+  a {
+    color: $secondary;
+    text-decoration: underline !important;
+    cursor: pointer;
+  }
+
+  /* Placeholder (at the top) */
+  p.is-editor-empty:first-child::before {
+    color: $gray-500;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+
+  /* Placeholder (on every new line) */
+  /* .is-empty::before {
+    color: var(--gray-4);
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  } */
 }
