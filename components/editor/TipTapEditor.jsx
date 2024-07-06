@@ -46,18 +46,12 @@ const TipTapEditor = ({
   showBubbleMenu,
   showFloatingMenu,
 }) => {
-  const initial = ` <p>
-          Wow, this editor has support for links to the whole <a href="https://en.wikipedia.org/wiki/World_Wide_Web">World Wide Web</a>. We tested a lot of URLs and I think you can add *every URL* you want. Isn’t that cool? Let’s try <a href="https://statamic.com/">another one!</a> Yep, seems to work.
-        </p>
-        <p>
-          By default every link will get a <code>rel="noopener noreferrer nofollow"</code> attribute. It’s configurable though.
-        </p>`;
   return (
     <EditorProvider
       className="tiptap-editor"
       slotBefore={showMenuBar ? <MenuBar menuType={menuType} /> : null}
       extensions={getExtensions({ placeholder })}
-      content={value || initial}
+      content={value}
       onUpdate={onUpdate}
     >
       {showBubbleMenu && <BubbleMenus menuType={menuType} />}

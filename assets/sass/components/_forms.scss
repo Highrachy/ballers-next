@@ -15,6 +15,11 @@ label {
   @extend .row;
 }
 
+.form-text {
+  font-size: 0.8rem;
+  color: $gray-500;
+}
+
 .form-label {
   font-size: 0.9rem;
   color: $gray-700;

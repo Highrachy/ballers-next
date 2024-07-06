@@ -10,6 +10,7 @@ export const blogPostSchema = {
   mainImage: optionalValidation(stringValidation('Main Image')),
   category: stringValidation('Category'),
   tags: optionalValidation(arrayValidation('Tags')),
+  status: stringValidation('Status'),
 };
 
 export const searchSchema = {

@@ -6,6 +6,7 @@ import PostCategory from './PostCategory';
 import PostTitle from './PostTitle';
 import PostDescription from './PostDescription';
 import PostActionButtons from './PostActionButtons';
+import { truncateText } from '@/utils/helpers';
 
 const BlogPostCard = ({ post, layout = BLOG_LAYOUT.POST_LIST }) => {
   const HeroPost = ({ post }) => (
@@ -29,6 +30,7 @@ const BlogPostCard = ({ post, layout = BLOG_LAYOUT.POST_LIST }) => {
           <PostDate date={post.createdAt} />
           <PostCategory category={post.category} />
           <PostTitle slug={post.slug} title={post.title} />
+          <PostDescription description={truncateText(post.content)} />
           <PostActionButtons post={post} />
         </div>
       </article>

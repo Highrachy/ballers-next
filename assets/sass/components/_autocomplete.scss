@@ -85,7 +85,7 @@ $react-tags__tag_background: darken($gray-200, 4%);
 
     &:hover {
       color: $white;
-      background-color: $react-tags__border_focused;
+      background-color: $gray-800;
 
       &::after {
         background-color: $white;

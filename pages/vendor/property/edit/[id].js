@@ -5,7 +5,7 @@ import { useGetQuery } from '@/hooks/useQuery';
 import { API_ENDPOINT } from '@/utils/URL';
 import { ContentLoader } from '@/components/utils/LoadingItems';
 import { PropertyIcon } from '@/components/utils/Icons';
-import { NewPropertyForm } from '.';
+import { NewPropertyForm } from '../new';
 import { useToast } from '@/components/utils/Toast';
 import BackendPage from '@/components/layout/BackendPage';
 

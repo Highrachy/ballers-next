@@ -38,9 +38,10 @@ import {
   generateNumOptions,
   statusIsSuccessful,
   setAutoComplete,
-  getAutoComplete,
   objectToOptions,
   booleanOptions,
+  getAutoCompleteAsString,
+  getAutoCompleteAsArray,
 } from 'utils/helpers';
 import Address from 'components/utils/Address';
 import Select from 'components/forms/Select';
@@ -128,9 +129,7 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
       initialValues={{
         ...setInitialValues(newPropertySchema, {
           ...property,
-          features: property?.features
-            ? setAutoComplete(property?.features)
-            : setAutoComplete(DEFAULT_PROPERTY_FEATURES),
+          features: property?.features || DEFAULT_PROPERTY_FEATURES,
         }),
         address: setInitialValues(addressSchema, {
           ...property?.address,
@@ -148,7 +147,9 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
             image ||
             property?.mainImage ||
             `https://placehold.co/800x500/black/white?text=${values.name}`,
-          features: getAutoComplete(values.features),
+          titleDocument:
+            getAutoCompleteAsString(values.titleDocument) || 'None',
+          features: getAutoCompleteAsArray(values.features),
         };
 
         payload = location
@@ -369,13 +370,13 @@ const PropertyDetailsForm = () => {
               placeholder="Start Date"
             />
 
-            <Select
+            <AutoComplete
               name="titleDocument"
               optional
               placeholder="Title Document"
               label="Title Document"
               formGroupClassName="col-md-6"
-              options={valuesToOptions(TITLE_DOCUMENTS)}
+              suggestions={valuesToOptions(TITLE_DOCUMENTS)}
             />
           </div>
           <div className="form-row">

@@ -151,11 +151,11 @@ export const minDateValidation = (label, minDate) =>
 export const autocompleteValidation = (label, minSelection = 1) =>
   yup
     .array()
-    .min(minSelection, `Kindly select ${minSelection} or more items`)
+    .min(minSelection, `Kindly select ${minSelection} or more ${label}`)
     .of(
       yup.object().shape({
-        id: yup.number(),
-        name: yup.string().required(),
+        label: yup.string(),
+        value: yup.string(),
       })
     );
 

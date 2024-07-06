@@ -6,9 +6,9 @@ import {
   minDateValidation,
   required,
   optionalValidation,
-  autocompleteValidation,
   percentageValidation,
   requiredDate,
+  arrayValidation,
 } from './schema-helpers';
 
 export const newPropertySchema = {
@@ -21,8 +21,8 @@ export const newPropertySchema = {
   toilets: positiveNumberValidation('Toilets'),
   hasBQ: optionalValidation(required('Has BQ')),
   description: stringValidation('Description'),
-  titleDocument: optionalValidation(required('Title Document')),
-  features: optionalValidation(autocompleteValidation('Available for')),
+  titleDocument: optionalValidation(arrayValidation('Title Document')),
+  features: optionalValidation(arrayValidation('Available for')),
   pricingModel: optionalValidation(required('Pricing Model')),
   projectStartDate: requiredDate('Project Start Date'),
   deliveryState: optionalValidation(required('Delivery State')),

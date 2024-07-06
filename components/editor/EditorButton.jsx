@@ -36,6 +36,7 @@ const EditorButton = ({
       className={`btn btn-tiptap ${isActive ? 'active' : ''}`}
       aria-pressed={isActive}
       tabIndex="0"
+      type="button"
       title={title}
       {...props}
     >

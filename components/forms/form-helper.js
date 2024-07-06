@@ -86,7 +86,7 @@ FeedbackMessage.defaultProps = {
 };
 
 export const HelpText = ({ name, text }) => (
-  <small className="form-text text-muted" id={`${name}-help-block`}>
+  <small className="form-text" id={`${name}-help-block`}>
     {text}
   </small>
 );

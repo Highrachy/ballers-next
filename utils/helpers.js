@@ -128,9 +128,32 @@ export const generateBudgetOptions = (options) => {
 };
 
 export const setAutoComplete = (lists) => valuesToOptions(lists);
-export const getAutoComplete = (lists) => lists.map(({ value }) => value);
+
+export const getAutoComplete = (lists) => {
+  if (
+    Array.isArray(lists) &&
+    lists.length > 0 &&
+    typeof lists[0] === 'object'
+  ) {
+    return lists.map(({ value }) => value);
+  }
+  return lists;
+};
+export const getAutoCompleteAsArray = (lists) => getAutoComplete(lists);
+export const getAutoCompleteAsString = (lists) => {
+  if (Array.isArray(lists) && lists.length > 0) {
+    if (typeof lists[0] === 'object') {
+      return lists.map(({ value }) => value).join(', ');
+    }
+    if (typeof lists[0] === 'string') {
+      return lists.join(', ');
+    }
+  }
+  return Array.isArray(lists) ? '' : lists;
+};
 
 export const valuesToOptions = (values, defaultLabel = null) => {
+  if (!values) return null;
   const output = values.map((value) => ({
     value: value.toString(),
     label: Humanize.titleCase(value.toString()),
@@ -401,4 +424,13 @@ export const convertCommaStringToArray = (commaString) => {
     .split(',')
     .map((string) => string.trim())
     .filter((string) => string.length > 0);
+};
+
+export const truncateText = (htmlString, maxLength = 150) => {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString, 'text/html');
+  const textContent = doc.body.textContent || '';
+  return textContent.length > maxLength
+    ? textContent.slice(0, maxLength) + '...'
+    : textContent;
 };

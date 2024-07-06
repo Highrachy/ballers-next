@@ -63,14 +63,37 @@
   }
 }
 
+.grid-post {
+  .post-thumbnail img {
+    width: 100%;
+    height: 260px; /* Ensure images have the same height */
+    object-fit: cover;
+  }
+}
+
 .post-category {
   font-size: 0.875rem;
   color: #717171;
 }
 
 .post-title {
-  font-size: 1.25rem;
-  line-height: 1.5;
+  font-size: 1.15rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 8px 0;
+  line-height: 1.4;
+  height: 1.4em; /* Ensure it doesn't exceed 1 lines */
+}
+
+.post-description {
+  line-height: 1.8;
+  height: 5.4em; /* Ensure it doesn't exceed 3 lines */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2rem;
 }
 
 .post-description {

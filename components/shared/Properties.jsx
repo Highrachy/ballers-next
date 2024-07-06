@@ -235,7 +235,7 @@ export const PropertiesList = ({ setToast = () => {}, property, ...props }) => {
               {useCurrentRole().isVendor && (
                 <>
                   <Button
-                    href={`/${userType}/property/new/${_id}`}
+                    href={`/${userType}/property/edit/${_id}`}
                     color="info-light"
                     wide
                     className="btn-sm me-3 mb-3"

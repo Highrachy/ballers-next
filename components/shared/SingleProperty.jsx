@@ -715,7 +715,7 @@ const ManagePropertyLink = ({ property, setToast, setProperty }) => (
       </a>
     </Link>
     <LinkSeparator />
-    <Link href={`/vendor/property/new/${property._id}`}>
+    <Link href={`/vendor/property/edit/${property._id}`}>
       <a className="text-link text-muted">Edit Property</a>
     </Link>
     <LinkSeparator />

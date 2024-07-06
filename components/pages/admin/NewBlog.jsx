@@ -11,11 +11,7 @@ import {
 import Button from 'components/forms/Button';
 import { Formik, Form, useFormikContext } from 'formik';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
-import {
-  ALL_PROPERTY_FEATURES,
-  BASE_API_URL,
-  BLOG_STATUS,
-} from 'utils/constants';
+import { BASE_API_URL, BLOG_STATUS, BLOG_TAGS } from 'utils/constants';
 import { getTokenFromStore } from 'utils/localStorage';
 import Select from 'components/forms/Select';
 import { useGetQuery } from 'hooks/useQuery';
@@ -26,11 +22,10 @@ import { setQueryCache } from 'hooks/useQuery';
 import { refreshQuery } from 'hooks/useQuery';
 import {
   arrayToOptions,
-  convertCommaStringToArray,
-  getAutoComplete,
+  getAutoCompleteAsArray,
   getError,
-  setAutoComplete,
   statusIsSuccessful,
+  valuesToOptions,
 } from 'utils/helpers';
 import { blogPostSchema } from '@/components/forms/schemas/blogSchema';
 import Editor from '@/components/forms/Editor';
@@ -64,12 +59,15 @@ export const NewBlogForm = ({ blog = null, toast, setToast }) => {
     <Formik
       enableReinitialize={true}
       initialValues={{
-        ...setInitialValues(blogPostSchema, blog),
+        ...setInitialValues(blogPostSchema, {
+          status: BLOG_STATUS.DRAFT,
+          ...blog,
+        }),
       }}
       onSubmit={(values, actions) => {
         const payload = {
           ...values,
-          tags: getAutoComplete(values.tags),
+          tags: getAutoCompleteAsArray(values.tags),
         };
         Axios({
           method: blog?._id ? 'put' : 'post',
@@ -133,8 +131,6 @@ const EditBlogForm = ({ id, toast, setToast }) => {
     refresh: true,
   });
 
-  console.log('blogQuery', blog);
-
   return (
     <ContentLoader
       hasContent={!!blog}
@@ -143,7 +139,6 @@ const EditBlogForm = ({ id, toast, setToast }) => {
       name="Blog"
       toast={toast}
     >
-      <h2>T3wt</h2>
       <NewBlogForm blog={blog} toast={toast} setToast={setToast} />
     </ContentLoader>
   );
@@ -163,6 +158,31 @@ const BlogInfoForm = ({ categories }) => {
           <h5 className="mb-4">Blog Information</h5>
           <Input label="Title" name="title" placeholder="Blog Title" />
           <Editor name="content" placeholder="Blog Content" label="Content" />
+          <div className="form-row">
+            <Select
+              label="Status"
+              name="status"
+              options={arrayToOptions(Object.values(BLOG_STATUS))}
+              formGroupClassName="col-md-6"
+            />
+            {isInput ? (
+              <Input
+                label="Category"
+                formGroupClassName="col-md-6"
+                name="category"
+                placeholder="Category"
+                labelLink={{ onClick: handleToggle, text: 'Switch to select' }}
+              />
+            ) : (
+              <Select
+                formGroupClassName="col-md-6"
+                label="Category"
+                name="category"
+                options={arrayToOptions(categories)}
+                labelLink={{ onClick: handleToggle, text: 'Switch to input' }}
+              />
+            )}
+          </div>
           <Upload
             label="Upload blog image"
             changeText="Update Picture"
@@ -171,33 +191,15 @@ const BlogInfoForm = ({ categories }) => {
               className: 'mb-3 img-xxl',
             }}
             name="mainImage"
+            optional
             uploadText={`Upload Blog Image`}
             folder={'blog'}
           />
-          <Select
-            label="Status"
-            name="status"
-            options={arrayToOptions(Object.values(BLOG_STATUS))}
-          />
-          {isInput ? (
-            <Input
-              label="Category"
-              name="category"
-              placeholder="Category"
-              labelLink={{ onClick: handleToggle, text: 'Switch to select' }}
-            />
-          ) : (
-            <Select
-              label="Category"
-              name="category"
-              options={arrayToOptions(categories)}
-              labelLink={{ onClick: handleToggle, text: 'Switch to input' }}
-            />
-          )}
+
           <AutoComplete
             name="tags"
             label="Tags"
-            suggestions={setAutoComplete(ALL_PROPERTY_FEATURES)}
+            suggestions={valuesToOptions(BLOG_TAGS)}
           />
         </div>
       </section>

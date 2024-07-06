@@ -6,8 +6,10 @@ import { BASE_API_URL, BLOG_STATUS } from '@/utils/constants';
 import Axios from 'axios';
 import { getTokenFromStore } from '@/utils/localStorage';
 import { getError } from '@/utils/helpers';
+import { useCurrentRole } from '@/hooks/useUser';
 
 const PostActionButtons = ({ post }) => {
+  const isAdmin = useCurrentRole().isAdmin;
   const [showPublishModal, setShowPublishModal] = useState(false);
 
   return (
@@ -15,19 +17,21 @@ const PostActionButtons = ({ post }) => {
       <Button wide color="secondary-light" className={'me-3'}>
         View
       </Button>
-      <DropdownButton
-        wide
-        color="info-light"
-        dropdownItems={[
-          { text: 'Edit', href: `/admin/dashboard` },
-          {
-            text: 'Mark as Publish',
-            onClick: () => setShowPublishModal(true),
-          },
-        ]}
-      >
-        Manage
-      </DropdownButton>
+      {isAdmin && (
+        <DropdownButton
+          wide
+          color="info-light"
+          dropdownItems={[
+            { text: 'Edit', href: `/admin/blog/edit/${post._id}` },
+            {
+              text: 'Mark as Publish',
+              onClick: () => setShowPublishModal(true),
+            },
+          ]}
+        >
+          Manage
+        </DropdownButton>
+      )}
       <PublishPostModal
         post={post}
         showPublishModal={showPublishModal}
