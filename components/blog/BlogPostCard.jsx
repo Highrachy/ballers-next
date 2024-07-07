@@ -7,68 +7,45 @@ import PostTitle from './PostTitle';
 import PostDescription from './PostDescription';
 import PostActionButtons from './PostActionButtons';
 import { truncateText } from '@/utils/helpers';
+import { useCurrentRole } from '@/hooks/useUser';
 
-const BlogPostCard = ({ post, layout = BLOG_LAYOUT.POST_LIST }) => {
-  const HeroPost = ({ post }) => (
-    <article className="post hero-post d-flex flex-column align-items-start mb-3">
+const BlogPostCard = ({ post, isPublic = false, setToast = () => {} }) => {
+  const isAdmin = useCurrentRole().isAdmin;
+
+  const BlogContent = ({ post }) => (
+    <>
       <PostImage src={post.mainImage} alt={post.title} />
       <div className="post-content">
         <PostDate date={post.createdAt} />
-        <PostCategory category={post.category} />
+        <PostCategory {...post} isAdmin={isAdmin} />
         <PostTitle slug={post.slug} title={post.title} />
-        <PostDescription description={post.content} />
-        <PostActionButtons post={post} />
+        <PostDescription description={truncateText(post.content)} />
+        <PostActionButtons
+          post={post}
+          setToast={setToast}
+          isAdmin={isAdmin}
+          isPublic={isPublic}
+        />
       </div>
+    </>
+  );
+
+  const HeroPost = ({ post }) => (
+    <article className="mb-3 post hero-post d-flex flex-column align-items-start">
+      <BlogContent post={post} />
     </article>
   );
 
   const PostGrid = ({ post }) => (
-    <div className="col-lg-4 col-md-6 mb-4">
+    <div className="mb-4 col-lg-4 col-md-6">
       <article className="post grid-post">
-        <PostImage src={post.mainImage} alt={post.title} />
-        <div className="post-content">
-          <PostDate date={post.createdAt} />
-          <PostCategory category={post.category} />
-          <PostTitle slug={post.slug} title={post.title} />
-          <PostDescription description={truncateText(post.content)} />
-          <PostActionButtons post={post} />
-        </div>
+        <BlogContent post={post} />
       </article>
     </div>
   );
 
-  const PostList = ({ post }) => <PostGrid post={post} />;
-
-  // const PostList = ({ post }) => (
-  //   <article className="post list-post d-flex align-items-center mb-4">
-  //     <div className="position-relative flex-shrink-0 me-3">
-  //       <PostImage post={post} />
-  //       <PostDate date={post.createdAt} />
-  //     </div>
-  //     <div className="post-content flex-grow-1 p-4">
-  //       <PostCategory category={post.category} />
-  //       <PostTitle slug={post.slug} title={post.title} />
-  //       <PostDescription description={post.content} />
-  //       <PostActionButtons name={post.slug} />
-  //     </div>
-  //   </article>
-  // );
-
-  switch (layout) {
-    case BLOG_LAYOUT.HERO_POST:
-      return <HeroPost post={post} />;
-    case BLOG_LAYOUT.POST_GRID:
-      return <PostGrid post={post} />;
-
-    default:
-      return <PostList post={post} />;
-  }
-};
-
-export const BLOG_LAYOUT = {
-  HERO_POST: 'HeroPost',
-  POST_GRID: 'PostGrid',
-  POST_LIST: 'PostList',
+  if (isPublic) return <HeroPost post={post} />;
+  else return <PostGrid post={post} />;
 };
 
 BlogPostCard.propTypes = {
@@ -81,7 +58,7 @@ BlogPostCard.propTypes = {
     mainImage: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
   }).isRequired,
-  layout: PropTypes.oneOf(['HeroPost', 'PostGrid', 'PostListFull']).isRequired,
+  isPublic: PropTypes.bool,
 };
 
 export default BlogPostCard;

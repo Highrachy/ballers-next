@@ -8,39 +8,44 @@ import { getTokenFromStore } from '@/utils/localStorage';
 import { getError } from '@/utils/helpers';
 import { useCurrentRole } from '@/hooks/useUser';
 
-const PostActionButtons = ({ post }) => {
-  const isAdmin = useCurrentRole().isAdmin;
+const PostActionButtons = ({ post, setToast, isAdmin, isPublic }) => {
   const [showPublishModal, setShowPublishModal] = useState(false);
 
   return (
     <section className="mt-3 d-flex">
-      <Button wide color="secondary-light" className={'me-3'}>
+      <Button wide color="secondary-light" href={`/posts/${post.slug}`}>
         View
       </Button>
-      {isAdmin && (
-        <DropdownButton
-          wide
-          color="info-light"
-          dropdownItems={[
-            { text: 'Edit', href: `/admin/blog/edit/${post._id}` },
-            {
-              text: 'Mark as Publish',
-              onClick: () => setShowPublishModal(true),
-            },
-          ]}
-        >
-          Manage
-        </DropdownButton>
+      {!isPublic && isAdmin && (
+        <>
+          <DropdownButton
+            wide
+            className="ms-2"
+            color="info-light"
+            dropdownItems={[
+              { text: 'Edit', href: `/admin/blog/edit/${post._id}` },
+              {
+                text:
+                  post.status === BLOG_STATUS.PUBLISHED
+                    ? 'Convert to Draft'
+                    : 'Publish Post',
+                onClick: () => setShowPublishModal(true),
+              },
+            ]}
+          >
+            Manage
+          </DropdownButton>
+          <PublishPostModal
+            post={post}
+            showPublishModal={showPublishModal}
+            setShowPublishModal={setShowPublishModal}
+            setToast={setToast}
+          />
+        </>
       )}
-      <PublishPostModal
-        post={post}
-        showPublishModal={showPublishModal}
-        setShowPublishModal={setShowPublishModal}
-      />
     </section>
   );
 };
-
 const PublishPostModal = ({
   post,
   showPublishModal,
@@ -49,8 +54,12 @@ const PublishPostModal = ({
 }) => {
   const [loading, setLoading] = useState(false);
 
-  const publishBlog = () => {
-    const payload = { status: BLOG_STATUS.PUBLISHED };
+  const isPublished = post?.status === BLOG_STATUS.PUBLISHED;
+
+  const updateBlogStatus = () => {
+    const payload = {
+      status: isPublished ? BLOG_STATUS.DRAFT : BLOG_STATUS.PUBLISHED,
+    };
     setLoading(true);
 
     Axios.put(`${BASE_API_URL}/blog/${post?._id}`, payload, {
@@ -60,10 +69,12 @@ const PublishPostModal = ({
         const { status } = response;
         if (status === 200) {
           setToast({
-            message: 'Blog post has been successfully published',
+            message: `Blog post has been successfully ${
+              isPublished ? 'saved as draft' : 'published'
+            }`,
             type: 'success',
           });
-          setShowAcceptModal(false);
+          setShowPublishModal(false);
         }
         setLoading(false);
       })
@@ -74,21 +85,23 @@ const PublishPostModal = ({
         setLoading(false);
       });
   };
+
   return (
     <Modal
-      title="Publish Blog Post"
+      title={isPublished ? 'Save Blog Post as Draft' : 'Publish Blog Post'}
       show={showPublishModal}
       onHide={() => setShowPublishModal(false)}
       showFooter={false}
     >
       <section className="row">
-        <div className="col-md-12 my-3 text-center">
-          <p className="my-4 mx-3 confirmation-text fw-bold">
-            Are you sure you want to publish this post:
-            <span className="text-primary">{post?.title}</span>
+        <div className="my-3 text-center col-md-12">
+          <p className="mx-3 my-4 confirmation-text fw-bold">
+            Are you sure you want to{' '}
+            {isPublished ? 'convert this to draft' : 'publish post'} this post:
+            <span className="text-primary"> {post?.title}</span>
           </p>
-          <Button className="btn btn-danger mb-5" onClick={publishBlog}>
-            Publish Blog Post
+          <Button className="mb-5 btn btn-danger" onClick={updateBlogStatus}>
+            {isPublished ? 'Convert to Draft' : 'Publish Post'} Blog Post
           </Button>
         </div>
       </section>

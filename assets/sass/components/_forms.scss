@@ -48,10 +48,9 @@ label {
 }
 
 .optional-form-field {
-  float: right;
   font-size: 0.75rem;
   padding-top: 0.25rem;
-  color: $text-muted;
+  color: $text-soft;
 }
 
 .form-row .form-group {
@@ -172,4 +171,8 @@ label {
 .form-switch .form-check-label {
   font-size: 0.75rem;
   padding-top: 0.25rem;
+}
+
+.form-group.mb-4 {
+  margin-bottom: 3rem !important;
 }

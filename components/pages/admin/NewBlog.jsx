@@ -171,7 +171,7 @@ const BlogInfoForm = ({ categories }) => {
                 formGroupClassName="col-md-6"
                 name="category"
                 placeholder="Category"
-                labelLink={{ onClick: handleToggle, text: 'Switch to select' }}
+                labelLink={{ onClick: handleToggle, text: 'Select Existing' }}
               />
             ) : (
               <Select
@@ -179,7 +179,10 @@ const BlogInfoForm = ({ categories }) => {
                 label="Category"
                 name="category"
                 options={arrayToOptions(categories)}
-                labelLink={{ onClick: handleToggle, text: 'Switch to input' }}
+                labelLink={{
+                  onClick: handleToggle,
+                  text: 'Enter a New Category',
+                }}
               />
             )}
           </div>

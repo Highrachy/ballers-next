@@ -6,37 +6,44 @@ import TitleSection from 'components/common/TitleSection';
 import { API_ENDPOINT } from 'utils/URL';
 import Axios from 'axios';
 import BlogPostCard from '@/components/blog/BlogPostCard';
+import BlogSidebar from '@/components/blog/BlogSidebar';
 
-const Blog = ({ result }) => {
+const Blog = ({ result, categories }) => {
+  const heroPost = result[0]?.node;
+  const morePosts = result.slice(1);
   return (
     <>
       <Header />
       <TitleSection
         name="Blog"
-        content="The only realistic burden free process of owning your ideal home."
+        content="Unlocking the Pathway to Homeownership: Explore, Engage, and Empower with BALL."
       />
-      <BlogList result={result} />
+      <BlogContainer categories={categories}>
+        <BlogList result={result} />
+      </BlogContainer>
       <CommunityGallery />
       <Footer />
     </>
   );
 };
 
+export const BlogContainer = ({ categories, children }) => (
+  <section className="py-6 px-7 container-fluid">
+    <div className="row">
+      <div className="col-lg-8 col-sm-12">{children}</div>
+      <BlogSidebar categories={categories} />
+    </div>
+  </section>
+);
+
 export const BlogList = ({ result }) => {
   return result && result.length > 0 ? (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col">
-          <h3 className="mt-7 mb-4">Blog</h3>
-        </div>
-      </div>
-      <div className="row">
-        {result.map((post, index) => (
-          <BlogPostCard key={index} post={post} />
-        ))}
-      </div>
-    </div>
-  ) : null;
+    result.map((post, index) => (
+      <BlogPostCard key={index} post={post} isPublic />
+    ))
+  ) : (
+    <h3 className="mt-5 text-center">No Blog Found</h3>
+  );
 };
 
 export async function getStaticProps() {

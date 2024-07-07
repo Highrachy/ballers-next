@@ -230,8 +230,9 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
             setLocation={setLocation}
             // mapAddress={getLocationFromAddress(props.values.address)}
           /> */}
+          <PropertyCompliance />
           <Button
-            className="btn-secondary mt-4"
+            className="mt-4 btn-secondary"
             loading={isSubmitting}
             onClick={handleSubmit}
           >
@@ -254,7 +255,7 @@ export const PropertyInfoForm = (props) => {
     <>
       <Card className="card-container">
         <section className="row">
-          <div className="col-md-10 px-4">
+          <div className="px-4 col-md-10">
             <h5 className="mb-4">Property Information</h5>
             <Input
               label="Property Name"
@@ -341,9 +342,9 @@ export const PropertyInfoForm = (props) => {
 
 const PropertyDetailsForm = () => {
   return (
-    <Card className="card-container mt-5">
+    <Card className="mt-5 card-container">
       <section className="row">
-        <div className="col-md-10 px-4">
+        <div className="px-4 col-md-10">
           <h5 className="mb-4">Property Details</h5>
           <div className="form-row">
             <InputFormat
@@ -413,9 +414,9 @@ const PropertyDescription = () => {
     React.useState(false);
 
   return (
-    <Card className="card-container mt-5">
+    <Card className="mt-5 card-container">
       <section className="row">
-        <div className="col-md-10 px-4">
+        <div className="px-4 col-md-10">
           <h5 className="mb-4">Property Description</h5>
           <MdEditor
             label="Description"
@@ -432,7 +433,7 @@ const PropertyDescription = () => {
               Autogenerate
             </Button>
           ) : (
-            <div className="text-muted text-sm mt-n2">
+            <div className="text-sm text-muted mt-n2">
               Please fill in the required fields to enable the auto generate a
               description button
             </div>
@@ -446,7 +447,7 @@ const PropertyDescription = () => {
           showFooter={false}
         >
           <section className="row">
-            <div className="col-md-12 my-3 px-5 text-center">
+            <div className="px-5 my-3 text-center col-md-12">
               <p className="my-4 confirmation-text">
                 {values?.description ? (
                   <div className="text-danger">
@@ -480,9 +481,9 @@ const PropertyDescription = () => {
 };
 
 export const PropertyImage = ({ setImage, oldImage }) => (
-  <Card className="card-container mt-5">
+  <Card className="mt-5 card-container">
     <section className="row">
-      <div className="col-md-10 px-4">
+      <div className="px-4 col-md-10">
         <h5 className="mb-4">Property Image</h5>
         <div className="my-4">
           <Upload
@@ -501,7 +502,7 @@ export const PropertyImage = ({ setImage, oldImage }) => (
 );
 
 export const PropertyAddress = () => (
-  <Card className="card-container mt-5">
+  <Card className="mt-5 card-container">
     <section className="row">
       <div className="col-md-10">
         <h5>Address</h5>
@@ -511,5 +512,70 @@ export const PropertyAddress = () => (
     </section>
   </Card>
 );
+
+export const PropertyCompliance = () => {
+  const { values, setFieldValue } = useFormikContext();
+
+  return (
+    <Card className="mt-5 card-container">
+      <section className="row">
+        <div className="px-4 col-md-10">
+          <h5 className="mb-4">Compliance Information</h5>
+          <Select
+            label="Location"
+            name="compliance.location"
+            placeholder="Select Location Accessibility"
+            options={locationOptions}
+          />
+          <div className="form-group">
+            <label>Does the property have a registered title?</label>
+            <div className="d-flex align-items-center">
+              <input
+                type="checkbox"
+                name="compliance.registeredTitle"
+                checked={values.compliance.registeredTitle}
+                onChange={(e) =>
+                  setFieldValue('compliance.registeredTitle', e.target.checked)
+                }
+                className="mr-2"
+              />
+              <span>{values.compliance.registeredTitle ? 'Yes' : 'No'}</span>
+            </div>
+          </div>
+          {values.compliance.registeredTitle && (
+            <Upload
+              label="Upload Registered Document"
+              name="compliance.registeredDocument1"
+              placeholder="Upload Document"
+              changeText="Update Registered Document"
+              uploadText="Upload Registered Document"
+            />
+          )}
+          <Select
+            label="Building Approval Status"
+            name="compliance.buildingApprovalStatus"
+            placeholder="Select Building Approval Status"
+            options={approvalStatusOptions}
+          />
+          {values.compliance.buildingApprovalStatus ===
+            'completed_processing' && (
+            <Upload
+              label="Upload Building Approval Document"
+              name="compliance.registeredDocument2"
+              placeholder="Upload Document"
+              changeText="Update Building Approval Document"
+              uploadText="Upload Building Approval Document"
+            />
+          )}
+          <Input
+            label="Building Approval Number"
+            name="compliance.buildingApprovalNumber"
+            placeholder="Building Approval Number"
+          />
+        </div>
+      </section>
+    </Card>
+  );
+};
 
 export default PropertyForm;

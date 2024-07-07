@@ -74,6 +74,7 @@ export const API_ENDPOINT = {
   getDashboardInfo: () => `${BASE_API_URL}/user/dashboard`,
 
   getOneBlog: (id) => `${BASE_API_URL}/blog/${id}`,
+  getOnePostBySlug: (slug) => `${BASE_API_URL}/blog/slug/${slug}`,
   getAllBlogs: () => `${BASE_API_URL}/blog`,
   getAllCategories: () => `${BASE_API_URL}/blog/categories`,
 };

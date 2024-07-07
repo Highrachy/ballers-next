@@ -20,7 +20,7 @@ const BlogPosts = () => {
   );
 };
 
-const BlogPostsRowList = ({ results }) => {
+const BlogPostsRowList = ({ results, setToast }) => {
   return (
     <div className="container-fluid">
       <div className="row">
@@ -29,6 +29,7 @@ const BlogPostsRowList = ({ results }) => {
             key={index}
             post={post}
             layout={BLOG_LAYOUT.POST_LIST}
+            setToast={setToast}
           />
         ))}
       </div>

@@ -427,10 +427,5 @@ export const convertCommaStringToArray = (commaString) => {
 };
 
 export const truncateText = (htmlString, maxLength = 150) => {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(htmlString, 'text/html');
-  const textContent = doc.body.textContent || '';
-  return textContent.length > maxLength
-    ? textContent.slice(0, maxLength) + '...'
-    : textContent;
+  return htmlString.replace(/<\/?[^>]+(>|$)/g, '');
 };

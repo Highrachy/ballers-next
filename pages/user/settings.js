@@ -76,7 +76,7 @@ const Settings = ({ availableOptions }) => {
         title="Settings"
         subtitle="Personalize your experience and manage your account settings with ease"
       />
-      <section className="container-fluid mt-5">
+      <section className="mt-5 container-fluid">
         <Tabs
           id={`tab-settings`}
           activeKey={key}
@@ -199,7 +199,7 @@ const ProfileForm = () => {
               <Address />
               <Button
                 color="secondary"
-                className="btn-secondary mt-4"
+                className="mt-4 btn-secondary"
                 loading={isSubmitting}
                 onClick={handleSubmit}
               >
@@ -313,7 +313,7 @@ const PropertyPreferenceForm = ({ availableOptions }) => {
               </div>
 
               <Button
-                className="btn-secondary mt-4"
+                className="mt-4 btn-secondary"
                 loading={isSubmitting}
                 onClick={handleSubmit}
               >
@@ -387,7 +387,7 @@ export const ChangePasswordForm = () => {
                 type="password"
               />
               <Button
-                className="btn-danger btn-wide btn-transparent mt-3"
+                className="mt-3 btn-danger btn-wide btn-transparent"
                 loading={isSubmitting}
                 onClick={handleSubmit}
               >
@@ -467,7 +467,7 @@ const BankInformationForm = () => {
               </div>
 
               <Button
-                className="btn-secondary mt-4"
+                className="mt-4 btn-secondary"
                 loading={isSubmitting}
                 onClick={handleSubmit}
               >
@@ -484,7 +484,6 @@ const BankInformationForm = () => {
 
 export async function getStaticProps() {
   const options = await axios.get(`${BASE_API_URL}/property/available-options`);
-  console.log('options', options);
 
   return {
     props: {

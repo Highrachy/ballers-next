@@ -5,7 +5,7 @@ import Image from 'next/image';
 const PostImage = ({ src, alt, url }) => (
   <div className="post-thumbnail">
     {/* eslint-disable-next-line @next/next/no-img-element */}
-    <img src={src} className="img-fluid" alt={alt} />
+    <img src={src} className="img-fluid img-cover" alt={alt} />
   </div>
 );
 
