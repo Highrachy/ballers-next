@@ -109,7 +109,7 @@ export const NewBlogForm = ({ blog = null, toast, setToast }) => {
           <Toast {...toast} />
           <BlogInfoForm categories={categories || []} {...props} />
           <Button
-            className="btn-secondary mt-4"
+            className="mt-4 btn-secondary"
             loading={isSubmitting}
             onClick={handleSubmit}
           >
@@ -154,7 +154,7 @@ const BlogInfoForm = ({ categories }) => {
   return (
     <Card className="card-container">
       <section className="row">
-        <div className="col-md-10 px-4">
+        <div className="px-4 col-md-10">
           <h5 className="mb-4">Blog Information</h5>
           <Input label="Title" name="title" placeholder="Blog Title" />
           <Editor name="content" placeholder="Blog Content" label="Content" />
@@ -189,7 +189,6 @@ const BlogInfoForm = ({ categories }) => {
           <Upload
             label="Upload blog image"
             changeText="Update Picture"
-            defaultImage={userState?.vendor?.companyLogo}
             imgOptions={{
               className: 'mb-3 img-xxl',
             }}

@@ -11,6 +11,7 @@ import Label from './Label';
 import { FiUploadCloud } from 'react-icons/fi';
 import Image from 'components/utils/Image';
 import BallersSpinner from 'components/utils/BallersSpinner';
+import { getIn } from 'formik';
 
 // https://blog.devgenius.io/upload-files-to-amazon-s3-from-a-react-frontend-fbd8f0b26f5
 
@@ -137,10 +138,12 @@ const Upload = ({
     }
   };
 
-  const formikImage = formikProps?.values?.[name];
+  const formikImage = getIn(formikProps?.values, name);
   const currentImage = formikProps ? formikImage : uploadedFile;
   const inputHasAnImage = !!currentImage || !!defaultImage;
   const hasUploadedFile = !!currentImage || !!oldImage;
+
+  console.log('currentImage', currentImage);
 
   const supportedFormats = allowedFormats.map((extension) => '.' + extension);
   const helpText = `Supported Formats: ${Humanize.oxford(
@@ -178,7 +181,7 @@ const Upload = ({
               {...imgOptions}
             />
           ))}
-        <div className="custom-file-upload mt-3">
+        <div className="mt-3 custom-file-upload">
           <input
             type="file"
             id={id}
@@ -204,7 +207,7 @@ const Upload = ({
             )}
           </label>
           {progress > 0 && progress < 100 && (
-            <div className="progress mt-2" style={{ height: '10px' }}>
+            <div className="mt-2 progress" style={{ height: '10px' }}>
               <div
                 className="progress-bar progress-bar-striped bg-success"
                 role="progressbar"

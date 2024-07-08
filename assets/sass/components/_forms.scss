@@ -24,10 +24,6 @@ label {
   font-size: 0.9rem;
   color: $gray-700;
 
-  @include media-breakpoint-up(sm) {
-    font-size: 0.8rem;
-  }
-
   display: block;
 }
 

@@ -29,7 +29,10 @@ import {
   storePropertyImage,
   getPropertyImage,
 } from 'utils/localStorage';
-import { newPropertySchema } from 'components/forms/schemas/propertySchema';
+import {
+  complianceSchema,
+  newPropertySchema,
+} from 'components/forms/schemas/propertySchema';
 import InputFormat from 'components/forms/InputFormat';
 import {
   getError,
@@ -46,7 +49,7 @@ import {
 import Address from 'components/utils/Address';
 import Select from 'components/forms/Select';
 import MapLocation from 'components/utils/MapLocation';
-import Upload from 'components/utils/Upload';
+import Upload from '@/components/forms/UploadFormik';
 import { useRouter } from 'next/router';
 import AutoComplete from 'components/forms/AutoComplete';
 import { useGetQuery } from 'hooks/useQuery';
@@ -65,6 +68,7 @@ import DatePicker from 'components/forms/DatePicker';
 import MdEditor from '@/components/forms/MdEditor';
 import helpGuide from '@/data/docs/vip-accounts/add-property-listings-vip.json';
 import { HelpBox } from '@/components/dashboard/HelpBox';
+import Textarea from '@/components/forms/Textarea';
 
 const pageOptions = {
   key: 'property',
@@ -134,6 +138,15 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
         address: setInitialValues(addressSchema, {
           ...property?.address,
           country: 'Nigeria',
+        }),
+        compliance: setInitialValues(complianceSchema, {
+          location: '',
+          registeredTitle: '',
+          buildingApprovalStatus: '',
+          buildingApprovalNumber: '',
+          registeredDocument1: '',
+          registeredDocument2: '',
+          ...property?.compliance,
         }),
       }}
       onSubmit={(values, actions) => {
@@ -213,6 +226,7 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
       validationSchema={createSchema({
         ...newPropertySchema,
         address: createSchema(addressSchema),
+        compliance: createSchema(complianceSchema),
       })}
     >
       {({ isSubmitting, handleSubmit, ...props }) => (
@@ -418,10 +432,11 @@ const PropertyDescription = () => {
       <section className="row">
         <div className="px-4 col-md-10">
           <h5 className="mb-4">Property Description</h5>
-          <MdEditor
+          <Textarea
             label="Description"
             name="description"
             placeholder="A detailed description of the property"
+            rows={5}
           />
 
           {showGenerateButton ? (
@@ -494,6 +509,7 @@ export const PropertyImage = ({ setImage, oldImage }) => (
             name="property-image"
             oldImage={oldImage}
             uploadText={`Upload Property Image`}
+            folder={'company-image'}
           />
         </div>
       </div>
@@ -513,65 +529,113 @@ export const PropertyAddress = () => (
   </Card>
 );
 
-export const PropertyCompliance = () => {
-  const { values, setFieldValue } = useFormikContext();
+const PropertyCompliance = () => {
+  const { values } = useFormikContext();
 
   return (
     <Card className="mt-5 card-container">
       <section className="row">
         <div className="px-4 col-md-10">
-          <h5 className="mb-4">Compliance Information</h5>
-          <Select
-            label="Location"
-            name="compliance.location"
-            placeholder="Select Location Accessibility"
-            options={locationOptions}
-          />
-          <div className="form-group">
-            <label>Does the property have a registered title?</label>
-            <div className="d-flex align-items-center">
-              <input
-                type="checkbox"
-                name="compliance.registeredTitle"
-                checked={values.compliance.registeredTitle}
-                onChange={(e) =>
-                  setFieldValue('compliance.registeredTitle', e.target.checked)
-                }
-                className="mr-2"
-              />
-              <span>{values.compliance.registeredTitle ? 'Yes' : 'No'}</span>
-            </div>
+          <h5 className="mb-4">Property Verification</h5>
+
+          <div className="my-4 warning-alert">
+            <h5 className="header-smaller text-md">Note</h5>
+            This section is for <strong>internal use only</strong> and will not
+            be displayed to the buyers. This will be used in investigating and
+            approving your property.
           </div>
-          {values.compliance.registeredTitle && (
+
+          {/* Location Select Dropdown */}
+          <Select
+            label="Access to Property Location"
+            name="compliance.location"
+            optional
+            options={[
+              {
+                value: 'fully_accessible',
+                label: 'Fully Accessible by All Vehicles (Tiled Roads)',
+              },
+              {
+                value: 'partially_accessible',
+                label: 'Accessible by Some Vehicles Only (Motorable)',
+              },
+              {
+                value: 'not_accessible',
+                label: 'Not Accessible by Most Vehicles',
+              },
+            ]}
+          />
+
+          {/* Registered Title Select Dropdown */}
+          <Select
+            label="A copy of the Registered Title"
+            name="compliance.registeredTitle"
+            optional
+            options={[
+              {
+                value: 'Yes, the property has a registered title',
+                label: 'Yes, the property has a registered title',
+              },
+              {
+                value: 'The title document is currently being processed',
+                label: 'The title document is currently being processed',
+              },
+              {
+                value: 'No title document available yet',
+                label: 'No title document available yet',
+              },
+            ]}
+          />
+
+          {/* Conditional Rendering of Registered Document Upload */}
+          {values.compliance.registeredTitle ===
+            'Yes, the property has a registered title' && (
             <Upload
-              label="Upload Registered Document"
+              allowPdf
+              imgOptions={{
+                className: 'mb-3 img-sm',
+              }}
+              label="Registered Document"
               name="compliance.registeredDocument1"
-              placeholder="Upload Document"
-              changeText="Update Registered Document"
               uploadText="Upload Registered Document"
+              folder="registered-titles"
             />
           )}
+
+          {/* Building Approval Status Select Dropdown */}
           <Select
             label="Building Approval Status"
             name="compliance.buildingApprovalStatus"
-            placeholder="Select Building Approval Status"
-            options={approvalStatusOptions}
+            optional
+            options={[
+              { value: 'completed_processing', label: 'Completed Processing' },
+              { value: 'in_progress', label: 'Still in Progress' },
+              { value: 'not_started', label: 'Not Started' },
+            ]}
           />
+
+          {/* Conditional Rendering of Building Approval Details */}
           {values.compliance.buildingApprovalStatus ===
             'completed_processing' && (
-            <Upload
-              label="Upload Building Approval Document"
-              name="compliance.registeredDocument2"
-              placeholder="Upload Document"
-              changeText="Update Building Approval Document"
-              uploadText="Upload Building Approval Document"
-            />
+            <>
+              <Input
+                label="Building Approval Number"
+                name="compliance.buildingApprovalNumber"
+                placeholder="Building Approval Number"
+              />
+              <Upload
+                allowPdf
+                imgOptions={{
+                  className: 'mb-3 img-sm',
+                }}
+                label="Building Approval Document"
+                name="compliance.registeredDocument2"
+                uploadText="Upload Approval Document"
+                folder="approval-docs"
+                optional
+              />
+            </>
           )}
-          <Input
-            label="Building Approval Number"
-            name="compliance.buildingApprovalNumber"
-            placeholder="Building Approval Number"
-          />
         </div>
       </section>
     </Card>

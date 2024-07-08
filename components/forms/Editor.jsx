@@ -97,7 +97,7 @@ Editor.defaultProps = {
   label: null,
   labelClassName: null,
   labelLink: null,
-  menuType: EDITOR_MENU.LITE,
+  menuType: EDITOR_MENU.FULL,
   optional: false,
   placeholder: null,
   showFeedback: feedback.ALL,

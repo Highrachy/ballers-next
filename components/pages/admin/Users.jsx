@@ -133,7 +133,7 @@ const UsersRow = ({ number, ...user }) => {
         <span className="block-text-small">{user?.phone2 || '-'}</span>
       </td>
       <td>
-        <strong className="block-text-small font-bold">
+        <strong className="font-bold block-text-small">
           {Humanize.titleCase(DASHBOARD_PAGE[user?.role])}
         </strong>
         <span className="block-text-smaller">
@@ -359,7 +359,7 @@ const FilterForm = ({ setFilterTerms }) => {
           </section>
           <DisplayFormikState {...props} showAll />
           <Button
-            className="btn-secondary mt-4"
+            className="mt-4 btn-secondary"
             loading={isSubmitting}
             onClick={handleSubmit}
           >
@@ -384,7 +384,7 @@ const FastTrackVendorModal = ({
       showFooter={false}
     >
       <section className="row">
-        <div className="col-md-12 my-3">
+        <div className="my-3 col-md-12">
           <Formik
             initialValues={setInitialValues(fastTrackVendorSchema)}
             onSubmit={(values, actions) => {

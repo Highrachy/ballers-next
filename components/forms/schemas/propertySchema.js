@@ -10,6 +10,29 @@ import {
   requiredDate,
   arrayValidation,
 } from './schema-helpers';
+import * as Yup from 'yup';
+
+export const complianceSchema = {
+  location: Yup.string().nullable(),
+  registeredTitle: Yup.string().nullable(),
+  buildingApprovalStatus: Yup.string().nullable(),
+  buildingApprovalNumber: Yup.string().when('buildingApprovalStatus', {
+    is: (status) => status === 'completed_processing',
+    then: Yup.string().required('Building Approval Number is required'),
+    otherwise: Yup.string().nullable(),
+  }),
+  registeredDocument1: Yup.string().when('registeredTitle', {
+    is: 'Yes, the property has a registered title',
+    then: Yup.string().required('Registered Document is required'),
+    otherwise: Yup.string().nullable(),
+  }),
+  registeredDocument2: Yup.string().nullable(),
+  // registeredDocument2: Yup.string().when('buildingApprovalStatus', {
+  //   is: 'completed_processing',
+  //   then: Yup.string().required('Building Approval Document is required'),
+  //   otherwise: Yup.string().nullable(),
+  // }),
+};
 
 export const newPropertySchema = {
   name: stringValidation('Property Name'),

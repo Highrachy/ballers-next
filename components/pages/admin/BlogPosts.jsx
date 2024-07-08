@@ -3,7 +3,7 @@ import { API_ENDPOINT } from '@/utils/URL';
 import PaginatedContent from '@/components/common/PaginatedContent';
 import { BlogIcon } from '@/components/utils/Icons';
 import BackendPage from '@/components/layout/BackendPage';
-import BlogPostCard, { BLOG_LAYOUT } from '@/components/blog/BlogPostCard';
+import BlogPostCard from '@/components/blog/BlogPostCard';
 
 const BlogPosts = () => {
   return (
@@ -25,12 +25,7 @@ const BlogPostsRowList = ({ results, setToast }) => {
     <div className="container-fluid">
       <div className="row">
         {results.map((post, index) => (
-          <BlogPostCard
-            key={index}
-            post={post}
-            layout={BLOG_LAYOUT.POST_LIST}
-            setToast={setToast}
-          />
+          <BlogPostCard key={index} post={post} setToast={setToast} />
         ))}
       </div>
     </div>
