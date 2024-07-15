@@ -1,6 +1,6 @@
 import React from 'react';
 import BackendPage from 'components/layout/BackendPage';
-import { Card } from 'react-bootstrap';
+import { Card, Col, Row, Table } from 'react-bootstrap';
 import Map from 'components/common/Map';
 import {
   PRICING_MODEL,
@@ -13,6 +13,7 @@ import {
   moneyFormatInNaira,
   getLocationFromAddress,
   getPropertyHouseType,
+  convertUnderscoreToPhrase,
 } from 'utils/helpers';
 import Image, { OnlineImage } from 'components/utils/Image';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property.png';
@@ -219,11 +220,130 @@ export const OwnedPropertyCard = ({
       )}
 
       {isAdminOrVendor && (
+        <DisplayPropertyCompliance property={property} isVendor={isVendor} />
+      )}
+
+      {isAdminOrVendor && (
         <CaseHistory
           property={property}
           setToast={setToast}
           setProperty={setProperty}
         />
+      )}
+    </div>
+  );
+};
+const DisplayPropertyCompliance = ({ property, isVendor }) => {
+  return (
+    <div className="my-5">
+      <h5 className="mb-4">Property Verification</h5>
+
+      {isVendor && (
+        <div className="my-4 warning-alert">
+          <h5 className="header-smaller text-md">For Internal Use Only</h5>
+          This section helps us investigate and approve your property, and
+          won&apos;t be shown to buyers.
+        </div>
+      )}
+      <Card>
+        <Table striped bordered hover>
+          <tbody>
+            {/* Accessibility to Property Location */}
+            <tr>
+              <td>
+                <strong>Accessibility to Property Location:</strong>
+              </td>
+              <td>
+                {convertUnderscoreToPhrase(property?.compliance?.location)}
+              </td>
+            </tr>
+
+            {/* Availability of Registered Title */}
+            <tr>
+              <td>
+                <strong>Availability of Registered Title:</strong>
+              </td>
+              <td>
+                {convertUnderscoreToPhrase(
+                  property?.compliance?.registeredTitle
+                )}
+              </td>
+            </tr>
+
+            {/* Registered Document */}
+            {property?.compliance?.registeredTitle ===
+              'Yes, the property has a registered title document' && (
+              <tr>
+                <td>
+                  <strong>Registered Document:</strong>
+                </td>
+                <td>
+                  <a
+                    href={property?.compliance?.registeredDocument1}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Document
+                  </a>
+                </td>
+              </tr>
+            )}
+
+            {/* Building Approval Status */}
+            <tr>
+              <td>
+                <strong>Building Approval Status:</strong>
+              </td>
+              <td>
+                {convertUnderscoreToPhrase(
+                  property?.compliance?.buildingApprovalStatus
+                )}
+              </td>
+            </tr>
+
+            {/* Building Approval Details */}
+            {property?.compliance?.buildingApprovalStatus ===
+              'completed_processing' && (
+              <>
+                <tr>
+                  <td>
+                    <strong>Building Approval Number:</strong>
+                  </td>
+                  <td>
+                    {convertUnderscoreToPhrase(
+                      property?.compliance?.buildingApprovalNumber
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Building Approval Document:</strong>
+                  </td>
+                  <td>
+                    <a
+                      href={property?.compliance?.registeredDocument2}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View Document
+                    </a>
+                  </td>
+                </tr>
+              </>
+            )}
+          </tbody>
+        </Table>
+      </Card>
+
+      {isVendor && (
+        <Button
+          color="secondary-light"
+          className="mt-4"
+          wide
+          href={`/vendor/property/edit/${property._id}`}
+        >
+          Edit Property
+        </Button>
       )}
     </div>
   );

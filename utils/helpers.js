@@ -429,3 +429,13 @@ export const convertCommaStringToArray = (commaString) => {
 export const truncateText = (htmlString, maxLength = 150) => {
   return htmlString.replace(/<\/?[^>]+(>|$)/g, '');
 };
+
+export const convertUnderscoreToPhrase = (value) => {
+  if (!value) return value;
+  // Split the value by underscores and capitalize each part
+  let words = value
+    .split('_')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
+  // Join the words with a space to form the final phrase
+  return words.join(' ');
+};

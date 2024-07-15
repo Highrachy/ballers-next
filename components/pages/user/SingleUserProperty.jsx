@@ -185,6 +185,7 @@ export const ScheduleTourButton = ({
         show={showModal}
         onHide={setShowModalToFalse}
         showFooter={false}
+        size="lg"
       >
         {userHasScheduledVisit ? (
           <>

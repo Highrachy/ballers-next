@@ -26,6 +26,10 @@ export const BLOG_STATUS = {
   DRAFT: 'draft',
   PUBLISHED: 'published',
 };
+export const VISIT_MODE = {
+  PHYSICAL: 'Physical',
+  VIRTUAL: 'Virtual',
+};
 
 export const COLOR_STYLE = [
   'none',

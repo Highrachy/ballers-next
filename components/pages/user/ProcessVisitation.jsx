@@ -1,5 +1,5 @@
 import React from 'react';
-import { BASE_API_URL } from 'utils/constants';
+import { BASE_API_URL, VISIT_MODE } from 'utils/constants';
 import Axios from 'axios';
 import Input from 'components/forms/Input';
 import {
@@ -15,16 +15,20 @@ import {
   updateScheduleTourSchema,
   cancelScheduleTourSchema,
 } from 'components/forms/schemas/propertySchema';
-import DatePicker from 'components/forms/DatePicker';
-import { getError, statusIsSuccessful } from 'utils/helpers';
+import DatePicker from 'components/forms/DatePickerNew';
+import { arrayToOptions, getError, statusIsSuccessful } from 'utils/helpers';
 import Textarea from 'components/forms/Textarea';
+import { getYearMonthDayObject } from '@/utils/date-helpers';
+import Select from '@/components/forms/Select';
 
 export const ScheduleVisitForm = ({ propertyId, hideForm, setToast }) => {
   return (
     <section className="row">
       <div className="col-md-10">
         <Formik
-          initialValues={setInitialValues(scheduleTourSchema)}
+          initialValues={setInitialValues(scheduleTourSchema, {
+            visitMode: VISIT_MODE.PHYSICAL,
+          })}
           onSubmit={(values, actions) => {
             const payload = {
               propertyId,
@@ -61,35 +65,49 @@ export const ScheduleVisitForm = ({ propertyId, hideForm, setToast }) => {
             <Form>
               <Input
                 isValidMessage="Name looks good"
-                label="Name"
+                label="Full Name"
                 name="visitorName"
-                placeholder="Name"
               />
-              <Input
-                isValidMessage="Email address seems valid"
-                label="Email"
-                name="visitorEmail"
-                placeholder="Email Address"
-              />
-              <Input
-                isValidMessage="Phone number looks good"
-                label="Phone"
-                name="visitorPhone"
-                placeholder="Phone"
-              />
+              <div className="form-row">
+                <Input
+                  isValidMessage="Email address seems valid"
+                  label="Email"
+                  name="visitorEmail"
+                  placeholder="Email Address"
+                  formGroupClassName="col-md-6"
+                />
+                <Input
+                  isValidMessage="Phone number looks good"
+                  label="Phone"
+                  name="visitorPhone"
+                  placeholder="Phone"
+                  formGroupClassName="col-md-6"
+                />
+              </div>
+              <div className="form-row">
+                <Select
+                  label="Visitation Mode"
+                  name="visitMode"
+                  options={arrayToOptions(Object.values(VISIT_MODE))}
+                  formGroupClassName="col-md-6"
+                />
+                <DatePicker
+                  label="Visitation Date"
+                  name="visitDate"
+                  minimumDate={getYearMonthDayObject()}
+                  placeholder="Visit Date"
+                  formGroupClassName="col-md-6"
+                  // isCalendar
+                />
+              </div>
 
-              <DatePicker
-                label="Visitation Date"
-                name="visitDate"
-                minDate={new Date()}
-                placeholder="Visit Date"
-              />
               <Button
-                className="btn-secondary mt-4"
+                className="btn-secondary"
                 loading={isSubmitting}
                 onClick={handleSubmit}
+                wide
               >
-                Schedule
+                Schedule Visit
               </Button>
               <DisplayFormikState {...props} showAll />
             </Form>

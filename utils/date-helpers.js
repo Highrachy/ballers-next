@@ -140,8 +140,10 @@ export const getDateStatus = (
   return { statusColor, statusName };
 };
 
-export const getYearMonthDayObject = (dateInput = new Date()) => {
-  const date = parseDate(dateInput);
+export const getYearMonthDayObject = (
+  dateInput = new Date(new Date().setDate(new Date().getDate() + 1))
+) => {
+  const date = new Date(dateInput);
 
   return {
     year: date.getFullYear(),

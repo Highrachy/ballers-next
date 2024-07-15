@@ -539,57 +539,51 @@ const PropertyCompliance = () => {
           <h5 className="mb-4">Property Verification</h5>
 
           <div className="my-4 warning-alert">
-            <h5 className="header-smaller text-md">Note</h5>
-            This section is for <strong>internal use only</strong> and will not
-            be displayed to the buyers. This will be used in investigating and
-            approving your property.
+            <h5 className="header-smaller text-md">For Internal Use Only</h5>
+            This section helps us investigate and approve your property, and
+            won&apos;t be shown to buyers.
           </div>
 
           {/* Location Select Dropdown */}
           <Select
-            label="Access to Property Location"
+            label="Accessibility to Property Location"
             name="compliance.location"
             optional
             options={[
               {
                 value: 'fully_accessible',
-                label: 'Fully Accessible by All Vehicles (Tiled Roads)',
+                label:
+                  'Easily Accessible by Most Types of Vehicles (Tiled, Paved, or Tarred Roads)',
               },
               {
                 value: 'partially_accessible',
-                label: 'Accessible by Some Vehicles Only (Motorable)',
+                label: 'Accessible by Certain Vehicles Only (Passable Roads)',
               },
               {
                 value: 'not_accessible',
-                label: 'Not Accessible by Most Vehicles',
+                label: 'Not Easily Accessible by Most Vehicles',
               },
             ]}
           />
-
           {/* Registered Title Select Dropdown */}
           <Select
-            label="A copy of the Registered Title"
+            label="Availability of Registered Title"
             name="compliance.registeredTitle"
-            optional
             options={[
               {
-                value: 'Yes, the property has a registered title',
-                label: 'Yes, the property has a registered title',
+                value: 'Yes, the property has a registered title document',
+                label: 'Yes, the property has a registered title document',
               },
               {
-                value: 'The title document is currently being processed',
-                label: 'The title document is currently being processed',
-              },
-              {
-                value: 'No title document available yet',
-                label: 'No title document available yet',
+                value: 'No, the title document is currently being processed',
+                label: 'No, the title document is currently being processed',
               },
             ]}
           />
 
           {/* Conditional Rendering of Registered Document Upload */}
           {values.compliance.registeredTitle ===
-            'Yes, the property has a registered title' && (
+            'Yes, the property has a registered title document' && (
             <Upload
               allowPdf
               imgOptions={{
@@ -604,13 +598,17 @@ const PropertyCompliance = () => {
 
           {/* Building Approval Status Select Dropdown */}
           <Select
-            label="Building Approval Status"
+            label="Has the building approval process been completed?"
             name="compliance.buildingApprovalStatus"
-            optional
             options={[
-              { value: 'completed_processing', label: 'Completed Processing' },
-              { value: 'in_progress', label: 'Still in Progress' },
-              { value: 'not_started', label: 'Not Started' },
+              {
+                value: 'completed_processing',
+                label: 'Yes, Approval Process Completed',
+              },
+              {
+                value: 'in_progress',
+                label: 'No, Approval Process Still in Progress',
+              },
             ]}
           />
 
@@ -632,7 +630,6 @@ const PropertyCompliance = () => {
                 name="compliance.registeredDocument2"
                 uploadText="Upload Approval Document"
                 folder="approval-docs"
-                optional
               />
             </>
           )}

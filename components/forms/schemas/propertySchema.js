@@ -13,25 +13,24 @@ import {
 import * as Yup from 'yup';
 
 export const complianceSchema = {
-  location: Yup.string().nullable(),
-  registeredTitle: Yup.string().nullable(),
-  buildingApprovalStatus: Yup.string().nullable(),
+  location: stringValidation('Location'),
+  registeredTitle: stringValidation('Registered Title'),
+  buildingApprovalStatus: stringValidation('Building Approval Status'),
   buildingApprovalNumber: Yup.string().when('buildingApprovalStatus', {
     is: (status) => status === 'completed_processing',
     then: Yup.string().required('Building Approval Number is required'),
     otherwise: Yup.string().nullable(),
   }),
   registeredDocument1: Yup.string().when('registeredTitle', {
-    is: 'Yes, the property has a registered title',
+    is: 'Yes, the property has a registered title document',
     then: Yup.string().required('Registered Document is required'),
     otherwise: Yup.string().nullable(),
   }),
-  registeredDocument2: Yup.string().nullable(),
-  // registeredDocument2: Yup.string().when('buildingApprovalStatus', {
-  //   is: 'completed_processing',
-  //   then: Yup.string().required('Building Approval Document is required'),
-  //   otherwise: Yup.string().nullable(),
-  // }),
+  registeredDocument2: Yup.string().when('buildingApprovalStatus', {
+    is: 'completed_processing',
+    then: Yup.string().required('Building Approval Document is required'),
+    otherwise: Yup.string().nullable(),
+  }),
 };
 
 export const newPropertySchema = {
@@ -59,6 +58,7 @@ export const scheduleTourSchema = {
   visitorName: stringValidation('Visitor Name'),
   visitorEmail: email,
   visitorPhone: phoneNumber,
+  visitMode: stringValidation('Visitation Mode'),
   visitDate: minDateValidation('Visitation Date', new Date()),
 };
 

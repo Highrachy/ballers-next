@@ -1,7 +1,7 @@
-import ScheduledVisits from '@/components/pages/admin/ScheduledVisits';
+import ScheduledVisits from '@/components/common/ScheduledVisits';
 
-const AllScheduledVisits = () => {
+const Visits = () => {
   return <ScheduledVisits />;
 };
 
-export default AllScheduledVisits;
+export default Visits;
