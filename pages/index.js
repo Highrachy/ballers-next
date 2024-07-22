@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -29,6 +29,7 @@ import { ServiceCard } from './services';
 import Slider from 'react-slick';
 import { sliderSettings } from '@/components/common/BenefitsSection';
 import { shuffleArray } from '@/utils/helpers';
+import { useChatMessage } from '@/context/ChatContext';
 
 export default function Home({
   properties,
@@ -36,6 +37,14 @@ export default function Home({
   referralCode = null,
   inviteCode = null,
 }) {
+  const { setMessage } = useChatMessage();
+
+  useEffect(() => {
+    setMessage(
+      'Hello! I am interested in the BALL platform, I will like to...'
+    );
+  }, [setMessage]);
+
   return (
     <>
       <Header />

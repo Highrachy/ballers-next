@@ -891,3 +891,23 @@ mark {
   color: $primary-500 !important;
   font-weight: bold;
 }
+
+.floating-chat-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366;
+  color: white;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.floating-chat-button:hover {
+  background-color: #128c7e;
+}

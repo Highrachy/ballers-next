@@ -77,7 +77,7 @@ const Calendar = ({ scheduledVisits }) => {
   const visitations = scheduledVisits?.map((event) => {
     const { visitDate, propertyInfo, visitorName } = event;
 
-    const { name } = propertyInfo[0]; // Assuming there's only one property info object
+    const { name } = propertyInfo[0];
 
     const username = visitorName
       .split(' ')

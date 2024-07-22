@@ -137,10 +137,20 @@ export const OwnedPropertyCard = ({
   isPortfolioPage,
   Actionbar,
 }) => {
+  const { setMessage } = useChatMessage();
   const isVendor = useCurrentRole().role === USER_TYPES.vendor;
   const isAdmin = useCurrentRole().role === USER_TYPES.admin;
   const isUser = useCurrentRole().role === USER_TYPES.user;
   const isAdminOrVendor = isVendor || isAdmin;
+
+  useEffect(() => {
+    if (isUser) {
+      setMessage(
+        `Hello! I am interested in: ${property?.name}. Can you provide more details about this property?`
+      );
+    }
+  }, [property, isUser, setMessage]);
+
   return (
     <div className="container-fluid">
       {isVendor && false && (
@@ -936,7 +946,7 @@ export const PropertyContact = () => {
             />
           }
           text="CALL US NOW"
-          header="+2348076545543"
+          header="+2348028337440"
           link="#"
         />
         <ContactOption
@@ -947,7 +957,7 @@ export const PropertyContact = () => {
               variant="Bold"
             />
           }
-          header="+2348076545543"
+          header="+2348028337440"
           text="CHAT VIA WHATSAPP"
           link="#"
         />

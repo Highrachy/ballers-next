@@ -7,29 +7,38 @@ import TitleSection from 'components/common/TitleSection';
 import Map from 'components/common/Map';
 import { OFFICE_LOCATION } from 'utils/constants';
 import Link from 'next/link';
-import { LocalImage } from '@/components/utils/Image';
 import Image from 'next/image';
 import { SupportTicketForm } from '@/components/shared/SupportTicket';
+import { useChatMessage } from '@/context/ChatContext';
+import { useEffect } from 'react';
 
-const ContactUs = () => (
-  <>
-    <Header />
-    <TitleSection
-      name="Contact Us"
-      content={
-        <>
-          Do you have questions about BALL or would you like to hear more about
-          the platform? <br /> Then feel free to contact us by mail, phone or
-          chat. We&apos;re usually pretty quick.
-        </>
-      }
-    />
-    <Content />
-    <MapAndAddress />
-    <CommunityGallery />
-    <Footer />
-  </>
-);
+const ContactUs = () => {
+  const { setMessage, setIsVisible } = useChatMessage();
+
+  useEffect(() => {
+    setMessage('Hello! I have some questions about BALL...');
+  }, [setMessage, setIsVisible]);
+
+  return (
+    <>
+      <Header />
+      <TitleSection
+        name="Contact Us"
+        content={
+          <>
+            Do you have questions about BALL or would you like to hear more
+            about the platform? <br /> Then feel free to contact us by mail,
+            phone or chat. We&apos;re usually pretty quick.
+          </>
+        }
+      />
+      <Content />
+      <MapAndAddress />
+      <CommunityGallery />
+      <Footer />
+    </>
+  );
+};
 
 const Content = () => {
   return (
@@ -45,18 +54,24 @@ const Content = () => {
           <div className="col-lg-12 col-sm-6 col-12">
             <h4 className="header-secondary">SAY HELLO</h4>
             <h3>
-              <Link
-                href="mailto:info@ballers.ng"
-                className="text-primary font-weight-normal"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                info@ballers.ng
+              <Link href="mailto:info@ballers.ng">
+                <a target="_blank" rel="noopener noreferrer">
+                  info@ballers.ng
+                </a>
               </Link>
             </h3>
+            <h4 className="header-secondary">CALL / WHATSAPP</h4>
+            <h4>
+              <Link href="tel:+2348028337440">
+                <a className="mb-2 d-block"> +2348028337440</a>
+              </Link>
+              <Link href="tel:+2348028388185">
+                <a className="mb-3"> +2348028388185</a>
+              </Link>
+            </h4>
           </div>
           <div className="col-lg-12 col-sm-6 col-12">
-            <h5 className="my-5">Follow us in our everyday lives</h5>
+            <h4 className="header-secondary">FOLLOW US</h4>
             <ul className="list-unstyled">
               <li className="d-none d-lg-block">
                 <Link className="text-link" href="/">
@@ -108,7 +123,7 @@ const MapAndAddress = () => (
       <div className="col-lg-6 col-12 my-auto text-right pr-5">
         <h4 className="header-secondary">COME OVER FOR COFFEE</h4>
         <h5 className="text-height-2">
-          5th Floor, Ibukun House,
+          3rd Floor, Ibukun House,
           <br /> No.70 Adetokunbo Ademola Street, <br />
           Victoria Island, Lagos.
         </h5>

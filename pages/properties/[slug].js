@@ -20,26 +20,34 @@ import Button from '@/components/forms/Button';
 import { Spacing } from '@/components/common/Helpers';
 import NoContent from '@/components/utils/NoContent';
 import { PropertyIcon } from '@/components/utils/Icons';
+import { useChatMessage } from '@/context/ChatContext';
+
+const taglines = [
+  'BALL: Where Dreams Take Shape - Discover Your Perfect Home, Defined by Elegance and Tranquility',
+  'Unveil Home Perfection: Experience Bliss with BALL',
+  'A Place to Call Your Own: Uncover the Essence of True Belonging',
+  'Elevate Your Lifestyle: Find Your Bliss in This Exquisite Residence',
+  'Unlock the Beauty Within: Embrace Your Dream Home through BALL',
+  'Embrace Luxury, Embrace BALL: Find Your Sanctuary in Style',
+  'Where Dreams Reside: Find Your Forever Home with BALL',
+  'Envision Home Serenity: Let BALL Guide You to Your Haven',
+];
 
 const PublicPropertySingle = ({ property }) => {
-  const taglines = [
-    'BALL: Where Dreams Take Shape - Discover Your Perfect Home, Defined by Elegance and Tranquility',
-    'Unveil Home Perfection: Experience Bliss with BALL',
-    'A Place to Call Your Own: Uncover the Essence of True Belonging',
-    'Elevate Your Lifestyle: Find Your Bliss in This Exquisite Residence',
-    'Unlock the Beauty Within: Embrace Your Dream Home through BALL',
-    'Embrace Luxury, Embrace BALL: Find Your Sanctuary in Style',
-    'Where Dreams Reside: Find Your Forever Home with BALL',
-    'Envision Home Serenity: Let BALL Guide You to Your Haven',
-  ];
+  const { setMessage } = useChatMessage();
 
   const [tagline, setTagline] = useState('');
 
   useEffect(() => {
     const randomTagline = taglines[Math.floor(Math.random() * taglines.length)];
     setTagline(randomTagline);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setMessage(
+      `Hello! I am interested in: ${property?.name}. Can you provide more details about this property?`
+    );
+  }, [property, setMessage]);
 
   if (!property) {
     return null;

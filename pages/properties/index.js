@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from 'components/layout/Header';
 import CommunityGallery from 'components/common/CommunityGallery';
 import Footer from 'components/layout/Footer';
@@ -7,8 +7,17 @@ import { API_ENDPOINT } from 'utils/URL';
 import { RecommendedPropertyLists } from 'components/common/PropertyCard';
 import Axios from 'axios';
 import Button from '@/components/forms/Button';
+import { useChatMessage } from '@/context/ChatContext';
 
 const PublicProperties = ({ result }) => {
+  const { setMessage } = useChatMessage();
+
+  useEffect(() => {
+    setMessage(
+      'Hi! I am looking for the right property on BALL. Could you help me with more information on how to proceed?'
+    );
+  }, [setMessage]);
+
   return (
     <>
       <Header />
