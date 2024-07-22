@@ -911,3 +911,16 @@ mark {
 .floating-chat-button:hover {
   background-color: #128c7e;
 }
+
+.team-member {
+  transition: transform 0.3s;
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+}
+
+.team-member img {
+  border: 3px solid #f8f9fa;
+  padding: 10px;
+}

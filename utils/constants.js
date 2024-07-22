@@ -519,11 +519,10 @@ export const MODEL = {
 };
 
 export const SOCIAL_MEDIA = {
-  facebook: 'https://www.facebook.com/Highrachy/',
-  twitter: 'https://twitter.com/highrachy',
-  instagram: 'https://www.instagram.com/highrachyhq/',
-  linkedin:
-    'https://www.linkedin.com/company/highrachy-investment-and-technology-limited',
+  facebook: 'https://web.facebook.com/Ballerverse',
+  twitter: 'https://x.com/BALLers_ng',
+  instagram: 'https://www.instagram.com/ballers.africa/',
+  linkedin: 'https://www.linkedin.com/company/ballers.africa/',
 };
 
 export const MILESTONE_STATUS = {

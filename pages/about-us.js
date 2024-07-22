@@ -111,44 +111,53 @@ const OurCoreValues = () => (
   </section>
 );
 
+const teamMembers = [
+  {
+    name: 'Nnamdi Ijei',
+    role: 'CEO',
+    imgSrc: '/img/team/nnamdi.jpg',
+  },
+  {
+    name: 'Oluwatodimu Adeleke',
+    role: 'Legal',
+    imgSrc: '/img/team/oluwatodimu.jpg',
+  },
+  {
+    name: 'Haruna Popoola',
+    role: 'Lead Developer',
+    imgSrc: '/img/team/haruna.jpg',
+  },
+  {
+    name: 'Joshua Segbo',
+    role: 'Business Development',
+    imgSrc: '/img/team/joshua.jpg',
+  },
+];
+
 const OurTeam = () => (
-  <section className="container-fluid">
+  <section className="container-fluid text-center py-5">
     <h6 className="header-secondary">THE TEAM</h6>
-    <h2>
-      Meet our <br /> awesome team.
-    </h2>
-    <div className="row">
-      <div className="col-lg-3 col-sm-6 col-12 mb-5">
-        <Image
-          src="/img/team/nnamdi.jpg"
-          alt="Nnamdi Ijei"
-          width="370"
-          height="380"
-        />
-        <h5 className="mt-3 mb-0">Nnamdi Ijei</h5>
-        <p className="text-green fw-bold">CEO</p>
-      </div>
-      <div className="col-lg-3 col-sm-6 col-12 mb-5">
-        <Image
-          src="/img/team/leonard.jpg"
-          alt="Leonard Isiekwenagbu"
-          width="370"
-          height="380"
-        />
-        <h5 className="mt-3 mb-0">Leonard Isiekwenagbu</h5>
-        <p className="text-green fw-bold">BUSINESS DEVELOPMENT</p>
-      </div>
-      <div className="col-lg-3 col-sm-6 col-12 mb-5">
-        <Image
-          src="/img/team/haruna.jpg"
-          alt="Haruna Popoola"
-          width="370"
-          height="380"
-        />
-        <h5 className="mt-3 mb-0">Haruna Popoola</h5>
-        <p className="text-green fw-bold">LEAD DEVELOPER</p>
-      </div>
+    <h2>Meet our awesome team.</h2>
+    <div className="row justify-content-center px-5">
+      {teamMembers.map((member, index) => (
+        <div className="col-lg-3 col-sm-6 col-12 mb-5" key={index}>
+          <div className="team-member mt-5">
+            <div className="px-3">
+              <Image
+                src={member.imgSrc}
+                alt={member.name}
+                className="rounded img-fluid border"
+                width="370"
+                height="380"
+              />
+            </div>
+            <h5 className="mt-3 mb-1">{member.name}</h5>
+            <p className="text-green fw-bold">{member.role}</p>
+          </div>
+        </div>
+      ))}
     </div>
   </section>
 );
+
 export default AboutUs;
