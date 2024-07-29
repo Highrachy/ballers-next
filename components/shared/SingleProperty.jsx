@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import { Card, Col, Row, Table } from 'react-bootstrap';
 import Map from 'components/common/Map';
@@ -84,6 +84,7 @@ import ReactMarkdown from 'react-markdown';
 import { isMilestonePayment } from '@/utils/milestone-helper';
 import { CallCalling, MessageText1, Whatsapp } from 'iconsax-react';
 import colorTokens from 'style-dictionary/build/color.tokens';
+import { useChatMessage } from '@/context/ChatContext';
 
 const pageOptions = {
   key: 'property',

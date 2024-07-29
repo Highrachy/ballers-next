@@ -66,9 +66,8 @@ class InvoiceContentContainer extends React.Component {
         transaction={transaction}
         userInfo={transaction?.userInfo}
         paymentInfo={generatePaymentInfo({
-          offer: {
-            ...transaction?.offerInfo,
-            propertyInfo: transaction?.propertyInfo,
+          paymentInfo: {
+            ...transaction,
           },
           vasRequest: {
             ...transaction?.vasRequestInfo,

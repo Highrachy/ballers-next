@@ -4,6 +4,7 @@ import Footer from 'components/layout/Footer';
 import BallersLogo from '../../utils/BallersLogo';
 import { getTinyDate } from 'utils/date-helpers';
 import {
+  calculateLocalTransactionFee,
   getFormattedAddress,
   moneyFormatInNaira,
   statusIsSuccessful,
@@ -79,12 +80,13 @@ const Invoice = (props) => {
 };
 
 export const InvoiceContent = ({ transaction }) => {
-  const { userInfo, offerInfo, vasRequestInfo } = transaction || {};
+  const { userInfo, vasRequestInfo, propertyInfo } = transaction || {};
   const paymentInfo = generatePaymentInfo({
-    offer: offerInfo,
     vasRequest: vasRequestInfo,
     type: transaction.model.type,
+    propertyInfo,
   });
+
   const userName = `${userInfo.firstName} ${userInfo.lastName}`;
 
   return (
@@ -151,7 +153,7 @@ export const InvoiceContent = ({ transaction }) => {
                 <tbody>
                   <tr className="tr-content">
                     <td>
-                      <p className="mt-2 mt-sm-3">{paymentInfo.title}</p>
+                      <p className="mt-2 mt-sm-3 mb-0">{paymentInfo.title}</p>
                     </td>
                     <td className="text-end text-amount strong">
                       <p className="mt-2 mt-sm-3">
@@ -205,7 +207,21 @@ export const InvoiceContent = ({ transaction }) => {
                   </tr>
                   <tr>
                     <td colSpan="3">
-                      <span className="text-small mt-3 text-muted">
+                      {/* Paystack Charges */}
+                      {transaction?.paymentSource == 'Paystack' && (
+                        <p className="text-md mt-3 mb-0">
+                          Paystack (Debit/Credit Cards) Fees - &nbsp;
+                          <strong className="text-primary">
+                            {moneyFormatInNaira(
+                              calculateLocalTransactionFee(
+                                transaction?.amount || 0
+                              )
+                            )}
+                          </strong>
+                        </p>
+                      )}
+
+                      <span className="text-sm mt-3 text-muted">
                         Ref: {transaction.additionalInfo} / {transaction._id}
                       </span>
                     </td>
@@ -241,10 +257,15 @@ export const InvoiceContent = ({ transaction }) => {
   );
 };
 
-export const generatePaymentInfo = ({ offer, vasRequest, type }) => {
-  const propertyInfo = offer?.propertyInfo || vasRequest?.propertyInfo;
+export const generatePaymentInfo = ({
+  paymentInfo,
+  vasRequest,
+  type,
+  propertyInfo,
+}) => {
   let title, paymentType, description;
 
+  console.log('paymentInfo', paymentInfo);
   const propertyDescription = propertyInfo && (
     <small>
       <strong>
@@ -256,7 +277,7 @@ export const generatePaymentInfo = ({ offer, vasRequest, type }) => {
 
   switch (type) {
     case MODEL.OFFER:
-      title = `Payment for ${propertyInfo.name}`;
+      title = `Payment for ${propertyInfo?.name}`;
       paymentType = 'Property';
       description = propertyDescription;
       break;

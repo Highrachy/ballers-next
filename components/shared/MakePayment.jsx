@@ -4,7 +4,7 @@ import Button from 'components/forms/Button';
 import React from 'react';
 import { BASE_API_URL } from 'utils/constants';
 import { getTokenFromStore } from 'utils/localStorage';
-import { Formik, Form } from 'formik';
+import { Formik, Form, useFormikContext } from 'formik';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
 import {
   onlinePaymentSchema,
@@ -17,8 +17,10 @@ import {
   DisplayFormikState,
 } from 'components/forms/form-helper';
 import {
+  calculateLocalTransactionFee,
   dataToOptions,
   getError,
+  moneyFormatInNaira,
   statusIsSuccessful,
   valuesToOptions,
 } from 'utils/helpers';
@@ -117,8 +119,10 @@ const OnlinePayment = ({ setPaymentType, setToast, amount, model }) => {
           amount: Math.min(1_000_000, amount),
         })}
         onSubmit={({ amount }, actions) => {
+          const amountWithFee =
+            amount * 1 + calculateLocalTransactionFee(amount);
           const payload = {
-            amount: amount.toString(),
+            amount: amountWithFee.toString(),
             model,
           };
 
@@ -224,6 +228,10 @@ const OfflinePayment = ({
 };
 
 const PaystackPaymentForm = ({ isSubmitting, handleSubmit }) => {
+  const { values } = useFormikContext();
+  const amount = values.amount;
+
+  console.log('values', values);
   return (
     <Card className="card-container">
       <section className="row">
@@ -232,7 +240,20 @@ const PaystackPaymentForm = ({ isSubmitting, handleSubmit }) => {
             label="Amount"
             name="amount"
             placeholder="Transaction Amount"
+            helpText="A 1.5% transaction fee will be charged on this transaction"
+            formGroupClassName={'mb-1'}
           />
+          <div className="mb-4">
+            <p>
+              <strong>Amount after fees: </strong>
+              <span className="fw-bold">
+                NGN{' '}
+                {moneyFormatInNaira(
+                  amount * 1 + calculateLocalTransactionFee(amount)
+                )}
+              </span>
+            </p>
+          </div>
           <Button
             className="btn-secondary mt-4"
             loading={isSubmitting}

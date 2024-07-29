@@ -64,7 +64,6 @@ function MyApp({ Component, pageProps }) {
           />
           <Component {...pageProps} />
           <FloatingChatButton />
-          <FloatingChatButton />
           {isDevEnvironment() && <ReactQueryDevtools />}
         </ChatMessageProvider>
       </UserProvider>

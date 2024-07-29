@@ -115,7 +115,7 @@ const EnquiryForm = ({ id, setToast, property }) => {
         // !values.address.street2 && delete values.address.street2;
         // !values.address.otherName && delete values.address.otherName;
 
-        const firstMilestone = property?.milestonePayment[0];
+        const firstMilestone = property?.milestonePayment?.[0] || {};
 
         const firstMilestonePercentage = firstMilestone?.percentage || 100;
         const initialMilestoneInvestmentAmount =

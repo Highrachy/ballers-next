@@ -147,7 +147,7 @@ const OurTeam = () => (
                 src={member.imgSrc}
                 alt={member.name}
                 className="rounded img-fluid border"
-                width="370"
+                width="330"
                 height="380"
               />
             </div>

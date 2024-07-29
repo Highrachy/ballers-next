@@ -439,3 +439,25 @@ export const convertUnderscoreToPhrase = (value) => {
   // Join the words with a space to form the final phrase
   return words.join(' ');
 };
+
+export const calculateLocalTransactionFee = (amount) => {
+  const feeRate = 0.015; // 1.5%
+  const fixedFee = 100; // NGN 100
+  const maxFee = 2000; // Maximum fee
+  const waivedFeeThreshold = 2500; // Fee waived for transactions under NGN 2500
+
+  // Calculate the percentage-based fee
+  let fee = amount * feeRate;
+
+  // Add the fixed fee if the amount is greater than or equal to the waived fee threshold
+  if (amount >= waivedFeeThreshold) {
+    fee += fixedFee;
+  }
+
+  // Cap the fee at the maximum fee limit
+  if (fee > maxFee) {
+    fee = maxFee;
+  }
+
+  return fee;
+};

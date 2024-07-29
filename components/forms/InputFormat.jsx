@@ -41,7 +41,6 @@ const InputFormat = ({
     <div
       className={classNames(formGroupClassName, {
         row: inline,
-        'form-group mb-4': formGroupClassName,
       })}
     >
       <Label
