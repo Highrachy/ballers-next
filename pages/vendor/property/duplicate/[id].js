@@ -49,7 +49,7 @@ const DuplicatePropertyForm = ({ id }) => {
       <NewPropertyForm
         toast={toast}
         setToast={setToast}
-        property={{ ...property, _id: null }}
+        property={{ ...property, _id: null, name: '' }}
       />
     </ContentLoader>
   );

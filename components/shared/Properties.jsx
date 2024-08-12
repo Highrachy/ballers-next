@@ -453,12 +453,14 @@ const ManagePropertyButton = ({ setToast, property, ...props }) => {
           className="btn-sm me-3 mb-3"
           color="primary-light"
           dropdownItems={[
-            ...(property?.availableUnits > 0 && [
-              {
-                text: 'Mark as Sold Out',
-                onClick: () => setShowModal(true),
-              },
-            ]),
+            ...(property?.availableUnits > 0
+              ? [
+                  {
+                    text: 'Mark as Sold Out',
+                    onClick: () => setShowModal(true),
+                  },
+                ]
+              : []),
             {
               text: 'Duplicate Property',
               href: `/vendor/property/duplicate/${property?._id}`,

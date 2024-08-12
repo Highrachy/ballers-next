@@ -232,7 +232,6 @@ const DemoAccountForm = ({ showLogin, setShowLogin }) => {
                       <Button
                         color="light"
                         className="btn-sm px-3"
-                        loading={isSubmitting}
                         onClick={handleNextButtonClick}
                       >
                         Next <GrFormNext />
