@@ -50,8 +50,8 @@ const DropdownButton = ({
           <Dropdown.Item
             key={index}
             eventKey={index}
-            onClick={item.onClick}
-            href={item.href}
+            onClick={item?.onClick}
+            href={item?.href}
           >
             {item.text}
           </Dropdown.Item>

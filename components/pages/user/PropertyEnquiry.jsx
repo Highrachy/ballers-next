@@ -111,10 +111,6 @@ const EnquiryForm = ({ id, setToast, property }) => {
         address: setInitialValues(addressSchema, userState.address),
       }}
       onSubmit={(values, actions) => {
-        // delete optional fields
-        // !values.address.street2 && delete values.address.street2;
-        // !values.address.otherName && delete values.address.otherName;
-
         const firstMilestone = property?.milestonePayment?.[0] || {};
 
         const firstMilestonePercentage = firstMilestone?.percentage || 100;

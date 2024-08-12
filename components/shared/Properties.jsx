@@ -49,6 +49,7 @@ import Axios from 'axios';
 import { getTokenFromStore } from '@/utils/localStorage';
 import { setQueryCache } from '@/hooks/useQuery';
 import { ApprovePropertyButton } from './SingleProperty';
+import DropdownButton from '../forms/DropdownButton';
 
 const pageOptions = {
   key: 'property',
@@ -164,7 +165,7 @@ export const PropertiesList = ({ setToast = () => {}, property, ...props }) => {
         </div>
         <div className="col-lg-8">
           <div className="card-body ps-4">
-            <div className="d-lg-flex justify-content-between">
+            <div className="d-xl-flex justify-content-between">
               <div>
                 <Link href={`/${userType}/property/${_id}`} passHref>
                   <a>
@@ -242,7 +243,8 @@ export const PropertiesList = ({ setToast = () => {}, property, ...props }) => {
                   >
                     Edit
                   </Button>
-                  <SoldOutButton
+
+                  <ManagePropertyButton
                     setToast={setToast}
                     property={property}
                     {...props}
@@ -394,7 +396,7 @@ const FilterForm = ({ setFilterTerms }) => {
   );
 };
 
-const SoldOutButton = ({ setToast, property, ...props }) => {
+const ManagePropertyButton = ({ setToast, property, ...props }) => {
   const { properties, setProperties } = props;
   const [showModal, setShowModal] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -446,16 +448,25 @@ const SoldOutButton = ({ setToast, property, ...props }) => {
   return (
     <div className="row">
       <div className="col-12">
-        {property?.availableUnits > 0 && (
-          <Button
-            color="primary-light"
-            wide
-            className="btn-sm me-3 mb-3"
-            onClick={() => setShowModal(true)}
-          >
-            <span className="d-none d-md-inline">Mark as </span> Sold Out
-          </Button>
-        )}
+        <DropdownButton
+          wide
+          className="btn-sm me-3 mb-3"
+          color="primary-light"
+          dropdownItems={[
+            ...(property?.availableUnits > 0 && [
+              {
+                text: 'Mark as Sold Out',
+                onClick: () => setShowModal(true),
+              },
+            ]),
+            {
+              text: 'Duplicate Property',
+              href: `/vendor/property/duplicate/${property?._id}`,
+            },
+          ]}
+        >
+          Manage
+        </DropdownButton>
         <Modal
           title="Mark Property as Sold Out"
           show={showModal}
