@@ -13,7 +13,7 @@ export const addTransactionSchema = {
 };
 
 export const onlinePaymentSchema = {
-  amount: moneyRange('Amount', 'amount', 10_000, 1_000_000),
+  amount: moneyRange('Amount', 'amount', 1_000, 1_000_000),
 };
 
 export const offlinePaymentSchema = {
