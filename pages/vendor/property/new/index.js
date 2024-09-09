@@ -158,6 +158,7 @@ export const NewPropertyForm = ({ property, toast, setToast }) => {
             values?.projectStartDate?.date || values?.projectStartDate,
           mainImage:
             image ||
+            values?.mainImage ||
             property?.mainImage ||
             `https://placehold.co/800x500/black/white?text=${values.name}`,
           titleDocument:
@@ -506,10 +507,10 @@ export const PropertyImage = ({ setImage, oldImage }) => (
             changeText={`Update Property Image`}
             defaultImage={`/img/placeholder/property.png`}
             imgOptions={{ className: 'mb-3' }}
-            name="property-image"
+            name="mainImage"
             oldImage={oldImage}
             uploadText={`Upload Property Image`}
-            folder={'company-image'}
+            folder={'property-image'}
           />
         </div>
       </div>
