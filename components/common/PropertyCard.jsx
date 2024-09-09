@@ -122,11 +122,13 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
           />
         </div>
         <div className="property-item">
-          <h5 className="property-name mb-0 position-relative">{name} </h5>
+          <h5 className="property-name mb-0 position-relative">
+            {getPropertyHouseType(property)}
+          </h5>
           {/* Details */}
           <div className="property-details property-spacing">
             <strong className="property-holder__house-type">
-              <PropertyIcon /> {getPropertyHouseType(property)}
+              <PropertyIcon /> {name}
             </strong>{' '}
           </div>
 

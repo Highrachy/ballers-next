@@ -996,6 +996,11 @@ export const PropertyDescription = ({
 
   const propertyDetails = [
     {
+      title: 'Property Name',
+      value: property?.name,
+      Icon: PropertyIcon,
+    },
+    {
       title: 'Property Type',
       value: getPropertyHouseType(property),
       Icon: PropertyIcon,
@@ -1025,11 +1030,6 @@ export const PropertyDescription = ({
       Icon: ToiletIcon,
     },
     {
-      title: 'Title Document',
-      value: property?.titleDocument || 'No Title Document',
-      Icon: FileIcon,
-    },
-    {
       title: 'Available Units',
       value: `${property.availableUnits} ${Humanize.pluralize(
         property.availableUnits,
@@ -1038,16 +1038,16 @@ export const PropertyDescription = ({
       Icon: AssignedPropertyIcon,
     },
     {
+      title: 'Title Document',
+      value: property?.titleDocument || 'No Title Document',
+      Icon: FileIcon,
+    },
+    {
       title: 'Project Start Date',
       value: property?.projectStartDate
         ? getTinyDate(property?.projectStartDate)
         : null || 'Not Specified',
       Icon: VisitationIcon,
-    },
-    {
-      title: 'Delivery State',
-      value: property?.deliveryState || 'Finished State',
-      Icon: DeliveryStateIcon,
     },
     {
       title: 'Price',
@@ -1060,6 +1060,11 @@ export const PropertyDescription = ({
         ? PRICING_MODEL_DESC[property?.pricingModel]
         : property?.pricingModel || 'Timeline',
       Icon: TransactionIcon,
+    },
+    {
+      title: 'Delivery State',
+      value: property?.deliveryState || 'Finished State',
+      Icon: DeliveryStateIcon,
     },
   ];
 
@@ -1204,7 +1209,7 @@ export const PropertyHeader = ({
       <div className="row">
         <div className="col-sm-12">
           <h2 className="property-holder__big-title">
-            {property.name}{' '}
+            {getPropertyHouseType(property)}
             {/* {!isUser && <ShowPropertyStatus property={property} />} */}
           </h2>
         </div>
