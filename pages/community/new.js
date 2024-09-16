@@ -10,19 +10,24 @@ import {
 import Button from 'components/forms/Button';
 import { Formik, Form } from 'formik';
 import { createSchema } from 'components/forms/schemas/schema-helpers';
-import { BALL_COMMUNITY_CATEGORY, BASE_API_URL } from 'utils/constants';
+import {
+  BALL_COMMUNITY_CATEGORY,
+  BASE_API_URL,
+  EDITOR_MENU,
+} from 'utils/constants';
 import { getTokenFromStore } from 'utils/localStorage';
 import { createCommunitySchema } from 'components/forms/schemas/communitySchema';
 import { useRouter } from 'next/router';
 import TitleSection from '@/components/common/TitleSection';
-import MdEditor from '@/components/forms/MdEditor';
+import Editor from '@/components/forms/Editor';
 import Select from '@/components/forms/Select';
-import { valuesToOptions } from '@/utils/helpers';
+import { statusIsSuccessful, valuesToOptions } from '@/utils/helpers';
 import Header from '@/components/layout/Header';
 import CommunityGallery from '@/components/common/CommunityGallery';
 import Footer from '@/components/layout/Footer';
 import { UserContext } from '@/context/UserContext';
 import { communityCommentSchema } from '@/components/forms/schemas/communitySchema';
+import Textarea from '@/components/forms/Textarea';
 
 const AddCommunity = () => {
   const [toast, setToast] = useToast();
@@ -113,7 +118,8 @@ const CommunityForm = ({ user }) => {
                   options={valuesToOptions(BALL_COMMUNITY_CATEGORY)}
                   placeholder="Select Category"
                 />
-                <MdEditor
+                <Editor
+                  menuType={EDITOR_MENU.LITE}
                   label="Content"
                   name="content"
                   placeholder="A detailed content of the topic"
@@ -152,8 +158,11 @@ export const CommunitySignInForm = ({ text }) => (
           You need to be a member of the community to{' '}
           {text || 'leave a comment'}
         </div>
-        <Button className="mt-4 me-3"> Sign In</Button>
-        <Button color="primary" className="mt-4">
+        <Button className="mt-4 me-3" href="/login">
+          {' '}
+          Sign In
+        </Button>
+        <Button color="primary" className="mt-4" href="/register">
           Create an Account
         </Button>
       </div>
@@ -161,53 +170,55 @@ export const CommunitySignInForm = ({ text }) => (
   </Card>
 );
 
-export const AddCommentForm = ({ communityId }) => {
+export const AddCommentForm = ({ communityId, onAddComment }) => {
   const [toast, setToast] = useToast();
-  const router = useRouter();
+
+  const handleSubmit = async (payload, actions) => {
+    try {
+      const response = await Axios({
+        method: 'post',
+        url: `${BASE_API_URL}/community/add-comment/${communityId}`, // Update with the correct URL and communityId
+        data: payload,
+        headers: { Authorization: getTokenFromStore() },
+      });
+
+      if (statusIsSuccessful(response.status)) {
+        const newComments = response.data.community.comments; // Assuming the API returns the newly created comment
+        onAddComment(newComments); // Add the new comment to the state in CommunitySingle
+        setToast({
+          type: 'success',
+          message: 'Comment added successfully',
+        });
+        actions.setSubmitting(false);
+        actions.resetForm();
+      }
+    } catch (error) {
+      setToast({
+        type: 'error',
+        message: error.response.data.message,
+      });
+      actions.setSubmitting(false);
+    }
+  };
 
   return (
     <Formik
       initialValues={setInitialValues(communityCommentSchema)}
-      onSubmit={(payload, actions) => {
-        Axios({
-          method: 'post',
-          url: `${BASE_API_URL}/community/add-comment/${communityId}`, // Update with the correct URL and communityId
-          data: payload,
-          headers: { Authorization: getTokenFromStore() },
-        })
-          .then(function (response) {
-            const { status } = response;
-            if (status === 201) {
-              setToast({
-                type: 'success',
-                message: 'Comment added successfully',
-              });
-              actions.resetForm();
-              actions.setSubmitting(false);
-              // Redirect or refresh page as needed
-            }
-          })
-          .catch(function (error) {
-            setToast({
-              type: 'error',
-              message: error.response.data.message,
-            });
-            actions.setSubmitting(false);
-          });
-      }}
+      onSubmit={handleSubmit}
       validationSchema={createSchema(communityCommentSchema)}
     >
-      {({ isSubmitting, handleSubmit }) => (
+      {({ isSubmitting, handleSubmit, ...props }) => (
         <Form>
           <Toast {...toast} showToastOnly />
           <Card className="card-container comment-section">
             <section className="row">
               <div className="col-md-10 px-4">
                 <h5 id="comment-section">Add New Comment</h5>
-                <MdEditor
+                <Textarea
                   label="Content"
                   name="content"
                   placeholder="Enter your comment here"
+                  row={5}
                 />
                 <Button
                   className="btn-secondary mt-4"

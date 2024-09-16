@@ -328,7 +328,7 @@ export const PropertyImage = ({ setImage, oldImage }) => (
             changeText={`Update Property Image`}
             defaultImage={PropertyPlaceholderImage}
             imgOptions={{ className: 'mb-3', watermark: true }}
-            name="property-image"
+            name="mainImage"
             oldImage={oldImage}
             uploadText={`Upload Property Image`}
           />

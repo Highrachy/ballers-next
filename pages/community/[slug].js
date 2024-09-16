@@ -19,37 +19,71 @@ import { OnlineImage } from '@/components/utils/Image';
 import { AddCommentForm } from './new';
 import { getLongDate, getShortDate } from '@/utils/date-helpers';
 
-const CommunitySingle = ({ community }) => {
+const CommunitySingle = ({ initialCommunity }) => {
   const [toast, setToast] = useToast();
+  const [community, setCommunity] = useState(initialCommunity);
+  const [comments, setComments] = useState(initialCommunity?.comments || []);
+
+  // Client-side fetch to load the most up-to-date community data
+  useEffect(() => {
+    const fetchCommunity = async () => {
+      try {
+        if (!community?._id) {
+          return;
+        }
+        const response = await Axios.get(
+          API_ENDPOINT.getOneCommunityTopic(community?._id)
+        );
+        setCommunity(response.data.community);
+        setComments(response.data.community.comments);
+      } catch (error) {
+        setToast({
+          type: 'error',
+          message: 'Failed to load updated community data.',
+        });
+      }
+    };
+
+    fetchCommunity();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!community) {
     return null;
   }
+
+  const handleAddComment = (newComments) => {
+    setComments(newComments); // Update comments after adding a new one
+  };
 
   return (
     <>
       <Header />
       <TitleSection name="Single Community" content={community.title} />
       <ForumTable community={community} />
-      <SingleThread communityId={community._id} comments={community.comments} />
-      <AddCommentForm communityId={community._id} />
+      <SingleThread communityId={community._id} comments={comments} />
+      <AddCommentForm
+        communityId={community._id}
+        onAddComment={handleAddComment}
+      />
       <CommunityGallery />
       <Footer />
     </>
   );
 };
 
+// This is for SSR, but the data will be refreshed via CSR in the useEffect
 export async function getStaticProps({ params }) {
   const slug = params.slug;
   const response = await Axios.get(API_ENDPOINT.getCommunityBySlug(slug));
 
-  const community = response.data.result[0] || {};
+  const community = response?.data?.community || {};
 
   return {
     props: {
-      community,
+      initialCommunity: community, // Renamed to initialCommunity
     },
-    revalidate: 5,
+    revalidate: 1, // Revalidate the page every second for ISR
   };
 }
 
@@ -61,7 +95,7 @@ export async function getStaticPaths() {
     paths: communities.map((community) => ({
       params: { slug: community?.slug },
     })),
-    fallback: true,
+    fallback: true, // Enables ISR fallback for missing pages
   };
 }
 
@@ -81,8 +115,7 @@ const CustomToggle = React.forwardRef(({ onClick }, ref) => (
 CustomToggle.displayName = 'CustomToggle';
 
 const ForumTable = ({ community }) => {
-  console.log('community', community);
-  const authorComment = community?.comments[0];
+  const authorComment = community?.comments?.[0];
   const author = authorComment?.author;
 
   return (
@@ -95,7 +128,7 @@ const ForumTable = ({ community }) => {
               by {author?.firstName}, {getLongDate(authorComment.postedAt)}
             </p>
             <div className="badge rounded-pill bg-primary community__category-badge">
-              Category: {community.category}
+              Category: {community.category}, Views: {community.views}
             </div>
           </div>
           <div className="ms-5 flex-shrink-0">
@@ -122,6 +155,10 @@ const SingleThread = ({ communityId, ...props }) => {
   const [comments, setComments] = useState(props?.comments);
   let { userState } = React.useContext(UserContext);
   const userId = userState._id?.toString();
+
+  useEffect(() => {
+    setComments(props.comments);
+  }, [props.comments]);
 
   const updateCommentLikes = (commentId, userId) => {
     setComments((prevComments) =>
@@ -287,7 +324,9 @@ const SingleThread = ({ communityId, ...props }) => {
                       </Dropdown>
                     </div>
                     <section className="mt-3">
-                      <p className="mb-0">{comment.content}</p>
+                      <div
+                        dangerouslySetInnerHTML={{ __html: comment?.content }}
+                      />
                     </section>
                   </div>
 
