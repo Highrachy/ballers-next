@@ -63,7 +63,7 @@ export const API_ENDPOINT = {
 
   getAllCommunityTopics: () => `${BASE_API_URL}/community/all`,
   getOneCommunityTopic: (id) => `${BASE_API_URL}/community/${id}`,
-  getCommunityBySlug: (slug) => `${BASE_API_URL}/community/all?slug=${slug}`,
+  getCommunityBySlug: (slug) => `${BASE_API_URL}/community/slug/${slug}`,
 
   getVendor: (slug) => `${BASE_API_URL}/user/vendor/${slug}`,
   getAllVendors: () => `${BASE_API_URL}/user/vendors`,

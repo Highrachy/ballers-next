@@ -43,13 +43,13 @@ export async function getStaticProps({ params }) {
   const slug = params.slug;
   const response = await Axios.get(API_ENDPOINT.getCommunityBySlug(slug));
 
-  const community = response.data.result[0] || {};
+  const community = response.data.community || {};
 
   return {
     props: {
       community,
     },
-    revalidate: 5,
+    revalidate: 1,
   };
 }
 
@@ -81,7 +81,6 @@ const CustomToggle = React.forwardRef(({ onClick }, ref) => (
 CustomToggle.displayName = 'CustomToggle';
 
 const ForumTable = ({ community }) => {
-  console.log('community', community);
   const authorComment = community?.comments[0];
   const author = authorComment?.author;
 
@@ -95,7 +94,7 @@ const ForumTable = ({ community }) => {
               by {author?.firstName}, {getLongDate(authorComment.postedAt)}
             </p>
             <div className="badge rounded-pill bg-primary community__category-badge">
-              Category: {community.category}
+              Category: {community.category}, Views: {community.views}
             </div>
           </div>
           <div className="ms-5 flex-shrink-0">
@@ -287,7 +286,9 @@ const SingleThread = ({ communityId, ...props }) => {
                       </Dropdown>
                     </div>
                     <section className="mt-3">
-                      <p className="mb-0">{comment.content}</p>
+                      <div
+                        dangerouslySetInnerHTML={{ __html: comment?.content }}
+                      />
                     </section>
                   </div>
 
