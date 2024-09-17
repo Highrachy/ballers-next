@@ -71,6 +71,7 @@ import {
   MdAccountBalanceWallet,
   MdAddShoppingCart,
   MdEditNote,
+  MdReportProblem,
 } from 'react-icons/md';
 import { GoVerified } from 'react-icons/go';
 import { TiDelete, TiMessages } from 'react-icons/ti';
@@ -160,6 +161,7 @@ export const ReferIcon = () => <Gift variant="Bulk" />;
 export const ReferralsIcon = () => <AiOutlineUserSwitch />;
 export const ReplyIcon = () => <FaReply />;
 export const ReportedPropertyIcon = () => <FaHouseDamage />;
+export const ReportedContentIcon = () => <MdReportProblem />;
 export const RightArrowIcon = () => <FiChevronRight />;
 export const RightChevronIcon = () => <FiChevronRight />;
 export const SchoolIcon = () => <FaBuilding />;

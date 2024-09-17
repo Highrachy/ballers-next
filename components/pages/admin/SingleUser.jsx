@@ -649,7 +649,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
                 </tr>
               )}
 
-              {/* {(user.role === USER_TYPES.user ||
+              {(user.role === USER_TYPES.user ||
                 user.role === USER_TYPES.editor) && (
                 <tr>
                   <td colSpan="5">
@@ -664,11 +664,11 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
                       onClick={processRoleChange}
                     >
                       Change Role to{' '}
-                      {user.role === USER_TYPES.user ? 'a User' : 'an Editor'}
+                      {user.role === USER_TYPES.user ? 'an Editor' : 'a User'}
                     </Button>
                   </td>
                 </tr>
-              )} */}
+              )}
 
               {isVendor && (
                 <tr>

@@ -215,10 +215,9 @@ export const AddCommentForm = ({ communityId, onAddComment }) => {
               <div className="col-md-10 px-4">
                 <h5 id="comment-section">Add New Comment</h5>
                 <Textarea
-                  label="Content"
                   name="content"
                   placeholder="Enter your comment here"
-                  row={5}
+                  rows={5}
                 />
                 <Button
                   className="btn-secondary mt-4"

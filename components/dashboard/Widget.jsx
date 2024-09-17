@@ -7,12 +7,13 @@ export const Widget = ({
   name,
   color,
   link,
+  fullLink = null,
   Icon,
   value,
   className = 'col-6',
   role = 'user',
 }) => {
-  const url = `/${role}/${(link || name).toLowerCase()}`;
+  const url = fullLink || `/${role}/${(link || name).toLowerCase()}`;
 
   return (
     <section className={`widget ${className}`}>

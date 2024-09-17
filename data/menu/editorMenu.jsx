@@ -1,12 +1,11 @@
 import React from 'react';
 import {
-  PropertyIcon,
   HomeIcon,
   ProfileIcon,
   ReferIcon,
+  BlogIcon,
+  EditNoteIcon,
 } from 'components/utils/Icons';
-import { ArticlesIcon } from 'components/utils/Icons';
-// import { ArticlesIcon } from 'components/utils/Icons';
 
 const editorMenu = [
   {
@@ -17,15 +16,15 @@ const editorMenu = [
   },
 
   {
-    title: 'Content Properties',
-    to: '/editor/content-property',
-    icon: <PropertyIcon />,
+    title: 'Blog Posts',
+    to: '/editor/blog',
+    icon: <BlogIcon />,
     footer: true,
   },
   {
-    title: 'Knowledgebase',
-    to: '/editor/knowledgebase',
-    icon: <ArticlesIcon />,
+    title: 'Community',
+    to: '/community',
+    icon: <EditNoteIcon />,
     footer: true,
   },
   {
