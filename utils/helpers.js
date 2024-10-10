@@ -461,3 +461,8 @@ export const calculateLocalTransactionFee = (amount) => {
 
   return fee;
 };
+
+export const getStagingHost = () => {
+  const publicHost = process.env.NEXT_PUBLIC_HOST;
+  return publicHost || 'https://preview.ballers.ng';
+};

@@ -385,7 +385,7 @@ const DisplayOfferLetterTemplate = ({ offerId, setConcerns }) => {
                 offer={offer}
               />
 
-              <div>
+              {/* <div>
                 <SharePublicLink
                   link={`${
                     process.env.NEXT_PUBLIC_HOST || 'https://ballers.ng'
@@ -397,7 +397,7 @@ const DisplayOfferLetterTemplate = ({ offerId, setConcerns }) => {
                 >
                   View Public Offer
                 </Link>
-              </div>
+              </div> */}
             </OfferLetterTemplate>
           </>
         )}

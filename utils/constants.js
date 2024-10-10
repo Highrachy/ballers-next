@@ -60,6 +60,7 @@ export const TITLE_DOCUMENTS = [
   'Deed of Lease',
   'Deed of Sublease',
   'Land Certificate',
+  "Governor's Consent",
 ];
 
 export const FAST_TRACK_VENDOR = {

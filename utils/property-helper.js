@@ -1,4 +1,8 @@
-import { getLocationFromAddress, moneyFormatInNaira } from './helpers';
+import {
+  getLocationFromAddress,
+  moneyFormatInNaira,
+  getAutoCompleteAsString,
+} from './helpers';
 
 const getRandomElementFromArray = (arr) =>
   arr[Math.floor(Math.random() * arr.length)];
@@ -213,7 +217,9 @@ ${
     property?.price
   )}${
     property?.titleDocument
-      ? ` and includes a '${property?.titleDocument}' title`
+      ? ` and includes ${getAutoCompleteAsString(
+          property?.titleDocument
+        )} title`
       : ''
   }. Find it at ${address}.
 

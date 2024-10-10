@@ -10,6 +10,7 @@ import {
   BsGearWideConnected,
   BsNewspaper,
 } from 'react-icons/bs';
+import { getDemoRegisterLink } from './helpers';
 
 const howItWorksDropdown = [
   {
@@ -43,11 +44,11 @@ const learnDropdown = [
     link: '/blog',
   },
   {
-    title: 'Guides',
+    title: 'Documentation',
     description:
       'Comprehensive guides and resources for navigating the home ownership process',
     icon: <BsHouseDoor />,
-    link: '/guides',
+    link: '/docs',
   },
   {
     title: 'Community',
@@ -105,16 +106,16 @@ export const Menus = [
     name: 'Learn',
     href: '/learn',
     children: learnDropdown,
-    additionalResources: [
-      {
-        title: 'For Buyers',
-        links: forBuyers,
-      },
-      {
-        title: 'For Sellers',
-        links: forSellers,
-      },
-    ],
+    // additionalResources: [
+    //   {
+    //     title: 'For Buyers',
+    //     links: forBuyers,
+    //   },
+    //   {
+    //     title: 'For Sellers',
+    //     links: forSellers,
+    //   },
+    // ],
   },
   { name: 'More', href: '/more', children: moreDropdown },
 ];
@@ -139,6 +140,6 @@ export const sellerDropdown = [
     description:
       "Explore BALL's features and functionalities by creating a demo account",
     icon: <BsTools />,
-    link: '/ball-vips/create-demo-account',
+    link: `${getDemoRegisterLink()}`,
   },
 ];

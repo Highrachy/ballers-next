@@ -44,6 +44,11 @@ const Docs = ({ featuredItems, searchData }) => {
     setSearchPerformed(false);
   };
 
+  const handleInputChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+  };
+
   const isSearchButtonDisabled = searchQuery.length < 3;
 
   return (
@@ -56,13 +61,15 @@ const Docs = ({ featuredItems, searchData }) => {
       <div className="container mt-5">
         <div className="row">
           <div className="col-lg-9 mx-auto">
-            <div className="input-group mb-3">
+            <div className="input-group btn-addon mb-3">
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => {
-                  const query = e.target.value;
-                  setSearchQuery(query);
+                onChange={handleInputChange}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSearch();
+                  }
                 }}
                 placeholder="Search..."
                 className="form-control"

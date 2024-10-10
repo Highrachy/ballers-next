@@ -23,7 +23,7 @@ import {
   getTokenFromStore,
   getUserRoleFromStore,
 } from 'utils/localStorage';
-import { getError, statusIsSuccessful } from 'utils/helpers';
+import { getDemoLoginLink, getError, statusIsSuccessful } from 'utils/helpers';
 import { useRouter } from 'next/router';
 import { UserContext } from '@/context/UserContext';
 import GoogleLoginButton from '@/components/common/GoogleLoginButton';
@@ -71,8 +71,12 @@ const Content = ({ redirectTo, token }) => {
                   </Link>
                 </div>
                 <div className="text-center">
-                  <Button color="secondary-light" className="btn-wide">
-                    Have a Demo Account? Login Here
+                  <Button
+                    color="secondary-light"
+                    className="btn-wide"
+                    href={getDemoLoginLink()}
+                  >
+                    Login to your Demo Account
                   </Button>
                 </div>
               </section>
