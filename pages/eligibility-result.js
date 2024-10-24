@@ -88,7 +88,7 @@ const EligibilityResultPage = () => {
 };
 
 const EligibilityContainer = ({ result }) => {
-  const [comfortLevel, setComfortLevel] = React.useState(30);
+  const [comfortLevel, setComfortLevel] = React.useState(40);
   const [output, setOutput] = React.useState({});
   const userIsEligible = output?.recommendations?.[0]?.title !== 'Ineligible';
 
@@ -258,23 +258,23 @@ const EligibilityReport = ({
   output,
   userIsEligible,
 }) => {
-  // 0 - 33 = comfortable
-  // 34 - 50 = stretching
-  // 51 - 100 = risky
+  // 0 - 40 = comfortable
+  // 41 - 60 = stretching
+  // 61 - 100 = risky
   const comfortLevelText =
     comfortLevel == 0
       ? 'No Savings'
-      : comfortLevel <= 33
+      : comfortLevel <= 40
       ? 'Comfortable'
-      : comfortLevel <= 50
+      : comfortLevel <= 60
       ? 'Stretching'
       : 'Getting Risky';
   const comfortLevelColor =
     comfortLevel == 0
       ? 'gray'
-      : comfortLevel <= 33
+      : comfortLevel <= 40
       ? 'success'
-      : comfortLevel <= 50
+      : comfortLevel <= 60
       ? 'warning'
       : 'danger';
 

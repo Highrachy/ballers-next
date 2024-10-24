@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import { Card, Col, Row, Table } from 'react-bootstrap';
 import Map from 'components/common/Map';
@@ -85,6 +85,10 @@ import { isMilestonePayment } from '@/utils/milestone-helper';
 import { CallCalling, MessageText1, Whatsapp } from 'iconsax-react';
 import colorTokens from 'style-dictionary/build/color.tokens';
 import { useChatMessage } from '@/context/ChatContext';
+import NumberFormat from 'react-number-format';
+import { TickCircle, InfoCircle } from 'iconsax-react';
+import Realistic from 'react-canvas-confetti/dist/presets/realistic';
+import Label from '../forms/Label';
 
 const pageOptions = {
   key: 'property',
@@ -929,7 +933,7 @@ const ContactOption = ({ icon, header, text, link }) => {
   );
 };
 
-export const PropertyContact = () => {
+export const PropertyContact = ({ property }) => {
   return (
     <div className="property-contact mt-5">
       <div className="row">
@@ -975,6 +979,12 @@ export const PropertyContact = () => {
           link="#"
         />
       </div>
+      <Button
+        className="btn-xl btn-wide mt-5 btn-md"
+        href={`/contact-us?text=Hello, I am interested in the ${property?.name} property. Please provide further details&subject=Property Inquiry: ${property?.name}`}
+      >
+        Make Enquiry Now
+      </Button>
     </div>
   );
 };
@@ -1121,7 +1131,7 @@ export const PropertyDescription = ({
         ))}
       </ul>
       <section className="actionbar">{Actionbar}</section>
-      {isPublicPage && <PropertyContact />}
+      {isPublicPage && <PropertyContact property={property} />}
 
       {(isPublicPage ||
         (currentRole?.role !== USER_TYPES.vendor && !isPortfolioPage)) && (
@@ -1195,6 +1205,223 @@ export const ViewVendorButton = ({ property }) => (
   </Link>
 );
 
+export const ViewEligibilityButton = ({ property }) => {
+  const [showEligibilityModal, setShowEligibilityModal] = useState(false);
+  const [showResultModal, setShowResultModal] = useState(false);
+  const [formData, setFormData] = useState({
+    initialPayment: '',
+    monthlyPayment: '',
+  });
+  const [errors, setErrors] = useState({
+    initialPayment: '',
+    monthlyPayment: '',
+  });
+  const [userIsEligible, setUserIsEligible] = useState(false);
+  const {
+    name,
+    address,
+    houseType,
+    mainImage,
+    price,
+    _id,
+    slug,
+    favourites,
+    pricingModel,
+    deliveryState,
+  } = property;
+
+  const handleChange = (field, value) => {
+    setFormData({ ...formData, [field]: value });
+  };
+
+  const handleBlur = (field) => {
+    const minInitialPayment = 1_000_000;
+    const minMonthlyPayment = 100_000;
+
+    if (
+      field === 'initialPayment' &&
+      formData.initialPayment < minInitialPayment
+    ) {
+      setErrors({
+        ...errors,
+        initialPayment: 'Initial payment must be at least 1 million Naira',
+      });
+    } else if (
+      field === 'monthlyPayment' &&
+      formData.monthlyPayment < minMonthlyPayment
+    ) {
+      setErrors({
+        ...errors,
+        monthlyPayment: 'Monthly payment must be greater than 100,000 Naira',
+      });
+    } else {
+      setErrors({ ...errors, [field]: '' });
+    }
+  };
+
+  const checkEligibility = () => {
+    const propertyPrice = price;
+    const calculatedEligibility =
+      formData.monthlyPayment * 12 * 5 + formData.initialPayment * 1;
+
+    if (!errors.initialPayment && !errors.monthlyPayment) {
+      if (calculatedEligibility >= propertyPrice) {
+        setUserIsEligible(true);
+      } else {
+        setUserIsEligible(false);
+      }
+
+      setShowEligibilityModal(false);
+      setShowResultModal(true);
+    } else {
+      alert('Please correct the errors before confirming.');
+    }
+  };
+
+  const eligibilityClassName = userIsEligible ? 'success-dark' : 'dark';
+
+  return (
+    <div>
+      <Button
+        color="none"
+        className="btn-primary-light btn-wide btn-wide-sm btn-sm"
+        onClick={() => setShowEligibilityModal(true)}
+      >
+        Confirm Eligibility
+      </Button>
+
+      {/* Eligibility Modal */}
+      <Modal
+        size="lg"
+        title="Confirm Your Eligibility"
+        show={showEligibilityModal}
+        onHide={() => setShowEligibilityModal(false)}
+        showFooter={false}
+      >
+        <section className="p-4">
+          <div className="row">
+            <div className="col-sm-12">
+              <h3 className="property-holder__big-title">
+                {getPropertyHouseType(property)} ({property?.name})
+              </h3>
+              <h4 className="text-secondary mb-2">
+                {moneyFormatInNaira(property.price)}
+              </h4>
+
+              <div className="mb-2 text-muted">
+                <MapPinIcon /> {getLocationFromAddress(property.address)}
+              </div>
+            </div>
+          </div>
+
+          <div className="dotted-border my-3"></div>
+
+          <div className="row">
+            <div className="col-sm-10">
+              <div className="form-group">
+                <Label name="initialPayment">Initial Payment</Label>
+                <NumberFormat
+                  className="form-control"
+                  placeholder="Initial Payment (Minimum 1 Million Naira)"
+                  value={formData.initialPayment}
+                  thousandSeparator={true}
+                  prefix={'₦ '}
+                  onBlur={() => handleBlur('initialPayment')}
+                  onValueChange={(values) => {
+                    handleChange('initialPayment', values.value);
+                  }}
+                />
+                {errors.initialPayment && (
+                  <div className="error-message text-danger mt-2">
+                    {errors.initialPayment}
+                  </div>
+                )}
+              </div>
+
+              <div className="form-group">
+                <Label name="monthlyPayment">Monthly Payment</Label>
+                <NumberFormat
+                  className="form-control"
+                  placeholder="Monthly Income"
+                  value={formData.monthlyPayment}
+                  thousandSeparator={true}
+                  prefix={'₦ '}
+                  onBlur={() => handleBlur('monthlyPayment')}
+                  onValueChange={(values) => {
+                    handleChange('monthlyPayment', values.value);
+                  }}
+                />
+                {errors.monthlyPayment && (
+                  <div className="error-message text-danger mt-2">
+                    {errors.monthlyPayment}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <Button
+            color="primary"
+            className="btn btn-primary mt-4"
+            onClick={checkEligibility}
+          >
+            Confirm Eligibility
+          </Button>
+        </section>
+      </Modal>
+
+      {/* Result Modal */}
+      <Modal
+        title="Eligibility Result"
+        show={showResultModal}
+        onHide={() => setShowResultModal(false)}
+        showFooter={false}
+      >
+        {userIsEligible && (
+          <Realistic
+            autorun={{ speed: 0.3, duration: 9_000 }}
+            className="position-absolute top-0 left-0 w-100 h-100"
+          />
+        )}
+        <section className="text-center">
+          <div className={`pb-4 text-${eligibilityClassName}-dark`}>
+            {userIsEligible ? (
+              <TickCircle size="96" variant="Bulk" />
+            ) : (
+              <InfoCircle size="96" variant="Bulk" />
+            )}
+          </div>
+          <h2
+            className={`mb-3 text-xl fw-semibold text-${eligibilityClassName}-dark`}
+          >
+            {userIsEligible ? (
+              <>
+                Congratulations,
+                <br /> You are eligible
+              </>
+            ) : (
+              'You are almost there!'
+            )}
+          </h2>
+
+          <h4
+            className={`mb-5 pb-2 text-${eligibilityClassName}-dark fw-semibold lead-header`}
+          >
+            {userIsEligible ? (
+              <>
+                {' '}
+                to own {name} - {houseType} in {address?.city}, {address?.state}
+              </>
+            ) : (
+              <>The price of {name} may be above your budget.</>
+            )}
+          </h4>
+        </section>
+      </Modal>
+    </div>
+  );
+};
+
 export const PropertyHeader = ({
   property,
   enquiryInfo,
@@ -1209,7 +1436,7 @@ export const PropertyHeader = ({
       <div className="row">
         <div className="col-sm-12">
           <h2 className="property-holder__big-title">
-            {getPropertyHouseType(property)}
+            {getPropertyHouseType(property)} ({property?.name})
             {/* {!isUser && <ShowPropertyStatus property={property} />} */}
           </h2>
         </div>

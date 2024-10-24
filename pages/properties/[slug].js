@@ -11,7 +11,7 @@ import {
   PropertyHeader,
   PropertyImage,
   PropertyLists,
-  ViewVendorButton,
+  ViewEligibilityButton,
 } from '@/components/shared/SingleProperty';
 import { ScheduleTourButton } from '@/components/pages/user/SingleUserProperty';
 import Axios from 'axios';
@@ -103,7 +103,11 @@ const LoadProperty = ({ property }) => {
             <>
               <SharerModal />
               <Spacing />
-              <Button href="/contact-us">Make Enquiry</Button>
+              <Button
+                href={`/contact-us?text=Hello, I am interested in the ${property?.name} property. Please provide further details&subject=Property Inquiry: ${property?.name}`}
+              >
+                Make Enquiry
+              </Button>
             </>
           }
         />
@@ -126,7 +130,7 @@ const LoadProperty = ({ property }) => {
                     userHasScheduledVisit={false}
                   />
                   <Spacing />
-                  <ViewVendorButton property={property} />
+                  <ViewEligibilityButton property={property} />
                 </div>
               }
               isPortfolioPage={false}
