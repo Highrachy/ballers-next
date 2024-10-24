@@ -79,20 +79,23 @@ const LoadService = ({
               <div className="col-sm-8">
                 <h2 className="property-holder__big-title">{name} </h2>
                 <h3 className="text-secondary mb-2">
-                  <span>{moneyFormatInNaira(price)}</span>
+                  {/* <span>{moneyFormatInNaira(price)}</span>
                   <span className="text-soft ms-3 text-price-strike">
                     {moneyFormatInNaira(old_price)}
-                  </span>
+                  </span> */}
                 </h3>
               </div>
               <div className="col-sm-4 text-end">
-                <Link href={`/user/property`} passHref>
+                <Link
+                  href={`/contact-us?text=Hello, I am interested in learning more about the ${name} service. Please provide further details&subject=Service Inquiry: ${name}`}
+                  passHref
+                >
                   <a className="btn btn-sm btn-wide btn-secondary">
                     Interested in this Service
                   </a>
                 </Link>
               </div>
-              <div className="hover-image">
+              <div className="hover-image mt-3">
                 <OnlineImage
                   name={name}
                   src={`/img/services/${image}`}

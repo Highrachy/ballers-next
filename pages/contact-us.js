@@ -44,13 +44,13 @@ const Content = () => {
   return (
     <section className="container-fluid bg-light-blue py-6">
       <div className="row">
-        <div className="col-lg-6 col-12">
+        <div className="col-lg-7 col-12">
           <div className="col-10 contact-hello-form">
             <h4 className="contact-hello-heading">Send a message</h4>
             <SupportTicketForm buttonText="Send Message" page="Contact Us" />
           </div>
         </div>
-        <div className="row col-lg-6 col-12 contact-hello-info">
+        <div className="row col-lg-5 col-12 contact-hello-info">
           <div className="col-lg-12 col-sm-6 col-12">
             <h4 className="header-secondary">SAY HELLO</h4>
             <h3>

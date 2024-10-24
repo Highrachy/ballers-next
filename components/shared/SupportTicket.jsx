@@ -27,6 +27,7 @@ import Textarea from '../forms/Textarea';
 import { UserContext } from '@/context/UserContext';
 import { addAnonymousSupportTicketSchema } from '../forms/schemas/supportTicketSchema';
 import { getDate } from '@/utils/date-helpers';
+import { useRouter } from 'next/router';
 
 export const SupportTicketForm = ({
   hideForm = () => {},
@@ -36,6 +37,8 @@ export const SupportTicketForm = ({
 }) => {
   const [toast, setToast] = useToast();
   const { userState } = useContext(UserContext);
+  const router = useRouter();
+  const { text: queryDescription, subject: subjectDescription } = router.query;
   const userHasLoggedIn = userState?.isLoggedIn;
   const id = supportTicket?._id || null;
   const currentSchema = userHasLoggedIn
@@ -46,6 +49,8 @@ export const SupportTicketForm = ({
       enableReinitialize={true}
       initialValues={setInitialValues(currentSchema, {
         priority: 'medium',
+        description: queryDescription || '',
+        subject: subjectDescription || '',
         ...supportTicket,
       })}
       onSubmit={(payload, actions) => {
@@ -92,7 +97,7 @@ export const SupportTicketForm = ({
                 </>
               )}
               <Input label="Subject" name="subject" />
-              <Textarea label="Description" name="description" />
+              <Textarea label="Description" name="description" rows={5} />
               <Button
                 className="btn-secondary mt-4"
                 loading={isSubmitting}

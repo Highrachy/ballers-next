@@ -151,7 +151,7 @@ const CheckEligibility = ({ result, userIsEligible }) => {
         </div>
       )}
       <h3 className="mt-n1 text-xxl fw-semibold">
-        {userIsEligible ? 'Congratulations' : 'Oops'}!
+        {userIsEligible ? 'Congratulations' : 'You are almost there'}!
       </h3>
       <h4 className="mb-3 text-lg fw-semibold">
         {userIsEligible ? (
@@ -172,14 +172,19 @@ const CheckEligibility = ({ result, userIsEligible }) => {
             </p>
           </>
         ) : (
-          <>
-            Prices for <span className="text-secondary-800">{result.type}</span>{' '}
-            in <span className="text-secondary-800">{result.area}</span> might
-            be above your budget.
-            <h5 className="mt-3">
+          <p className="lh-normal">
+            The minimum price of{' '}
+            <span className="text-secondary-800">{result.type}</span> in{' '}
+            <span className="text-secondary-800">{result.area}</span> is
+            <span className="text-primary">
+              &nbsp;{moneyFormatInNaira(result.minimumPrice)}
+            </span>
+            <br />
+            which might be above your budget.
+            {/* <h5 className="mt-3">
               Let&apos;s find something perfect together!
-            </h5>
-          </>
+            </h5> */}
+          </p>
         )}{' '}
       </h4>
 
@@ -297,7 +302,9 @@ const EligibilityReport = ({
             <h2
               className={`mb-3 text-xl fw-semibold text-${eligibilityClassName}-dark`}
             >
-              {userIsEligible ? 'Congratulations, You are eligible' : 'Oops!'}
+              {userIsEligible
+                ? 'Congratulations, You are eligible'
+                : 'You are almost there!'}
             </h2>
             <h4
               className={`mb-5 pb-2 text-${eligibilityClassName}-dark fw-semibold lead-header`}
@@ -417,6 +424,10 @@ const EligibilityReport = ({
                   <div className="bottom-range-border mb-5 pb-5"></div>
                 </>
               )}
+
+              <p className="text-sm mt-1 text-soft">
+                * Accumulated savings for 5 years
+              </p>
               <div className="button-container mb-7">
                 <h4 className="">Next Step </h4>
                 <p className="">
@@ -430,7 +441,7 @@ const EligibilityReport = ({
                     result={result}
                     className="me-md-3 mb-md-0 mb-3"
                   />
-                  <Button wide color="secondary" href="/contact-us">
+                  <Button wide color="secondary" href="/register">
                     Create a free account
                   </Button>
                 </div>
@@ -464,7 +475,7 @@ const RecommendationCard = ({ result, userIsEligible }) => {
         </strong>
       </p>
       <p className="text-lg fw-light  mb-1">
-        and a monthly contribution of{' '}
+        and a monthly savings of{' '}
         <strong className={`fw-normal text-${eligibilityClassName}-darker`}>
           {moneyFormatInNaira(result.monthlyContribution)}{' '}
         </strong>{' '}
