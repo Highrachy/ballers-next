@@ -127,11 +127,6 @@ const teamMembers = [
     role: 'Lead Developer',
     imgSrc: '/img/team/haruna.jpg',
   },
-  {
-    name: 'Joshua Segbo',
-    role: 'Business Development',
-    imgSrc: '/img/team/joshua.jpg',
-  },
 ];
 
 const OurTeam = () => (
