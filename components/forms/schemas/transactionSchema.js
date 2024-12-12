@@ -14,6 +14,7 @@ export const addTransactionSchema = {
 
 export const onlinePaymentSchema = {
   amount: moneyRange('Amount', 'amount', 1_000, 1_000_000),
+  chargeType: optionalValidation(required('Charge Type')),
 };
 
 export const offlinePaymentSchema = {

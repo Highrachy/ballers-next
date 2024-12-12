@@ -386,42 +386,6 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
   // const verificationState = getVerificationState(user);
 
   const UserInformation = () => {
-    const [loading, setLoading] = React.useState(false);
-    const userRole = user?.role;
-
-    const processRoleChange = () => {
-      setLoading(true);
-      const action = userRole === USER_TYPES.user ? 'upgrade' : 'downgrade';
-
-      Axios.put(
-        `${BASE_API_URL}/user/editor/${action}`,
-        { userId: user._id },
-        {
-          headers: { Authorization: getTokenFromStore() },
-        }
-      )
-        .then(function (response) {
-          const { status, data } = response;
-          if (status === 200) {
-            setToast({
-              message: data.message,
-              type: 'success',
-            });
-            setUser(data.user);
-            setQueryCache([pageOptions.key, user._id], {
-              user: data.user,
-            });
-            setLoading(false);
-          }
-        })
-        .catch(function (error) {
-          setToast({
-            message: getError(error),
-          });
-          setLoading(false);
-        });
-    };
-
     return (
       <>
         <CardTableSection
@@ -576,36 +540,6 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
 
               <tr>
                 <td>
-                  <strong>Feature Flag</strong>
-                </td>
-                <td colSpan="4">
-                  <ul className="list-group mt-3">
-                    {user?.featureFlag?.map(({ name }, index) => (
-                      <li
-                        key={index}
-                        className="list-group-item d-flex justify-content-between align-items-center p-3"
-                      >
-                        <span>{name}</span>
-                        <DeleteFeatureFlagModal
-                          flagName={name}
-                          user={user}
-                          setUser={setUser}
-                          setToast={setToast}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-
-                  <AddFeatureFlagForm
-                    user={user}
-                    setUser={setUser}
-                    setToast={setToast}
-                  />
-                </td>
-              </tr>
-
-              <tr>
-                <td>
                   <strong>Badges</strong>
                 </td>
                 <td colSpan="4">
@@ -621,56 +555,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
                 </td>
               </tr>
 
-              <tr>
-                <td>
-                  <strong>Referral Bonus</strong>
-                </td>
-                <td colSpan="4">
-                  <ReferralBonusForm
-                    user={user}
-                    setUser={setUser}
-                    setToast={setToast}
-                  />
-                </td>
-              </tr>
-
-              {isVendor && (
-                <tr>
-                  <td>
-                    <strong>Remittance</strong>
-                  </td>
-                  <td colSpan="4">
-                    <RemittanceForm
-                      user={user}
-                      setUser={setUser}
-                      setToast={setToast}
-                    />
-                  </td>
-                </tr>
-              )}
-
-              {(user.role === USER_TYPES.user ||
-                user.role === USER_TYPES.editor) && (
-                <tr>
-                  <td colSpan="5">
-                    <Button
-                      color="none"
-                      loading={loading}
-                      className={
-                        user.role === USER_TYPES.user
-                          ? 'btn-secondary-light'
-                          : 'btn-danger-light'
-                      }
-                      onClick={processRoleChange}
-                    >
-                      Change Role to{' '}
-                      {user.role === USER_TYPES.user ? 'an Editor' : 'a User'}
-                    </Button>
-                  </td>
-                </tr>
-              )}
-
-              {isVendor && (
+              {isVendor && !user.vendor.verified && (
                 <tr>
                   <td colSpan="5">
                     <StepAction step={VENDOR_STEPS_KEY[0]} />
@@ -799,41 +684,198 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
   );
 
   const Logs = () => (
-    <div className="card h-100 my-5 pt-5 border-0">
+    <div className="card h-100 my-5 border-0">
       <div className="card-container">
-        <h5 className="title">Logs</h5>
+        {user.vendor?.logs.length === 0 ? (
+          <h3>No Log Found</h3>
+        ) : (
+          <>
+            <h5 className="title">Logs</h5>
 
-        <Timeline>
-          {user.vendor?.logs?.map((log, index) => (
-            <LogTimeline log={log} key={index} />
-          ))}
-        </Timeline>
+            <Timeline>
+              {user.vendor?.logs?.map((log, index) => (
+                <LogTimeline log={log} key={index} />
+              ))}
+            </Timeline>
+          </>
+        )}
       </div>
     </div>
   );
 
+  const AdminActions = () => {
+    const [loading, setLoading] = React.useState(false);
+    const userRole = user?.role;
+
+    const processRoleChange = () => {
+      setLoading(true);
+      const action = userRole === USER_TYPES.user ? 'upgrade' : 'downgrade';
+
+      Axios.put(
+        `${BASE_API_URL}/user/editor/${action}`,
+        { userId: user._id },
+        {
+          headers: { Authorization: getTokenFromStore() },
+        }
+      )
+        .then(function (response) {
+          const { status, data } = response;
+          if (status === 200) {
+            setToast({
+              message: data.message,
+              type: 'success',
+            });
+            setUser(data.user);
+            setQueryCache([pageOptions.key, user._id], {
+              user: data.user,
+            });
+            setLoading(false);
+          }
+        })
+        .catch(function (error) {
+          setToast({
+            message: getError(error),
+          });
+          setLoading(false);
+        });
+    };
+
+    return (
+      <div className="card h-100 my-5 border-0">
+        <div className="card-container">
+          <CardTableSection
+            name={<span className="title">Administrative</span>}
+            className="border-0"
+          >
+            <>
+              <tr>
+                <td>
+                  <strong>Feature Flag</strong>
+                </td>
+                <td colSpan="4">
+                  <ul className="list-group mt-3">
+                    {user?.featureFlag?.map(({ name }, index) => (
+                      <li
+                        key={index}
+                        className="list-group-item d-flex justify-content-between align-items-center p-3"
+                      >
+                        <span>{name}</span>
+                        <DeleteFeatureFlagModal
+                          flagName={name}
+                          user={user}
+                          setUser={setUser}
+                          setToast={setToast}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+
+                  <AddFeatureFlagForm
+                    user={user}
+                    setUser={setUser}
+                    setToast={setToast}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Referral Bonus</strong>
+                </td>
+                <td colSpan="4">
+                  <ReferralBonusForm
+                    user={user}
+                    setUser={setUser}
+                    setToast={setToast}
+                  />
+                </td>
+              </tr>
+
+              {isVendor && (
+                <tr>
+                  <td>
+                    <strong>Remittance</strong>
+                  </td>
+                  <td colSpan="4">
+                    <RemittanceForm
+                      user={user}
+                      setUser={setUser}
+                      setToast={setToast}
+                    />
+                  </td>
+                </tr>
+              )}
+
+              {(user.role === USER_TYPES.user ||
+                user.role === USER_TYPES.editor) && (
+                <tr>
+                  <td>
+                    <strong>Change Role</strong>
+                  </td>
+                  <td colSpan="4">
+                    <Button
+                      color="none"
+                      loading={loading}
+                      className={
+                        user.role === USER_TYPES.user
+                          ? 'btn-secondary-light'
+                          : 'btn-danger-light'
+                      }
+                      onClick={processRoleChange}
+                    >
+                      Change Role to{' '}
+                      {user.role === USER_TYPES.user ? 'an Editor' : 'a User'}
+                    </Button>
+                  </td>
+                </tr>
+              )}
+            </>
+            <tr>
+              <td>
+                <strong>Send Property Summary</strong>
+              </td>
+              <td colSpan="4">
+                <SendPropertySummary user={user} setToast={setToast} />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong> Recurring Charges</strong>
+              </td>
+              <td colSpan="4">
+                <ChargePayment user={user} setToast={setToast} />
+              </td>
+            </tr>
+          </CardTableSection>
+        </div>
+      </div>
+    );
+  };
+
+  const showVendorTab = isVendor && !isFastTrackUser;
+
   return (
-    <Timeline>
+    <>
       <Toast {...toast} showToastOnly />
       {/* <AlertToast message="Awaiting your Review" /> */}
-      <Card className="card-container mb-5">
-        {isVendor && !isFastTrackUser ? (
-          <Tabs defaultActiveKey="0">
-            <Tab
-              eventKey="0"
-              title={
-                <>
-                  User Information{' '}
-                  <span className={verificationState.userInfo.className}>
-                    {verificationState.userInfo.icon}
-                  </span>
-                </>
-              }
-            >
-              <div className="card-tab-content pt-5">
-                <UserInformation />
-              </div>
-            </Tab>
+
+      <Tabs defaultActiveKey="0">
+        <Tab
+          eventKey="0"
+          title={
+            <>
+              User Info{' '}
+              <span className={verificationState.userInfo.className}>
+                {verificationState.userInfo.icon}
+              </span>
+            </>
+          }
+        >
+          <div className="card-tab-content pt-5">
+            <UserInformation />
+          </div>
+        </Tab>
+        {showVendorTab && (
+          <>
             <Tab
               eventKey="1"
               title={
@@ -853,7 +895,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
               eventKey="2"
               title={
                 <>
-                  Directors / Signatories{' '}
+                  Signatories{' '}
                   <span className={verificationState.directorInfo.className}>
                     {verificationState.directorInfo.icon}
                   </span>
@@ -875,14 +917,16 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
             >
               <Certificates />
             </Tab>
-            <Tab eventKey="4" title="Logs">
-              <Logs />
-            </Tab>
-          </Tabs>
-        ) : (
-          <UserInformation />
+          </>
         )}
-      </Card>
+        <Tab eventKey="4" title="Administrative">
+          <AdminActions />
+        </Tab>
+        <Tab eventKey="5" title="Logs">
+          <Logs />
+        </Tab>
+      </Tabs>
+
       {/* add a status page here like the one in the userdashbard, something like user is currently onboarding */}
       {/* user has been verified, certified, not started onboarding, currently onboarding, needs review, has pending comment */}
       {/*
@@ -894,6 +938,8 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
 
       {/* <UserCard showEmail />
       <UserCard /> */}
+
+      <div className="my-5"></div>
 
       {isVendor && (
         <>
@@ -961,7 +1007,7 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
           </Modal>
         </>
       )}
-    </Timeline>
+    </>
   );
 };
 
@@ -1445,6 +1491,146 @@ const ReferralBonusForm = ({ user, setUser, setToast }) => {
         );
       }}
     </Formik>
+  );
+};
+
+const SendPropertySummary = ({ user, setToast }) => {
+  const [showModal, setShowModal] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+
+  const sendPropertySummaryToVendor = async () => {
+    setLoading(true);
+    try {
+      const response = await Axios.get(
+        `${BASE_API_URL}/property/summary/${user._id}`,
+        {
+          headers: { Authorization: getTokenFromStore() },
+        }
+      );
+      const { data, status } = response;
+      console.log('response', response);
+      if (statusIsSuccessful(status)) {
+        setToast({
+          type: 'success',
+          message: 'Property summary has been successfully sent!',
+        });
+      }
+    } catch (error) {
+      setToast({
+        type: 'error',
+        message: getError(error),
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <Button
+        color="none"
+        className="btn btn-sm btn-wide btn-warning-light"
+        onClick={() => {
+          setShowModal(true);
+        }}
+      >
+        Send Property Summary
+      </Button>
+
+      {/* Property Summary Modal */}
+      <Modal
+        title="Property Summary"
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        showFooter={false}
+      >
+        <section className="row">
+          <div className="col-md-12 my-3 text-center">
+            <h5 className="my-2 confirmation-text">
+              Are you sure you want to send Property Summary to this BALL VIP?
+            </h5>
+            <Button
+              color="none"
+              className="btn btn-sm btn-wide btn-warning-light"
+              onClick={sendPropertySummaryToVendor}
+              loading={loading}
+            >
+              Send Summary
+            </Button>
+          </div>
+        </section>
+      </Modal>
+    </>
+  );
+};
+
+const ChargePayment = ({ user, setToast }) => {
+  const [showModal, setShowModal] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+
+  const chargePayment = async () => {
+    setLoading(true);
+    try {
+      const response = await Axios.get(
+        `${BASE_API_URL}/payment/charge/${user._id}`,
+        {
+          headers: { Authorization: getTokenFromStore() },
+        }
+      );
+      const { data, status } = response;
+      console.log('response', response);
+      if (statusIsSuccessful(status)) {
+        setToast({
+          type: 'success',
+          message: 'Payment has been successfully processed!',
+        });
+      }
+    } catch (error) {
+      setToast({
+        type: 'error',
+        message: getError(error),
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <Button
+        color="none"
+        className="btn btn-sm btn-wide btn-danger-light"
+        onClick={() => {
+          setShowModal(true);
+        }}
+      >
+        Charge Payment
+      </Button>
+
+      {/* Charge Payment Modal */}
+      <Modal
+        title="Charge Payment"
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        showFooter={false}
+      >
+        <section className="row">
+          <div className="col-md-12 my-3 text-center">
+            <h5 className="my-2 confirmation-text">
+              Are you sure you want to charge this payment for the user?
+            </h5>
+            <Button
+              color="none"
+              className="btn btn-sm btn-wide btn-danger-light"
+              onClick={chargePayment}
+              loading={loading}
+            >
+              Process Payment
+            </Button>
+          </div>
+        </section>
+      </Modal>
+    </>
   );
 };
 

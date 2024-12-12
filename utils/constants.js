@@ -105,6 +105,7 @@ export const PROPERTY_DELIVERY_STATE = {
   Completed: 'Completed',
   Fitted: 'Fitted',
   Furnished: 'Furnished',
+  Automated: 'Automated',
 };
 
 // CONVERT HOUSE TYPES TO A single object
@@ -620,3 +621,10 @@ export const BLOG_TAGS = [
   'Vendor Benefits',
   'Vendor Support',
 ];
+
+export const RECURRING_CHARGES_DAY = {
+  1: 'Every first day of each month',
+  7: 'Every 7 days',
+  14: 'Every 14 days',
+  30: 'Every 30 days',
+};

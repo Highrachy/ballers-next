@@ -231,7 +231,6 @@ const PaystackPaymentForm = ({ isSubmitting, handleSubmit }) => {
   const { values } = useFormikContext();
   const amount = values.amount;
 
-  console.log('values', values);
   return (
     <Card className="card-container">
       <section className="row">
