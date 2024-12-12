@@ -241,7 +241,7 @@
 }
 
 .tou-header {
-  color: $secondary;
+  color: $secondary-600;
   padding-bottom: 0.5rem;
   font-weight: bold;
 }
@@ -250,6 +250,7 @@
   color: $primary;
   font-size: 1.2rem;
   margin-top: 3rem;
+  text-transform: uppercase;
 }
 
 .text-secondary-700 {

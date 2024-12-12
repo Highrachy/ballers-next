@@ -398,7 +398,9 @@ const Content = () => (
         use without your consent.
       </p>
       <h5 className="tou-title"> Sharing Your Information</h5>
-      <p>Our Subsidiaries and Corporate Affiliates</p>
+      <p>
+        <strong>Our Subsidiaries and Corporate Affiliates</strong>
+      </p>
 
       <p>
         We may share your information with our subsidiaries, affiliates and
@@ -446,6 +448,45 @@ const Content = () => (
       </h5>
       <p>To cooperate with government and law enforcement officers.</p>
 
+      <h5 id="signature-disclaimer" className="tou-title">
+        Legal Disclaimer on Digital Signatures
+      </h5>
+
+      <p>
+        By using digital signature functionalities on{' '}
+        <a href="http://ballers.ng">http://ballers.ng</a>, you acknowledge and
+        agree to the following:
+      </p>
+      <ul>
+        <li>
+          Your digital signature on any document or agreement processed through
+          this platform is legally binding, carrying the same effect as a
+          handwritten signature under applicable laws, including but not limited
+          to the Electronic Transactions Act or its equivalent.
+        </li>
+        <li>
+          By utilizing this platform, you consent to conduct transactions
+          electronically. You accept that communications, agreements, and
+          disclosures may be provided electronically unless otherwise required
+          by law.
+        </li>
+        <li>
+          You affirm that the digital signature you use is unique to you. You
+          are responsible for safeguarding your credentials or verification
+          methods and ensuring their confidentiality.
+        </li>
+        <li>
+          Once affixed, your digital signature is considered final and cannot be
+          revoked unless explicitly permitted by law or mutual agreement between
+          the parties involved.
+        </li>
+        <li>
+          BALL is not responsible for any unauthorized use of your digital
+          signature arising from your negligence, fraud, or failure to secure
+          your account credentials.
+        </li>
+      </ul>
+
       <h6 className="tou-header">6. Indemnification</h6>
       <p>
         You hereby agree to indemnify Ballers, its employees, agents and
@@ -482,7 +523,9 @@ const Content = () => (
       </ul>
 
       <h6 className="tou-header"> 8. Service Interruptions.</h6>
-      <p>Changes to These Terms and Conditions</p>
+      <p>
+        <strong>Changes to These Terms and Conditions</strong>
+      </p>
       <p>
         We reserve the right, at Our sole discretion, to modify or replace these
         Terms at any time. If a revision is material, we will make reasonable

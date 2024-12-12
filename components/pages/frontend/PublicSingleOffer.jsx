@@ -28,6 +28,7 @@ import { ContentLoader } from 'components/utils/LoadingItems';
 import { OfferIcon } from 'components/utils/Icons';
 import Header from 'components/layout/Header';
 import Footer from 'components/layout/Footer';
+import { SignatureDisclaimer } from '@/components/shared/SingleOffer';
 
 const pageOptions = {
   key: 'offer',
@@ -264,6 +265,7 @@ export const DigitalSignaturePad = ({ setSignature }) => {
 
             <h3 className="signature-pad in-dialog">{input}</h3>
           </div>
+          <SignatureDisclaimer />
         </section>
       </Modal>
       <button
@@ -327,6 +329,8 @@ export const UploadSignature = ({ image, setImage, setSignature }) => {
       >
         Upload Signature
       </button>
+
+      <SignatureDisclaimer />
     </>
   );
 };

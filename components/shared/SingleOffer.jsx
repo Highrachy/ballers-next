@@ -498,9 +498,9 @@ export const DigitalSignaturePad = ({ setSignature }) => {
             >
               Sign Digitally
             </button>
-
             <h3 className="signature-pad in-dialog">{input}</h3>
           </div>
+          <SignatureDisclaimer />
         </section>
       </Modal>
       <button
@@ -512,6 +512,30 @@ export const DigitalSignaturePad = ({ setSignature }) => {
     </>
   );
 };
+
+export const SignatureDisclaimer = () => (
+  <p className="text-muted text-sm my-4">
+    By using this digital signature functionality, you acknowledge that your
+    signature is legally binding. For details on how your signature and related
+    information are used, please review our{' '}
+    <a
+      href="/terms-of-use#signature-disclaimer"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Terms of Use
+    </a>{' '}
+    and{' '}
+    <a
+      href="/privacy-policy#digital-signature"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Privacy Policy
+    </a>
+    .
+  </p>
+);
 
 export const UploadSignature = ({ image, setImage, setSignature }) => {
   const [showSignature, setShowSignature] = React.useState(false);
@@ -553,6 +577,8 @@ export const UploadSignature = ({ image, setImage, setSignature }) => {
               </button>
             )}
           </div>
+
+          <SignatureDisclaimer />
         </div>
       </Modal>
       <button

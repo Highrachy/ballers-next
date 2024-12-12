@@ -9,66 +9,103 @@ const PrivacyPolicy = () => (
     <Header />
     <TitleSection
       name="Privacy Policy"
-      content="Effective as of 31 May 2020."
+      content="Effective as of 01 December 2024."
     />
     <Content />
     <CommunityGallery />
     <Footer />
   </>
 );
-
 const Content = () => (
   <section>
     <div className="container-fluid mt-md-5 md-3 py-5">
       <div className="row">
         <div className="col-md-4 text-uppercase">
-          <h5 className=" privacy-policy__header">
+          <h5 className="privacy-policy__header">
             Information on <br className="d-none d-lg-block" /> data we protect
           </h5>
         </div>
         <div className="col-md-8">
           <p>
-            Your privacy is important to us. It is Ballers&apos; policy to
-            respect your privacy regarding any information we may collect from
-            you across our website,{' '}
-            <a href="http://ballers.ng">http://ballers.ng</a>, and other sites
-            we own and operate.
+            At BALL, your privacy is of utmost importance to us. This Privacy
+            Policy outlines how we collect, use, protect, and disclose your
+            information when you visit or interact with our website,{' '}
+            <a href="http://ballers.ng">http://ballers.ng</a>, and any other
+            sites or services we own and operate. By using our website, you
+            consent to the practices described in this policy.
           </p>
           <p>
-            We only ask for personal information when we truly need it to
-            provide a service to you. We collect it by fair and lawful means,
-            with your knowledge and consent. We also let you know why we’re
-            collecting it and how it will be used.
+            We collect personal information only when it is necessary to provide
+            a service to you. This information is obtained by lawful and
+            transparent means, with your full knowledge and consent. We ensure
+            that you are informed of the purposes for collecting your data and
+            how it will be used.
           </p>
           <p>
-            We only retain collected information for as long as necessary to
-            provide you with your requested service. What data we store, we’ll
-            protect within commercially acceptable means to prevent loss and
-            theft, as well as unauthorized access, disclosure, copying, use or
-            modification.
+            We retain your personal information only as long as necessary to
+            fulfill the services you have requested. Collected data is
+            safeguarded using commercially reasonable methods to prevent
+            unauthorized access, disclosure, alteration, or destruction.
           </p>
           <p>
-            We don’t share any personally identifying information publicly or
-            with third-parties, except when required to by law.
+            We do not share personally identifiable information with third
+            parties except:
+          </p>
+          <ul>
+            <li>When required by law, or</li>
+            <li>With your explicit consent.</li>
+          </ul>
+          <p>
+            Our website may contain links to external websites not operated by
+            BALL. Please note that we are not responsible for the privacy
+            practices or content of these external sites.
           </p>
           <p>
-            Our website may link to external sites that are not operated by us.
-            Please be aware that we have no control over the content and
-            practices of these sites, and cannot accept responsibility or
-            liability for their respective privacy policies.
+            You are not obligated to provide your personal information. However,
+            refusal to do so may limit the services we can provide.
+          </p>
+          <p id="digital-signature">
+            When utilizing digital signature functionalities on{' '}
+            <a href="http://ballers.ng">http://ballers.ng</a>, you acknowledge
+            and agree that:
+          </p>
+          <ul>
+            <li>
+              Your digital signature is legally binding and holds the same
+              effect as a handwritten signature under applicable laws, including
+              but not limited to the Electronic Transactions Act or its
+              equivalent.
+            </li>
+            <li>
+              You consent to transact electronically, accepting that agreements,
+              communications, and disclosures may be provided electronically
+              unless otherwise required by law.
+            </li>
+            <li>
+              You are responsible for safeguarding the credentials or
+              verification methods linked to your digital signature and ensuring
+              they remain confidential.
+            </li>
+            <li>
+              Once affixed, your digital signature is final and cannot be
+              revoked unless expressly permitted by law or mutual agreement.
+            </li>
+            <li>
+              We are not liable for unauthorized use of your digital signature
+              arising from your negligence, fraud, or failure to secure your
+              credentials.
+            </li>
+          </ul>
+          <p>
+            We reserve the right to update this Privacy Policy as necessary. Any
+            changes will be communicated through updates to this page.
           </p>
           <p>
-            You are free to refuse our request for your personal information,
-            with the understanding that we may be unable to provide you with
-            some of your desired services.
+            If you have questions about this Privacy Policy, including how we
+            handle user data, personal information, or digital signatures,
+            please contact us.
           </p>
-          <p>
-            Your continued use of our website will be regarded as acceptance of
-            our practices around privacy and personal information. If you have
-            any questions about how we handle user data and personal
-            information, feel free to contact us.
-          </p>
-          <p>This policy is effective as of 31 May 2020.</p>
+          <p>This policy is effective as of 01 December 2024.</p>
         </div>
       </div>
     </div>
