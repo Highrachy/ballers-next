@@ -63,8 +63,7 @@ const Footer = () => (
                     </a>{' '}
                   </li>
                 ))}
-                <li>&nbsp;</li>
-                <li>
+                <li className="mt-2">
                   <Link
                     href="mailto:info@ballers.ng"
                     target="_blank"
@@ -74,10 +73,7 @@ const Footer = () => (
                   </Link>
                 </li>
                 <li>
-                  <Link href="tel:+2348028337440"> +2348028337440</Link>
-                </li>
-                <li>
-                  <Link href="tel:+2348028388185"> +2348028388185</Link>
+                  <Link href="tel:+2349030200031"> +234 903 020 0031</Link>
                 </li>
               </ul>
             </div>

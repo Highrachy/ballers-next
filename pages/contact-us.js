@@ -62,11 +62,14 @@ const Content = () => {
             </h3>
             <h4 className="header-secondary">CALL / WHATSAPP</h4>
             <h4>
+              <Link href="tel:+2349030200031">
+                <a className="mb-2 d-block">+234 903 020 0031</a>
+              </Link>
               <Link href="tel:+2348028337440">
-                <a className="mb-2 d-block"> +2348028337440</a>
+                <a className="mb-2 d-block">+234 802 833 7440</a>
               </Link>
               <Link href="tel:+2348028388185">
-                <a className="mb-3"> +2348028388185</a>
+                <a className="mb-3">+234 802 838 8185</a>
               </Link>
             </h4>
           </div>

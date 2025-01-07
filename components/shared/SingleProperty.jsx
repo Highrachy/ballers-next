@@ -951,7 +951,7 @@ export const PropertyContact = ({ property }) => {
             />
           }
           text="CALL US NOW"
-          header="+2348028337440"
+          header="+234 903 020 0031"
           link="#"
         />
         <ContactOption
@@ -962,9 +962,9 @@ export const PropertyContact = ({ property }) => {
               variant="Bold"
             />
           }
-          header="+2348028337440"
+          header="+234 802 838 8185"
           text="CHAT VIA WHATSAPP"
-          link="#"
+          link="https://wa.me/08028388185"
         />
         <ContactOption
           icon={
@@ -974,9 +974,9 @@ export const PropertyContact = ({ property }) => {
               variant="Bold"
             />
           }
-          text="Contact Us"
+          text="SEND AN EMAIL"
           header="info@ballers.ng"
-          link="#"
+          link="mailto:info@ballers.ng"
         />
       </div>
       <Button
