@@ -981,7 +981,7 @@ export const PropertyContact = ({ property }) => {
       </div>
       <Button
         className="btn-xl btn-wide mt-5 btn-md"
-        href={`/contact-us?text=Hello, I am interested in the ${property?.name} property. Please provide further details&subject=Property Inquiry: ${property?.name}`}
+        href={`/contact-us?text=Hello, I am interested in the ${property?.name} property. Please provide further details&subject=Property Application: ${property?.name}`}
       >
         Make Enquiry Now
       </Button>

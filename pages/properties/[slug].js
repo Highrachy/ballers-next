@@ -104,7 +104,7 @@ const LoadProperty = ({ property }) => {
               <SharerModal />
               <Spacing />
               <Button
-                href={`/contact-us?text=Hello, I am interested in the ${property?.name} property. Please provide further details&subject=Property Inquiry: ${property?.name}`}
+                href={`/contact-us?text=Hello, I am interested in the ${property?.name} property. Please provide further details&subject=Property Application: ${property?.name}`}
               >
                 Make Enquiry
               </Button>

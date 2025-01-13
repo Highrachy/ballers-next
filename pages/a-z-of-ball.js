@@ -62,8 +62,8 @@ const BallingIsEasy = () => (
         />
         <h5 className="py-4">Apply Now &nbsp;</h5>
         <p className="text-primary">
-          Explore our quality properties and fill out the inquiry form to start
-          your home ownership journey.
+          Explore our quality properties and fill out the application form to
+          start your home ownership journey.
         </p>
       </aside>
       <aside className="az-easy-abc col-lg-3 col-sm-5 col-11">
@@ -107,11 +107,11 @@ const HowBallersWork = () => (
     <h6 className="header-secondary">HOW IT WORKS</h6>
     <h4>In three easy steps</h4>
 
-    <h6 className="mt-7 text-secondary">STEP A</h6>
+    <h6 className="mt-7 header-secondary">STEP A</h6>
     <h3 className="az-how-heading">APPLY NOW</h3>
     <section className="mt-sm-5 py-4">
       <div className="row">
-        <div className="az-how-step col-lg-5 col-sm-5 col-12">
+        <div className="az-how-step col-md-5 col-sm-5 offset-sm-1 offset-md-0 offset-lg-1 col-lg-4 col-12">
           <Image
             className="az-how-step-img"
             src="/img/pages/a-to-z/preference.png"
@@ -120,150 +120,28 @@ const HowBallersWork = () => (
             height="400"
           />
         </div>
-        <div className="az-how-step-line col-lg-2 col-sm-2 col-12" />
-        <div className="az-how-step col-lg-5 col-sm-5 col-12">
+        <div className="az-how-step-line col-sm-2 col-md-2 d-none d-sm-block">
+          <div className="text-center pt-5 my-5">
+            <span className="circle-dot"> </span>
+          </div>
+        </div>
+        <div className="az-how-step col-md-5 col-sm-5 col-12 mt-md-n4 mt-lg-0">
           <Link href="/properties/search" passHref>
-            <h5 className="az-how-step-title">Search for properties</h5>
+            <h5 className="az-how-step-title">
+              Identify Your Preferred Property
+            </h5>
           </Link>
           <p className="az-how-step-text mt-3 pe-5">
-            Explore the available options below to start the process of finding
-            your ideal home. Choose from a wide variety of locations and
-            property types to match your preferences and budget.{' '}
+            Explore our diverse range of properties to find the one that fits
+            your vision of home. Choose from various locations, designs, and
+            features that suit your lifestyle and budget.{' '}
             <Link href="/properties/search" passHref>
-              <a className="text-secondary">Click here to</a>
+              <a className="text-secondary">Browse our property listings </a>
             </Link>{' '}
-            browse our property listings and get started on your journey to home
-            ownership.
+            today and take the first step toward becoming a homeowner.
           </p>
         </div>
       </div>
-      <section className="row az-tree">
-        <div className="col-sm-12">
-          <div className="text-center">
-            <span className="circle-dot" />
-          </div>
-          <section className="az-tree__middle-border">
-            <aside className="az-tree__branch">
-              <div className="az-tree__node">
-                <div className="az-how-step az-tree__branch--left">
-                  <Image
-                    className="az-how-step-icon"
-                    src="/img/icons/location-house.png"
-                    alt="Preferred location"
-                    width="150"
-                    height="150"
-                  />
-                  <h6 className="az-how-step-title-2">
-                    Select preferred <br /> location
-                  </h6>
-                  <p className="az-how-step-text-2">
-                    Input your location of choice.
-                  </p>
-                </div>
-                <div className="az-how-step az-tree__branch--right">
-                  <Image
-                    className="az-how-step-icon"
-                    src="/img/icons/house-type.png"
-                    alt="Property Type"
-                    width="150"
-                    height="150"
-                  />
-                  <h6 className="az-how-step-title-2">
-                    Select preferred <br /> property type
-                  </h6>
-                  <p className="az-how-step-text-2">
-                    Select property of interest.
-                  </p>
-                </div>
-              </div>
-              <div className="clearfix" />
-            </aside>
-            <aside className="row az-tree__node mt-sm-5 pt-5 pb-md-5 mb-md-5">
-              <div className="col-md-5 col-lg-4 offset-md-0 offset-lg-1">
-                <Image
-                  className="az-how-step-img"
-                  src="/img/pages/a-to-z/subscription.png"
-                  alt="Confirm the Payment Plan"
-                  width="700"
-                  height="400"
-                />
-              </div>
-              <div className="col-md-2 d-none d-sm-block">
-                <div className="text-center pt-5 my-5">
-                  <span className="circle-dot"> </span>
-                </div>
-              </div>
-              <div className="col-md-5 ms-lg-none ms-md-n4 mb-md-5 mb-lg-0">
-                <h5 className="az-how-step-title pt-5 pt-sm-none pb-2">
-                  Confirm the Payment Plan
-                </h5>
-                <p className="az-how-step-text pe-5">
-                  One of the best things about BALL is our goal to offer various
-                  payment plans to own a home. Select the options that best fit
-                  for your BALLing experience.
-                </p>
-              </div>
-            </aside>
-            <aside className="az-tree__branch az-tree__branch--half">
-              <div className="az-tree__node">
-                <div className="az-how-step az-tree__branch--left">
-                  <Image
-                    className="az-how-step-icon"
-                    src="/img/icons/payment-amount.png"
-                    alt="Payment amount"
-                    width="150"
-                    height="150"
-                  />
-                  <h6 className="az-how-step-title-2">
-                    Input amount available <br /> to begin with
-                  </h6>
-                </div>
-                <div className="az-how-step az-tree__branch--center az-tree__branch--center-to-right-md">
-                  <Image
-                    className="az-how-step-icon"
-                    src="/img/icons/interval.png"
-                    alt="Interval"
-                    width="150"
-                    height="150"
-                  />
-                  <h6 className="az-how-step-title-2">
-                    Select preferred <br />
-                    payment plan
-                  </h6>
-                </div>
-                {/* This section is repeated. This is shown for tablet and mobile */}
-                <div className="az-how-step az-tree__branch--right d-md-none d-lg-block">
-                  <Image
-                    className="az-how-step-icon"
-                    src="/img/icons/duration.png"
-                    alt="Duration"
-                    width="150"
-                    height="150"
-                  />
-                  <h6 className="az-how-step-title-2">
-                    Calculate the total <br /> duration
-                  </h6>
-                </div>
-                <div className="clearfix" />
-              </div>
-            </aside>
-            {/* This section is repeated to be shown on tablet. */}
-            <div className="az-how-step az-tree__branch--center az-tree__branch--right-to-center-md d-lg-none d-md-block d-none">
-              <Image
-                className="az-how-step-icon"
-                src="/img/icons/duration.png"
-                alt="Duration"
-                width="150"
-                height="150"
-              />
-              <h6 className="az-how-step-title-2">
-                Calculate the total <br /> duration
-              </h6>
-            </div>
-            <div className="clearfix" />
-          </section>
-        </div>
-      </section>
     </section>
 
     <h6 className=" header-secondary mt-5">STEP B</h6>
@@ -286,12 +164,11 @@ const HowBallersWork = () => (
       <div className="az-how-step col-md-5 col-sm-5 col-12 mt-md-n4 mt-lg-0">
         <h5 className="az-how-step-title">Start Your Payment Plan</h5>
         <p className="az-how-step-text pe-5">
-          Begin your personalized payment plan with BALL tailored to your chosen
-          property with BALL. Whether you opt to pay in full, spread payments
-          over time, or contribute at key milestones, rest assured we have you
-          covered with transparent figures and a convenient payment schedule.
-          Dive in and make your first investment—your dream home is just a step
-          away!
+          Select a payment plan that works for you. Whether you prefer to pay in
+          installments over time, at key milestones, or in full, we offer
+          flexible and transparent options tailored to your needs. Begin your
+          journey with a payment schedule that ensures clarity and convenience,
+          putting your dream home within reach.
         </p>
       </div>
     </div>
@@ -315,11 +192,11 @@ const HowBallersWork = () => (
             Collect Your Keys and Process Your Title
           </h5>
           <p className="az-how-step-text me-5">
-            Once your payments have reached the minimum required amount, we
-            guide you through the process of officially becoming a homeowner.
-            While collecting your keys, we will assist you in processing the
-            conversion of title, ensuring a smooth transition into your new home
-            adventure.
+            Once your payments have reached the minimum required amount, it is
+            time to make it official. Collect your keys and move into your new
+            home while we assist you with processing the property title. From
+            the first payment to stepping into your home, we are with you every
+            step of the way.
           </p>
         </div>
       </div>
@@ -339,9 +216,12 @@ const HowBallersWork = () => (
               />
               <h5 className="az-how-step-title-3">Move into your new home</h5>
               <p className="az-how-step-text-2 col-md-6 offset-md-3">
-                Congratulations! You did it. Now your future begins. Of course,
-                you are welcome to go right back to the top and begin the
-                process of buying your next property.
+                Congratulations! You have achieved your goal of homeownership.
+                But why stop here? Imagine the endless possibilities - whether
+                it is expanding your real estate portfolio, securing a property
+                for your loved ones, or exploring new opportunities, the journey
+                does not end with one home. Begin the process again and take the
+                next step toward an even brighter future.
               </p>
               <div className="col-sm-12 pt-md-3">
                 <Link href="/register" passHref>

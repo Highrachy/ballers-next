@@ -168,8 +168,8 @@ const HowItWorksSection = () => (
                 pply Now
               </h5>
               <p className="pe-md-8 pe-4 pb-4">
-                Explore our quality properties and fill out the inquiry form to
-                start your home ownership journey.
+                Explore our quality properties and fill out the application form
+                to start your home ownership journey.
               </p>
             </li>
             <li className="timeline__border">

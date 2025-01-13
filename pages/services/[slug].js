@@ -87,7 +87,7 @@ const LoadService = ({
               </div>
               <div className="col-sm-4 text-end">
                 <Link
-                  href={`/contact-us?text=Hello, I am interested in learning more about the ${name} service. Please provide further details&subject=Service Inquiry: ${name}`}
+                  href={`/contact-us?text=Hello, I am interested in learning more about the ${name} service. Please provide further details&subject=Service Enquiry: ${name}`}
                   passHref
                 >
                   <a className="btn btn-sm btn-wide btn-secondary">
