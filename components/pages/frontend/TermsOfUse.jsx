@@ -487,6 +487,20 @@ const Content = () => (
         </li>
       </ul>
 
+      <h5 id="delisting-properites" className="tou-title">
+        Delisting of Properties
+      </h5>
+      <p>
+        BALL reserves the right, at its sole discretion, to temporarily or
+        permanently delist any property from its platform in the event of a
+        breach or violation of the Terms of Use, applicable policies, or any
+        other governing agreements. Such action may be taken without prior
+        notice and shall be based on BALL&apos;s assessment of the nature and
+        severity of the breach. BALL shall not be liable for any losses or
+        damages incurred by the user or any third party as a result of such
+        delisting.
+      </p>
+
       <h6 className="tou-header">6. Indemnification</h6>
       <p>
         You hereby agree to indemnify Ballers, its employees, agents and
