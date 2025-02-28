@@ -31,6 +31,7 @@ export const VideosForm = ({
 }) => {
   const [toast] = useToast();
   const isValidYoutubeLink = (link) => {
+    if (!link) return [false, null];
     const regExp =
       /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|\?v=)([^#&?]*).*/;
     const match = link.match(regExp);

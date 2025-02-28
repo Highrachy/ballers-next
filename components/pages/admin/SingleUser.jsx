@@ -875,49 +875,53 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
           </div>
         </Tab>
         {showVendorTab && (
-          <>
-            <Tab
-              eventKey="1"
-              title={
-                <>
-                  Bank Details{' '}
-                  <span className={verificationState.bankDetails.className}>
-                    {verificationState.bankDetails.icon}
-                  </span>
-                </>
-              }
-            >
-              <div className="card-tab-content py-5">
-                <BankInformation />
-              </div>
-            </Tab>
-            <Tab
-              eventKey="2"
-              title={
-                <>
-                  Signatories{' '}
-                  <span className={verificationState.directorInfo.className}>
-                    {verificationState.directorInfo.icon}
-                  </span>
-                </>
-              }
-            >
-              <Directors />
-            </Tab>
-            <Tab
-              eventKey="3"
-              title={
-                <>
-                  Document Upload{' '}
-                  <span className={verificationState.documentUpload.className}>
-                    {verificationState.documentUpload.icon}
-                  </span>
-                </>
-              }
-            >
-              <Certificates />
-            </Tab>
-          </>
+          <Tab
+            eventKey="1"
+            title={
+              <>
+                Bank Details{' '}
+                <span className={verificationState.bankDetails.className}>
+                  {verificationState.bankDetails.icon}
+                </span>
+              </>
+            }
+          >
+            <div className="card-tab-content py-5">
+              <BankInformation />
+            </div>
+          </Tab>
+        )}
+
+        {showVendorTab && (
+          <Tab
+            eventKey="2"
+            title={
+              <>
+                Signatories{' '}
+                <span className={verificationState.directorInfo.className}>
+                  {verificationState.directorInfo.icon}
+                </span>
+              </>
+            }
+          >
+            <Directors />
+          </Tab>
+        )}
+
+        {showVendorTab && (
+          <Tab
+            eventKey="3"
+            title={
+              <>
+                Document Upload{' '}
+                <span className={verificationState.documentUpload.className}>
+                  {verificationState.documentUpload.icon}
+                </span>
+              </>
+            }
+          >
+            <Certificates />
+          </Tab>
         )}
         <Tab eventKey="4" title="Administrative">
           <AdminActions />

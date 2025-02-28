@@ -23,7 +23,7 @@ const RemittanceWidget = ({
         return (
           <StackBox
             key={index}
-            // src={propertyInfo?.mainImage}
+            href={`/${role}/transactions`}
             title={propertyInfo?.name}
             subtitle={
               role === 'admin'
