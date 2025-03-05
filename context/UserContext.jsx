@@ -26,6 +26,7 @@ const UserProvider = ({ children }) => {
   async function userDispatch(payload) {
     if (payload?.user) {
       setUser({ ...user, ...payload.user, isLoggedIn: true });
+      console.log('user state', user);
     }
   }
 

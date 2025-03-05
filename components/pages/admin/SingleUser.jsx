@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BackendPage from 'components/layout/BackendPage';
 import {
   BADGE_ACCESS_LEVEL,
@@ -60,6 +60,7 @@ import Input from 'components/forms/Input';
 import WelcomeHero from '@/components/common/WelcomeHero';
 import DataList, { DataItem } from '@/components/common/DataList';
 import { FaTimes } from 'react-icons/fa';
+import { UserContext } from '@/context/UserContext';
 
 const pageOptions = {
   key: 'user',
@@ -748,6 +749,35 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
             className="border-0"
           >
             <>
+              {!user.activated && (
+                <tr>
+                  <td>
+                    <strong>Resend Activation Email</strong>
+                  </td>
+                  <td colSpan="4">
+                    <ResendActivationEmailButton
+                      user={user}
+                      setToast={setToast}
+                    />
+                  </td>
+                </tr>
+              )}
+            </>
+            {!user.activated && (
+              <tr>
+                <td>
+                  <strong>Activate User Account</strong>
+                </td>
+                <td colSpan="4">
+                  <ActivateUserButton
+                    user={user}
+                    setToast={setToast}
+                    setUser={setUser}
+                  />
+                </td>
+              </tr>
+            )}
+            <>
               <tr>
                 <td>
                   <strong>Feature Flag</strong>
@@ -1011,6 +1041,140 @@ const UserInfoCard = ({ user, setUser, toast, setToast, vendorId }) => {
           </Modal>
         </>
       )}
+    </>
+  );
+};
+
+const ActivateUserButton = ({ user, setToast, setUser }) => {
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const activateUserAccount = async () => {
+    setLoading(true);
+    try {
+      const response = await Axios.post(
+        `${BASE_API_URL}/user/activate-user`,
+        { userId: user._id },
+        { headers: { Authorization: getTokenFromStore() } }
+      );
+      if (response.status === 200) {
+        setUser({ ...user, activated: true });
+        setToast({
+          type: 'success',
+          message:
+            response.data.message || 'User account activated successfully',
+        });
+        setShowModal(false);
+      }
+    } catch (error) {
+      setToast({
+        type: 'error',
+        message: getError(error),
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Do not render the activate button if the account is already activated
+  if (user.activated) return null;
+
+  return (
+    <>
+      <Button color="success-light" onClick={() => setShowModal(true)}>
+        Activate Account
+      </Button>
+
+      <Modal
+        title="Activate User Account"
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        showFooter={false}
+        size="md"
+      >
+        <section className="row">
+          <div className="col-md-12 my-3 text-center">
+            <p className="mx-3 confirmation-text fw-bold">
+              Are you sure you want to activate the account for{' '}
+              <strong>{user.email}</strong>?
+            </p>
+            <Button
+              color="success"
+              onClick={activateUserAccount}
+              loading={loading}
+            >
+              Activate Account
+            </Button>
+          </div>
+        </section>
+      </Modal>
+    </>
+  );
+};
+
+const ResendActivationEmailButton = ({ user, setToast }) => {
+  const [loading, setLoading] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false);
+
+  const resendActivationEmail = async () => {
+    setLoading(true);
+    try {
+      const response = await Axios.post(
+        `${BASE_API_URL}/user/resend-activation`,
+        { userId: user._id },
+        {
+          headers: { Authorization: getTokenFromStore() },
+        }
+      );
+      if (response.status === 200) {
+        setToast({
+          type: 'success',
+          message: response.data.message,
+        });
+        setShowModal(false);
+      }
+    } catch (error) {
+      setToast({
+        type: 'error',
+        message: getError(error),
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (user.activated) return null; // Hide button if the account is already activated
+
+  return (
+    <>
+      <Button color="primary-light" onClick={() => setShowModal(true)}>
+        Resend Activation Email
+      </Button>
+
+      <Modal
+        title="Resend Activation Email"
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        showFooter={false}
+        size="md"
+      >
+        <section className="row">
+          <div className="col-md-12 my-3 text-center">
+            <p className="mx-3 confirmation-text fw-bold">
+              Are you sure you want to resend the activation email to{' '}
+              {user.email}?
+            </p>
+            <Button
+              color="primary"
+              className="mb-5"
+              onClick={resendActivationEmail}
+              loading={loading}
+            >
+              Resend Email
+            </Button>
+          </div>
+        </section>
+      </Modal>
     </>
   );
 };
