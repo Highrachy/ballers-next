@@ -7,7 +7,10 @@ import TitleSection from 'components/common/TitleSection';
 const TermsOfUse = () => (
   <>
     <Header />
-    <TitleSection name="Term of Use" content="Last updated: May 09, 2022" />
+    <TitleSection
+      name="Term of Use"
+      content="Effective From: January 01, 2025"
+    />
     <Content />
     <CommunityGallery />
     <Footer />

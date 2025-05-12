@@ -9,7 +9,7 @@ const PrivacyPolicy = () => (
     <Header />
     <TitleSection
       name="Privacy Policy"
-      content="Effective as of 01 December 2024."
+      content="Effective from: 01 January 2025."
     />
     <Content />
     <CommunityGallery />

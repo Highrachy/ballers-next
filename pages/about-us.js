@@ -14,7 +14,6 @@ const AboutUs = () => (
     />
     <OurGoalAndPromise />
     <OurCoreValues />
-    <OurTeam />
     <CommunityGallery />
     <Footer />
   </>
