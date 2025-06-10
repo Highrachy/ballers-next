@@ -1,7 +1,15 @@
 .confirm-landlord-page {
-  max-width: 640px;
   margin: 0 auto;
-  color: #161d3f; // primary text
+
+  .card-content {
+    border: 1px solid #e5e5e5; // light border
+    border-radius: 12px;
+    padding: 3rem;
+    background-color: #fff; // white background
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    margin: 0 auto;
+  }
 
   // === TOP BAR ===
   .top-bar {
@@ -13,7 +21,7 @@
     .top-bar-title {
       font-size: 0.9rem;
       letter-spacing: 0.04em;
-      color: #5775fa;
+      color: $secondary-500;
       margin-bottom: 8px;
       text-transform: uppercase;
       font-weight: 600;
@@ -23,8 +31,17 @@
       position: relative;
       width: 100%;
       height: 4px;
-      background-color: #f5f5f5;
+      background: #f5f5f5;
       border-radius: 2px;
+
+      .progress-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: $secondary-500;
+        transition: width 0.3s ease;
+      }
 
       .progress-dot {
         position: absolute;
@@ -32,13 +49,12 @@
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        background-color: #e5e5e5;
+        background: #e5e5e5;
         transform: translate(-50%, -50%);
         transition: background-color 0.3s ease;
       }
-
       .progress-dot.active {
-        background-color: #5775fa;
+        background: $secondary-500;
       }
     }
   }
@@ -68,34 +84,41 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     transition: all 0.25s ease;
 
-    &:hover {
-      transform: scale(1.02);
-      border-color: #5775fa;
-      box-shadow: 0 4px 10px rgba(87, 117, 250, 0.15);
-    }
-
-    &.selected {
-      border-color: #5775fa;
-      background-color: #eff2ff;
-      box-shadow: 0 4px 12px rgba(87, 117, 250, 0.25);
-    }
-
     .option-title {
       font-weight: 600;
       font-size: 1rem;
-      color: #161d3f;
+      color: $gray-800;
     }
 
     .option-subtext {
       font-size: 0.9rem;
-      color: #5a6679;
+      color: $gray-600;
       margin-top: 4px;
     }
 
     .option-arrow {
-      color: #5775fa;
+      color: $secondary-500;
       font-size: 1.2rem;
       transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      transform: scale(1.02);
+      border-color: $secondary-300;
+      box-shadow: 0 4px 10px rgba(87, 117, 250, 0.15);
+
+      .option-title {
+        color: $secondary-500;
+      }
+      .option-subtext {
+        color: $secondary-700;
+      }
+    }
+
+    &.selected {
+      border-color: $secondary-500;
+      background-color: #eff2ff;
+      box-shadow: 0 4px 12px rgba(87, 117, 250, 0.25);
     }
   }
 
@@ -108,7 +131,7 @@
     margin-top: 10px;
 
     &:focus {
-      border-color: #5775fa;
+      border-color: $secondary-500;
       box-shadow: 0 0 0 3px rgba(87, 117, 250, 0.2);
     }
   }
@@ -148,7 +171,7 @@
 
     &:hover {
       background-color: #f9f9fa;
-      border-color: #5775fa;
+      border-color: $secondary-500;
       box-shadow: 0 4px 10px rgba(87, 117, 250, 0.15);
     }
 
@@ -161,7 +184,7 @@
 
     .summary-number {
       font-weight: 600;
-      color: #5775fa;
+      color: $secondary-500;
       font-size: 0.95rem;
     }
 
@@ -251,4 +274,77 @@
       border-color: #141a39;
     }
   }
+}
+
+/* ---------------------------------------------------------------------- *
+   Custom styles for ResultPage (Eligibility.png look-and-feel)
+ * ---------------------------------------------------------------------- */
+
+/* Light “paper” bg */
+.result-paper {
+  background: #f9fcff;
+}
+
+/* Hero card wider padding */
+.hero-card .card-body {
+  padding: 2.5rem 2rem;
+}
+.hero-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+}
+
+/* Dashed outline pills */
+.dash-box {
+  padding: 1.25rem;
+  font-size: 1rem;
+  border-radius: 0.4rem;
+  border: 2px none;
+  line-height: 1.6;
+}
+.dash-green {
+  border-color: #19875466;
+  background: #e8fff4;
+  color: #0f5132;
+}
+.dash-red {
+  border-color: #dc354577;
+  background: #fff2f2;
+  color: #842029;
+}
+.dash-yellow {
+  border-color: #ffc10777;
+  background: #fff8e0;
+  color: #664d03;
+}
+.dash-blue {
+  border-color: #0d6efd66;
+  background: #eef6ff;
+  color: #084298;
+}
+.dash-indigo {
+  border-color: #6610f266;
+  background: #f4f0ff;
+  color: #3d2d80;
+}
+.dash-gray {
+  border-color: $gray-400;
+  background: $gray-200;
+  color: $gray-700;
+}
+
+/* Thick progress bar */
+.progress-thick {
+  height: 0.8rem;
+  border-radius: 0.5rem;
+}
+.progress-thick .progress-bar {
+  background: #0d6efd;
+  font-size: 0.65rem;
+}
+
+/* CTA hover lift */
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
 }

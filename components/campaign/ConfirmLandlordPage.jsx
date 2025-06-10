@@ -1,73 +1,55 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import questionsData from '@/data/campaign/questions';
 import useLocalStorageState from '@/hooks/useLocalStorageState';
+import ResultPage from './ResultPage';
+import QuestionStep from './QuestionStep';
+import SummaryStep from './SummaryStep';
+import BreakdownTable from './BreakdownTable';
+import {
+  extractHighestValue,
+  parseSavingPercent,
+  displayValue,
+} from './helpers';
+import Button from '../forms/Button';
+import { Card } from 'react-bootstrap';
 
 const PROPERTY_VALUE = 180000000; // ₦180M fixed
 
-const DEFAULT_PROPERTY_VALUE = {
-  homeownership_status: 'I live with family and friends',
-  homeownership_status_custom: '',
-  ideal_location: 'Lagos Island',
-  ideal_location_custom: '',
-  house_type: 'Flat',
-  house_type_custom: '',
-  number_of_bedrooms: '4 Bedroom',
-  number_of_bedrooms_custom: '',
-  home_buying_timeline: '1 - 2 years',
-  home_buying_timeline_custom: '',
-  home_paying_timeline: 'Not sure - need guidance',
-  home_paying_timeline_custom: '',
-  income_bracket: 'Other (enter exact amount)',
-  income_bracket_custom: '5,000,000',
-  saving_plan: 'Other (enter exact amount)',
-  saving_plan_custom: '40,000,000',
-  debt_profile: 'Other (enter exact amount)',
-  debt_profile_custom: '15,000,000',
-  saving_percent: 'Recommended (33%)',
-  saving_percent_custom: '',
-  financial_advisory: 'Occasionally for investment planning',
-  financial_advisory_custom: '',
-  retirement_planning: 'Yes (₦10,000,001 - ₦25,000,000)',
-  retirement_planning_custom: '',
-};
+// const DEFAULT_PROPERTY_VALUE = {
+//   homeownership_status: 'I live with family and friends',
+//   homeownership_status_custom: '',
+//   ideal_location: 'Lagos Island',
+//   ideal_location_custom: '',
+//   house_type: 'Flat',
+//   house_type_custom: '',
+//   number_of_bedrooms: '4 Bedroom',
+//   number_of_bedrooms_custom: '',
+//   home_buying_timeline: '1 - 2 years',
+//   home_buying_timeline_custom: '',
+//   home_paying_timeline: 'Not sure - need guidance',
+//   home_paying_timeline_custom: '',
+//   income_bracket: 'Other (enter exact amount)',
+//   income_bracket_custom: '5,000,000',
+//   saving_plan: 'Other (enter exact amount)',
+//   saving_plan_custom: '40,000,000',
+//   debt_profile: 'Other (enter exact amount)',
+//   debt_profile_custom: '15,000,000',
+//   saving_percent: 'Recommended (33%)',
+//   saving_percent_custom: '',
+//   financial_advisory: 'Occasionally for investment planning',
+//   financial_advisory_custom: '',
+//   retirement_planning: 'Yes (₦10,000,001 - ₦25,000,000)',
+//   retirement_planning_custom: '',
+// };
 
-// === TopBar component ===
-const TopBar = ({ currentStep, totalSteps, title, isAnswered, onDotClick }) => {
-  const dots = Array.from({ length: totalSteps });
-
-  return (
-    <div className="top-bar">
-      <div className="top-bar-title">{title}</div>
-      <div className="progress-line">
-        {dots.map((_, index) => (
-          <div
-            key={index}
-            className={`progress-dot ${index <= currentStep ? 'active' : ''} ${
-              isAnswered(index) ? 'clickable' : ''
-            }`}
-            style={{
-              left: `${(index / (totalSteps - 1)) * 100}%`,
-            }}
-            onClick={() => isAnswered(index) && onDotClick(index)}
-          ></div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// === ConfirmLandlordPage component ===
 export default function ConfirmLandlordPage() {
   const [answers, setAnswers] = useLocalStorageState(
     'confirm_landlord_answers',
-    DEFAULT_PROPERTY_VALUE
+    {}
+    // DEFAULT_PROPERTY_VALUE
   );
 
-  const [mode, setMode] = useState(
-    Object.keys(DEFAULT_PROPERTY_VALUE).length ? 'summary' : 'question'
-  );
+  const [mode, setMode] = useState('question');
   const [currentStep, setCurrentStep] = useState(null);
 
   const allQuestions = useMemo(() => {
@@ -98,7 +80,7 @@ export default function ConfirmLandlordPage() {
   const selectedValue = answers[currentQuestion?.id];
 
   useEffect(() => {
-    if (mode === 'summary') return; // Skip validation when in summary mode
+    if (mode !== 'question') return;
 
     const firstIncompleteIndex = allQuestions.findIndex(
       (q) =>
@@ -226,6 +208,7 @@ export default function ConfirmLandlordPage() {
       monthlySaving,
       monthsNeeded,
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [answers]);
 
   const isNextDisabled =
@@ -235,14 +218,6 @@ export default function ConfirmLandlordPage() {
 
   return (
     <div className="confirm-landlord-page container py-5">
-      <TopBar
-        currentStep={mode === 'summary' ? totalSteps : currentStep}
-        totalSteps={totalSteps}
-        title={mode === 'summary' ? 'Summary' : currentSectionTitle}
-        isAnswered={isAnswered}
-        onDotClick={handleEdit}
-      />
-
       {mode === 'question' && currentQuestion && (
         <QuestionStep
           currentStep={currentStep}
@@ -255,12 +230,18 @@ export default function ConfirmLandlordPage() {
           handleNext={handleNext}
           handleBack={handleBack}
           isNextDisabled={isNextDisabled}
+          mode={mode}
+          currentSectionTitle={currentSectionTitle}
+          isAnswered={isAnswered}
+          handleEdit={handleEdit}
         />
       )}
 
+      {/* Show result page when finished, with toggle for summary */}
       {mode === 'summary' && (
-        <SummaryStep
+        <ResultWithSummaryToggle
           allQuestions={allQuestions}
+          setMode={setMode}
           answers={answers}
           handleEdit={handleEdit}
           getAnswerValue={getAnswerValue}
@@ -280,339 +261,52 @@ export default function ConfirmLandlordPage() {
   );
 }
 
-const ResultRow = ({ label, value, highlight }) => (
-  <div className={`result-row ${highlight ? 'highlight' : ''}`}>
-    <div className="result-label">{label}</div>
-    <div className="result-value">{value}</div>
-  </div>
-);
+// // --- ResultWithSummaryToggle component ---
+// import { useState } from 'react';
+// import SummaryStep from './SummaryStep';
+// import ResultPage from './ResultPage';
 
-const SummaryStep = ({
-  allQuestions,
-  answers,
-  handleEdit,
-  getAnswerValue,
-  income,
-  savingPlan,
-  debtProfile,
-  retirementPlan,
-  savingPercentValue,
-  yearsToBuy,
-  availableFunds,
-  totalNeeded,
-  monthlySaving,
-  monthsNeeded,
-}) => {
+function ResultWithSummaryToggle(props) {
+  const [showSummary, setShowSummary] = useState(false);
   return (
-    <>
-      <h3 className="fw-bold mb-3 text-primary fade-in">
-        Summary of Your Answers
-      </h3>
-
-      <div className="summary-list mb-4 fade-in">
-        {allQuestions.map((q, index) => {
-          const value = getAnswerValue(q.id);
-          return (
-            <div
-              key={q.id}
-              className="summary-item"
-              onClick={() => handleEdit(index)}
-            >
-              <div className="summary-left">
-                <span className="summary-number">{index + 1}.</span>
-                <span className="summary-question">{q.label}</span>
-              </div>
-              <div className="summary-answer text-secondary">
-                {value || 'No answer'}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      <h4 className="fw-bold mb-3 text-primary fade-in">Estimated Result</h4>
-
-      <div className="result-table fade-in mb-4">
-        <ResultRow
-          label="Income Bracket"
-          value={displayValue(getAnswerValue('income_bracket'), income)}
-        />
-        <ResultRow
-          label="Saving Plan"
-          value={displayValue(getAnswerValue('saving_plan'), savingPlan)}
-        />
-        <ResultRow
-          label="Debt Profile"
-          value={displayValue(getAnswerValue('debt_profile'), debtProfile)}
-        />
-        <ResultRow
-          label="Property Value"
-          value={`₦${PROPERTY_VALUE.toLocaleString()}`}
-        />
-        <ResultRow
-          label="Retirement Planning"
-          value={displayValue(
-            getAnswerValue('retirement_planning'),
-            retirementPlan
-          )}
-        />
-        <ResultRow
-          label="Saving % of Income"
-          value={`${Math.round(savingPercentValue * 100)}%`}
-        />
-        <ResultRow
-          label="Estimated Years to Buy a Home"
-          value={`${yearsToBuy} years`}
-          highlight
-        />
-      </div>
-
-      {/* Breakdown Table */}
-      <BreakdownTable
-        savingPlan={savingPlan}
-        retirementPlan={retirementPlan}
-        propertyValue={PROPERTY_VALUE}
-        availableFunds={availableFunds}
-        totalNeeded={totalNeeded}
-        income={income}
-        debtProfile={debtProfile}
-        savingPercentValue={savingPercentValue}
-        monthlySaving={monthlySaving}
-        monthsNeeded={monthsNeeded}
-        yearsToBuy={yearsToBuy}
+    <div>
+      <ResultPage
+        answers={props.answers}
+        yearsToBuy={props.yearsToBuy}
+        availableFunds={props.availableFunds}
+        totalNeeded={props.totalNeeded}
       />
-
-      <Button
-        variant="primary"
-        className="w-100 py-2 fade-in"
-        onClick={() => alert('Submitting answers...')}
-      >
-        Confirm & Submit
-      </Button>
-    </>
-  );
-};
-
-const QuestionStep = ({
-  currentStep,
-  totalSteps,
-  currentQuestion,
-  selectedValue,
-  answers,
-  handleSelect,
-  handleCustomInput,
-  handleNext,
-  handleBack,
-  isNextDisabled,
-}) => (
-  <>
-    <Button
-      variant="link"
-      onClick={handleBack}
-      className="mb-3 p-0 d-flex align-items-center"
-    >
-      <FaArrowLeft className="me-2" /> Back
-    </Button>
-
-    <div className="text-muted mb-2 small">
-      Step {currentStep + 1} of {totalSteps}
-    </div>
-
-    <h4 className="fw-bold mb-2 fade-in">{currentQuestion.label}</h4>
-    <p className="text-muted mb-2 fade-in">{currentQuestion.prompt}</p>
-
-    {currentQuestion.description && (
-      <p className="question-description text-secondary mb-4 fade-in">
-        {currentQuestion.description}
-      </p>
-    )}
-
-    <div className="option-list mb-4 fade-in">
-      {currentQuestion.type === 'options' &&
-        currentQuestion.options.map((option) => (
-          <div
-            key={option.label}
-            className={`option-card ${
-              selectedValue === option.label ? 'selected' : ''
-            }`}
-            onClick={() => handleSelect(option.label)}
-          >
-            <div>
-              <div className="option-title">{option.label}</div>
-              {option.subtext && (
-                <div className="option-subtext">{option.subtext}</div>
-              )}
-            </div>
-            <div className="option-arrow">
-              {selectedValue === option.label && <FaArrowRight />}
-            </div>
-          </div>
-        ))}
-
-      {currentQuestion.type === 'options' &&
-        selectedValue === 'Other (enter exact amount)' && (
-          <Form.Control
-            type="text"
-            className="mt-3 animated-input"
-            placeholder="Enter exact value"
-            value={answers[`${currentQuestion.id}_custom`] || ''}
-            onChange={(e) => handleCustomInput(e.target.value)}
+      <hr />
+      <div className="text-center my-4">
+        <Button
+          color="primary"
+          className="mt-4"
+          onClick={() => setShowSummary((s) => !s)}
+        >
+          {showSummary ? 'Hide' : 'Show'} All Breakdown
+        </Button>
+      </div>
+      <section className="mb-4 p-6">
+        {showSummary && (
+          <SummaryStep
+            allQuestions={props.allQuestions}
+            setMode={props.setMode}
+            answers={props.answers}
+            handleEdit={props.handleEdit}
+            getAnswerValue={props.getAnswerValue}
+            income={props.income}
+            savingPlan={props.savingPlan}
+            debtProfile={props.debtProfile}
+            retirementPlan={props.retirementPlan}
+            savingPercentValue={props.savingPercentValue}
+            yearsToBuy={props.yearsToBuy}
+            availableFunds={props.availableFunds}
+            totalNeeded={props.totalNeeded}
+            monthlySaving={props.monthlySaving}
+            monthsNeeded={props.monthsNeeded}
           />
         )}
+      </section>
     </div>
-
-    <Button
-      variant="danger"
-      className="w-100 py-2 fade-in"
-      onClick={handleNext}
-      disabled={isNextDisabled}
-    >
-      {currentStep === totalSteps - 1 ? 'Finish' : 'Next'}
-    </Button>
-  </>
-);
-
-const BreakdownTable = ({
-  propertyValue,
-  savingPlan,
-  retirementPlan,
-  availableFunds,
-  debtProfile,
-  totalNeeded,
-  income,
-  savingPercentValue,
-  monthlySaving,
-  monthsNeeded,
-  yearsToBuy,
-}) => {
-  const pct = (n) => `${Math.round(n * 100)}%`;
-  const N = (n) => `₦${n.toLocaleString()}`;
-
-  return (
-    <>
-      <h4 className="fw-bold mb-3 text-primary fade-in">
-        Calculation Breakdown
-      </h4>
-
-      <table className="table table-bordered breakdown-table fade-in mb-4">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th className="text-end">Value</th>
-            <th>Formula&nbsp;/&nbsp;Origin</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* ---------- Raw inputs ---------- */}
-          <tr>
-            <td>Property Price</td>
-            <td className="text-end">{N(propertyValue)}</td>
-            <td>Fixed benchmark for Lagos home</td>
-          </tr>
-          <tr>
-            <td>Savings Already Set Aside</td>
-            <td className="text-end">{N(savingPlan)}</td>
-            <td>User answer “Saving Plan”</td>
-          </tr>
-          <tr>
-            <td>Retirement Savings (25 % usable)</td>
-            <td className="text-end">{N(retirementPlan)}</td>
-            <td>User answer “Retirement Planning”</td>
-          </tr>
-          <tr>
-            <td>Current Debt</td>
-            <td className="text-end">{N(debtProfile)}</td>
-            <td>User answer “Debt Profile”</td>
-          </tr>
-          <tr>
-            <td>Monthly Income</td>
-            <td className="text-end">{N(income)}</td>
-            <td>User answer “Income Bracket”</td>
-          </tr>
-
-          {/* ---------- Derived numbers ---------- */}
-          <tr>
-            <td>Available Funds</td>
-            <td className="text-end">{N(availableFunds)}</td>
-            <td>
-              <code>Savings&nbsp;+&nbsp;25% × Retirement</code>
-              <br />= {N(savingPlan)} + 25 % × {N(retirementPlan)}
-            </td>
-          </tr>
-          <tr>
-            <td>Total Cash Needed</td>
-            <td className="text-end">{N(totalNeeded)}</td>
-            <td>
-              <code>Property&nbsp;+&nbsp;Debt&nbsp;–&nbsp;Available Funds</code>
-              <br />= {N(propertyValue)} + {N(debtProfile)} –{' '}
-              {N(availableFunds)}
-            </td>
-          </tr>
-          <tr>
-            <td>Saving Rate</td>
-            <td className="text-end">{pct(savingPercentValue)}</td>
-            <td>User answer “Saving&nbsp;% of Income”</td>
-          </tr>
-          <tr>
-            <td>Monthly Saving</td>
-            <td className="text-end">{N(monthlySaving)}</td>
-            <td>
-              <code>Income&nbsp;×&nbsp;Saving Rate</code>
-              <br />= {N(income)} × {pct(savingPercentValue)}
-            </td>
-          </tr>
-          <tr>
-            <td>Months Required</td>
-            <td className="text-end">{Math.ceil(monthsNeeded)}</td>
-            <td>
-              <code>Total Needed&nbsp;/&nbsp;Monthly Saving</code>
-              <br />= {N(totalNeeded)} ÷ {N(monthlySaving)}
-            </td>
-          </tr>
-          <tr className="highlight">
-            <td>Years to Buy Home</td>
-            <td className="text-end">{yearsToBuy}</td>
-            <td>
-              <code>ceil( Months&nbsp;/&nbsp;12 )</code>
-              <br />= ceil({Math.ceil(monthsNeeded)} ÷ 12)
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </>
   );
-};
-
-const extractHighestValue = (value) => {
-  if (!value) return 0;
-  if (typeof value === 'string') {
-    const match = value.match(/₦([\d,]+)/g);
-    if (match && match.length > 0) {
-      const nums = match.map((val) => parseInt(val.replace(/[₦,]/g, '')));
-      return Math.max(...nums);
-    }
-  }
-  return parseInt(value.replace(/[₦,]/g, '')) || 0;
-};
-
-const parseSavingPercent = (value) => {
-  if (!value) return 0.33; // default 33%
-  if (value.includes('75%')) return 0.75;
-  if (value.includes('50%')) return 0.5;
-  if (value.includes('33%')) return 0.33;
-  if (value.includes('25%')) return 0.25;
-  if (value.includes('20%')) return 0.2;
-  return 0.33; // fallback
-};
-
-const displayValue = (rawValue, extractedNumber) => {
-  if (!rawValue) return 'N/A';
-  if (rawValue.includes('₦') && rawValue.includes('-')) {
-    // Range → show "~ ₦number"
-    return `~ ₦${extractedNumber.toLocaleString()}`;
-  } else if (rawValue === 'Other (enter exact amount)') {
-    return `₦${extractedNumber.toLocaleString()}`;
-  } else {
-    return `₦${extractedNumber.toLocaleString()}`;
-  }
-};
+}
