@@ -1,3 +1,14 @@
+// questions.js
+import { locationsByZone } from './location'; // adjust path as needed
+
+// build <label, subtext> objects from locationsByZone
+const locationOptions = Object.entries(locationsByZone).map(
+  ([zone, areas]) => ({
+    label: zone,
+    subtext: areas.join(', '),
+  })
+);
+
 const questions = [
   {
     section: 'REAL ESTATE',
@@ -28,14 +39,7 @@ const questions = [
         description:
           'Choose your preferred area of Lagos where you want to buy your home.',
         type: 'options',
-        options: [
-          {
-            label: 'Lagos Island',
-            subtext: 'Ikoyi, Victoria Island, Lekki Phase 1',
-          },
-          { label: 'Lagos Mainland', subtext: 'Ikeja, Surulere, Yaba' },
-          { label: 'Outskirt of Lagos', subtext: 'Ajah, Ibeju-Lekki, Epe' },
-        ],
+        options: locationOptions,
       },
       {
         id: 'house_type',
