@@ -1,5 +1,5 @@
 /* ==================================================
-   FONT  (limited to hero so it won’t override site-wide)
+   FONT (Scoped to hero blocks only)
    ================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700&display=swap');
 
@@ -15,71 +15,55 @@ $navy: #00204a;
 $gold: #ffc400;
 
 /* ==================================================
-   HERO WRAPPER
+   HERO – Shared Layout
    ================================================== */
-.hero {
+.hero,
+.hero-mob {
+  margin-top: 4rem;
   position: relative;
-  margin-top: 120px; /* space for fixed header */
-  min-height: calc(100vh - 60px);
-  padding: 4rem 1.5rem;
   display: flex;
-  align-items: center; /* keeps block vertically centred */
+  align-items: center;
   justify-content: center;
   overflow: hidden;
+  background: none;
+  min-height: calc(100vh - 60px);
+  max-height: 100vh;
+  padding: 4rem 1.5rem;
+}
+
+/* Desktop wrapper */
+.hero {
   background: #fff url('/img/game/hero-background.svg') center / contain
     no-repeat;
 }
 
-/* ==================================================
-   CARD + ILLUSTRATION WRAP (new)
-   ================================================== */
-.hero__card-wrap {
-  position: relative; /* ⬅️ anchor for absolute image */
-  max-width: 560px;
-}
+/* Mobile wrapper */
+.hero-mob {
+  flex-direction: column;
+  height: 100vh;
+  background: #fff url('/img/game/hero-background-mobile.svg') center / contain
+    no-repeat;
 
-/* ==================================================
-   TORN CARD
-   ================================================== */
-.hero__card {
-  background: $navy;
-  color: #fff;
-  width: 100%;
-  max-width: 100%;
-  padding: 5rem 3.5rem;
-  line-height: 1.6;
-  position: relative;
-  z-index: 1;
-
-  /* torn-edge masking */
-  -webkit-mask: url('/img/game/torn-card.svg') center/contain no-repeat;
-  mask: url('/img/game/torn-card.svg') center/contain no-repeat;
-}
-
-/* graceful SVG frame fallback */
-@supports not (mask-image: url('')) {
-  .hero__card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: url('/img/game/torn-card.svg') center/contain no-repeat;
-    pointer-events: none;
+  @include media-breakpoint-up(sm) {
+    background: #fff url('/img/game/hero-background-tablet.svg') center /
+      contain no-repeat;
   }
 }
 
-/* ==================================================
-   TYPOGRAPHY
-   ================================================== */
-.hero__title {
-  font-size: clamp(1.5rem, 2.4vw + 0.5rem, 2rem);
+/* Shared Card Wrapper */
+.hero__card-wrap {
+  position: relative;
+  max-width: 560px;
+}
+
+/* Shared Typography */
+.hero__title,
+.hero-mob__title {
+  font-size: 2rem;
   line-height: 1.25;
   font-weight: 600;
   margin: 0;
   color: #fff;
-}
-
-.nowrap {
-  white-space: nowrap;
 }
 
 .hero__copy {
@@ -88,9 +72,11 @@ $gold: #ffc400;
   opacity: 0.92;
 }
 
-/* ==================================================
-   DIVIDER
-   ================================================== */
+.nowrap {
+  white-space: nowrap;
+}
+
+/* Divider */
 .hero__divider {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -102,6 +88,7 @@ $gold: #ffc400;
     background: #fff;
     opacity: 0.4;
   }
+
   .hero__divider-diamond {
     width: 12px;
     height: 12px;
@@ -110,9 +97,7 @@ $gold: #ffc400;
   }
 }
 
-/* ==================================================
-   DOTS
-   ================================================== */
+/* Dots */
 .hero__dots .dot {
   width: 10px;
   height: 10px;
@@ -127,26 +112,92 @@ $gold: #ffc400;
   }
 }
 
-/* ==================================================
-   ABSOLUTE HOUSE-COINS ILLUSTRATION (relative to wrap)
-   ================================================== */
-.hero__illus {
-  position: absolute;
-  right: -70px; /* horizontal overlap — tweak as needed */
-  bottom: -30px; /* coins dip below the card edge */
-  width: 280px; /* desktop size */
-  height: auto;
-  z-index: 2; /* sits behind the card (z-index:1) */
-  pointer-events: none;
+/* Desktop Card */
+.hero__card {
+  background: url('/img/game/torn-card-mobile.svg') no-repeat center;
+  background-size: contain;
+  width: 560px;
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fff;
+  z-index: 2;
+  position: relative;
+  text-align: left;
+  word-break: break-word;
+}
 
-  /* mobile & small tablets: flow under card */
-  @media (max-width: 991.98px) {
-    position: static;
-    width: 200px;
-    margin: 2.5rem auto 0;
-    display: block;
+/* Mobile Card */
+@include media-breakpoint-down(lg) {
+  .hero-mob__card {
+    background: url('/img/game/torn-card-mobile.svg') no-repeat center center;
+    background-size: contain;
+    width: 80vw;
+    aspect-ratio: 357 / 257;
+    min-width: 18rem;
+    max-width: 26rem;
+    margin: 0 auto;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    color: #fff;
+    z-index: 2;
+    position: relative;
+    word-break: break-word;
+    white-space: normal;
+
+    @include media-breakpoint-up(md) {
+      max-width: 30rem;
+    }
+  }
+
+  .hero-mob__title {
+    font-size: 1.5rem;
+    @include media-breakpoint-up(sm) {
+      font-size: 1.75rem;
+    }
   }
 }
+
+/* Button container */
+.hero-mob__btn-wrapper {
+  margin-top: 5rem;
+  z-index: 3;
+}
+
+/* Coins Image */
+.hero-mob__coins {
+  margin-top: -2rem;
+  width: 200px;
+  height: auto;
+  z-index: 2;
+  position: relative;
+  display: block;
+  margin-left: auto;
+
+  @include media-breakpoint-down(sm) {
+    width: 150px;
+  }
+
+  @include media-breakpoint-up(md) {
+    margin-top: -3rem;
+  }
+}
+
+/* House Coins Illustration (Desktop) */
+.hero__illus {
+  position: absolute;
+  right: -70px;
+  bottom: -30px;
+  width: 280px;
+  height: auto;
+  z-index: 2;
+  pointer-events: none;
+}
+
 /* --------------------------------------------------
    GAME BUTTON – one base + colour variants
    -------------------------------------------------- */
@@ -156,9 +207,6 @@ $btn-radius: 9px;
 $btn-padding: 1.15rem 2.5rem;
 $btn-letter-space: 0.55px;
 $btn-shine-angle: 115deg;
-
-/* Optional retro cursor (32×32 PNG with a transparent bg) */
-$game-cursor: url('/img/game/cursor-hand.png') 12 0, pointer;
 
 /* 2️⃣ mixin: injects ONLY the palette */
 @mixin btn-skin($bg, $fg) {
@@ -192,7 +240,6 @@ $game-cursor: url('/img/game/cursor-hand.png') 12 0, pointer;
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  cursor: $game-cursor;
   position: relative;
   overflow: hidden;
   z-index: 5;
