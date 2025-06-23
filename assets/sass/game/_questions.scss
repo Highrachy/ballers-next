@@ -1,0 +1,56 @@
+.question-page {
+  display: flex;
+  min-height: 100vh;
+  max-width: 1500px;
+  overflow-x: hidden;
+  background-color: #fff;
+  background-image: url('/img/game/question-background.svg');
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: 100% auto;
+}
+
+.question-content {
+  flex-grow: 1;
+  padding: 4rem;
+  position: relative;
+  z-index: 2;
+  margin-left: 12rem;
+  margin-top: 10rem;
+
+  @include media-breakpoint-up(md) {
+    padding-left: 2rem;
+    padding-right: 3rem;
+  }
+}
+
+.question-top {
+  max-width: 720px;
+  margin-bottom: 2rem;
+  margin-top: 8rem;
+}
+
+.question-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #00204a;
+  line-height: 1.3;
+}
+
+.question-subtext {
+  font-size: 1rem;
+  color: #6c757d;
+  max-width: 480px;
+}
+
+.option-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: flex-start;
+
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+    align-items: center;
+  }
+}

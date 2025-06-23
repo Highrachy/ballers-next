@@ -1,0 +1,110 @@
+/* design tokens */
+$gold: #ffc400;
+$gold-hover: #fff4cc;
+$stroke: #d9d9d9;
+
+/* -------- card -------- */
+.option-card {
+  /* CSS vars control SVG + radio fill */
+  --fill: #ffffff;
+  --stroke: #{$stroke};
+
+  position: relative;
+  width: 268px;
+  aspect-ratio: 268 / 175;
+  cursor: pointer;
+  border-radius: 24px; /* fallback */
+  will-change: transform;
+  transition: transform 0.15s ease; // Fast hover
+  filter: drop-shadow(-231px 361px 171px rgba(0, 0, 0, 0.01))
+    drop-shadow(-130px 203px 145px rgba(0, 0, 0, 0.05))
+    drop-shadow(-58px 90px 107px rgba(0, 0, 0, 0.09))
+    drop-shadow(-14px 23px 59px rgba(0, 0, 0, 0.1));
+
+  &:hover:not(.selected) {
+    --fill: #{$gold-hover};
+    --stroke: #{$gold};
+    transform: translateY(-8px) scale(1.05) rotate(-2deg);
+    filter: brightness(1.08) saturate(1.2);
+  }
+
+  &.selected {
+    --fill: #{$gold};
+  }
+
+  /* -------- SVG -------- */
+  .option-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+
+    .option-path {
+      fill: var(--fill);
+      stroke: var(--stroke);
+      transition: fill 0.15s, stroke 0.15s;
+    }
+  }
+
+  /* -------- inner content -------- */
+  .option-inner {
+    position: absolute;
+    inset: 0;
+    padding: 2rem 3rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1;
+  }
+
+  h4 {
+    font: 700 1rem/1.2 'Wix Madefor Display', sans-serif;
+    margin: 0 0 0.25rem;
+    color: #001c48;
+  }
+  p {
+    font-size: 0.875rem;
+    margin: 0;
+    color: #555;
+  }
+
+  .option-emoji {
+    align-self: flex-end;
+  }
+
+  /* -------- radio -------- */
+  .option-radio {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    border: 2px solid #000;
+    background: var(--fill);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.25s ease, border-color 0.25s ease;
+
+    &::after {
+      content: '';
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #000;
+      transform: scale(0);
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  }
+
+  &.selected .option-radio::after {
+    transform: scale(1);
+  }
+}
+
+/* full-width mobile */
+@include media-breakpoint-down(sm) {
+  .option-card {
+    width: 100%;
+  }
+}
