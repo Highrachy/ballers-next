@@ -18,7 +18,7 @@ export default function HeroMobile() {
           <span className="hero__divider-line" />
         </div>
 
-        <p className="hero__copy mb-4">
+        <p className="hero__copy mb-3">
           Welcome to the real-estate challenge that actually pays off. Let’s
           find out where you stand — and how to level up.
         </p>

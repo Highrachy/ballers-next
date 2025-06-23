@@ -134,11 +134,11 @@ $gold: #ffc400;
     background: url('/img/game/torn-card-mobile.svg') no-repeat center center;
     background-size: contain;
     width: 80vw;
-    aspect-ratio: 357 / 257;
-    min-width: 18rem;
+    aspect-ratio: 350 / 300;
+    min-width: 20rem;
     max-width: 26rem;
     margin: 0 auto;
-    padding: 3rem;
+    padding: 4rem 3rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -171,6 +171,7 @@ $gold: #ffc400;
 /* Coins Image */
 .hero-mob__coins {
   margin-top: -2rem;
+  margin-right: -2rem;
   width: 200px;
   height: auto;
   z-index: 2;

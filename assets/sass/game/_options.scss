@@ -11,15 +11,19 @@ $stroke: #d9d9d9;
 
   position: relative;
   width: 268px;
+  @include media-breakpoint-up(lg) {
+    width: 300px;
+  }
   aspect-ratio: 268 / 175;
   cursor: pointer;
   border-radius: 24px; /* fallback */
   will-change: transform;
   transition: transform 0.15s ease; // Fast hover
-  filter: drop-shadow(-231px 361px 171px rgba(0, 0, 0, 0.01))
-    drop-shadow(-130px 203px 145px rgba(0, 0, 0, 0.05))
-    drop-shadow(-58px 90px 107px rgba(0, 0, 0, 0.09))
-    drop-shadow(-14px 23px 59px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.08));
+  // filter: drop-shadow(-231px 361px 171px rgba(0, 0, 0, 0.01))
+  //   drop-shadow(-130px 203px 145px rgba(0, 0, 0, 0.05))
+  //   drop-shadow(-58px 90px 107px rgba(0, 0, 0, 0.09))
+  //   drop-shadow(-14px 23px 59px rgba(0, 0, 0, 0.1));
 
   &:hover:not(.selected) {
     --fill: #{$gold-hover};
@@ -57,25 +61,34 @@ $stroke: #d9d9d9;
   }
 
   h4 {
-    font: 700 1rem/1.2 'Wix Madefor Display', sans-serif;
+    font: 700 1.2rem/1.2 'Wix Madefor Display', sans-serif;
     margin: 0 0 0.25rem;
     color: #001c48;
+    margin-top: 3rem;
   }
   p {
-    font-size: 0.875rem;
+    font-size: 1rem;
     margin: 0;
-    color: #555;
+    color: #797979;
+  }
+
+  &.selected h4,
+  &.selected p {
+    color: #1e1e1e;
   }
 
   .option-emoji {
     align-self: flex-end;
+    position: absolute;
+    bottom: 0;
+    right: -1rem;
   }
 
   /* -------- radio -------- */
   .option-radio {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+    top: 1.75rem;
+    right: 1.75rem;
     width: 21px;
     height: 21px;
     border-radius: 50%;
@@ -99,12 +112,5 @@ $stroke: #d9d9d9;
 
   &.selected .option-radio::after {
     transform: scale(1);
-  }
-}
-
-/* full-width mobile */
-@include media-breakpoint-down(sm) {
-  .option-card {
-    width: 100%;
   }
 }

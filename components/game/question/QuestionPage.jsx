@@ -1,72 +1,84 @@
 import Header from '@/components/layout/Header';
 import { FaInfoCircle } from 'react-icons/fa';
-import { useState } from 'react';
 import OptionCard from './OptionCard';
 import QuestionPageNavigation from '../shared/Navigation';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-const question = {
-  id: 1,
-  title: 'What is your current housing situation?',
-  description: 'Choose your current status. No judgment, just direction.',
-  options: [
-    {
-      id: 'rent',
-      title: 'I rent my home',
-      subtitle: 'I pay monthly or yearly rent',
-      emoji: '/img/game/options/1-rent.svg',
-    },
-    {
-      id: 'own',
-      title: 'I own my home',
-      subtitle: 'I own it fully or paying mortgage',
-      emoji: '/img/game/options/1-rent.svg',
-    },
-    {
-      id: 'family',
-      title: 'I live with friends/family',
-      subtitle: 'Staying without paying rent',
-      emoji: '/img/game/options/1-rent.svg',
-    },
-  ],
-};
-
-export default function QuestionPage() {
-  const [selected, setSelected] = useState(null);
-
+export default function QuestionPage({
+  currentStep,
+  totalSteps,
+  currentQuestion,
+  selectedValue,
+  answers,
+  handleSelect,
+  handleCustomInput,
+  handleNext,
+  handleBack,
+  isNextDisabled,
+  currentSectionTitle,
+  isAnswered,
+  handleEdit,
+}) {
   return (
-    <div className="question-page">
-      <div className="question-content">
-        <Header />
+    <>
+      <Header />
+      <section className="question-container">
+        <section className="question-page">
+          <div className="question-content">
+            <section className="question-main container">
+              <div className="question-top">
+                <div className="question-index small fw-bold text-uppercase">
+                  Question{' '}
+                  <span className="fw-bolder">
+                    {currentStep + 1} of {totalSteps}
+                  </span>{' '}
+                </div>
+                <h2 className="question-title mt-2">
+                  {currentQuestion.prompt}{' '}
+                  {currentQuestion.description && (
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={
+                        <Tooltip id={`tip-${currentQuestion.id}`}>
+                          {currentQuestion.description}
+                        </Tooltip>
+                      }
+                    >
+                      <span className="text-muted cursor-pointer">
+                        <FaInfoCircle />
+                      </span>
+                    </OverlayTrigger>
+                  )}
+                </h2>
+                <p className="question-subtext">
+                  {currentQuestion.description}
+                </p>
+              </div>
 
-        <section className="question-main container">
-          <div className="question-top">
-            <div className="question-index small fw-bold text-uppercase">
-              Question <span className="fw-bolder">{question.id} of 12</span>{' '}
-              <FaInfoCircle className="ms-1 text-muted" size="0.8em" />
-            </div>
-            <h2 className="question-title mt-2">{question.title}</h2>
-            <p className="question-subtext">{question.description}</p>
-          </div>
+              <div className="option-grid my-5">
+                {currentQuestion.options.map((opt) => (
+                  <OptionCard
+                    key={opt.label}
+                    title={opt.label}
+                    subtitle={opt.subtext}
+                    selected={selectedValue === opt.label}
+                    onClick={() => handleSelect(opt.label)}
+                    emoji={opt.emoji} // optional
+                  />
+                ))}
+              </div>
 
-          <div className="option-grid">
-            {question.options.map((opt, index) => (
-              <OptionCard
-                key={opt.id}
-                {...opt}
-                selected={selected === index}
-                onClick={() => setSelected(index)}
+              <QuestionPageNavigation
+                onPrevious={handleBack}
+                onNext={handleNext}
+                isFirst={currentStep === 0}
+                isLast={currentStep === totalSteps - 1}
+                isNextDisabled={isNextDisabled}
               />
-            ))}
+            </section>
           </div>
-
-          <QuestionPageNavigation
-            onPrevious={() => console.log('Go back')}
-            onNext={() => console.log('Go next')}
-            isFirst={question.id === 1}
-            isLast={question.id === 12}
-          />
         </section>
-      </div>
-    </div>
+      </section>
+    </>
   );
 }

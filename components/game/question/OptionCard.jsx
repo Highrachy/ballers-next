@@ -37,8 +37,8 @@ export default function OptionCard({
         {emoji && (
           <Image
             src={emoji}
-            width={44}
-            height={44}
+            width={90}
+            height={90}
             alt=""
             className="option-emoji"
           />

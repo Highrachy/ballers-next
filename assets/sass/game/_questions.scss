@@ -1,33 +1,88 @@
-.question-page {
-  display: flex;
-  min-height: 100vh;
-  max-width: 1500px;
-  overflow-x: hidden;
-  background-color: #fff;
-  background-image: url('/img/game/question-background.svg');
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-size: 100% auto;
-}
+/*  TOP-LEVEL: question-container  */
+.question-container {
+  position: relative; /* create stacking ctx */
+  min-height: 100vh; /* ensure full height */
+  background-color: white;
 
-.question-content {
-  flex-grow: 1;
-  padding: 4rem;
-  position: relative;
-  z-index: 2;
-  margin-left: 12rem;
-  margin-top: 10rem;
+  /* ---- overlay strip ---- */
+  &::before {
+    content: '';
+    position: fixed; /* stays put while page scrolls */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1; /* sits ABOVE .question-page bg */
 
-  @include media-breakpoint-up(md) {
-    padding-left: 2rem;
-    padding-right: 3rem;
+    /* MOBILE default */
+    background-image: url('/img/game/question-background-mobile.svg');
+    background-repeat: no-repeat;
+    background-position: -45px 0%;
+    background-size: 90px 1387px;
+
+    /* TABLET */
+    @include media-breakpoint-up(md) {
+      background-position: 0% 0%;
+    }
+
+    /* DESKTOP */
+    @include media-breakpoint-up(lg) {
+      background-image: url('/img/game/question-background.svg');
+      background-size: auto 100%;
+      background-position: 25px 0%;
+    }
   }
 }
 
-.question-top {
-  max-width: 720px;
-  margin-bottom: 2rem;
-  margin-top: 8rem;
+/*  MID-LAYER: question-page  */
+.question-page {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff; // ✅ base background
+  overflow-x: hidden;
+  height: 100vh;
+
+  /* curved background: now UNDER the strip */
+  background-image: url('/img/game/question-curve-mobile.svg');
+  background-repeat: no-repeat;
+  background-position: 30px 60px;
+  background-size: 578px 1388px;
+  background-attachment: fixed;
+  background-color: #fff; /* fallback */
+
+  z-index: 0; /* below the ::before overlay */
+
+  @include media-breakpoint-up(md) {
+    background-image: url('/img/game/question-curve.svg');
+    background-size: 1337px 936px;
+    background-position: -100px 150px;
+  }
+  @include media-breakpoint-up(lg) {
+    background-position: -80px 150px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    background-size: 95% auto;
+  }
+}
+
+.question-content {
+  padding: 3rem;
+  padding-top: 5rem !important;
+  position: relative;
+  margin-top: 20rem;
+  overflow: scroll;
+
+  @include media-breakpoint-up(sm) {
+    padding: 4rem;
+  }
+  @include media-breakpoint-up(md) {
+    padding: 6rem;
+  }
+  @include media-breakpoint-up(lg) {
+    padding: 10rem;
+  }
 }
 
 .question-title {
@@ -46,7 +101,7 @@
 .option-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 2.5rem;
   justify-content: flex-start;
 
   @include media-breakpoint-down(sm) {
