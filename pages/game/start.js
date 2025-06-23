@@ -1,116 +1,76 @@
 import React, { useState, useMemo } from 'react';
 import QuestionPage from '@/components/game/question/QuestionPage';
+import InterludePage from '@/components/game/result/Interlude';
 import useLocalStorageState from '@/hooks/useLocalStorageState';
 import questionsData from '@/data/campaign/questions';
 
-const Start = () => {
+/** 1-based positions where an interlude should appear */
+const BREAK_STEPS = [4, 7];
+
+export default function Start() {
+  /* ─────────────────────── State ─────────────────────── */
   const [answers, setAnswers] = useLocalStorageState(
     'confirm_landlord_answers',
     {}
   );
-  const [currentStep, setCurrentStep] = useState(0); // initialize to first step
+  const [step, setStep] = useState(0); // zero-based question index
+  const [view, setView] = useState('question'); // 'question' | 'interlude'
 
-  const allQuestions = useMemo(() => {
-    return questionsData.flatMap((section) =>
-      section.questions.map((q) => ({
-        ...q,
-        sectionTitle: section.section,
-      }))
-    );
-  }, []);
+  /* ─────────────────── Derived values ────────────────── */
+  const questions = useMemo(
+    () =>
+      questionsData.flatMap((sec) =>
+        sec.questions.map((q) => ({ ...q, section: sec.section }))
+      ),
+    []
+  );
 
-  const isAnswered = (idx) => {
-    const q = allQuestions[idx];
-    if (!q) return false;
+  const total = questions.length;
+  const question = questions[step];
+  const answer = answers[question?.id];
 
-    const value = answers[q.id];
-    if (!value) return false;
-    if (value === 'Other (enter exact amount)' && !answers[`${q.id}_custom`]) {
-      return false;
-    }
-    return true;
-  };
+  /* ──────────────────── Helpers ──────────────────────── */
+  const saveAnswer = (value) =>
+    setAnswers((prev) => ({ ...prev, [question.id]: value }));
 
-  const totalSteps = allQuestions.length;
-  const currentQuestion = allQuestions[currentStep];
-  const currentSectionTitle = currentQuestion?.sectionTitle || '';
-  const selectedValue = answers[currentQuestion?.id];
+  const goNext = () => {
+    const next = step + 1;
 
-  // Handlers
-  const handleSelect = (value) => {
-    setAnswers((prev) => ({
-      ...prev,
-      [currentQuestion.id]: value,
-      [`${currentQuestion.id}_custom`]: '',
-    }));
-  };
-
-  const handleCustomInput = (value) => {
-    setAnswers((prev) => ({
-      ...prev,
-      [currentQuestion.id]: 'Other (enter exact amount)',
-      [`${currentQuestion.id}_custom`]: value,
-    }));
-  };
-
-  const handleNext = () => {
-    const nextStep = currentStep + 1;
-
-    // If nextStep is beyond totalSteps, or all questions are answered, go to summary
-    const firstIncompleteIndex = allQuestions.findIndex(
-      (q) =>
-        !answers[q.id] ||
-        (answers[q.id] === 'Other (enter exact amount)' &&
-          !answers[`${q.id}_custom`])
-    );
-    if (nextStep >= totalSteps || firstIncompleteIndex === -1) {
-      // ✅ All steps done → go to summary
-      setMode('summary');
+    // show interlude if this was a break point
+    if (BREAK_STEPS.includes(next + 1)) {
+      setStep(next);
+      setView('interlude');
     } else {
-      setCurrentStep(nextStep);
+      setStep(next);
     }
   };
 
-  const handleBack = () => {
-    if (currentStep > 0) {
-      setCurrentStep((prev) => prev - 1);
-    }
+  const goBack = () => {
+    if (view === 'interlude') setView('question');
+    else if (step > 0) setStep((s) => s - 1);
   };
 
-  const handleEdit = (index) => {
-    if (index !== -1) {
-      setMode('question');
-      setCurrentStep(index);
-    }
-  };
+  /* ─────────────────── Render switch ─────────────────── */
+  if (view === 'interlude') {
+    return (
+      <InterludePage
+        heading={step + 1 === 4 ? 'Half-way there!' : 'Final stretch!'}
+        onContinue={() => setView('question')}
+      />
+    );
+  }
 
-  const getAnswerValue = (id) => {
-    return answers[id] === 'Other (enter exact amount)'
-      ? answers[`${id}_custom`] || ''
-      : answers[id] || '';
-  };
-
-  const isNextDisabled =
-    !selectedValue ||
-    (selectedValue === 'Other (enter exact amount)' &&
-      !answers[`${currentQuestion.id}_custom`]);
   return (
     <QuestionPage
-      currentStep={currentStep}
-      totalSteps={totalSteps}
-      currentQuestion={currentQuestion}
-      selectedValue={selectedValue}
+      currentStep={step}
+      totalSteps={total}
+      currentQuestion={question}
+      selectedValue={answer}
       answers={answers}
-      handleSelect={handleSelect}
-      handleCustomInput={handleCustomInput}
-      handleNext={handleNext}
-      handleBack={handleBack}
-      isNextDisabled={isNextDisabled}
-      currentSectionTitle={currentSectionTitle}
-      isAnswered={isAnswered}
-      handleEdit={handleEdit}
+      handleSelect={saveAnswer}
+      handleNext={goNext}
+      handleBack={goBack}
+      isNextDisabled={!answer}
     />
   );
-};
-
-export default Start;
+}

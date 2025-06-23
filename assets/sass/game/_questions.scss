@@ -40,48 +40,52 @@
   display: flex;
   flex-direction: column;
   background-color: #fff; // ✅ base background
+  overflow-y: auto;
   overflow-x: hidden;
-  height: 100vh;
+  min-height: 100vh;
 
-  /* curved background: now UNDER the strip */
   background-image: url('/img/game/question-curve-mobile.svg');
   background-repeat: no-repeat;
-  background-position: 30px 60px;
-  background-size: 578px 1388px;
-  background-attachment: fixed;
-  background-color: #fff; /* fallback */
+  background-position: 10px 50px;
+  background-size: 100%;
+  background-attachment: scroll;
 
   z-index: 0; /* below the ::before overlay */
 
   @include media-breakpoint-up(md) {
     background-image: url('/img/game/question-curve.svg');
-    background-size: 1337px 936px;
-    background-position: -100px 150px;
-  }
-  @include media-breakpoint-up(lg) {
-    background-position: -80px 150px;
+    background-position: -30px 100px;
   }
 
   @include media-breakpoint-up(xl) {
-    background-size: 95% auto;
+    background-size: 95%;
+    background-position: -100px 100px;
   }
 }
 
 .question-content {
-  padding: 3rem;
-  padding-top: 5rem !important;
+  padding: 2.5rem;
   position: relative;
-  margin-top: 20rem;
+  margin-top: 16rem;
   overflow: scroll;
+
+  @media (min-width: 376px) {
+    margin-top: 20rem;
+    padding: 3rem;
+  }
 
   @include media-breakpoint-up(sm) {
     padding: 4rem;
   }
   @include media-breakpoint-up(md) {
+    margin-top: 10rem;
     padding: 6rem;
   }
   @include media-breakpoint-up(lg) {
-    padding: 10rem;
+    padding: 12rem;
+  }
+  @include media-breakpoint-up(xl) {
+    padding: 15rem;
   }
 }
 

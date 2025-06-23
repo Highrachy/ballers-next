@@ -87,8 +87,11 @@ const Header = () => {
                   <Nav.Link>Sign In</Nav.Link>
                 </Link>
                 <Link href="/register" passHref>
-                  <Nav.Link className="btn btn-secondary-light">
-                    Register for Free
+                  <Nav.Link className="btn btn-secondary-light d-none d-lg-inline">
+                    Register{' '}
+                    <span className=" d-inline d-lg-none d-xl-inline">
+                      for Free
+                    </span>
                   </Nav.Link>
                 </Link>
               </Nav>
