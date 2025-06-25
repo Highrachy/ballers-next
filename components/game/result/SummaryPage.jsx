@@ -1,19 +1,20 @@
 import Header from '@/components/layout/Header';
 import Image from 'next/image';
 import GameButton from '../shared/GameButton';
-import GameNavigation from '../shared/GameNavigation';
 
-export default function InterludePage({
-  heading = 'What That Says\nAbout You',
+export default function SummaryPage({
+  heading = 'Summary',
   bullets = [
-    'One house? Nice flex. Two? Now you’re the boss.',
+    'Here are some insights based on your choices:',
     "Your home is not the final stop – it's the starting point.",
   ],
-  onContinue,
-  onPrevious,
   badgeSrc = '/img/game/badge/interlude-badge.svg',
-  currentStep = 1,
 }) {
+  /* ── Reset handler ───────────────────────────────────────────────── */
+  const handleReset = () => {
+    localStorage.removeItem('are-you-a-baller-answers');
+    window.location.reload();
+  };
   return (
     <>
       <Header />
@@ -38,8 +39,8 @@ export default function InterludePage({
             ))}
           </ol>
 
-          <GameButton gold onClick={onContinue}>
-            Continue
+          <GameButton color="red" onClick={handleReset}>
+            Reset & Start Over
           </GameButton>
         </article>
 
@@ -48,13 +49,6 @@ export default function InterludePage({
           <Image src={badgeSrc} alt="" width={150} height={150} priority />
         </div>
       </section>
-      <div className="container mb-10 mt-n5">
-        <GameNavigation
-          className="interlude-nav"
-          onNext={onContinue}
-          onPrevious={onPrevious}
-        />
-      </div>
     </>
   );
 }

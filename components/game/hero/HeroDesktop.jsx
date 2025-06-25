@@ -1,4 +1,5 @@
 import Header from '@/components/layout/Header';
+import Link from 'next/link';
 import { FaPlay } from 'react-icons/fa';
 
 export default function HeroDesktop() {
@@ -27,7 +28,7 @@ export default function HeroDesktop() {
 
               <p className="hero__copy mb-4">
                 Welcome to the real estate challenge that actually pays off.
-                Let’s find out where you stand and how to level up.
+                Let&apos;s find out where you stand and how to level up.
               </p>
 
               <div className="hero__meta fw-bold small d-flex align-items-center">
@@ -41,7 +42,7 @@ export default function HeroDesktop() {
               </div>
             </div>
 
-            {/* house–coins illustration (relative to wrapper) */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/img/game/house-coins.png"
               alt="House sitting on stacks of coins"
@@ -50,11 +51,19 @@ export default function HeroDesktop() {
           </div>
 
           {/* CTA */}
-          <button className="btn-game btn-game--gold ms-2">
-            START CHALLENGE <FaPlay className="ms-2" size="0.9em" />
-          </button>
+          <HeroCtaButton />
         </div>
       </section>
     </>
   );
 }
+
+export const HeroCtaButton = () => (
+  <div className="hero__btn-wrapper">
+    <Link href="/game/are-you-a-baller" passHref>
+      <button className="btn-game btn-game--gold">
+        START CHALLENGE <FaPlay className="ms-2" size="0.9em" />
+      </button>
+    </Link>
+  </div>
+);

@@ -1,5 +1,6 @@
 // components/HeroMobile.js
 import { FaPlay } from 'react-icons/fa';
+import { HeroCtaButton } from './HeroDesktop';
 
 export default function HeroMobile() {
   return (
@@ -43,9 +44,7 @@ export default function HeroMobile() {
       {/* Start Challenge button */}
       <div className="hero-mob__btn-wrapper">
         {/* CTA */}
-        <button className="btn-game btn-game--gold ms-2">
-          START CHALLENGE <FaPlay className="ms-2" size="0.9em" />
-        </button>
+        <HeroCtaButton />
       </div>
     </section>
   );

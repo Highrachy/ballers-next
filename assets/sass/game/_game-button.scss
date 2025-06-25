@@ -80,8 +80,8 @@ $purple: #6f42c1;
   }
 
   &:hover:not(:disabled) {
-    background: linear-gradient(90deg, var(--bg-light) 0%, var(--bg) 100%);
-    transform: translateY(-3px) scale(1.06) rotate(-1.25deg);
+    // background: linear-gradient(90deg, var(--bg-light) 0%, var(--bg) 100%);
+    transform: translateY(-2px) scale(1.02) rotate(-0.5deg);
     box-shadow: var(--shadow-hover), 0 0 0 6px rgba(var(--bg), 0.12);
     filter: brightness(1.07) saturate(1.12);
 
@@ -112,7 +112,7 @@ $purple: #6f42c1;
 
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.6;
+    opacity: 0.4;
     background: var(--bg);
     color: var(--fg);
     box-shadow: none;
@@ -144,6 +144,13 @@ $purple: #6f42c1;
 .btn-game--purple {
   @extend %btn-game-base;
   @include btn-skin($purple, #fff);
+}
+
+$red: #ff3b47; // brighter red for better contrast on navy
+
+.btn-game--red {
+  @extend %btn-game-base;
+  @include btn-skin($red, #fff);
 }
 
 /* Button Animations */

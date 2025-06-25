@@ -12,7 +12,7 @@ $gold: #ffc400;
   align-items: center;
   justify-content: center;
   gap: 0; /* remove space between halves */
-  min-height: calc(100vh - 80px);
+  min-height: 50vh;
   padding: 8rem 1.5rem 6rem;
 
   @include media-breakpoint-down(md) {
@@ -49,13 +49,17 @@ $gold: #ffc400;
   span {
     height: 1px;
     background: #fff;
-    opacity: 0.4;
+    display: block;
+    margin-top: 5px;
   }
   .diamond {
     width: 14px;
     height: 14px;
-    background: $gold;
+    background: $navy;
     transform: rotate(45deg);
+    border: 2px solid $gold;
+    transform: rotate(45deg);
+    margin-top: -1px;
   }
 }
 .bullet-list {

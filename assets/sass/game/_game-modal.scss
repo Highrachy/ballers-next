@@ -1,0 +1,166 @@
+/* ────────────────────────────────────────────────────────────────
+   GameModal styling
+   ──────────────────────────────────────────────────────────────── */
+
+/* ---------- design-tokens ---------- */
+:root {
+  --navy: #00204a;
+  --gold: #ffc400;
+}
+
+/* ---------- backdrop ---------- */
+.gm__backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  z-index: 1050;
+}
+
+/* ---------- wrapper ---------- */
+.gm__wrap {
+  position: relative;
+  width: min(92vw, 537px);
+}
+
+/* ---------- header ribbon ---------- */
+.gm__head {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+  img {
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    user-select: none;
+  }
+  h2 {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 700 1.55rem/1 'inherit';
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.5px;
+  }
+}
+
+/* ---------- body ---------- */
+.gm__body {
+  margin-top: -3.4rem; /* overlap ribbon */
+  padding: 6rem;
+  background: url('/img/game/modal/body.svg') center / contain no-repeat;
+  aspect-ratio: 537/441;
+  color: #fff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  /* subtle inner stroke */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 1.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    pointer-events: none;
+  }
+
+  h3 {
+    font: 700 1.35rem/1.3 'inherit';
+    margin: 0 0 0.4rem;
+  }
+  .gm__helper {
+    opacity: 0.8;
+    margin: 0 0 1.8rem;
+  }
+
+  label {
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+  input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 7px;
+    font-size: 1.25rem;
+    color: $gray-200;
+    background: #001c48;
+    border: 1px solid #001c48;
+    transition: border-color 0.25s;
+    margin-bottom: 1rem;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    /* draw the Naira symbol before the number */
+    &::before {
+      content: '₦';
+    }
+  }
+}
+
+/* close button (top-right) */
+.gm__close {
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  background: rgba(0, 0, 0, 0.18);
+  border: none;
+  border-radius: 50%;
+  width: 2.3rem;
+  height: 2.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.18s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  &:hover,
+  &:focus {
+    background: var(--gold);
+    color: var(--navy);
+    transform: scale(1.08);
+    outline: none;
+  }
+}
+
+/* CSS ::before on inputs needs relative container */
+.gm-body input {
+  position: relative;
+}
+.gm-body input::before {
+  position: absolute;
+  left: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 600;
+  color: #fff;
+  pointer-events: none;
+}
+
+/* ---------- mobile tweaks ---------- */
+@media (max-width: 480px) {
+  .gm__body {
+    padding: 4.5rem 2rem 3rem;
+  }
+  .gm__head h2 {
+    font-size: 1.35rem;
+  }
+}

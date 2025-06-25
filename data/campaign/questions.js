@@ -147,7 +147,7 @@ const questions = [
             label: '₦5,000,001 and above',
             subtext: 'Above ₦5 million monthly',
           },
-          { label: 'Other (enter exact amount)', subtext: '' },
+          { label: 'Other', subtext: 'Enter exact amount' },
         ],
       },
       {
@@ -166,7 +166,7 @@ const questions = [
             label: 'Above ₦50,000,000',
             subtext: 'More than ₦50 million saved',
           },
-          { label: 'Other (enter exact amount)', subtext: '' },
+          { label: 'Other', subtext: 'Enter exact amount' },
         ],
       },
     ],
@@ -187,7 +187,7 @@ const questions = [
           { label: '₦1,000,001 - ₦5,000,000', subtext: '₦1M to ₦5M debt' },
           { label: '₦5,000,001 - ₦10,000,000', subtext: '₦5M to ₦10M debt' },
           { label: 'Above ₦10,000,000', subtext: 'Above ₦10 million debt' },
-          { label: 'Other (enter exact amount)', subtext: '' },
+          { label: 'Other', subtext: 'Enter exact amount' },
         ],
       },
       {
@@ -243,7 +243,7 @@ const questions = [
           'How much have you saved so far in pension/retirement savings?',
         type: 'options',
         options: [
-          { label: 'No I haven’t started yet', subtext: 'No savings yet' },
+          { label: "No I haven't started yet", subtext: 'No savings yet' },
           {
             label: 'Yes (Less than ₦10,000,000)',
             subtext: 'Below ₦10 million',
