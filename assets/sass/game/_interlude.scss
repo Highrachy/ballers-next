@@ -1,0 +1,104 @@
+/* -----------------------------------------------------------------
+   SHARED TOKENS ( keeps colours consistent )
+   ----------------------------------------------------------------- */
+$navy: #00204a;
+$gold: #ffc400;
+
+/* -----------------------------------------------------------------
+   WRAPPER : flex with zero gap so both halves kiss each other  ✅ 4
+   ----------------------------------------------------------------- */
+.interlude-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0; /* remove space between halves */
+  min-height: calc(100vh - 80px);
+  padding: 8rem 1.5rem 6rem;
+
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+  }
+}
+
+/* ---------------------------------------------------------------
+   TORN CARD  – size stays but padding shrinks on phones
+   --------------------------------------------------------------- */
+.interlude-card {
+  position: relative;
+  width: 548px;
+  height: 582px;
+  max-width: 95vw;
+  aspect-ratio: 548 / 582;
+  padding: 6rem;
+  color: #fff;
+  background: url('/img/game/torn-paper-interlude.svg') center/contain no-repeat;
+
+  @include media-breakpoint-down(md) {
+    height: auto; /* keeps svg ratio */
+    padding: 5rem;
+    text-align: left;
+    margin-top: -6rem;
+  }
+}
+
+/* tiny diamond divider (unchanged) */
+.divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.75rem;
+  span {
+    height: 1px;
+    background: #fff;
+    opacity: 0.4;
+  }
+  .diamond {
+    width: 14px;
+    height: 14px;
+    background: $gold;
+    transform: rotate(45deg);
+  }
+}
+.bullet-list {
+  padding-left: 1.3rem;
+  margin: 0 0 2.5rem;
+  li {
+    margin-bottom: 0.85rem;
+    font-size: 1rem;
+    &::marker {
+      color: $gold;
+      font-weight: 700;
+    }
+  }
+}
+
+/* -----------------------------------------------------------------
+   RIGHT : curve sheet + badge (new background)  ✅ 5
+   ----------------------------------------------------------------- */
+.interlude-illus {
+  width: 400px;
+  max-width: 90vw;
+  aspect-ratio: 574 / 477;
+  background: url('/img/game/interlude-curve.svg') center/contain no-repeat;
+  filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.08));
+  margin-left: -3rem; /* desktop overlap */
+  flex: 0 0 auto; /* prevent stretch */
+  padding: 8rem;
+  z-index: -1; /* behind curve sheet */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include media-breakpoint-down(md) {
+    width: 88vw;
+    margin: 0; /* no overlap on phones ✅ */
+    order: -1; /* ⚡ put curve + badge FIRST */
+    aspect-ratio: auto; /* let height flow */
+  }
+
+  img {
+    pointer-events: none;
+    width: 58%;
+    height: auto;
+  }
+}

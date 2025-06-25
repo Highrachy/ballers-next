@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import QuestionPage from '@/components/game/question/QuestionPage';
-import InterludePage from '@/components/game/result/Interlude';
+import InterludePage from '@/components/game/result/InterludePage';
 import useLocalStorageState from '@/hooks/useLocalStorageState';
 import questionsData from '@/data/campaign/questions';
 

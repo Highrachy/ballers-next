@@ -54,7 +54,7 @@
 
   @include media-breakpoint-up(md) {
     background-image: url('/img/game/question-curve.svg');
-    background-position: -30px 100px;
+    background-position: -35px 100px;
   }
 
   @include media-breakpoint-up(xl) {
@@ -79,13 +79,13 @@
   }
   @include media-breakpoint-up(md) {
     margin-top: 10rem;
-    padding: 6rem;
+    padding: 6rem 8rem 6rem 6rem;
   }
   @include media-breakpoint-up(lg) {
-    padding: 12rem;
+    padding: 11rem;
   }
   @include media-breakpoint-up(xl) {
-    padding: 15rem;
+    padding-right: 20rem;
   }
 }
 
