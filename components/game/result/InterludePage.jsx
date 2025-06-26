@@ -2,6 +2,7 @@ import Header from '@/components/layout/Header';
 import Image from 'next/image';
 import GameButton from '../shared/GameButton';
 import GameNavigation from '../shared/GameNavigation';
+import { FaPlay } from 'react-icons/fa';
 
 export default function InterludePage({
   heading = 'What That Says\nAbout You',
@@ -39,7 +40,7 @@ export default function InterludePage({
           </ol>
 
           <GameButton gold onClick={onContinue}>
-            Continue
+            Next Stage <FaPlay />
           </GameButton>
         </article>
 

@@ -35,11 +35,10 @@ export default function OptionCard({
           <p>{subtitle}</p>
         </div>
         {emoji && (
-          <Image
-            src={emoji}
-            width={90}
-            height={90}
-            alt=""
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={`/img/game/options/${emoji}`}
+            alt={title}
             className="option-emoji"
           />
         )}

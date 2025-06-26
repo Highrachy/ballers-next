@@ -8,16 +8,24 @@ import InterludePage from '@/components/game/result/InterludePage';
 import SummaryPage from '@/components/game/result/SummaryPage';
 
 import useLocalStorageState from '@/hooks/useLocalStorageState';
-import questionsData from '@/data/campaign/questions';
+import questionsData from '@/data/game/questions';
 import { hasAnswer } from '@/components/game/shared/helper';
-
-/* 1-based break pages */
-const BREAK_STEPS = [];
+import ResultCopy from '@/data/game/result';
+import {
+  INTERLUDES,
+  BREAK_STEPS,
+  buildInterludeBullets,
+} from '@/components/game/shared/interludeConfig';
 
 export default function Start() {
   /* ───────────────────── state ───────────────────── */
   const [answers, setAnswers] = useLocalStorageState(
     'are-you-a-baller-answers',
+    {}
+  );
+  /* cache final lines in LS so they stay stable */
+  const [bulletCache, setBulletCache] = useLocalStorageState(
+    'interlude_bullets',
     {}
   );
   const [step, setStep] = useState(0); // 0-based
@@ -34,8 +42,7 @@ export default function Start() {
   const total = questions.length;
 
   /* ───────────── helper lambdas ───────────────────── */
-  const needsInterlude = (idx) => BREAK_STEPS.includes(idx + 1); // 0→1
-
+  const needsInterlude = (idx) => BREAK_STEPS.has(idx + 1); // 0→1
   const firstIncomplete = () =>
     questions.findIndex((q) => !hasAnswer(q.id, answers));
 
@@ -94,14 +101,32 @@ export default function Start() {
   };
 
   /* ───────────── view switch ─────────────────────── */
-  if (view === 'interlude')
+  /* ──────────────────────────────────────────────────────────────
+   INTERLUDE VIEW  –  builds bullets safely from ResultCopy
+   ────────────────────────────────────────────────────────────── */
+  if (view === 'interlude') {
+    const cfg = INTERLUDES.find((i) => i.step === step + 1) ?? {
+      heading: '',
+      badge: '',
+      ids: [],
+    };
+    const bullets = buildInterludeBullets(
+      cfg,
+      answers,
+      bulletCache,
+      setBulletCache
+    );
     return (
       <InterludePage
-        heading={step + 1 === 4 ? 'Half-way there!' : 'Final stretch!'}
+        heading={cfg.heading}
+        badgeSrc={cfg.badge}
+        bullets={bullets}
+        currentStep={step + 1}
         onContinue={() => setView('question')}
         onPrevious={goBack}
       />
     );
+  }
 
   if (view === 'summary')
     return (
