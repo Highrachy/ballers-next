@@ -31,6 +31,7 @@
     "date-fns": "^2.30.0",
     "formik": "^2.2.9",
     "formik-persist": "^1.1.0",
+    "html2canvas": "^1.4.1",
     "humanize-plus": "^1.8.2",
     "iconsax-react": "^0.0.8",
     "next": "12.2.3",

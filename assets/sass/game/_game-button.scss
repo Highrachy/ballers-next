@@ -146,6 +146,21 @@ $purple: #6f42c1;
   @include btn-skin($purple, #fff);
 }
 
+/* reuse the same mixin you already have */
+.btn-game--green {
+  @extend %btn-game-base;
+  @include btn-skin(#28a745, #fff); // green background, white text
+}
+
+.btn-game--light {
+  @extend %btn-game-base;
+  @include btn-skin(#f4f6fa, #00204a); // very light grey, navy text
+  &:hover:not(:disabled) {
+    background: darken(#f4f6fa, 8%);
+    color: darken(#00204a, 8%);
+  }
+}
+
 $red: #ff3b47; // brighter red for better contrast on navy
 
 .btn-game--red {
