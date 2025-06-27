@@ -161,7 +161,7 @@ $purple: #6f42c1;
   }
 }
 
-$red: #ff3b47; // brighter red for better contrast on navy
+$red: $danger; // brighter red for better contrast on navy
 
 .btn-game--red {
   @extend %btn-game-base;

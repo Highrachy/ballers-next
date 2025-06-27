@@ -77,9 +77,12 @@ export default function GameModal({
         <div className="gm__body">
           <h3>{subtitle}</h3>
 
-          <label htmlFor="gm-input">Amount</label>
+          <label className="gm-label" htmlFor="gm-input">
+            Amount
+          </label>
           <input
             id="gm-input"
+            className="gm-input"
             type="text"
             value={display}
             onChange={handleChange}

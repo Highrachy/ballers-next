@@ -1,16 +1,31 @@
 export const locationsByZone = {
-  Island: ['Ikoyi', 'Lekki', 'Lekki Phase 1', 'Victoria Island'],
-
-  Mainland: [
-    'Gbagada',
-    'Ikeja',
-    'Ikeja GRA',
-    'Ilupeju',
-    'Maryland',
-    'Ogudu',
-    'Surulere',
-    'Yaba',
+  /* 🌊  Island districts & waterfront axes */
+  Island: [
+    'Epe',
+    'Victoria Island',
+    'Lekki',
+    'Ikoyi',
+    'Lagos Island',
+    'Eti-Osa',
+    'Badagry', // coastal
+    'Apapa',
+    'Ibeju-Lekki',
   ],
 
-  Outskirt: ['Ajah', 'Egbeda', 'Ikorodu'],
+  /* 🏙️  Densely-populated & commercial core */
+  Mainland: [
+    'Ikeja (State Capital)',
+    'Surulere',
+    'Yaba',
+    'Agege',
+    'Oshodi',
+    'Mushin',
+    'Ikorodu',
+    'Ifako',
+    'Somolu',
+    'Ojo',
+  ],
+
+  /* 🌿  Rapid-growth fringe / commuter towns */
+  Outskirt: ['Berger', 'Iyana Ipaja', 'Sango Ota', 'Igando'],
 };

@@ -17,6 +17,10 @@ $gold: #ffc400;
 
   @include media-breakpoint-down(md) {
     flex-direction: column;
+    padding-bottom: 4rem;
+  }
+  @include media-breakpoint-down(sm) {
+    padding-bottom: 3rem;
   }
 }
 
@@ -25,23 +29,24 @@ $gold: #ffc400;
    --------------------------------------------------------------- */
 .interlude-card {
   position: relative;
-  width: 548px;
-  height: 582px;
-  max-width: 95vw;
+  width: 90vw;
+  max-width: 548px;
   aspect-ratio: 548 / 582;
   padding: 6rem;
   color: #fff;
-  background: url('/img/game/torn-paper-interlude.svg') center/contain no-repeat;
+  background: url('/img/game/torn-paper-interlude.svg');
+  background-repeat: no-repeat;
+  background-position: 100% auto;
+  background-size: 100%;
 
-  @include media-breakpoint-down(md) {
-    height: auto; /* keeps svg ratio */
-    padding: 5rem;
+  @include media-breakpoint-down(lg) {
+    // height: auto; /* keeps svg ratio */
+    padding: 4rem;
     text-align: left;
     margin-top: -6rem;
   }
 }
 
-/* tiny diamond divider (unchanged) */
 .divider {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -68,6 +73,9 @@ $gold: #ffc400;
   li {
     margin-bottom: 0.85rem;
     font-size: 1rem;
+    @include media-breakpoint-up(lg) {
+      font-size: 1.25rem;
+    }
     &::marker {
       color: $gold;
       font-weight: 700;
@@ -86,7 +94,7 @@ $gold: #ffc400;
   filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.08));
   margin-left: -3rem; /* desktop overlap */
   flex: 0 0 auto; /* prevent stretch */
-  padding: 8rem;
+  padding: 2rem;
   z-index: -1; /* behind curve sheet */
 
   display: flex;

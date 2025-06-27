@@ -1,14 +1,18 @@
-export const hasAnswer = (id, a = {}) => {
-  const base = (a[id] || '').trim();
-  const custom = (a[`${id}_custom`] || '').trim();
+export const hasAnswer = (id, obj) => {
+  const val = obj[id];
 
-  if (!base) return false; // nothing picked
+  /* nothing chosen yet */
+  if (!val) return false;
 
-  if (base === 'Other') {
-    return custom !== ''; // needs user text
+  /* “Other” requires its companion _custom value */
+  const IS_OTHER = val === 'Other' || val.startsWith('Other (');
+  if (IS_OTHER) {
+    return Boolean(obj[`${id}_custom`]?.trim());
   }
 
-  console.log('base, custom', base, custom);
-
-  return true; // regular choice
+  /* any normal choice is fine */
+  return true;
 };
+
+export const isEmail = (str = '') =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str.trim());

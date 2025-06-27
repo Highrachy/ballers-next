@@ -4,19 +4,22 @@ import ResultCopy from '@/data/game/result';
 export const INTERLUDES = [
   {
     step: 3,
-    badge: '/img/game/badge/interlude-badge-1.svg',
+    badge: '/img/game/interlude/1.png',
     ids: ['homeownership_status', 'ideal_location'],
   },
   {
     step: 7,
-    badge: '/img/game/badge/interlude-badge-2.svg',
-    ids: ['house_type', 'home_buying_timeline', 'home_paying_timeline'],
+    badge: '/img/game/interlude/2.png',
+    // ids: ['house_type', 'home_buying_timeline', 'home_paying_timeline'],
+    ids: ['house_type', 'home_buying_timeline'],
   },
   {
-    step: 10,
-    badge: '/img/game/badge/interlude-badge-3.svg',
-    ids: ['saving_percent', 'financial_advisory', 'retirement_planning'],
+    step: 11,
+    badge: '/img/game/interlude/3.png',
+    // ids: ['saving_percent', 'financial_advisory', 'retirement_planning'],
+    ids: ['saving_percent', 'financial_advisory'],
   },
+  { step: 13, collectContact: true, badge: '/img/game/interlude/4.png' },
 ];
 
 export const BREAK_STEPS = new Set(INTERLUDES.map((i) => i.step));

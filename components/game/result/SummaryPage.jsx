@@ -1,7 +1,7 @@
 /******************************************************************
  * components/game/result/SummaryPage.jsx
  ******************************************************************/
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Header from '@/components/layout/Header';
 import Image from 'next/image';
 import GameButton from '../shared/GameButton';
@@ -11,13 +11,26 @@ import {
   FaWhatsapp,
   FaTwitter,
   FaRocket,
+  FaMoneyBillWave,
 } from 'react-icons/fa';
 import BallersLogo from '@/components/utils/BallersLogo';
+import { MdLoop } from 'react-icons/md';
+import Realistic from 'react-canvas-confetti/dist/presets/realistic';
 
-export default function SummaryPage() {
+export default function SummaryPage({ contact }) {
+  // confetti
+  const confettiRef = useRef(null);
+
+  useEffect(() => {
+    if (confettiRef.current) {
+      confettiRef.current();
+    }
+  }, []);
+
   /* ── constants ───────────────────────────────────────────── */
   const badgeURL = '/img/game/summary/1-trophy.png';
   const captureRef = useRef(null);
+  const name = contact?.name || 'Baller'; // fallback name
 
   /* ── little helper to hide elements for the snapshot ─────── */
   /* little helper: remove elements *completely* while we snapshot */
@@ -78,21 +91,12 @@ export default function SummaryPage() {
     <>
       <Header />
 
-      <section className="question-container">
-        <section className="question-page">
-          {/* mini-toolbar (not captured) */}
-          <div className="summary-toolbar" data-hide-on-capture>
-            <button onClick={downloadBadge} aria-label="Download badge">
-              <FaDownload />
-            </button>
-            <button onClick={shareWin} aria-label="Share on Twitter">
-              <FaTwitter />
-            </button>
-            <button onClick={shareWin} aria-label="Share on WhatsApp">
-              <FaWhatsapp />
-            </button>
-          </div>
-          <div className="summary-page container text-center" ref={captureRef}>
+      <section className="summary-container">
+        <section className="summary-page">
+          <div
+            className="summary-content container text-center"
+            ref={captureRef}
+          >
             {/* BALL logo – captured */}
             <BallersLogo />
 
@@ -104,11 +108,20 @@ export default function SummaryPage() {
               width={312}
               height={206}
               priority
-              className="badge-img"
+              className="img-fluid"
             />
 
-            <h2 className="mt-3 fw-bold">You Did It! &nbsp;Welcome, Baller</h2>
-            <div className="diamond-divider my-3" />
+            <h2 className="mt-3 fw-bold">
+              {' '}
+              You did it,&nbsp;
+              <span className="baller-name">{name.split(' ')[0]}</span>! <br />
+              &nbsp;You are a Baller
+            </h2>
+            <div className="diamond-divider my-3">
+              <span />
+              <span className="diamond" />
+              <span />
+            </div>
 
             <p className="lead mb-4">
               You’ve got the mindset, the options, and the roadmap.
@@ -144,23 +157,48 @@ export default function SummaryPage() {
                 sooner than you think. With the right plan, your keys could be
                 less than three&nbsp;years away.
               </p>
-              <GameButton gold>START YOUR BALLER JOURNEY ✨</GameButton>
+              <GameButton gold>
+                START YOUR BALLER JOURNEY <FaRocket />
+              </GameButton>
             </div>
 
             {/* booster card */}
-            <div className="booster-card mx-auto" data-hide-on-capture>
-              <h5>BOOST EARNINGS</h5>
+            <div className="booster-card mx-auto d-none d-md-block">
+              <h5>Next Steps</h5>
               <p>
                 Before we talk property keys, let’s grow your wallet. BALL can
                 guide you with side hustles and savings strategies. Your baller
                 journey starts here—get that bag first.
-              </p>
-              <GameButton color="green" data-hide-on-capture>
-                BOOST EARNINGS <FaRocket />
+              </p>{' '}
+            </div>
+            <div
+              className="d-flex flex-wrap justify-content-center gap-3 mt-4"
+              data-hide-on-capture
+            >
+              <GameButton
+                color="red"
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      'Are you sure you want to reset your progress?'
+                    )
+                  ) {
+                    // Clear localStorage/sessionStorage or any relevant state here
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    window.location.href = '/game'; // Redirect to home or starting page
+                  }
+                }}
+                data-hide-on-capture
+              >
+                Restart Game <MdLoop />
               </GameButton>
             </div>
           </div>
         </section>
+        {/* ---------- Confetti Animation ---------- */}
+        {/* Confetti animation on load */}
+        <Realistic autorun={{ speed: 0.3, duration: 9000 }} ref={confettiRef} />
       </section>
     </>
   );

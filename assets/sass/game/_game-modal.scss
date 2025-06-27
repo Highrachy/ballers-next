@@ -79,38 +79,6 @@
     opacity: 0.8;
     margin: 0 0 1.8rem;
   }
-
-  label {
-    color: white;
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 0.3rem;
-  }
-  input {
-    width: 100%;
-    padding: 1rem 1.5rem;
-    border-radius: 7px;
-    font-size: 1.25rem;
-    color: $gray-200;
-    background: #001c48;
-    border: 1px solid #001c48;
-    transition: border-color 0.25s;
-    margin-bottom: 1rem;
-
-    &::placeholder {
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    &:focus {
-      outline: none;
-      border-color: var(--gold);
-    }
-
-    /* draw the Naira symbol before the number */
-    &::before {
-      content: '₦';
-    }
-  }
 }
 
 /* close button (top-right) */
@@ -141,11 +109,46 @@
   }
 }
 
+.gm-label {
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+
+.gm-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-radius: 7px;
+  font-size: 1.25rem;
+  color: $gray-200;
+  background: #001c48;
+  border: 1px solid #001c48;
+  transition: border-color 0.25s;
+  margin-bottom: 1rem;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+
+  /* draw the Naira symbol before the number */
+  &::before {
+    content: '₦';
+  }
+}
+
 /* CSS ::before on inputs needs relative container */
-.gm-body input {
+.gm-body input,
+.gm-input {
   position: relative;
 }
-.gm-body input::before {
+.gm-body input::before,
+.gm-input::before {
   position: absolute;
   left: 1.1rem;
   top: 50%;

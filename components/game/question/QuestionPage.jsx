@@ -9,6 +9,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import OptionCard from './OptionCard';
 import GameNavigation from '../shared/GameNavigation';
 import GameModal from '../shared/GameModal';
+import { useChatMessage } from '@/context/ChatContext';
 
 /* ---------- helpers ---------- */
 const naira = (val) => {
@@ -32,7 +33,16 @@ export default function QuestionPage({
   /* ───── local UI state ───── */
   const [mounted, setMounted] = useState(false); // avoid SSR clash
   const [modalId, setModalId] = useState(null); // null ⇒ closed
-  useEffect(() => setMounted(true), []);
+  const { setIsVisible } = useChatMessage();
+  useEffect(() => {
+    setMounted(true);
+    setIsVisible(false); // hide chat message on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    // Scroll to top when currentStep changes (i.e., when Next/Back is clicked)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentStep]);
 
   if (!currentQuestion) return null; // safety guard
 

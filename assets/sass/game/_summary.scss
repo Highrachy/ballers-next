@@ -1,177 +1,47 @@
-/* central wrapper inherits question-page background */
-.summary-page {
-  position: relative;
-  max-width: 840px;
-  margin-top: 15rem;
-  padding: 7rem 1rem 10rem;
-  background-color: white;
+$gold: #ffc400;
+$navy: #00204a;
+$gray: #adb5bd;
+$purple: #6f42c1;
+
+.summary-container {
+  @extend .question-container;
 }
 
-/* tiny diamond divider under headline */
+.summary-page {
+  @extend .question-page;
+}
+
+.summary-content {
+  @extend .question-content;
+}
+
 .diamond-divider {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  &::before,
-  &::after {
-    content: '';
-    flex: 1;
-    border-top: 1px solid #d9d9d9;
-    align-self: center;
-  }
-  &::after {
-    order: 2;
-  }
-  span,
-  &::before,
-  &::after {
-    height: 1px;
+  @extend .divider;
+  max-width: 350px;
+  margin: 0 auto;
+  gap: 7px;
+  .diamond {
+    background: white;
+    border-width: 3px;
+    width: 25px;
+    height: 25px;
   }
   span {
-    width: 14px;
-    transform: rotate(45deg);
-    background: #ffc400;
-  }
-}
-
-/* white rounded card */
-.summary-card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 2.5rem 2rem 3rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-}
-
-/* yellow torn paper block */
-.boost-card {
-  position: relative;
-  padding: 4rem 2.5rem 4rem;
-  background: url('/img/game/torn-paper-interlude.svg') center/contain no-repeat;
-  color: #fff;
-  text-align: center;
-  .boost-rocket {
-    position: absolute;
-    top: -45px;
-    right: -35px;
-    pointer-events: none;
-  }
-}
-
-/* responsive tweaks */
-@media (max-width: 540px) {
-  .boost-card {
-    padding: 3rem 1.5rem;
-  }
-  .summary-card {
-    padding: 2rem 1.5rem;
-  }
-}
-
-/* --- top-right toolbar --------------------------------------- */
-.summary-toolbar {
-  position: absolute;
-  top: 120px; /* tweak as you like */
-  right: 110px;
-  display: flex;
-  gap: 12px;
-  z-index: 3;
-
-  button {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: #f4f6fa;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0; /* hides icon label */
-    color: #00204a;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    transition: transform 0.15s;
-
-    &:hover {
-      transform: translateY(-3px);
-    }
-    svg {
-      font-size: 15px;
-    }
-  }
-}
-
-/* keep toolbar nicely on mobile */
-@media (max-width: 640px) {
-  .summary-toolbar {
-    right: 20px;
-    top: 100px;
-  }
-}
-
-/* — toolbar — */
-.summary-toolbar {
-  position: absolute;
-  top: 110px;
-  right: 110px;
-  display: flex;
-  gap: 12px;
-  z-index: 3;
-
-  button {
-    width: 38px;
-    height: 38px;
-    border: none;
-    border-radius: 10px;
-    background: #f4f6fa;
-    color: #00204a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    transition: transform 0.15s;
-    svg {
-      font-size: 16px;
-    }
-    &:hover {
-      transform: translateY(-3px);
-    }
-  }
-}
-@media (max-width: 640px) {
-  .summary-toolbar {
-    top: 90px;
-    right: 18px;
-  }
-}
-
-/* — diamond divider (re-used from other pages) — */
-.diamond-divider {
-  width: 90px;
-  height: 1px;
-  background: #00204a;
-  margin: 0 auto;
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
-    width: 12px;
-    height: 12px;
-    border: 2px solid #ffc400;
-    background: #fff;
+    height: 2px;
+    background: $navy;
+    margin-top: 10px;
   }
 }
 
 /* — win card — */
 .summary-win {
-  max-width: 560px;
-  background: #fbfbfb;
-  border: 1px solid #e7e7e9;
-  border-radius: 14px;
-  padding: 2rem 2.5rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  max-width: 40rem;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 1rem;
+  padding: 3rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  font-size: 1.1rem;
   h5 {
     font-weight: 700;
     margin-bottom: 1rem;
@@ -183,32 +53,24 @@
 
 /* — booster card styled like torn paper — */
 .booster-card {
-  max-width: 600px;
-  background: url('/img/game/torn-paper-interlude.svg') center/100% 100%
-    no-repeat;
-  padding: 6rem 3.5rem 4rem;
+  aspect-ratio: 596 / 389;
+  padding: 6rem;
+  color: $navy;
+  background: url('/img/game/summary/gold-border-background.svg');
+  background-repeat: no-repeat;
+  background-position: 0;
+  background-size: 100% auto;
+  background-attachment: scroll;
+
   margin-bottom: 6rem;
 
   h5 {
-    color: #ffc400;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     text-align: center;
   }
   p {
-    color: #fff;
     margin-bottom: 2rem;
     text-align: center;
   }
-}
-
-/* timestamp that is burned into the PNG */
-.badge-timestamp {
-  position: absolute;
-  bottom: 22px;
-  right: 28px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #00204a;
-  opacity: 0.85;
 }
