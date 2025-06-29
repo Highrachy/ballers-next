@@ -1,4 +1,4 @@
-const pricingData = {
+export const pricingData = {
   /* ----------  FLATS  ---------- */
   flats: {
     Ajah: {

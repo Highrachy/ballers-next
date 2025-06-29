@@ -63,7 +63,7 @@ export default function QuestionPage({
       <section className="question-container">
         <section className="question-page">
           <div className="question-content">
-            <section className="question-main container">
+            <section className="question-main container pb-6">
               {/* ───── top meta ───── */}
               <div className="question-top">
                 <div className="question-index small fw-bold text-uppercase">

@@ -33,6 +33,7 @@ export default function HeroMobile() {
             <span className="dot" />
           </div>
         </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/img/game/house-coins.png"
           alt="House Coins"

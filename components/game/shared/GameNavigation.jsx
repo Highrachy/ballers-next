@@ -11,13 +11,12 @@ export default function GameNavigation({
 }) {
   return (
     <div
-      className={`question-nav mt-5 mt-md-3 d-flex justify-content-between align-items-center flex-wrap gap-3 ${className}`}
+      className={`question-nav bg-white fixed-bottom py-3 px-4 d-flex justify-content-end gap-3 ${className}`}
     >
       <GameButton
         color="navy"
         disabled={isFirst}
         onClick={onPrevious}
-        className="me-auto"
         leftIcon={<FaChevronLeft />}
       >
         Previous

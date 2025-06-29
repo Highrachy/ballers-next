@@ -131,19 +131,46 @@ $purple: #6f42c1;
   @include btn-skin($gold, $navy);
 }
 
+.btn-game--gold-light {
+  @extend %btn-game-base;
+  @include btn-skin(lighten($gold, 35%), $navy);
+  &:hover:not(:disabled) {
+    background: $gold;
+    color: $navy;
+  }
+}
+
 .btn-game--navy {
   @extend %btn-game-base;
   @include btn-skin($navy, #fff);
 }
 
-.btn-game--gray {
+.btn-game--navy-light {
   @extend %btn-game-base;
-  @include btn-skin($gray, #fff);
+  @include btn-skin(lighten($navy, 80%), $navy);
+  &:hover:not(:disabled) {
+    background: $navy;
+    color: #fff;
+  }
 }
 
 .btn-game--purple {
   @extend %btn-game-base;
   @include btn-skin($purple, #fff);
+}
+
+.btn-game--purple-light {
+  @extend %btn-game-base;
+  @include btn-skin(lighten($purple, 38%), $navy);
+  &:hover:not(:disabled) {
+    background: $purple;
+    color: #fff;
+  }
+}
+
+.btn-game--gray {
+  @extend %btn-game-base;
+  @include btn-skin($gray, #fff);
 }
 
 /* reuse the same mixin you already have */
@@ -241,4 +268,61 @@ $red: $danger; // brighter red for better contrast on navy
 .btn-game__icon--xl {
   width: 2rem;
   height: 2rem;
+}
+
+/* -----------------------------------------------------------------
+   SHARE-GRID (two buttons per row – responsive)
+   -----------------------------------------------------------------*/
+.share-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2-up */
+  gap: 1.1rem 1.4rem;
+
+  /* stack on very small screens */
+  @media (max-width: 420px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* -----------------------------------------------------------------
+   Add extra colour skins using your existing mixins
+   (assumes %btn-game-base + @mixin btn-skin are already defined)
+   -----------------------------------------------------------------*/
+$twitter: #1d9bf0;
+$facebook: #1877f2;
+$linkedin: #0a66c2;
+$whatsapp: #25d366;
+$email: #6c757d;
+$copy: #ffc400;
+
+/* one class per palette */
+.btn-game--twitter {
+  @extend %btn-game-base;
+  @include btn-skin($twitter, #fff);
+  padding: 1rem;
+}
+.btn-game--facebook {
+  @extend %btn-game-base;
+  @include btn-skin($facebook, #fff);
+  padding: 1rem;
+}
+.btn-game--linkedin {
+  @extend %btn-game-base;
+  @include btn-skin($linkedin, #fff);
+  padding: 1rem;
+}
+.btn-game--whatsapp {
+  @extend %btn-game-base;
+  @include btn-skin($whatsapp, #00204a);
+  padding: 1rem;
+}
+.btn-game--email {
+  @extend %btn-game-base;
+  @include btn-skin($email, #fff);
+  padding: 1rem;
+}
+.btn-game--copy {
+  @extend %btn-game-base;
+  @include btn-skin($copy, #00204a);
+  padding: 1rem;
 }

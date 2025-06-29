@@ -3,23 +3,28 @@
  ******************************************************************/
 import { useEffect, useRef } from 'react';
 import Header from '@/components/layout/Header';
-import Image from 'next/image';
 import GameButton from '../shared/GameButton';
-import {
-  FaDownload,
-  FaShareAlt,
-  FaWhatsapp,
-  FaTwitter,
-  FaRocket,
-  FaMoneyBillWave,
-} from 'react-icons/fa';
+import { FaDownload, FaShareAlt, FaRocket } from 'react-icons/fa';
 import BallersLogo from '@/components/utils/BallersLogo';
 import { MdLoop } from 'react-icons/md';
 import Realistic from 'react-canvas-confetti/dist/presets/realistic';
+import getMinPricingByZone from '@/data/game/getMinPricingByZone';
+import { locationsByZone } from '@/data/game/location';
+import useLocalStorageState from '@/hooks/useLocalStorageState';
+import {
+  getAffordabilityByLocation,
+  getTierInfo,
+} from '@/data/game/getAffordabilityByLocation';
+import GameLocation from '../shared/GameLocation';
+import GameShare from '../shared/GameShare';
 
 export default function SummaryPage({ contact }) {
   // confetti
   const confettiRef = useRef(null);
+  const [answers, setAnswers] = useLocalStorageState(
+    'are-you-a-baller-answers',
+    {}
+  );
 
   useEffect(() => {
     if (confettiRef.current) {
@@ -28,11 +33,22 @@ export default function SummaryPage({ contact }) {
   }, []);
 
   /* ── constants ───────────────────────────────────────────── */
-  const badgeURL = '/img/game/summary/1-trophy.png';
+  const badgeURL = '/img/game/summary/';
   const captureRef = useRef(null);
   const name = contact?.name || 'Baller'; // fallback name
+  const minByZone = getMinPricingByZone();
+  const affordability = getAffordabilityByLocation(
+    minByZone,
+    answers,
+    locationsByZone
+  );
+  // Get the minimum number of years
+  const minYears = Math.min(
+    ...Object.entries(affordability).map(([_, data]) => data.years)
+  );
 
-  /* ── little helper to hide elements for the snapshot ─────── */
+  const userTier = getTierInfo(minYears, answers, name);
+
   /* little helper: remove elements *completely* while we snapshot */
   const withHidden = async (fn) => {
     const els = captureRef.current?.querySelectorAll('[data-hide-on-capture]');
@@ -101,21 +117,19 @@ export default function SummaryPage({ contact }) {
             <BallersLogo />
 
             {/* big badge – captured */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={badgeURL}
-              alt="Certified Baller badge"
-              width={312}
-              height={206}
-              priority
-              className="img-fluid"
-            />
+            <div className="result-image my-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${badgeURL}${userTier.emoji}`}
+                alt="Certified Baller badge"
+                width={300}
+                className="img-fluid"
+              />
+            </div>
 
-            <h2 className="mt-3 fw-bold">
-              {' '}
-              You did it,&nbsp;
+            <h2 className="mb-4 fw-bold">
+              {userTier.label},&nbsp;
               <span className="baller-name">{name.split(' ')[0]}</span>! <br />
-              &nbsp;You are a Baller
             </h2>
             <div className="diamond-divider my-3">
               <span />
@@ -123,11 +137,19 @@ export default function SummaryPage({ contact }) {
               <span />
             </div>
 
-            <p className="lead mb-4">
-              You’ve got the mindset, the options, and the roadmap.
-              <br />
-              Now it’s time to move from dreaming&nbsp;to&nbsp;owning.
-            </p>
+            <div
+              className="display-6 my-4"
+              dangerouslySetInnerHTML={{ __html: userTier.description }}
+            />
+
+            {/* summary card */}
+            <div className="summary-win mx-auto mt-5 mb-5">
+              <h3 className="summary-header">Summary</h3>
+              <p className="summary-text">{userTier?.summary}</p>
+              <GameButton className="mb-3" color="gold-light">
+                View All Suggestions <FaRocket />
+              </GameButton>
+            </div>
 
             {/* CTA buttons (hidden in PNG) */}
             <div
@@ -135,48 +157,45 @@ export default function SummaryPage({ contact }) {
               data-hide-on-capture
             >
               <GameButton
-                color="light"
+                color="navy-light"
                 onClick={downloadBadge}
                 data-hide-on-capture
               >
                 DOWNLOAD BADGE&nbsp;
                 <FaDownload />
               </GameButton>
-              <GameButton color="light" onClick={shareWin} data-hide-on-capture>
-                SHARE YOUR WIN&nbsp;
-                <FaShareAlt />
-              </GameButton>
-            </div>
-
-            {/* summary card */}
-            <div className="summary-win mx-auto mb-5">
-              <h5>SUMMARY WIN</h5>
-              <p>
-                You rent your home, but you’ve got what it takes to own.
-                A&nbsp;3-bedroom terrace in Lekki, VI, or Ajah is within reach
-                sooner than you think. With the right plan, your keys could be
-                less than three&nbsp;years away.
-              </p>
-              <GameButton gold>
-                START YOUR BALLER JOURNEY <FaRocket />
-              </GameButton>
+              <GameShare
+                text={`🏆 I just became a Certified Baller on BALL!`}
+                title="Share your Badge"
+                trigger={
+                  <GameButton color="purple-light" data-hide-on-capture>
+                    SHARE YOUR WIN&nbsp;
+                    <FaShareAlt />
+                  </GameButton>
+                }
+              />
             </div>
 
             {/* booster card */}
             <div className="booster-card mx-auto d-none d-md-block">
-              <h5>Next Steps</h5>
-              <p>
-                Before we talk property keys, let’s grow your wallet. BALL can
-                guide you with side hustles and savings strategies. Your baller
-                journey starts here—get that bag first.
+              <h3 className="summary-header">Next Steps</h3>
+              <p className="summary-text">
+                You have taken the first step, it is time to move closer to
+                owning your home. Join the BALL community to explore quality
+                properties that match your budget and lifestyle.
               </p>{' '}
             </div>
             <div
-              className="d-flex flex-wrap justify-content-center gap-3 mt-4"
+              className="d-flex flex-wrap justify-content-center gap-3 my-4"
               data-hide-on-capture
             >
+              <GameButton className="gold">
+                START YOUR BALL JOURNEY <FaRocket />
+              </GameButton>
+
               <GameButton
                 color="red"
+                className="ms-3"
                 onClick={() => {
                   if (
                     window.confirm(

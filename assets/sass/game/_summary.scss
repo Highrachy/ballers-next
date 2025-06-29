@@ -35,19 +35,32 @@ $purple: #6f42c1;
 
 /* — win card — */
 .summary-win {
-  max-width: 40rem;
+  max-width: 45rem;
   background: #f8f9fa;
   border: 1px solid #dee2e6;
   border-radius: 1rem;
   padding: 3rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   font-size: 1.1rem;
-  h5 {
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-  p {
-    margin-bottom: 1.8rem;
+}
+
+.summary-header {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.summary-text {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  font-weight: 300;
+  color: $primary-400;
+  margin-bottom: 2rem;
+
+  @media (min-width: 768px) {
+    font-size: 1.4rem;
+    line-height: 1.7;
   }
 }
 
@@ -62,8 +75,6 @@ $purple: #6f42c1;
   background-size: 100% auto;
   background-attachment: scroll;
 
-  margin-bottom: 6rem;
-
   h5 {
     font-weight: 700;
     margin-bottom: 1.25rem;
@@ -73,4 +84,75 @@ $purple: #6f42c1;
     margin-bottom: 2rem;
     text-align: center;
   }
+}
+
+.location-tags-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.location-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+  white-space: nowrap;
+
+  .tag-icon {
+    font-size: 1.1em;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* Color Variants */
+.tag--lavender {
+  background: #eee6fd;
+  color: #8e44ad;
+}
+.tag--sky {
+  background: #dbeeff;
+  color: #2c82c9;
+}
+.tag--mint {
+  background: #ddfbe5;
+  color: #27ae60;
+}
+.tag--peach {
+  background: #ffe2cc;
+  color: #e67e22;
+}
+.tag--rose {
+  background: #ffd6d6;
+  color: #c0392b;
+}
+.tag--sand {
+  background: #fff2cc;
+  color: #c97c00;
+}
+.tag--aqua {
+  background: #ccf2f4;
+  color: #007b83;
+}
+.tag--sun {
+  background: #fff0b3;
+  color: #f39c12;
+}
+
+.result-image {
+  background: url('/img/game/summary/confetti.svg');
+  background-repeat: no-repeat;
+  background-position: 0;
+  background-size: 100% auto;
+  max-width: 450px;
+  margin: 0 auto;
 }

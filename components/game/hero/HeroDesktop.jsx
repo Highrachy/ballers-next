@@ -1,6 +1,10 @@
 import Header from '@/components/layout/Header';
 import Link from 'next/link';
 import { FaPlay } from 'react-icons/fa';
+import GameModal from '../shared/GameModal';
+import { useState } from 'react';
+import GameDisclaimer from '../shared/GameDisclaimer';
+import GameShare from '../shared/GameShare';
 
 export default function HeroDesktop() {
   return (
@@ -59,11 +63,16 @@ export default function HeroDesktop() {
 }
 
 export const HeroCtaButton = () => (
-  <div className="hero__btn-wrapper">
-    <Link href="/game/are-you-a-baller" passHref>
-      <button className="btn-game btn-game--gold">
-        START CHALLENGE <FaPlay className="ms-2" size="0.9em" />
-      </button>
-    </Link>
-  </div>
+  <>
+    <div className="hero__btn-wrapper">
+      <Link href="/game/are-you-a-baller" passHref>
+        <button className="btn-game btn-game--gold">
+          START CHALLENGE <FaPlay className="ms-2" size="0.9em" />
+        </button>
+      </Link>
+    </div>
+    <GameDisclaimer />
+
+    <GameShare />
+  </>
 );

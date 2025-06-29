@@ -198,3 +198,46 @@ $gold: #ffc400;
   z-index: 2;
   pointer-events: none;
 }
+
+/* disclaimer line */
+.hero__disclaimer {
+  font-size: 0.83rem;
+  color: rgba(#00204a, 0.8);
+  max-width: 420px;
+
+  .hero__disclaimer-link {
+    border: none;
+    background: none;
+    padding: 0;
+    color: #00204a;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+      color: #ffc400;
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .hero__disclaimer {
+    font-size: 0.75rem;
+  }
+}
+
+/* optional for bullet list inside modal */
+.disc-list {
+  padding-left: 1.2rem;
+  font-size: 1rem;
+  strong {
+    color: #ffc400;
+    font-weight: 600;
+    display: block;
+  }
+  li {
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    list-style-type: none;
+  }
+}
