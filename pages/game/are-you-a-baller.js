@@ -128,7 +128,7 @@ export default function Start() {
           heading="One last thing…"
           badgeSrc={cfg.badge}
           onSaveContact={(obj) => {
-            setContact(obj);
+            setContact((prev) => ({ ...prev, ...obj }));
             setView('summary');
           }}
           currentStep={step + 1}

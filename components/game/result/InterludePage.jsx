@@ -65,6 +65,11 @@ export default function Interlude({
                 __html: heading.replace('\n', '<br/>'),
               }}
             />
+            <div className="divider my-3">
+              <span />
+              <span className="diamond" />
+              <span />
+            </div>
 
             {/* ——— contact-form OR bullet-list ——— */}
             {collectContact ? (
@@ -101,12 +106,6 @@ export default function Interlude({
               </>
             ) : (
               <>
-                <div className="divider my-3">
-                  <span />
-                  <span className="diamond" />
-                  <span />
-                </div>
-
                 <ol className="bullet-list">
                   {bullets.map((b) => (
                     <>

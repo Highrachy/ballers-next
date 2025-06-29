@@ -17,14 +17,14 @@ export const TIERS = [
     descriptions: [
       /* 0 */ 'House-ready like tomorrow is too late—Landlord gang, assemble!',
       /* 1 */ "Wallet dey shout “buy now!” louder than mummy's market bell.",
-      /* 2 */ 'Bank app green like traffic light—Odogwu, speed to your new gate!',
+      /* 2 */ 'Bank app green like traffic light; Odogwu, speed up to your new gate!',
       /* 3 */ 'Cash flexing harder than bouncer; house keys lining up for autograph.',
       /* 4 */ 'Your jollof-pot wallet overflow—plenty rice, plenty rooms, zero wahala.',
       /* 5 */ 'Piggy-bank burst, spraying coins like birthday confetti—party time!',
       /* 6 */ 'Money muscles pumped; you fit carry a whole estate with one hand.',
       /* 7 */ 'Property market dey rush you; just open your gate and collect your key.',
       /* 8 */ 'Baller shine brighter than security torch every plot dey salute you.',
-      /* 9 */ 'Phone alerts play talking-drum—houses dey dance azonto for <first_name>!',
+      /* 9 */ 'Phone alerts play talking-drum; houses dey dance azonto for you!',
     ],
 
     summaries: {

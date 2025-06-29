@@ -146,7 +146,7 @@ export default function SummaryPage({ contact }) {
               <h3 className="summary-header">Summary</h3>
               <p className="summary-text">{userTier?.summary}</p>
               <GameButton className="mb-3" color="gold-light">
-                View Result Breakdown <FaChartPie />
+                View Insights <FaChartPie />
               </GameButton>
             </div>
 

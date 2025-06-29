@@ -73,6 +73,8 @@ export const HeroCtaButton = () => (
     </div>
     <GameDisclaimer />
 
-    <GameShare />
+    <div className="text-center mt-4">
+      <GameShare />
+    </div>
   </>
 );

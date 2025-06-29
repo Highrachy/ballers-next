@@ -66,14 +66,29 @@ $purple: #6f42c1;
 
 /* — booster card styled like torn paper — */
 .booster-card {
-  aspect-ratio: 596 / 389;
-  padding: 6rem;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
   color: $navy;
-  background: url('/img/game/summary/gold-border-background.svg');
+  background: url('/img/game/summary/gold-border-background-mobile.svg');
   background-repeat: no-repeat;
   background-position: 0;
   background-size: 100% auto;
   background-attachment: scroll;
+
+  @include media-breakpoint-up(md) {
+    aspect-ratio: 696 / 389;
+    padding: 6rem;
+    background: url('/img/game/summary/gold-border-background.svg');
+    background-repeat: no-repeat;
+    background-position: 0;
+    background-size: 100% auto;
+    background-attachment: scroll;
+  }
 
   h5 {
     font-weight: 700;
