@@ -17,14 +17,13 @@ import {
 } from '@/data/game/getAffordabilityByLocation';
 import GameLocation from '../shared/GameLocation';
 import GameShare from '../shared/GameShare';
+import { STORAGE } from '../shared/helper';
+import { FaChartPie } from 'react-icons/fa6';
 
 export default function SummaryPage({ contact }) {
   // confetti
   const confettiRef = useRef(null);
-  const [answers, setAnswers] = useLocalStorageState(
-    'are-you-a-baller-answers',
-    {}
-  );
+  const [answers] = useLocalStorageState(STORAGE.ANSWERS, {});
 
   useEffect(() => {
     if (confettiRef.current) {
@@ -147,7 +146,7 @@ export default function SummaryPage({ contact }) {
               <h3 className="summary-header">Summary</h3>
               <p className="summary-text">{userTier?.summary}</p>
               <GameButton className="mb-3" color="gold-light">
-                View All Suggestions <FaRocket />
+                View Result Breakdown <FaChartPie />
               </GameButton>
             </div>
 
@@ -177,7 +176,7 @@ export default function SummaryPage({ contact }) {
             </div>
 
             {/* booster card */}
-            <div className="booster-card mx-auto d-none d-md-block">
+            <div className="booster-card mx-auto">
               <h3 className="summary-header">Next Steps</h3>
               <p className="summary-text">
                 You have taken the first step, it is time to move closer to

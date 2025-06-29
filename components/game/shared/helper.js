@@ -16,3 +16,9 @@ export const hasAnswer = (id, obj) => {
 
 export const isEmail = (str = '') =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str.trim());
+
+export const STORAGE = {
+  ANSWERS: 'ballers-answers',
+  CONTACT: 'ballers-contact',
+  BULLET_CACHE: 'ballers-bullet-cache',
+};

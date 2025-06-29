@@ -31,19 +31,42 @@ $gold: #ffc400;
   position: relative;
   width: 90vw;
   max-width: 548px;
+  max-height: 582px;
+  flex: 1 1 auto;
   aspect-ratio: 548 / 582;
-  padding: 6rem;
   color: #fff;
   background: url('/img/game/torn-paper-interlude.svg');
   background-repeat: no-repeat;
   background-position: 100% auto;
   background-size: 100%;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
 
   @include media-breakpoint-down(lg) {
-    // height: auto; /* keeps svg ratio */
-    padding: 4rem;
     text-align: left;
-    margin-top: -6rem;
+  }
+
+  .interlude-card__scroll {
+    overflow-y: auto;
+    max-height: 100%;
+    padding-right: 0.75rem; // pushes scrollbar inward
+  }
+
+  // Gold scrollbar (webkit)
+  .interlude-card__scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .interlude-card__scroll::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 4px;
+  }
+
+  // Firefox scrollbar
+  .interlude-card__scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) transparent;
   }
 }
 

@@ -10,6 +10,9 @@ import OptionCard from './OptionCard';
 import GameNavigation from '../shared/GameNavigation';
 import GameModal from '../shared/GameModal';
 import { useChatMessage } from '@/context/ChatContext';
+import useLocalStorageState from '@/hooks/useLocalStorageState';
+import { useRouter } from 'next/router';
+import { STORAGE } from '../shared/helper';
 
 /* ---------- helpers ---------- */
 const naira = (val) => {
@@ -30,10 +33,20 @@ export default function QuestionPage({
   handleBack,
   isNextDisabled,
 }) {
+  const router = useRouter();
+  const [contact] = useLocalStorageState(STORAGE.CONTACT, {});
   /* ───── local UI state ───── */
   const [mounted, setMounted] = useState(false); // avoid SSR clash
   const [modalId, setModalId] = useState(null); // null ⇒ closed
   const { setIsVisible } = useChatMessage();
+
+  useEffect(() => {
+    // If no ID, bounce user back to the starting point
+    if (!contact.id) {
+      router.replace('/game');
+    }
+  }, [contact, router]);
+
   useEffect(() => {
     setMounted(true);
     setIsVisible(false); // hide chat message on mount
@@ -127,9 +140,6 @@ export default function QuestionPage({
                 isNextDisabled={isNextDisabled}
               />
             </section>
-
-            {/* debug json (optional) */}
-            {/* <pre>{mounted && JSON.stringify(answers, null, 2)}</pre> */}
           </div>
 
           {/* ───── modal ───── */}

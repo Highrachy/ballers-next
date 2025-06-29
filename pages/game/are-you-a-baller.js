@@ -9,7 +9,7 @@ import SummaryPage from '@/components/game/result/SummaryPage';
 
 import useLocalStorageState from '@/hooks/useLocalStorageState';
 import questionsData from '@/data/game/questions';
-import { hasAnswer } from '@/components/game/shared/helper';
+import { hasAnswer, STORAGE } from '@/components/game/shared/helper';
 import {
   INTERLUDES, // [{step, heading, badge, ids, collectContact}]
   BREAK_STEPS, // Set of the .step values above
@@ -20,15 +20,13 @@ import {
 
 export default function Start() {
   /* ─── persistent state (local-storage hooks) ─── */
-  const [answers, setAnswers] = useLocalStorageState(
-    'are-you-a-baller-answers',
-    {}
-  );
+  const [answers, setAnswers] = useLocalStorageState(STORAGE.ANSWERS, {});
   const [bulletCache, setBulletCache] = useLocalStorageState(
-    'interlude_bullets',
+    STORAGE.BULLET_CACHE,
     {}
   );
-  const [contact, setContact] = useLocalStorageState('baller_contact', {});
+
+  const [contact, setContact] = useLocalStorageState(STORAGE.CONTACT, {});
 
   /* ─── navigation state ─── */
   const [step, setStep] = useState(0); // zero-based question index

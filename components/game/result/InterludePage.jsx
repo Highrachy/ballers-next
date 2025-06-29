@@ -48,7 +48,7 @@ export default function Interlude({
   };
 
   /* choose the main button label / handler */
-  const mainLabel = collectContact ? 'SEE MY RESULT' : 'Next Stage';
+  const mainLabel = collectContact ? 'See My Result' : 'Next Stage';
   const mainAction = collectContact ? handleSubmit : onContinue;
 
   return (
@@ -58,63 +58,70 @@ export default function Interlude({
       <section className={`interlude-wrap${collectContact ? ' single' : ''}`}>
         {/* ────────── torn paper card ────────── */}
         <article className="interlude-card">
-          <h2
-            className="text-white text-center"
-            dangerouslySetInnerHTML={{ __html: heading.replace('\n', '<br/>') }}
-          />
+          <div className="interlude-card__scroll">
+            <h2
+              className="text-white text-center"
+              dangerouslySetInnerHTML={{
+                __html: heading.replace('\n', '<br/>'),
+              }}
+            />
 
-          {/* ——— contact-form OR bullet-list ——— */}
-          {collectContact ? (
-            <>
-              <p className="mb-3">
-                Enter your details to unlock your results and earn BALL rewards.
-              </p>
+            {/* ——— contact-form OR bullet-list ——— */}
+            {collectContact ? (
+              <>
+                <p className="mb-3">
+                  Enter your details to unlock your results and earn BALL
+                  rewards.
+                </p>
 
-              <label forName="name" className="mb-2 fw-bold gm-label">
-                Name
-              </label>
-              <input
-                id="name"
-                className="gm-input"
-                placeholder="Your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
+                <label forName="name" className="mb-2 fw-bold gm-label">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  className="gm-input"
+                  placeholder="Your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
 
-              <label forName="email" className="my=2 fw-bold gm-label">
-                E-mail
-              </label>
-              <input
-                id="email"
-                className="gm-input"
-                placeholder="you@email.com"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+                <label forName="email" className="my=2 fw-bold gm-label">
+                  E-mail
+                </label>
+                <input
+                  id="email"
+                  className="gm-input"
+                  placeholder="you@email.com"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
 
-              {err && <p className="text-danger-light mb-3">{err}</p>}
-            </>
-          ) : (
-            <>
-              <div className="divider my-3">
-                <span />
-                <span className="diamond" />
-                <span />
-              </div>
+                {err && <p className="text-danger-light mb-3">{err}</p>}
+              </>
+            ) : (
+              <>
+                <div className="divider my-3">
+                  <span />
+                  <span className="diamond" />
+                  <span />
+                </div>
 
-              <ol className="bullet-list">
-                {bullets.map((b) => (
-                  <li key={b}>{b}</li>
-                ))}
-              </ol>
-            </>
-          )}
+                <ol className="bullet-list">
+                  {bullets.map((b) => (
+                    <>
+                      <li key={b}>{b}</li>
+                    </>
+                  ))}
+                </ol>
+              </>
+            )}
 
-          {/* ——— primary CTA ——— */}
-          <GameButton color="gold" onClick={mainAction}>
-            {mainLabel} {!collectContact && <FaPlay />}
-          </GameButton>
+            {/* ——— primary CTA ——— */}
+            <GameButton color="gold" onClick={mainAction}>
+              {mainLabel} {!collectContact && <FaPlay />}
+            </GameButton>
+          </div>
         </article>
 
         {/* ────────── curve + badge illus ────────── */}
