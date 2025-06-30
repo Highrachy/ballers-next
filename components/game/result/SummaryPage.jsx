@@ -1,13 +1,12 @@
 /******************************************************************
  * components/game/result/SummaryPage.jsx
  ******************************************************************/
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Header from '@/components/layout/Header';
 import GameButton from '../shared/GameButton';
 import { FaDownload, FaShareAlt, FaRocket } from 'react-icons/fa';
 import BallersLogo from '@/components/utils/BallersLogo';
 import { MdLoop } from 'react-icons/md';
-import Realistic from 'react-canvas-confetti/dist/presets/realistic';
 import getMinPricingByZone from '@/data/game/getMinPricingByZone';
 import { locationsByZone } from '@/data/game/location';
 import useLocalStorageState from '@/hooks/useLocalStorageState';
@@ -15,21 +14,24 @@ import {
   getAffordabilityByLocation,
   getTierInfo,
 } from '@/data/game/getAffordabilityByLocation';
-import GameLocation from '../shared/GameLocation';
 import GameShare from '../shared/GameShare';
 import { STORAGE } from '../shared/helper';
 import { FaChartPie } from 'react-icons/fa6';
+import GameBadge from '../shared/GameBadge';
+import GameConfetti from '../shared/GameConfetti';
+import GameModal from '../shared/GameModal';
+import GameInsightsModal from '../shared/GameInsightsModal';
+import { useRouter } from 'next/router';
 
 export default function SummaryPage({ contact }) {
-  // confetti
-  const confettiRef = useRef(null);
+  const router = useRouter();
   const [answers] = useLocalStorageState(STORAGE.ANSWERS, {});
-
-  useEffect(() => {
-    if (confettiRef.current) {
-      confettiRef.current();
-    }
-  }, []);
+  const [bulletCache, setBulletCache] = useLocalStorageState(
+    STORAGE.BULLET_CACHE,
+    {}
+  );
+  const [showResetModal, setShowResetModal] = useState(false);
+  const [showInsights, setShowInsights] = useState(false);
 
   /* ── constants ───────────────────────────────────────────── */
   const badgeURL = '/img/game/summary/';
@@ -46,60 +48,11 @@ export default function SummaryPage({ contact }) {
     ...Object.entries(affordability).map(([_, data]) => data.years)
   );
 
-  const userTier = getTierInfo(minYears, answers, name);
-
-  /* little helper: remove elements *completely* while we snapshot */
-  const withHidden = async (fn) => {
-    const els = captureRef.current?.querySelectorAll('[data-hide-on-capture]');
-    const cache = []; // save originals
-
-    els?.forEach((el) => {
-      cache.push([el, el.style.display]); // ← remember
-      el.style.display = 'none'; // remove from layout
-    });
-
-    await fn(); // ⏬ snapshot
-
-    cache.forEach(([el, d]) => (el.style.display = d)); // restore
-  };
-  /* ── download PNG ────────────────────────────────────────── */
-  const downloadBadge = async () => {
-    const html2canvas = (await import('html2canvas')).default;
-    await withHidden(async () => {
-      const canvas = await html2canvas(captureRef.current, {
-        backgroundColor: '#fff', // ⚪️ white background
-        scale: 2,
-      });
-      canvas.toBlob((blob) => {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'BALL-summary.png';
-        a.click();
-        URL.revokeObjectURL(url);
-      }, 'image/png');
-    });
-  };
-
-  /* ── share helper ────────────────────────────────────────── */
-  const shareWin = async () => {
-    const text =
-      '🏆 I just became a Certified Baller! Ready to start my property journey.';
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'Certified Baller',
-          text,
-          url: location.href,
-        });
-        return;
-      } catch {
-        /* ignore */
-      }
-    }
-    const t = encodeURIComponent(`${text} ${location.href}`);
-    window.open(`https://twitter.com/intent/tweet?text=${t}`, '_blank');
-  };
+  let userTier = bulletCache['results'];
+  if (!userTier) {
+    userTier = getTierInfo(minYears, answers, name);
+    setBulletCache((prev) => ({ ...prev, ['results']: userTier }));
+  }
 
   /* ── render ──────────────────────────────────────────────── */
   return (
@@ -144,10 +97,25 @@ export default function SummaryPage({ contact }) {
             {/* summary card */}
             <div className="summary-win mx-auto mt-5 mb-5">
               <h3 className="summary-header">Summary</h3>
-              <p className="summary-text">{userTier?.summary}</p>
-              <GameButton className="mb-3" color="gold-light">
+              <p
+                className="summary-text"
+                dangerouslySetInnerHTML={{ __html: userTier?.summary }}
+              />
+              <GameButton
+                className="mb-3"
+                color="gold-light"
+                onClick={() => setShowInsights(true)}
+              >
                 View Insights <FaChartPie />
               </GameButton>
+              {showInsights && (
+                <GameInsightsModal
+                  isOpen={showInsights}
+                  onClose={() => setShowInsights(false)}
+                  answers={answers}
+                  bulletCache={bulletCache}
+                />
+              )}
             </div>
 
             {/* CTA buttons (hidden in PNG) */}
@@ -155,14 +123,7 @@ export default function SummaryPage({ contact }) {
               className="d-flex flex-wrap justify-content-center gap-3 mb-5"
               data-hide-on-capture
             >
-              <GameButton
-                color="navy-light"
-                onClick={downloadBadge}
-                data-hide-on-capture
-              >
-                DOWNLOAD BADGE&nbsp;
-                <FaDownload />
-              </GameButton>
+              <GameBadge captureRef={captureRef} />
               <GameShare
                 text={`🏆 I just became a Certified Baller on BALL!`}
                 title="Share your Badge"
@@ -175,48 +136,72 @@ export default function SummaryPage({ contact }) {
               />
             </div>
 
-            {/* booster card */}
+            {/* Booster Card */}
             <div className="booster-card mx-auto">
               <h3 className="summary-header">Next Steps</h3>
               <p className="summary-text">
-                You have taken the first step, it is time to move closer to
-                owning your home. Join the BALL community to explore quality
-                properties that match your budget and lifestyle.
-              </p>{' '}
+                Congratulations on taking your first step! Now, move even closer
+                to owning your dream home. Join the BALL community to discover
+                top-quality properties tailored to your budget and lifestyle.
+              </p>
             </div>
+
+            {/* Action Buttons */}
             <div
               className="d-flex flex-wrap justify-content-center gap-3 my-4"
               data-hide-on-capture
             >
-              <GameButton className="gold">
+              <GameButton color="gold" onClick={() => router.push('/register')}>
                 START YOUR BALL JOURNEY <FaRocket />
               </GameButton>
-
               <GameButton
                 color="red"
                 className="ms-3"
-                onClick={() => {
-                  if (
-                    window.confirm(
-                      'Are you sure you want to reset your progress?'
-                    )
-                  ) {
-                    // Clear localStorage/sessionStorage or any relevant state here
-                    localStorage.clear();
-                    sessionStorage.clear();
-                    window.location.href = '/game'; // Redirect to home or starting page
-                  }
-                }}
+                onClick={() => setShowResetModal(true)}
                 data-hide-on-capture
               >
                 Restart Game <MdLoop />
               </GameButton>
             </div>
+
+            {/* Reset Confirmation Modal */}
+            {showResetModal && (
+              <GameModal
+                isOpen={showResetModal}
+                title="Restart Game?"
+                onClose={() => setShowResetModal(false)}
+              >
+                <div className="text-center">
+                  <h4 className="lead text-white pt-5 my-4">
+                    Are you sure you want to reset your progress? All of your
+                    answers and achievements will be lost.
+                  </h4>
+                  <div className="d-flex justify-content-center gap-3 mt-4">
+                    <GameButton
+                      color="navy"
+                      onClick={() => setShowResetModal(false)}
+                    >
+                      No, Cancel
+                    </GameButton>
+                    <GameButton
+                      color="red"
+                      onClick={() => {
+                        localStorage.removeItem(STORAGE.ANSWERS);
+                        localStorage.removeItem(STORAGE.BULLET_CACHE);
+                        setShowResetModal(false);
+                        window.location.href = '/game/are-you-a-baller';
+                      }}
+                    >
+                      Yes, Restart
+                    </GameButton>
+                  </div>
+                </div>
+              </GameModal>
+            )}
           </div>
         </section>
         {/* ---------- Confetti Animation ---------- */}
-        {/* Confetti animation on load */}
-        <Realistic autorun={{ speed: 0.3, duration: 9000 }} ref={confettiRef} />
+        <GameConfetti />
       </section>
     </>
   );

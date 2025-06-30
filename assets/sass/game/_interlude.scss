@@ -117,21 +117,30 @@ $gold: #ffc400;
    RIGHT : curve sheet + badge (new background)  ✅ 5
    ----------------------------------------------------------------- */
 .interlude-illus {
+  width: 100%;
+  max-height: 477px; /* match curve sheet */
   max-width: 90vw;
   aspect-ratio: 574 / 477;
   background: url('/img/game/interlude-curve.svg');
   background-repeat: no-repeat;
-  background-position: 100% auto;
+  background-position: 100%;
   background-size: 100%;
   filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.08));
   margin-left: -3rem; /* desktop overlap */
   flex: 0 0 auto; /* prevent stretch */
   padding: 2rem;
   z-index: -1; /* behind curve sheet */
-
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @include media-breakpoint-up(md) {
+    padding: 5rem;
+    width: auto;
+  }
+  @include media-breakpoint-up(lg) {
+    padding: 8rem;
+  }
 
   @include media-breakpoint-down(md) {
     margin: 0; /* no overlap on phones ✅ */
@@ -143,5 +152,8 @@ $gold: #ffc400;
     pointer-events: none;
     width: 180px;
     height: auto;
+    @include media-breakpoint-up(md) {
+      width: 250px;
+    }
   }
 }

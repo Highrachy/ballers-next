@@ -96,6 +96,30 @@ export function getAffordabilityByLocation(pricingByZone, answers, zonesMap) {
   return out;
 }
 
+// Reusable summary generator
+export function getTierSummary(
+  summaryTemplate,
+  answers,
+  yearsToBuy = 0,
+  firstName = 'Baller'
+) {
+  return summaryTemplate
+    .replaceAll('<first_name>', firstName)
+    .replaceAll('<bedroom>', answers.number_of_bedrooms.toLowerCase())
+    .replaceAll('<house_type>', answers.house_type.toLowerCase())
+    .replaceAll('<location_zone>', `Lagos ${answers.ideal_location}`)
+    .replaceAll('<years_num>', yearsToBuy)
+    .replaceAll(
+      '<timeline_phrase>',
+      yearsToBuy <= 1
+        ? 'in under a year'
+        : yearsToBuy <= 2
+        ? 'in under two years'
+        : `in about ${yearsToBuy} years`
+    )
+    .replace(/\*(.*?)\*/g, '<b>$1</b>');
+}
+
 export const getTierInfo = (yearsToBuy, answers, firstName) => {
   const statusKey = {
     'I rent my home': 'rent',
@@ -113,21 +137,13 @@ export const getTierInfo = (yearsToBuy, answers, firstName) => {
 
   const description = tier.descriptions[index].replace(/\n/g, '<br>');
   const summaryTemplate = tier.summaries[statusKey][index];
+  const summary = getTierSummary(
+    summaryTemplate,
+    answers,
+    yearsToBuy,
+    firstName
+  );
 
-  const summary = summaryTemplate
-    .replaceAll('<first_name>', firstName)
-    .replaceAll('<bedroom>', answers.number_of_bedrooms.toLowerCase())
-    .replaceAll('<house_type>', answers.house_type.toLowerCase())
-    .replaceAll('<location_zone>', `Lagos ${answers.ideal_location}`)
-    .replaceAll('<years_num>', yearsToBuy)
-    .replaceAll(
-      '<timeline_phrase>',
-      yearsToBuy <= 1
-        ? 'in under a year'
-        : yearsToBuy <= 2
-        ? 'in under two years'
-        : `in about ${yearsToBuy} years`
-    );
   return {
     emoji: tier.emoji,
     label: tier.label,

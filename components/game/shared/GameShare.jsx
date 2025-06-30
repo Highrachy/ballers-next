@@ -110,7 +110,7 @@ export default function GameShare({
     </span>
   ) : (
     <button
-      className="btn-game btn-game--light mt-4 btn-game--sm"
+      className="btn-game btn-game--light mt-4"
       onClick={() => setOpen(true)}
       aria-label="Share game with friends"
     >

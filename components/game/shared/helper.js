@@ -22,3 +22,8 @@ export const STORAGE = {
   CONTACT: 'ballers-contact',
   BULLET_CACHE: 'ballers-bullet-cache',
 };
+
+export const toTitleCase = (str) =>
+  str
+    .replace(/_/g, ' ') // remove underscores
+    .replace(/\b\w/g, (c) => c.toUpperCase()); // Title Case
