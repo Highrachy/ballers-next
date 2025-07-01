@@ -10,7 +10,7 @@
 export const TIERS = [
   /* ─────────────────── 1. CERTIFIED BALLER ─────────────────── */
   {
-    maxYears: 2,
+    maxYears: 3,
     emoji: '1.png',
     label: 'You are a Certified Baller',
 
@@ -22,9 +22,9 @@ export const TIERS = [
       /* 4 */ 'Your wallet can buy plenty jollof rice to celebrate your new home with zero wahala.',
       /* 5 */ 'Your bank account na confam. Time to spend the money on your new home',
       /* 6 */ 'Your bank account get muscle; you fit carry a whole estate with one hand.',
-      /* 7 */ 'Property market dey rush you; just open your gate and collect your key.',
-      /* 8 */ 'Your account balance shine brighter than the sun. With your account balance, every house dey salute you.',
-      /* 9 */ 'Your bank alert fit play beautiful music; plenty houses don dey dance azonto for you!',
+      /* 7 */ 'Na property dey rush you; just open your gate and collect your key.',
+      /* 8 */ 'Your account balance shines brighter than the sun. With your account balance, every house dey salute you.',
+      /* 9 */ 'Your bank alert dey play beautiful music; plenty houses don dey dance azonto for you!',
     ],
 
     summaries: {
@@ -70,7 +70,7 @@ export const TIERS = [
   },
   /* ─────────────────── 2. ALMOST THERE ────────────────────── */
   {
-    maxYears: 5,
+    maxYears: 6,
     emoji: '2.png',
     label: 'You are Almost There',
     /* descriptions[ i ] ↔ summaries.*[ i ] */
@@ -134,7 +134,7 @@ export const TIERS = [
 
   /* ─────────────────── 3. GETTING STARTED (index-aligned) ─────────────────── */
   {
-    maxYears: 9,
+    maxYears: 10,
     emoji: '3.png',
     label: 'You are Getting Started',
     /* descriptions[ i ] ↔ summaries.*[ i ]  (10 each) */

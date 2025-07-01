@@ -12,6 +12,7 @@ import {
   VasIcon,
   SupportIcon,
   BlogIcon,
+  GameIcon,
 } from 'components/utils/Icons';
 // import { VisitationIcon } from 'components/utils/Icons';
 // import { MessageIcon } from 'components/utils/Icons';
@@ -66,6 +67,12 @@ const adminMenu = [
     title: 'Blog',
     to: '/admin/blog',
     icon: <BlogIcon />,
+    footer: true,
+  },
+  {
+    title: 'Game Results',
+    to: '/admin/game-results',
+    icon: <GameIcon />,
     footer: true,
   },
   {

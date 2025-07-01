@@ -10,16 +10,19 @@ export const INTERLUDES = [
   {
     step: 7,
     badge: '/img/game/interlude/2.png',
-    // ids: ['house_type', 'home_buying_timeline', 'home_paying_timeline'],
-    ids: ['house_type', 'home_buying_timeline'],
+    ids: ['house_type', 'home_buying_timeline', 'home_paying_timeline'],
   },
   {
     step: 11,
     badge: '/img/game/interlude/3.png',
-    // ids: ['saving_percent', 'financial_advisory', 'retirement_planning'],
-    ids: ['saving_percent', 'financial_advisory'],
+    ids: ['saving_percent', 'financial_advisory', 'retirement_planning'],
   },
-  { step: 13, collectContact: true, badge: '/img/game/interlude/4.png' },
+  {
+    step: 13,
+    ids: [],
+    collectContact: true,
+    badge: '/img/game/interlude/4.png',
+  },
 ];
 
 export const BREAK_STEPS = new Set(INTERLUDES.map((i) => i.step));
@@ -38,7 +41,7 @@ export function buildInterludeBullets(
       : '';
 
   // 3. for every id listed in cfg.ids build exactly ONE line
-  const bullets = cfg.ids.flatMap((id) => {
+  const bullets = cfg?.ids?.flatMap((id) => {
     const ans = answers[id];
     if (!ans) return [];
     // normalise pool
@@ -58,7 +61,7 @@ export function buildInterludeBullets(
     const key = `${id}::${ans}`;
     const text =
       bulletCache[key] ?? pool[Math.floor(Math.random() * pool.length)];
-    if (!bulletCache[key]) setBulletCache((c) => ({ ...c, [key]: text }));
+    if (!bulletCache[key]) setBulletCache((c) => ({ ...c, [key]: fill(text) }));
     return [fill(text)];
   });
   return bullets.length ? bullets : ["Keep going — you're doing great!"];

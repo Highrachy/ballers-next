@@ -9,6 +9,10 @@ $navy: #00204a;
 $gray: #adb5bd;
 $purple: #6f42c1;
 
+.text-gold {
+  color: $gold;
+}
+
 /* Color Utility Mixin */
 @mixin btn-skin($bg, $fg) {
   --bg: #{$bg};

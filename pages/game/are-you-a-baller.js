@@ -15,6 +15,7 @@ import {
   BREAK_STEPS, // Set of the .step values above
   buildInterludeBullets,
 } from '@/components/game/shared/interludeConfig';
+import { gameEntrySync } from '@/components/game/shared/gameSync';
 
 /* ─────────────────────────────────────────────────────────────── */
 
@@ -70,6 +71,10 @@ export default function Start() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); /* run only once on mount */
 
+  useEffect(() => {
+    gameEntrySync.sync(answers, bulletCache, contact);
+  }, [answers, bulletCache, contact]);
+
   /* ────────────────────── answer handlers ───────────────────── */
   const saveAnswer = (val) =>
     setAnswers((prev) => ({ ...prev, [questions[step].id]: val }));
@@ -122,6 +127,11 @@ export default function Start() {
 
     /* last interlude: collect contact */
     if (cfg.collectContact) {
+      if (contact?.email && contact?.name) {
+        // already have contact info, skip to summary
+        setView('summary');
+        return null; // no need to render anything
+      }
       return (
         <InterludePage
           collectContact // ⇠ show the form

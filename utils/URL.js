@@ -77,4 +77,7 @@ export const API_ENDPOINT = {
   getOnePostBySlug: (slug) => `${BASE_API_URL}/blog/slug/${slug}`,
   getAllBlogs: () => `${BASE_API_URL}/blog`,
   getAllCategories: () => `${BASE_API_URL}/blog/categories`,
+
+  getAllGameEntries: () => `${BASE_API_URL}/game-entry/all`,
+  getGameEntry: () => `${BASE_API_URL}/game-entry`,
 };

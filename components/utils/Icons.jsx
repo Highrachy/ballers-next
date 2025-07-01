@@ -90,6 +90,7 @@ import {
   EmptyWalletAdd,
   MessageQuestion,
   MessageEdit,
+  Game,
 } from 'iconsax-react';
 import { LuSettings2 } from 'react-icons/lu';
 import { RiPlanetFill } from 'react-icons/ri';
@@ -135,6 +136,7 @@ export const FileIcon = () => <FiFileText />;
 export const FilterIcon = () => <LuSettings2 />;
 export const FlagIcon = () => <FaFlag />;
 export const FastTrackVendorIcon = () => <SiFastapi />;
+export const GameIcon = () => <Game variant="Bulk" />;
 export const HomeIcon = () => <Element3 variant="Bulk" />;
 export const HospitalIcon = () => <FaAmbulance />;
 export const InfoIcon = () => <FaInfoCircle />;

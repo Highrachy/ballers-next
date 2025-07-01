@@ -16,12 +16,13 @@ import {
 } from '@/data/game/getAffordabilityByLocation';
 import GameShare from '../shared/GameShare';
 import { STORAGE } from '../shared/helper';
-import { FaChartPie } from 'react-icons/fa6';
+import { FaChartPie, FaRepeat } from 'react-icons/fa6';
 import GameBadge from '../shared/GameBadge';
 import GameConfetti from '../shared/GameConfetti';
 import GameModal from '../shared/GameModal';
 import GameInsightsModal from '../shared/GameInsightsModal';
 import { useRouter } from 'next/router';
+import { gameEntrySync } from '../shared/gameSync';
 
 export default function SummaryPage({ contact }) {
   const router = useRouter();
@@ -51,8 +52,12 @@ export default function SummaryPage({ contact }) {
   let userTier = bulletCache['results'];
   if (!userTier) {
     userTier = getTierInfo(minYears, answers, name);
-    setBulletCache((prev) => ({ ...prev, ['results']: userTier }));
+    const updatedBulletCache = { ...bulletCache, results: userTier };
+    gameEntrySync.sync(answers, { ...bulletCache, results: userTier }, contact);
+    setBulletCache(updatedBulletCache);
   }
+
+  gameEntrySync.sync(answers, { ...bulletCache, results: userTier }, contact);
 
   /* ── render ──────────────────────────────────────────────── */
   return (
@@ -160,7 +165,7 @@ export default function SummaryPage({ contact }) {
                 onClick={() => setShowResetModal(true)}
                 data-hide-on-capture
               >
-                Restart Game <MdLoop />
+                Restart Game <FaRepeat />
               </GameButton>
             </div>
 
@@ -188,6 +193,20 @@ export default function SummaryPage({ contact }) {
                       onClick={() => {
                         localStorage.removeItem(STORAGE.ANSWERS);
                         localStorage.removeItem(STORAGE.BULLET_CACHE);
+                        // Regenerate contact id but keep name and email
+                        const prevContact = JSON.parse(
+                          localStorage.getItem(STORAGE.CONTACT) || '{}'
+                        );
+                        const { name, email } = prevContact;
+                        const newContact = {
+                          name,
+                          email,
+                          id: crypto.randomUUID(),
+                        };
+                        localStorage.setItem(
+                          STORAGE.CONTACT,
+                          JSON.stringify(newContact)
+                        );
                         setShowResetModal(false);
                         window.location.href = '/game/are-you-a-baller';
                       }}
