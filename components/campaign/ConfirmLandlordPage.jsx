@@ -172,7 +172,7 @@ export default function ConfirmLandlordPage() {
   } = useMemo(() => {
     const income = extractHighestValue(getAnswerValue('income_bracket'));
     const savingPlan = extractHighestValue(getAnswerValue('saving_plan'));
-    const debtProfile = extractHighestValue(getAnswerValue('debt_profile'));
+    const debtProfile = 0;
     const retirementPlan = extractHighestValue(
       getAnswerValue('retirement_planning')
     );

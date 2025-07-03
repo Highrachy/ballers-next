@@ -169,11 +169,6 @@ export default function ResultPage({
                   Savings: {copy('saving_plan')}
                 </li>
               )}
-              {answers.debt_profile && (
-                <li className="dash-box dash-red mb-3">
-                  Debt: {copy('debt_profile')}
-                </li>
-              )}
               {answers.retirement_planning && (
                 <li className="dash-box dash-blue mb-3">
                   Retirement savings: {copy('retirement_planning')}

@@ -32,7 +32,7 @@ export const TIERS = [
         /* 0 */ 'Rent goat don chop tire—time to buy the whole farm. Your shiny <bedroom> <house_type> on the <location_zone> is waving like a flag. Keep your hustle hot and the keys drop <timeline_phrase>. Imagine decorating your room in <location_zone> while your landlord wonders where you vanished.',
         /* 1 */ "Last lap, chief! Savings sprinting faster than okada on free road. One tiny push and you'll be frying plantain in your own kitchen before <years_num> birthdays pass. The deed will carry your name, not your landlord's. Jollof tastes sweeter when the pot is in your house.",
         /* 2 */ 'Those rent receipts are taller than you—swap them for a land deed. Lock a <house_type> fast and let the future you send high-five emojis. Keys can land in <timeline_phrase> if you keep stacking coins. Landlord selfie incoming!',
-        /* 3 */ 'Your landlord dey price Benz with your transfers; flip the script. Grab a <bedroom> <house_type>, and soon tenants will fund *your* ride. Stay steady for <years_num> quick years. Goodbye rent, hello road trip!',
+        /* 3 */ 'Your landlord dey price Benz with your transfers; flip the script. Grab a <bedroom> <house_type>, and soon tenants will fund *your* ride. Stay steady and be consistent with your hardwork. Goodbye rent, hello road trip!',
         /* 4 */ "No more “God when”, it's “Thank you God”. Keys loading like cartoon power-up. Jollof pot already warming in <location_zone>. Pack your things and practise the happy dance.",
         /* 5 */ 'Your new <bedroom> <house_type> in <location_zone> is gift-wrapped by destiny. One final savings shout and the courier—aka your agent—rings the bell. Birthday song next year will echo inside your own walls. Sweet, right?',
         /* 6 */ 'Renting? Not for long! The <house_type> in <location_zone> keeps showing in your dreams. Feed that deposit, watch keys hatch, and shout “Home sweet home!” four times for luck.',
@@ -57,7 +57,7 @@ export const TIERS = [
       family: [
         /* 0 */ 'Free jollof sweet, but your own kitchen aroma is sweeter. A <bedroom> <house_type> on the <location_zone> hides just beyond the gate. Keep saving and meal times become home times <timeline_phrase>. Your first pot of stew will smell like victory.',
         /* 1 */ 'Goodbye “Who ate my meat?” mystery. Midnight snacks await in a home with your name on the door. Keys could jingle <timeline_phrase> if you keep the savings heat high. Freedom tastes like toasted bread at 2 a.m.',
-        /* 2 */ "Mum's Wi-Fi ends at the corridor; your router will have no borders. Stay on track and your “temporary stay” ends in <years_num> quick years. Streaming cartoons in pyjamas—zero permission needed. Fun unlocked!",
+        /* 2 */ "Mum's Wi-Fi ends at the corridor; your router will have no borders. Stay on track and your “temporary stay” will end very soon. Streaming cartoons in pyjamas—zero permission needed. Fun unlocked!",
         /* 3 */ 'Family house became HQ; now open a branch office called *Your House*. Keep deposits steady and ribbon-cutting day arrives <timeline_phrase>. Invite the crew and blast party horns!',
         /* 4 */ "Curfew only in generator timetable. Keys charging—don't unplug the hustle. Three smiles a day keeps doubt away. Own it, live it, love it.",
         /* 5 */ 'Living with fam is cool, but owning a <house_type> with <bedroom> in <location_zone> is cooler than chilled Fanta. A few more deposits and game-room dreams come true. Paint the walls any colour you want!',

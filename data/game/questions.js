@@ -192,22 +192,6 @@ const questions = [
     section: 'FINANCIAL MANAGEMENT',
     questions: [
       {
-        id: 'debt_profile',
-        label: 'Debt Profile',
-        prompt: 'What is your total debt?',
-        description:
-          'Include all outstanding debts you are currently owing (loans, credit, personal debts).',
-        type: 'options',
-        options: [
-          { label: 'No debt', subtext: 'No debt at all' },
-          { label: 'Less than ₦1,000,000', subtext: 'Below ₦1 million' },
-          { label: '₦1,000,001 - ₦5,000,000', subtext: '₦1M to ₦5M debt' },
-          { label: '₦5,000,001 - ₦10,000,000', subtext: '₦5M to ₦10M debt' },
-          { label: 'Above ₦10,000,000', subtext: 'Above ₦10 million debt' },
-          { label: 'Other', subtext: 'Enter exact amount' },
-        ],
-      },
-      {
         id: 'saving_percent',
         label: 'Savings % of Monthly Income',
         prompt:

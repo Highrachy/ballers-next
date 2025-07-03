@@ -36,12 +36,6 @@ const zoneFor = (loc, zones) =>
 
 /* ───── main utility ─────────────────────────────────────────── */
 export function getAffordabilityByLocation(pricingByZone, answers, zonesMap) {
-  console.log(
-    'pricingByZone, answers, zonesMap',
-    pricingByZone,
-    answers,
-    zonesMap
-  );
   /* ── money figures from the quiz ─────────────────────────── */
   const income =
     pickBiggestNumber(answers.income_bracket) ||
@@ -49,9 +43,7 @@ export function getAffordabilityByLocation(pricingByZone, answers, zonesMap) {
   const savingPlan =
     pickBiggestNumber(answers.saving_plan) ||
     pickBiggestNumber(answers.saving_plan_custom);
-  const debt =
-    pickBiggestNumber(answers.debt_profile) ||
-    pickBiggestNumber(answers.debt_profile_custom);
+  const debt = 0; // no longer considered
   const pension = pickBiggestNumber(answers.retirement_planning);
   const ratio = savingRatio(answers.saving_percent);
 
@@ -108,7 +100,7 @@ export function getTierSummary(
     .replaceAll('<bedroom>', answers.number_of_bedrooms.toLowerCase())
     .replaceAll('<house_type>', answers.house_type.toLowerCase())
     .replaceAll('<location_zone>', `Lagos ${answers.ideal_location}`)
-    .replaceAll('<years_num>', yearsToBuy)
+    .replaceAll('<years_num>', Math.max(yearsToBuy, 1))
     .replaceAll(
       '<timeline_phrase>',
       yearsToBuy <= 1

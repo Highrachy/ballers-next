@@ -1,12 +1,11 @@
 /******************************************************************
  * components/game/result/SummaryPage.jsx
  ******************************************************************/
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import Header from '@/components/layout/Header';
 import GameButton from '../shared/GameButton';
-import { FaDownload, FaShareAlt, FaRocket } from 'react-icons/fa';
+import { FaShareAlt, FaRocket } from 'react-icons/fa';
 import BallersLogo from '@/components/utils/BallersLogo';
-import { MdLoop } from 'react-icons/md';
 import getMinPricingByZone from '@/data/game/getMinPricingByZone';
 import { locationsByZone } from '@/data/game/location';
 import useLocalStorageState from '@/hooks/useLocalStorageState';
@@ -37,7 +36,7 @@ export default function SummaryPage({ contact }) {
   /* ── constants ───────────────────────────────────────────── */
   const badgeURL = '/img/game/summary/';
   const captureRef = useRef(null);
-  const name = contact?.name || 'Baller'; // fallback name
+  const name = contact?.name || ''; // fallback name
   const minByZone = getMinPricingByZone();
   const affordability = getAffordabilityByLocation(
     minByZone,
@@ -49,15 +48,18 @@ export default function SummaryPage({ contact }) {
     ...Object.entries(affordability).map(([_, data]) => data.years)
   );
 
-  let userTier = bulletCache['results'];
-  if (!userTier) {
-    userTier = getTierInfo(minYears, answers, name);
-    const updatedBulletCache = { ...bulletCache, results: userTier };
-    gameEntrySync.sync(answers, { ...bulletCache, results: userTier }, contact);
-    setBulletCache(updatedBulletCache);
-  }
+  const userTier = useMemo(() => {
+    if (bulletCache?.results && Object.keys(bulletCache.results).length > 0) {
+      return bulletCache.results;
+    }
+    const tier = getTierInfo(minYears, answers, name);
+    setBulletCache({ ...bulletCache, results: tier });
+    return tier;
+  }, [bulletCache, minYears, answers, name, setBulletCache]);
 
-  gameEntrySync.sync(answers, { ...bulletCache, results: userTier }, contact);
+  useEffect(() => {
+    gameEntrySync.sync(answers, { ...bulletCache, results: userTier }, contact);
+  }, [bulletCache, answers, contact, userTier]);
 
   /* ── render ──────────────────────────────────────────────── */
   return (

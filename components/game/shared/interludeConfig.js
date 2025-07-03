@@ -13,12 +13,12 @@ export const INTERLUDES = [
     ids: ['house_type', 'home_buying_timeline', 'home_paying_timeline'],
   },
   {
-    step: 11,
+    step: 10,
     badge: '/img/game/interlude/3.png',
     ids: ['saving_percent', 'financial_advisory', 'retirement_planning'],
   },
   {
-    step: 13,
+    step: 12,
     ids: [],
     collectContact: true,
     badge: '/img/game/interlude/4.png',

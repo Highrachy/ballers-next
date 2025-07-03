@@ -37,6 +37,8 @@ import { MdInsights } from 'react-icons/md';
 
 /* ─────────────────────────────────────────────────────────────── */
 
+const TOTAL_QUESTIONS = 11;
+
 const GameResultsPage = () => (
   <BackendPage>
     <WelcomeHero
@@ -120,7 +122,6 @@ const ResultRow = ({ number, entry, onView }) => {
     createdAt,
   } = entry;
   const userType = useCurrentRole().name; // admin | super-admin etc.
-  const TOTAL_QUESTIONS = 12; // adjust if your quiz length changes
   const answeredCount = Object.keys(answers).length;
   const hasResult = Boolean(result?.label);
 
@@ -171,7 +172,6 @@ const ModalForGameDetails = ({
   } = entry;
 
   const answeredCount = Object.keys(answers).length;
-  const TOTAL_QUESTIONS = 12;
   const hasResult = Boolean(result.label);
 
   return (

@@ -292,32 +292,6 @@ const ResultCopy = {
       'Your savings is unique, and so is your plan. Let’s tailor it right.',
     ],
   },
-
-  debt_profile: {
-    'No debt': [
-      'Amazing! You’re starting from a strong financial position.',
-      'Clean slate — perfect for real estate investment.',
-    ],
-    'Less than ₦1,000,000': [
-      'Manageable debt. Let’s work it into your payment plan.',
-      'Small bumps, but still a smooth ride ahead.',
-    ],
-    '₦1,000,001 - ₦5,000,000': [
-      "We'll balance debt and progress. You’re still in a good spot.",
-      'Let’s create a homeownership plan that won’t stretch you thin.',
-    ],
-    '₦5,000,001 - ₦10,000,000': [
-      'You may need to structure payments more cautiously — we can help.',
-      'We’ll balance your repayments with your home goals.',
-    ],
-    'Above ₦10,000,000': [
-      'Let’s be strategic. A staggered payment plan may work best.',
-      'You’ll need a strong financial map — BALL’s got you.',
-    ],
-    'Other (enter exact amount)': [
-      'We’ll customize your plan to match your debt profile.',
-    ],
-  },
 };
 
 export default ResultCopy;

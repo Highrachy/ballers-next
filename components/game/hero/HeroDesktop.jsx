@@ -36,7 +36,7 @@ export default function HeroDesktop() {
               </p>
 
               <div className="hero__meta fw-bold small d-flex align-items-center">
-                <span className="text-uppercase">12&nbsp;Questions</span>
+                <span className="text-uppercase">11&nbsp;Questions</span>
                 <div className="hero__dots ms-2">
                   <span className="dot active" />
                   <span className="dot" />

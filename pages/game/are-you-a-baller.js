@@ -41,7 +41,7 @@ export default function Start() {
       ),
     []
   );
-  const total = questions.length; // = 12 questions
+  const total = questions.length;
 
   /* ─── handy helpers ─── */
   const needsInterlude = (idx) => BREAK_STEPS.has(idx + 1); // idx is 0-based
@@ -72,8 +72,10 @@ export default function Start() {
   }, []); /* run only once on mount */
 
   useEffect(() => {
-    gameEntrySync.sync(answers, bulletCache, contact);
-  }, [answers, bulletCache, contact]);
+    if (view !== 'summary') {
+      gameEntrySync.sync(answers, bulletCache, contact);
+    }
+  }, [answers, bulletCache, contact, step, view]);
 
   /* ────────────────────── answer handlers ───────────────────── */
   const saveAnswer = (val) =>

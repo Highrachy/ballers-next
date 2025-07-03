@@ -70,10 +70,6 @@ const SummaryStep = ({
           value={displayValue(getAnswerValue('saving_plan'), savingPlan)}
         />
         <ResultRow
-          label="Debt Profile"
-          value={displayValue(getAnswerValue('debt_profile'), debtProfile)}
-        />
-        <ResultRow
           label="Property Value"
           value={`₦${PROPERTY_VALUE.toLocaleString()}`}
         />
