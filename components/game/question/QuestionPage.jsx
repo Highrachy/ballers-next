@@ -13,6 +13,7 @@ import { useChatMessage } from '@/context/ChatContext';
 import useLocalStorageState from '@/hooks/useLocalStorageState';
 import { useRouter } from 'next/router';
 import { STORAGE } from '../shared/helper';
+import GameFooter from '../shared/GameFooter';
 
 /* ---------- helpers ---------- */
 const naira = (val) => {
@@ -151,6 +152,7 @@ export default function QuestionPage({
           />
         </section>
       </section>
+      <GameFooter />
     </>
   );
 }

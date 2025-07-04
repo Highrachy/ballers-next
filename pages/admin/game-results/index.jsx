@@ -25,14 +25,11 @@ import {
   FiUser,
   FiHash,
   FiCheckCircle,
-  FiArrowRightCircle,
-  FiInfo,
   FiXCircle,
 } from 'react-icons/fi';
 
 import { useCurrentRole } from 'hooks/useUser';
 import { getShortDateTime } from '@/utils/date-helpers';
-import classNames from 'classnames';
 import { MdInsights } from 'react-icons/md';
 
 /* ─────────────────────────────────────────────────────────────── */
@@ -139,7 +136,9 @@ const ResultRow = ({ number, entry, onView }) => {
         <Spacing />
         <Spacing />
         <button
-          className="btn btn-wide btn-secondary-light"
+          className={`btn btn-wide ${
+            hasResult ? 'btn-success-light' : 'btn-secondary-light'
+          }`}
           onClick={() => onView(entry)}
         >
           View details
@@ -173,6 +172,13 @@ const ModalForGameDetails = ({
 
   const answeredCount = Object.keys(answers).length;
   const hasResult = Boolean(result.label);
+
+  // Helper to clean up result.label
+  const getCleanLabel = (label) => {
+    if (!label) return '';
+    let clean = label.replace(/^You are\s*/i, '');
+    return clean.charAt(0).toUpperCase() + clean.slice(1);
+  };
 
   return (
     <Modal
@@ -216,7 +222,7 @@ const ModalForGameDetails = ({
                 bg={STATUS_COLOURS[result.label] || 'secondary'}
                 className="me-1"
               >
-                {result.label}
+                {getCleanLabel(result.label)}
               </Badge>
             )}
           </div>
@@ -226,8 +232,20 @@ const ModalForGameDetails = ({
               Shared:&nbsp;{sharedVia.join(', ')}
             </div>
           )}
-        </section>
 
+          {hasResult && (
+            <div className="mt-2">
+              <a
+                href={`/game/view-results?id=${contact?.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-game btn-game--sm btn-game--navy text-white"
+              >
+                View Online
+              </a>
+            </div>
+          )}
+        </section>
         {/* ── TABS ────────────────────────────────────────────── */}
         <Tab.Container defaultActiveKey="answers">
           <Nav variant="tabs" className="mb-0">
@@ -299,16 +317,33 @@ const ModalForGameDetails = ({
             {/* RESULT */}
             <Tab.Pane eventKey="result">
               {hasResult ? (
-                <>
-                  <h6 className="fw-bold d-flex align-items-center gap-2">
-                    {result.label} <FiCheckCircle className="text-success" />
-                  </h6>
-                  <p className="mb-1">{result.description}</p>
-                  <p className="fst-italic small">{result.summary}</p>
-                </>
+                <section className="text-center">
+                  <div className="result-image my-4">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`/img/game/summary/${result.emoji}`}
+                      alt="Certified Baller badge"
+                      width={150}
+                      className="img-fluid"
+                    />
+                  </div>
+
+                  <h3 className="mb-4 fw-bold">
+                    {getCleanLabel(result.label)}
+                  </h3>
+
+                  <div className="diamond-divider my-3">
+                    <span />
+                    <span className="diamond" />
+                    <span />
+                  </div>
+                  <h4 className="my-2 text-gray">{result.description}</h4>
+                  <hr />
+                  <p className="text-lg text-muted">{result.summary}</p>
+                </section>
               ) : (
                 <p className="text-muted">
-                  Result not generated <FiXCircle className="text-warning" />
+                  Result not available <FiXCircle className="text-warning" />
                 </p>
               )}
             </Tab.Pane>

@@ -2,7 +2,7 @@ import React from 'react';
 import GameButton from './GameButton';
 import { FaDownload } from 'react-icons/fa6';
 
-export default function GameBadge({ captureRef }) {
+export default function GameBadge({ captureRef, id }) {
   // Helper to hide elements during capture
   const withHidden = async (fn) => {
     const els = captureRef.current?.querySelectorAll('[data-hide-on-capture]');
@@ -26,7 +26,7 @@ export default function GameBadge({ captureRef }) {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'BALL-summary.png';
+        a.download = `BALL Badge.png`;
         a.click();
         URL.revokeObjectURL(url);
       }, 'image/png');

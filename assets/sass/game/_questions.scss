@@ -60,18 +60,17 @@
 
   @include media-breakpoint-up(xl) {
     background-size: 95%;
-    background-position: -100px 100px;
+    background-position: -105px 55px;
   }
 }
 
 .question-content {
   padding: 2.5rem;
   position: relative;
-  margin-top: 16rem;
+  margin-top: 14rem;
   overflow: scroll;
 
   @media (min-width: 376px) {
-    margin-top: 20rem;
     padding: 3rem;
   }
 
@@ -84,6 +83,7 @@
   }
   @include media-breakpoint-up(lg) {
     padding: 11rem;
+    padding-top: 5rem;
   }
   @include media-breakpoint-up(xl) {
     padding-right: 20rem;
@@ -119,4 +119,14 @@
   display: inline-block;
   width: 1.25rem;
   height: 1.25rem;
+}
+
+.game-footer {
+  width: 100%;
+  background: url('/img/game/footer.svg') center top / cover no-repeat;
+  padding: 2.5rem 0; // extra room for torn edges
+  display: flex;
+  min-height: 200px;
+  justify-content: center;
+  z-index: 10000000;
 }

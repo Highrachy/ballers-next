@@ -1,16 +1,19 @@
 // questions.js
 import { locationsByZone } from './location'; // adjust path as needed
 
-// build <label, subtext> objects from locationsByZone
+/* ---------- Helper: Build location options ---------- */
 const locationOptions = Object.entries(locationsByZone).map(
   ([zone, areas]) => ({
     label: zone,
     subtext: areas.join(', '),
-    emoji: '2-location.svg',
+    emoji: `2-location-${zone.toLowerCase()}.svg`,
   })
 );
 
 const questions = [
+  /* -------------------------------------------------------------------- */
+  /*                               REAL ESTATE                            */
+  /* -------------------------------------------------------------------- */
   {
     section: 'REAL ESTATE',
     questions: [
@@ -52,7 +55,7 @@ const questions = [
         id: 'house_type',
         label: 'House Type',
         prompt: 'What type of house would you like to own?',
-        description: 'Select the type of house that matches your dream home.',
+        description: 'Pick the style of home that matches your dream.',
         type: 'options',
         options: [
           {
@@ -85,9 +88,8 @@ const questions = [
       {
         id: 'number_of_bedrooms',
         label: 'Number of Bedrooms',
-        prompt: 'How many bedrooms would you like?',
-        description:
-          'Select the number of bedrooms that would suit your needs.',
+        prompt: 'How many bedrooms would you want in your dream home?',
+        description: 'Select the bedroom count that fits your household.',
         type: 'options',
         options: [
           {
@@ -120,8 +122,8 @@ const questions = [
       {
         id: 'home_buying_timeline',
         label: 'Home Buying Timeline',
-        prompt: 'When do you plan to buy your next house?',
-        description: 'How soon are you planning to become a homeowner?',
+        prompt: 'When do you want to buy your next house?',
+        description: 'Tell us how soon you plan to become a homeowner.',
         type: 'options',
         options: [
           {
@@ -145,13 +147,13 @@ const questions = [
             emoji: '5-calendar.svg',
           },
           {
-            label: '6 - 10 years',
-            subtext: 'Future goal, not urgent',
+            label: '6 – 10 years',
+            subtext: 'Future dream',
             emoji: '5-calendar.svg',
           },
           {
             label: 'Just exploring',
-            subtext: 'Just checking options, no timeline yet',
+            subtext: 'No fixed timeline yet',
             emoji: '5-calendar.svg',
           },
         ],
@@ -159,35 +161,39 @@ const questions = [
       {
         id: 'home_paying_timeline',
         label: 'Home Paying Timeline',
-        prompt: 'When do you want to start paying for the house?',
+        prompt: 'How long do you want to spread your payment?',
         description:
-          'How soon would you like to start making payments towards the home?',
+          'Select when you’d like to start and how quickly to finish payment.',
         type: 'options',
         options: [
           {
             label: 'Yes ready now',
             subtext: 'I can start making payment now',
-            emoji: '1-own.svg',
+            emoji: '6-now.svg',
           },
           {
             label: 'Ready in 3 - 6 months',
             subtext: 'Need 3-6 months to prepare',
-            emoji: '1-own.svg',
+            emoji: '6-3-to-6-months.svg',
           },
           {
             label: 'Need 6 - 12 months',
             subtext: 'Still saving / arranging funds',
-            emoji: '1-own.svg',
+            emoji: '6-6-to-12-months.svg',
           },
           {
             label: 'Not sure - need guidance',
             subtext: 'Would like expert advice',
-            emoji: '1-own.svg',
+            emoji: '6-help.svg',
           },
         ],
       },
     ],
   },
+
+  /* -------------------------------------------------------------------- */
+  /*                         FINANCIAL MANAGEMENT                         */
+  /* -------------------------------------------------------------------- */
   {
     section: 'FINANCIAL MANAGEMENT',
     questions: [
@@ -203,36 +209,36 @@ const questions = [
           {
             label: 'Super Aggressive (75%)',
             subtext: 'Save 75% of income monthly',
-            emoji: '8-savings.svg',
+            emoji: '8-75-savings.svg',
           },
           {
             label: 'Aggressive (50%)',
             subtext: 'Save 50% of income monthly',
-            emoji: '8-savings.svg',
+            emoji: '8-50-savings.svg',
           },
           {
             label: 'Recommended (33%)',
             subtext: 'Recommended saving target',
-            emoji: '8-savings.svg',
+            emoji: '8-33-savings.svg',
           },
           {
             label: 'Cautious (25%)',
             subtext: 'Save 25% of income monthly',
-            emoji: '8-savings.svg',
+            emoji: '8-25-savings.svg',
           },
           {
             label: 'Minimum (20%)',
             subtext: 'Minimum saving level',
-            emoji: '8-savings.svg',
+            emoji: '8-20-savings.svg',
           },
         ],
       },
       {
         id: 'financial_advisory',
         label: 'Financial Advisory',
-        prompt: 'Do you work with a financial advisor?',
+        prompt: 'Do you have a financial advisor?',
         description:
-          'Do you currently get professional help to manage your finances?',
+          'A financial advisor is an expert you consult for money advice.',
         type: 'options',
         options: [
           {
@@ -241,7 +247,7 @@ const questions = [
             emoji: 'thinking.svg',
           },
           {
-            label: 'No I manage my finances myself',
+            label: 'No, I manage my finances myself',
             subtext: 'I handle it myself',
             emoji: 'smile.svg',
           },
@@ -251,7 +257,7 @@ const questions = [
             emoji: 'starstruck.svg',
           },
           {
-            label: 'Yes I work with a financial strategist',
+            label: 'Yes, I work with a financial strategist',
             subtext: 'I use an advisor regularly',
             emoji: 'with-glasses.svg',
           },
@@ -279,6 +285,10 @@ const questions = [
       },
     ],
   },
+
+  /* -------------------------------------------------------------------- */
+  /*                          FINANCIAL STATUS                            */
+  /* -------------------------------------------------------------------- */
   {
     section: 'FINANCIAL STATUS',
     questions: [
@@ -307,7 +317,7 @@ const questions = [
       {
         id: 'saving_plan',
         label: 'Saving Plan',
-        prompt: 'How much have you saved towards buying a house?',
+        prompt: 'How much do you have saved towards buying a new home?',
         description:
           'Include all your savings that can go towards your home (cash, investments, etc).',
         type: 'options',
