@@ -31,8 +31,8 @@ export default function HeroDesktop() {
               </div>
 
               <p className="hero__copy mb-4">
-                Welcome to the real estate challenge that actually pays off.
-                Let&apos;s find out where you stand and how to level up.
+                See how close you are to owning a home in Lagos and get a simple
+                plan to level up like a true BALLER.
               </p>
 
               <div className="hero__meta fw-bold small d-flex align-items-center">

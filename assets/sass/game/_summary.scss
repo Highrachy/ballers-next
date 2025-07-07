@@ -31,6 +31,14 @@ $purple: #6f42c1;
     background: $navy;
     margin-top: 10px;
   }
+  &.navy {
+    .diamond {
+      background: $navy;
+    }
+    span {
+      background: white;
+    }
+  }
 }
 
 /* — win card — */

@@ -13,36 +13,29 @@ export default function GameInsightsModal({
       <div className="text-start px-2 px-md-4 pb-3 text-white mb-5">
         {/* ---------- 1. OVERALL RESULT ---------- */}
         {bulletCache?.results && (
-          <section className="mt-5">
-            <h3
-              className="fw-bold text-white mb-3"
-              style={{ color: 'var(--gold)' }}
-            >
-              Your Result
-            </h3>
-            <div className="d-flex align-items-center mb-3">
-              {bulletCache.results.emoji && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={`/img/game/summary/${bulletCache.results.emoji}`}
-                  alt=""
-                  style={{ width: '48px', height: '48px' }}
-                  className="me-2"
-                />
-              )}
-              <h5
-                className="fw-bold mb-0"
-                style={{ color: 'var(--gold)', wordBreak: 'break-word' }}
-              >
-                {bulletCache.results.label}
-              </h5>
+          <section className="text-center">
+            <div className="result-image my-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/img/game/summary/${bulletCache.results.emoji}`}
+                alt="Certified Baller badge"
+                width={150}
+                className="img-fluid"
+              />
             </div>
-            <p className="mb-4 fw-normal h4 text-white">
-              {bulletCache.results.description}
-            </p>
-            <p className="mb-0 fst-italic lead">
+
+            <h3 className="mb-4 text-gold fw-bold">
+              {bulletCache.results.label}
+            </h3>
+
+            <div className="diamond-divider navy my-4">
+              <span />
+              <span className="diamond" />
+              <span />
+            </div>
+            <h4 className="mb-5 fw-normal h5 text-white">
               {bulletCache.results.summary}
-            </p>
+            </h4>
           </section>
         )}
         <hr />
@@ -73,23 +66,25 @@ export default function GameInsightsModal({
         )}
         <hr />
         {/* ---------- 3. USER ANSWERS ---------- */}
-        <section>
-          <h3 className="fw-bold mt-4" style={{ color: 'var(--gold)' }}>
-            Your Answers
-          </h3>
-          {Object.keys(answers).length === 0 ? (
-            <div className="text-muted">No answers available.</div>
-          ) : (
-            <ul className="ps-3">
-              {Object.entries(answers).map(([key, value]) => (
-                <li key={key} className="mb-1">
-                  <div className="fw-bold">{toTitleCase(key)}:&nbsp;</div>
-                  <div className="mb-3">{value}</div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+        {false && (
+          <section>
+            <h3 className="fw-bold mt-4" style={{ color: 'var(--gold)' }}>
+              Your Answers
+            </h3>
+            {Object.keys(answers).length === 0 ? (
+              <div className="text-muted">No answers available.</div>
+            ) : (
+              <ul className="ps-3">
+                {Object.entries(answers).map(([key, value]) => (
+                  <li key={key} className="mb-1">
+                    <div className="fw-bold">{toTitleCase(key)}:&nbsp;</div>
+                    <div className="mb-3">{value}</div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        )}
 
         <button
           type="button"

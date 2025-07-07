@@ -117,9 +117,11 @@ export default function Interlude({
             )}
 
             {/* ——— primary CTA ——— */}
-            <GameButton color="gold" onClick={mainAction}>
-              {mainLabel} {!collectContact && <FaPlay />}
-            </GameButton>
+            {collectContact && (
+              <GameButton color="gold" onClick={mainAction}>
+                {mainLabel} {!collectContact && <FaPlay />}
+              </GameButton>
+            )}
           </div>
         </article>
 

@@ -20,12 +20,12 @@ export default function GameModal({
   /* —— shared —— */
   isOpen,
   title = 'MODAL',
-  subtitle = 'Enter an amount',
+  subtitle = '',
   onClose = () => {},
 
   /* —— “amount” mode (legacy) —— */
   defaultValue = '',
-  placeholder = 'Enter',
+  placeholder = 'Amount',
   onSave = () => {},
 
   /* —— anything else —— */
@@ -98,7 +98,7 @@ export default function GameModal({
                 <h4 className="text-white mb-4">{subtitle}</h4>
 
                 <label className="gm-label mb-3" htmlFor="gm-input">
-                  Enter an amount:
+                  Type the amount below:
                 </label>
                 <input
                   id="gm-input"
