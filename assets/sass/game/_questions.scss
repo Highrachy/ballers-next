@@ -130,3 +130,18 @@
   justify-content: center;
   z-index: 10000000;
 }
+
+.question-nav {
+  width: 100%;
+  position: relative;
+  padding: 0 1rem;
+
+  @include media-breakpoint-up(sm) {
+    padding: 1rem 1.5rem;
+  }
+  @include media-breakpoint-up(lg) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+}

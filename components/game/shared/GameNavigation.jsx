@@ -11,7 +11,7 @@ export default function GameNavigation({
 }) {
   return (
     <div
-      className={`question-nav bg-white fixed-bottom py-3 px-4 d-flex justify-content-end gap-3 ${className}`}
+      className={`question-nav bg-white d-flex justify-content-end gap-3 ${className}`}
     >
       <GameButton
         color="navy"
