@@ -104,7 +104,7 @@ export const FAQSearch = ({ processFoundFAQs }) => {
   return (
     <section className="col-lg-8 col-sm-10 col-11 mx-auto mt-4">
       <form className="faqs-search-form mx-auto">
-        <div className="input-group">
+        <div className="input-group flex-nowrap">
           <div className="input-group-prepend">
             <span className="input-group-text">
               <Image

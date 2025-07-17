@@ -31,7 +31,7 @@ const howItWorksDropdown = [
     title: 'FAQs',
     description: 'Find answers to frequently asked questions about BALL',
     icon: <BsQuestionSquare />,
-    link: '/#faqs',
+    link: '/faqs',
   },
 ];
 

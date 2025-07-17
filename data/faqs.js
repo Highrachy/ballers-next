@@ -295,6 +295,170 @@ const faqs = {
       },
     ],
   },
+  referral: {
+    name: 'Referral Program',
+    icon: '/img/icons/referral-icon.png',
+    description: (
+      <>
+        All your questions answered about how to{' '}
+        <strong>Refer & Earn Big</strong> with BALL. Learn how it works, how
+        much you can earn, and how fast you&apos;ll get paid.
+      </>
+    ),
+    faqs: [
+      {
+        question: 'What is the BALL Refer & Earn Program?',
+        answer: (
+          <>
+            It&apos;s a special program that rewards you for referring friends,
+            family, or colleagues who buy premium homes through BALL. You can
+            earn up to <strong>₦1 million in cash and gifts</strong> as soon as
+            they make their first payment.
+          </>
+        ),
+        showOnHomePage: true,
+      },
+      {
+        question: 'How exactly does the referral process work?',
+        answer: (
+          <>
+            It&apos;s simple, just follow these steps:
+            <br />
+            <br />
+            <ol className="ps-3">
+              <li>Sign up or log in to your BALL account.</li>
+              <li>
+                Get your unique referral link or code from your dashboard.
+              </li>
+              <li>
+                Share the referral link or code with anyone who can afford to
+                buy a premium home.
+              </li>
+              <li>
+                They sign up using your link, select a home, and make their
+                first payment.
+              </li>
+              <li>You get rewarded immediately, no stress!</li>
+            </ol>
+          </>
+        ),
+        showOnHomePage: false,
+      },
+      {
+        question: 'How much will I earn per referral?',
+        answer: (
+          <>
+            You&apos;ll earn up to{' '}
+            <strong>₦1,000,000 in cash and additional gift rewards</strong> for
+            every qualified referral who makes their first payment towards their
+            home on the BALL platform.
+          </>
+        ),
+        showOnHomePage: false,
+      },
+      {
+        question: 'When and how will I get my referral bonus?',
+        answer: (
+          <>
+            Your referral bonus is paid as soon as the buyer makes their{' '}
+            <strong>first payment</strong>. We&apos;ll contact you via the email
+            registered on your BALL profile. Your payment will be processed
+            within <strong>3 business days</strong> via secure bank transfer, no
+            delays.
+          </>
+        ),
+        showOnHomePage: false,
+      },
+      {
+        question: 'Who counts as a valid referral for my bonus?',
+        answer: (
+          <>
+            A valid referral is someone who registers using your unique referral
+            link or code and makes their first payment for a premium home
+            through BALL. Payments or purchases outside the platform don&apos;t
+            qualify.
+          </>
+        ),
+        showOnHomePage: false,
+      },
+      {
+        question: 'Is there a limit to how many people I can refer?',
+        answer: (
+          <>
+            Great news, there&apos;s no limit! You can refer as many qualified
+            buyers as you like, and you&apos;ll earn rewards each time someone
+            makes their first payment.
+          </>
+        ),
+        showOnHomePage: true,
+      },
+      {
+        question: 'Do I still earn if my referral pays in installments?',
+        answer: (
+          <>
+            Yes, you earn your referral bonus immediately upon the buyer&apos;s
+            very first payment, whether they&apos;re on a timeline or milestone
+            payment plan. You won&apos;t have to wait until they finish paying.
+          </>
+        ),
+        showOnHomePage: false,
+      },
+      {
+        question: 'Where can I find my referral code or link?',
+        answer: (
+          <>
+            Your referral link or code is available in your dashboard under the{' '}
+            <strong>&quot;Refer &amp; Earn&quot;</strong> section. Just log in,
+            copy your unique code or link, and start sharing!
+          </>
+        ),
+        showOnHomePage: false,
+      },
+      {
+        question: 'How can I track my referrals and earnings?',
+        answer: (
+          <>
+            Log in to your BALL dashboard to easily track your referrals and
+            earnings. You&apos;ll see details of your referrals, their purchase
+            status, and how much you&apos;ve earned from each person.
+          </>
+        ),
+        showOnHomePage: false,
+      },
+      {
+        question: 'Are there any terms or conditions I should know?',
+        answer: (
+          <>
+            Yes, a few important ones:
+            <ul className="ps-3">
+              <li>
+                Your referral must complete their first payment on the BALL
+                platform.
+              </li>
+              <li>Rewards are subject to verification by BALL.</li>
+              <li>
+                Misuse or fraudulent activities may lead to suspension of
+                referral privileges.
+              </li>
+            </ul>
+          </>
+        ),
+        showOnHomePage: false,
+      },
+      {
+        question: 'Who do I contact if I have more questions about referrals?',
+        answer: (
+          <>
+            If you have any more questions, our support team is here to help.
+            Contact us via email at{' '}
+            <Link href="mailto:support@ballers.ng">support@ballers.ng</Link> or
+            call us at <strong>+234 903 020 0031</strong>.
+          </>
+        ),
+        showOnHomePage: true,
+      },
+    ],
+  },
 };
 
 export default faqs;

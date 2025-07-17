@@ -30,6 +30,8 @@ import { refreshQuery } from 'hooks/useQuery';
 import UserCard from 'components/common/UserCard';
 import { LocalImage } from '@/components/utils/Image';
 import WelcomeHero from '@/components/common/WelcomeHero';
+import ShareButton from '@/components/common/ShareButton';
+import Image from 'next/image';
 
 const ReferAndEarn = () => {
   const { userState } = React.useContext(UserContext);
@@ -70,11 +72,13 @@ const EmailReferral = () => {
       <h4 className="my-4">Refer your friends and BALL together</h4>
       <Card className="mt-4 widget card-container">
         <section className="row py-4">
-          <div className="col-sm-5 text-center my-5">
-            <LocalImage
+          <div className="col-sm-5 text-center">
+            <Image
               src="/img/pages/a-to-z/refer-n-earn.png"
               alt="Referral"
               className="img-fluid"
+              width="250"
+              height="201"
             />
           </div>
           <div className="col-sm-7">
@@ -83,9 +87,20 @@ const EmailReferral = () => {
               rewards because we value your friendship.
             </p>
 
-            <ReferralCodeClipBoard referralCode={referralCode} />
+            <input
+              type="text"
+              name="referralLink"
+              className="form-control"
+              aria-label="referral code"
+              value={referralCode}
+              readOnly
+            />
 
-            <Sharer shareUrl={referralCode} />
+            <ShareButton
+              url={referralCode}
+              header="Share Your Referral Link"
+              text="Hi there! Join Ballers today -- the easiest way to become a Landlord"
+            />
           </div>
         </section>
       </Card>
@@ -171,53 +186,6 @@ const InviteFriendByEmailCard = ({ addNewReferral }) => (
     </Card>
   </div>
 );
-
-const ReferralCodeClipBoard = ({ referralCode }) => {
-  const [copied, setCopied] = React.useState(false);
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setCopied(false);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, [copied]);
-
-  return (
-    <>
-      <label htmlFor="referralLink">Share Your Referral Link</label>
-      <div className="input-group">
-        <input
-          type="text"
-          name="referralLink"
-          className="form-control"
-          aria-label="referral code"
-          value={referralCode}
-          readOnly
-        />
-        <div className="input-group-append">
-          <CopyToClipboard text={referralCode} onCopy={() => setCopied(true)}>
-            {copied ? (
-              <span className="input-group-text btn-success text-white disabled">
-                <CheckIcon />
-              </span>
-            ) : (
-              <span className="input-group-text btn btn-primary-light btn-light">
-                <CopyToClipBoardIcon />
-              </span>
-            )}
-          </CopyToClipboard>
-        </div>
-      </div>
-      <div className="mt-2">
-        {copied && (
-          <div className="small text-success text-center">
-            Your referral link has been successfully copied!
-          </div>
-        )}
-      </div>
-    </>
-  );
-};
 
 const InviteFriendsTable = ({ results, offset }) => {
   const referrals = results;

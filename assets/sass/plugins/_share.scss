@@ -1,0 +1,126 @@
+// Brand colors
+$facebook: #1877f2;
+$twitter: #000000;
+$linkedin: #0077b5;
+$whatsapp: #25d366;
+$email: #6c63ff; // updated for better contrast and distinction
+$copy: #4b5563;
+
+.share-modal .modal-content {
+  background-color: color('shades', 'white');
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  max-width: 420px;
+  margin: auto;
+  text-align: center;
+  position: relative;
+}
+
+.share-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+.share-box h5 {
+  font-size: 18px;
+  color: color('dark', '900');
+}
+
+.share-box p {
+  color: color('dark', '600');
+}
+
+// Shared styles for all share buttons
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 0.75rem;
+  border-radius: 8px;
+  color: white;
+  width: 100%;
+  transition: background-color 0.2s ease-in-out;
+
+  svg {
+    font-size: 18px;
+    margin-right: 0.5rem;
+  }
+}
+
+// Platform-specific button colors
+.btn-twitter {
+  background-color: $twitter;
+  color: white;
+
+  &:hover {
+    background-color: darken($twitter, 8%);
+    color: white;
+  }
+}
+
+.btn-facebook {
+  background-color: $facebook;
+  color: white;
+
+  &:hover {
+    background-color: darken($facebook, 8%);
+    color: white;
+  }
+}
+
+.btn-linkedin {
+  background-color: $linkedin;
+  color: white;
+
+  &:hover {
+    background-color: darken($linkedin, 8%);
+    color: white;
+  }
+}
+
+.btn-whatsapp {
+  background-color: $whatsapp;
+  color: white;
+
+  &:hover {
+    background-color: darken($whatsapp, 8%);
+    color: white;
+  }
+}
+
+.btn-email {
+  background-color: $email;
+  color: white;
+
+  &:hover {
+    background-color: darken($email, 8%);
+    color: white;
+  }
+}
+
+.btn-copy {
+  background-color: $copy;
+  color: white;
+
+  &:hover {
+    background-color: darken($copy, 8%);
+    color: white;
+  }
+}
+
+// No thanks button - now full width
+.btn-outline-secondary {
+  color: color('dark', '700');
+  background: color('dark', '100');
+  border: none;
+  width: 100%;
+  font-weight: 500;
+
+  &:hover {
+    background: color('dark', '200');
+    color: color('dark', '800');
+  }
+}
