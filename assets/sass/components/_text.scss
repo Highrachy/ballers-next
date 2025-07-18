@@ -44,6 +44,14 @@
     color: $danger !important;
   }
 }
+
+.text-hover {
+  &:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+}
 @each $brand, $colors in $brand-colors {
   @each $shade, $color in $colors {
     .text-#{$brand}-#{$shade} {

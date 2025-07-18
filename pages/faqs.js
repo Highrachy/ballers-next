@@ -73,37 +73,54 @@ export const FAQSearch = ({ processFoundFAQs }) => {
     const searchResult = Object.values(FAQsContent).reduce(
       (result, { faqs, name }) => {
         const foundFAQs = faqs.filter(({ question, answer }) => {
-          const processedQuestion = question.props
-            ? question.props.children
-            : question;
-          console.log('answer', answer);
-          // const processedAnswer = answer.props ? answer.props.children : answer;
-          const processedAnswer = '';
+          // Extract text from question
+          const processedQuestion =
+            typeof question === 'string'
+              ? question
+              : question?.props?.children?.toString() || '';
 
-          console.log('processedAnswer', processedAnswer);
+          // Extract text from answer (handle React nodes)
+          const processedAnswer =
+            typeof answer === 'string'
+              ? answer
+              : Array.isArray(answer?.props?.children)
+              ? answer.props.children
+                  .map((child) => {
+                    if (typeof child === 'string') return child;
+                    if (typeof child === 'object' && 'props' in child)
+                      return child.props.children || '';
+                    return '';
+                  })
+                  .join(' ')
+              : answer?.props?.children?.toString() || '';
 
-          const searchTerms = value.split(' ');
-
-          return searchTerms.find((term) => {
-            const searchTerm = term.toLowerCase();
-            return (
-              processedQuestion?.toLowerCase().includes(searchTerm) ||
-              processedAnswer?.toLowerCase().includes(searchTerm) ||
-              name?.toLowerCase().includes(searchTerm)
-            );
-          });
+          const searchTerms = value.trim().toLowerCase().split(/\s+/);
+          return searchTerms.some(
+            (term) =>
+              processedQuestion.toLowerCase().includes(term) ||
+              processedAnswer.toLowerCase().includes(term) ||
+              name?.toLowerCase().includes(term)
+          );
         });
+
         return [...result, ...foundFAQs];
       },
       []
     );
+
     processFoundFAQs(searchResult, value);
     setValue('');
   };
 
   return (
     <section className="col-lg-8 col-sm-10 col-11 mx-auto mt-4">
-      <form className="faqs-search-form mx-auto">
+      <form
+        className="faqs-search-form mx-auto"
+        onSubmit={(e) => {
+          e.preventDefault(); // ⛔ prevent page reload
+          if (value.length >= 3) searchFAQs();
+        }}
+      >
         <div className="input-group flex-nowrap">
           <div className="input-group-prepend">
             <span className="input-group-text">
@@ -130,8 +147,7 @@ export const FAQSearch = ({ processFoundFAQs }) => {
               className={classNames('btn btn-secondary', {
                 disabled: !value || value.length < 3,
               })}
-              type="button"
-              onClick={searchFAQs}
+              type="submit" // ✅ submit form via Enter or click
             >
               Search
             </button>

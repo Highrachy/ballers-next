@@ -4,7 +4,7 @@ import GameButton from '../shared/GameButton';
 import { FaShareAlt, FaRocket, FaKickstarter } from 'react-icons/fa';
 import BallersLogo from '@/components/utils/BallersLogo';
 import GameShare from '../shared/GameShare';
-import { FaChartPie, FaRepeat } from 'react-icons/fa6';
+import { FaChartPie, FaGift, FaRepeat, FaUserPlus } from 'react-icons/fa6';
 import GameBadge from '../shared/GameBadge';
 import GameConfetti from '../shared/GameConfetti';
 import GameModal from '../shared/GameModal';
@@ -12,7 +12,7 @@ import GameInsightsModal from '../shared/GameInsightsModal';
 import { useRouter } from 'next/router';
 import { STORAGE } from '../shared/helper';
 import Link from 'next/link';
-import GameFooter from '../shared/GameFooter';
+import { LocalImage } from '@/components/utils/Image';
 
 export default function SummaryPageComponent({
   contact,
@@ -118,6 +118,8 @@ export default function SummaryPageComponent({
               )}
             </div>
 
+            <ReferTeaser />
+
             {/* Booster Card */}
             <div className="booster-card mx-auto" data-hide-on-capture>
               <h3 className="summary-header">Next Steps</h3>
@@ -210,3 +212,49 @@ export default function SummaryPageComponent({
     </>
   );
 }
+
+/* ─── REFER & EARN TEASER (stacked) ─────────────────────────────── */
+const ReferTeaser = () => (
+  <section
+    className="refer-teaser py-5 mt-6 mb-4 border-top border-bottom"
+    data-hide-on-capture
+  >
+    <div className="container text-center">
+      {/* ── HEADLINE ───────────────────────────────────────────── */}
+      <p className="text-uppercase fw-bold mb-2 header-secondary">
+        Turn Your Network into Income
+      </p>
+
+      <Link href="/refer-a-baller" passHref>
+        <a className="text-link text-hover text-decoration-none">
+          <h1 className="display-5 fw-bold mb-5">
+            Refer a BALLer and earn{' '}
+            <span className="text-secondary">₦1&nbsp;million</span> in cash
+            &amp; gifts.
+          </h1>
+
+          {/* ── ILLUSTRATION ──────────────────────────────────────── */}
+          <LocalImage
+            src="/img/pages/referral/refer-and-earn.svg"
+            width={1475}
+            height={1024}
+            alt="Refer & Earn illustration"
+            className="img-fluid mb-5"
+          />
+        </a>
+      </Link>
+
+      {/* ── CTA BUTTONS ───────────────────────────────────────── */}
+      <div className="d-flex flex-wrap justify-content-center gap-3">
+        <GameButton color="secondary" href="/refer-a-baller">
+          Learn More&nbsp;
+          <FaRocket />
+        </GameButton>
+        <GameButton color="gray" href="/register">
+          Refer a Friend&nbsp;
+          <FaUserPlus className="me-2" />
+        </GameButton>
+      </div>
+    </div>
+  </section>
+);

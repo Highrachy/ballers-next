@@ -174,7 +174,20 @@ $purple: #6f42c1;
 
 .btn-game--gray {
   @extend %btn-game-base;
-  @include btn-skin($gray, #fff);
+  @include btn-skin($primary-50, $primary-700);
+  &:hover:not(:disabled) {
+    background: $primary-500;
+    color: $primary-50;
+  }
+}
+
+.btn-game--secondary {
+  @extend %btn-game-base;
+  @include btn-skin($secondary, #fff);
+  &:hover:not(:disabled) {
+    background: $secondary-800;
+    color: $secondary-50;
+  }
 }
 
 /* reuse the same mixin you already have */
