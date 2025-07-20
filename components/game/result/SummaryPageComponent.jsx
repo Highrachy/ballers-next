@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 import { STORAGE } from '../shared/helper';
 import Link from 'next/link';
 import { LocalImage } from '@/components/utils/Image';
+import BallerTerm from '@/components/common/BallerTerm';
 
 export default function SummaryPageComponent({
   contact,
@@ -228,7 +229,7 @@ const ReferTeaser = () => (
       <Link href="/refer-a-baller" passHref>
         <a className="text-link text-hover text-decoration-none">
           <h1 className="display-5 fw-bold mb-5">
-            Refer a BALLer and earn{' '}
+            Refer a <BallerTerm /> and earn{' '}
             <span className="text-secondary">₦1&nbsp;million</span> in cash
             &amp; gifts.
           </h1>
@@ -250,7 +251,7 @@ const ReferTeaser = () => (
           Learn More&nbsp;
           <FaRocket />
         </GameButton>
-        <GameButton color="gray" href="/register">
+        <GameButton color="gray" href="/docs/referral-program">
           Refer a Friend&nbsp;
           <FaUserPlus className="me-2" />
         </GameButton>

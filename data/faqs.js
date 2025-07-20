@@ -307,6 +307,20 @@ const faqs = {
     ),
     faqs: [
       {
+        question: 'Who exactly is a BALLer?',
+        answer: (
+          <>
+            A <strong>BALLer</strong> is any friend, colleague, or family member
+            who signs up on the BALL platform with the goal of Becoming a
+            LandLord. Whether they&apos;re just exploring options, actively
+            saving, or ready to make their first property payment, the moment
+            they join the BALL&apos;s platform, they are officially a{' '}
+            <strong>BALLer</strong>.
+          </>
+        ),
+        showOnHomePage: true,
+      },
+      {
         question: 'What is the BALL Refer & Earn Program?',
         answer: (
           <>

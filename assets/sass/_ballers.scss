@@ -927,3 +927,12 @@ mark {
   border: 3px solid #f8f9fa;
   padding: 10px;
 }
+
+.baller-term {
+  cursor: help; /* lets users know they can hover */
+  &:hover {
+    border-bottom: 1px dotted $text-muted;
+    opacity: 0.9;
+    transition: text-decoration 0.3s, opacity 0.3s;
+  }
+}

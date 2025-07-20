@@ -10,6 +10,7 @@ import { FaGifts, FaShare, FaUserPlus } from 'react-icons/fa6';
 import Button from '@/components/forms/Button';
 import FAQsAccordion from '@/components/common/FAQsAccordion';
 import FAQsContent from '@/data/faqs';
+import BallerTerm from '@/components/common/BallerTerm';
 
 const ReferAndEarn = () => (
   <>
@@ -55,13 +56,15 @@ const HeroSection = () => {
               Turn Your Network into Income
             </p>
             <h1 className="display-3 fw-bold mb-3">
-              Refer a BALLer from your circle and earn ₦1 million in cash &amp;
+              Refer a <BallerTerm /> and earn{' '}
+              <span className="text-secondary">₦1 million</span> in cash &amp;
               gifts.
             </h1>
 
             <p className="h4 fw-light lh-normal my-4 pe-xl-8 px-md-6 px-lg-8 px-xl-0 text-primary">
-              Have a baller in your circle? Help them own a quality home and get
-              paid premium when they close. That&apos;s what we call a win-win.
+              Have a <BallerTerm /> in your circle? Help them own a quality home
+              and get paid premium when they close. That&apos;s what we call a
+              win-win.
             </p>
             <div className="mb-5">
               <Button href="/register">
@@ -94,7 +97,9 @@ const Steps = () => (
   <section className="bg-light-blue py-6">
     <div className="text-center">
       <h6 className="header-secondary">HOW IT WORKS</h6>
-      <h3>Referring a BALLer is as easy as 1, 2, 3</h3>
+      <h3>
+        Referring a <BallerTerm /> is easy
+      </h3>
     </div>
     <div className="container">
       <div className="row text-center gy-4 py-6">
