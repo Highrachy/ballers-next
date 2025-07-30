@@ -58,6 +58,7 @@ import {
   BiCheckCircle,
   BiFoodMenu,
   BiCameraMovie,
+  BiSolidArea,
 } from 'react-icons/bi';
 import {
   AiFillCheckSquare,
@@ -91,10 +92,12 @@ import {
   MessageQuestion,
   MessageEdit,
   Game,
+  Size,
 } from 'iconsax-react';
 import { LuSettings2 } from 'react-icons/lu';
 import { RiPlanetFill } from 'react-icons/ri';
 import colorTokens from 'style-dictionary/build/color.tokens';
+import { FaLayerGroup } from 'react-icons/fa6';
 
 export const ArrowLeftIcon = () => <FiChevronLeft />;
 export const ArrowDownIcon = () => <FiChevronDown />;
@@ -168,6 +171,7 @@ export const RightArrowIcon = () => <FiChevronRight />;
 export const RightChevronIcon = () => <FiChevronRight />;
 export const SchoolIcon = () => <FaBuilding />;
 export const SearchIcon = () => <FiSearch />;
+export const SizeIcon = () => <BiSolidArea />;
 export const SuccessIcon = () => <FaCheckCircle />;
 export const SupportIcon = () => <BsFillQuestionCircleFill />;
 export const TestimonialsIcon = () => <TiMessages />;
@@ -177,14 +181,15 @@ export const ToiletIcon = () => <FaToilet />;
 export const TransactionIcon = () => <EmptyWalletTime variant="Bulk" />;
 export const TwitterIcon = () => <FiTwitter />;
 export const TourIcon = () => <RiPlanetFill />;
+export const UnitsIcon = () => <FaLayerGroup />;
 export const UserIcon = () => <FiUser />;
 export const UploadIcon = () => <FiUploadCloud />;
 export const VasIcon = () => <Activity variant="Bulk" />;
 export const VasRequestIcon = () => <MdAddShoppingCart />;
+export const VendorIcon = () => <FaUserCircle />;
 export const VisitationIcon = () => <AiOutlineCalendar />;
 export const WalletIcon = () => <EmptyWalletAdd variant="Bulk" />;
 export const WarningIcon = () => <FaExclamationTriangle />;
-export const VendorIcon = () => <FaUserCircle />;
 
 export const CertifiedIconOld = () => (
   <svg

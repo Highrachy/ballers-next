@@ -279,9 +279,9 @@ export const PropertyInfoForm = (props) => {
             />
 
             <div className="form-row">
-              {displayForm.houseType || props?.values?.houseType ? (
+              {displayForm.houseType ? (
                 <Input
-                  // formGroupClassName="col-md-6"
+                  formGroupClassName="col-md-6"
                   label="House Type"
                   name="houseType"
                   placeholder="House Type"
@@ -294,7 +294,7 @@ export const PropertyInfoForm = (props) => {
               ) : (
                 <Select
                   placeholder="Select House Type"
-                  // formGroupClassName="col-md-6"
+                  formGroupClassName="col-md-6"
                   label="House Type"
                   labelLink={{
                     onClick: () => toggleForm('houseType'),
@@ -305,6 +305,13 @@ export const PropertyInfoForm = (props) => {
                   options={valuesToOptions(HOUSE_TYPES)}
                 />
               )}
+              <Select
+                formGroupClassName="col-md-6"
+                label="Has BQ or Maids Room"
+                name="hasBQ"
+                options={booleanOptions()}
+                placeholder="Has BQ"
+              />
             </div>
 
             <div className="form-row">
@@ -332,12 +339,16 @@ export const PropertyInfoForm = (props) => {
                 options={generateNumOptions(9, 'Toilet')}
                 placeholder="Select Toilets"
               />
-              <Select
+              <InputFormat
                 formGroupClassName="col-md-6"
-                label="Has BQ or Maids Room"
-                name="hasBQ"
-                options={booleanOptions()}
-                placeholder="Has BQ"
+                label="Size (msq)"
+                name="size"
+                placeholder="Property Size"
+                isNumericString
+                allowNegative={false}
+                thousandSeparator
+                suffix=" msq"
+                prefix=""
               />
             </div>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import Link from 'next/link';
-import { RightArrowIcon } from 'components/utils/Icons';
+import { RightArrowIcon, SizeIcon } from 'components/utils/Icons';
 import PropertyPlaceholderImage from 'assets/img/placeholder/property-holder.jpg';
 import { getPropertyHouseType, moneyFormatInNaira } from 'utils/helpers';
 import { LoveIcon } from 'components/utils/Icons';
@@ -21,6 +21,9 @@ import Image, { OnlineImage } from 'components/utils/Image';
 import ProfileAvatar from 'assets/img/placeholder/property-holder.jpg';
 import { useCurrentRole } from 'hooks/useUser';
 import Button from '../forms/Button';
+import { FaCalendarAlt } from 'react-icons/fa';
+import { FaCoins, FaCreditCard, FaMoneyBillWave } from 'react-icons/fa6';
+import { RiCoinFill } from 'react-icons/ri';
 
 const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
   const {
@@ -33,8 +36,17 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
     slug,
     favourites,
     pricingModel,
+    size,
     deliveryState,
   } = property;
+
+  const paymentPlans = property?.paymentPlans || [];
+
+  const preferredPaymentPlan = paymentPlans.find((plan) => plan.isPreferred);
+  const hasInitialPayment = preferredPaymentPlan?.initialPayment > 0;
+  const preferredPrice = hasInitialPayment
+    ? preferredPaymentPlan.initialPayment
+    : price;
 
   const [loading, setLoading] = React.useState(false);
   let { userState, userDispatch } = React.useContext(UserContext);
@@ -131,18 +143,50 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
               <PropertyIcon /> {name}
             </strong>{' '}
           </div>
-
           {/* Price */}
           <h5 className="property-price property-spacing mb-1">
-            {moneyFormatInNaira(price)}
+            {moneyFormatInNaira(preferredPrice)}{' '}
+            {hasInitialPayment && (
+              <small className="text-muted fw-light">/ Initial Payment</small>
+            )}
           </h5>
           <div className="text-sm fw-normal mt-2 text-soft">
-            <span className="property-holder__locationss">
+            <span className="property-holder__locations">
               {address?.city}, {address?.state}
             </span>
-            {/* &nbsp; | &nbsp; */}
-            {/* {PRICING_MODEL_DESC?.[pricingModel] || 'Timeline Payment'} */}
           </div>
+          {hasInitialPayment ? (
+            <div className="property-info property-spacing text-primary">
+              <span className="pe-3">
+                {preferredPaymentPlan.numberOfMonths} month
+                {preferredPaymentPlan.numberOfMonths > 1 ? 's' : ''}
+              </span>
+              |{' '}
+              <span className="px-3">
+                ₦{' '}
+                {Humanize.compactInteger(
+                  preferredPaymentPlan.monthlyPayment,
+                  1
+                )}
+                /mo
+              </span>
+              |{' '}
+              <span className="ps-3">
+                ₦{' '}
+                {Humanize.compactInteger(preferredPaymentPlan.totalPayment, 1)}{' '}
+                total
+              </span>
+            </div>
+          ) : (
+            <div className="property-info property-spacing text-primary">
+              <span className="pe-2">Outright Payment</span>
+              {paymentPlans.length > 0 ? (
+                <span>
+                  | &nbsp; {paymentPlans.length} payment plans available
+                </span>
+              ) : null}
+            </div>
+          )}
           {/* Info with Icons */}
           <div className="property-holder__separator my-3"></div>
           <div className="property-info property-spacing">
@@ -155,11 +199,19 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
               <BathIcon /> {property.bathrooms}{' '}
               {Humanize.pluralize(property.bathrooms, 'bath')}
             </span>
-            |
-            <span className="ps-3">
+            |{' '}
+            <span className="px-3">
               <ToiletIcon /> {property.toilets}{' '}
               {Humanize.pluralize(property.toilets, 'toilet')}
             </span>
+            {property?.size && (
+              <>
+                |{' '}
+                <span className="ps-3">
+                  <SizeIcon /> {property.size} sqm
+                </span>
+              </>
+            )}
           </div>
           {/* View Button */}
           <div className="mt-4">

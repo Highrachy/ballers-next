@@ -38,6 +38,7 @@ export const newPropertySchema = {
   price: positiveNumberValidation('Price'),
   units: positiveNumberValidation('Units'),
   houseType: stringValidation('House Type'),
+  size: optionalValidation(required('Property Size')),
   bedrooms: positiveNumberValidation('Bedrooms'),
   bathrooms: positiveNumberValidation('Bathrooms'),
   toilets: positiveNumberValidation('Toilets'),
@@ -164,4 +165,24 @@ export const addPropertyUpdateSchema = {
 export const propertyUpdateImageSchema = {
   title: required('Title'),
   url: required('Image URL'),
+};
+
+export const addPaymentPlanSchema = {
+  name: optionalValidation(required('Plan name')),
+  initialPayment: positiveNumberValidation('Initial payment'),
+  totalPayment: positiveNumberValidation('Total payment'),
+  numberOfMonths: positiveNumberValidation('Number of months'),
+  isPreferred: optionalValidation(required('Is preferred')),
+};
+
+export const updatePaymentPlanSchema = {
+  name: optionalValidation(required('Plan name')),
+  initialPayment: optionalValidation(
+    positiveNumberValidation('Initial payment')
+  ),
+  totalPayment: optionalValidation(positiveNumberValidation('Total payment')),
+  numberOfMonths: optionalValidation(
+    positiveNumberValidation('Number of months')
+  ),
+  isPreferred: optionalValidation(required('Is preferred')),
 };

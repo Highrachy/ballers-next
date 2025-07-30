@@ -23,7 +23,9 @@ import {
   DeliveryStateIcon,
   FileIcon,
   MapPinIcon,
+  SizeIcon,
   TransactionIcon,
+  UnitsIcon,
   VendorIcon,
   VisitationIcon,
 } from 'components/utils/Icons';
@@ -89,6 +91,7 @@ import NumberFormat from 'react-number-format';
 import { TickCircle, InfoCircle } from 'iconsax-react';
 import Realistic from 'react-canvas-confetti/dist/presets/realistic';
 import Label from '../forms/Label';
+import { PaymentPlanList } from './PaymentPlans';
 
 const pageOptions = {
   key: 'property',
@@ -158,17 +161,6 @@ export const OwnedPropertyCard = ({
 
   return (
     <div className="container-fluid">
-      {isVendor && false && (
-        <div className="my-5 text-end">
-          <Link
-            className="btn btn-dark btn-wide"
-            href={`/vendor/property/template/${property._id}`}
-          >
-            Create Property Template
-          </Link>
-        </div>
-      )}
-
       <Card className="card-container mt-4 h-100 property-holder__big">
         <PropertyImage property={property} />
         {isAdminOrVendor && property?.flagged?.status && (
@@ -384,6 +376,13 @@ export const PropertyLists = ({
       property={property}
       setToast={setToast}
       setProperty={setProperty}
+      isPublicPage={isPublicPage}
+    />
+
+    <PaymentPlanList
+      property={property}
+      setProperty={setProperty}
+      setToast={setToast}
       isPublicPage={isPublicPage}
     />
 
@@ -1039,6 +1038,16 @@ export const PropertyDescription = ({
       )}`,
       Icon: ToiletIcon,
     },
+    // Only include Size if property.size is not 0 or undefined
+    ...(property?.size
+      ? [
+          {
+            title: 'Size',
+            value: `${property.size} sqm`,
+            Icon: SizeIcon,
+          },
+        ]
+      : []),
     {
       title: 'Available Units',
       value: `${property.availableUnits} ${Humanize.pluralize(
@@ -1488,8 +1497,16 @@ export const PropertyHeader = ({
           {Humanize.pluralize(property.toilets, 'toilet')}
         </span>
         <TextSeparator />
+        {property?.size && (
+          <>
+            <span className="px-3">
+              <SizeIcon /> <Spacing /> {property.size} sqm
+            </span>
+            <TextSeparator />
+          </>
+        )}
         <span className="ps-3">
-          <AssignedPropertyIcon /> <Spacing /> {property.availableUnits}{' '}
+          <UnitsIcon /> <Spacing /> {property.availableUnits}{' '}
           {Humanize.pluralize(property.availableUnits, 'unit')}
         </span>
       </div>

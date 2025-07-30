@@ -270,10 +270,10 @@
 .list-dotted {
   li {
     &:first-child {
-      border-top: 1px dotted $gray-300 !important;
+      border-top: 1px dotted $gray-400 !important;
     }
     border: none !important;
-    border-bottom: 1px dotted $gray-300 !important;
+    border-bottom: 1px dotted $gray-400 !important;
     padding: 1.25rem 0;
     font-weight: 500;
     display: flex;
