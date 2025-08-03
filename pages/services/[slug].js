@@ -6,8 +6,6 @@ import TitleSection from 'components/common/TitleSection';
 import Toast, { useToast } from 'components/utils/Toast';
 import { API_ENDPOINT } from 'utils/URL';
 import Axios from 'axios';
-import SharerModal from '@/components/utils/SharerModal';
-import Button from '@/components/forms/Button';
 import NoContent from '@/components/utils/NoContent';
 import { PropertyIcon } from '@/components/utils/Icons';
 import { OnlineImage } from '@/components/utils/Image';

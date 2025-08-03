@@ -15,12 +15,12 @@ import {
 } from '@/components/shared/SingleProperty';
 import { ScheduleTourButton } from '@/components/pages/user/SingleUserProperty';
 import Axios from 'axios';
-import SharerModal from '@/components/utils/SharerModal';
 import Button from '@/components/forms/Button';
 import { Spacing } from '@/components/common/Helpers';
 import NoContent from '@/components/utils/NoContent';
 import { PropertyIcon } from '@/components/utils/Icons';
 import { useChatMessage } from '@/context/ChatContext';
+import ShareButton from '@/components/common/ShareButton';
 
 const taglines = [
   'BALL: Where Dreams Take Shape - Discover Your Perfect Home, Defined by Elegance and Tranquility',
@@ -101,12 +101,18 @@ const LoadProperty = ({ property }) => {
           hideBuyNowButton
           actionButton={
             <>
-              <SharerModal />
+              <ShareButton
+                className="btn-wide px-4"
+                hasIcon={false}
+                header="Share This Property"
+                text={`Check out this property on BALL: ${property?.name}`}
+              />
               <Spacing />
               <Button
+                className={'btn-wide'}
                 href={`/contact-us?text=Hello, I am interested in the ${property?.name} property. Please provide further details&subject=Property Application: ${property?.name}`}
               >
-                Make Enquiry
+                Buy Now
               </Button>
             </>
           }
@@ -120,7 +126,7 @@ const LoadProperty = ({ property }) => {
               vendorInfo={vendorInfo}
               isPublicPage
               Actionbar={
-                <div className="mt-3 d-flex">
+                <div className="mt-3 d-flex flex-column flex-md-row">
                   <ComparePropertyButton property={property} />
                   <Spacing />
                   <ScheduleTourButton

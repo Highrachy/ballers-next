@@ -919,7 +919,7 @@ export const PropertyImage = ({ property, hideGallery }) => {
 
 const ContactOption = ({ icon, header, text, link }) => {
   return (
-    <div className="col-md-4">
+    <div className="col-md-6 mb-3">
       <Link href={link}>
         <a className="contact-link">
           <p className="mb-2 text-uppercase fw-bold">{text}</p>
@@ -949,21 +949,9 @@ export const PropertyContact = ({ property }) => {
               variant="Bold"
             />
           }
-          text="CALL US NOW"
+          text="CALL/ WHATSAPP US NOW"
           header="+234 903 020 0031"
           link="#"
-        />
-        <ContactOption
-          icon={
-            <Whatsapp
-              size="32"
-              color={colorTokens.primary[200]}
-              variant="Bold"
-            />
-          }
-          header="+234 802 838 8185"
-          text="CHAT VIA WHATSAPP"
-          link="https://wa.me/08028388185"
         />
         <ContactOption
           icon={
@@ -979,10 +967,10 @@ export const PropertyContact = ({ property }) => {
         />
       </div>
       <Button
-        className="btn-xl btn-wide mt-5 btn-md"
+        className="px-6 py-4 mt-5 text-lg"
         href={`/contact-us?text=Hello, I am interested in the ${property?.name} property. Please provide further details&subject=Property Application: ${property?.name}`}
       >
-        Make Enquiry Now
+        Buy Property Now
       </Button>
     </div>
   );
@@ -1290,7 +1278,7 @@ export const ViewEligibilityButton = ({ property }) => {
   const eligibilityClassName = userIsEligible ? 'success-dark' : 'dark';
 
   return (
-    <div>
+    <>
       <Button
         color="none"
         className="btn-primary-light btn-wide btn-wide-sm btn-sm"
@@ -1427,7 +1415,7 @@ export const ViewEligibilityButton = ({ property }) => {
           </h4>
         </section>
       </Modal>
-    </div>
+    </>
   );
 };
 
@@ -1457,7 +1445,7 @@ export const PropertyHeader = ({
             {moneyFormatInNaira(property.price)}
           </h3>
         </div>
-        <div className="col-sm-6 text-end">
+        <div className="col-sm-6 text-md-end text-start my-3 my-md-0">
           {actionButton ||
             (isUser && !isPortfolioPage && (
               <>

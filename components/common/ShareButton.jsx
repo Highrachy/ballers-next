@@ -16,6 +16,7 @@ const ShareButton = ({
   text,
   header = 'Share Page',
   className = 'mt-3',
+  hasIcon = true,
 }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -51,7 +52,7 @@ const ShareButton = ({
         onClick={() => setShowOptions(true)}
         aria-label="Share"
       >
-        {header} <Share className="ms-2" />
+        {header} {hasIcon && <Share className="ms-2" />}
       </Button>
 
       <Modal show={showOptions} onHide={handleClose} className="share-modal">

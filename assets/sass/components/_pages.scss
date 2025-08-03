@@ -469,23 +469,6 @@ ul.timeline li.timeline__border:after {
   text-align: center;
 }
 
-.sharer__icons {
-  li {
-    margin-bottom: 1rem;
-    margin-right: 1rem;
-    display: inline-block;
-
-    button {
-      opacity: 1;
-      transition: opacity 0.3s ease-out;
-
-      &:hover {
-        opacity: 0.5;
-      }
-    }
-  }
-}
-
 .loading-icon,
 .no-content {
   svg {

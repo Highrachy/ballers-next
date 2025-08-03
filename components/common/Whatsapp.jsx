@@ -6,8 +6,8 @@ const FloatingChatButton = () => {
   const { message, isVisible } = useChatMessage();
 
   const handleChatClick = () => {
-    const phoneNumber = '2348028388185';
-    // const phoneNumber = '2349030200031';
+    // const phoneNumber = '2348028388185';
+    const phoneNumber = '2349030200031';
     window.open(
       `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
       '_blank'

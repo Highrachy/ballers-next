@@ -8,10 +8,10 @@ import { getFormattedAddress } from 'utils/helpers';
 import { LocalImage, OnlineImage } from 'components/utils/Image';
 import TitleSection from '@/components/common/TitleSection';
 import Axios from 'axios';
-import SharerModal from '@/components/utils/SharerModal';
 import Button from '@/components/forms/Button';
 import { RecommendedPropertyLists } from '@/components/common/PropertyCard';
 import Modal from '@/components/common/Modal';
+import ShareButton from '@/components/common/ShareButton';
 
 const pageOptions = {
   key: 'user',
@@ -43,9 +43,6 @@ const VendorProfile = ({ user }) => {
       />
       <Toast {...toast} showToastOnly />
       <section className="container-fluid py-6">
-        {/* <div className="float-end">
-          <SharerModal />
-        </div> */}
         <div className="row">
           <div className="col-md-8 col-10 mx-auto">
             <VendorInfo user={user} />
@@ -126,7 +123,7 @@ const VendorInfo = ({ user }) => {
 
           <div className="mt-3">
             <GetInTouch />
-            <SharerModal />
+            <ShareButton />
           </div>
 
           {/* <ProjectStats user={user} /> */}

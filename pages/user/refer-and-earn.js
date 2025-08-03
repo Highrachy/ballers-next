@@ -16,7 +16,6 @@ import { BASE_API_URL } from 'utils/constants';
 import { CopyToClipBoardIcon } from 'components/utils/Icons';
 import { UserContext } from 'context/UserContext';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Sharer from 'components/utils/Sharer';
 import { CheckIcon } from 'components/utils/Icons';
 import { getError, getReferralStatus, moneyFormatInNaira } from 'utils/helpers';
 import { getTokenFromStore } from 'utils/localStorage';

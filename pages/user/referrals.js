@@ -16,7 +16,6 @@ import { BASE_API_URL } from 'utils/constants';
 import { CopyToClipBoardIcon } from 'components/utils/Icons';
 import { UserContext } from 'context/UserContext';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Sharer from 'components/utils/Sharer';
 import { CheckIcon } from 'components/utils/Icons';
 import { getError, getReferralStatus, moneyFormatInNaira } from 'utils/helpers';
 import { getTokenFromStore } from 'utils/localStorage';
@@ -30,6 +29,7 @@ import { refreshQuery } from 'hooks/useQuery';
 import UserCard from 'components/common/UserCard';
 import { LocalImage } from '@/components/utils/Image';
 import WelcomeHero from '@/components/common/WelcomeHero';
+import ShareButton from '@/components/common/ShareButton';
 
 const ReferAndEarn = () => {
   const { userState } = React.useContext(UserContext);
@@ -85,7 +85,11 @@ const EmailReferral = () => {
 
             <ReferralCodeClipBoard referralCode={referralCode} />
 
-            <Sharer shareUrl={referralCode} />
+            <ShareButton
+              url={referralCode}
+              header="Share Your Referral Link"
+              text="Hi there! Join Ballers today -- the easiest way to become a Landlord"
+            />
           </div>
         </section>
       </Card>
