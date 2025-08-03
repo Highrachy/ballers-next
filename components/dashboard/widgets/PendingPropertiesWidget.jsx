@@ -8,7 +8,7 @@ const PendingPropertiesWidget = ({ result, role = 'vendor' }) => {
   return (
     <WidgetBox
       title="Pending Properties"
-      href={`/${role}/properties`}
+      href={`/${role}/property`}
       data={result}
     >
       {result?.map((property, index) => {

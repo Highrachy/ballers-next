@@ -634,7 +634,7 @@ export const PropertyUpdatesList = ({
   const userIsVendor = !isPublicPage && isVendor;
   const propertyIsTimeline = property?.pricingModel === PRICING_MODEL.Timeline;
   const vendorCanEdit = userIsVendor && propertyIsTimeline;
-  const noPropertyUpdates = property?.propertyUpdate?.length === 0;
+  const noPropertyUpdates = (property?.propertyUpdate || [])?.length === 0;
 
   if (!propertyIsTimeline) return null;
 

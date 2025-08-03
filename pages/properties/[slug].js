@@ -108,12 +108,7 @@ const LoadProperty = ({ property }) => {
                 text={`Check out this property on BALL: ${property?.name}`}
               />
               <Spacing />
-              <Button
-                className={'btn-wide'}
-                href={`/contact-us?text=Hello, I am interested in the ${property?.name} property. Please provide further details&subject=Property Application: ${property?.name}`}
-              >
-                Buy Now
-              </Button>
+              <BuyNowButton property={property} />
             </>
           }
         />
@@ -181,3 +176,12 @@ export async function getStaticPaths() {
     fallback: true,
   };
 }
+
+export const BuyNowButton = ({ property, className = 'btn-wide' }) => (
+  <Button
+    className={className}
+    href={`/contact-us?text=Hello, I am interested in buying the ${property?.name} property. Please provide further details&subject=Property Application: ${property?.name}`}
+  >
+    Buy Now
+  </Button>
+);

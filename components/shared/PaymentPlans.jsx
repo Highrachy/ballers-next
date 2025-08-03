@@ -25,6 +25,7 @@ import InputFormat from 'components/forms/InputFormat';
 import { useCurrentRole } from 'hooks/useUser';
 import { setQueryCache } from 'hooks/useQuery';
 import Switch from 'components/forms/Switch';
+import { BuyNowButton } from 'pages/properties/[slug]';
 
 /* ────────────────────────────────────────── */
 /* Shared helpers                             */
@@ -61,12 +62,13 @@ export const PaymentPlanForm = ({
         const url = `${BASE_API_URL}/property/${property._id}/payment-plan`;
 
         const method = paymentPlan?._id ? 'put' : 'post';
+        const isPreferred = !!values?.isPreferred;
         Axios({
           method,
           url,
           data: paymentPlan?._id
-            ? { ...values, paymentPlanId: paymentPlan._id }
-            : values,
+            ? { ...values, paymentPlanId: paymentPlan._id, isPreferred }
+            : { ...values, isPreferred },
           headers: { Authorization: getTokenFromStore() },
         })
           .then(({ status, data }) => {
@@ -96,7 +98,6 @@ export const PaymentPlanForm = ({
         // live monthly calc (front-end only for display; backend recalcs too)
         const { values } = props;
         const monthlyPayment = calcMonthly(values);
-        console.log('monthlyPayment', monthlyPayment);
         // Validation for monthly payment and total payment
         const showMonthlyError =
           monthlyPayment <= 0 ||
@@ -109,11 +110,16 @@ export const PaymentPlanForm = ({
             <section className="row">
               <div className="col-md-10 px-4">
                 <h5>{paymentPlan ? 'Edit' : 'Add'} Payment Plan</h5>
+                <div className="mt-2 text-muted">
+                  Property price:{' '}
+                  <strong>{moneyFormatInNaira(property.price)}</strong>
+                </div>
 
                 <Input
                   label="Plan name"
                   name="name"
                   placeholder="e.g. 24-Month Plan"
+                  optional
                 />
 
                 <InputFormat
@@ -175,10 +181,6 @@ export const PaymentPlanForm = ({
                     {paymentPlan ? 'Update' : 'Add'} Plan
                   </Button>
                 )}
-                <div className="mt-2 text-muted small">
-                  Property price:{' '}
-                  <strong>{moneyFormatInNaira(property.price)}</strong>
-                </div>
                 <DisplayFormikState showAll {...props} />
               </div>
             </section>
@@ -317,6 +319,7 @@ export const PaymentPlanList = ({
                 isPreferred={plan.isPreferred}
                 isVendor={userIsVendor}
                 isPublicPage={isPublicPage}
+                property={property}
               />
             ))}
         </section>
@@ -425,6 +428,7 @@ const PaymentPlanCard = ({
   isPreferred,
   isVendor,
   isPublicPage = false,
+  property = {},
 }) => {
   return (
     <aside className="col-md-6 col-lg-4">
@@ -489,9 +493,7 @@ const PaymentPlanCard = ({
           </div>
         ) : (
           <div className="d-flex justify-content-center my-3">
-            <Button wide color="secondary" onClick={onEdit}>
-              Buy Now
-            </Button>
+            <BuyNowButton property={property} />
           </div>
         )}
       </div>
