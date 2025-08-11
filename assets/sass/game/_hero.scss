@@ -61,9 +61,9 @@ $gold: #ffc400;
 /* Shared Typography */
 .hero__title,
 .hero-mob__title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 1.25;
-  font-weight: 600;
+  font-weight: 700;
   margin: 0;
   color: #fff;
 }
@@ -133,26 +133,40 @@ $gold: #ffc400;
 /* Mobile Card */
 @include media-breakpoint-down(lg) {
   .hero-mob__card {
-    background: url('/img/game/torn-card-mobile.svg') no-repeat center center;
-    background-size: contain;
-    width: 80vw;
-    aspect-ratio: 350 / 300;
-    min-width: 20rem;
-    max-width: 26rem;
-    margin: 0 auto;
-    padding: 4rem 3rem;
+    background-image: url(/img/game/torn-card-mobile.svg);
+    background-repeat: no-repeat;
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    padding: 5rem;
+
+    @media (max-width: 500px) {
+      background-size: 500px 100%;
+      padding: 3rem;
+    }
+
+    @media (max-width: 500px) {
+      background-size: 500px 100%;
+    }
+
+    @media (max-width: 360px) {
+      background-size: 600px 100%;
+    }
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    text-align: left;
     color: #fff;
     z-index: 2;
     position: relative;
+    text-align: left;
     word-break: break-word;
-    white-space: normal;
+
+    // remove the fixed width
+    width: auto;
+    max-width: 100%; // optional for responsiveness
 
     @include media-breakpoint-up(md) {
-      max-width: 30rem;
+      max-width: 35rem;
     }
   }
 
@@ -166,7 +180,7 @@ $gold: #ffc400;
 
 /* Button container */
 .hero-mob__btn-wrapper {
-  margin-top: 5rem;
+  margin-top: 2rem;
   z-index: 3;
 }
 

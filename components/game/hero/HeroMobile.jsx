@@ -7,9 +7,7 @@ export default function HeroMobile() {
       {/* navy torn card + content */}
       <div className="hero-mob__card">
         <h1 className="hero__title hero-mob__title">
-          Welcome to the <span className="fw-bold">BALLERS</span>
-          <br />
-          real&nbsp;estate&nbsp;challenge
+          Be sure of your <span className="fw-bold">Ballers</span> status
         </h1>
 
         <div className="hero__divider my-3">
@@ -19,8 +17,14 @@ export default function HeroMobile() {
         </div>
 
         <p className="hero__copy mb-3">
-          See how close you are to owning a home in Lagos and get a simple plan
-          to level up like a true BALLER.
+          Whether you&apos;re a first-time buyer or a real estate veteran. Know
+          exactly <strong>When</strong>, <strong>Where</strong>, and{' '}
+          <strong>How</strong> your next purchase goes down.
+        </p>
+
+        <p className="hero__copy">
+          Let&apos;s tell you your BALLer status — ready to find out when
+          you&apos;ll make your next big deal?
         </p>
 
         <div className="hero__meta fw-bold small d-flex align-items-center">

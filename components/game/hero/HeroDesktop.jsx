@@ -19,20 +19,24 @@ export default function HeroDesktop() {
             {/* torn card */}
             <div className="hero__card">
               <h1 className="hero__title">
-                Welcome to the <span className="fw-bold">BALLERS</span>
-                <br />
-                real&nbsp;estate&nbsp;challenge
+                Be sure of your <span className="fw-bold">Ballers</span> status
               </h1>
 
-              <div className="hero__divider my-4">
+              <div className="hero__divider my-3">
                 <span className="hero__divider-line" />
                 <span className="hero__divider-diamond" />
                 <span className="hero__divider-line" />
               </div>
 
               <p className="hero__copy mb-4">
-                See how close you are to owning a home in Lagos and get a simple
-                plan to level up like a true BALLER.
+                Whether you&apos;re a first-time buyer or a real estate veteran.
+                Know exactly <strong>When</strong>, <strong>Where</strong>, and{' '}
+                <strong>How</strong> your next purchase goes down.
+              </p>
+
+              <p className="hero__copy">
+                Let&apos;s tell you your BALLer status — ready to find out when
+                you&apos;ll make your next big deal?
               </p>
 
               <div className="hero__meta fw-bold small d-flex align-items-center">
@@ -67,13 +71,13 @@ export const HeroCtaButton = () => (
     <div className="hero__btn-wrapper">
       <Link href="/game/are-you-a-baller" passHref>
         <button className="btn-game btn-game--gold">
-          START CHALLENGE <FaPlay className="ms-2" size="0.9em" />
+          START <FaPlay className="ms-2" size="0.9em" />
         </button>
       </Link>
     </div>
     <GameDisclaimer />
 
-    <div className="text-center mt-4">
+    <div className="text-center mt-3">
       <GameShare />
     </div>
   </>
