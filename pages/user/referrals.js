@@ -88,7 +88,7 @@ const EmailReferral = () => {
             <ShareButton
               url={referralCode}
               header="Share Your Referral Link"
-              text="Hi there! Join Ballers today -- the easiest way to become a Landlord"
+              text={`Hi! Found a great platform for real estate deals — BALL. Get top real estate deals with BALL — only vetted properties.`}
             />
           </div>
         </section>
