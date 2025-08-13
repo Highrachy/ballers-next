@@ -6,8 +6,8 @@ export default function HeroMobile() {
     <section className="hero-mob">
       {/* navy torn card + content */}
       <div className="hero-mob__card">
-        <h1 className="hero__title hero-mob__title">
-          Be sure of your <span className="fw-bold">Ballers</span> status
+        <h1 className="hero__title text-center mt-2 hero-mob__title">
+          ARE YOU A <span className="fw-bold">BALLER?</span>
         </h1>
 
         <div className="hero__divider my-3">

@@ -18,8 +18,8 @@ export default function HeroDesktop() {
           <div className="hero__card-wrap position-relative">
             {/* torn card */}
             <div className="hero__card">
-              <h1 className="hero__title">
-                Be sure of your <span className="fw-bold">Ballers</span> status
+              <h1 className="hero__title text-center">
+                ARE YOU A <span className="fw-bold`">BALLER?</span>
               </h1>
 
               <div className="hero__divider my-3">
