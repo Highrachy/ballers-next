@@ -55,16 +55,16 @@ const HeroSection = () => {
             <p className="text-uppercase  fw-bold mb-2 header-secondary">
               Turn Your Network into Income
             </p>
-            <h1 className="display-3 fw-bold mb-3">
-              Refer a <BallerTerm /> and earn{' '}
-              <span className="text-secondary">₦1 million</span> in cash &amp;
+            <h1 className="display-4 fw-bold mb-3">
+              Refer a <BallerTerm /> and become a{' '}
+              <span className="text-secondary">Millionaire</span> in cash &amp;
               gifts.
             </h1>
 
             <p className="h4 fw-light lh-normal my-4 pe-xl-8 px-md-6 px-lg-8 px-xl-0 text-primary">
               Have a <BallerTerm /> in your circle? Help them own a quality home
-              and get paid premium when they close. That&apos;s what we call a
-              win-win.
+              and get over ₦1 million in cash and gifts when they close.
+              That&apos;s what we call a win-win.
             </p>
             <div className="mb-5">
               <Button href="/register">

@@ -216,7 +216,7 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
           {/* View Button */}
           <div className="mt-4">
             <Button href={propertyLink} color="secondary-light" wide>
-              View Details
+              Buy Now
             </Button>
           </div>
         </div>

@@ -73,12 +73,8 @@ const HoldingSection = () => {
         <section className="col-lg-6 ps-lg-6 pt-4 home-hero-container">
           <div className="home-hero">
             <h1 className="text-shadow-light pt-5 pt-lg-0 home-hero-title">
-              Ready to own your <br />
-              <span className="home-hero__text">
-                <TypewriterWrapper
-                  texts={['dream home', 'rental investment', 'income property']}
-                />
-              </span>
+              Ready Buyers Effortlessly <br />
+              <span className="home-hero__text">Access Vetted Homes</span>
             </h1>
           </div>
 
@@ -120,15 +116,23 @@ const AboutSection = () => {
             <Fade triggerOnce cascade damping={0.2}>
               <h6 className="header-secondary d-none d-lg-block">ABOUT BALL</h6>
               <h2 className="my-4 my-md-0">
-                Game-changing service <br /> that makes owning <br /> your home
-                easier
+                We are building the <br /> future of real estate <br />
+                investment
               </h2>
-              <p className="my-md-5 my-3 pe-md-5 pe-lg-8 text-lg text-muted">
-                We have revolutionized the journey to becoming a landlord by
-                aligning your income flow with our flexible property payment
-                plans. With BALL, turning your dream of owning a home into
-                reality is simpler and more attainable than ever before!
-              </p>
+              <div className="my-3 pe-md-5 pe-lg-8 text-lg text-muted mb-4">
+                <p>
+                  A community where ready buyers meet pre-vetted homes, deals
+                  move faster, and geography doesn&apos;t slow you
+                  down—protected from scams by smart systems and real oversight.
+                </p>
+                <p>
+                  Whether you&apos;re buying your first property or expanding
+                  your portfolio, our mission is to make transactions simple,
+                  transparent, and accessible—while actively addressing risks
+                  with proven systems and expert insight - no matter where you
+                  are in the world.
+                </p>
+              </div>
 
               <Link href="/register" passHref>
                 <a className="btn btn-secondary">Register Now</a>
@@ -267,19 +271,19 @@ export async function getStaticProps() {
 const SearchTabComponent = () => {
   const allTabs = [
     {
+      title: 'Check Your Eligibility',
+      component: <SearchEligibilityForm />,
+    },
+    {
       title: 'Search for Properties',
       component: (
         <AdvancedSearchPropertyForm helpText="Find Your Dream Home: Start your search with your preferences" />
       ),
     },
-    {
-      title: 'Check Your Eligibility',
-      component: <SearchEligibilityForm />,
-    },
   ];
 
   return (
-    <Tabs defaultActiveKey={allTabs[0].title} id="transaction-tabs">
+    <Tabs defaultActiveKey={allTabs[0].title} id="hero-tabs">
       {allTabs.map((tab, index) => (
         <Tab key={index} eventKey={tab.title} title={tab.title}>
           {tab.component}
