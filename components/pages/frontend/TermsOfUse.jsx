@@ -20,7 +20,7 @@ const TermsOfUse = () => (
 const Content = () => (
   <section>
     <div className="container my-md-5 my-3 py-5 px-8 terms-of-use">
-      <h3 className="tou-title">TERMS OF USE &amp; PRIVACY</h3>
+      <h2 className="tou-title">TERMS OF USE &amp; PRIVACY</h2>
       <p>
         By proceeding to use the resources on this website, you represent that
         you have read and are adequately advised on the terms and conditions
@@ -457,7 +457,7 @@ const Content = () => (
 
       <p>
         By using digital signature functionalities on{' '}
-        <a href="http://ballers.ng">http://ballers.ng</a>, you acknowledge and
+        <a href="https://ballers.ng">https://ballers.ng</a>, you acknowledge and
         agree to the following:
       </p>
       <ul>
@@ -704,11 +704,11 @@ const Content = () => (
         <li>
           By visiting this page on our website:{' '}
           <a
-            href="http://www.ballers.ng/terms-of-use"
+            href="https://www.ballers.ng/terms-of-use"
             rel="noreferrer noopener"
             target="_blank"
           >
-            http://www.ballers.ng/terms-of-use
+            https://www.ballers.ng/terms-of-use
           </a>
         </li>
       </ul>

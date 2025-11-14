@@ -4,14 +4,38 @@ import CommunityGallery from 'components/common/CommunityGallery';
 import Footer from 'components/layout/Footer';
 import TitleSection from 'components/common/TitleSection';
 import Image from 'next/image';
+import SeoHead from '@/components/utils/SeoHead';
 
 const AboutUs = () => (
   <>
+    <SeoHead
+      title="About BALL | Our Goal, Promise and Core Values"
+      description="Learn about BALL, our mission to help more Nigerians become homeowners, our promise to guide your homeownership journey, and the core values that define our team."
+      canonical="https://ballers.ng/about-us"
+      keywords={[
+        'about BALL',
+        'ball real estate',
+        'homeownership mission nigeria',
+        'ball core values',
+        'become a BALLer',
+        'property investment nigeria',
+      ]}
+    />
+
     <Header />
+
     <TitleSection
       name="About BALL"
-      content="The only realistic burden free process of owning your ideal home."
+      content="The only realistic and burden free process of owning your ideal home."
     />
+
+    {/* Low-content SEO helper text */}
+    <p className="visually-hidden">
+      Learn about BALL, our goal to simplify home ownership, our promise to
+      guide you through the entire journey, and the core values that define our
+      team.
+    </p>
+
     <OurGoalAndPromise />
     <OurCoreValues />
     <CommunityGallery />
@@ -21,38 +45,43 @@ const AboutUs = () => (
 
 const OurGoalAndPromise = () => (
   <div className="container-fluid mb-7">
+    {/* GOAL */}
     <section className="row mt-5">
       <div className="col-lg-5 col-12">
-        <h6 className="header-secondary">OUR GOAL</h6>
-        <h2>
+        <h2 className="header-secondary h6">Our Goal</h2>
+        <h3>
           Make owning a <br /> home easier.
-        </h2>
+        </h3>
       </div>
+
       <div className="col-lg-7 col-12">
         <p className="lead text-primary pt-5 mt-n3 mb-4">
-          Our goal is to facilitate the emergence of a million new homeowners in
-          less than a decade.
+          Our goal is to facilitate the emergence of one million new homeowners
+          in less than a decade.
         </p>
         <p className="lead text-primary">
           We intend to achieve this by reducing the barriers to property
-          investment and acquisition. Our team will guide your every step during
-          this process to ensure your home ownership goals are achieved.
+          investment and acquisition. Our team will guide you at every step to
+          ensure your homeownership goals are successfully achieved.
         </p>
       </div>
     </section>
+
+    {/* PROMISE */}
     <section className="row mt-5">
       <div className="col-lg-5 col-12">
-        <h6 className="header-secondary">OUR PROMISE TO YOU</h6>
-        <h2>Beyond your expectations.</h2>
+        <h2 className="header-secondary h6">Our Promise to You</h2>
+        <h3>Beyond your expectations.</h3>
       </div>
+
       <div className="col-lg-7 col-12 mb-5">
         <p className="lead text-primary pt-5 mt-n3 mb-4">
-          We know that you can achieve home ownership if you utilize the right
+          We know that you can achieve homeownership if you choose the right
           route.
         </p>
         <p className="lead text-primary">
-          If you will dare to Dream Big and take every step of this process with
-          the required discipline, we promise to walk you through to your dream
+          If you dare to dream big and take each step of this journey with
+          discipline, we promise to walk with you until you arrive at your dream
           home.
         </p>
       </div>
@@ -63,93 +92,49 @@ const OurGoalAndPromise = () => (
 const OurCoreValues = () => (
   <section className="bg-light-blue py-5">
     <div className="text-center">
-      <h6 className="header-secondary">CORE VALUES</h6>
-      <h2>What defines us.</h2>
+      <h2 className="header-secondary">Core Values</h2>
+      <h3>What defines us.</h3>
       <p className="lead text-primary">
-        We are a team of passionate and talented people
+        We are a team of passionate and talented people.
       </p>
     </div>
 
     <div className="container-fluid">
       <div className="row row-eq-height justify-content-center">
         <div className="col-lg-5 col-sm-5 col-12 core-values-card">
-          <h3 className="text-secondary fw-bold mb-3"> Innovation</h3>
+          <h4 className="text-secondary fw-bold mb-3">Innovation</h4>
           <p className="text-primary">
-            Our team is constantly working to push the boundaries of comfortable
-            living with new concepts and thoughtful designs that bring the
-            future of housing to you in the present.
+            Our team constantly pushes the boundaries of comfortable living with
+            new ideas and thoughtful designs that bring the future of housing
+            into the present.
           </p>
         </div>
+
         <div className="col-lg-5 col-sm-5 col-12 core-values-card">
-          <h3 className="text-secondary fw-bold mb-3">Quality</h3>
+          <h4 className="text-secondary fw-bold mb-3">Quality</h4>
           <p className="text-primary">
-            A home is not complete until it offers you security and comfort. We
-            offer you nothing but the best combination of designs, workmanship
-            and construction materials to give you the quality lifestyle you
-            deserve.
+            A home is complete only when it offers you security and comfort. We
+            offer nothing but the best in design, workmanship and construction
+            materials to ensure the lifestyle you deserve.
           </p>
         </div>
+
         <div className="col-lg-5 col-sm-5 col-12 core-values-card">
           <h4 className="text-secondary fw-bold mb-3">Accountability</h4>
           <p className="text-primary">
-            Your contribution is not only secure but insured to ensure that your
-            money is accounted for. <br />
-            <br />
+            Your contribution is secure and insured to ensure that every amount
+            is fully accounted for.
           </p>
         </div>
+
         <div className="col-lg-5 col-sm-5 col-12 core-values-card">
           <h4 className="text-secondary fw-bold mb-3">Solutions driven</h4>
           <p className="text-primary">
-            Our constant target is to create and execute housing solutions that
-            makes luxury and healthy living available to more hardworking
-            individuals across Nigeria.
+            Our focus is delivering housing solutions that make quality living
+            accessible to more hardworking individuals across Nigeria.
           </p>
         </div>
       </div>
-    </div>
-  </section>
-);
-
-const teamMembers = [
-  {
-    name: 'Nnamdi Ijei',
-    role: 'CEO',
-    imgSrc: '/img/team/nnamdi.jpg',
-  },
-  {
-    name: 'Oluwatodimu Adeleke',
-    role: 'Legal',
-    imgSrc: '/img/team/oluwatodimu.jpg',
-  },
-  {
-    name: 'Haruna Popoola',
-    role: 'Lead Developer',
-    imgSrc: '/img/team/haruna.jpg',
-  },
-];
-
-const OurTeam = () => (
-  <section className="container-fluid text-center py-5">
-    <h6 className="header-secondary">THE TEAM</h6>
-    <h2>Meet our awesome team.</h2>
-    <div className="row justify-content-center px-5">
-      {teamMembers.map((member, index) => (
-        <div className="col-lg-3 col-sm-6 col-12 mb-5" key={index}>
-          <div className="team-member mt-5">
-            <div className="px-3">
-              <Image
-                src={member.imgSrc}
-                alt={member.name}
-                className="rounded img-fluid border"
-                width="330"
-                height="380"
-              />
-            </div>
-            <h5 className="mt-3 mb-1">{member.name}</h5>
-            <p className="text-green fw-bold">{member.role}</p>
-          </div>
-        </div>
-      ))}
     </div>
   </section>
 );

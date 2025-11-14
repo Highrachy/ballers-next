@@ -23,7 +23,6 @@ const PUBLIC_ROUTES = [
   '/properties/search',
   '/game',
   '/game/are-you-a-baller',
-  '/blog',
 ];
 
 export async function getServerSideProps({ req, res }) {

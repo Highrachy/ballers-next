@@ -21,16 +21,16 @@ const Content = () => (
     <div className="container-fluid mt-md-5 md-3 py-5">
       <div className="row">
         <div className="col-md-4 text-uppercase">
-          <h5 className="privacy-policy__header">
+          <h2 className="privacy-policy__header">
             Information on <br className="d-none d-lg-block" /> data we protect
-          </h5>
+          </h2>
         </div>
         <div className="col-md-8">
           <p>
             At BALL, your privacy is of utmost importance to us. This Privacy
             Policy outlines how we collect, use, protect, and disclose your
             information when you visit or interact with our website,{' '}
-            <a href="http://ballers.ng">http://ballers.ng</a>, and any other
+            <a href="https://ballers.ng">https://ballers.ng</a>, and any other
             sites or services we own and operate. By using our website, you
             consent to the practices described in this policy.
           </p>
@@ -66,7 +66,7 @@ const Content = () => (
           </p>
           <p id="digital-signature">
             When utilizing digital signature functionalities on{' '}
-            <a href="http://ballers.ng">http://ballers.ng</a>, you acknowledge
+            <a href="https://ballers.ng">https://ballers.ng</a>, you acknowledge
             and agree that:
           </p>
           <ul>

@@ -12,10 +12,34 @@ import Link from 'next/link';
 import { getShortDate } from '@/utils/date-helpers';
 import { OnlineImage } from '@/components/utils/Image';
 import Button from '@/components/forms/Button';
+import SeoHead from '@/components/utils/SeoHead';
 
 const Community = ({ result, pagination }) => {
   return (
     <>
+      <SeoHead
+        title="BALL Community Forum | Topics, Discussions and Real Estate Insights"
+        description="Join the BALL community to discuss real estate, homeownership, investment tips and vendor insights. Explore active topics and share knowledge with fellow BALLers."
+        canonical="https://ballers.ng/community"
+        ogImage="https://www.ballers.ng/img/pages/ball-refer.png"
+        keywords={[
+          'ball community',
+          'real estate forum nigeria',
+          'property discussions',
+          'homeownership forum',
+          'ballers community',
+          'sell property nigeria',
+          'buy property nigeria',
+          'real estate advice',
+        ]}
+      />
+
+      {/* Hidden helper text for SEO */}
+      <p className="visually-hidden">
+        The BALL community is a real estate discussion forum for homebuyers,
+        investors and property vendors. Users can browse topics, view replies
+        and engage in conversations about homeownership and property sales.
+      </p>
       <Header />
       <TitleSection
         name="BALL Community"

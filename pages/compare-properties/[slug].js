@@ -10,11 +10,19 @@ import { ArrowLeft } from 'iconsax-react';
 import { Dropdown } from 'react-bootstrap';
 import { moneyFormatInNaira } from '@/utils/helpers';
 import { PropertyIcon } from '@/components/utils/Icons';
+import SeoHead from '@/components/utils/SeoHead';
 
 const CompareProperties = ({ property, otherProperties }) => {
   const [selectedProperty, setSelectedProperty] = React.useState(null);
   return (
     <>
+      <SeoHead
+        title="Compare Properties | BALL"
+        description="This comparison view helps users evaluate multiple property features. Search engines should not index this dynamic comparison page."
+        canonical="https://ballers.ng/"
+        keywords={['compare property', 'property comparison']}
+        robots="noindex, nofollow"
+      />
       <Header />
       <TitleSection
         name="Compare Property"

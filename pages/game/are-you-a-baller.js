@@ -16,10 +16,22 @@ import {
   buildInterludeBullets,
 } from '@/components/game/shared/interludeConfig';
 import { gameEntrySync } from '@/components/game/shared/gameSync';
+import SeoHead from '@/components/utils/SeoHead';
 
 /* ─────────────────────────────────────────────────────────────── */
-
 export default function Start() {
+  return (
+    <>
+      <SeoHead
+        title="Are You a Baller Game"
+        description="Play the BALL Homeownership Readiness Game and discover your homeownership profile."
+      />
+      <GameLogic />
+    </>
+  );
+}
+
+function GameLogic() {
   /* ─── persistent state (local-storage hooks) ─── */
   const [answers, setAnswers] = useLocalStorageState(STORAGE.ANSWERS, {});
   const [bulletCache, setBulletCache] = useLocalStorageState(

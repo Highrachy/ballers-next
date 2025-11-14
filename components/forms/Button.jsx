@@ -32,7 +32,13 @@ const Button = ({
   );
   return isLink ? (
     <Link href={href} passHref>
-      <a className={btnClassName} role="button" {...props}>
+      <a
+        className={btnClassName}
+        role="button"
+        rel="nofollow noopener noreferrer"
+        data-nosnippet="true"
+        {...props}
+      >
         {children}
       </a>
     </Link>

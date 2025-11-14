@@ -12,6 +12,7 @@ import { MdOutlineAssessment } from 'react-icons/md';
 import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
+import SeoHead from '@/components/utils/SeoHead';
 
 const Docs = ({ featuredItems, searchData }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -53,6 +54,20 @@ const Docs = ({ featuredItems, searchData }) => {
 
   return (
     <>
+      <SeoHead
+        title="BALL Documentation | Guides, How-Tos & Help Center"
+        description="Explore the complete BALL documentation: onboarding, user accounts, VIP features, property management, support resources and step-by-step guides."
+        canonical="https://ballers.ng/docs"
+        keywords={[
+          'ball documentation',
+          'ball guides',
+          'ball support',
+          'ball help center',
+          'ball vip documentation',
+          'ball how to use',
+          'ball real estate platform help',
+        ]}
+      />
       <Header />
       <TitleSection
         name="BALL Documentation"

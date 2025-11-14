@@ -2,9 +2,29 @@ import React from 'react';
 import Home from 'pages/ball-vips';
 import axios from 'axios';
 import { API_ENDPOINT } from '@/utils/URL';
+import SeoHead from '@/components/utils/SeoHead';
 
 const Vendor = ({ result }) => {
-  return <Home result={result} />;
+  return (
+    <>
+      <SeoHead
+        title="Sell Your Property with BALL | Fast, Secure and Vetted Buyers"
+        description="List your property with BALL and connect instantly with verified buyers ready to close. Sell faster, avoid scams and enjoy secure transactions with full support."
+        canonical="https://ballers.ng/sell-your-property"
+        ogImage="https://www.ballers.ng/img/pages/ball-refer.png"
+        keywords={[
+          'sell your property',
+          'sell house in Lagos',
+          'sell land in Lagos',
+          'property vendors Nigeria',
+          'sell real estate fast Nigeria',
+          'ball sellers portal',
+          'verified property buyers Lagos',
+        ]}
+      />
+      <Home hideSEO result={result} />;
+    </>
+  );
 };
 
 export default Vendor;

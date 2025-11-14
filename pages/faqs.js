@@ -10,6 +10,7 @@ import TitleSection from '@/components/common/TitleSection';
 import FAQsAccordion from '@/components/common/FAQsAccordion';
 import FAQsContent from '@/data/faqs';
 import { LocalImage } from '@/components/utils/Image';
+import SeoHead from '@/components/utils/SeoHead';
 
 const FAQs = () => {
   const categories = Object.keys(FAQsContent);
@@ -33,15 +34,30 @@ const FAQs = () => {
 
   return (
     <>
+      <SeoHead
+        title="BALL FAQs | Answers About Homeownership, Payment Plans and Becoming a BALLer"
+        description="Find clear answers to common questions about BALL, flexible payment plans, property ownership, membership and support. Learn how to become a BALLer today."
+        canonical="https://ballers.ng/faqs"
+        keywords={[
+          'BALL FAQ',
+          'ballers help',
+          'homeownership questions nigeria',
+          'property payment plan faqs',
+          'ball platform support',
+          'become a baller',
+          'real estate faq nigeria',
+        ]}
+      />
       <Header />
       <TitleSection
         name="Frequently Asked Questions"
         content={
           <>
-            Are you looking for an answer to your questions about BALL?
+            Are you looking for clear answers about BALL and the homeownership
+            process?
             <br className="d-none d-lg-block" />
-            Here we have compiled an overview of frequently asked questions we
-            receive from our BALLers
+            Explore common questions from BALLers about our flexible payment
+            plans, verified properties and how to become a homeowner with BALL.
           </>
         }
       >
@@ -126,7 +142,7 @@ export const FAQSearch = ({ processFoundFAQs }) => {
             <span className="input-group-text">
               <Image
                 src="/img/icons/search-icon.png"
-                alt="search icon"
+                alt="Search FAQs"
                 className="img-fluid"
                 width="35"
                 height="35"
@@ -211,7 +227,7 @@ const FAQCategory = ({
   return (
     <section className="faq-category bg-light-blue py-5">
       <p className="text-center">
-        or chooose a category to quickly find the help you need
+        or choose a category to quickly find the help you need
       </p>
       <div className="container-fluid">
         <Slider {...settings} className="faq-category-slide">
@@ -226,7 +242,7 @@ const FAQCategory = ({
                 className="img-fluid"
                 alt={`${FAQsContent[category].name} icon`}
               />
-              <h6>{FAQsContent[category].name}</h6>
+              <p className="fw-bold">{FAQsContent[category].name}</p>
             </div>
           ))}
         </Slider>
@@ -286,10 +302,10 @@ FAQs.defaultProps = {
 
 const MoreQuestions = () => (
   <section className="container-fluid">
-    <h3 className="text-center mt-5">You still have a question?</h3>
+    <h2 className="text-center h3 mt-5">You still have a question?</h2>
     <p className="text-center lead mt-4">
-      If you cannot find answer to your question in our FAQ, you can <br />{' '}
-      always contact us . We will be with you shortly!
+      If you cannot find the answer to your question in our FAQ, you can always
+      contact us. Our team will respond shortly.
     </p>
     <div className="row mt-5">
       <aside className="col-lg-4 offset-lg-2 col-md-5 col-12 faq-contact-card">

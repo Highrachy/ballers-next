@@ -8,6 +8,7 @@ import { RecommendedPropertyLists } from 'components/common/PropertyCard';
 import Axios from 'axios';
 import Button from '@/components/forms/Button';
 import { useChatMessage } from '@/context/ChatContext';
+import SeoHead from '@/components/utils/SeoHead';
 
 const PublicProperties = ({ result }) => {
   const { setMessage } = useChatMessage();
@@ -18,8 +19,31 @@ const PublicProperties = ({ result }) => {
     );
   }, [setMessage]);
 
+  // Use best available image for OG image
+  const firstImage =
+    result && result[0]?.mainImage
+      ? result[0].mainImage
+      : 'https://www.ballers.ng/img/pages/ball-refer.png';
+
   return (
     <>
+      <SeoHead
+        title="Properties for Sale in Lagos | Affordable Flexible Payment Homes | BALL"
+        description="Explore verified properties for sale in Lagos with flexible payment plans. Find duplexes, terraces, apartments and premium homes in Ajah, Lekki, Sangotedo and more on BALL."
+        canonical="https://ballers.ng/properties"
+        ogImage={firstImage}
+        keywords={[
+          'properties for sale in lagos',
+          'houses for sale in lekki',
+          'ajah houses for sale',
+          'terrace duplex lagos',
+          '4 bedroom duplex in lagos',
+          'homes with payment plan',
+          'buy house in nigeria',
+          'sangotedo houses for sale',
+          'ball real estate',
+        ]}
+      />
       <Header />
       <TitleSection
         name="Our Properties"

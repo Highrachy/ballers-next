@@ -27,6 +27,7 @@ import { getDemoLoginLink, getError, statusIsSuccessful } from 'utils/helpers';
 import { useRouter } from 'next/router';
 import { UserContext } from '@/context/UserContext';
 import GoogleLoginButton from '@/components/common/GoogleLoginButton';
+import SeoHead from '@/components/utils/SeoHead';
 
 const Login = () => {
   const { query } = useRouter();
@@ -34,8 +35,27 @@ const Login = () => {
 
   return (
     <>
+      <SeoHead
+        title="Login | BALL - Access Your Account"
+        description="Log into your BALL account to manage your profile, contributions and property plans. Secure sign in to access your dashboard and homeownership tools."
+        canonical="https://ballers.ng/login"
+        keywords={[
+          'BALL login',
+          'ballers sign in',
+          'login to ballers',
+          'ball dashboard login',
+        ]}
+      />
+
       <Header />
       <TitleSection name="Login Page" content="Log into your account" />
+
+      {/* SEO helper text to address low-content warnings */}
+      <p className="visually-hidden">
+        Log into BALL to access your dashboard, view properties, manage
+        contributions and continue your homeownership journey.
+      </p>
+
       <EmptyTitleSection>
         <Content token={token} redirectTo={url} />
       </EmptyTitleSection>
@@ -65,9 +85,9 @@ const Content = ({ redirectTo, token }) => {
               <section className="auth__footer">
                 <GoogleLoginButton />
                 <div className="register mb-5 text-center">
-                  Not Registered?{' '}
+                  Not registered?{' '}
                   <Link href="/register">
-                    <a className="auth__link"> Create Account</a>
+                    <a className="auth__link">Create account</a>
                   </Link>
                 </div>
                 <div className="text-center">
@@ -76,7 +96,7 @@ const Content = ({ redirectTo, token }) => {
                     className="btn-wide"
                     href={getDemoLoginLink()}
                   >
-                    Login to your Demo Account
+                    Login to your demo account
                   </Button>
                 </div>
               </section>
@@ -109,25 +129,25 @@ const LoginForm = ({ redirectTo, token }) => {
 
   // CHECK TOKEN ACTIVATION
   React.useEffect(() => {
-    token &&
-      Axios.get(`${BASE_API_URL}/user/activate`, { params: { token } })
-        .then(function (response) {
-          const { status, data } = response;
-          if (statusIsSuccessful(status)) {
-            setToast({
-              type: 'success',
-              message: data.message,
-            });
-            setTimeout(() => {
-              router.push('/login');
-            }, 3000);
-          }
-        })
-        .catch(function (error) {
+    if (!token) return;
+    Axios.get(`${BASE_API_URL}/user/activate`, { params: { token } })
+      .then(function (response) {
+        const { status, data } = response;
+        if (statusIsSuccessful(status)) {
           setToast({
-            message: 'Your account could not be activated. Please try again.',
+            type: 'success',
+            message: data.message,
           });
+          setTimeout(() => {
+            router.push('/login');
+          }, 3000);
+        }
+      })
+      .catch(function () {
+        setToast({
+          message: 'Your account could not be activated. Please try again.',
         });
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
@@ -141,11 +161,6 @@ const LoginForm = ({ redirectTo, token }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userState, loginToken]);
-
-  // const login = useGoogleOneTapLogin({
-  //   onSuccess: (codeResponse) => console.log('first', codeResponse),
-  //   onError: (error) => console.log('Login Failed:', error),
-  // });
 
   return (
     <Formik
@@ -186,7 +201,7 @@ const LoginForm = ({ redirectTo, token }) => {
               label="Email"
               name="email"
               onKeyDown={(e) => submitFormWithEnterKey(e)}
-              placeholder="Email Address"
+              placeholder="Email address"
               showFeedback={feedback.NONE}
               tabIndex={1}
             />
@@ -195,7 +210,7 @@ const LoginForm = ({ redirectTo, token }) => {
               labelClassName="d-block"
               labelLink={{
                 to: '/forgot-password',
-                text: 'Forgot Password',
+                text: 'Forgot password',
               }}
               name="password"
               onKeyDown={(evt) => submitFormWithEnterKey(evt)}

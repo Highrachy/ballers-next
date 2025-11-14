@@ -14,10 +14,36 @@ import Button from '@/components/forms/Button';
 import { OnlineImage } from '@/components/utils/Image';
 import { getDemoRegisterLink } from '@/utils/helpers';
 import { TypewriterWrapper } from 'pages';
+import SeoHead from '@/components/utils/SeoHead';
 
-export default function Home({ result }) {
+export default function Home({ result, hideSEO = false }) {
   return (
     <>
+      {!hideSEO && (
+        <SeoHead
+          title="BALL VIPs | Sell Your Property Faster with Verified Buyers"
+          description="Become a BALL VIP and sell your properties faster. Connect with verified buyers, streamline your sales process and unlock advanced real estate tools."
+          canonical="https://ballers.ng/ball-vips"
+          keywords={[
+            'ball vips',
+            'sell your property',
+            'list property nigeria',
+            'real estate vendors',
+            'sell land lagos',
+            'property sellers platform',
+            'ball property vendors',
+            'verified real estate buyers',
+          ]}
+        />
+      )}
+
+      {/* SEO helper text */}
+      <p className="visually-hidden">
+        BALL VIPs is a platform that helps property vendors sell their houses,
+        lands and premium developments faster. Sellers access verified buyers,
+        secure transactions and advanced tools for real estate management.
+      </p>
+
       <Header />
       <HoldingSection />
       <AboutSection />
