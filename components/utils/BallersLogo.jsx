@@ -1,20 +1,20 @@
 import { isFestivePeriod } from '@/utils/helpers';
 import Image from 'next/image';
 import React from 'react';
-import Lottie from 'react-lottie';
-import animationData from 'lotties/logo';
+// import Lottie from 'react-lottie';
+// import animationData from 'lotties/logo';
 
 const BallersLogo = React.forwardRef(
   ({ alt, className, width, height }, ref) => {
     BallersLogo.displayName = 'BallersLogo';
-    const defaultOptions = {
-      loop: true,
-      autoplay: true,
-      animationData: animationData,
-      rendererSettings: {
-        preserveAspectRatio: 'xMidYMid slice',
-      },
-    };
+    // const defaultOptions = {
+    //   loop: true,
+    //   autoplay: true,
+    //   animationData: animationData,
+    //   rendererSettings: {
+    //     preserveAspectRatio: 'xMidYMid slice',
+    //   },
+    // };
     return (
       <a>
         {isFestivePeriod() ? (
@@ -31,7 +31,19 @@ const BallersLogo = React.forwardRef(
             ref={ref}
           />
         ) : (
-          <Lottie options={defaultOptions} height={64} width={104} ref={ref} />
+          // <Lottie options={defaultOptions} height={64} width={104} ref={ref} />
+          <Image
+            src={
+              !!process.env.NEXT_PUBLIC_API_URL
+                ? '/img/ballers-logo.png'
+                : '/img/ballers-staging-logo.png'
+            }
+            alt={alt || 'Ballers.ng logo'}
+            className={className}
+            width={width}
+            height={height}
+            ref={ref}
+          />
         )}
       </a>
     );

@@ -75,5 +75,8 @@
     "lodash": "^4.17.21",
     "react-query-devtools": "^2.6.3",
     "style-dictionary": "^3.7.2"
+  },
+  "engines": {
+    "node": "22"
   }
 }

@@ -121,7 +121,7 @@ const LoadProperty = ({ property }) => {
               vendorInfo={vendorInfo}
               isPublicPage
               Actionbar={
-                <div className="mt-3 d-flex flex-column flex-md-row">
+                <div className="mt-3 d-flex">
                   <ComparePropertyButton property={property} />
                   <Spacing />
                   <ScheduleTourButton

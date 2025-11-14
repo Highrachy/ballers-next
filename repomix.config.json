@@ -1,0 +1,19 @@
+{
+  "output": {
+    "style": "markdown",
+    "filePath": "baller-frontend.repomix.md",
+    "removeComments": true,
+    "showLineNumbers": false,
+    "removeEmptyLines": true,
+    "topFilesLength": 0
+  },
+  "include": [
+    "pages/**"
+  ],
+  "ignore": {
+    "customPatterns": [
+      "*.test.ts",
+      "docs/**"
+    ]
+  }
+}
