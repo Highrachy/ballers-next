@@ -30,6 +30,7 @@ import CommunityGallery from '@/components/common/CommunityGallery';
 import axios from 'axios';
 import { BASE_API_URL } from '@/utils/constants';
 import Button from '@/components/forms/Button';
+import SeoHead from '@/components/utils/SeoHead';
 
 export const searchProperty = async (searchQuery) => {
   try {
@@ -84,8 +85,37 @@ const Search = () => {
 
   return (
     <>
+      <SeoHead
+        title="Confirm Eligibility | Property Affordability & Homeownership Check"
+        description="Check your eligibility to own a property based on your income, initial investment, location and preferred house type. Get instant affordability insights on BALL."
+        canonical={`https://www.ballers.ng/confirm-eligibility?area=${area}&houseType=${houseType}`}
+        keywords={[
+          'property eligibility checker',
+          'home affordability nigeria',
+          'can I buy a house',
+          'ball eligibility',
+          'lagos home affordability',
+          'property price nigeria',
+        ]}
+      />
       <Header />
       <SearchForm defaultInputValue={defaultInputValue} />
+      <section style={{ display: 'none' }}>
+        <h1>Confirm Your Property Eligibility</h1>
+        <p>
+          Use the BALL eligibility checker to estimate how much home you can
+          afford based on your income, monthly budget, upfront investment and
+          preferred property location in Nigeria. This tool helps buyers
+          understand price ranges, payment plans and real estate expectations
+          before making a commitment.
+        </p>
+        <p>
+          BALL provides transparent market data, including minimum and maximum
+          price ranges for popular locations across Lagos and Abuja. You can
+          compare house types such as terraces, duplexes, detached homes and
+          apartments to make a smarter buying decision.
+        </p>
+      </section>
       {result ? (
         <SearchResultContent properties={properties} result={result} />
       ) : (

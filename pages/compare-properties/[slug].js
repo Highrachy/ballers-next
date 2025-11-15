@@ -19,7 +19,7 @@ const CompareProperties = ({ property, otherProperties }) => {
       <SeoHead
         title="Compare Properties | BALL"
         description="This comparison view helps users evaluate multiple property features. Search engines should not index this dynamic comparison page."
-        canonical="https://ballers.ng/"
+        canonical="https://www.ballers.ng/"
         keywords={['compare property', 'property comparison']}
         robots="noindex, nofollow"
       />

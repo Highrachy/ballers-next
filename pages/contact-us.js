@@ -23,7 +23,7 @@ const ContactUs = () => {
       <SeoHead
         title="Contact BALL | Reach Us for Support, Questions or Assistance"
         description="Get in touch with BALL for inquiries, support or assistance. Contact us via phone, WhatsApp, email or visit our Victoria Island office. We reply quickly and are ready to help."
-        canonical="https://ballers.ng/contact-us"
+        canonical="https://www.ballers.ng/contact-us"
         keywords={[
           'contact BALL',
           'ball customer support',

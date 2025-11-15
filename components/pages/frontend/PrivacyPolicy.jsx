@@ -30,9 +30,9 @@ const Content = () => (
             At BALL, your privacy is of utmost importance to us. This Privacy
             Policy outlines how we collect, use, protect, and disclose your
             information when you visit or interact with our website,{' '}
-            <a href="https://ballers.ng">https://ballers.ng</a>, and any other
-            sites or services we own and operate. By using our website, you
-            consent to the practices described in this policy.
+            <a href="https://www.ballers.ng">https://www.ballers.ng</a>, and any
+            other sites or services we own and operate. By using our website,
+            you consent to the practices described in this policy.
           </p>
           <p>
             We collect personal information only when it is necessary to provide
@@ -66,8 +66,8 @@ const Content = () => (
           </p>
           <p id="digital-signature">
             When utilizing digital signature functionalities on{' '}
-            <a href="https://ballers.ng">https://ballers.ng</a>, you acknowledge
-            and agree that:
+            <a href="https://www.ballers.ng">https://www.ballers.ng</a>, you
+            acknowledge and agree that:
           </p>
           <ul>
             <li>

@@ -13,7 +13,7 @@ const AtoZ = () => (
     <SeoHead
       title="A-Z of BALL | How BALL Works & How to Become a BALLer"
       description="Discover the A-Z of BALL — how to apply, start a flexible payment plan, and become a BALLer with verified homeownership support."
-      canonical="https://ballers.ng/a-z-of-ball"
+      canonical="https://www.ballers.ng/a-z-of-ball"
       keywords={[
         'A-Z of BALL',
         'how BALL works',

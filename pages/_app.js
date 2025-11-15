@@ -1,7 +1,6 @@
 import UserProvider from '@/context/UserContext';
 import NextNProgress from 'nextjs-progressbar';
 import { isDevEnvironment } from '@/utils/helpers';
-import { DefaultSeo } from 'next-seo';
 import 'assets/sass/import.css';
 import 'assets/sass/App.scss';
 import { ReactQueryDevtools } from 'react-query-devtools';
@@ -19,10 +18,6 @@ function MyApp({ Component, pageProps }) {
         <UserProvider>
           <ChatMessageProvider>
             <NextNProgress color="#5775fa" />
-            <DefaultSeo
-              defaultTitle="Become A Landlord (BALL) - Own Your Dream Home with Ease"
-              description="BALL (Become A Landlord) is the innovative online platform that simplifies the process of owning your dream home. Start your journey to homeownership, make convenient contributions, and access a wealth of real estate knowledge. Join the community of Ballers and unlock the path to a million new homeowners. Visit us at BALLers.ng."
-            />
             <Head>
               <link
                 rel="apple-touch-icon"

@@ -30,6 +30,7 @@ import Slider from 'react-slick';
 import { sliderSettings } from '@/components/common/BenefitsSection';
 import { shuffleArray } from '@/utils/helpers';
 import { useChatMessage } from '@/context/ChatContext';
+import SeoHead from '@/components/utils/SeoHead';
 
 export default function Home({
   properties,
@@ -47,6 +48,7 @@ export default function Home({
 
   return (
     <>
+      <SeoHead />
       <Header />
       <HoldingSection />
       <AboutSection />
@@ -239,10 +241,10 @@ const FAQsSection = () => {
   }, []);
   return (
     <section id="faqs" className="container-fluid">
-      <h6 className="header-secondary">FAQs</h6>
-      <h2>
+      <h2 className="header-secondary h6">FAQs</h2>
+      <h3>
         Your questions <br /> Answered
-      </h2>
+      </h3>
       <div className="row">
         <div className="col-lg-9 col-sm-10 col-12 offset-lg-3 offset-sm-2 mt-5 faqs-section">
           <FAQsAccordion faqs={FAQs} />

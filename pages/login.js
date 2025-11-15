@@ -38,7 +38,7 @@ const Login = () => {
       <SeoHead
         title="Login | BALL - Access Your Account"
         description="Log into your BALL account to manage your profile, contributions and property plans. Secure sign in to access your dashboard and homeownership tools."
-        canonical="https://ballers.ng/login"
+        canonical="https://www.ballers.ng/login"
         keywords={[
           'BALL login',
           'ballers sign in',
@@ -49,12 +49,54 @@ const Login = () => {
 
       <Header />
       <TitleSection name="Login Page" content="Log into your account" />
+      <section className="visually-hidden">
+        <p>
+          Logging into your BALL account gives you secure access to your
+          personal dashboard, saved properties, contributions, rewards, and
+          homeownership progress. Your BALL profile is designed to help you
+          manage every step of your real estate journey with ease. Whether you
+          are exploring verified listings, reviewing payment plans, tracking
+          contributions or connecting with trusted developers, your dashboard
+          keeps everything organized in one place.
+        </p>
 
-      {/* SEO helper text to address low-content warnings */}
-      <p className="visually-hidden">
-        Log into BALL to access your dashboard, view properties, manage
-        contributions and continue your homeownership journey.
-      </p>
+        <p>
+          When you sign in, you immediately unlock tools that help you make
+          informed real estate decisions. You can view properties you previously
+          saved, resume your applications, check eligibility for payment plans,
+          and explore new opportunities available exclusively to BALL users. Our
+          secure login process ensures that your information, preferences and
+          personal data remain protected at all times.
+        </p>
+
+        <p>
+          BALL also makes it easy for returning users to pick up exactly where
+          they left off. Whether you logged out from your laptop, mobile phone
+          or tablet, your account keeps everything synced so you can continue
+          your homeownership journey without disruption. You can log in using
+          your email and password, or choose to sign in quickly through Google
+          for a seamless experience.
+        </p>
+
+        <p>
+          For new users who have not created an account yet, BALL provides a
+          fast, simple and free registration process. Creating an account
+          unlocks access to verified developers, secure payment options, trusted
+          listings and powerful financial tools that help Nigerians avoid scams
+          and buy property with confidence. Your account also helps you track
+          your progress and receive personalized recommendations based on your
+          homeownership goals.
+        </p>
+
+        <p>
+          If you ever experience issues logging in or accessing your BALL
+          account, our system provides clear guidance for resetting your
+          password or recovering access. We are committed to ensuring that every
+          user enjoys a smooth, secure and supportive experience while using
+          BALL to explore, plan and take real steps toward owning their ideal
+          home.
+        </p>
+      </section>
 
       <EmptyTitleSection>
         <Content token={token} redirectTo={url} />
@@ -70,10 +112,10 @@ const Content = ({ redirectTo, token }) => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-5 auth__text">
-            <h1>
+            <h2 className="h1">
               Welcome Back, <br />
               {getUserFirstName()}
-            </h1>
+            </h2>
             <p className="lead">
               Sign in to access your profile, rewards and contributions.
             </p>

@@ -35,9 +35,9 @@ const FAQs = () => {
   return (
     <>
       <SeoHead
-        title="BALL FAQs | Answers About Homeownership, Payment Plans and Becoming a BALLer"
+        title="BALL FAQs | Answers About Homeownership, Payment Plans and BALL"
         description="Find clear answers to common questions about BALL, flexible payment plans, property ownership, membership and support. Learn how to become a BALLer today."
-        canonical="https://ballers.ng/faqs"
+        canonical="https://www.ballers.ng/faqs"
         keywords={[
           'BALL FAQ',
           'ballers help',

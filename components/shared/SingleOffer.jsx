@@ -388,7 +388,7 @@ const DisplayOfferLetterTemplate = ({ offerId, setConcerns }) => {
               {/* <div>
                 <SharePublicLink
                   link={`${
-                    process.env.NEXT_PUBLIC_HOST || 'https://ballers.ng'
+                    process.env.NEXT_PUBLIC_HOST || 'https://www.ballers.ng'
                   }/offer/${offer._id}`}
                 />
                 <Link

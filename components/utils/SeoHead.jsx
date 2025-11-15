@@ -2,8 +2,8 @@ import Head from 'next/head';
 
 export default function SeoHead({
   title = 'BALL | Own Your Home in Lagos with Flexible Payment Plans',
-  description = 'BALL helps Nigerians become homeowners with flexible payment plans, verified properties, and expert guidance. Explore homes for sale in Lekki, Ajah, Lagos and more.',
-  canonical = 'https://ballers.ng',
+  description = 'BALL helps Nigerians become homeowners with flexible payment plans, verified properties and expert guidance. Explore homes for sale in Lagos.',
+  canonical = 'https://www.ballers.ng',
   ogImage = 'https://www.ballers.ng/img/pages/ball-refer.png',
   robots = 'index, follow',
   noIndex = false,
@@ -32,7 +32,7 @@ export default function SeoHead({
     '@type': 'Organization',
     name: 'BALL',
     url: canonical,
-    logo: 'https://ballers.ng/logo.png',
+    logo: 'https://www.ballers.ng/logo.png',
     description,
     sameAs: [
       'https://web.facebook.com/Ballerverse',

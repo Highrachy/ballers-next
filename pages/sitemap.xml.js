@@ -12,7 +12,6 @@ const PUBLIC_ROUTES = [
   '/privacy-policy',
   '/terms-of-use',
   '/refer-a-baller',
-  '/refer-a-seller',
   '/sell-your-property',
   '/confirm-eligibility',
   '/ball-vips',
@@ -40,7 +39,7 @@ export async function getServerSideProps({ req, res }) {
   }
 
   // Production sitemap starts here
-  const baseUrl = 'https://ballers.ng';
+  const baseUrl = 'https://www.ballers.ng';
 
   let dynamicProperties = [];
 

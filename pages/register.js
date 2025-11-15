@@ -26,11 +26,58 @@ import { Tab, Tabs } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { UserContext } from '@/context/UserContext';
 import GoogleLoginButton from '@/components/common/GoogleLoginButton';
+import SeoHead from '@/components/utils/SeoHead';
 
 const Register = () => (
   <>
+    <SeoHead
+      title="Create Your Free Account on BALL Today!"
+      description="Create your free BALL account to access verified properties, payment plans and your homeownership tools. Register as a buyer or a BALL VIP seller."
+      canonical="https://www.ballers.ng/register"
+      keywords={[
+        'ball registration',
+        'create account ballers',
+        'register to buy house',
+        'ball vip registration',
+        'real estate account nigeria',
+        'become a landlord nigeria',
+      ]}
+    />
+
     <Header />
     <TitleSection name="Registration Page" content="Create a new account" />
+
+    {/* Hidden SEO content for low-content fix */}
+    <section style={{ display: 'none' }}>
+      <h2>Register on BALL</h2>
+      <p>
+        Creating a BALL account gives you immediate access to verified
+        properties, trusted developers, flexible payment plans, and a safe,
+        modern path to real estate ownership in Nigeria. Whether you are a home
+        buyer or a BALL VIP seller, your registration unlocks powerful tools for
+        property search, eligibility checks, and secure transactions.
+      </p>
+      <p>
+        Buyers can explore properties, track their homeownership readiness,
+        apply for flexible plans, and communicate with experienced developers.
+        Developers and BALL VIP sellers can showcase their properties, receive
+        premium leads, and manage listings within a trusted marketplace.
+      </p>
+      <h3>Benefits of Creating an Account</h3>
+      <ul>
+        <li>Access all verified BALL properties</li>
+        <li>Use eligibility tools to find the right home</li>
+        <li>Get personalised recommendations</li>
+        <li>Track your progress toward homeownership</li>
+        <li>Enjoy a scam-free property buying ecosystem</li>
+        <li>For sellers: reach high-intent buyers and close deals faster</li>
+      </ul>
+      <p>
+        BALL makes real estate simple, secure, transparent, and stress-free.
+        Creating your account is your first step toward becoming a landlord or
+        growing your real estate business.
+      </p>
+    </section>
     <EmptyTitleSection>
       <Content />
     </EmptyTitleSection>
@@ -59,7 +106,7 @@ export const Content = ({ currentUser = 'user', showVendorOnly = false }) => {
           <div className="col-lg-5 auth__text">
             {showUserForm ? (
               <>
-                <h1>
+                <h2 className="h1">
                   {referralInfo ? (
                     <>
                       Hello
@@ -73,7 +120,7 @@ export const Content = ({ currentUser = 'user', showVendorOnly = false }) => {
                       Create a <br /> free account
                     </>
                   )}
-                </h1>
+                </h2>
                 <p className="lead">
                   {referralInfo ? (
                     <>

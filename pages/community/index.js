@@ -20,7 +20,7 @@ const Community = ({ result, pagination }) => {
       <SeoHead
         title="BALL Community Forum | Topics, Discussions and Real Estate Insights"
         description="Join the BALL community to discuss real estate, homeownership, investment tips and vendor insights. Explore active topics and share knowledge with fellow BALLers."
-        canonical="https://ballers.ng/community"
+        canonical="https://www.ballers.ng/community"
         ogImage="https://www.ballers.ng/img/pages/ball-refer.png"
         keywords={[
           'ball community',

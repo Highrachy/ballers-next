@@ -17,7 +17,7 @@ const ReferAndEarn = () => (
     <SeoHead
       title="Refer a BALLer | Earn Over ₦1 Million in Cash and Gifts"
       description="Refer a buyer to BALL and earn over ₦1 million in cash and gifts. Share your referral link, help them own a home and get rewarded when they close."
-      canonical="https://ballers.ng/refer-a-baller"
+      canonical="https://www.ballers.ng/refer-a-baller"
       ogImage="https://www.ballers.ng/img/pages/referral/refer-and-earn.svg"
       keywords={[
         'refer and earn nigeria',

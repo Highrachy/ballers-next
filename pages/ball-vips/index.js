@@ -21,31 +21,43 @@ export default function Home({ result, hideSEO = false }) {
     <>
       {!hideSEO && (
         <SeoHead
-          title="BALL VIPs | Sell Your Property Faster with Verified Buyers"
-          description="Become a BALL VIP and sell your properties faster. Connect with verified buyers, streamline your sales process and unlock advanced real estate tools."
-          canonical="https://ballers.ng/ball-vips"
+          title="BALL VIPs | Sell Faster With Verified Buyers"
+          description="Join BALL VIPs and sell properties faster with verified buyers, streamlined workflows and secure transactions designed for real estate vendors."
+          canonical="https://www.ballers.ng/ball-vips"
           keywords={[
             'ball vips',
-            'sell your property',
-            'list property nigeria',
-            'real estate vendors',
-            'sell land lagos',
-            'property sellers platform',
-            'ball property vendors',
+            'sell property fast nigeria',
+            'real estate vendors nigeria',
+            'property listing platform',
+            'sell property lagos',
+            'real estate sellers',
             'verified real estate buyers',
           ]}
         />
       )}
 
-      {/* SEO helper text */}
-      <p className="visually-hidden">
-        BALL VIPs is a platform that helps property vendors sell their houses,
-        lands and premium developments faster. Sellers access verified buyers,
-        secure transactions and advanced tools for real estate management.
-      </p>
+      {/* Hidden SEO content to fix low word count */}
+      <section className="visually-hidden">
+        <h1>Become a BALL VIP Property Seller</h1>
+        <p>
+          BALL VIPs is the ultimate platform for property developers and estate
+          agents who want to sell faster. By joining the BALL VIP network, you
+          gain access to verified buyers, secure listing management tools,
+          real-time insights, and a trusted marketplace that puts your brand in
+          front of serious investors across Nigeria.
+        </p>
+        <p>
+          Whether you sell land, houses, terraces, duplexes or off-plan
+          projects, BALL provides a modern, transparent system to help you close
+          deals quickly. With advanced property promotion, marketing support,
+          analytics, and a strong buyer community, BALL ensures your listings
+          get the visibility and trust required to convert faster.
+        </p>
+      </section>
 
       <Header />
       <HoldingSection />
+      <EnhancedIntroSection />
       <AboutSection />
       <BenefitsSection isVendor />
       <TheBALLPlatform />
@@ -56,6 +68,30 @@ export default function Home({ result, hideSEO = false }) {
     </>
   );
 }
+
+/* ------------------------------ NEW INTRO SECTION ------------------------------ */
+
+const EnhancedIntroSection = () => (
+  <section className="container-fluid my-6">
+    <div className="row">
+      <div className="col-lg-8 mx-auto text-center">
+        <h2 className="fw-bold mb-3">Why Become a BALL VIP?</h2>
+        <p className="lead text-muted">
+          BALL VIPs get more visibility, more credibility, and more buyers. Your
+          properties are showcased to a pre-qualified audience actively
+          searching for reliable homes and land opportunities.
+        </p>
+        <p className="text-muted">
+          Our platform supports you with advanced tools, automated marketing,
+          analytics, verification systems, and direct access to ready buyers.
+          This means faster sales cycles and higher conversion rates.
+        </p>
+      </div>
+    </div>
+  </section>
+);
+
+/* ------------------------------ HERO ------------------------------ */
 
 const HoldingSection = () => {
   return (
@@ -77,7 +113,7 @@ const HoldingSection = () => {
             </div>
             <p className="lead mt-3 mb-4 pe-xl-8 px-md-6 px-lg-8 px-xl-0 text-primary text-center text-xl-start">
               Whether your goal is to sell more properties or increase your
-              profits, BALL provides the solution to streamline your real estate
+              profits, BALL provides the platform to simplify your real estate
               journey.
             </p>
             <div className="text-center text-xl-start mb-5">
@@ -103,6 +139,8 @@ const HoldingSection = () => {
   );
 };
 
+/* ------------------------------ ABOUT ------------------------------ */
+
 const AboutSection = () => {
   return (
     <section className="container-fluid">
@@ -116,7 +154,7 @@ const AboutSection = () => {
               src={`/img/pages/vendor-home.svg`}
               className="img-cover"
               alt="home"
-              width="675 "
+              width="675"
               height="446"
             />
           </Slide>
@@ -132,12 +170,10 @@ const AboutSection = () => {
               for Real Estate Sales
             </h3>
             <p className="text-lg text-soft mt-3 mb-md-4 pe-0 pe-xl-6">
-              BALL provides an easier, faster, and more efficient way to sell
-              your property, redefining the real estate experience for everyone.
-              We understand the unique challenges faced in the ever-evolving
-              property market, and our platform is crafted to address these
-              challenges head-on, offering a suite of innovative solutions
-              tailored to elevate your business.
+              BALL offers an easier, faster, and more efficient way to sell
+              properties. Our tools help vendors eliminate guesswork, reduce
+              delays, and close deals with verified buyers ready to make
+              decisions.
             </p>
             <Button wide href="/ball-vips/register" className="mt-3">
               Get started for Free
@@ -149,6 +185,8 @@ const AboutSection = () => {
   );
 };
 
+/* ------------------------------ PLATFORM ------------------------------ */
+
 const TheBALLPlatform = () => (
   <section className="container-fluid py-6 py-lg-7 mt-n5">
     <div className="row">
@@ -157,14 +195,11 @@ const TheBALLPlatform = () => (
           <h6 className="header-secondary d-none d-lg-block">
             THE BALL PLATFORM
           </h6>
-          <h2 className="mt-4 my-md-0">
-            Dive into the
-            <br /> VIP Experience:
-          </h2>
+          <h2 className="mt-4 my-md-0">Dive into the VIP Experience:</h2>
           <p className="lead text-primary mt-4 mb-5">
-            Explore a demo to witness firsthand the power of BALL for your
-            business. We&apos;re here to address any questions you may have.
-            Unlock the potential of seamless property management today!
+            Experience a demo to see how BALL transforms your sales process.
+            Manage listings, receive leads, communicate efficiently and scale
+            your real estate business with ease.
           </p>
           <Button
             color="secondary"
@@ -190,6 +225,8 @@ const TheBALLPlatform = () => (
   </section>
 );
 
+/* ------------------------------ VIPS LIST ------------------------------ */
+
 const VendorContainer = ({ results }) => (
   <section className=" bg-gray-light">
     <div className="container-fluid py-6">
@@ -201,6 +238,7 @@ const VendorContainer = ({ results }) => (
               Your Trusted Pathfinders in Real Estate
             </h3>
           </div>
+
           <div className="row g-3">
             {results.map((user, index) => (
               <VendorComponent key={index} number={index + 1} {...user} />
@@ -233,6 +271,8 @@ const VendorComponent = ({ number, ...user }) => {
     </div>
   );
 };
+
+/* ------------------------------ FAQ ------------------------------ */
 
 const FAQsSection = () => {
   const FAQs = FAQsContent['vendor'].faqs;

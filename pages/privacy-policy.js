@@ -7,9 +7,8 @@ const PrivacyPolicyPage = () => {
     <>
       <SeoHead
         title="BALL Privacy Policy | How We Protect Your Data"
-        description="Review the BALL Privacy Policy to understand how your personal data is collected, used, stored and protected on the BALL platform. Learn about your rights and our commitment to secure real estate transactions."
-        canonical="https://ballers.ng/privacy-policy"
-        ogImage="https://www.ballers.ng/img/pages/og-default.png"
+        description="Review the BALL Privacy Policy to understand how your data is collected, used and protected, and learn your rights while using the BALL real estate platform."
+        canonical="https://www.ballers.ng/privacy-policy"
         keywords={[
           'BALL privacy policy',
           'ballers nigeria privacy',

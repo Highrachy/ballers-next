@@ -14,7 +14,7 @@ Disallow: /`;
     content = `User-agent: *
 Allow: /
 
-Sitemap: https://ballers.ng/sitemap.xml`;
+Sitemap: https://www.ballers.ng/sitemap.xml`;
   }
 
   res.setHeader('Content-Type', 'text/plain');

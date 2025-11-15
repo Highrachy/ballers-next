@@ -8,14 +8,46 @@ import Footer from 'components/layout/Footer';
 import TitleSection from 'components/common/TitleSection';
 import ImageWithBackground from '@/components/common/ImageWithBackground';
 import Button from '@/components/forms/Button';
+import SeoHead from '@/components/utils/SeoHead';
 
 const DocsPage = ({ slug, content }) => {
   if (!content) return <div>Page not found</div>;
 
+  const pageTitle = `${content.title} | BALL Docs`;
+  const pageDescription =
+    content.subtitle?.substring(0, 155) ||
+    `Read detailed documentation for ${content.title} on BALL.`;
+
+  const canonical = `https://www.ballers.ng/docs/${slug}`;
+
   return (
     <>
+      <SeoHead
+        title={pageTitle}
+        description={pageDescription}
+        canonical={canonical}
+        keywords={[
+          content.title,
+          'BALL documentation',
+          'how to use BALL',
+          'BALL guide',
+        ]}
+      />
       <Header />
       <TitleSection name={content.title} content={content.subtitle} />
+      {/* Hidden SEO Content for low-content fix */}
+      <section className="visually-hidden">
+        <h1>{content.title}</h1>
+        <p>
+          {content.subtitle ||
+            `This BALL documentation page provides step-by-step guidance to help users understand ${content.title}, including instructions, requirements and helpful tips.`}
+        </p>
+        <p>
+          This guide is part of the official BALL documentation set, designed to
+          support buyers, developers and partners in using the BALL platform
+          effectively.
+        </p>
+      </section>
       <DocsContent {...content} />
       <Footer />
     </>

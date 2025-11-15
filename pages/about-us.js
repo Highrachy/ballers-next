@@ -3,15 +3,14 @@ import Header from 'components/layout/Header';
 import CommunityGallery from 'components/common/CommunityGallery';
 import Footer from 'components/layout/Footer';
 import TitleSection from 'components/common/TitleSection';
-import Image from 'next/image';
 import SeoHead from '@/components/utils/SeoHead';
 
 const AboutUs = () => (
   <>
     <SeoHead
       title="About BALL | Our Goal, Promise and Core Values"
-      description="Learn about BALL, our mission to help more Nigerians become homeowners, our promise to guide your homeownership journey, and the core values that define our team."
-      canonical="https://ballers.ng/about-us"
+      description="Learn about BALL, our mission to help Nigerians become homeowners, and the core values that guide our team and the homeownership journey."
+      canonical="https://www.ballers.ng/about-us"
       keywords={[
         'about BALL',
         'ball real estate',

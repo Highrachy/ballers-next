@@ -57,7 +57,7 @@ const Docs = ({ featuredItems, searchData }) => {
       <SeoHead
         title="BALL Documentation | Guides, How-Tos & Help Center"
         description="Explore the complete BALL documentation: onboarding, user accounts, VIP features, property management, support resources and step-by-step guides."
-        canonical="https://ballers.ng/docs"
+        canonical="https://www.ballers.ng/docs"
         keywords={[
           'ball documentation',
           'ball guides',

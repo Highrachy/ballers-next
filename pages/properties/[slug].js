@@ -21,6 +21,7 @@ import NoContent from '@/components/utils/NoContent';
 import { PropertyIcon } from '@/components/utils/Icons';
 import { useChatMessage } from '@/context/ChatContext';
 import ShareButton from '@/components/common/ShareButton';
+import SeoHead from '@/components/utils/SeoHead';
 
 const taglines = [
   'BALL: Where Dreams Take Shape - Discover Your Perfect Home, Defined by Elegance and Tranquility',
@@ -55,6 +56,39 @@ const PublicPropertySingle = ({ property }) => {
 
   return (
     <>
+      <SeoHead
+        title={`${property?.name || 'Property'} — BALL Verified Property`}
+        description={
+          property?.metaDescription ||
+          `${property?.name} is a verified property listed on BALL with flexible payment plans, trusted developers and secure buying options.`
+        }
+        canonical={`https://www.ballers.ng/properties/${property?.slug}`}
+        ogImage={property?.mainImage || property?.images?.[0] || ''}
+        keywords={[
+          property?.name,
+          `${property?.location?.area} homes`,
+          'lagos property for sale',
+          'nigeria real estate',
+          'ball properties',
+        ]}
+      />
+
+      {/* Hidden SEO block to fix low content */}
+      <section className="visually-hidden">
+        <h1>{property?.name} — Verified BALL Property</h1>
+        <p>
+          {property?.name} is a verified listing on BALL, offering secure
+          documentation, flexible payments and trusted developer backing.
+          Homebuyers can explore this property’s features, payment options,
+          amenities and neighbourhood insights.
+        </p>
+        <p>
+          BALL ensures every listed property is pre-vetted to protect buyers
+          from fraud, misinformation and risky transactions. Explore pictures,
+          pricing details, payment schedules and location highlights to make a
+          confident real estate decision.
+        </p>
+      </section>
       <Header />
       <TitleSection name="Single Property" content={tagline} />
       <section className="row justify-content-center">

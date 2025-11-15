@@ -7,8 +7,8 @@ const TermsOfUsePage = () => {
     <>
       <SeoHead
         title="BALL Terms of Use | User Agreement and Legal Guidelines"
-        description="Review the BALL Terms of Use to understand the rules, responsibilities and legal guidelines for using the BALL platform. Learn about acceptable use, account responsibilities and user rights."
-        canonical="https://ballers.ng/terms-of-use"
+        description="Review the BALL Terms of Use to understand the rules, responsibilities and guidelines for using the platform, including acceptable use and user rights."
+        canonical="https://www.ballers.ng/terms-of-use"
         ogImage="https://www.ballers.ng/img/pages/og-default.png"
         keywords={[
           'BALL terms of use',

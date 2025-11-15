@@ -28,9 +28,9 @@ const PublicProperties = ({ result }) => {
   return (
     <>
       <SeoHead
-        title="Properties for Sale in Lagos | Affordable Flexible Payment Homes | BALL"
-        description="Explore verified properties for sale in Lagos with flexible payment plans. Find duplexes, terraces, apartments and premium homes in Ajah, Lekki, Sangotedo and more on BALL."
-        canonical="https://ballers.ng/properties"
+        title="BALL Properties for Sale in Nigeria with Payment Plans"
+        description="Explore verified Lagos properties with flexible payment plans. Find terraces, duplexes, apartments and premium homes in Lekki, Ajah, Sangotedo and more on BALL."
+        canonical="https://www.ballers.ng/properties"
         ogImage={firstImage}
         keywords={[
           'properties for sale in lagos',
@@ -49,6 +49,32 @@ const PublicProperties = ({ result }) => {
         name="Our Properties"
         content="The only realistic burden free process of owning your ideal home."
       />
+
+      <section style={{ display: 'none' }}>
+        <h2>Properties for Sale in Lagos and Across Nigeria</h2>
+        <p>
+          BALL offers a curated list of verified properties including duplexes,
+          terraces, apartments and premium residential units across Lagos and
+          Nigeria. Each listing is vetted to ensure authenticity, transparent
+          pricing and flexible payment options to support your homeownership
+          journey.
+        </p>
+
+        <h3>What You Can Expect</h3>
+        <ul>
+          <li>Fully verified developers and BALL VIP partners</li>
+          <li>Flexible payment plans for all property types</li>
+          <li>Homes in Lekki, Ajah, Sangotedo, Abijo and more</li>
+          <li>Detailed property information and high-quality images</li>
+          <li>Access to expert support for buying decisions</li>
+        </ul>
+
+        <p>
+          Whether you&apos;re purchasing your first home or upgrading, BALL
+          provides trusted listings built for Nigerians seeking security,
+          convenience and transparency when buying property.
+        </p>
+      </section>
       <PropertiesRowList result={result} title="Available Properties" />
       <CommunityGallery />
       <Footer />

@@ -457,8 +457,8 @@ const Content = () => (
 
       <p>
         By using digital signature functionalities on{' '}
-        <a href="https://ballers.ng">https://ballers.ng</a>, you acknowledge and
-        agree to the following:
+        <a href="https://www.ballers.ng">https://www.ballers.ng</a>, you
+        acknowledge and agree to the following:
       </p>
       <ul>
         <li>

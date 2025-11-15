@@ -10,7 +10,7 @@ const Vendor = ({ result }) => {
       <SeoHead
         title="Sell Your Property with BALL | Fast, Secure and Vetted Buyers"
         description="List your property with BALL and connect instantly with verified buyers ready to close. Sell faster, avoid scams and enjoy secure transactions with full support."
-        canonical="https://ballers.ng/sell-your-property"
+        canonical="https://www.ballers.ng/sell-your-property"
         ogImage="https://www.ballers.ng/img/pages/ball-refer.png"
         keywords={[
           'sell your property',

@@ -27,7 +27,7 @@ const Content = () => {
           <div className="col-lg-5 mx-auto">
             <div className="card p-5 my-6">
               <section>
-                <h5 className="header mb-5">Forgot Password</h5>
+                <h2 className="header h5 mb-5">Forgot Password</h2>
                 <ForgotPasswordForm />
               </section>
               <section className="auth__footer">
