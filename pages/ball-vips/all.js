@@ -10,20 +10,23 @@ import TitleSection from '@/components/common/TitleSection';
 import axios from 'axios';
 import SeoHead from '@/components/utils/SeoHead';
 
-const pageOptions = {
-  key: 'user',
-  pageName: 'User',
-};
-
 const VendorProfile = ({ result }) => {
   const [toast, setToast] = useToast();
 
   return (
     <>
       <SeoHead
-        title="All BALL VIPs &mdash; Verified Real Estate Developers in Nigeria"
-        description="Meet all BALL VIP developers and sellers. Explore trusted real estate vendors across Nigeria, verified to help you find and own your ideal home."
+        title="BALL VIPs | Trusted Real Estate Developers in Nigeria"
+        description="Meet BALL VIP developers and sellers. Find verified and trusted property vendors across Nigeria to help you buy your ideal home safely and confidently."
         canonical="https://www.ballers.ng/ball-vips/all"
+        keywords={[
+          'BALL VIP developers',
+          'verified real estate Nigeria',
+          'trusted property sellers',
+          'Lagos developers',
+          'Lekki real estate',
+          'property investment Nigeria',
+        ]}
       />
       <Header />
       <Toast {...toast} showToastOnly />
@@ -32,59 +35,66 @@ const VendorProfile = ({ result }) => {
         content="Connect with the best developers in the real estate space."
       />
 
-      {/* Hidden SEO Content to Improve Page Depth */}
+      {/* Hidden SEO Section for readability and page depth */}
       <section className="visually-hidden">
         <h2>Verified Real Estate Developers and BALL VIP Partners</h2>
 
         <p>
-          Explore all BALL VIP developers and certified property vendors across
-          Nigeria. This page brings together a curated list of trusted real
-          estate professionals who meet BALL’s highest standards for
-          documentation integrity, transparency, project quality, and customer
-          service. Every VIP partner featured here has undergone a thorough
-          verification process to ensure buyers work only with reliable
-          developers who deliver real value and support throughout the
-          homeownership journey.
+          Explore all BALL VIP developers and certified property sellers in
+          Nigeria. Every partner is checked for trust, proper documents, and
+          quality. This makes property search safer and easier for buyers and
+          investors.
         </p>
 
         <p>
-          The BALL VIP program highlights property companies operating in key
-          markets such as Lekki, Ajah, Sangotedo, Ikoyi, Victoria Island,
-          Ibeju-Lekki, Yaba, Ikeja, and Abuja. Whether you are searching for
-          off-plan developments, ready-to-move-in homes, luxury residences,
-          affordable starter homes or investment-friendly projects, BALL VIPs
-          represent developers with a strong track record of delivering quality
-          real estate solutions.
+          VIP developers operate in key areas like Lekki, Ajah, Sangotedo,
+          Ikoyi, Victoria Island, Ibeju-Lekki, Yaba, Ikeja, and Abuja. They
+          offer off-plan projects, ready homes, luxury houses, starter homes,
+          and investment properties for different budgets.
         </p>
 
         <p>
-          Each VIP listing showcases the developer’s brand, office location,
-          reputation, and property portfolio, helping buyers compare options and
-          make informed decisions. Many of these partners offer flexible payment
-          plans, verified land documentation, professional customer support and
-          estate developments designed to meet different lifestyle and budget
-          needs. With BALL, buyers avoid uncertainty and reduce the risks
-          commonly associated with property purchases in Nigeria.
+          Each listing shows the company name, office address, reputation, and
+          property portfolio. Many VIPs offer flexible payment plans, verified
+          documents, dedicated support, and options to meet buyer needs.
         </p>
 
         <p>
-          This page is regularly updated as new developers join the BALL
-          ecosystem. Newly verified partners, reputable builders, certified
-          vendors and established development companies are added after
-          completing BALL’s review and compliance checks. By browsing this list,
-          buyers and investors gain direct access to some of the most trusted
-          real estate vendors in the industry—making it easier to discover
-          reliable properties, schedule inspections, start applications and move
-          closer to homeownership with confidence.
+          The list updates regularly as new developers and certified vendors
+          join BALL. Buyers and investors can view contacts, schedule visits,
+          submit applications, and make confident decisions.
         </p>
 
         <p>
-          BALL is committed to raising the standard of real estate in Nigeria by
-          promoting credible developers and offering a safe environment where
-          home buyers can research, connect and make secure property decisions.
-          This directory of BALL VIPs reflects our mission to simplify access to
-          quality homes and empower Nigerians to own property without fear,
-          confusion or misinformation.
+          BALL promotes trusted developers and provides a safe platform for
+          buyers. Explore BALL VIPs to find reliable vendors and own property
+          without confusion or risk.
+        </p>
+
+        <p>
+          Many VIP developers also provide extra services such as design advice,
+          project updates, and after-sale support. This helps homebuyers at
+          every step of buying a property.
+        </p>
+
+        <p>
+          Buyers can filter properties by type, location, price, and features.
+          Verified listings, clear pricing, and trustworthy vendor information
+          help users make safe decisions quickly.
+        </p>
+
+        <p>
+          The BALL VIP program features developers focused on quality, honesty,
+          and customer satisfaction. Each partner is reviewed to ensure
+          compliance with rules, construction standards, and good business
+          practices.
+        </p>
+
+        <p>
+          Choosing BALL VIP developers reduces risk. Buyers get verified
+          properties, flexible payment options, and professional support. The
+          platform connects buyers directly to developers for a smoother path to
+          homeownership.
         </p>
       </section>
 
@@ -95,17 +105,15 @@ const VendorProfile = ({ result }) => {
   );
 };
 
-const VendorRowList = ({ results, offset }) => {
-  return (
-    <div className="container-fluid mt-6">
-      <div className="row">
-        {results.map((user, index) => (
-          <VendorComponent key={index} number={offset + index + 1} {...user} />
-        ))}
-      </div>
+const VendorRowList = ({ results, offset = 0 }) => (
+  <div className="container-fluid mt-6">
+    <div className="row">
+      {results.map((user, index) => (
+        <VendorComponent key={index} number={offset + index + 1} {...user} />
+      ))}
     </div>
-  );
-};
+  </div>
+);
 
 const VendorComponent = ({ number, ...user }) => {
   const address = user.vendor.companyAddress;
@@ -143,7 +151,6 @@ const VendorComponent = ({ number, ...user }) => {
 
 export async function getStaticProps() {
   const vendors = await axios.get(API_ENDPOINT.getAllVendors());
-
   return {
     props: {
       ...vendors?.data,

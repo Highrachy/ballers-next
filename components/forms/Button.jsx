@@ -30,18 +30,29 @@ const Button = ({
     { 'btn-xs btn-wide': type === BUTTON_TYPES.SMALL },
     className
   );
+  const isExternal =
+    isLink && (href.startsWith('http://') || href.startsWith('https://'));
+
   return isLink ? (
-    <Link href={href} passHref>
+    isExternal ? (
       <a
+        href={href}
         className={btnClassName}
         role="button"
         rel="nofollow noopener noreferrer"
         data-nosnippet="true"
+        target="_blank"
         {...props}
       >
         {children}
       </a>
-    </Link>
+    ) : (
+      <Link href={href} passHref>
+        <a className={btnClassName} role="button" {...props}>
+          {children}
+        </a>
+      </Link>
+    )
   ) : (
     <button className={btnClassName} onClick={onClick} type="button" {...props}>
       {loading ? (

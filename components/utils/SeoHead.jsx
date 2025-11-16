@@ -113,7 +113,6 @@ export default function SeoHead({
       <meta property="og:updated_time" content={new Date().toISOString()} />
 
       {/* Favicon */}
-      <link rel="icon" href="/favicon.ico" />
       <meta name="theme-color" content="#0F172A" />
 
       {/* --- JSON-LD Structured Data --- */}

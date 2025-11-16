@@ -28,7 +28,13 @@ const VendorProfile = ({ user }) => {
     );
   }
 
-  const title = `${user.vendor.companyName} — BALL VIP Developer Profile`;
+  const baseTitle = 'BALL VIP Developer Profile';
+  const shortTitle = 'BALL VIP Profile';
+  const titleText =
+    `${user.vendor.companyName} — ${baseTitle}`.length <= 55
+      ? baseTitle
+      : shortTitle;
+  const title = `${user.vendor.companyName} — ${titleText}`;
   const description =
     user.vendor.about ||
     `${user.vendor.companyName} is a trusted BALL VIP real estate partner offering verified properties, trusted development, and premium projects.`;
@@ -42,46 +48,6 @@ const VendorProfile = ({ user }) => {
         canonical={canonical}
         ogImage={user.vendor.companyLogo}
       />
-
-      {/* Hidden low-content SEO filler */}
-      <section style={{ display: 'none' }}>
-        <div className="h2">
-          {user.vendor.companyName} Real Estate Developer Overview
-        </div>
-        <p>
-          {user.vendor.companyName} is one of the premium BALL VIP real estate
-          developers providing verified homes, quality construction, and
-          transparent service delivery across multiple Nigerian markets. The
-          organisation focuses on helping homebuyers navigate the property
-          market confidently through verified listings, trusted documentation,
-          and fully managed purchase support.
-        </p>
-
-        <p>
-          As a certified BALL VIP partner, {user.vendor.companyName} has passed
-          strict verification checks for identity, track record, delivery
-          history, and development quality. Homebuyers engaging with this vendor
-          enjoy a secure and transparent process backed by the BALL ecosystem.
-        </p>
-
-        <p>
-          Their property listings typically include modern apartments, duplexes,
-          terraces, luxury homes, off-plan projects, and residential estates.
-          Buyers benefit from flexible payment plans, verified documentation,
-          and after-purchase support. The vendor&apos;s focus areas include
-          communities such as Lekki, Ajah, Sangotedo, Ibeju-Lekki, Victoria
-          Island, and other premium locations depending on current inventory.
-        </p>
-
-        <h3>Services Offered</h3>
-        <ul>
-          <li>Verified off-plan and completed properties</li>
-          <li>Flexible payment plans</li>
-          <li>Document verification and due diligence</li>
-          <li>Construction oversight and project transparency</li>
-          <li>Dedicated customer support via the BALL platform</li>
-        </ul>
-      </section>
 
       <Header />
       <TitleSection
@@ -100,6 +66,61 @@ const VendorProfile = ({ user }) => {
           true
         )}
       />
+
+      {/* Hidden low-content SEO filler */}
+      <section className="visually-hidden">
+        <h2>{user.vendor.companyName} - Verified Real Estate Developer</h2>
+
+        <p>
+          {user.vendor.companyName} is a certified BALL VIP developer. They
+          offer verified homes, quality construction, and transparent service
+          across Nigeria. Buyers can safely explore apartments, duplexes,
+          terraces, and premium estates.
+        </p>
+
+        <p>
+          All listings include verified documentation, flexible payment plans,
+          and professional support. Customers benefit from clear pricing,
+          reliable information, and expert guidance throughout the property
+          purchase process.
+        </p>
+
+        <p>
+          The developer operates in key locations including Lekki, Ajah,
+          Sangotedo, Ibeju-Lekki, Victoria Island, Yaba, Ikeja, and Abuja. Every
+          project meets high standards of quality, safety, and customer
+          satisfaction.
+        </p>
+
+        <p>
+          Many VIP developers also provide additional services such as project
+          updates, design consultations, and after-sale support. This helps
+          homebuyers feel confident and informed at every step.
+        </p>
+
+        <p>
+          Buyers can filter and compare properties by type, location, price, and
+          amenities. Verified listings show nearby schools, hospitals, shopping
+          centers, and transport links, helping users choose the best property
+          for their needs.
+        </p>
+
+        <h3>Services Offered</h3>
+        <ul>
+          <li>Verified off-plan and completed properties</li>
+          <li>Flexible payment plans</li>
+          <li>Document verification and due diligence</li>
+          <li>Construction oversight and project transparency</li>
+          <li>Dedicated customer support via BALL</li>
+          <li>Project updates and after-sale guidance</li>
+        </ul>
+
+        <p>
+          By choosing {user.vendor.companyName} and other BALL VIP developers,
+          buyers reduce risk, gain access to verified listings, and enjoy a
+          safe, seamless homeownership experience.
+        </p>
+      </section>
 
       <Toast {...toast} showToastOnly />
 
@@ -123,14 +144,14 @@ const VendorProfile = ({ user }) => {
         </div>
       </div>
 
-      <div className="row">
+      {/* <div className="row">
         <div className="col-md-8 col-10 mx-auto">
           <VendorPropertiesRowList
             result={user?.properties}
             title="All Properties"
           />
         </div>
-      </div>
+      </div> */}
 
       <Footer />
     </>

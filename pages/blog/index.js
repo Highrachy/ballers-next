@@ -12,11 +12,12 @@ import SeoHead from '@/components/utils/SeoHead';
 const Blog = ({ result, categories }) => {
   const heroPost = result[0]?.node;
   const morePosts = result.slice(1);
+
   return (
     <>
       <SeoHead
         title="BALL Blog | Real Estate & Homeownership Guides"
-        description="Explore the BALL Blog for homeownership insights, property buying tips, market trends, and guides to help Nigerians become landlords with confidence."
+        description="Read BALL Blog for easy-to-understand tips on buying property, market trends, and becoming a landlord in Nigeria."
         canonical="https://www.ballers.ng/blog"
         keywords={[
           'real estate blog nigeria',
@@ -31,44 +32,41 @@ const Blog = ({ result, categories }) => {
       <Header />
       <TitleSection
         name="Blog"
-        content="Unlocking the Pathway to Homeownership: Explore, Engage, and Empower with BALL."
+        content="Learn about property, homeownership, and real estate in simple, practical steps with BALL."
       />
-      {/* Hidden SEO content to fix low-word count */}
+
+      {/* Hidden SEO content for indexing */}
       <section style={{ display: 'none' }}>
         <h2>BALL Real Estate Blog</h2>
         <p>
-          The BALL Blog provides expert insights and practical guidance for
-          anyone looking to buy property, invest in real estate, or begin their
-          journey toward homeownership in Nigeria. From Lagos to Abuja and
-          emerging markets across the country, our articles explain real estate
-          trends, payment plans, due diligence, property verification, financing
-          options, and investment strategies.
+          The BALL Blog gives simple, practical advice for anyone looking to buy
+          property or invest in real estate in Nigeria. Our guides cover Lagos,
+          Abuja, and other key cities.
         </p>
-
         <p>
-          Whether you are a first-time home buyer or an investor evaluating new
-          opportunities, BALL offers simplified advice, unbiased education,
-          community stories, market updates, and actionable steps to help you
-          become a landlord with confidence.
+          Articles explain real estate trends, payment plans, property
+          verification, financing, and investment ideas. We focus on clear,
+          easy-to-follow advice.
         </p>
-
+        <p>
+          Whether you are buying your first home or investing in multiple
+          properties, BALL provides actionable steps, market updates, and
+          community stories to help you make smart decisions.
+        </p>
         <h3>Topics You Can Explore</h3>
         <ul>
-          <li>How to buy your first property in Nigeria</li>
-          <li>Real estate investment opportunities and risks</li>
-          <li>Market insights and price trends across Lagos and Abuja</li>
-          <li>Homeownership planning and financial readiness</li>
-          <li>Payment plans, mortgages, and fractional ownership</li>
-          <li>
-            Developer credibility, due diligence and property verification
-          </li>
-          <li>Tips for choosing the right developer or BALL VIP</li>
+          <li>Buying your first property in Nigeria</li>
+          <li>Investment opportunities and risks in real estate</li>
+          <li>Market insights and pricing trends in Lagos and Abuja</li>
+          <li>Planning for homeownership and financial readiness</li>
+          <li>Payment plans, mortgages, and shared ownership options</li>
+          <li>How to check developer credibility and property verification</li>
+          <li>Choosing the right developer or BALL VIP</li>
         </ul>
-
         <p>
-          BALL is dedicated to making real estate transparent, modern and
-          accessible. Explore the blog to learn, grow and achieve your
-          homeownership goals.
+          BALL is committed to making real estate simple, transparent, and
+          accessible. Read our blog to learn, grow, and take confident steps
+          toward owning a home.
         </p>
       </section>
 

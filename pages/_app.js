@@ -37,10 +37,6 @@ function MyApp({ Component, pageProps }) {
                 href="/favicon-16x16.png"
               />
               <link rel="manifest" href="/site.webmanifest" />
-              <meta
-                name="keywords"
-                content="Become A Landlord, own dream home, homeownership, convenient contributions, real estate knowledge, referral program, community, property investment, property acquisition, Ballers, emerging homeowners"
-              />
             </Head>
             <Script
               async

@@ -4,14 +4,57 @@ import CommunityGallery from 'components/common/CommunityGallery';
 import Footer from 'components/layout/Footer';
 import TitleSection from 'components/common/TitleSection';
 import Link from 'next/link';
+import SeoHead from '@/components/utils/SeoHead';
 
 const GettingStarted = () => (
   <>
+    <SeoHead
+      title="Getting Started with BALL | Your Homeownership Journey"
+      description="Learn how to start your journey to homeownership with BALL. Explore our platform, create an account, and understand features that help you become a property owner in Nigeria."
+      canonical="https://www.ballers.ng/docs/getting-started"
+      keywords={[
+        'BALL getting started',
+        'homeownership Nigeria',
+        'BALL documentation',
+        'property guide Nigeria',
+        'how to use BALL',
+      ]}
+    />
+
     <Header />
     <TitleSection
       name="Getting Started"
       content="The only realistic burden free process of owning your ideal home."
     />
+    {/* Hidden SEO section */}
+    <section className="visually-hidden">
+      <h2>Getting Started with BALL</h2>
+      <p>
+        BALL helps Nigerians achieve homeownership with a seamless, burden-free
+        process. Learn how to navigate the platform, create your account, and
+        understand available property options in Lagos and across Nigeria.
+      </p>
+      <p>
+        This guide provides step-by-step instructions for new users, including
+        how to set up an account, explore the platform features, and access
+        resources that simplify property investment.
+      </p>
+      <p>
+        Users can also learn about BALL Teams, VIP benefits, and property
+        management tools to collaborate effectively and maximize their real
+        estate opportunities.
+      </p>
+      <p>
+        Explore popular topics such as creating your BALL account, beginning
+        your property journey, understanding payment plans, and leveraging
+        platform features to make informed homeownership decisions.
+      </p>
+      <p>
+        By following this Getting Started guide, you gain insights and practical
+        steps to begin your journey towards owning property in Nigeria
+        confidently and efficiently.
+      </p>
+    </section>
     <OurGoalAndPromise />
     <CommunityGallery />
     <Footer />

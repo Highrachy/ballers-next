@@ -103,7 +103,9 @@ const AboutSection = () => {
       <div className="container-fluid">
         <div className="row my-4">
           <div className="col-sm-6 col-12 text-center mb-n4">
-            <h6 className="header-secondary d-lg-none d-block">ABOUT BALL</h6>
+            <div className="header-secondary h6 d-lg-none d-block">
+              ABOUT BALL
+            </div>
             <Slide triggerOnce direction="left">
               <Image
                 src={`/img/pages/home.png`}
@@ -116,7 +118,9 @@ const AboutSection = () => {
           </div>
           <div className="col-sm-6 col-12 pb-5">
             <Fade triggerOnce cascade damping={0.2}>
-              <h6 className="header-secondary d-none d-lg-block">ABOUT BALL</h6>
+              <div className="header-secondary h6 d-none d-lg-block">
+                ABOUT BALL
+              </div>
               <h2 className="my-4 my-md-0">
                 We are building the <br /> future of real estate <br />
                 investment
@@ -241,7 +245,7 @@ const FAQsSection = () => {
   }, []);
   return (
     <section id="faqs" className="container-fluid">
-      <h2 className="header-secondary h6">FAQs</h2>
+      <div className="header-secondary h6">FAQs</div>
       <h3>
         Your questions <br /> Answered
       </h3>

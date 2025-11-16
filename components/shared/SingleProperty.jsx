@@ -966,10 +966,7 @@ export const PropertyContact = ({ property }) => {
           link="mailto:info@ballers.ng"
         />
       </div>
-      <Button
-        className="px-6 py-4 mt-5 text-lg"
-        href={`/contact-us?text=Hello, I am interested in the ${property?.name} property. Please provide further details&subject=Property Application: ${property?.name}`}
-      >
+      <Button className="px-6 py-4 mt-5 text-lg" href={`/contact-us`}>
         Buy Property Now
       </Button>
     </div>

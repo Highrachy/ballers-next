@@ -1,3 +1,4 @@
+import React from 'react';
 import CommunityGallery from '@/components/common/CommunityGallery';
 import TitleSection from '@/components/common/TitleSection';
 import Footer from '@/components/layout/Footer';
@@ -18,8 +19,8 @@ const Community = ({ result, pagination }) => {
   return (
     <>
       <SeoHead
-        title="BALL Community Forum | Topics, Discussions and Real Estate Insights"
-        description="Join the BALL community to discuss real estate, homeownership, investment tips and vendor insights. Explore active topics and share knowledge with fellow BALLers."
+        title="BALL Community Forum | Real Estate Discussions"
+        description="Join the BALL community to discuss real estate, homeownership, investments, and vendor insights in Nigeria."
         canonical="https://www.ballers.ng/community"
         ogImage="https://www.ballers.ng/img/pages/ball-refer.png"
         keywords={[
@@ -34,19 +35,51 @@ const Community = ({ result, pagination }) => {
         ]}
       />
 
-      {/* Hidden helper text for SEO */}
-      <p className="visually-hidden">
-        The BALL community is a real estate discussion forum for homebuyers,
-        investors and property vendors. Users can browse topics, view replies
-        and engage in conversations about homeownership and property sales.
-      </p>
       <Header />
       <TitleSection
         name="BALL Community"
         content="Join BALL's vibrant community for homeownership success."
       />
+
+      {/* Hidden SEO section */}
+      <section className="visually-hidden">
+        <h2>Join the BALL Real Estate Community in Nigeria</h2>
+        <p>
+          The BALL community forum is a hub for Nigerians interested in real
+          estate, homeownership, and property investments. Members can explore a
+          wide variety of topics, ask questions, and share insights with fellow
+          homebuyers, investors, and property vendors.
+        </p>
+        <p>
+          Engage with verified discussions, read tips from experienced
+          investors, and gain knowledge about property buying and selling in
+          Lagos and beyond. From affordable housing to luxury apartments, the
+          BALL community provides expert guidance and trusted advice.
+        </p>
+        <p>
+          Participate in conversations about flexible payment plans, investment
+          opportunities, and homeownership strategies. This platform is designed
+          to empower Nigerians to make informed decisions in the real estate
+          market and build their property portfolio confidently.
+        </p>
+        <p>
+          Users can browse active topics, check views and replies, and interact
+          with authors of posts. The community also highlights trending
+          discussions and provides a platform for collaboration among
+          homeowners, vendors, and property enthusiasts across Nigeria.
+        </p>
+        <p>
+          Joining the BALL community ensures access to relevant updates, market
+          insights, and expert advice. Whether you are looking to buy, sell, or
+          invest, this forum helps you stay informed and connected with
+          like-minded individuals in Nigeria&apos;s growing real estate sector.
+        </p>
+      </section>
+
       <ForumHeading />
+
       {result && <ForumTable topics={result} />}
+
       <CommunityGallery />
       <Footer />
     </>
@@ -102,12 +135,12 @@ const ForumTable = ({ topics }) => {
               const lastCommentAuthor = lastComment?.author;
               return (
                 <Link href={`/community/${topic?.slug}`} key={index}>
-                  <tr key={index}>
+                  <tr>
                     <td>
                       <h5>
                         <TiPin />
                         {topic.title}
-                        <span className="ms-2 badge rounded-pill text-bg-primary community__category-badge ">
+                        <span className="ms-2 badge rounded-pill text-bg-primary community__category-badge">
                           {topic.category}
                         </span>
                       </h5>
@@ -169,17 +202,6 @@ const ForumTable = ({ topics }) => {
           </tbody>
         </table>
       </div>
-      {/* <div className="d-flex justify-content-center mt-4">
-        <Pagination>
-          <Pagination.First />
-          <Pagination.Prev />
-          <Pagination.Item>{pagination.currentPage}</Pagination.Item>
-          <Pagination.Ellipsis />
-          <Pagination.Item>{pagination.totalPage}</Pagination.Item>
-          <Pagination.Next />
-          <Pagination.Last />
-        </Pagination>
-      </div> */}
     </div>
   );
 };
@@ -187,7 +209,6 @@ const ForumTable = ({ topics }) => {
 export async function getStaticProps() {
   try {
     const { data } = await Axios.get(API_ENDPOINT.getAllCommunityTopics());
-    console.log('data', data);
     return {
       props: {
         ...data,

@@ -28,6 +28,7 @@ import Footer from '@/components/layout/Footer';
 import { UserContext } from '@/context/UserContext';
 import { communityCommentSchema } from '@/components/forms/schemas/communitySchema';
 import Textarea from '@/components/forms/Textarea';
+import SeoHead from '@/components/utils/SeoHead';
 
 const AddCommunity = () => {
   const [toast, setToast] = useToast();
@@ -37,11 +38,58 @@ const AddCommunity = () => {
 
   return (
     <>
+      <SeoHead
+        title="Start a New Discussion | BALL Community"
+        description="Join the BALL community and start a new discussion topic. Share insights, ask questions, and connect with other homebuyers and real estate enthusiasts in Nigeria."
+        canonical="https://www.ballers.ng/community/new"
+        keywords={[
+          'BALL community',
+          'real estate forum Nigeria',
+          'property discussion',
+          'homeownership discussion',
+          'BALL forums',
+          'new topic community',
+        ]}
+      />
+
       <Header />
       <TitleSection
         name="Add New Topic"
-        content="Contribute to the BALL Community by starting a new discussion topic. "
+        content="Contribute to the BALL Community by starting a new discussion topic."
       />
+
+      {/* Hidden SEO content for page depth and readability */}
+      <section className="visually-hidden">
+        <h2>Start a New Discussion in the BALL Community</h2>
+        <p>
+          Contribute to the BALL Community by creating a new discussion topic.
+          Share your ideas, ask questions, and engage with fellow members
+          interested in homeownership, property investment, and real estate
+          trends in Nigeria.
+        </p>
+        <p>
+          Starting a topic is easy. Provide a clear title, choose the
+          appropriate category, and write a detailed description or question.
+          This helps other community members respond with useful insights and
+          advice.
+        </p>
+        <p>
+          Members can discuss property buying, financing options, verified
+          developers, and payment plans. The community encourages learning,
+          sharing experiences, and helping each other make informed property
+          decisions.
+        </p>
+        <p>
+          BALL ensures a safe and respectful environment. All discussions are
+          moderated to prevent misinformation and maintain a helpful and
+          constructive community.
+        </p>
+        <p>
+          By participating, you can gain insights from experienced homebuyers,
+          connect with verified property developers, and discover tips for
+          successful property ownership and investment.
+        </p>
+      </section>
 
       <section className="container my-md-5 my-3 py-5 px-7 terms-of-use">
         {userState?.isLoggedIn ? (
@@ -51,7 +99,7 @@ const AddCommunity = () => {
               <p className="text-muted">
                 Contribute to the community conversation by creating a new
                 discussion topic. Share insights, ask questions, and connect
-                with fellow members on topics related to home ownership and real
+                with fellow members on topics related to homeownership and real
                 estate.
               </p>
             </CommunityHeader>

@@ -47,10 +47,10 @@ const OurGoalAndPromise = () => (
     {/* GOAL */}
     <section className="row mt-5">
       <div className="col-lg-5 col-12">
-        <h2 className="header-secondary h6">Our Goal</h2>
-        <h3>
+        <div className="header-secondary h6">Our Goal</div>
+        <h2>
           Make owning a <br /> home easier.
-        </h3>
+        </h2>
       </div>
 
       <div className="col-lg-7 col-12">
@@ -69,7 +69,7 @@ const OurGoalAndPromise = () => (
     {/* PROMISE */}
     <section className="row mt-5">
       <div className="col-lg-5 col-12">
-        <h2 className="header-secondary h6">Our Promise to You</h2>
+        <div className="header-secondary h6">Our Promise to You</div>
         <h3>Beyond your expectations.</h3>
       </div>
 
@@ -91,7 +91,7 @@ const OurGoalAndPromise = () => (
 const OurCoreValues = () => (
   <section className="bg-light-blue py-5">
     <div className="text-center">
-      <h2 className="header-secondary">Core Values</h2>
+      <div className="header-secondary h6">Core Values</div>
       <h3>What defines us.</h3>
       <p className="lead text-primary">
         We are a team of passionate and talented people.

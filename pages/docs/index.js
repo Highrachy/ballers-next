@@ -130,6 +130,42 @@ const Docs = ({ featuredItems, searchData }) => {
           </div>
         </div>
       </div>
+      {/* Hidden SEO section */}
+      <section className="visually-hidden">
+        <p>
+          Welcome to the BALL documentation center. Here you will find detailed
+          guides, tutorials, and step-by-step instructions to help you navigate
+          our real estate platform. Whether you are a first-time user or a VIP
+          member, BALL documentation covers everything you need to know to make
+          the most of our features.
+        </p>
+        <p>
+          Learn how to create and manage your user account, understand payment
+          plans, explore property management options, and utilize VIP features.
+          Our guides also include troubleshooting tips, frequently asked
+          questions, and support resources to ensure your experience is smooth
+          and stress-free.
+        </p>
+        <p>
+          Search through our comprehensive knowledge base to find specific
+          instructions for any topic. Each document contains clear titles,
+          subtitles, and step explanations, making it easy to follow along. This
+          documentation is updated regularly to provide the latest insights and
+          instructions for our users.
+        </p>
+        <p>
+          The BALL help center encourages users to explore featured guides,
+          learn best practices, and understand how to optimize their journey
+          toward homeownership in Nigeria. From onboarding to advanced features,
+          every resource is designed for clarity and usability.
+        </p>
+        <p>
+          By leveraging BALL documentation, you gain access to essential
+          knowledge that empowers you to use the platform effectively. Step
+          through guides, search topics, and make informed decisions on property
+          investments, user management, and support options.
+        </p>
+      </section>
       <CommunityGallery />
       <Footer />
     </>

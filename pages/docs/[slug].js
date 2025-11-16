@@ -35,20 +35,37 @@ const DocsPage = ({ slug, content }) => {
       />
       <Header />
       <TitleSection name={content.title} content={content.subtitle} />
-      {/* Hidden SEO Content for low-content fix */}
+
+      <DocsContent {...content} />
+      {/* Hidden SEO section */}
       <section className="visually-hidden">
-        <h1>{content.title}</h1>
         <p>
           {content.subtitle ||
-            `This BALL documentation page provides step-by-step guidance to help users understand ${content.title}, including instructions, requirements and helpful tips.`}
+            `This BALL documentation page provides step-by-step guidance to help users understand ${content.title}, including instructions, requirements &amp; helpful tips.`}
         </p>
         <p>
-          This guide is part of the official BALL documentation set, designed to
-          support buyers, developers and partners in using the BALL platform
-          effectively.
+          BALL Docs covers all features of the platform, including property
+          management, user accounts, VIP services, and support resources. Each
+          page is written to help users complete tasks efficiently &amp;
+          successfully.
+        </p>
+        <p>
+          Users can find detailed instructions, example scenarios, and guidance
+          on best practices to navigate the BALL platform, make informed
+          decisions, and achieve homeownership goals in Nigeria.
+        </p>
+        <p>
+          This documentation is designed for homeowners, investors, and platform
+          users seeking step-by-step tutorials, tips, and advice. By following
+          these guides, users can optimize their use of BALL and stay informed
+          about new features &amp; updates.
+        </p>
+        <p>
+          Whether you are looking to manage your account, explore properties, or
+          access support resources, this documentation provides the insights and
+          instructions needed for a smooth and successful experience.
         </p>
       </section>
-      <DocsContent {...content} />
       <Footer />
     </>
   );

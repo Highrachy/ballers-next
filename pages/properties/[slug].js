@@ -15,13 +15,13 @@ import {
 } from '@/components/shared/SingleProperty';
 import { ScheduleTourButton } from '@/components/pages/user/SingleUserProperty';
 import Axios from 'axios';
-import Button from '@/components/forms/Button';
 import { Spacing } from '@/components/common/Helpers';
 import NoContent from '@/components/utils/NoContent';
 import { PropertyIcon } from '@/components/utils/Icons';
 import { useChatMessage } from '@/context/ChatContext';
 import ShareButton from '@/components/common/ShareButton';
 import SeoHead from '@/components/utils/SeoHead';
+import Link from 'next/link';
 
 const taglines = [
   'BALL: Where Dreams Take Shape - Discover Your Perfect Home, Defined by Elegance and Tranquility',
@@ -72,25 +72,56 @@ const PublicPropertySingle = ({ property }) => {
           'ball properties',
         ]}
       />
-
+      <Header />
+      <TitleSection
+        name={property?.name || 'Single Property'}
+        content={tagline}
+      />
       {/* Hidden SEO block to fix low content */}
       <section className="visually-hidden">
-        <h1>{property?.name} — Verified BALL Property</h1>
         <p>
-          {property?.name} is a verified listing on BALL, offering secure
-          documentation, flexible payments and trusted developer backing.
-          Homebuyers can explore this property’s features, payment options,
-          amenities and neighbourhood insights.
+          {property?.name} is a verified listing on BALL, providing secure
+          documentation, flexible payment options, and trusted developer
+          support. Homebuyers can explore the property&apos;s features,
+          amenities, and neighborhood details to make an informed choice.
         </p>
+
         <p>
-          BALL ensures every listed property is pre-vetted to protect buyers
-          from fraud, misinformation and risky transactions. Explore pictures,
-          pricing details, payment schedules and location highlights to make a
-          confident real estate decision.
+          Every property on BALL is carefully pre-vetted to protect buyers from
+          fraud, misinformation, and risky transactions. Detailed listings
+          include high-quality images, verified pricing, payment schedules, and
+          developer credentials to ensure transparency and trust.
+        </p>
+
+        <p>
+          Buyers can review nearby schools, hospitals, shopping centers, and
+          transport links, helping them assess the suitability of the location
+          for their lifestyle and needs. This makes it easier to plan for daily
+          living and long-term investment.
+        </p>
+
+        <p>
+          BALL provides guidance on payment plans, mortgage options, and
+          financing strategies, so users can determine affordability and plan
+          their homeownership journey with confidence. Flexible plans cater to
+          different budgets, making property ownership more accessible.
+        </p>
+
+        <p>
+          Explore property features such as modern interiors, outdoor spaces,
+          parking, swimming pools, and security systems. Verified listings also
+          highlight developer reputation and project completion status, helping
+          buyers make safer real estate decisions.
+        </p>
+
+        <p>
+          By choosing verified properties on BALL, homebuyers gain access to a
+          secure platform, professional support, and reliable information. This
+          reduces risk, simplifies property selection, and allows buyers to
+          confidently move closer to owning their dream home.
         </p>
       </section>
-      <Header />
-      <TitleSection name="Single Property" content={tagline} />
+
       <section className="row justify-content-center">
         <div className="col-md-10 mt-3">
           <LoadProperty property={property} />
@@ -156,7 +187,7 @@ const LoadProperty = ({ property }) => {
               isPublicPage
               Actionbar={
                 <div className="mt-3 d-flex">
-                  <ComparePropertyButton property={property} />
+                  {/* <ComparePropertyButton property={property} /> */}
                   <Spacing />
                   <ScheduleTourButton
                     property={property}
@@ -211,11 +242,11 @@ export async function getStaticPaths() {
   };
 }
 
-export const BuyNowButton = ({ property, className = 'btn-wide' }) => (
-  <Button
-    className={className}
-    href={`/contact-us?text=Hello, I am interested in buying the ${property?.name} property. Please provide further details&subject=Property Application: ${property?.name}`}
-  >
-    Buy Now
-  </Button>
+export const BuyNowButton = ({
+  property,
+  className = 'btn btn-secondary btn-wide',
+}) => (
+  <Link href={`/contact-us`} passHref>
+    <a className={className}>Buy Now</a>
+  </Link>
 );

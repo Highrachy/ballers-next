@@ -22,7 +22,7 @@ const ContactUs = () => {
     <>
       <SeoHead
         title="Contact BALL | Reach Us for Support, Questions or Assistance"
-        description="Get in touch with BALL for inquiries, support or assistance. Contact us via phone, WhatsApp, email or visit our Victoria Island office. We reply quickly and are ready to help."
+        description="Get in touch with BALL for inquiries, support or assistance. Contact us via phone, WhatsApp, email or visit our Victoria Island office."
         canonical="https://www.ballers.ng/contact-us"
         keywords={[
           'contact BALL',
@@ -48,17 +48,38 @@ const ContactUs = () => {
         }
       />
 
-      {/* Low-content SEO helper */}
-      <p className="visually-hidden">
-        Contact BALL for questions about homeownership, property plans, support
-        enquiries and platform assistance. Reach out by email, phone, WhatsApp
-        or by visiting our Lagos office. Our team is always happy to guide you,
-        explain how BALL works, help you understand payment plans, and provide
-        support at any step of your homeownership journey. Whether you want to
-        start your application, learn about available properties or get help
-        using the platform, we are here to assist you.
-      </p>
-
+      {/* Hidden SEO section */}
+      <section className="visually-hidden">
+        <p>
+          Reach out to BALL for inquiries about homeownership, property payment
+          plans, support questions, and platform assistance. Our team is always
+          ready to provide guidance, explain payment options, and help you
+          understand how BALL works for your homeownership journey.
+        </p>
+        <p>
+          You can contact us via email at info@ballers.ng, call or WhatsApp us
+          on +234 903 020 0031, +234 802 833 7440, or +234 802 838 8185. Our
+          support staff respond quickly to provide timely assistance and
+          information.
+        </p>
+        <p>
+          Visit our Victoria Island office at 3rd Floor, Ibukun House, No.70
+          Adetokunbo Ademola Street, Victoria Island, Lagos for in-person
+          consultations, guidance, and advice on property options and payment
+          plans. We welcome first-time homebuyers and investors alike.
+        </p>
+        <p>
+          Stay connected with BALL through social media channels including
+          Instagram, Facebook, Twitter, and LinkedIn to receive updates on new
+          properties, promotions, and tips on becoming a homeowner in Nigeria.
+        </p>
+        <p>
+          Using BALL&apos;s support channels ensures a smooth property buying
+          experience. Our experts are available to answer questions, assist with
+          the platform, and provide actionable advice for your homeownership
+          journey.
+        </p>
+      </section>
       <Content />
       <MapAndAddress />
       <CommunityGallery />
@@ -82,7 +103,7 @@ const Content = () => {
         {/* CONTACT INFO */}
         <div className="row col-lg-5 col-12 contact-hello-info">
           <div className="col-lg-12 col-sm-6 col-12">
-            <h2 className="header-secondary">Say Hello</h2>
+            <div className="header-secondary h2">Say Hello</div>
 
             <h3>
               <Link href="mailto:info@ballers.ng">
@@ -92,7 +113,7 @@ const Content = () => {
               </Link>
             </h3>
 
-            <h2 className="header-secondary">Call or WhatsApp</h2>
+            <div className="h2 header-secondary">Call or WhatsApp</div>
 
             <h4>
               <Link href="tel:+2349030200031">
@@ -109,7 +130,7 @@ const Content = () => {
 
           {/* SOCIAL MEDIA */}
           <div className="col-lg-12 col-sm-6 col-12">
-            <h2 className="header-secondary">Follow Us</h2>
+            <div className="h2 header-secondary">Follow Us</div>
 
             <ul className="list-unstyled">
               {/* Desktop list */}
@@ -177,7 +198,7 @@ const MapAndAddress = () => (
   <section className="container-fluid">
     <div className="row h-100 map-and-address">
       <div className="col-lg-6 col-12 my-auto text-right pr-5">
-        <h2 className="header-secondary">Come Over for Coffee</h2>
+        <div className="h2 header-secondary">Come Over for Coffee</div>
         <h3 className="text-height-2">
           3rd Floor, Ibukun House,
           <br /> No.70 Adetokunbo Ademola Street,

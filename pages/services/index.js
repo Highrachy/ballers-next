@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { OnlineImage } from '@/components/utils/Image';
 import { moneyFormatInNaira } from '@/utils/helpers';
 import { VAS_ROLE, VAS_ROLE_TYPE, VAS_TYPE } from '@/utils/constants';
+import SeoHead from '@/components/utils/SeoHead';
 
 const AllServices = ({ result }) => {
   const [filteredResult, setFilteredResult] = React.useState(result);
@@ -49,11 +50,56 @@ const AllServices = ({ result }) => {
 
   return (
     <>
+      <SeoHead
+        title="BALL Services | Explore Our Property & Real Estate Solutions"
+        description="Discover all services offered by BALL, including property management, VIP solutions, homebuyer support, and real estate tools. Find services tailored for you."
+        canonical="https://www.ballers.ng/services"
+        keywords={[
+          'BALL services',
+          'property management Nigeria',
+          'homebuyer services',
+          'VIP real estate tools',
+          'property solutions Nigeria',
+        ]}
+      />
+
       <Header />
       <TitleSection
         name="Our Services"
         content="The only realistic burden free process of owning your ideal home."
       />
+
+      {/* Hidden SEO section */}
+      <section className="visually-hidden">
+        <h2>Explore Services Offered by BALL</h2>
+        <p>
+          BALL provides a wide range of services for homebuyers, property
+          owners, and VIP users across Lagos and Nigeria. From property
+          management to exclusive VIP tools, our services are designed to
+          simplify the journey to homeownership.
+        </p>
+        <p>
+          Users can access property listing management, investment guidance, and
+          analytics tools that help monitor engagement and sales. BALL services
+          ensure maximum visibility and efficiency for both sellers and buyers.
+        </p>
+        <p>
+          Our VIP solutions offer advanced features such as priority support,
+          featured listings, and collaborative tools for teams and agencies.
+          Homebuyers benefit from educational resources and personalized
+          assistance.
+        </p>
+        <p>
+          By leveraging BALL services, individuals and businesses can streamline
+          property transactions, enhance investment potential, and make informed
+          decisions in the real estate market.
+        </p>
+        <p>
+          Start exploring our services today to manage properties, access tools
+          for buying and selling, and join a community dedicated to successful
+          homeownership and real estate investment in Nigeria.
+        </p>
+      </section>
       <h3 className="mt-7 mb-4 text-center">Available Services</h3>
       <FilterSection
         onFilter={handleFilter}

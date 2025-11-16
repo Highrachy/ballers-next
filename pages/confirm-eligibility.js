@@ -48,7 +48,7 @@ export const searchProperty = async (searchQuery) => {
 
 const Search = () => {
   const { query } = useRouter();
-  const { area, houseType } = query;
+  const { area = 'lekki', houseType = 'apartment' } = query;
   const searchQuery = `all=${area} ${houseType}`;
   const [properties, setProperties] = React.useState(null);
 
@@ -86,7 +86,7 @@ const Search = () => {
   return (
     <>
       <SeoHead
-        title="Confirm Eligibility | Property Affordability & Homeownership Check"
+        title="Confirm Eligibility | BALL Homeownership Check"
         description="Check your eligibility to own a property based on your income, initial investment, location and preferred house type. Get instant affordability insights on BALL."
         canonical={`https://www.ballers.ng/confirm-eligibility?area=${area}&houseType=${houseType}`}
         keywords={[
@@ -100,20 +100,37 @@ const Search = () => {
       />
       <Header />
       <SearchForm defaultInputValue={defaultInputValue} />
-      <section style={{ display: 'none' }}>
+      {/* Hidden SEO Section */}
+      <section className="visually-hidden">
         <h1>Confirm Your Property Eligibility</h1>
         <p>
           Use the BALL eligibility checker to estimate how much home you can
-          afford based on your income, monthly budget, upfront investment and
+          afford based on your income, monthly budget, upfront investment &amp;
           preferred property location in Nigeria. This tool helps buyers
-          understand price ranges, payment plans and real estate expectations
+          understand price ranges, payment plans &amp; real estate expectations
           before making a commitment.
         </p>
         <p>
-          BALL provides transparent market data, including minimum and maximum
+          BALL provides transparent market data, including minimum &amp; maximum
           price ranges for popular locations across Lagos and Abuja. You can
-          compare house types such as terraces, duplexes, detached homes and
+          compare house types such as terraces, duplexes, detached homes &amp;
           apartments to make a smarter buying decision.
+        </p>
+        <p>
+          The eligibility checker also offers guidance on upfront investments,
+          monthly repayment options &amp; total affordability based on your
+          financial situation. This ensures you can plan effectively &amp; avoid
+          overstretching your budget.
+        </p>
+        <p>
+          Users gain insight into the Lagos property market, helping them select
+          suitable locations &amp; housing types. This empowers first-time
+          buyers &amp; investors to make informed real estate decisions.
+        </p>
+        <p>
+          Joining BALL’s platform allows you to explore verified properties,
+          flexible payment plans &amp; connect with experts who can guide your
+          journey to homeownership in Nigeria.
         </p>
       </section>
       {result ? (

@@ -75,7 +75,7 @@ const EnhancedIntroSection = () => (
   <section className="container-fluid my-6">
     <div className="row">
       <div className="col-lg-8 mx-auto text-center">
-        <h2 className="fw-bold mb-3">Why Become a BALL VIP?</h2>
+        <h3 className="fw-bold h2 mb-3">Why Become a BALL VIP?</h3>
         <p className="lead text-muted">
           BALL VIPs get more visibility, more credibility, and more buyers. Your
           properties are showcased to a pre-qualified audience actively
@@ -100,7 +100,7 @@ const HoldingSection = () => {
         <div className="row">
           <section className="col-xl-6 pt-4 z-1000">
             <div className="home-hero">
-              <h2 className="pt-3 pt-md-5 pt-lg-0 text-center text-xl-start">
+              <h2 className="pt-3 pt-md-5 h2 pt-lg-0 text-center text-xl-start">
                 Welcome to BALL: <br />
                 Sell Smart,{' '}
                 <span className="home-hero__text">
@@ -195,7 +195,7 @@ const TheBALLPlatform = () => (
           <h6 className="header-secondary d-none d-lg-block">
             THE BALL PLATFORM
           </h6>
-          <h2 className="mt-4 my-md-0">Dive into the VIP Experience:</h2>
+          <h3 className="mt-4 h2 my-md-0">Dive into the VIP Experience:</h3>
           <p className="lead text-primary mt-4 mb-5">
             Experience a demo to see how BALL transforms your sales process.
             Manage listings, receive leads, communicate efficiently and scale
@@ -278,10 +278,10 @@ const FAQsSection = () => {
   const FAQs = FAQsContent['vendor'].faqs;
   return (
     <section className="container-fluid">
-      <h6 className="header-secondary">FAQs</h6>
-      <h2>
+      <div className="header-secondary h2">FAQs</div>
+      <h3 className="h2">
         Your questions <br /> Answered
-      </h2>
+      </h3>
       <div className="row">
         <div className="col-lg-9 col-sm-10 col-12 offset-lg-3 offset-sm-2 mt-5 faqs-section">
           <FAQsAccordion faqs={FAQs} />

@@ -49,7 +49,6 @@ const Register = () => (
 
     {/* Hidden SEO content for low-content fix */}
     <section style={{ display: 'none' }}>
-      <h2>Register on BALL</h2>
       <p>
         Creating a BALL account gives you immediate access to verified
         properties, trusted developers, flexible payment plans, and a safe,
@@ -63,7 +62,7 @@ const Register = () => (
         Developers and BALL VIP sellers can showcase their properties, receive
         premium leads, and manage listings within a trusted marketplace.
       </p>
-      <h3>Benefits of Creating an Account</h3>
+      <div className="header-secondary h2">Benefits of Creating an Account</div>
       <ul>
         <li>Access all verified BALL properties</li>
         <li>Use eligibility tools to find the right home</li>
@@ -137,7 +136,7 @@ export const Content = ({ currentUser = 'user', showVendorOnly = false }) => {
               </>
             ) : (
               <>
-                <h1>Create a free BALL VIP account</h1>
+                <h2>Create a free BALL VIP account</h2>
                 <p className="lead">
                   Showcase your properties to multiple buyers
                 </p>

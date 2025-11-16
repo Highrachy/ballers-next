@@ -29,7 +29,7 @@ const PublicProperties = ({ result }) => {
     <>
       <SeoHead
         title="BALL Properties for Sale in Nigeria with Payment Plans"
-        description="Explore verified Lagos properties with flexible payment plans. Find terraces, duplexes, apartments and premium homes in Lekki, Ajah, Sangotedo and more on BALL."
+        description="Explore verified Lagos properties with flexible payment plans. Find terraces, duplexes & apartments in Lekki, Ajah, Sangotedo on BALL."
         canonical="https://www.ballers.ng/properties"
         ogImage={firstImage}
         keywords={[
