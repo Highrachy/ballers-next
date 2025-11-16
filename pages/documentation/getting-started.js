@@ -11,7 +11,7 @@ const GettingStarted = () => (
     <SeoHead
       title="Getting Started with BALL | Your Homeownership Journey"
       description="Learn how to start your journey to homeownership with BALL. Explore our platform, create an account, and understand features that help you become a property owner in Nigeria."
-      canonical="https://www.ballers.ng/docs/getting-started"
+      canonical="https://www.ballers.ng/documentation/getting-started"
       keywords={[
         'BALL getting started',
         'homeownership Nigeria',
@@ -81,7 +81,7 @@ const OurGoalAndPromise = () => (
               <div className="py-3">
                 <Link
                   className="text-lg text-primary"
-                  href="/docs/getting-started"
+                  href="/documentation/getting-started"
                 >
                   Introduction to BALL Platform
                 </Link>
@@ -96,7 +96,7 @@ const OurGoalAndPromise = () => (
               <div className="py-3">
                 <Link
                   className="text-lg text-primary"
-                  href="/docs/getting-started"
+                  href="/documentation/getting-started"
                 >
                   Understanding BALL&apos;s Offerings
                 </Link>
@@ -111,7 +111,7 @@ const OurGoalAndPromise = () => (
               <div className="py-3">
                 <Link
                   className="text-lg text-primary"
-                  href="/docs/getting-started"
+                  href="/documentation/getting-started"
                 >
                   Becoming a BALLER
                 </Link>
@@ -127,7 +127,7 @@ const OurGoalAndPromise = () => (
               <div className="py-3">
                 <Link
                   className="text-lg text-primary"
-                  href="/docs/getting-started"
+                  href="/documentation/getting-started"
                 >
                   Creating Your BALL Account:
                 </Link>
@@ -148,7 +148,7 @@ const OurGoalAndPromise = () => (
               <div className="py-3">
                 <Link
                   className="text-lg text-primary"
-                  href="/docs/getting-started"
+                  href="/documentation/getting-started"
                 >
                   Creating your BALL Account
                 </Link>
@@ -163,7 +163,7 @@ const OurGoalAndPromise = () => (
               <div className="py-3">
                 <Link
                   className="text-lg text-primary"
-                  href="/docs/getting-started"
+                  href="/documentation/getting-started"
                 >
                   The BALL journey
                 </Link>
@@ -178,7 +178,7 @@ const OurGoalAndPromise = () => (
               <div className="py-3">
                 <Link
                   className="text-lg text-primary"
-                  href="/docs/getting-started"
+                  href="/documentation/getting-started"
                 >
                   Becoming a Landlord with Ease
                 </Link>
@@ -194,7 +194,7 @@ const OurGoalAndPromise = () => (
               <div className="py-3">
                 <Link
                   className="text-lg text-primary"
-                  href="/docs/getting-started"
+                  href="/documentation/getting-started"
                 >
                   Understanding BALL Offerings
                 </Link>

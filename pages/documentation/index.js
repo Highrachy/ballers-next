@@ -57,7 +57,7 @@ const Docs = ({ featuredItems, searchData }) => {
       <SeoHead
         title="BALL Documentation | Guides, How-Tos & Help Center"
         description="Explore the complete BALL documentation: onboarding, user accounts, VIP features, property management, support resources and step-by-step guides."
-        canonical="https://www.ballers.ng/docs"
+        canonical="https://www.ballers.ng/documentation"
         keywords={[
           'ball documentation',
           'ball guides',
@@ -175,7 +175,10 @@ const Docs = ({ featuredItems, searchData }) => {
 const SearchResults = ({ query, searchResults }) => (
   <div className="mt-4">
     {searchResults.map((result, index) => (
-      <Link key={index} href={`docs/${result.fileName.replace('.json', '')}`}>
+      <Link
+        key={index}
+        href={`documentation/${result.fileName.replace('.json', '')}`}
+      >
         <div className="card p-4 mb-5">
           <div className="card-body">
             <h5 className="card-title">
@@ -302,7 +305,7 @@ const FeaturedItem = ({ title, links }) => (
         <ul className="list-unstyled">
           {links.map((link, index) => (
             <li key={index}>
-              <Link href={`docs/${link.url}`}>
+              <Link href={`documentation/${link.url}`}>
                 {link.label
                   .split(' ')
                   .map((word) => word.charAt(0).toUpperCase() + word.slice(1))

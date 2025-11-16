@@ -48,7 +48,7 @@ const learnDropdown = [
     description:
       'Comprehensive guides and resources for navigating the home ownership process',
     icon: <BsHouseDoor />,
-    link: '/docs',
+    link: '/documentation',
   },
   {
     title: 'Community',

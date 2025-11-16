@@ -61,33 +61,61 @@ const AddCommunity = () => {
       {/* Hidden SEO content for page depth and readability */}
       <section className="visually-hidden">
         <h2>Start a New Discussion in the BALL Community</h2>
+
         <p>
-          Contribute to the BALL Community by creating a new discussion topic.
-          Share your ideas, ask questions, and engage with fellow members
-          interested in homeownership, property investment, and real estate
-          trends in Nigeria.
+          Join the BALL Community and create a new discussion topic. Share your
+          ideas, ask questions, and connect with others interested in
+          homeownership, real estate investment, and property trends in Nigeria.
         </p>
+
         <p>
-          Starting a topic is easy. Provide a clear title, choose the
-          appropriate category, and write a detailed description or question.
-          This helps other community members respond with useful insights and
-          advice.
+          Starting a discussion is easy. Provide a clear title, select the right
+          category, and write detailed content. This helps other members give
+          useful feedback and advice.
         </p>
+
         <p>
-          Members can discuss property buying, financing options, verified
-          developers, and payment plans. The community encourages learning,
-          sharing experiences, and helping each other make informed property
+          Topics can include property buying tips, financing options, verified
+          developers, payment plans, and investment strategies. Members share
+          their experiences and knowledge to help each other make smart property
           decisions.
         </p>
+
         <p>
-          BALL ensures a safe and respectful environment. All discussions are
-          moderated to prevent misinformation and maintain a helpful and
-          constructive community.
+          The community encourages respectful and helpful interactions.
+          Moderators ensure discussions are safe and free from misinformation.
         </p>
+
         <p>
-          By participating, you can gain insights from experienced homebuyers,
-          connect with verified property developers, and discover tips for
-          successful property ownership and investment.
+          Members can also ask questions about homeownership, market trends, and
+          real estate best practices. Responses come from experienced buyers,
+          industry professionals, and verified property developers.
+        </p>
+
+        <p>
+          Creating a topic helps you connect with others, get advice, and
+          discover insights about property ownership and investments. You can
+          also explore trending topics and see how others approach similar
+          challenges.
+        </p>
+
+        <p>
+          By participating, you contribute to a vibrant community where
+          homebuyers, investors, and real estate enthusiasts support each other.
+          Every discussion adds value and helps members make better decisions.
+        </p>
+
+        <p>
+          Start your topic today to engage with verified developers, share your
+          experiences, and gain tips for successful property ownership. The BALL
+          Community makes it easier to learn, connect, and grow in the real
+          estate space.
+        </p>
+
+        <p>
+          With clear categories, moderated discussions, and supportive members,
+          you can be confident that your contributions will reach the right
+          audience and create meaningful conversations.
         </p>
       </section>
 

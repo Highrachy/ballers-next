@@ -251,7 +251,7 @@ const ReferTeaser = () => (
           Learn More&nbsp;
           <FaRocket />
         </GameButton>
-        <GameButton color="gray" href="/docs/referral-program">
+        <GameButton color="gray" href="/documentation/referral-program">
           Refer a Friend&nbsp;
           <FaUserPlus className="me-2" />
         </GameButton>

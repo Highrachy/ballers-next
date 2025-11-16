@@ -247,6 +247,8 @@ export const BuyNowButton = ({
   className = 'btn btn-secondary btn-wide',
 }) => (
   <Link href={`/contact-us`} passHref>
-    <a className={className}>Buy Now</a>
+    <a className={className} title="Buy Property Now">
+      Buy Now
+    </a>
   </Link>
 );

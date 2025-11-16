@@ -58,7 +58,7 @@ export default function Search() {
   return (
     <>
       <SeoHead
-        title={`Property Search | BALL`}
+        title={`Property Search in Lagos & Nigeria | BALL Real Estate`}
         description={`Search verified properties in Lagos and across Nigeria with BALL. Filter by location, house type, price, and amenities to find your ideal home.`}
         canonical={`https://www.ballers.ng/properties/search`}
         keywords={[

@@ -1,5 +1,3 @@
-// pages/docs/[...slug].js
-
 import React from 'react';
 import fs from 'fs/promises';
 import path from 'path';
@@ -18,7 +16,7 @@ const DocsPage = ({ slug, content }) => {
     content.subtitle?.substring(0, 155) ||
     `Read detailed documentation for ${content.title} on BALL.`;
 
-  const canonical = `https://www.ballers.ng/docs/${slug}`;
+  const canonical = `https://www.ballers.ng/documentation/${slug}`;
 
   return (
     <>

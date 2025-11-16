@@ -1,4 +1,4 @@
-import { DocsSteps } from 'pages/docs/[slug]';
+import { DocsSteps } from 'pages/documentation/[slug]';
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import Button from '../forms/Button';
