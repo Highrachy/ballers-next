@@ -60,7 +60,7 @@ const Content = ({ redirectTo, sid, token }) => {
               <section className="auth__footer">
                 <div className="register mt-6 text-center">
                   Not Registered?{' '}
-                  <Link href="/register">
+                  <Link href="/create-a-new-ball-account">
                     <a className="auth__link">Create Account</a>
                   </Link>
                 </div>

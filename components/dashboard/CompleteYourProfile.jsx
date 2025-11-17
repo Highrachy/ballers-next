@@ -7,7 +7,7 @@ import { DisplayFormikState, setInitialValues } from '../forms/form-helper';
 import { completeProfileSchema } from '../forms/schemas/userSchema';
 import { createSchema } from '../forms/schemas/schema-helpers';
 import CheckboxGroup from '../forms/CheckboxGroup';
-import { agreementText } from 'pages/register';
+import { agreementText } from 'pages/create-a-new-ball-account';
 import BackendPage from '../layout/BackendPage';
 import WelcomeHero from '../common/WelcomeHero';
 import { UserContext } from 'context/UserContext';

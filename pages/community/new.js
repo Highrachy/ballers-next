@@ -238,7 +238,11 @@ export const CommunitySignInForm = ({ text }) => (
           {' '}
           Sign In
         </Button>
-        <Button color="primary" className="mt-4" href="/register">
+        <Button
+          color="primary"
+          className="mt-4"
+          href="/create-a-new-ball-account"
+        >
           Create an Account
         </Button>
       </div>

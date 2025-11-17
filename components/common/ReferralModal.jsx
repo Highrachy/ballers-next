@@ -62,7 +62,7 @@ const ReferralModal = ({ inviteCode, referralCode }) => {
             <strong>become a Landlord.</strong>
           </p>
 
-          <Link href="/register">
+          <Link href="/create-a-new-ball-account">
             <a className="btn btn-secondary my-4">Register for Free</a>
           </Link>
         </div>

@@ -93,7 +93,7 @@ const HeroSection = () => {
             </p>
 
             <div className="mb-5">
-              <Button href="/register">
+              <Button href="/create-a-new-ball-account">
                 Create <span className="d-none d-sm-inline">a Free</span>{' '}
                 Account
               </Button>
@@ -211,7 +211,7 @@ const TheBALLPlatform = () => (
         </p>
 
         <div className="text-center text-xl-start mb-5">
-          <Button href="/register">
+          <Button href="/create-a-new-ball-account">
             Create <span className="d-none d-sm-inline">a Free</span> Account
           </Button>
           <Button color="primary-light" className="mx-3" href="/login">

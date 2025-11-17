@@ -434,7 +434,7 @@ const ResultCard = ({ result, setShowResultCard }) => {
           <ArrowLeftIcon /> Redefine your Eligibility status
         </button>
 
-        <Link href="/register" className="btn btn-success">
+        <Link href="/create-a-new-ball-account" className="btn btn-success">
           Create a free account
         </Link>
       </div>

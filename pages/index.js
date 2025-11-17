@@ -140,7 +140,7 @@ const AboutSection = () => {
                 </p>
               </div>
 
-              <Link href="/register" passHref>
+              <Link href="/create-a-new-ball-account" passHref>
                 <a className="btn btn-secondary">Register Now</a>
               </Link>
             </Fade>
@@ -204,7 +204,7 @@ const HowItWorksSection = () => (
               </p>
             </li>
             <li className="timeline-no-border">
-              <Link href="/register" passHref>
+              <Link href="/create-a-new-ball-account" passHref>
                 <a className="btn btn-secondary">SIGN UP NOW</a>
               </Link>
             </li>

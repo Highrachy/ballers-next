@@ -128,7 +128,7 @@ const Content = ({ redirectTo, token }) => {
                 <GoogleLoginButton />
                 <div className="register mb-5 text-center">
                   Not registered?{' '}
-                  <Link href="/register">
+                  <Link href="/create-a-new-ball-account">
                     <a className="auth__link">Create account</a>
                   </Link>
                 </div>

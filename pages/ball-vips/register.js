@@ -4,7 +4,7 @@ import Footer from 'components/layout/Footer';
 import TitleSection, {
   EmptyTitleSection,
 } from '@/components/common/TitleSection';
-import { Content } from 'pages/register';
+import { Content } from 'pages/create-a-new-ball-account';
 import SeoHead from '@/components/utils/SeoHead';
 
 const Register = () => (

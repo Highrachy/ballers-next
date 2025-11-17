@@ -270,7 +270,7 @@ const HowBallersWork = () => (
               </p>
 
               <div className="col-sm-12 pt-md-3">
-                <Link href="/register" passHref>
+                <Link href="/create-a-new-ball-account" passHref>
                   <a className="btn btn-secondary">APPLY NOW</a>
                 </Link>
               </div>

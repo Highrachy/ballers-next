@@ -607,7 +607,7 @@ const DefineYourEligibility = ({ result }) => {
               <ArrowLeftIcon /> Redefine your Eligibility status
             </button>
 
-            <Link href="/register" passHref>
+            <Link href="/create-a-new-ball-account" passHref>
               <a className="btn btn-secondary float-end">
                 Create a free account
               </a>
@@ -766,7 +766,7 @@ const SingleRecommendationCard = ({ title, advice }) => {
           <p className="text-md mt-2 text-primary mb-0">{advice}</p>
 
           <p className="mt-4">
-            <Link href={'/register'}>
+            <Link href={'/create-a-new-ball-account'}>
               <a className="btn btn-secondary btn-xs btn-wide">Get Started</a>
             </Link>
           </p>

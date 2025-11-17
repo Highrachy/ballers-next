@@ -86,7 +86,7 @@ const Header = () => {
                 <Link href="/login" passHref>
                   <Nav.Link>Sign In</Nav.Link>
                 </Link>
-                <Link href="/register" passHref>
+                <Link href="/create-a-new-ball-account" passHref>
                   <Nav.Link className="btn btn-secondary-light d-none d-lg-inline">
                     Register{' '}
                     <span className=" d-inline d-lg-none d-xl-inline">

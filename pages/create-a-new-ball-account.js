@@ -33,7 +33,7 @@ const Register = () => (
     <SeoHead
       title="Create Your Free Account on BALL Today!"
       description="Create your free BALL account to access verified properties, payment plans and your homeownership tools. Register as a buyer or a BALL VIP seller."
-      canonical="https://www.ballers.ng/register"
+      canonical="https://www.ballers.ng/create-a-new-ball-account"
       keywords={[
         'ball registration',
         'create account ballers',

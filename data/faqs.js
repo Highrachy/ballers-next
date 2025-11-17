@@ -200,8 +200,11 @@ const faqs = {
                 <li>
                   <strong>Register</strong>
                   <p>
-                    Create a new <Link href="/register">BALL VIP account</Link>.
-                    Provide the necessary information and documents to verify
+                    Create a new{' '}
+                    <Link href="/create-a-new-ball-account">
+                      BALL VIP account
+                    </Link>
+                    . Provide the necessary information and documents to verify
                     your identity and business.
                   </p>
                 </li>

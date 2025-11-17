@@ -136,7 +136,10 @@ export default function SummaryPageComponent({
               className="d-flex flex-wrap justify-content-center gap-3 my-4"
               data-hide-on-capture
             >
-              <GameButton color="gold" onClick={() => router.push('/register')}>
+              <GameButton
+                color="gold"
+                onClick={() => router.push('/create-a-new-ball-account')}
+              >
                 START YOUR BALL JOURNEY
               </GameButton>
               <GameButton

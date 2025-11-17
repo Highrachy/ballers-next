@@ -193,7 +193,7 @@ export default function ResultPage({
         </Card>
 
         <div className="d-flex justify-content-between align-items-center mb-3 gap-2 flex-wrap mb-5">
-          <Button color="secondary" size="lg" href="/register">
+          <Button color="secondary" size="lg" href="/create-a-new-ball-account">
             {resultCopy.call_to_action || 'Start Your BALLER Journey'}
             <FaArrowRight className="ms-2" />
           </Button>

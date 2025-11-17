@@ -441,7 +441,11 @@ const EligibilityReport = ({
                     result={result}
                     className="me-md-3 mb-md-0 mb-3"
                   />
-                  <Button wide color="secondary" href="/register">
+                  <Button
+                    wide
+                    color="secondary"
+                    href="/create-a-new-ball-account"
+                  >
                     Create a free account
                   </Button>
                 </div>
