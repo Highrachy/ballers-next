@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const PostTitle = ({ slug, title }) => (
   <h4 className="post-title">
-    <Link href={`/${slug}`}>{title}</Link>
+    <Link href={`/posts/${slug}`}>{title}</Link>
   </h4>
 );
 

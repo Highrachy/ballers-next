@@ -10,7 +10,7 @@ const TitleSection = ({ name, content, children }) => {
       }`}
     >
       <SquareBubbles />
-      <h1 className="pb-2 h2 text-white">{name}</h1>
+      <h1 className="pb-2 h2 text-white px-lg-8 px-md-7 px-5">{name}</h1>
       <div className="mx-auto col-xl-6 col-lg-8 col-sm-9 col-11">{content}</div>
       {children}
     </section>

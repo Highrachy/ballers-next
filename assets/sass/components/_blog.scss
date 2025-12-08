@@ -77,14 +77,8 @@
 .post-title {
   color: $primary;
   font-size: 1.1rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
   margin: 8px 0;
   line-height: 1.4;
-  height: 1.4em; /* Ensure it doesn't exceed 1 lines */
 }
 
 .post-description {
@@ -110,5 +104,15 @@
 .single-post {
   .post-title {
     font-size: 1.75rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 3rem;
+    margin-bottom: 0.75rem;
+    color: #5775fa;
+  }
+
+  .single-post-title {
+    margin-bottom: 1.5rem;
   }
 }

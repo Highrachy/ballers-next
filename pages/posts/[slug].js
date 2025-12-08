@@ -20,10 +20,10 @@ const Post = ({ blogPost: post }) => {
         content="Unlocking the Pathway to Homeownership: Explore, Engage, and Empower with BALL."
       />
       <PostImage src={post.mainImage} alt={post.title} />
-      <section className="py-6 container-fluid single-post">
+      <section className="py-4 container-fluid single-post">
         <div className="row">
           <div className="mx-auto col-lg-7 col-md-9 col-sm-10">
-            <PostTitle slug={post.slug} title={post.title} />
+            <h2 className="single-post-title mb-4">{post.title}</h2>
             <div dangerouslySetInnerHTML={{ __html: post?.content }} />
           </div>
         </div>

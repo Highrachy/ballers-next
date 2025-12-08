@@ -80,7 +80,7 @@ const Blog = ({ result, categories }) => {
 };
 
 export const BlogContainer = ({ categories, children }) => (
-  <section className="py-6 px-7 container-fluid">
+  <section className="py-4 py-md-6 px-md-7 px-5 container-fluid">
     <div className="row">
       <div className="col-lg-8 col-sm-12">{children}</div>
       <BlogSidebar categories={categories} />
