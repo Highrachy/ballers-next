@@ -16,7 +16,7 @@ import { getIn } from 'formik';
 // https://blog.devgenius.io/upload-files-to-amazon-s3-from-a-react-frontend-fbd8f0b26f5
 
 const UPLOAD_API_URL =
-  'https://staging-ballers-api.herokuapp.com/api/v1/user/upload-to-highrachy';
+  'https://prod-ballers-api.herokuapp.com/api/v1/user/upload-to-highrachy';
 
 const Upload = ({
   afterUpload,

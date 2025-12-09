@@ -31,10 +31,13 @@ import { sliderSettings } from '@/components/common/BenefitsSection';
 import { shuffleArray } from '@/utils/helpers';
 import { useChatMessage } from '@/context/ChatContext';
 import SeoHead from '@/components/utils/SeoHead';
+import BlogPostCard from '@/components/blog/BlogPostCard';
+import Button from '@/components/forms/Button';
 
 export default function Home({
-  properties,
-  allServices,
+  properties = [],
+  allServices = [],
+  blogPosts = [],
   referralCode = null,
   inviteCode = null,
 }) {
@@ -61,12 +64,51 @@ export default function Home({
       <HowItWorksSection />
       <OurServices services={allServices} />
       <FAQsSection />
+      <BlogSection posts={blogPosts} />
       <CommunityGallery />
       <ReferralModal referralCode={referralCode} inviteCode={inviteCode} />
       <Footer />
     </>
   );
 }
+
+const BlogSection = ({ posts }) => {
+  if (posts && posts.length === 0) {
+    return null;
+  }
+  return (
+    <section id="our-blog" className="container-fluid my-5">
+      <div className="mb-4">
+        <p className="header-secondary h6 mb-1 text-uppercase">
+          From the BALL Blog
+        </p>
+        <h3 className="mb-4 mt-0 d-flex justify-content-between align-items-center">
+          Latest News & Articles
+          <Button href="/blog" color="secondary-light" wide>
+            View All
+          </Button>
+        </h3>
+      </div>
+      <BlogRowList result={posts} title="" viewAllLink={'/blog'} />
+    </section>
+  );
+};
+
+export const BlogRowList = ({ result }) => {
+  return (
+    <div className="row">
+      {result && result.length > 0 ? (
+        result.slice(0, 3).map((post, index) => (
+          <div key={index} className={'col-lg-4 col-md-6 mb-4'}>
+            <BlogPostCard post={post} isPublic />
+          </div>
+        ))
+      ) : (
+        <h3 className="mt-5 text-center">No Blog Found</h3>
+      )}
+    </div>
+  );
+};
 
 const HoldingSection = () => {
   return (
@@ -262,6 +304,9 @@ export async function getStaticProps() {
   const propertiesRes = await axios.get(API_ENDPOINT.getAllProperties());
   const servicesRes = await axios.get(API_ENDPOINT.getAllVas());
   const allProperties = propertiesRes.data?.result;
+  const blogRes = await axios.get(API_ENDPOINT.getAllBlogs());
+  const allBlogs = blogRes.data?.result?.reverse() || [];
+  const lastestBlogs = allBlogs.slice(0, 3) || [];
 
   const randomThreeProperties = shuffleArray(allProperties).slice(0, 3);
 
@@ -269,6 +314,7 @@ export async function getStaticProps() {
     props: {
       properties: randomThreeProperties,
       allServices: servicesRes.data?.result,
+      blogPosts: lastestBlogs,
     },
     revalidate: 10,
   };

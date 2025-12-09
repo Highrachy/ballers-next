@@ -80,19 +80,24 @@ const Blog = ({ result, categories }) => {
 };
 
 export const BlogContainer = ({ categories, children }) => (
-  <section className="py-4 py-md-6 px-md-7 px-5 container-fluid">
+  <section className="py-4 py-md-6 container-fluid">
     <div className="row">
-      <div className="col-lg-8 col-sm-12">{children}</div>
-      <BlogSidebar categories={categories} />
+      <div className="col-lg-12 col-sm-12">{children}</div>
+      {/* <BlogSidebar categories={categories} /> */}
     </div>
   </section>
 );
 
 export const BlogList = ({ result }) => {
   return result && result.length > 0 ? (
-    result.map((post, index) => (
-      <BlogPostCard key={index} post={post} isPublic />
-    ))
+    // show all posts, 3 per row
+    <div className="row">
+      {result.map((post, index) => (
+        <div key={index} className="col-lg-4 col-md-6 mb-4">
+          <BlogPostCard post={post} isPublic />
+        </div>
+      ))}
+    </div>
   ) : (
     <h3 className="mt-5 text-center">No Blog Found</h3>
   );
@@ -100,6 +105,7 @@ export const BlogList = ({ result }) => {
 
 export async function getStaticProps() {
   const blog = await Axios.get(API_ENDPOINT.getAllBlogs());
+  blog.data.result.reverse();
 
   return {
     props: {

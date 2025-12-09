@@ -42,18 +42,25 @@ export async function getServerSideProps({ req, res }) {
   // Production sitemap starts here
   const baseUrl = 'https://www.ballers.ng';
 
-  let dynamicProperties = [];
+  let dynamicURLs = [];
 
   try {
+    // Fetch properties
     const propertiesRes = await Axios.get(API_ENDPOINT.getAllProperties());
     const propertyLists = propertiesRes?.data?.result || [];
+    const propertyUrls = propertyLists.map(({ slug }) => `/properties/${slug}`);
 
-    dynamicProperties = propertyLists.map(({ slug }) => `/properties/${slug}`);
+    // Fetch blogs
+    const blogsRes = await Axios.get(API_ENDPOINT.getAllBlogs());
+    const blogLists = blogsRes?.data?.result || [];
+    const blogUrls = blogLists.map(({ slug }) => `/posts/${slug}`);
+
+    dynamicURLs = [...propertyUrls, ...blogUrls];
   } catch (error) {
-    console.error('Sitemap: Error fetching properties', error);
+    console.error('Sitemap: Error fetching properties or blogs', error);
   }
 
-  const urls = [...PUBLIC_ROUTES, ...dynamicProperties];
+  const urls = [...PUBLIC_ROUTES, ...dynamicURLs];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
