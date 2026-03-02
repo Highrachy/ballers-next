@@ -27,6 +27,7 @@ import { useRouter } from 'next/router';
 import { UserContext } from '@/context/UserContext';
 import GoogleLoginButton from '@/components/common/GoogleLoginButton';
 import SeoHead from '@/components/utils/SeoHead';
+import CaptchaField from '@/components/forms/CaptchaField';
 
 const Register = () => (
   <>
@@ -87,7 +88,7 @@ const Register = () => (
 export const Content = ({ currentUser = 'user', showVendorOnly = false }) => {
   const referralInfo = getReferralInfo();
   const [showUserForm, setShowUserForm] = React.useState(
-    currentUser === 'user'
+    currentUser === 'user',
   );
   const [key, setKey] = React.useState(currentUser);
   const router = useRouter();
@@ -289,6 +290,15 @@ const RegisterForm = ({ showUserForm }) => {
             />
           )}
 
+          <div className="form-row d-none">
+            <Input
+              formGroupClassName="col-md-12"
+              label="Middle Name (Optional)"
+              name="middleName"
+              placeholder="Middle Name"
+            />
+          </div>
+
           <div className="form-row">
             <Input
               formGroupClassName="col-md-6"
@@ -322,6 +332,9 @@ const RegisterForm = ({ showUserForm }) => {
               placeholder="Confirm Password"
               type="password"
             />
+          </div>
+          <div className="form-row">
+            <CaptchaField name="captchaToken" />
           </div>
           <div className="form-row ms-0">
             <CheckboxGroup

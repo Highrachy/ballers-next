@@ -28,6 +28,7 @@ import { useRouter } from 'next/router';
 import { UserContext } from '@/context/UserContext';
 import GoogleLoginButton from '@/components/common/GoogleLoginButton';
 import SeoHead from '@/components/utils/SeoHead';
+import CaptchaField from '@/components/forms/CaptchaField';
 
 const Login = () => {
   const { query } = useRouter();
@@ -209,6 +210,7 @@ const LoginForm = ({ redirectTo, token }) => {
       initialValues={{
         email: '',
         password: '',
+        captchaToken: '',
       }}
       onSubmit={(values, actions) => {
         Axios.post(`${BASE_API_URL}/user/login`, values)
@@ -261,6 +263,9 @@ const LoginForm = ({ redirectTo, token }) => {
               tabIndex={2}
               type="password"
             />
+            <div className="form-row">
+              <CaptchaField name="captchaToken" />
+            </div>
             <Button wide loading={isSubmitting} onClick={handleSubmit}>
               Sign in
             </Button>

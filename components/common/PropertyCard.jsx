@@ -61,7 +61,7 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
         headers: {
           Authorization: getTokenFromStore(),
         },
-      }
+      },
     )
       .then(function (response) {
         const { status } = response;
@@ -71,7 +71,7 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
             user: {
               favorites: isFavorite
                 ? userState.favorites.filter(
-                    (property) => property._id !== propertyId
+                    (property) => property._id !== propertyId,
                   )
                 : [...userState.favorites, property],
             },
@@ -166,14 +166,17 @@ const PropertyCard = ({ isPublic, isFavorite, ...property }) => {
                 ₦{' '}
                 {Humanize.compactInteger(
                   preferredPaymentPlan.monthlyPayment,
-                  1
+                  1,
                 )}
                 /mo
               </span>
               |{' '}
               <span className="ps-3">
                 ₦{' '}
-                {Humanize.compactInteger(preferredPaymentPlan.totalPayment, 1)}{' '}
+                {Humanize.compactInteger(
+                  Math.floor(preferredPaymentPlan.totalPayment * 10) / 10,
+                  1,
+                )}{' '}
                 total
               </span>
             </div>

@@ -27,7 +27,6 @@ const Register = () => (
       content="Create a new Seller account"
     />
     {/* Hidden SEO section */}
-    {/* Hidden SEO section */}
     <section className="visually-hidden">
       <div className="h1">Register as a BALL VIP Seller</div>
 

@@ -22,6 +22,7 @@ const agreement = yup
 export const loginSchema = {
   email,
   password,
+  captchaToken: stringValidation('Please verify you are not a robot'),
 };
 
 export const resetPasswordSchema = {
@@ -41,6 +42,7 @@ export const registerSchema = (isUser = true) => {
 
   return {
     ...altSchema,
+    captchaToken: stringValidation('Please verify you are not a robot'),
     phone: phoneNumber,
     email,
     password: strongPassword,
@@ -104,8 +106,8 @@ export const preferenceSchema = {
         return this.parent.minPrice
           ? this.parent.maxPrice > this.parent.minPrice
           : true;
-      }
-    )
+      },
+    ),
 
     //   min(
     //   yup.ref('minPrice') ? yup.ref('minPrice') : 0,
