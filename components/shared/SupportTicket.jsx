@@ -28,6 +28,7 @@ import { UserContext } from '@/context/UserContext';
 import { addAnonymousSupportTicketSchema } from '../forms/schemas/supportTicketSchema';
 import { getDate } from '@/utils/date-helpers';
 import { useRouter } from 'next/router';
+import CaptchaField from '../forms/CaptchaField';
 
 export const SupportTicketForm = ({
   hideForm = () => {},
@@ -98,6 +99,11 @@ export const SupportTicketForm = ({
               )}
               <Input label="Subject" name="subject" />
               <Textarea label="Description" name="description" rows={5} />
+              {!id && (
+                <div className="form-row">
+                  <CaptchaField name="captchaToken" />
+                </div>
+              )}
               <Button
                 className="btn-secondary mt-4"
                 loading={isSubmitting}
@@ -106,8 +112,8 @@ export const SupportTicketForm = ({
                 {buttonText
                   ? buttonText
                   : id
-                  ? 'Update Support Ticket'
-                  : 'Add Support Ticket'}
+                    ? 'Update Support Ticket'
+                    : 'Add Support Ticket'}
               </Button>
               <DisplayFormikState {...props} showAll />
             </div>

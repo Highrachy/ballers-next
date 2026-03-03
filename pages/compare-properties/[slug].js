@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '@/components/layout/Header';
 import TitleSection from '@/components/common/TitleSection';
 import CommunityGallery from '@/components/common/CommunityGallery';
 import Footer from '@/components/layout/Footer';
 import { API_ENDPOINT } from '@/utils/URL';
+import axios from 'axios';
 import Button from '@/components/forms/Button';
 import { OnlineImage } from '@/components/utils/Image';
 import { ArrowLeft } from 'iconsax-react';
@@ -11,9 +12,127 @@ import { Dropdown } from 'react-bootstrap';
 import { moneyFormatInNaira } from '@/utils/helpers';
 import { PropertyIcon } from '@/components/utils/Icons';
 import SeoHead from '@/components/utils/SeoHead';
+import { useRouter } from 'next/router';
 
-const CompareProperties = ({ property, otherProperties }) => {
+const CompareProperties = () => {
+  const router = useRouter();
+  const { slug } = router.query;
   const [selectedProperty, setSelectedProperty] = React.useState(null);
+  const [property, setProperty] = useState(null);
+  const [otherProperties, setOtherProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchData = async () => {
+    if (!slug) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await axios.get(API_ENDPOINT.getPropertyBySlug(slug));
+      const result = res?.data?.result || [];
+
+      const propertiesRes = await axios.get(API_ENDPOINT.getAllProperties());
+      const properties = propertiesRes?.data?.result || [];
+
+      setProperty(result[0] || null);
+      setOtherProperties(Array.isArray(properties) ? properties : []);
+    } catch (err) {
+      console.error('Failed to fetch property data', err);
+      setError(err?.message || 'Failed to load property data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!slug) return;
+    let mounted = true;
+    (async () => {
+      if (!mounted) return;
+      await fetchData();
+    })();
+    return () => {
+      mounted = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <>
+        <SeoHead
+          title="Compare Properties | BALL"
+          description="This comparison view helps users evaluate multiple property features. Search engines should not index this dynamic comparison page."
+          canonical={`https://www.ballers.ng/compare-properties/${property?.slug || ''}`}
+          keywords={['compare property', 'property comparison']}
+          noIndex
+        />
+        <Header />
+        <div className="container py-5">
+          <div
+            className="d-flex justify-content-center align-items-center"
+            style={{ minHeight: 180 }}
+          >
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <SeoHead
+          title="Compare Properties | BALL"
+          description="Error loading comparison data"
+          canonical={`https://www.ballers.ng/compare-properties/${property?.slug || ''}`}
+          keywords={['compare property', 'property comparison']}
+          noIndex
+        />
+        <Header />
+        <div className="container py-5">
+          <div className="alert alert-danger">
+            <strong>Unable to load data:</strong> {error}
+          </div>
+          <div>
+            <button className="btn btn-primary" onClick={() => fetchData()}>
+              Retry
+            </button>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  if (!property) {
+    return (
+      <>
+        <SeoHead
+          title="Compare Properties | BALL"
+          description="Property not found"
+          canonical={`https://www.ballers.ng/compare-properties/`}
+          keywords={['compare property', 'property comparison']}
+          noIndex
+        />
+        <Header />
+        <div className="container py-5">
+          <div className="alert alert-warning">Property not found.</div>
+          <div>
+            <Button color="secondary-light" href="/properties">
+              Browse Properties
+            </Button>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
   return (
     <>
       <SeoHead
@@ -67,6 +186,20 @@ const SelectPropertyToCompare = ({
       houseType,
       price,
     }));
+  if (!otherPropertiesList.length) {
+    return (
+      <section>
+        <div className="container">
+          <h3 className="mb-4 mt-6">Select property to compare:</h3>
+          <div className="card bg-gray py-4">
+            <div className="container text-center">
+              No other properties available to compare.
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section>
       <div className="container">
@@ -105,7 +238,7 @@ const SelectPropertyToCompare = ({
                             </div>
                           </Dropdown.Item>
                         </span>
-                      )
+                      ),
                     )}
                   </Dropdown.Menu>
                 </Dropdown>
@@ -150,9 +283,29 @@ const ComparePropertiesSection = ({
   otherProperties,
   setSelectedProperty,
 }) => {
-  const property2 = otherProperties.find(
-    (property) => property.slug === selectedProperty
-  );
+  const property2 = otherProperties.find((p) => p.slug === selectedProperty);
+
+  if (!property2) {
+    return (
+      <section>
+        <div className="container py-5">
+          <Button
+            color="secondary-light"
+            className="btn-md mb-3"
+            onClick={() => setSelectedProperty(null)}
+          >
+            <ArrowLeft /> Back
+          </Button>
+          <div className="card">
+            <div className="p-4">
+              Selected property not found. Please choose another property to
+              compare.
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section>
@@ -285,35 +438,3 @@ const CompareTableRow = ({ title, value1, value2 }) => {
 };
 
 export default CompareProperties;
-
-export async function getStaticProps({ params }) {
-  const slug = params['slug'];
-  const res = await fetch(API_ENDPOINT.getPropertyBySlug(slug));
-
-  const { result } = await res.json();
-
-  const propertiesRes = await fetch(API_ENDPOINT.getAllProperties());
-  const { result: properties } = await propertiesRes.json();
-
-  return {
-    props: {
-      property: result[0],
-      otherProperties: properties,
-    },
-  };
-}
-
-export async function getStaticPaths() {
-  const res = await fetch(API_ENDPOINT.getAllProperties());
-  const { result: propertyLists } = await res.json();
-  return {
-    paths: propertyLists.map((propertyList) => {
-      return {
-        params: {
-          slug: propertyList['slug'].toString(),
-        },
-      };
-    }),
-    fallback: true,
-  };
-}
