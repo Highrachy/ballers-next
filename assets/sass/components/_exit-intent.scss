@@ -1,0 +1,158 @@
+.exit-intent-modal {
+  .modal-content {
+    border-radius: 14px;
+    overflow: hidden;
+  }
+}
+
+.exit-wrapper {
+  min-height: 420px;
+}
+
+/* LEFT IMAGE */
+.exit-image {
+  img {
+    width: 380px;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+}
+
+.exit-alt-text {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+/* RIGHT CONTENT */
+.exit-content {
+  position: relative;
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.exit-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+
+  &::before {
+    content: '×';
+    font-size: 20px;
+    color: #666;
+  }
+}
+
+/* TEXT */
+.exit-tag {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2f4fd7;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.exit-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.exit-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 18px;
+}
+
+/* INPUT */
+.exit-input {
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 12px;
+  font-size: 14px;
+  margin-bottom: 12px;
+
+  &:focus {
+    outline: none;
+    border-color: #2f4fd7;
+  }
+}
+
+/* CTA */
+.exit-cta {
+  background: #2f4fd7;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.2s ease;
+  margin-bottom: 12px;
+
+  &:hover {
+    background: #1f3ec0;
+  }
+}
+
+/* LINKS */
+.exit-links {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+
+  a {
+    font-size: 13px;
+    color: #2f4fd7;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* DISMISS */
+.exit-dismiss {
+  padding-top: 1rem;
+  font-size: 14px;
+  color: #999;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* ---------------- MOBILE ---------------- */
+@media (max-width: 768px) {
+  .exit-wrapper {
+    flex-direction: column;
+  }
+
+  .exit-image {
+    display: none;
+  }
+
+  .exit-content {
+    padding: 20px;
+  }
+
+  .exit-title {
+    font-size: 20px;
+  }
+}
+
+/* ---------------- TABLET ---------------- */
+@media (max-width: 992px) {
+  .exit-title {
+    font-size: 22px;
+  }
+}

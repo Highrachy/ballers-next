@@ -22,6 +22,7 @@ import { useChatMessage } from '@/context/ChatContext';
 import ShareButton from '@/components/common/ShareButton';
 import SeoHead from '@/components/utils/SeoHead';
 import Link from 'next/link';
+import ExitIntentProvider from '@/components/exit-intent/ExitIndentProvider';
 
 const taglines = [
   'BALL: Where Dreams Take Shape - Discover Your Perfect Home, Defined by Elegance and Tranquility',
@@ -46,7 +47,7 @@ const PublicPropertySingle = ({ property }) => {
 
   useEffect(() => {
     setMessage(
-      `Hello! I am interested in: ${property?.name}. Can you provide more details about this property?`
+      `Hello! I am interested in: ${property?.name}. Can you provide more details about this property?`,
     );
   }, [property, setMessage]);
 
@@ -210,6 +211,7 @@ const LoadProperty = ({ property }) => {
           setProperty={setProperty}
           isPublicPage
         />
+        <ExitIntentProvider property={property} />
       </section>
     </>
   );
@@ -218,27 +220,47 @@ const LoadProperty = ({ property }) => {
 export default PublicPropertySingle;
 
 export async function getStaticProps({ params }) {
-  const slug = params['slug'];
-  const singleProperty = await Axios.get(API_ENDPOINT.getPropertyBySlug(slug));
+  const slug = params?.slug;
 
-  const property = singleProperty.data.result?.[0] || {};
+  if (!slug) {
+    return { notFound: true };
+  }
 
-  return {
-    props: {
-      property,
-    },
-    revalidate: 10,
-  };
+  try {
+    const singleProperty = await Axios.get(
+      API_ENDPOINT.getPropertyBySlug(slug),
+    );
+    const property = singleProperty.data.result?.[0] || null;
+
+    if (!property) {
+      return { notFound: true };
+    }
+
+    return {
+      props: { property },
+      revalidate: 10,
+    };
+  } catch (error) {
+    return { notFound: true };
+  }
 }
 
 export async function getStaticPaths() {
   const propertiesRes = await Axios.get(API_ENDPOINT.getAllProperties());
-  const propertyLists = propertiesRes?.data?.result;
+  const propertyLists = propertiesRes?.data?.result || [];
+
+  const paths = propertyLists
+    .filter(
+      (property) =>
+        typeof property.slug === 'string' && property.slug.length > 0,
+    )
+    .map((property) => ({
+      params: { slug: property.slug },
+    }));
+
   return {
-    paths: propertyLists.map(({ slug }) => ({
-      params: { slug },
-    })),
-    fallback: true,
+    paths,
+    fallback: 'blocking',
   };
 }
 

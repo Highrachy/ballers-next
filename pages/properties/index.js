@@ -9,13 +9,14 @@ import Axios from 'axios';
 import Button from '@/components/forms/Button';
 import { useChatMessage } from '@/context/ChatContext';
 import SeoHead from '@/components/utils/SeoHead';
+import ExitIntentProvider from '@/components/exit-intent/ExitIndentProvider';
 
 const PublicProperties = ({ result }) => {
   const { setMessage } = useChatMessage();
 
   useEffect(() => {
     setMessage(
-      'Hi! I am looking for the right property on BALL. Could you help me with more information on how to proceed?'
+      'Hi! I am looking for the right property on BALL. Could you help me with more information on how to proceed?',
     );
   }, [setMessage]);
 
@@ -78,6 +79,7 @@ const PublicProperties = ({ result }) => {
       <PropertiesRowList result={result} title="Available Properties" />
       <CommunityGallery />
       <Footer />
+      <ExitIntentProvider />
     </>
   );
 };

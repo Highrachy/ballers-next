@@ -33,6 +33,7 @@ import { useChatMessage } from '@/context/ChatContext';
 import SeoHead from '@/components/utils/SeoHead';
 import BlogPostCard from '@/components/blog/BlogPostCard';
 import Button from '@/components/forms/Button';
+import ExitIntentProvider from '@/components/exit-intent/ExitIndentProvider';
 
 export default function Home({
   properties = [],
@@ -45,7 +46,7 @@ export default function Home({
 
   useEffect(() => {
     setMessage(
-      'Hello! I am interested in the BALL platform, I will like to...'
+      'Hello! I am interested in the BALL platform, I will like to...',
     );
   }, [setMessage]);
 
@@ -68,6 +69,7 @@ export default function Home({
       <CommunityGallery />
       <ReferralModal referralCode={referralCode} inviteCode={inviteCode} />
       <Footer />
+      <ExitIntentProvider />
     </>
   );
 }
