@@ -55,6 +55,39 @@ function MyApp({ Component, pageProps }) {
           `,
               }}
             />
+            <Script id="reb2b-script" strategy="afterInteractive">
+              {`
+          !function(key) {
+            if (window.reb2b) return;
+            window.reb2b = {loaded: true};
+            var s = document.createElement("script");
+            s.async = true;
+            s.src = "https://ddwl4m2hdecbv.cloudfront.net/b/" + key + "/" + key + ".js.gz";
+            document.getElementsByTagName("script")[0].parentNode.insertBefore(
+              s,
+              document.getElementsByTagName("script")[0]
+            );
+          }("5NRP9H71XEO1");
+        `}
+            </Script>
+            <Script id="apollo-tracker" strategy="afterInteractive">
+              {`
+          function initApollo(){
+            var n = Math.random().toString(36).substring(7),
+                o = document.createElement("script");
+            o.src = "https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache=" + n;
+            o.async = true;
+            o.defer = true;
+            o.onload = function(){
+              window.trackingFunctions.onLoad({
+                appId: "69d663aaf4e4ce001d5b7e7e"
+              });
+            };
+            document.head.appendChild(o);
+          }
+          initApollo();
+        `}
+            </Script>
             <Component {...pageProps} />
             <FloatingChatButton />
             {isDevEnvironment() && <ReactQueryDevtools />}

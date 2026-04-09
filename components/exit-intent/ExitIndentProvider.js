@@ -4,11 +4,14 @@ import useExitIntent from './useExitIntent';
 
 const ExitIntentProvider = ({ property = null, enabled = true }) => {
   const [showModal, setShowModal] = useState(false);
-  console.log('loaded exit intent provider with property:', property);
+  const [exitReason, setExitReason] = useState(null);
 
   useExitIntent({
     enabled,
-    onExit: () => setShowModal(true),
+    onExit: (reason) => {
+      setExitReason(reason);
+      setShowModal(true);
+    },
   });
 
   return (
@@ -16,6 +19,7 @@ const ExitIntentProvider = ({ property = null, enabled = true }) => {
       show={showModal}
       onHide={() => setShowModal(false)}
       property={property}
+      exitReason={exitReason}
     />
   );
 };
