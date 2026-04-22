@@ -95,6 +95,14 @@ export const Content = ({ currentUser = 'user', showVendorOnly = false }) => {
 
   const { tab } = router.query;
 
+  // 🎯 CLARITY: PAGE VIEW
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', 'register_page_view');
+      window.clarity('set', 'hasReferral', !!referralInfo);
+    }
+  }, []);
+
   React.useEffect(() => {
     setKey(tab);
   }, [tab]);
@@ -144,6 +152,7 @@ export const Content = ({ currentUser = 'user', showVendorOnly = false }) => {
               </>
             )}
           </div>
+
           <div className="col-lg-6 offset-lg-1 mb-6">
             <Tabs
               id={`tab-register`}
@@ -151,6 +160,12 @@ export const Content = ({ currentUser = 'user', showVendorOnly = false }) => {
               onSelect={(k) => {
                 setKey(k);
                 setShowUserForm(!showUserForm);
+
+                // 🎯 CLARITY: TAB SWITCH
+                if (typeof window !== 'undefined' && window.clarity) {
+                  window.clarity('event', 'register_tab_switch');
+                  window.clarity('set', 'registerType', k);
+                }
               }}
             >
               {!showVendorOnly && (
@@ -203,6 +218,16 @@ const RegisterForm = ({ showUserForm }) => {
   const referrer = (getReferralInfo() && getReferralInfo().referrer) || null;
   const currentUser = showUserForm ? 'User' : 'Seller';
 
+  // 🎯 CLARITY: FORM START TRACKING
+  const [hasStarted, setHasStarted] = React.useState(false);
+
+  const trackStart = () => {
+    if (!hasStarted && typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', 'register_form_started');
+      setHasStarted(true);
+    }
+  };
+
   // CHECK IF USER HAS SIGNED IN
   React.useEffect(() => {
     if (userState && userState?.isLoggedIn) {
@@ -219,6 +244,12 @@ const RegisterForm = ({ showUserForm }) => {
       })}
       onSubmit={(values, actions) => {
         delete values.agreement;
+
+        // 🎯 CLARITY: SUBMIT ATTEMPT
+        if (typeof window !== 'undefined' && window.clarity) {
+          window.clarity('event', 'register_submit_attempt');
+          window.clarity('set', 'registerType', currentUser);
+        }
 
         let payload;
 
@@ -272,6 +303,7 @@ const RegisterForm = ({ showUserForm }) => {
                 label="First Name"
                 name="firstName"
                 placeholder="First Name"
+                onFocus={trackStart}
               />
               <Input
                 formGroupClassName="col-md-6"
@@ -279,6 +311,7 @@ const RegisterForm = ({ showUserForm }) => {
                 label="Last Name"
                 name="lastName"
                 placeholder="Last Name"
+                onFocus={trackStart}
               />
             </div>
           ) : (
@@ -287,6 +320,7 @@ const RegisterForm = ({ showUserForm }) => {
               label="Company Name"
               name="companyName"
               placeholder="Company Name"
+              onFocus={trackStart}
             />
           )}
 
@@ -296,6 +330,7 @@ const RegisterForm = ({ showUserForm }) => {
               label="Middle Name (Optional)"
               name="middleName"
               placeholder="Middle Name"
+              onFocus={trackStart}
             />
           </div>
 
@@ -306,6 +341,7 @@ const RegisterForm = ({ showUserForm }) => {
               label={showUserForm ? 'Email' : 'Company Email'}
               name="email"
               placeholder="Email Address"
+              onFocus={trackStart}
             />
             <Input
               formGroupClassName="col-md-6"
@@ -313,6 +349,7 @@ const RegisterForm = ({ showUserForm }) => {
               label={showUserForm ? 'Phone' : 'Company Phone'}
               name="phone"
               placeholder="Phone"
+              onFocus={trackStart}
             />
           </div>
           <div className="form-row">
@@ -323,6 +360,7 @@ const RegisterForm = ({ showUserForm }) => {
               name="password"
               placeholder="Password"
               type="password"
+              onFocus={trackStart}
             />
             <Input
               formGroupClassName="col-md-6"
@@ -331,6 +369,7 @@ const RegisterForm = ({ showUserForm }) => {
               name="confirmPassword"
               placeholder="Confirm Password"
               type="password"
+              onFocus={trackStart}
             />
           </div>
           <div className="form-row">

@@ -108,6 +108,13 @@ const Login = () => {
 };
 
 const Content = ({ redirectTo, token }) => {
+  // 🎯 CLARITY: PAGE VIEW
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', 'login_page_view');
+    }
+  }, []);
+
   return (
     <section>
       <div className="container-fluid">
@@ -170,6 +177,16 @@ const LoginForm = ({ redirectTo, token }) => {
   const loginToken = getTokenFromStore();
   const userRole = getUserRoleFromStore();
 
+  // 🎯 CLARITY: FORM START TRACKING
+  const [hasStarted, setHasStarted] = React.useState(false);
+
+  const trackStart = () => {
+    if (!hasStarted && typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', 'login_form_started');
+      setHasStarted(true);
+    }
+  };
+
   // CHECK TOKEN ACTIVATION
   React.useEffect(() => {
     if (!token) return;
@@ -213,10 +230,20 @@ const LoginForm = ({ redirectTo, token }) => {
         captchaToken: '',
       }}
       onSubmit={(values, actions) => {
+        // 🎯 CLARITY: SUBMIT ATTEMPT
+        if (typeof window !== 'undefined' && window.clarity) {
+          window.clarity('event', 'login_submit_attempt');
+        }
+
         Axios.post(`${BASE_API_URL}/user/login`, values)
           .then(function (response) {
             const { status, data } = response;
             if (statusIsSuccessful(status)) {
+              // 🎯 CLARITY: SUCCESS
+              if (window.clarity) {
+                window.clarity('event', 'login_success');
+              }
+
               clearStorage();
               storeToken(data.user.token);
               storeUserRole(data.user.role);
@@ -224,6 +251,11 @@ const LoginForm = ({ redirectTo, token }) => {
             }
           })
           .catch(function (error) {
+            // 🎯 CLARITY: ERROR
+            if (typeof window !== 'undefined' && window.clarity) {
+              window.clarity('event', 'login_error');
+            }
+
             setToast({
               message: getError(error),
             });
@@ -241,14 +273,17 @@ const LoginForm = ({ redirectTo, token }) => {
         return (
           <Form>
             <Toast {...toast} />
+
             <Input
               label="Email"
               name="email"
+              onFocus={trackStart}
               onKeyDown={(e) => submitFormWithEnterKey(e)}
               placeholder="Email address"
               showFeedback={feedback.NONE}
               tabIndex={1}
             />
+
             <Input
               label="Password"
               labelClassName="d-block"
@@ -257,15 +292,18 @@ const LoginForm = ({ redirectTo, token }) => {
                 text: 'Forgot password',
               }}
               name="password"
+              onFocus={trackStart}
               onKeyDown={(evt) => submitFormWithEnterKey(evt)}
               placeholder="Password"
               showFeedback={feedback.NONE}
               tabIndex={2}
               type="password"
             />
+
             <div className="form-row">
               <CaptchaField name="captchaToken" />
             </div>
+
             <Button wide loading={isSubmitting} onClick={handleSubmit}>
               Sign in
             </Button>

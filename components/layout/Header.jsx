@@ -47,7 +47,13 @@ const Header = () => {
       <Navbar fixed="top" bg="white" expand="lg">
         <div className="container-fluid">
           <Link href="/">
-            <Navbar.Brand>
+            <Navbar.Brand
+              onClick={() => {
+                if (typeof window !== 'undefined' && window.clarity) {
+                  window.clarity('event', 'nav_logo_click');
+                }
+              }}
+            >
               <BallersLogo
                 className="ballers-logo"
                 alt="Ballers logo"
@@ -56,7 +62,16 @@ const Header = () => {
               />
             </Navbar.Brand>
           </Link>
-          <Navbar.Toggle aria-controls="ballers-nav" />
+
+          <Navbar.Toggle
+            aria-controls="ballers-nav"
+            onClick={() => {
+              if (window.clarity) {
+                window.clarity('event', 'nav_toggle_mobile');
+              }
+            }}
+          />
+
           <Navbar.Collapse id="ballers-nav">
             <Nav className="me-auto">
               {Menus.map(
@@ -71,11 +86,21 @@ const Header = () => {
                     </MegaNavDropdown>
                   ) : (
                     <Link href={href} passHref key={name}>
-                      <Nav.Link>{name}</Nav.Link>
+                      <Nav.Link
+                        onClick={() => {
+                          if (window.clarity) {
+                            window.clarity('event', 'nav_link_click');
+                            window.clarity('set', 'navItem', name);
+                          }
+                        }}
+                      >
+                        {name}
+                      </Nav.Link>
                     </Link>
-                  )
+                  ),
               )}
             </Nav>
+
             {userState?.isLoggedIn ? (
               <NavForLoginUser />
             ) : (
@@ -83,11 +108,28 @@ const Header = () => {
                 <MegaNavDropdown name="Sell Your Property">
                   {sellerDropdown}
                 </MegaNavDropdown>
+
                 <Link href="/login" passHref>
-                  <Nav.Link>Sign In</Nav.Link>
+                  <Nav.Link
+                    onClick={() => {
+                      if (window.clarity) {
+                        window.clarity('event', 'nav_login_click');
+                      }
+                    }}
+                  >
+                    Sign In
+                  </Nav.Link>
                 </Link>
+
                 <Link href="/create-a-new-ball-account" passHref>
-                  <Nav.Link className="btn btn-secondary-light d-none d-lg-inline">
+                  <Nav.Link
+                    className="btn btn-secondary-light d-none d-lg-inline"
+                    onClick={() => {
+                      if (window.clarity) {
+                        window.clarity('event', 'nav_register_click');
+                      }
+                    }}
+                  >
                     Register{' '}
                     <span className=" d-inline d-lg-none d-xl-inline">
                       for Free
@@ -107,17 +149,32 @@ const MegaNavDropdown = ({ name, children, additionalResources }) => {
   return (
     <NavDropdown
       title={name}
+      id={`${name}-dropdown`}
       className={`mega-menu mega-menu__${
         additionalResources ? 'two-sides' : 'single-side'
       }`}
-      id={`${name}-dropdown`}
+      onClick={() => {
+        if (typeof window !== 'undefined' && window.clarity) {
+          window.clarity('event', 'nav_dropdown_open');
+          window.clarity('set', 'dropdownName', name);
+        }
+      }}
     >
       <>
         <div className="dropdown-side dropdown-side--left">
           <ul className="list-unstyled">
             {children.map((item, index) => (
               <li key={index}>
-                <a className="dropdown-menu-single-item" href={item.link}>
+                <a
+                  className="dropdown-menu-single-item"
+                  href={item.link}
+                  onClick={() => {
+                    if (window.clarity) {
+                      window.clarity('event', 'nav_dropdown_item_click');
+                      window.clarity('set', 'dropdownItem', item.title);
+                    }
+                  }}
+                >
                   <div className="dropdown-menu-icon">{item.icon}</div>
                   <div className="dropdown-menu-text">
                     <h4>{item.title}</h4>
@@ -128,6 +185,7 @@ const MegaNavDropdown = ({ name, children, additionalResources }) => {
             ))}
           </ul>
         </div>
+
         {additionalResources && (
           <div className="dropdown-side dropdown-side--right">
             {additionalResources.map((resource, index) => (
@@ -135,7 +193,17 @@ const MegaNavDropdown = ({ name, children, additionalResources }) => {
                 <div className="dropdown-menu-label">{resource.title}</div>
                 {resource.links.map((link, index) => (
                   <li key={index} className="dropdown-menu-text">
-                    <a href={link.link}>{link.title}</a>
+                    <a
+                      href={link.link}
+                      onClick={() => {
+                        if (window.clarity) {
+                          window.clarity('event', 'nav_resource_click');
+                          window.clarity('set', 'resourceTitle', link.title);
+                        }
+                      }}
+                    >
+                      {link.title}
+                    </a>
                   </li>
                 ))}
               </ul>

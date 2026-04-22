@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Axios from 'axios';
 import Modal from '../common/Modal';
@@ -18,7 +18,7 @@ const ExitIntentModal = ({
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false); // ✅ NEW
+  const [success, setSuccess] = useState(false);
 
   const [touched, setTouched] = useState({
     email: false,
@@ -29,6 +29,19 @@ const ExitIntentModal = ({
 
   const isEmailInvalid = touched.email && !isValidEmail(email);
   const isNameInvalid = touched.name && !name.trim();
+
+  // ---------------------------
+  // 🎯 CLARITY: MODAL SHOWN
+  // ---------------------------
+  useEffect(() => {
+    if (show && typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', 'exit_intent_modal_shown');
+
+      window.clarity('set', 'exitReason', exitReason);
+      window.clarity('set', 'propertyName', property?.name || 'unknown');
+      window.clarity('set', 'hasProperty', !!property);
+    }
+  }, [show]);
 
   // ---------------------------
   // DYNAMIC CONTENT
@@ -51,13 +64,26 @@ const ExitIntentModal = ({
   // ---------------------------
   const handleEmailContinue = () => {
     setTouched((prev) => ({ ...prev, email: true }));
+
     if (!isValidEmail(email)) return;
+
+    // 🎯 CLARITY: EMAIL INTENT
+    if (typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', 'exit_intent_email_entered');
+    }
+
     setStep(2);
   };
 
   const handleSubmit = async () => {
     setTouched((prev) => ({ ...prev, name: true }));
+
     if (!name.trim()) return;
+
+    // 🎯 CLARITY: NAME INTENT
+    if (typeof window !== 'undefined' && window.clarity) {
+      window.clarity('event', 'exit_intent_name_entered');
+    }
 
     try {
       setLoading(true);
@@ -82,7 +108,12 @@ const ExitIntentModal = ({
       });
 
       if (statusIsSuccessful(response.status)) {
-        setSuccess(true); // ✅ show success state
+        // 🎯 CLARITY: SUCCESS
+        if (typeof window !== 'undefined' && window.clarity) {
+          window.clarity('event', 'exit_intent_submitted');
+        }
+
+        setSuccess(true);
       }
 
       setLoading(false);
@@ -97,13 +128,18 @@ const ExitIntentModal = ({
   return (
     <Modal
       show={show}
-      onHide={onHide}
+      onHide={() => {
+        // 🎯 CLARITY: DISMISS
+        if (typeof window !== 'undefined' && window.clarity) {
+          window.clarity('event', 'exit_intent_dismissed');
+        }
+        onHide();
+      }}
       showFooter={false}
       size="lg"
       className="exit-intent-modal p-0"
     >
       <div className="row g-0 exit-wrapper">
-        {/* IMAGE */}
         <div className="col-md-6 d-none d-md-block exit-image">
           <img
             src={
@@ -114,9 +150,16 @@ const ExitIntentModal = ({
           />
         </div>
 
-        {/* CONTENT */}
         <div className="col-md-6 exit-content">
-          <button className="exit-close" onClick={onHide} />
+          <button
+            className="exit-close"
+            onClick={() => {
+              if (typeof window !== 'undefined' && window.clarity) {
+                window.clarity('event', 'exit_intent_closed');
+              }
+              onHide();
+            }}
+          />
 
           <p className="exit-tag">BECOME A BALLER</p>
 
@@ -127,31 +170,25 @@ const ExitIntentModal = ({
             </>
           )}
 
-          {/* SUCCESS STATE */}
           {success ? (
             <div className="text-center d-flex flex-column justify-content-center align-items-center py-4 px-3 h-100">
-              {/* ICON */}
               <FaCheckCircle size={48} className="text-success mb-3" />
 
-              {/* TITLE */}
               <h5 className="fw-bold mb-3">
                 You&apos;re on your way to becoming a Baller
               </h5>
 
-              {/* MESSAGE */}
               <p className="text-muted small mb-3">
                 We&apos;ve received your details. Let&apos;s take the next step
                 and show you what you can afford.
               </p>
 
-              {/* PRIMARY ACTION */}
               <Link href="/game">
                 <a className="btn btn-secondary btn-wide mb-2">
                   Continue with BALL Game&rarr;
                 </a>
               </Link>
 
-              {/* OPTIONAL SECONDARY */}
               <Link href="/properties">
                 <a className="text-muted small mt-3 mb-0">
                   Or explore properties at your own pace
@@ -160,7 +197,6 @@ const ExitIntentModal = ({
             </div>
           ) : (
             <>
-              {/* STEP 1 - EMAIL */}
               {step === 1 && (
                 <>
                   <input
@@ -190,7 +226,6 @@ const ExitIntentModal = ({
                 </>
               )}
 
-              {/* STEP 2 - NAME */}
               {step === 2 && (
                 <>
                   <p className="text-muted small mb-0">
@@ -224,7 +259,6 @@ const ExitIntentModal = ({
             </>
           )}
 
-          {/* ALTERNATIVES */}
           {!success && (
             <>
               <p className="exit-alt-text">Not ready yet? Try this instead:</p>
@@ -242,10 +276,17 @@ const ExitIntentModal = ({
             </>
           )}
 
-          {/* DISMISS */}
           {!success && (
-            <p className="exit-dismiss" onClick={onHide}>
-              No thanks, I&rsquo;ll keep browsing.
+            <p
+              className="exit-dismiss"
+              onClick={() => {
+                if (typeof window !== 'undefined' && window.clarity) {
+                  window.clarity('event', 'exit_intent_dismissed');
+                }
+                onHide();
+              }}
+            >
+              No thanks, I&apos;ll keep browsing.
             </p>
           )}
         </div>

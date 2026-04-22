@@ -56,11 +56,19 @@ export default function Home({
       <Header />
       <HoldingSection />
       <AboutSection />
-      <PropertiesRowList
-        result={properties?.slice(0, 3)}
-        title="Available Properties"
-        viewAllLink={'/properties'}
-      />
+      <div
+        onClick={() => {
+          if (window.clarity) {
+            window.clarity('event', 'home_property_click');
+          }
+        }}
+      >
+        <PropertiesRowList
+          result={properties?.slice(0, 3)}
+          title="Available Properties"
+          viewAllLink={'/properties'}
+        />
+      </div>
       <BenefitsSection />
       <HowItWorksSection />
       <OurServices services={allServices} />
@@ -79,7 +87,15 @@ const BlogSection = ({ posts }) => {
     return null;
   }
   return (
-    <section id="our-blog" className="container-fluid my-5">
+    <section
+      id="our-blog"
+      className="container-fluid my-5"
+      onClick={() => {
+        if (window.clarity) {
+          window.clarity('event', 'home_blog_click');
+        }
+      }}
+    >
       <div className="mb-4">
         <p className="header-secondary h6 mb-1 text-uppercase">
           From the BALL Blog
@@ -185,7 +201,16 @@ const AboutSection = () => {
               </div>
 
               <Link href="/create-a-new-ball-account" passHref>
-                <a className="btn btn-secondary">Register Now</a>
+                <a
+                  className="btn btn-secondary"
+                  onClick={() => {
+                    if (window.clarity) {
+                      window.clarity('event', 'home_register_click');
+                    }
+                  }}
+                >
+                  Register Now
+                </a>
               </Link>
             </Fade>
           </div>
@@ -249,7 +274,16 @@ const HowItWorksSection = () => (
             </li>
             <li className="timeline-no-border">
               <Link href="/create-a-new-ball-account" passHref>
-                <a className="btn btn-secondary">SIGN UP NOW</a>
+                <a
+                  className="btn btn-secondary"
+                  onClick={() => {
+                    if (window.clarity) {
+                      window.clarity('event', 'home_signup_cta');
+                    }
+                  }}
+                >
+                  SIGN UP NOW
+                </a>
               </Link>
             </li>
           </AttentionSeeker>
@@ -337,7 +371,16 @@ const SearchTabComponent = () => {
   ];
 
   return (
-    <Tabs defaultActiveKey={allTabs[0].title} id="hero-tabs">
+    <Tabs
+      defaultActiveKey={allTabs[0].title}
+      id="hero-tabs"
+      onSelect={(k) => {
+        if (typeof window !== 'undefined' && window.clarity) {
+          window.clarity('event', 'home_tab_switch');
+          window.clarity('set', 'homeTab', k);
+        }
+      }}
+    >
       {allTabs.map((tab, index) => (
         <Tab key={index} eventKey={tab.title} title={tab.title}>
           {tab.component}
